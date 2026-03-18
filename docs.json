@@ -1,5 +1,6 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
   "name": "RWANFTFI",
   "logo": {
     "dark": "/logo/dark.svg",
@@ -34,13 +35,6 @@
     "name": "Launch App",
     "url": "https://app.rwanftfi.com"
   },
-  "anchors": [
-    {
-      "name": "Whitepaper",
-      "icon": "book",
-      "url": "/"
-    }
-  ],
   "navigation": [
     {
       "group": "Whitepaper",
