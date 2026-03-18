@@ -21,9 +21,9 @@ export const NftTierExplorer = () => {
   ];
 
   const TIER_COLORS = {
-    Basic:   { border: 'border-white/20 dark:border-black/20', text: 'text-white/60 dark:text-black/60',  badge: 'bg-white/10 text-white/70 dark:bg-black/10 dark:text-black/70 border border-white/20 dark:border-black/20' },
-    Premium: { border: 'border-white/30 dark:border-black/30', text: 'text-white/80 dark:text-black/80',  badge: 'bg-white/10 text-white/80 dark:bg-black/10 dark:text-black/80 border border-white/30 dark:border-black/30' },
-    Elite:   { border: 'border-amber-400/40 dark:border-amber-600/40', text: 'text-amber-300 dark:text-amber-600',   badge: 'bg-amber-500/15 text-amber-300 dark:text-amber-600 border border-amber-500/30 dark:border-amber-600/30' },
+    Basic:   { border: 'border-white/25', text: 'text-white dark:text-black',  badge: 'bg-white/15 text-white dark:bg-black/15 dark:text-black border border-white/25 dark:border-black/25' },
+    Premium: { border: 'border-white/35', text: 'text-white dark:text-black',  badge: 'bg-white/15 text-white dark:bg-black/15 dark:text-black border border-white/35 dark:border-black/35' },
+    Elite:   { border: 'border-amber-400/50', text: 'text-amber-300 dark:text-amber-600',   badge: 'bg-amber-500/20 text-amber-300 dark:text-amber-600 border border-amber-400/40 dark:border-amber-600/40' },
   };
 
   const RADAR_AXES = ['Affordability', 'Income Limit', 'Mkt Depth', 'Mining Speed', 'ROI'];
@@ -91,7 +91,7 @@ export const NftTierExplorer = () => {
     <div className="p-6 rounded-xl not-prose bg-[#000000] border border-white/5 dark:bg-white dark:border-zinc-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-serif italic text-white dark:text-zinc-900">NFT Tier Explorer</h3>
+        <h3 className="text-lg font-serif italic text-white">NFT Tier Explorer</h3>
         <span className="text-xs px-3 py-1 rounded-full font-medium bg-white/10 text-white/60 border border-white/20 dark:bg-black/10 dark:text-black/60 dark:border-black/20">Interactive</span>
       </div>
 
@@ -99,7 +99,7 @@ export const NftTierExplorer = () => {
       <div className="flex gap-2 mb-5 flex-wrap">
         {['All', 'Basic', 'Premium', 'Elite'].map(t => (
           <button key={t} onClick={() => { setFilter(t); setSelected(null); }}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${filter === t ? 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]' : 'bg-[#383838]/70 text-white/40 hover:text-white dark:bg-zinc-100 dark:text-zinc-500 dark:hover:text-zinc-900'}`}>
+            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${filter === t ? 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]' : 'bg-[#383838]/70 text-white/70 hover:text-white dark:bg-zinc-100 dark:text-zinc-500 dark:hover:text-zinc-900'}`}>
             {t}
           </button>
         ))}

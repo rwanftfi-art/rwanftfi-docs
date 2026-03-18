@@ -7,7 +7,12 @@ export const DaPriceSimulator = () => {
   const [burnAmount, setBurnAmount] = useState(0);
   const [liquidityInflow, setLiquidityInflow] = useState(0);
 
-  const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n);
+  const fmtUsd = (n) => {
+    if (Math.abs(n) >= 10000) {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+    }
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n);
+  };
   const fmtNum = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
 
   const calcPrice = (liquidity, supply) => {
@@ -60,7 +65,7 @@ export const DaPriceSimulator = () => {
     <div className="p-6 rounded-xl not-prose bg-[#000000] border border-white/5 dark:bg-white dark:border-zinc-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-serif italic text-white dark:text-zinc-900">DA Price Simulator</h3>
+        <h3 className="text-lg font-serif italic text-white">DA Price Simulator</h3>
         <span className="text-xs px-3 py-1 rounded-full font-medium bg-white/10 text-white/60 border border-white/20 dark:bg-black/10 dark:text-black/60 dark:border-black/20">Interactive</span>
       </div>
 
@@ -68,19 +73,19 @@ export const DaPriceSimulator = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div className="rounded-xl bg-[#383838] border border-white/5 p-4 dark:bg-zinc-50 dark:border-zinc-200">
           <div className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Current DA Price</div>
-          <div className="text-2xl md:text-3xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtUsd(finalPrice)}</div>
+          <div className="text-lg md:text-xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtUsd(finalPrice)}</div>
           <div className={`text-xs font-semibold mt-1 ${priceChange >= 0 ? 'text-green-500' : 'text-red-500'}`}>
             {priceChange >= 0 ? '↑' : '↓'} {Math.abs(priceChange).toFixed(2)}% from $1.00
           </div>
         </div>
         <div className="rounded-xl bg-[#383838] border border-white/5 p-4 dark:bg-zinc-50 dark:border-zinc-200">
           <div className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Circulating Supply</div>
-          <div className="text-2xl md:text-3xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtNum(finalSupply)}</div>
+          <div className="text-lg md:text-xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtNum(finalSupply)}</div>
           <div className="text-xs text-white/40 mt-1">Burned: {fmtNum(burnAmount)} ({burnAmount > 0 ? ((burnAmount / INITIAL_SUPPLY) * 100).toFixed(1) : '0.0'}%)</div>
         </div>
         <div className="rounded-xl bg-[#383838] border border-white/5 p-4 dark:bg-zinc-50 dark:border-zinc-200">
           <div className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Liquidity Pool</div>
-          <div className="text-2xl md:text-3xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtUsd(finalLiquidity)}</div>
+          <div className="text-lg md:text-xl font-black text-white dark:text-zinc-900 transition-all duration-300">{fmtUsd(finalLiquidity)}</div>
           <div className="text-xs text-white/40 mt-1">100% USDT backed</div>
         </div>
       </div>
@@ -118,7 +123,7 @@ export const DaPriceSimulator = () => {
         {burnAmount === 0 && liquidityInflow === 0 && (
           <div className="flex items-center gap-3 px-4 py-3 mb-3 rounded-lg bg-white/5 border border-white/10">
             <span className="text-lg">👆</span>
-            <span className="text-xs text-white/60 font-medium">
+            <span className="text-xs text-white/70 font-medium">
               Move the sliders above to simulate how burning DA tokens and adding liquidity increases the DA price.
             </span>
           </div>

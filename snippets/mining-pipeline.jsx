@@ -45,7 +45,7 @@ export const MiningPipeline = () => {
     <div className="p-6 rounded-xl not-prose bg-[#000000] border border-white/5 dark:bg-white dark:border-zinc-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-serif italic text-white dark:text-zinc-900">Mining → DA Pipeline</h3>
+        <h3 className="text-lg font-serif italic text-white">Mining → DA Pipeline</h3>
         <span className="text-xs px-3 py-1 rounded-full font-medium bg-white/10 text-white/60 border border-white/20 dark:bg-black/10 dark:text-black/60 dark:border-black/20">Interactive</span>
       </div>
 
