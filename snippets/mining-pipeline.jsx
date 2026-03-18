@@ -88,33 +88,30 @@ export const MiningPipeline = () => {
 
       {/* 3. Options: Sell / Lend / Hold */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-        <div style={{ border: '1px solid rgba(239,68,68,0.3)', backgroundColor: 'rgba(239,68,68,0.05)' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
-            <span style={{ fontSize: '16px' }}>Fire</span>
             <span style={{ color: '#f87171', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sell DA</span>
-            <span style={{ color: '#f87171', backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto' }}>75% payout</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>75% payout</span>
           </div>
-          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900 }}>{fmtUsd(sellPayout)}</div>
+          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900, whiteSpace: 'nowrap' }}>{fmtUsd(sellPayout)}</div>
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>25% permanently burned · DA position lost</div>
         </div>
 
-        <div style={{ border: '1px solid rgba(74,222,128,0.3)', backgroundColor: 'rgba(34,197,94,0.05)' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
-            <span style={{ fontSize: '16px' }}>Bank</span>
             <span style={{ color: '#4ade80', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lend DA</span>
-            <span style={{ color: '#4ade80', backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto' }}>70% LTV</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>70% LTV</span>
           </div>
-          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900 }}>{fmtUsd(lendAmount)}</div>
+          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900, whiteSpace: 'nowrap' }}>{fmtUsd(lendAmount)}</div>
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>30-day cutoff · DA preserved in TokenStack</div>
         </div>
 
-        <div style={{ border: '1px solid rgba(251,191,36,0.3)', backgroundColor: 'rgba(251,191,36,0.05)' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
-            <span style={{ fontSize: '16px' }}>Diamond</span>
             <span style={{ color: '#fbbf24', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Hold DA</span>
-            <span style={{ color: '#fbbf24', backgroundColor: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto' }}>full value</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>full value</span>
           </div>
-          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900 }}>{fmtUsd(holdValue)}</div>
+          <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900, whiteSpace: 'nowrap' }}>{fmtUsd(holdValue)}</div>
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>Price grows as others burn DA</div>
         </div>
       </div>
