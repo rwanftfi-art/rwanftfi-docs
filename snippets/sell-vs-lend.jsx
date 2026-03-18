@@ -90,6 +90,34 @@ export const SellVsLend = () => {
           <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">30-day cutoff · DA preserved</p>
         </div>
       </div>
+
+      {Math.abs(sellPayout - lendLoanAmount) < 0.01 && sellPayout > 0 && (
+        <div style={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          marginTop: '12px'
+        }} className="rounded-xl p-4 text-center">
+          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
+            Auto-sell and Lending return the same USDT amount.
+            <span style={{ color: '#4ade80', fontWeight: 600 }}> Lending is always better</span> —
+            you keep your DA and benefit from future price growth.
+          </div>
+        </div>
+      )}
+
+      {sellPayout > lendLoanAmount + 0.01 && sellPayout > 0 && (
+        <div style={{
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          marginTop: '12px'
+        }} className="rounded-xl p-4 text-center">
+          <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
+            Manual sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>
+            {fmtUsd(sellPayout - lendLoanAmount)} more</span> than Lending —
+            but you permanently lose your DA position.
+          </div>
+        </div>
+      )}
     </div>
   );
 };
