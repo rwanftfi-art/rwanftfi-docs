@@ -26,7 +26,7 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  const RADAR_AXES = ['Affordability', 'Income Limit', 'Mkt Depth', 'Mining Speed', 'ROI'];
+  const RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
 
   const normalize = (nft) => {
     const roi = nft.limit / nft.price;
@@ -154,7 +154,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.mining ? `${selected.mining} days` : '—'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.mining ? `${selected.mining} days` : 'L5+ only'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
@@ -162,6 +162,8 @@ export const NftTierExplorer = () => {
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
+                  <FeaturePill on={true} label="RWA Access" />
+                  <FeaturePill on={true} label="FinPro" />
                   <FeaturePill on={selected.matchingBonus} label="Matching Bonus" />
                   <FeaturePill on={selected.lending} label="Lending" />
                   <FeaturePill on={selected.daMining} label="DA Mining" />
