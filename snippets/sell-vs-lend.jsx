@@ -7,7 +7,10 @@ export const SellVsLend = () => {
 
   const CURRENT_SUPPLY = 21_000_000;
 
-  const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n);
+  const fmtUsd = (n) => {
+    const digits = Math.abs(n) >= 10000 ? 0 : 2;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits }).format(n);
+  };
   const fmtNum = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
 
   const sellMultiplier = sellMode === 'manual' ? 0.75 : 0.70;

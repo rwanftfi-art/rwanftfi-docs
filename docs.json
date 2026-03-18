@@ -8,7 +8,7 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#000000",
+    "primary": "#FFFFFF",
     "light": "#383838",
     "dark": "#FFFFFF"
   },
@@ -363,9 +363,6 @@
   "description": "Own Your Future.",
   "seo": {
     "indexing": "all"
-  },
-  "styling": {
-    "latex": true
   },
   "icons": {
     "library": "fontawesome"
