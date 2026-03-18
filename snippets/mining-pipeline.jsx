@@ -27,19 +27,6 @@ export const MiningPipeline = () => {
   var sellPayout = daReceived * 0.75;
   var lendAmount = daReceived * 0.70;
   var holdValue = daReceived * 1.00;
-  var sellRoi = (((sellPayout - lvl.price) / lvl.price) * 100).toFixed(0);
-  var breakeven = lvl.price / (totalNftm * 0.75);
-
-  var allNfts = Object.entries(LEVELS).map(function(entry) {
-    var k = Number(entry[0]);
-    var d = entry[1];
-    var nftm = d.price * d.c1 + d.price * d.c2;
-    var da = nftm;
-    var sell = da * 0.75;
-    var be = d.price / (nftm * 0.75);
-    return { level: k, name: d.name, price: d.price, days: d.days * 2, nftm: nftm, da: da, sell: sell, breakeven: be };
-  });
-
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
 
@@ -99,42 +86,7 @@ export const MiningPipeline = () => {
         </div>
       </div>
 
-      {/* 3. Flow: 4 metrics */}
-      <div className="mb-6">
-        <div className="grid grid-cols-2 md:grid-cols-7 gap-2">
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 text-center md:col-span-1">
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '8px' }}>INVEST</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{fmtUsd(lvl.price)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>NFT cost</div>
-          </div>
-
-          <div className="hidden md:flex items-center justify-center" style={{ color: 'rgba(255,255,255,0.2)', fontSize: '20px' }}>→</div>
-
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 text-center md:col-span-1">
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '8px' }}>MINE</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{fmtNum(totalNftm)} NFTM</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>C1: {fmtNum(nftmCycle1)} + C2: {fmtNum(nftmCycle2)}</div>
-          </div>
-
-          <div className="hidden md:flex items-center justify-center" style={{ color: 'rgba(255,255,255,0.2)', fontSize: '20px' }}>→</div>
-
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 text-center md:col-span-1">
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '8px' }}>FARM</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{fmtNum(daReceived)} DA</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>at initial price $1.00/DA</div>
-          </div>
-
-          <div className="hidden md:flex items-center justify-center" style={{ color: 'rgba(255,255,255,0.2)', fontSize: '20px' }}>→</div>
-
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 text-center md:col-span-1">
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '8px' }}>HARVEST</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>~{totalDays}d</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>total pipeline</div>
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Options: Sell / Lend / Hold */}
+      {/* 3. Options: Sell / Lend / Hold */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
         <div style={{ border: '1px solid rgba(239,68,68,0.3)', backgroundColor: 'rgba(239,68,68,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
@@ -167,47 +119,6 @@ export const MiningPipeline = () => {
         </div>
       </div>
 
-      <div style={{ backgroundColor: 'rgba(56,56,56,0.7)', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-lg px-4 py-3 mb-6">
-        <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-          At initial DA price ($1.00), manual sell returns <span style={{ color: '#FFFFFF', fontWeight: 700 }}>{sellRoi}%</span> of your NFT investment after ~{totalDays} days.
-          Break-even DA price for full NFT recovery: <span style={{ color: '#FFFFFF', fontWeight: 700 }}>{fmtUsd(breakeven)}</span>
-        </span>
-      </div>
-
-      {/* 5. Comparison Table */}
-      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '12px' }}>All Mining-Capable NFTs at DA Price $1.00</div>
-      <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
-          <thead>
-            <tr>
-              {['NFT', 'Cost', 'Days', 'NFTM', 'DA', 'Sell@75%', 'Break-even'].map(function(h) {
-                return <th key={h} style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '8px 10px', textAlign: 'left', fontWeight: 600, borderBottom: '1px solid rgba(255,255,255,0.08)' }}>{h}</th>;
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {allNfts.map(function(row) {
-              return (
-                <tr key={row.level} style={{ backgroundColor: row.level === selectedLevel ? 'rgba(255,255,255,0.05)' : 'transparent' }}>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontWeight: 600, fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>L{row.level} {row.name}</td>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{fmtUsd(row.price)}</td>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{row.days}</td>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{fmtNum(row.nftm)}</td>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{fmtNum(row.da)}</td>
-                  <td style={{ padding: '10px', color: '#FFFFFF', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{fmtUsd(row.sell)}</td>
-                  <td style={{ padding: '10px', color: '#fbbf24', fontSize: '13px', fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>{fmtUsd(row.breakeven)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      {/* 6. Disclaimer */}
-      <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', lineHeight: 1.6, marginTop: '16px', marginBottom: 0 }}>
-        NFTM is an internal mining counter, not a token. At initial DA price $1.00, 1 NFTM = 1 DA.
-        Actual DA received depends on DA price at time of harvest. Mining + farming durations are equal.
-      </p>
     </div>
   );
 };
