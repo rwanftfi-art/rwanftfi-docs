@@ -364,9 +364,6 @@
   "seo": {
     "indexing": "all"
   },
-  "styling": {
-    "latex": true
-  },
   "icons": {
     "library": "fontawesome"
   }
