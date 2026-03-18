@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 export const IncomeCalculator = () => {
   const [nftLevel, setNftLevel] = useState(5);
@@ -15,17 +15,16 @@ export const IncomeCalculator = () => {
   const maxDepth = DEPTH_BY_NFT[nftLevel - 1];
   const nftName = NFT_NAMES[nftLevel - 1];
 
-  const levelIncome = useMemo(() => {
-    return LEVEL_PERCENTS.map((pct, i) => {
-      const lvl = i + 1;
-      const isPhase2Only = lvl >= 16;
-      const isUnlocked = lvl <= maxDepth && !isPhase2Only;
-      const gross = isUnlocked ? avgPrice * (pct / 100) * salesPerLevel : 0;
-      return { level: lvl, pct, gross, isUnlocked, isPhase2Only, isLocked: lvl > maxDepth };
-    });
-  }, [nftLevel, avgPrice, salesPerLevel, maxDepth]);
+  // Inline calculations instead of useMemo
+  const levelIncome = LEVEL_PERCENTS.map(function(pct, i) {
+    const lvl = i + 1;
+    const isPhase2Only = lvl >= 16;
+    const isUnlocked = lvl <= maxDepth && !isPhase2Only;
+    const gross = isUnlocked ? avgPrice * (pct / 100) * salesPerLevel : 0;
+    return { level: lvl, pct: pct, gross: gross, isUnlocked: isUnlocked, isPhase2Only: isPhase2Only, isLocked: lvl > maxDepth };
+  });
 
-  const totalIncome = useMemo(() => levelIncome.reduce((s, l) => s + l.gross, 0), [levelIncome]);
+  const totalIncome = levelIncome.reduce(function(s, l) { return s + l.gross; }, 0);
   const netIncome = totalIncome * 0.75;
   const accumulative = totalIncome * 0.20;
   const daTax = totalIncome * 0.05;
@@ -35,7 +34,13 @@ export const IncomeCalculator = () => {
   const PAD = { top: 10, right: 10, bottom: 40, left: 50 };
   const cW = W - PAD.left - PAD.right, cH = H - PAD.top - PAD.bottom;
   const barW = (cW - 21 * 2) / 22;
-  const maxBar = Math.max(...levelIncome.map(l => l.gross), 1);
+
+  // Find max without spread operator
+  let maxBar = 1;
+  for (let i = 0; i < levelIncome.length; i++) {
+    if (levelIncome[i].gross > maxBar) maxBar = levelIncome[i].gross;
+  }
+
   const getBarH = (v) => (v / maxBar) * cH;
   const getBarX = (i) => PAD.left + i * (barW + 2);
 
@@ -87,7 +92,7 @@ export const IncomeCalculator = () => {
           <div style={{ background: 'linear-gradient(135deg, #383838, #000000)' }} className="rounded-xl p-5 text-center">
             <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">Total Gross Income</div>
             <div style={{ color: '#FFFFFF' }} className="text-2xl md:text-3xl font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{maxDepth} active levels × {salesPerLevel} sales</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{maxDepth} active levels x {salesPerLevel} sales</div>
           </div>
         </div>
 
@@ -95,17 +100,19 @@ export const IncomeCalculator = () => {
         <div className="flex-1 min-w-0 space-y-4">
           <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4 overflow-x-auto">
             <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs font-semibold mb-2">Income by Marketing Level (22 levels)</div>
-            <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: '500px', color: '#FFFFFF' }}>
+            <svg viewBox={'0 0 ' + W + ' ' + H} className="w-full" style={{ minWidth: '500px', color: '#FFFFFF' }}>
               <defs>
                 <linearGradient id="incBarGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="100%" stopColor="rgba(255,255,255,0.5)" /></linearGradient>
               </defs>
-              {[0.25, 0.5, 0.75, 1].map(frac => (
-                <g key={frac}>
-                  <line x1={PAD.left} y1={PAD.top + cH - cH * frac} x2={W - PAD.right} y2={PAD.top + cH - cH * frac} stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
-                  <text x={PAD.left - 6} y={PAD.top + cH - cH * frac} textAnchor="end" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '8px' }}>{fmtUsd(maxBar * frac)}</text>
-                </g>
-              ))}
-              {levelIncome.map((l, i) => {
+              {[0.25, 0.5, 0.75, 1].map(function(frac) {
+                return (
+                  <g key={frac}>
+                    <line x1={PAD.left} y1={PAD.top + cH - cH * frac} x2={W - PAD.right} y2={PAD.top + cH - cH * frac} stroke="rgba(255,255,255,0.08)" strokeWidth="0.5" />
+                    <text x={PAD.left - 6} y={PAD.top + cH - cH * frac} textAnchor="end" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '8px' }}>{fmtUsd(maxBar * frac)}</text>
+                  </g>
+                );
+              })}
+              {levelIncome.map(function(l, i) {
                 const bh = l.gross > 0 ? getBarH(l.gross) : 0;
                 const bx = getBarX(i);
                 const by = PAD.top + cH - bh;
@@ -118,46 +125,46 @@ export const IncomeCalculator = () => {
                     <rect x={bx} y={l.gross > 0 ? by : PAD.top + cH - 1} width={barW} height={Math.max(bh, 1)} fill={fill} fillOpacity={fillOpacity} rx="1" className="transition-all duration-300" />
                     <text x={bx + barW / 2} y={PAD.top + cH + 12} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '9px' }}>{l.level}</text>
                     <text x={bx + barW / 2} y={PAD.top + cH + 22} textAnchor="middle" fill="rgba(255,255,255,0.35)" style={{ fontSize: '8px' }}>{l.pct}%</text>
-                    {!l.isUnlocked && !l.isPhase2Only && <text x={bx + barW / 2} y={PAD.top + cH - 6} textAnchor="middle" style={{ fontSize: '7px' }}>🔒</text>}
+                    {!l.isUnlocked && !l.isPhase2Only && <text x={bx + barW / 2} y={PAD.top + cH - 6} textAnchor="middle" style={{ fontSize: '7px' }}>Lock</text>}
                     {l.isPhase2Only && <text x={bx + barW / 2} y={PAD.top + cH - 6} textAnchor="middle" fill="rgba(255,255,255,0.35)" style={{ fontSize: '5.5px', fontWeight: 'bold' }}>P2</text>}
-                    <title>{l.isPhase2Only ? `L${l.level}: ${l.pct}% — Phase 2 only` : !l.isUnlocked ? `L${l.level}: ${l.pct}% — Upgrade required` : `L${l.level}: ${l.pct}% — ${fmtUsd(l.gross)}`}</title>
+                    <title>{l.isPhase2Only ? 'L' + l.level + ': ' + l.pct + '% — Phase 2 only' : !l.isUnlocked ? 'L' + l.level + ': ' + l.pct + '% — Upgrade required' : 'L' + l.level + ': ' + l.pct + '% — ' + fmtUsd(l.gross)}</title>
                   </g>
                 );
               })}
               <line x1={PAD.left} y1={PAD.top + cH} x2={W - PAD.right} y2={PAD.top + cH} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-              <text x={W / 2} y={H - 2} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '8px' }}>Marketing Level →</text>
+              <text x={W / 2} y={H - 2} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '8px' }}>Marketing Level</text>
             </svg>
             <div className="flex gap-4 mt-2 justify-center flex-wrap">
               <span className="flex items-center gap-1.5 text-[10px]"><span style={{ backgroundColor: '#FFFFFF' }} className="w-2.5 h-2.5 rounded-sm inline-block" /> <span style={{ color: 'rgba(255,255,255,0.5)' }}>Active</span></span>
-              <span className="flex items-center gap-1.5 text-[10px]"><span style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} className="w-2.5 h-2.5 rounded-sm inline-block" /> <span style={{ color: 'rgba(255,255,255,0.5)' }}>🔒 Locked</span></span>
+              <span className="flex items-center gap-1.5 text-[10px]"><span style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} className="w-2.5 h-2.5 rounded-sm inline-block" /> <span style={{ color: 'rgba(255,255,255,0.5)' }}>Locked</span></span>
               <span className="flex items-center gap-1.5 text-[10px]"><span style={{ backgroundColor: 'rgba(255,255,255,0.05)' }} className="w-2.5 h-2.5 rounded-sm inline-block" /> <span style={{ color: 'rgba(255,255,255,0.5)' }}>Phase 2</span></span>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div style={{ backgroundColor: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)' }} className="rounded-xl p-4">
-              <div style={{ color: '#4ade80' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% → Net Income</div>
+              <div style={{ color: '#4ade80' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% Net Income</div>
               <div style={{ color: '#4ade80' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
               <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
             </div>
             <div style={{ backgroundColor: 'rgba(251,191,36,0.05)', border: '1px solid rgba(251,191,36,0.2)' }} className="rounded-xl p-4">
-              <div style={{ color: '#fbbf24' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% → Accumulative</div>
+              <div style={{ color: '#fbbf24' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% Accumulative</div>
               <div style={{ color: '#fbbf24' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day timer • 70% stays / 30% → sponsor</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day timer, 70% stays / 30% sponsor</div>
             </div>
             <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)' }} className="rounded-xl p-4">
-              <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% → DA Liquidity</div>
+              <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% DA Liquidity</div>
               <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool → increases DA price</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool, increases DA price</div>
             </div>
           </div>
 
           {maxDepth < 22 && (
             <div style={{ backgroundColor: 'rgba(56,56,56,0.7)', borderColor: 'rgba(255,255,255,0.05)' }} className="px-4 py-3 rounded-lg border">
               <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">
-                <span className="font-semibold">🔒 {22 - Math.min(maxDepth, 15)} levels locked.</span>{' '}
-                Your {nftName} NFT earns from levels 1–{maxDepth}.
-                {maxDepth < 15 ? ' Upgrade to unlock deeper levels.' : ''} Levels 16–22 unlock in Phase 2.
+                <span className="font-semibold">{22 - Math.min(maxDepth, 15)} levels locked.</span>{' '}
+                Your {nftName} NFT earns from levels 1-{maxDepth}.
+                {maxDepth < 15 ? ' Upgrade to unlock deeper levels.' : ''} Levels 16-22 unlock in Phase 2.
               </div>
             </div>
           )}
