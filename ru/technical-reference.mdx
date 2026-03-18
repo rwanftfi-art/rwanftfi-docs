@@ -4,6 +4,57 @@ description: "Developer-facing glossary of smart contract terms, roles, and arch
 icon: "code"
 ---
 
-<Info>
-  Эта страница находится в процессе перевода. Пожалуйста, обратитесь к [английской версии](/en/technical-reference) для полной информации.
-</Info>
+<AccordionGroup>
+  <Accordion title="Accumulative Event" icon="clock">
+    A 30-day period (with a 180-day cooldown) initiated via the DAO,
+    during which users can claim expired accumulative balances.
+  </Accordion>
+  <Accordion title="ADMIN_ROLE" icon="user-shield">
+    A role with permissions to manage system parameters and grant access.
+  </Accordion>
+  <Accordion title="Diamond Pattern (EIP-2535)" icon="diamond">
+    A smart contract architectural pattern that bypasses the 24KB size limit
+    by splitting logic into modules (Facets).
+  </Accordion>
+  <Accordion title="Freeze" icon="snowflake">
+    Moderation mechanism initiated exclusively through DAO voting that blocks
+    all financial operations for a specific user account. Used for policy
+    enforcement, not as an emergency security tool. Both freezing and
+    unfreezing require a DAO vote.
+  </Accordion>
+  <Accordion title="freezeTime" icon="hourglass">
+    A parameter defining the duration of an account freeze when blocked via the DAO.
+  </Accordion>
+  <Accordion title="GovToken" icon="landmark">
+    The ERC20Votes governance token (10M supply, 6 decimals) used for DAO voting,
+    with auto-delegation and manual delegation disabled.
+  </Accordion>
+  <Accordion title="LibSignatureLogic" icon="signature">
+    A smart contract library for verifying cryptographic signatures
+    using the SIGNER_ROLE.
+  </Accordion>
+  <Accordion title="Price Impact Event" icon="chart-line">
+    A mechanism for managing DA price stability through a special reserve
+    balance (priceImpactBalance).
+  </Accordion>
+  <Accordion title="processExpiredStacks" icon="rotate">
+    A ResolverFacet function for processing DA stacks whose unlock periods
+    have fully expired.
+  </Accordion>
+  <Accordion title="SERVICE_ROLE" icon="server">
+    A smart contract role for automated backend operations — processing
+    cross-chain deposits and resolving expired stacks.
+  </Accordion>
+  <Accordion title="SIGNER_ROLE" icon="key">
+    A role for cryptographic signature verification when authorizing
+    operations such as voucher transfers.
+  </Accordion>
+  <Accordion title="TokenStack" icon="layer-group">
+    A smart contract data structure that holds a user's DA tokens, tracking
+    progressive time-based unlock periods (25%, 40%, 50%, 100%) for selling.
+  </Accordion>
+  <Accordion title="Transparent Proxy" icon="arrows-rotate">
+    An upgrade pattern for the TokenReserve (DA) contract, allowing logic
+    updates without changing the contract address.
+  </Accordion>
+</AccordionGroup>
