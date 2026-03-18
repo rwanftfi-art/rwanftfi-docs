@@ -1,0 +1,69 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "RWANFTFI",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#2563EB",
+    "light": "#4040FF",
+    "dark": "#0A0A0A",
+    "background": {
+      "dark": "#0A0A0A",
+      "light": "#FFFFFF"
+    }
+  },
+  "font": {
+    "headings": {
+      "family": "Georgia",
+      "weight": 700
+    },
+    "body": {
+      "family": "Inter"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Website",
+      "url": "https://rwanftfi.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Launch App",
+    "url": "https://app.rwanftfi.com"
+  },
+  "anchors": [
+    {
+      "name": "Whitepaper",
+      "icon": "book",
+      "url": "/"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Whitepaper",
+      "pages": [
+        "executive-summary",
+        "vision",
+        "nft-ecosystem",
+        "deflationary-asset",
+        "marketing",
+        "technical",
+        "governance",
+        "roadmap",
+        "legal",
+        "glossary"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "telegram": "https://t.me/rwanftfi",
+    "twitter": "https://twitter.com/rwanftfi"
+  },
+  "backgroundImage": "/images/background.svg",
+  "modeToggle": {
+    "default": "dark"
+  }
+}
