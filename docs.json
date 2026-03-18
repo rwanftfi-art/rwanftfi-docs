@@ -10,11 +10,7 @@
   "colors": {
     "primary": "#2563EB",
     "light": "#4040FF",
-    "dark": "#0A0A0A",
-    "background": {
-      "dark": "#0A0A0A",
-      "light": "#FFFFFF"
-    }
+    "dark": "#0A0A0A"
   },
   "font": {
     "headings": {
@@ -35,28 +31,29 @@
     "name": "Launch App",
     "url": "https://app.rwanftfi.com"
   },
-  "navigation": [
-    {
-      "group": "Whitepaper",
-      "pages": [
-        "executive-summary",
-        "vision",
-        "nft-ecosystem",
-        "deflationary-asset",
-        "marketing",
-        "technical",
-        "governance",
-        "roadmap",
-        "legal",
-        "glossary"
-      ]
-    }
-  ],
+  "navigation": {
+    "groups": [
+      {
+        "group": "Whitepaper",
+        "pages": [
+          "executive-summary",
+          "vision",
+          "nft-ecosystem",
+          "deflationary-asset",
+          "marketing",
+          "technical",
+          "governance",
+          "roadmap",
+          "legal",
+          "glossary"
+        ]
+      }
+    ]
+  },
   "footerSocials": {
     "telegram": "https://t.me/rwanftfi",
     "twitter": "https://twitter.com/rwanftfi"
   },
-  "backgroundImage": "/images/background.svg",
   "modeToggle": {
     "default": "dark"
   }
