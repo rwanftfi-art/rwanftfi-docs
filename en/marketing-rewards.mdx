@@ -6,39 +6,46 @@ icon: "money-bill-trend-up"
 
 import { IncomeCalculator } from "/snippets/income-calculator.jsx"
 
+<CardGroup cols={2}>
+  <Card title="Phase 1 — New Sale" icon="user-plus">
+    Direct sponsor earns 30% of NFT sale price. Repeat purchase (rebuy): 20%.
+  </Card>
+  <Card title="Phase 2 — Adjusted" icon="arrows-rotate">
+    New sale adjusts to 20%. Rebuy stays 20%. Levels 16–22 fully unlocked.
+  </Card>
+</CardGroup>
 
-The RWANFTFI platform utilizes a sophisticated, smart contract-driven structural marketing system. It is designed to reward users for expanding the network, with mechanics that ensure infinite compression and mathematical sustainability.
+## Tree Distribution
 
-## Sponsor Bonus (Personal Sale Rewards)
+Earn a percentage from every NFT sale in your downline, across up to 22 levels deep:
 
-Rewards are generated whenever an NFT is sold or repurchased within a user's downline. The depth from which a user can earn depends entirely on their NFT level.
+<AccordionGroup>
+  <Accordion title="Levels 1–6 · Entry Layers" icon="layer-group">
+    - Level 1: 0% (direct line — covered by Sponsor Bonus above)
+    - Level 2: 1%
+    - Levels 3–4: 2% each
+    - Levels 5–6: 3% each
+  </Accordion>
+  <Accordion title="Levels 7–15 · Core Earning Depth" icon="chart-simple">
+    - Levels 7–14: 4% each (8 levels × 4% = main income driver)
+    - Level 15: 5% (highest single-level percentage)
+  </Accordion>
+  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="unlock">
+    - Levels 16–17: 2% each
+    - Level 18: 1%
+    - Levels 19–22: 0.5% each
 
-When a user directly sells an NFT to a new participant, the sponsor earns a percentage of the sale price. This percentage differs between the two phases of the project:
-
-* **Phase 1:** Personal NFT sale yields **30%** to the sponsor. Repeat NFT purchase (rebuy) yields **20%**.
-* **Phase 2:** Personal NFT sale adjusts to **20%**. Repeat NFT purchase remains **20%**.
-
-These percentages are separate from the tree distribution rewards described below. (Note: Levels 16–22 will be fully unlocked in Phase 2 of the project).
-
-## Tree Distribution — Level Distribution Percentages (Out of 22 Levels)
-
-* Level 1: 0%
-* Level 2: 1%
-* Levels 3-4: 2% each
-* Levels 5-6: 3% each
-* Levels 7-14: 4% each
-* Level 15: 5%
-* Levels 16-17: 2% each
-* Level 18: 1%
-* Levels 19-22: 0.5% each
+    *Unlocked in Phase 2 (Q4 2026). Requires INFINITY NFT for full depth.*
+  </Accordion>
+</AccordionGroup>
 
 ## Compression
-
-The system features an automatic "infinite compression" algorithm. Compression is a smart contract mechanism that skips users whose Income Limit is zero or who do not have the required NFT level to earn from a specific depth — the reward passes upward to the next eligible user. If an NFT sale occurs in a user's downline but the user's NFT level does not grant access to that depth, the reward bypasses them (this is flagged as Lost Income). Similarly, if a user's Income Limit reaches zero, they are temporarily skipped. In both cases, the reward compresses upward to the next qualified, active participant.
 
 <Tip>
   **Compression works in your favor.** If someone above you has an exhausted income limit or insufficient NFT level, their rewards compress upward — potentially to you. The deeper your NFT's marketing access, the more compressed rewards you can capture.
 </Tip>
+
+When a user in your downline is skipped (Income Limit = 0 or NFT level too low), the reward passes upward to the next qualified participant. This is flagged as **Lost Income** for the skipped user.
 
 <IncomeCalculator />
 
