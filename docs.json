@@ -32,63 +32,321 @@
     "url": "https://app.rwanftfi.com"
   },
   "navigation": {
-    "groups": [
+    "languages": [
       {
-        "group": "Start Here",
-        "pages": [
-          "executive-summary",
-          "vision"
+        "language": "en",
+        "default": true,
+        "groups": [
+          {
+            "group": "Start Here",
+            "pages": [
+              "en/executive-summary",
+              "en/vision"
+            ]
+          },
+          {
+            "group": "NFT Ecosystem",
+            "pages": [
+              "en/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "Deflationary Asset (DA)",
+            "pages": [
+              "en/da-token-mechanics",
+              "en/da-mining-farming",
+              "en/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Earning & Marketing",
+            "pages": [
+              "en/marketing-binary-tree",
+              "en/marketing-rewards",
+              "en/marketing-career-ranks"
+            ]
+          },
+          {
+            "group": "Architecture",
+            "pages": [
+              "en/architecture",
+              "en/security"
+            ]
+          },
+          {
+            "group": "Governance",
+            "pages": [
+              "en/governance"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "en/roadmap"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "en/support",
+              "en/partnerships",
+              "en/legal",
+              "en/glossary",
+              "en/technical-reference"
+            ]
+          }
         ]
       },
       {
-        "group": "NFT Ecosystem",
-        "pages": [
-          "nft-ecosystem"
+        "language": "ru",
+        "groups": [
+          {
+            "group": "Начало",
+            "pages": [
+              "ru/executive-summary",
+              "ru/vision"
+            ]
+          },
+          {
+            "group": "NFT Экосистема",
+            "pages": [
+              "ru/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "Дефляционный Актив (DA)",
+            "pages": [
+              "ru/da-token-mechanics",
+              "ru/da-mining-farming",
+              "ru/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Маркетинг и Доход",
+            "pages": [
+              "ru/marketing-binary-tree",
+              "ru/marketing-rewards",
+              "ru/marketing-career-ranks"
+            ]
+          },
+          {
+            "group": "Архитектура",
+            "pages": [
+              "ru/architecture",
+              "ru/security"
+            ]
+          },
+          {
+            "group": "Управление",
+            "pages": [
+              "ru/governance"
+            ]
+          },
+          {
+            "group": "Дорожная Карта",
+            "pages": [
+              "ru/roadmap"
+            ]
+          },
+          {
+            "group": "Ресурсы",
+            "pages": [
+              "ru/support",
+              "ru/partnerships",
+              "ru/legal",
+              "ru/glossary",
+              "ru/technical-reference"
+            ]
+          }
         ]
       },
       {
-        "group": "Deflationary Asset (DA)",
-        "pages": [
-          "da-token-mechanics",
-          "da-mining-farming",
-          "da-selling-lending"
+        "language": "es",
+        "groups": [
+          {
+            "group": "Inicio",
+            "pages": [
+              "es/executive-summary",
+              "es/vision"
+            ]
+          },
+          {
+            "group": "Ecosistema NFT",
+            "pages": [
+              "es/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "Activo Deflacionario (DA)",
+            "pages": [
+              "es/da-token-mechanics",
+              "es/da-mining-farming",
+              "es/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Marketing y Ganancias",
+            "pages": [
+              "es/marketing-binary-tree",
+              "es/marketing-rewards",
+              "es/marketing-career-ranks"
+            ]
+          },
+          {
+            "group": "Arquitectura",
+            "pages": [
+              "es/architecture",
+              "es/security"
+            ]
+          },
+          {
+            "group": "Gobernanza",
+            "pages": [
+              "es/governance"
+            ]
+          },
+          {
+            "group": "Hoja de Ruta",
+            "pages": [
+              "es/roadmap"
+            ]
+          },
+          {
+            "group": "Recursos",
+            "pages": [
+              "es/support",
+              "es/partnerships",
+              "es/legal",
+              "es/glossary",
+              "es/technical-reference"
+            ]
+          }
         ]
       },
       {
-        "group": "Earning & Marketing",
-        "pages": [
-          "marketing-binary-tree",
-          "marketing-rewards",
-          "marketing-career-ranks"
+        "language": "ar",
+        "groups": [
+          {
+            "group": "ابدأ هنا",
+            "pages": [
+              "ar/executive-summary",
+              "ar/vision"
+            ]
+          },
+          {
+            "group": "نظام NFT",
+            "pages": [
+              "ar/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "الأصل الانكماشي (DA)",
+            "pages": [
+              "ar/da-token-mechanics",
+              "ar/da-mining-farming",
+              "ar/da-selling-lending"
+            ]
+          },
+          {
+            "group": "التسويق والأرباح",
+            "pages": [
+              "ar/marketing-binary-tree",
+              "ar/marketing-rewards",
+              "ar/marketing-career-ranks"
+            ]
+          },
+          {
+            "group": "البنية التقنية",
+            "pages": [
+              "ar/architecture",
+              "ar/security"
+            ]
+          },
+          {
+            "group": "الحوكمة",
+            "pages": [
+              "ar/governance"
+            ]
+          },
+          {
+            "group": "خارطة الطريق",
+            "pages": [
+              "ar/roadmap"
+            ]
+          },
+          {
+            "group": "الموارد",
+            "pages": [
+              "ar/support",
+              "ar/partnerships",
+              "ar/legal",
+              "ar/glossary",
+              "ar/technical-reference"
+            ]
+          }
         ]
       },
       {
-        "group": "Architecture",
-        "pages": [
-          "architecture",
-          "security"
-        ]
-      },
-      {
-        "group": "Governance",
-        "pages": [
-          "governance"
-        ]
-      },
-      {
-        "group": "Roadmap",
-        "pages": [
-          "roadmap"
-        ]
-      },
-      {
-        "group": "Resources",
-        "pages": [
-          "support",
-          "partnerships",
-          "legal",
-          "glossary",
-          "technical-reference"
+        "language": "zh",
+        "groups": [
+          {
+            "group": "开始",
+            "pages": [
+              "zh/executive-summary",
+              "zh/vision"
+            ]
+          },
+          {
+            "group": "NFT 生态系统",
+            "pages": [
+              "zh/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "通缩资产 (DA)",
+            "pages": [
+              "zh/da-token-mechanics",
+              "zh/da-mining-farming",
+              "zh/da-selling-lending"
+            ]
+          },
+          {
+            "group": "营销与收益",
+            "pages": [
+              "zh/marketing-binary-tree",
+              "zh/marketing-rewards",
+              "zh/marketing-career-ranks"
+            ]
+          },
+          {
+            "group": "技术架构",
+            "pages": [
+              "zh/architecture",
+              "zh/security"
+            ]
+          },
+          {
+            "group": "治理",
+            "pages": [
+              "zh/governance"
+            ]
+          },
+          {
+            "group": "路线图",
+            "pages": [
+              "zh/roadmap"
+            ]
+          },
+          {
+            "group": "资源",
+            "pages": [
+              "zh/support",
+              "zh/partnerships",
+              "zh/legal",
+              "zh/glossary",
+              "zh/technical-reference"
+            ]
+          }
         ]
       }
     ]
@@ -111,15 +369,5 @@
   },
   "icons": {
     "library": "fontawesome"
-  },
-  "i18n": {
-    "defaultLocale": "en",
-    "locales": [
-      { "locale": "en", "name": "English" },
-      { "locale": "ru", "name": "Русский" },
-      { "locale": "es", "name": "Español" },
-      { "locale": "ar", "name": "العربية" },
-      { "locale": "zh", "name": "中文" }
-    ]
   }
 }
