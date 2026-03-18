@@ -35,6 +35,7 @@
     "groups": [
       {
         "group": "Whitepaper",
+        "icon": "angles-down",
         "pages": [
           "executive-summary",
           "vision",
