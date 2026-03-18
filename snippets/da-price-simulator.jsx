@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo } from 'react';
 
 const NFT_DATA = {
   5:  { name: 'HYDRO',    price: 550,   days: 45, c1: 0.10, c2: 0.10 },
@@ -18,31 +18,6 @@ const PRESETS = [
   { label: '1 Year',    burned: 5_250_000, liqBonus: 15_000_000, price: null },
   { label: 'Mature',    burned: 10_500_000, liqBonus: 30_000_000, price: null },
 ];
-
-const useAnimatedValue = (target, duration = 400) => {
-  const [display, setDisplay] = useState(target);
-  const ref = useRef(target);
-
-  useEffect(() => {
-    const start = ref.current;
-    const diff = target - start;
-    if (Math.abs(diff) < 0.01) { setDisplay(target); ref.current = target; return; }
-
-    const startTime = performance.now();
-    const animate = (now) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = start + diff * eased;
-      setDisplay(current);
-      if (progress < 1) requestAnimationFrame(animate);
-      else ref.current = target;
-    };
-    requestAnimationFrame(animate);
-  }, [target, duration]);
-
-  return display;
-};
 
 const fmtUsd = (n) => {
   const digits = Math.abs(n) >= 10000 ? 0 : 2;
@@ -94,14 +69,12 @@ export const DaPriceSimulator = () => {
 
   const heroValue = miningCalc.getValue(payoutMode);
   const heroRoi = miningCalc.getRoi(payoutMode);
-  const animatedHero = useAnimatedValue(heroValue);
 
   // Price Growth calculations
   const finalSupply = useMemo(() => Math.max(INITIAL_SUPPLY - burnAmount, 1), [burnAmount]);
   const finalLiquidity = useMemo(() => INITIAL_LIQUIDITY + liquidityInflow, [liquidityInflow]);
   const finalPrice = useMemo(() => calcPrice(finalLiquidity, finalSupply), [finalLiquidity, finalSupply]);
   const priceChange = useMemo(() => ((finalPrice - 1) / 1) * 100, [finalPrice]);
-  const animatedPrice = useAnimatedValue(finalPrice);
 
   // Compute preset prices
   const presetPrices = useMemo(() => {
@@ -262,7 +235,7 @@ export const DaPriceSimulator = () => {
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>{heroLabel}</div>
               <div style={{ fontSize: '48px', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.1 }} className="md:text-5xl text-4xl">
-                {fmtUsd(animatedHero)}
+                {fmtUsd(heroValue)}
               </div>
               <div className="flex items-center justify-center" style={{ gap: '12px', marginTop: '12px' }}>
                 <span style={{
@@ -314,12 +287,9 @@ export const DaPriceSimulator = () => {
                 <text x="320" y="72" textAnchor="middle" fill="rgba(255,255,255,0.4)" style={{ fontSize: '10px' }}>{fmtNum(miningCalc.totalNftm)} NFTM</text>
 
                 {/* Dot 3: Stake & Farm — pulsing red */}
-                <circle cx="440" cy="35" r="7" fill="#f87171" opacity="0.3">
-                  <animate attributeName="r" values="7;10;7" dur="1.5s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0.3;0.1;0.3" dur="1.5s" repeatCount="indefinite" />
-                </circle>
+                <circle cx="440" cy="35" r="9" fill="#f87171" opacity="0.15" />
                 <circle cx="440" cy="35" r="5" fill="#f87171" />
-                <text x="440" y="56" textAnchor="middle" fill="rgba(255,255,255,0.8)" style={{ fontSize: '11px', fontWeight: 600 }}>Stake &amp; Farm</text>
+                <text x="440" y="56" textAnchor="middle" fill="rgba(255,255,255,0.8)" style={{ fontSize: '11px', fontWeight: 600 }}>Stake {'&'} Farm</text>
                 <text x="440" y="72" textAnchor="middle" fill="#f87171" style={{ fontSize: '10px' }}>⚠️ 72h lock</text>
 
                 {/* Dot 4: DA Harvested */}
@@ -392,7 +362,7 @@ export const DaPriceSimulator = () => {
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '8px' }}>DA Token Price</div>
               <div style={{ fontSize: '48px', fontWeight: 900, color: '#FFFFFF', lineHeight: 1.1 }} className="md:text-5xl text-4xl">
-                ${animatedPrice.toFixed(2)}
+                ${finalPrice.toFixed(2)}
               </div>
               {priceChange !== 0 && (
                 <div style={{ color: priceChange >= 0 ? '#4ade80' : '#f87171', fontSize: '14px', fontWeight: 600, marginTop: '8px' }}>
