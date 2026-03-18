@@ -31,7 +31,7 @@ export const IncomeCalculator = () => {
   const daTax = totalIncome * 0.05;
 
   // SVG Bar Chart
-  const W = 620, H = 220;
+  const W = 620, H = 260;
   const PAD = { top: 10, right: 10, bottom: 40, left: 50 };
   const cW = W - PAD.left - PAD.right, cH = H - PAD.top - PAD.bottom;
   const barW = (cW - 21 * 2) / 22;
@@ -40,16 +40,16 @@ export const IncomeCalculator = () => {
   const getBarX = (i) => PAD.left + i * (barW + 2);
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF' }} className="p-6 rounded-xl not-prose border border-white/5">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">Marketing Income Calculator</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium border">Interactive</span>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
       </div>
 
       <div className="flex flex-col md:flex-row gap-6">
         {/* Controls */}
         <div className="md:w-72 flex-shrink-0 space-y-4">
-          <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+          <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
             <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider mb-2 block">Your NFT Level</label>
             <select value={nftLevel} onChange={(e) => setNftLevel(Number(e.target.value))}
               style={{ backgroundColor: 'rgba(56,56,56,0.7)', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }}
@@ -60,7 +60,7 @@ export const IncomeCalculator = () => {
             </select>
           </div>
 
-          <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+          <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
             <div className="flex justify-between items-center mb-2">
               <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Avg NFT Sale in Team</label>
               <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{fmtUsd(avgPrice)}</span>
@@ -72,7 +72,7 @@ export const IncomeCalculator = () => {
             <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>$28</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>$24,000</span></div>
           </div>
 
-          <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+          <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
             <div className="flex justify-between items-center mb-2">
               <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Sales per Level</label>
               <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{salesPerLevel}</span>
@@ -84,7 +84,7 @@ export const IncomeCalculator = () => {
             <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>1</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>50</span></div>
           </div>
 
-          <div style={{ backgroundColor: '#383838' }} className="rounded-xl p-5 text-center">
+          <div style={{ background: 'linear-gradient(135deg, #383838, #000000)' }} className="rounded-xl p-5 text-center">
             <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">Total Gross Income</div>
             <div style={{ color: '#FFFFFF' }} className="text-2xl md:text-3xl font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
             <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{maxDepth} active levels × {salesPerLevel} sales</div>
@@ -93,11 +93,11 @@ export const IncomeCalculator = () => {
 
         {/* Results */}
         <div className="flex-1 min-w-0 space-y-4">
-          <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4 overflow-x-auto">
+          <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4 overflow-x-auto">
             <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs font-semibold mb-2">Income by Marketing Level (22 levels)</div>
             <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ minWidth: '500px', color: '#FFFFFF' }}>
               <defs>
-                <linearGradient id="incBarGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="100%" stopColor="rgba(255,255,255,0.4)" /></linearGradient>
+                <linearGradient id="incBarGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#FFFFFF" /><stop offset="100%" stopColor="rgba(255,255,255,0.5)" /></linearGradient>
               </defs>
               {[0.25, 0.5, 0.75, 1].map(frac => (
                 <g key={frac}>
@@ -116,8 +116,8 @@ export const IncomeCalculator = () => {
                 return (
                   <g key={i}>
                     <rect x={bx} y={l.gross > 0 ? by : PAD.top + cH - 1} width={barW} height={Math.max(bh, 1)} fill={fill} fillOpacity={fillOpacity} rx="1" className="transition-all duration-300" />
-                    <text x={bx + barW / 2} y={PAD.top + cH + 12} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7px' }}>{l.level}</text>
-                    <text x={bx + barW / 2} y={PAD.top + cH + 22} textAnchor="middle" fill="rgba(255,255,255,0.35)" style={{ fontSize: '6px' }}>{l.pct}%</text>
+                    <text x={bx + barW / 2} y={PAD.top + cH + 12} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '9px' }}>{l.level}</text>
+                    <text x={bx + barW / 2} y={PAD.top + cH + 22} textAnchor="middle" fill="rgba(255,255,255,0.35)" style={{ fontSize: '8px' }}>{l.pct}%</text>
                     {!l.isUnlocked && !l.isPhase2Only && <text x={bx + barW / 2} y={PAD.top + cH - 6} textAnchor="middle" style={{ fontSize: '7px' }}>🔒</text>}
                     {l.isPhase2Only && <text x={bx + barW / 2} y={PAD.top + cH - 6} textAnchor="middle" fill="rgba(255,255,255,0.35)" style={{ fontSize: '5.5px', fontWeight: 'bold' }}>P2</text>}
                     <title>{l.isPhase2Only ? `L${l.level}: ${l.pct}% — Phase 2 only` : !l.isUnlocked ? `L${l.level}: ${l.pct}% — Upgrade required` : `L${l.level}: ${l.pct}% — ${fmtUsd(l.gross)}`}</title>
@@ -135,19 +135,19 @@ export const IncomeCalculator = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }} className="rounded-xl border p-4">
-              <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% → Net Income</div>
-              <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
+            <div style={{ backgroundColor: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)' }} className="rounded-xl p-4">
+              <div style={{ color: '#4ade80' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% → Net Income</div>
+              <div style={{ color: '#4ade80' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
               <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
             </div>
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }} className="rounded-xl border p-4">
-              <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% → Accumulative</div>
-              <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
+            <div style={{ backgroundColor: 'rgba(251,191,36,0.05)', border: '1px solid rgba(251,191,36,0.2)' }} className="rounded-xl p-4">
+              <div style={{ color: '#fbbf24' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% → Accumulative</div>
+              <div style={{ color: '#fbbf24' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
               <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day timer • 70% stays / 30% → sponsor</div>
             </div>
-            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.2)' }} className="rounded-xl border p-4">
-              <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% → DA Liquidity</div>
-              <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)' }} className="rounded-xl p-4">
+              <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% → DA Liquidity</div>
+              <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
               <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool → increases DA price</div>
             </div>
           </div>
@@ -164,12 +164,9 @@ export const IncomeCalculator = () => {
         </div>
       </div>
 
-      <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs leading-relaxed mt-4">
-        This calculator shows tree distribution income only. Tree distribution percentages are identical
-        in Phase 1 and Phase 2. The Phase difference (30% vs 20% personal sale bonus) applies only to
-        the direct Sponsor Bonus from personal sales, which is not included in this calculator.
-        Matching Bonus (5% + 5% + 5%) from direct partner income is also calculated separately
-        and requires: NFT ≥ ECLIPSE (L4), personal sales ≥ 1,000 USDT (Level 2), and ≥ 3,000 USDT (Level 3).
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs leading-relaxed mt-4">
+        Shows tree distribution income only (excludes Sponsor Bonus and Matching Bonus).
+        Phase 1 and Phase 2 use identical tree distribution percentages.
       </p>
     </div>
   );

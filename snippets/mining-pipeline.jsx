@@ -42,11 +42,11 @@ export const MiningPipeline = () => {
   const goBack = () => setCurrentStep(prev => Math.max(prev - 1, 0));
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF' }} className="p-6 rounded-xl not-prose border border-white/5">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">Mining → DA Pipeline</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium border">Interactive</span>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
       </div>
 
       {/* Level Selector */}
@@ -65,7 +65,7 @@ export const MiningPipeline = () => {
       <div className="relative flex items-center justify-between mb-8 px-2">
         <div style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="absolute top-4 left-6 right-6 h-0.5" />
         <div className="absolute top-4 left-6 h-0.5 transition-all duration-500"
-          style={{ width: `calc(${(currentStep / 4) * 100}% - 48px * ${1 - currentStep / 4})`, background: 'linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,1))' }} />
+          style={{ width: `calc(${(currentStep / 4) * 100}% - 48px * ${1 - currentStep / 4})`, background: 'linear-gradient(90deg, rgba(255,255,255,0.6), #FFFFFF)' }} />
         {STEPS.map((s, i) => {
           const isDone = i < currentStep;
           const isActive = i === currentStep;
@@ -90,8 +90,10 @@ export const MiningPipeline = () => {
       </div>
 
       {/* Step Content */}
-      <div style={STEPS[currentStep].critical ? { backgroundColor: 'rgba(239,68,68,0.05)', borderColor: 'rgba(239,68,68,0.3)' } : { backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }}
-        className={`rounded-xl p-5 mb-6 transition-all duration-300 border ${STEPS[currentStep].critical ? 'border-2' : ''}`}>
+      <div style={STEPS[currentStep].critical
+        ? { backgroundColor: 'rgba(239,68,68,0.05)', border: '2px solid rgba(239,68,68,0.3)' }
+        : { backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
+        className="rounded-xl p-5 mb-6 transition-all duration-300">
         <div className="flex items-start gap-4">
           <span className={`text-3xl flex-shrink-0 ${STEPS[currentStep].critical ? 'animate-pulse' : ''}`}>{STEPS[currentStep].icon}</span>
           <div className="flex-1 min-w-0">
@@ -117,10 +119,10 @@ export const MiningPipeline = () => {
 
             {/* 72h critical warning */}
             {currentStep === 2 && (
-              <div style={{ backgroundColor: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.2)' }} className="flex items-center gap-2 px-4 py-3 rounded-lg mt-2 border">
+              <div style={{ backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }} className="flex items-center gap-2 px-4 py-3 rounded-lg mt-2">
                 <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: '#ef4444' }} />
+                  <span className="relative inline-flex rounded-full h-3 w-3" style={{ backgroundColor: '#ef4444' }} />
                 </span>
                 <span style={{ color: '#f87171' }} className="text-xs font-bold">
                   WARNING: Missing this 72-hour window means restarting the ENTIRE mining cycle from scratch!
@@ -143,7 +145,7 @@ export const MiningPipeline = () => {
                     <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">Cycle 2 ({selectedLevel >= 8 ? '15%' : '10%'})</div>
                     <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{fmtNum(nftmCalc.cycle2)} NFTM</div>
                   </div>
-                  <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.3)' }} className="p-3 rounded-lg text-center border">
+                  <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.3)' }} className="p-3 rounded-lg text-center">
                     <div style={{ color: '#FFFFFF' }} className="text-xs">Total NFTM</div>
                     <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{fmtNum(nftmCalc.total)} NFTM</div>
                   </div>
@@ -171,42 +173,24 @@ export const MiningPipeline = () => {
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between">
         <button onClick={goBack} disabled={currentStep === 0}
-          style={currentStep === 0 ? { color: 'rgba(255,255,255,0.4)', borderColor: 'rgba(255,255,255,0.05)', opacity: 0.3 } : { color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.1)' }}
-          className="px-5 py-2 rounded-full text-xs font-semibold transition-all border hover:border-white/50">
+          style={currentStep === 0
+            ? { color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.05)', opacity: 0.3 }
+            : { color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.1)' }}
+          className="px-5 py-2 rounded-full text-xs font-semibold transition-all">
           ← Back
         </button>
         <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{currentStep + 1} / 5</span>
         <button onClick={goNext} disabled={currentStep === 4}
-          style={currentStep === 4 ? { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.4)', opacity: 0.3 } : { backgroundColor: '#FFFFFF', color: '#000000', boxShadow: '0 0 12px rgba(255,255,255,0.2)' }}
+          style={currentStep === 4
+            ? { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.4)', opacity: 0.3 }
+            : { backgroundColor: '#FFFFFF', color: '#000000', boxShadow: '0 0 12px rgba(255,255,255,0.2)' }}
           className="px-5 py-2 rounded-full text-xs font-semibold transition-all">
           Next →
         </button>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-6">
-        <div style={{ backgroundColor: '#383838' }} className="rounded-lg border border-white/5 p-3">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase">Mining Cycle</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{miningDays} days</div>
-        </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-lg border border-white/5 p-3">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase">NFTM Cycle 1</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtNum(nftmCalc.cycle1)}</div>
-        </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-lg border border-white/5 p-3">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase">NFTM Cycle 2</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtNum(nftmCalc.cycle2)}</div>
-          {selectedLevel >= 8 && <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-[10px] font-semibold">+5% enhanced</div>}
-        </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-lg border border-white/5 p-3">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase">Total Pipeline</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">~{miningDays * 2 + 3}d</div>
-        </div>
-      </div>
-
-      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs leading-relaxed mt-4">
-        Auto-sell triggers if DA is not sold manually before the TokenStack period expires (70% payout vs 75% manual).
-        Both mining and farming cycles mirror the same duration ({miningDays} days for {levelName}).
+      <p className="text-xs leading-relaxed mt-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        Mining and farming cycles mirror the same duration ({miningDays} days for {levelName}).
       </p>
     </div>
   );

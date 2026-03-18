@@ -8,10 +8,8 @@ export const DaPriceSimulator = () => {
   const [liquidityInflow, setLiquidityInflow] = useState(0);
 
   const fmtUsd = (n) => {
-    if (Math.abs(n) >= 10000) {
-        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
-    }
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n);
+    const digits = Math.abs(n) >= 10000 ? 0 : 2;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits }).format(n);
   };
   const fmtNum = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
 
@@ -59,28 +57,28 @@ export const DaPriceSimulator = () => {
   const lastPt = curveData[curveData.length - 1];
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF' }} className="p-6 rounded-xl not-prose border border-white/5">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">DA Price Simulator</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium border">Interactive</span>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-        <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+        <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">Current DA Price</div>
           <div style={{ color: '#FFFFFF' }} className="text-lg md:text-xl font-black transition-all duration-300">{fmtUsd(finalPrice)}</div>
           <div style={{ color: 'rgba(255,255,255,0.7)' }} className="text-xs font-semibold mt-1">
             {priceChange >= 0 ? '↑' : '↓'} {Math.abs(priceChange).toFixed(2)}% from $1.00
           </div>
         </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+        <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">Circulating Supply</div>
           <div style={{ color: '#FFFFFF' }} className="text-lg md:text-xl font-black transition-all duration-300">{fmtNum(finalSupply)}</div>
           <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-1">Burned: {fmtNum(burnAmount)} ({burnAmount > 0 ? ((burnAmount / INITIAL_SUPPLY) * 100).toFixed(1) : '0.0'}%)</div>
         </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+        <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">Liquidity Pool</div>
           <div style={{ color: '#FFFFFF' }} className="text-lg md:text-xl font-black transition-all duration-300">{fmtUsd(finalLiquidity)}</div>
           <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-1">100% USDT backed</div>
@@ -89,7 +87,7 @@ export const DaPriceSimulator = () => {
 
       {/* Sliders */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+        <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
           <div className="flex justify-between items-center mb-2">
             <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-sm font-medium">Tokens Burned</label>
             <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{fmtNum(burnAmount)} DA</span>
@@ -100,7 +98,7 @@ export const DaPriceSimulator = () => {
             style={{ touchAction: 'manipulation', backgroundColor: 'rgba(56,56,56,0.7)' }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>0</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>20M DA</span></div>
         </div>
-        <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4">
+        <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4">
           <div className="flex justify-between items-center mb-2">
             <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-sm font-medium">Liquidity Inflow</label>
             <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{fmtUsd(liquidityInflow)}</span>
@@ -114,10 +112,10 @@ export const DaPriceSimulator = () => {
       </div>
 
       {/* SVG Chart */}
-      <div style={{ backgroundColor: '#383838' }} className="rounded-xl border border-white/5 p-4 overflow-x-auto">
+      <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4 overflow-x-auto">
         <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs font-semibold mb-2">Price Curve</div>
         {burnAmount === 0 && liquidityInflow === 0 && (
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.1)' }} className="flex items-center gap-3 px-4 py-3 mb-3 rounded-lg border">
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }} className="flex items-center gap-3 px-4 py-3 mb-3 rounded-lg">
             <span className="text-lg">👆</span>
             <span style={{ color: 'rgba(255,255,255,0.7)' }} className="text-xs font-medium">
               Move the sliders above to simulate how burning DA tokens and adding liquidity increases the DA price.
