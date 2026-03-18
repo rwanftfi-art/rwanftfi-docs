@@ -30,35 +30,57 @@ Use the interactive explorer below to compare any two NFT tiers side-by-side:
 <NftTierExplorer />
 
 ## Income Limits & Auto-Renewal
-
-Every NFT has a strict Income Limit. Once a user earns marketing rewards equal to this limit, the limit reaches zero, and the user misses all further rewards. To prevent this, users must renew their NFT. Users cannot manually repurchase the exact same NFT if their remaining limit is above 30%.
-
-**Autobuy (3/3 System):** For all NFTs except the top two Elite levels, users can activate an "Autobuy" function. If activated, the system automatically repurchases the same level NFT up to 3 times to prevent missed rewards, provided there are sufficient USDT funds on the available or accumulative balances. After 3 uses, the function is locked for that specific NFT, but resets back to 3/3 if the user upgrades to a higher level.
-
+<AccordionGroup>
+  <Accordion title="How Income Limits Work" icon="gauge-high">
+    Every NFT has a strict Income Limit. Once you earn marketing rewards
+    equal to this limit, it reaches zero and you **miss all further rewards**.
+    To prevent this, renew your NFT. You cannot manually repurchase if your
+    remaining limit is above 30%.
+  </Accordion>
+  <Accordion title="Autobuy (3/3 System)" icon="rotate">
+    For all NFTs except Elite (L9–L10), activate Autobuy to automatically
+    repurchase the same NFT up to 3 times when limit hits zero. Requires
+    sufficient USDT on available or accumulative balance. Resets to 3/3
+    on NFT upgrade.
+  </Accordion>
+  <Accordion title="Business Sale" icon="handshake">
+    Sell your entire business structure (partner tree and downline) to another
+    user through a DAO-authorized process. Fixed commission: 500 USDT
+    (adjustable via DAO). Individual NFT sales without the structure
+    are not supported.
+  </Accordion>
+</AccordionGroup>
 <Warning>
-  **Income Limit:** Once your NFT reaches its income limit, you stop receiving ALL marketing rewards. Enable Autobuy to prevent this — or manually renew when your limit drops below 30%.
+  **Income Limit:** Once your NFT reaches its income limit, you stop receiving
+  ALL marketing rewards. Enable Autobuy to prevent this — or manually renew
+  when your limit drops below 30%.
 </Warning>
-
-**Business Sale:**
-Users can sell their entire business structure (partner tree and downline) to another user through a DAO-authorized process. A fixed commission of 500 USDT is charged per business sale. This commission amount can be adjusted through DAO voting. Note: selling an individual NFT as a standalone asset (without the structure) is not supported — the NFT is tied to the account and business structure.
-
 ## Gift NFTs & Vouchers
-
-To facilitate network growth and promotions, the system includes special promotional assets.
-
-<Info>
-  **Gift NFTs** are non-sellable promotional assets that place users permanently in the binary tree for team building. They cannot be purchased — they are awarded through promotions or Career Rank achievements. A user can hold unlimited Gift NFTs in their account.
-</Info>
-
+<CardGroup cols={2}>
+  <Card title="Gift NFTs" icon="gift">
+    Non-sellable promotional assets that place users permanently in the binary
+    tree. Cannot be purchased — awarded through promotions or Career Rank
+    achievements. Unlimited per account.
+  </Card>
+  <Card title="Gift Vouchers" icon="ticket">
+    User-generated coupons from 5 USDT, valid 365 days. Cover up to 100%
+    of NFT purchase. Transferable at 0% commission. Cannot combine
+    with Accumulative Balance.
+  </Card>
+</CardGroup>
 <Warning>
-  **Gift NFT Overwrite:** If you already own a Regular NFT and activate a Gift NFT, the Gift NFT will **overwrite** your Regular NFT. This is generally not recommended — activate Gift NFTs only on accounts that do not have a Regular NFT.
+  **Gift NFT Overwrite:** If you already own a Regular NFT and activate
+  a Gift NFT, the Gift NFT will **overwrite** your Regular NFT. Only activate
+  Gift NFTs on accounts without a Regular NFT.
 </Warning>
-
-**Gift Vouchers:** Users can generate Gift Vouchers of any denomination starting from 5 USDT, with a validity period of 365 days. Vouchers can be transferred to other users with a 0% commission. They can be used to cover up to 100% of an NFT purchase price. Vouchers can be combined with the Regular Balance, but cannot be combined with the Accumulative Balance. Vouchers cannot be transferred on the very last day of their 365-day lifetime.
-
 ## Ambassador & VIP Edition
-
-These are highly exclusive, limited-edition NFTs reserved for top performers and strategic partners.
-
-* **Ambassador NFT:** Limited to 100 units (launching Q4 2026). These NFTs have no income limits and do not participate in standard farming. They have their own dedicated reward system. They are not transferred if a user executes a Business Sale.
-* **VIP Edition NFT:** Limited to 100 units (launching Q4 2026). Access is granted as a reward for achieving the "Leader" Career Rank or higher.
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    Limited to **100 units** (Q4 2026). No income limits. Own dedicated reward
+    system. Not transferred on Business Sale.
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    Limited to **100 units** (Q4 2026). Access granted for achieving
+    **Leader** Career Rank or higher.
+  </Card>
+</CardGroup>
