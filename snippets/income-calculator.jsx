@@ -22,6 +22,7 @@ export const IncomeCalculator = () => {
     return { level: lvl, pct: pct, gross: gross, isUnlocked: isUnlocked, isPhase2Only: isPhase2Only, isLocked: lvl > maxDepth };
   });
 
+  const activeLevels = levelIncome.filter(function(l) { return l.isUnlocked && l.pct > 0; }).length;
   const totalIncome = levelIncome.reduce(function(s, l) { return s + l.gross; }, 0);
   const netIncome = totalIncome * 0.75;
   const accumulative = totalIncome * 0.20;
@@ -78,7 +79,7 @@ export const IncomeCalculator = () => {
       <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.1)' }} className="rounded-xl p-6 text-center mb-4">
         <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">Total Gross Income</div>
         <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
-        <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{maxDepth} active levels x {salesPerLevel} sales</div>
+        <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{activeLevels} active levels x {salesPerLevel} sales</div>
       </div>
 
       {/* Three monochrome cards */}

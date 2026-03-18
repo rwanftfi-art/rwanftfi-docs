@@ -143,7 +143,7 @@ export const DaPriceSimulator = () => {
           })}
           <path d={areaD} fill="url(#daPriceGrad)" />
           <path d={pathD} fill="none" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          {burnAmount > 0 && (
+          {(burnAmount > 0 || liquidityInflow > 0) && (
             <g>
               <line x1={getX(50)} y1={PAD.top} x2={getX(50)} y2={PAD.top + cH} stroke="#FFFFFF" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.5" />
               <circle cx={getX(50)} cy={getY(lastPt.price)} r="5" fill="#FFFFFF" stroke="#000000" strokeWidth="2" />
