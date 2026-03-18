@@ -20,12 +20,6 @@ export const NftTierExplorer = () => {
     { name: "INFINITY", tier: "Elite",   level: 10, price: 24000, limit: 70000,  depth: 19, mining: 40,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A" },
   ];
 
-  const TIER_COLORS = {
-    Basic:   { border: 'border-white/25', text: 'text-white dark:text-black',  badge: 'bg-white/15 text-white dark:bg-black/15 dark:text-black border border-white/25 dark:border-black/25' },
-    Premium: { border: 'border-white/35', text: 'text-white dark:text-black',  badge: 'bg-white/15 text-white dark:bg-black/15 dark:text-black border border-white/35 dark:border-black/35' },
-    Elite:   { border: 'border-amber-400/50', text: 'text-amber-300 dark:text-amber-600',   badge: 'bg-amber-500/20 text-amber-300 dark:text-amber-600 border border-amber-400/40 dark:border-amber-600/40' },
-  };
-
   const RADAR_AXES = ['Affordability', 'Income Limit', 'Mkt Depth', 'Mining Speed', 'ROI'];
 
   const normalize = (nft) => {
@@ -54,14 +48,14 @@ export const NftTierExplorer = () => {
     const cx = size / 2, cy = size / 2, r = size * 0.36;
     const axes = 5, step = (2 * Math.PI) / axes, start = -Math.PI / 2;
     const pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
-    const colors = ['#FFFFFF', '#F59E0B'];
+    const colors = ['#FFFFFF', '#999999'];
     return (
       <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[260px] mx-auto">
         {[25, 50, 75, 100].map(lv => (
-          <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="white" strokeOpacity="0.06" strokeWidth="0.5" />
+          <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
         ))}
         {Array.from({ length: axes }, (_, i) => (
-          <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.06" strokeWidth="0.5" />
+          <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
         ))}
         {items.map((item, idx) => {
           const vals = normalize(item);
@@ -75,31 +69,33 @@ export const NftTierExplorer = () => {
         })}
         {Array.from({ length: axes }, (_, i) => {
           const lp = pt(i, 120);
-          return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.4)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
+          return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
         })}
       </svg>
     );
   };
 
   const FeaturePill = ({ on, label }) => (
-    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${on ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-white/5 text-white/40 border-white/5 dark:bg-zinc-100 dark:text-zinc-400 dark:border-zinc-200'}`}>
+    <span style={{ color: on ? '#FFFFFF' : 'rgba(255,255,255,0.4)', backgroundColor: on ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.05)', borderColor: on ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.05)' }}
+      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border">
       {on ? '✓' : '✗'} {label}
     </span>
   );
 
   return (
-    <div className="p-6 rounded-xl not-prose bg-[#000000] border border-white/5 dark:bg-white dark:border-zinc-200">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF' }} className="p-6 rounded-xl not-prose border border-white/5">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-serif italic text-white">NFT Tier Explorer</h3>
-        <span className="text-xs px-3 py-1 rounded-full font-medium bg-white/10 text-white/60 border border-white/20 dark:bg-black/10 dark:text-black/60 dark:border-black/20">Interactive</span>
+        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">NFT Tier Explorer</h3>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', borderColor: 'rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium border">Interactive</span>
       </div>
 
       {/* Tier Filter */}
       <div className="flex gap-2 mb-5 flex-wrap">
         {['All', 'Basic', 'Premium', 'Elite'].map(t => (
           <button key={t} onClick={() => { setFilter(t); setSelected(null); }}
-            className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${filter === t ? 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]' : 'bg-[#383838]/70 text-white/70 hover:text-white dark:bg-zinc-100 dark:text-zinc-500 dark:hover:text-zinc-900'}`}>
+            style={filter === t ? { backgroundColor: '#FFFFFF', color: '#000000' } : { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.7)' }}
+            className="px-4 py-1.5 rounded-full text-xs font-medium transition-all">
             {t}
           </button>
         ))}
@@ -108,23 +104,23 @@ export const NftTierExplorer = () => {
       {/* Card Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {filtered.map(nft => {
-          const tc = TIER_COLORS[nft.tier];
           const isSel = selected?.level === nft.level;
           const isCmp = compare.find(c => c.level === nft.level);
           return (
             <button key={nft.level} onClick={() => setSelected(isSel ? null : nft)}
-              className={`relative text-left p-4 rounded-xl transition-all duration-300 bg-[#383838] border dark:bg-zinc-50 dark:border-zinc-200 ${isSel ? 'border-white/60 dark:border-black/60 shadow-[0_0_15px_rgba(255,255,255,0.15)] ring-1 ring-white/60 dark:ring-black/60' : isCmp ? `${tc.border} ring-1 ring-white/30 dark:ring-black/30` : 'border-white/5 hover:border-white/50 dark:hover:border-black/50 hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]'}`}>
+              style={{ backgroundColor: '#383838', borderColor: isSel ? 'rgba(255,255,255,0.6)' : isCmp ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.05)', textAlign: 'left' }}
+              className={`relative p-4 rounded-xl transition-all duration-300 border ${isSel ? 'shadow-[0_0_15px_rgba(255,255,255,0.15)] ring-1 ring-white/60' : isCmp ? 'ring-1 ring-white/30' : 'hover:border-white/50 hover:shadow-[0_0_12px_rgba(255,255,255,0.15)]'}`}>
               <div className="flex items-center justify-between mb-2">
-                <span className={`text-[10px] font-bold uppercase tracking-wider ${tc.text}`}>{nft.tier}</span>
-                <span className="text-[10px] text-white/40 dark:text-zinc-400">L{nft.level}</span>
+                <span style={{ color: '#FFFFFF' }} className="text-[10px] font-bold uppercase tracking-wider">{nft.tier}</span>
+                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px]">L{nft.level}</span>
               </div>
-              <div className="text-sm font-bold text-white dark:text-zinc-900 mb-1">{nft.name}</div>
-              <div className="text-xl font-black text-white dark:text-zinc-900">{fmtUsd(nft.price)}</div>
-              <div className="text-[11px] text-white/40 dark:text-zinc-500 mt-1">Limit: {fmtUsd(nft.limit)}</div>
-              <div className="text-[11px] text-white/40 dark:text-zinc-500">Depth: {nft.depth} levels</div>
+              <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
+              <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Limit: {fmtUsd(nft.limit)}</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Depth: {nft.depth} levels</div>
               {isCmp && (
-                <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white dark:bg-black rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(255,255,255,0.3)]">
-                  <span className="text-black dark:text-white text-[10px] font-bold">{compare.indexOf(isCmp) + 1}</span>
+                <div style={{ backgroundColor: '#FFFFFF' }} className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center shadow-[0_0_8px_rgba(255,255,255,0.3)]">
+                  <span style={{ color: '#000000' }} className="text-[10px] font-bold">{compare.indexOf(isCmp) + 1}</span>
                 </div>
               )}
             </button>
@@ -134,18 +130,18 @@ export const NftTierExplorer = () => {
 
       {/* Detail Panel */}
       {selected && (
-        <div className="p-5 rounded-xl bg-[#383838] border border-white/5 mb-6 dark:bg-zinc-50 dark:border-zinc-200">
+        <div style={{ backgroundColor: '#383838' }} className="p-5 rounded-xl border border-white/5 mb-6">
           <div className="flex flex-col md:flex-row md:items-start gap-6">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-4">
-                <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full ${TIER_COLORS[selected.tier].badge}`}>{selected.tier}</span>
-                <h4 className="text-base font-bold text-white dark:text-zinc-900">Level {selected.level} — {selected.name}</h4>
+                <span style={{ color: '#FFFFFF', backgroundColor: 'rgba(255,255,255,0.15)', borderColor: 'rgba(255,255,255,0.25)' }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border">{selected.tier}</span>
+                <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
                 {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.mining ? `${selected.mining} days` : '—'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
-                  <div key={label} className="bg-[#383838]/70 dark:bg-zinc-100 rounded-lg p-3">
-                    <div className="text-[10px] text-white/40 dark:text-zinc-500 uppercase tracking-wide">{label}</div>
-                    <div className="text-lg font-bold text-white dark:text-zinc-900">{val}</div>
+                  <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
+                    <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
+                    <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
                   </div>
                 ))}
               </div>
@@ -158,7 +154,8 @@ export const NftTierExplorer = () => {
             <div className="w-full md:w-auto flex flex-col items-center">
               <RadarChart items={[selected]} size={200} />
               <button onClick={() => toggleCompare(selected)}
-                className={`mt-3 px-5 py-2 rounded-full text-xs font-semibold transition-all ${compare.find(c => c.level === selected.level) ? 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]' : 'border border-white/10 text-white/40 hover:border-white/50 dark:hover:border-black/50 hover:text-white dark:border-zinc-300 dark:text-zinc-500'}`}>
+                style={compare.find(c => c.level === selected.level) ? { backgroundColor: '#FFFFFF', color: '#000000' } : { color: 'rgba(255,255,255,0.4)', borderColor: 'rgba(255,255,255,0.1)' }}
+                className={`mt-3 px-5 py-2 rounded-full text-xs font-semibold transition-all ${compare.find(c => c.level === selected.level) ? 'shadow-[0_0_12px_rgba(255,255,255,0.2)]' : 'border hover:border-white/50 hover:text-white'}`}>
                 {compare.find(c => c.level === selected.level) ? '✓ In comparison' : '+ Add to compare'}
               </button>
             </div>
@@ -168,31 +165,30 @@ export const NftTierExplorer = () => {
 
       {/* Compare Panel */}
       {compare.length === 2 && (
-        <div className="p-5 rounded-xl bg-[#383838] border border-white/5 mb-4 dark:bg-zinc-50 dark:border-zinc-200">
-          <h4 className="text-base font-bold text-white dark:text-zinc-900 mb-5 text-center">
-            {compare[0].name} <span className="text-white/40 mx-2">vs</span> {compare[1].name}
+        <div style={{ backgroundColor: '#383838' }} className="p-5 rounded-xl border border-white/5 mb-4">
+          <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold mb-5 text-center">
+            {compare[0].name} <span style={{ color: 'rgba(255,255,255,0.4)' }} className="mx-2">vs</span> {compare[1].name}
           </h4>
-          {/* Radar chart on top, table below — stacked layout to prevent truncation */}
           <div className="flex flex-col items-center gap-6">
             <div className="w-full max-w-[280px]">
               <RadarChart items={compare} size={260} />
               <div className="flex justify-center gap-6 mt-2">
                 {compare.map((item, idx) => (
                   <div key={item.level} className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: idx === 0 ? '#FFFFFF' : '#F59E0B' }} />
-                    <span className="text-xs font-semibold text-white/40">{item.name}</span>
+                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: idx === 0 ? '#FFFFFF' : '#999999' }} />
+                    <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs font-semibold">{item.name}</span>
                   </div>
                 ))}
               </div>
             </div>
             <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
-                <thead><tr className="border-b border-white/5 dark:border-zinc-200">
-                  <th className="text-left py-2 text-white/40 font-medium">Metric</th>
-                  <th className="text-right py-2 font-semibold text-white dark:text-black">{compare[0].name}</th>
-                  <th className="text-right py-2 font-semibold text-amber-400">{compare[1].name}</th>
+                <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                  <th style={{ color: 'rgba(255,255,255,0.5)' }} className="text-left py-2 font-medium">Metric</th>
+                  <th style={{ color: '#FFFFFF' }} className="text-right py-2 font-semibold">{compare[0].name}</th>
+                  <th style={{ color: '#999999' }} className="text-right py-2 font-semibold">{compare[1].name}</th>
                 </tr></thead>
-                <tbody className="text-white dark:text-zinc-700">
+                <tbody style={{ color: '#FFFFFF' }}>
                   {[
                     ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
                     ['Income Limit', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
@@ -203,8 +199,8 @@ export const NftTierExplorer = () => {
                     ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
                     ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
                   ].map(([label, v1, v2], i) => (
-                    <tr key={i} className="border-b border-white/5 dark:border-zinc-100">
-                      <td className="py-2 text-white/40">{label}</td>
+                    <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <td style={{ color: 'rgba(255,255,255,0.5)' }} className="py-2">{label}</td>
                       <td className="py-2 text-right font-semibold">{v1}</td>
                       <td className="py-2 text-right font-semibold">{v2}</td>
                     </tr>
@@ -213,11 +209,11 @@ export const NftTierExplorer = () => {
               </table>
             </div>
           </div>
-          <button onClick={() => setCompare([])} className="mt-4 text-xs text-white/40 hover:text-white transition-colors dark:text-black/40 dark:hover:text-black">Clear comparison</button>
+          <button onClick={() => setCompare([])} style={{ color: 'rgba(255,255,255,0.4)' }} className="mt-4 text-xs hover:text-white transition-colors">Clear comparison</button>
         </div>
       )}
 
-      <p className="text-xs text-white/40 mt-4 dark:text-zinc-500">Click any card to expand details. Select two cards to compare side-by-side with radar chart.</p>
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-4">Click any card to expand details. Select two cards to compare side-by-side with radar chart.</p>
     </div>
   );
 };
