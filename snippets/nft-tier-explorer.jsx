@@ -172,8 +172,9 @@ export const NftTierExplorer = () => {
           <h4 className="text-base font-bold text-white dark:text-zinc-900 mb-5 text-center">
             {compare[0].name} <span className="text-white/40 mx-2">vs</span> {compare[1].name}
           </h4>
-          <div className="flex flex-col md:flex-row gap-6 items-center">
-            <div className="flex-1 w-full flex flex-col items-center">
+          {/* Radar chart on top, table below — stacked layout to prevent truncation */}
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-full max-w-[280px]">
               <RadarChart items={compare} size={260} />
               <div className="flex justify-center gap-6 mt-2">
                 {compare.map((item, idx) => (
@@ -184,7 +185,7 @@ export const NftTierExplorer = () => {
                 ))}
               </div>
             </div>
-            <div className="flex-1 w-full overflow-x-auto">
+            <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
                 <thead><tr className="border-b border-white/5 dark:border-zinc-200">
                   <th className="text-left py-2 text-white/40 font-medium">Metric</th>
@@ -192,14 +193,27 @@ export const NftTierExplorer = () => {
                   <th className="text-right py-2 font-semibold text-amber-400">{compare[1].name}</th>
                 </tr></thead>
                 <tbody className="text-white dark:text-zinc-700">
-                  {[['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)], ['Income Limit', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)], ['ROI', `${(compare[0].limit / compare[0].price).toFixed(2)}x`, `${(compare[1].limit / compare[1].price).toFixed(2)}x`], ['Mkt Depth', `${compare[0].depth} lvls`, `${compare[1].depth} lvls`], ['Mining', compare[0].mining ? `${compare[0].mining}d` : '—', compare[1].mining ? `${compare[1].mining}d` : '—'], ['Matching Bonus', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'], ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'], ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗']].map(([label, v1, v2], i) => (
-                    <tr key={i} className="border-b border-white/5 dark:border-zinc-100"><td className="py-2 text-white/40">{label}</td><td className="py-2 text-right font-semibold">{v1}</td><td className="py-2 text-right font-semibold">{v2}</td></tr>
+                  {[
+                    ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
+                    ['Income Limit', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
+                    ['ROI', `${(compare[0].limit / compare[0].price).toFixed(2)}x`, `${(compare[1].limit / compare[1].price).toFixed(2)}x`],
+                    ['Mkt Depth', `${compare[0].depth} lvls`, `${compare[1].depth} lvls`],
+                    ['Mining', compare[0].mining ? `${compare[0].mining}d` : '—', compare[1].mining ? `${compare[1].mining}d` : '—'],
+                    ['Matching', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
+                    ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
+                    ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
+                  ].map(([label, v1, v2], i) => (
+                    <tr key={i} className="border-b border-white/5 dark:border-zinc-100">
+                      <td className="py-2 text-white/40">{label}</td>
+                      <td className="py-2 text-right font-semibold">{v1}</td>
+                      <td className="py-2 text-right font-semibold">{v2}</td>
+                    </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-          <button onClick={() => setCompare([])} className="mt-4 text-xs text-white/40 hover:text-white transition-colors dark:hover:text-zinc-900">Clear comparison</button>
+          <button onClick={() => setCompare([])} className="mt-4 text-xs text-white/40 hover:text-white transition-colors dark:text-black/40 dark:hover:text-black">Clear comparison</button>
         </div>
       )}
 
