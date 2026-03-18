@@ -22,7 +22,7 @@ export const MiningPipeline = () => {
   var nftmCycle1 = lvl.price * lvl.c1;
   var nftmCycle2 = lvl.price * lvl.c2;
   var totalNftm = nftmCycle1 + nftmCycle2;
-  var totalDays = lvl.days * 2 + 3; // mining + farming + 72h claim window
+  var totalDays = lvl.days * 2;
   var daPrice = 1.00; // Initial DA price
   var daReceived = totalNftm / daPrice; // NFTM converts to DA at current price
   return (
