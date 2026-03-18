@@ -1,6 +1,7 @@
 ---
 title: "NFT Ecosystem"
 description: "10 NFT tiers from Basic to Elite — pricing, income limits, features, and exclusive editions."
+icon: "id-card"
 ---
 
 import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
@@ -13,6 +14,18 @@ The central product of the RWANFTFI ecosystem is the NFT itself. Owning an NFT i
 
 Regular NFTs are the primary entry point into the ecosystem. They are divided into three tiers — **Basic** (Levels 1–4), **Premium** (Levels 5–8), and **Elite** (Levels 9–10). The level of the NFT dictates the maximum income limit, the depth of marketing levels the user can earn from, and the specific financial features unlocked. The platform features exactly 10 NFT levels priced in USDT.
 
+<CardGroup cols={3}>
+  <Card title="Basic Tier" icon="circle">
+    **Levels 1–4** (GENESIS → ECLIPSE) · $28 – $275 · Entry-level access, RWA & FinPro
+  </Card>
+  <Card title="Premium Tier" icon="circle-half-stroke">
+    **Levels 5–8** (HYDRO → AURORA) · $550 – $5,500 · Mining, Lending, Matching Bonus
+  </Card>
+  <Card title="Elite Tier" icon="circle-dot">
+    **Levels 9–10** (FLAME → INFINITY) · $11,000 – $24,000 · Enhanced mining, shortest cycles
+  </Card>
+</CardGroup>
+
 Use the interactive explorer below to compare any two NFT tiers side-by-side:
 
 <NftTierExplorer />
@@ -23,12 +36,20 @@ Every NFT has a strict Income Limit. Once a user earns marketing rewards equal t
 
 **Autobuy (3/3 System):** For all NFTs except the top two Elite levels, users can activate an "Autobuy" function. If activated, the system automatically repurchases the same level NFT up to 3 times to prevent missed rewards, provided there are sufficient USDT funds on the available or accumulative balances. After 3 uses, the function is locked for that specific NFT, but resets back to 3/3 if the user upgrades to a higher level.
 
+<Warning>
+  **Income Limit:** Once your NFT reaches its income limit, you stop receiving ALL marketing rewards. Enable Autobuy to prevent this — or manually renew when your limit drops below 30%.
+</Warning>
+
 **Business Sale:**
 Users can sell their entire business structure (partner tree and downline) to another user through a DAO-authorized process. A fixed commission of $500 is charged per business sale. This commission amount can be adjusted through DAO voting. Note: selling an individual NFT as a standalone asset (without the structure) is not supported — the NFT is tied to the account and business structure.
 
 ## Gift NFTs & Vouchers
 
 To facilitate network growth and promotions, the system includes special promotional assets.
+
+<Info>
+  **Gift NFTs** cannot be purchased. They are awarded through promotions or Career Rank achievements and place users permanently in the binary tree.
+</Info>
 
 **Gift NFTs:** Gift NFTs are non-sellable promotional assets used to introduce new users to the marketing structure. They place the user permanently in the blockchain's binary tree, allowing them to start building a team. They cannot be purchased directly; they are awarded through promotions or by achieving Career Ranks.
 

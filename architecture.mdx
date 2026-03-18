@@ -1,31 +1,51 @@
 ---
-title: "Technical Architecture"
-description: "Diamond Pattern (EIP-2535), balance schema, payment priority, and CertiK security audit."
+title: "Smart Contract Architecture"
+description: "Diamond Pattern (EIP-2535), Facets, upgradability, role management, and balance schema."
+icon: "cubes"
 ---
 
-# Technical Architecture
+# Smart Contract Architecture
 
 The RWANFTFI platform is built on a robust, modular, and secure smart contract architecture that governs all interactions, distributions, and token mechanics without central control.
 
-## Diamond Pattern (EIP-2535) & Facets
+## Diamond Pattern (EIP-2535)
 
 The core of the RWANFTFI system is implemented using the Diamond Pattern (EIP-2535). This architectural choice allows the protocol to bypass the standard smart contract size limit (24KB) by splitting functionality across multiple independent modules called "Facets" (smart contract modules accessed through a single proxy contract).
 
-The system is divided into the following key Facets:
-* **AdminFacet:** Manages system parameters, roles, business sales, and the minting of special NFTs.
-* **MarketingFacet:** Handles user registration, NFT purchases, and the distribution of marketing rewards.
-* **FarmingFacet:** Controls the mining of NFTM and the subsequent farming cycles to generate Deflationary Assets (DA).
-* **ResolverFacet:** Processes expired DA stacks, burns used Vouchers, and resolves frozen accounts.
-* **PaymentFacet:** Manages user deposits, withdrawals, Voucher creation/transfers, and accumulative balance transfers.
-* **TreeFacet:** Contains the logic for the 22-level binary structural marketing tree, including user placement algorithms.
-* **ViewFacet:** Provides read-only functions to query user data, balances, system parameters, and tree structures.
+## Core Facets
 
-**Upgradability Matrix:**
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    System parameters, roles, business sales, and special NFT minting.
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    User registration, NFT purchases, and marketing reward distribution.
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    NFTM mining and DA farming cycle management.
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    Deposits, withdrawals, Voucher creation, and accumulative transfers.
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    22-level binary tree logic and user placement algorithms.
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    Expired DA stack processing, Voucher burns, and frozen account resolution.
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    Read-only queries for user data, balances, and tree structures.
+  </Card>
+</CardGroup>
+
+## Upgradability Matrix
+
 * **Diamond Contract (EIP-2535):** Upgradeable via Facet cuts — allows adding, replacing, or removing individual modules without redeploying the entire system.
 * **TokenReserve (DA):** Upgradeable via Transparent Proxy — logic updates are possible without changing the contract address.
 * **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Non-upgradeable — ensuring immutability of core assets and governance rules.
 
-**Role Management:**
+## Role Management
+
 The system utilizes a hierarchical role structure (AccessControlEnumerable) to manage permissions securely:
 * `ADMIN_ROLE`: Can grant/revoke other roles and change critical system parameters.
 * `SERVICE_ROLE`: Executed by backend scripts for automated tasks (e.g., resolving expired stacks, processing cross-chain deposits).
@@ -48,18 +68,22 @@ To manage the complex flow of funds, RWANFTFI employs a multi-tiered balance sch
      - If no participant in the chain has an active Income Limit, the remaining funds are routed to the DA liquidity pool, increasing the DA token's value for all holders.
 3. **Limit (`limit`):** Represents the maximum remaining income an NFT can generate.
 
-**Payment Priority Order:**
-When a user makes a purchase, the smart contract automatically deducts funds in a strict priority order to optimize the user's assets:
-1. **Vouchers:** Consumed first if applied.
-2. **Accumulative Balance:** Applied next (with a 20% fee).
-3. **Regular Balance:** Finally, any remaining required amount is deducted from the available balance.
+### Payment Priority
 
-*Note: Gift Vouchers cannot be combined with the Accumulative Balance. A user must use either [Voucher + Regular Balance], [100% Accumulative], or [Accumulative + Regular Balance].*
+When making a purchase, the smart contract deducts funds in this order:
 
-## Security & CertiK Audit
+<Steps>
+  <Step title="Vouchers">
+    Gift Voucher value is consumed first, if applied.
+  </Step>
+  <Step title="Accumulative Balance">
+    Applied next, with a 20% usage fee.
+  </Step>
+  <Step title="Regular Balance">
+    Any remaining amount is deducted from available balance.
+  </Step>
+</Steps>
 
-Security is embedded across multiple levels within the platform. All logic and distribution algorithms are locked in immutable code, ensuring 100% transparency. System evolution is managed collectively via the DAO, removing centralized points of failure.
-
-The smart contracts have passed a comprehensive independent audit by **CertiK**, a leading Web3 security firm. This audit verified the architecture, assessed vulnerabilities, and confirmed logic correctness.
-
-The platform employs a robust multi-layer protection system for user accounts, including a three-level security system, Transaction Authentication Number (TAN) codes, a separate financial password, standard Two-Factor Authentication (2FA), and Telegram Bot verification. While users can log into the web dashboard using an email and password to view their data and balances, executing any financial transaction (withdrawal, purchase, transfer) strictly requires the connection of a Web3 cryptocurrency wallet (e.g., MetaMask, Trust Wallet).
+<Warning>
+  Gift Vouchers **cannot** be combined with the Accumulative Balance. Valid combinations: [Voucher + Regular], [100% Accumulative], or [Accumulative + Regular].
+</Warning>

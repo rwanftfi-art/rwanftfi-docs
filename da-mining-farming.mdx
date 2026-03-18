@@ -1,0 +1,46 @@
+---
+title: "Mining & Farming"
+description: "Two-step pipeline from NFTM mining to DA token generation."
+icon: "pickaxe"
+---
+
+import { MiningPipeline } from "/snippets/mining-pipeline.jsx"
+
+# Mining & Farming Pipeline
+
+To acquire DA, users must participate in a two-step process: Mining and Farming. Only Premium (Level 5+) and Elite NFTs are capable of this.
+
+<Steps>
+  <Step title="Activate Mining">
+    Start mining on your eligible NFT. The cycle duration depends on your level — from 45 days (HYDRO) down to 40 days (INFINITY).
+  </Step>
+  <Step title="Generate NFTM">
+    Your NFT generates NFTM over the cycle period. Levels 5–7 produce 10% + 10% across two cycles. Levels 8–10 produce 10% + **15%** (enhanced).
+  </Step>
+  <Step title="Claim Within 72 Hours">
+    Once mining completes, you have exactly **72 hours** to stake your NFTM into Farming. Miss this window and you restart from scratch.
+  </Step>
+  <Step title="Farm DA">
+    Staked NFTM enters Farming for the same duration as the mining cycle. At the end, NFTM converts to DA based on the current price and is credited to your TokenStack.
+  </Step>
+</Steps>
+
+<Warning>
+  **72-Hour Critical Window:** If you fail to stake your NFTM within 72 hours after mining completes, the entire cycle is lost. You must restart mining from scratch. Set a reminder.
+</Warning>
+
+## Mining Cycle Details
+
+When a user activates mining on their eligible NFT, it begins generating NFTM over a specific cycle duration based on the NFT level (ranging from 45 days for Level 5 down to 40 days for Level 10).
+
+Once the mining cycle completes and the NFTM mining counter is credited to the user's account, the user has exactly **72 hours** to claim it and place it into Staking/Farming. If the user fails to stake the NFTM within this 72-hour window, the cycle is lost, and they must restart the mining process from scratch.
+
+The amount of NFTM generated per mining cycle is determined by the NFT level:
+* **Levels 5–7:** Cycle 1: 10% of NFT price; Cycle 2: 10% of NFT price.
+* **Levels 8–10:** Cycle 1: 10% of NFT price; Cycle 2: **15%** of NFT price (enhanced generation for top-tier levels).
+
+## Farming (Converting to DA)
+
+Once staked, the NFTM enters the Farming phase. The duration of the farming cycle mirrors the mining cycle (40–45 days). At the end of this cycle, the NFTM mining counter is converted into actual DA based on the current DA price, and the DA is credited to the user's TokenStack (a smart contract structure that tracks DA holdings and progressive unlock periods).
+
+<MiningPipeline />

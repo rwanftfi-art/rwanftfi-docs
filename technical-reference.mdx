@@ -1,0 +1,21 @@
+---
+title: "Technical Reference"
+description: "Developer-facing glossary of smart contract terms, roles, and architecture components."
+icon: "code"
+---
+
+# Technical Reference
+
+* **Accumulative Event:** A 30-day period (with a 180-day cooldown) initiated via the DAO, during which users can claim expired accumulative balances.
+* **ADMIN_ROLE:** A role with permissions to manage system parameters and grant access.
+* **Diamond Pattern (EIP-2535):** A smart contract architectural pattern that bypasses the 24KB size limit by splitting logic into modules (Facets).
+* **Freeze:** A moderation mechanism initiated exclusively through DAO voting that blocks all financial operations for a specific user account. Used for policy enforcement, not as an emergency security tool. Both freezing and unfreezing require a DAO vote.
+* **freezeTime:** A parameter defining the duration of an account freeze when blocked via the DAO.
+* **GovToken:** The ERC20Votes governance token (10M supply, 6 decimals) used for DAO voting, with auto-delegation and manual delegation disabled.
+* **LibSignatureLogic:** A smart contract library for verifying cryptographic signatures using the SIGNER_ROLE.
+* **Price Impact Event:** A mechanism for managing DA price stability through a special reserve balance (priceImpactBalance).
+* **processExpiredStacks:** A ResolverFacet function for processing DA stacks whose unlock periods have fully expired.
+* **SERVICE_ROLE:** A smart contract role for automated backend operations (processing cross-chain deposits, resolving expired stacks).
+* **SIGNER_ROLE:** A role for cryptographic signature verification when authorizing operations (such as voucher transfers).
+* **TokenStack:** A smart contract data structure that holds a user's DA tokens, tracking the progressive time-based unlock periods (25%, 40%, 50%, 100%) for selling the asset.
+* **Transparent Proxy:** An upgrade pattern for the TokenReserve (DA) contract, allowing logic updates without changing the contract address.
