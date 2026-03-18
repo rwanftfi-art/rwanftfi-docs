@@ -42,18 +42,18 @@ export const MiningPipeline = () => {
   const goBack = () => setCurrentStep(prev => Math.max(prev - 1, 0));
 
   return (
-    <div className="p-6 rounded-xl not-prose bg-[#0A0A0A] border border-white/5 dark:bg-white dark:border-zinc-200">
+    <div className="p-6 rounded-xl not-prose bg-[#000000] border border-white/5 dark:bg-white dark:border-zinc-200">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-serif italic text-white dark:text-zinc-900">Mining → DA Pipeline</h3>
-        <span className="text-xs px-3 py-1 rounded-full font-medium bg-[#2563EB]/10 text-[#2563EB] border border-[#2563EB]/20">Interactive</span>
+        <span className="text-xs px-3 py-1 rounded-full font-medium bg-white/10 text-white/60 border border-white/20 dark:bg-black/10 dark:text-black/60 dark:border-black/20">Interactive</span>
       </div>
 
       {/* Level Selector */}
       <div className="mb-6">
-        <label className="text-[10px] font-semibold text-[#A0A0A0] uppercase tracking-wider mb-2 block">Select NFT Level</label>
+        <label className="text-[10px] font-semibold text-white/40 uppercase tracking-wider mb-2 block">Select NFT Level</label>
         <select value={selectedLevel} onChange={(e) => { setSelectedLevel(Number(e.target.value)); setCurrentStep(0); }}
-          className="w-full sm:w-auto p-2.5 rounded-xl bg-[#141420] border border-white/5 text-white text-sm font-medium appearance-none cursor-pointer dark:bg-zinc-50 dark:border-zinc-200 dark:text-zinc-900"
+          className="w-full sm:w-auto p-2.5 rounded-xl bg-[#383838] border border-white/5 text-white text-sm font-medium appearance-none cursor-pointer dark:bg-zinc-50 dark:border-zinc-200 dark:text-zinc-900"
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' fill='none' stroke='%23A0A0A0' stroke-width='1.5'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center', paddingRight: '36px' }}>
           {Object.entries(LEVEL_NAMES).map(([lvl, name]) => (
             <option key={lvl} value={lvl}>L{lvl} — {name} ({fmtUsd(LEVEL_PRICES[lvl])}) — {MINING_CYCLES[lvl]} days</option>
@@ -64,10 +64,10 @@ export const MiningPipeline = () => {
       {/* Step Indicator — circles + connecting line */}
       <div className="relative flex items-center justify-between mb-8 px-2">
         {/* Background line */}
-        <div className="absolute top-4 left-6 right-6 h-0.5 bg-[#1C1C2E] dark:bg-zinc-200" />
+        <div className="absolute top-4 left-6 right-6 h-0.5 bg-[#383838]/70 dark:bg-zinc-200" />
         {/* Progress line */}
         <div className="absolute top-4 left-6 h-0.5 transition-all duration-500"
-          style={{ width: `calc(${(currentStep / 4) * 100}% - 48px * ${1 - currentStep / 4})`, background: 'linear-gradient(90deg, #2563EB, #4040FF)' }} />
+          style={{ width: `calc(${(currentStep / 4) * 100}% - 48px * ${1 - currentStep / 4})`, background: 'linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,1))' }} />
         {STEPS.map((s, i) => {
           const isDone = i < currentStep;
           const isActive = i === currentStep;
@@ -75,14 +75,14 @@ export const MiningPipeline = () => {
           return (
             <button key={i} onClick={() => setCurrentStep(i)} className="relative z-10 flex flex-col items-center gap-1.5 group">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-                isDone ? 'bg-[#2563EB] text-white shadow-[0_0_10px_rgba(37,99,235,0.4)]' :
-                isActive ? (isCritical ? 'bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)] animate-pulse' : 'bg-[#2563EB] text-white shadow-[0_0_15px_rgba(37,99,235,0.5)]') :
-                'bg-[#1C1C2E] text-[#A0A0A0] dark:bg-zinc-200 dark:text-zinc-500'
+                isDone ? 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_10px_rgba(255,255,255,0.2)]' :
+                isActive ? (isCritical ? 'bg-red-500 text-white shadow-[0_0_15px_rgba(239,68,68,0.5)] animate-pulse' : 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)]') :
+                'bg-[#383838]/70 text-white/40 dark:bg-zinc-200 dark:text-zinc-500'
               }`}>
                 {isDone ? '✓' : s.icon}
               </div>
               <span className={`text-[9px] font-semibold text-center leading-tight hidden sm:block ${
-                isActive ? (isCritical ? 'text-red-400' : 'text-[#2563EB]') : isDone ? 'text-[#2563EB]' : 'text-[#A0A0A0]'
+                isActive ? (isCritical ? 'text-red-400' : 'text-white dark:text-black') : isDone ? 'text-white dark:text-black' : 'text-white/40'
               }`}>{s.label}</span>
             </button>
           );
@@ -93,7 +93,7 @@ export const MiningPipeline = () => {
       <div className={`rounded-xl p-5 mb-6 transition-all duration-300 ${
         STEPS[currentStep].critical
           ? 'bg-red-500/5 border-2 border-red-500/30 dark:bg-red-50 dark:border-red-200'
-          : 'bg-[#141420] border border-white/5 dark:bg-zinc-50 dark:border-zinc-200'
+          : 'bg-[#383838] border border-white/5 dark:bg-zinc-50 dark:border-zinc-200'
       }`}>
         <div className="flex items-start gap-4">
           <span className={`text-3xl flex-shrink-0 ${STEPS[currentStep].critical ? 'animate-pulse' : ''}`}>{STEPS[currentStep].icon}</span>
@@ -101,19 +101,19 @@ export const MiningPipeline = () => {
             <h4 className={`text-base font-bold mb-2 ${STEPS[currentStep].critical ? 'text-red-400' : 'text-white dark:text-zinc-900'}`}>
               {STEPS[currentStep].title}
             </h4>
-            <p className={`text-sm mb-4 leading-relaxed ${STEPS[currentStep].critical ? 'text-red-300 dark:text-red-600' : 'text-[#A0A0A0] dark:text-zinc-600'}`}>
+            <p className={`text-sm mb-4 leading-relaxed ${STEPS[currentStep].critical ? 'text-red-300 dark:text-red-600' : 'text-white/40 dark:text-zinc-600'}`}>
               {STEPS[currentStep].desc}
             </p>
 
             {/* Progress bars for mining/farming steps */}
             {(currentStep === 1 || currentStep === 3) && (
               <div className="space-y-2">
-                <div className="flex justify-between text-xs text-[#A0A0A0]">
+                <div className="flex justify-between text-xs text-white/40">
                   <span>{currentStep === 1 ? 'Mining' : 'Farming'} Progress</span>
                   <span>{miningDays} days</span>
                 </div>
-                <div className="h-3 bg-[#1C1C2E] dark:bg-zinc-200 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full transition-all duration-700" style={{ width: '100%', background: 'linear-gradient(90deg, #2563EB, #4040FF)' }} />
+                <div className="h-3 bg-[#383838]/70 dark:bg-zinc-200 rounded-full overflow-hidden">
+                  <div className="h-full rounded-full transition-all duration-700" style={{ width: '100%', background: 'linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0.7))' }} />
                 </div>
               </div>
             )}
@@ -135,35 +135,35 @@ export const MiningPipeline = () => {
             {currentStep === 4 && (
               <div className="space-y-4">
                 <div className="text-4xl text-center">✅</div>
-                <p className="text-lg font-bold text-[#2563EB] text-center">DA Credited to Your TokenStack!</p>
+                <p className="text-lg font-bold text-white dark:text-black text-center">DA Credited to Your TokenStack!</p>
 
                 {/* NFTM Summary */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  <div className="p-3 bg-[#1C1C2E] dark:bg-zinc-100 rounded-lg text-center">
-                    <div className="text-xs text-[#A0A0A0] dark:text-zinc-500">Cycle 1 (10%)</div>
+                  <div className="p-3 bg-[#383838]/70 dark:bg-zinc-100 rounded-lg text-center">
+                    <div className="text-xs text-white/40 dark:text-zinc-500">Cycle 1 (10%)</div>
                     <div className="text-lg font-bold text-white dark:text-zinc-900">{fmtNum(nftmCalc.cycle1)} NFTM</div>
                   </div>
-                  <div className="p-3 bg-[#1C1C2E] dark:bg-zinc-100 rounded-lg text-center">
-                    <div className="text-xs text-[#A0A0A0] dark:text-zinc-500">Cycle 2 ({selectedLevel >= 8 ? '15%' : '10%'})</div>
+                  <div className="p-3 bg-[#383838]/70 dark:bg-zinc-100 rounded-lg text-center">
+                    <div className="text-xs text-white/40 dark:text-zinc-500">Cycle 2 ({selectedLevel >= 8 ? '15%' : '10%'})</div>
                     <div className="text-lg font-bold text-white dark:text-zinc-900">{fmtNum(nftmCalc.cycle2)} NFTM</div>
                   </div>
-                  <div className="p-3 bg-[#2563EB]/10 rounded-lg text-center border border-[#2563EB]/30">
-                    <div className="text-xs text-[#2563EB]">Total NFTM</div>
-                    <div className="text-lg font-bold text-[#2563EB]">{fmtNum(nftmCalc.total)} NFTM</div>
+                  <div className="p-3 bg-white/10 dark:bg-black/10 rounded-lg text-center border border-white/30 dark:border-black/30">
+                    <div className="text-xs text-white dark:text-black">Total NFTM</div>
+                    <div className="text-lg font-bold text-white dark:text-black">{fmtNum(nftmCalc.total)} NFTM</div>
                   </div>
                 </div>
 
-                <p className="text-sm text-[#A0A0A0] dark:text-zinc-500 text-center">
+                <p className="text-sm text-white/40 dark:text-zinc-500 text-center">
                   At initial DA price ($1.00), this converts to approximately <span className="text-white dark:text-zinc-900 font-bold">{fmtNum(nftmCalc.total)} DA</span>
                 </p>
 
                 {/* Unlock schedule */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {UNLOCK_PERIODS.map(p => (
-                    <div key={p.period} className="p-3 bg-[#1C1C2E] dark:bg-zinc-100 rounded-lg text-center">
-                      <div className="text-[10px] text-[#A0A0A0] dark:text-zinc-500">Period {p.period}</div>
+                    <div key={p.period} className="p-3 bg-[#383838]/70 dark:bg-zinc-100 rounded-lg text-center">
+                      <div className="text-[10px] text-white/40 dark:text-zinc-500">Period {p.period}</div>
                       <div className="text-lg font-bold text-white dark:text-zinc-900">{p.percent}</div>
-                      <div className="text-[10px] text-[#A0A0A0] dark:text-zinc-500">available to sell</div>
+                      <div className="text-[10px] text-white/40 dark:text-zinc-500">available to sell</div>
                     </div>
                   ))}
                 </div>
@@ -176,38 +176,38 @@ export const MiningPipeline = () => {
       {/* Navigation Buttons */}
       <div className="flex items-center justify-between">
         <button onClick={goBack} disabled={currentStep === 0}
-          className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${currentStep === 0 ? 'opacity-30 cursor-not-allowed border border-white/5 text-[#A0A0A0]' : 'border border-white/10 text-white hover:border-[#2563EB] hover:shadow-[0_0_10px_rgba(37,99,235,0.3)] dark:border-zinc-300 dark:text-zinc-700'}`}>
+          className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${currentStep === 0 ? 'opacity-30 cursor-not-allowed border border-white/5 text-white/40' : 'border border-white/10 text-white hover:border-white/50 hover:shadow-[0_0_10px_rgba(255,255,255,0.15)] dark:border-zinc-300 dark:text-zinc-700'}`}>
           ← Back
         </button>
-        <span className="text-xs text-[#A0A0A0] dark:text-zinc-500">{currentStep + 1} / 5</span>
+        <span className="text-xs text-white/40 dark:text-zinc-500">{currentStep + 1} / 5</span>
         <button onClick={goNext} disabled={currentStep === 4}
-          className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${currentStep === 4 ? 'opacity-30 cursor-not-allowed bg-[#1C1C2E] text-[#A0A0A0]' : 'bg-[#2563EB] text-white shadow-[0_0_12px_rgba(37,99,235,0.4)] hover:shadow-[0_0_20px_rgba(37,99,235,0.5)]'}`}>
+          className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${currentStep === 4 ? 'opacity-30 cursor-not-allowed bg-[#383838]/70 text-white/40' : 'bg-white dark:bg-black text-black dark:text-white shadow-[0_0_12px_rgba(255,255,255,0.2)] hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]'}`}>
           Next →
         </button>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-6">
-        <div className="rounded-lg bg-[#141420] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
-          <div className="text-[10px] text-[#A0A0A0] uppercase">Mining Cycle</div>
+        <div className="rounded-lg bg-[#383838] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
+          <div className="text-[10px] text-white/40 uppercase">Mining Cycle</div>
           <div className="text-base font-bold text-white dark:text-zinc-900">{miningDays} days</div>
         </div>
-        <div className="rounded-lg bg-[#141420] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
-          <div className="text-[10px] text-[#A0A0A0] uppercase">NFTM Cycle 1</div>
+        <div className="rounded-lg bg-[#383838] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
+          <div className="text-[10px] text-white/40 uppercase">NFTM Cycle 1</div>
           <div className="text-base font-bold text-white dark:text-zinc-900">{fmtNum(nftmCalc.cycle1)}</div>
         </div>
-        <div className="rounded-lg bg-[#141420] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
-          <div className="text-[10px] text-[#A0A0A0] uppercase">NFTM Cycle 2</div>
+        <div className="rounded-lg bg-[#383838] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
+          <div className="text-[10px] text-white/40 uppercase">NFTM Cycle 2</div>
           <div className="text-base font-bold text-white dark:text-zinc-900">{fmtNum(nftmCalc.cycle2)}</div>
           {selectedLevel >= 8 && <div className="text-[10px] text-green-500 font-semibold">+5% enhanced</div>}
         </div>
-        <div className="rounded-lg bg-[#141420] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
-          <div className="text-[10px] text-[#A0A0A0] uppercase">Total Pipeline</div>
+        <div className="rounded-lg bg-[#383838] border border-white/5 p-3 dark:bg-zinc-50 dark:border-zinc-200">
+          <div className="text-[10px] text-white/40 uppercase">Total Pipeline</div>
           <div className="text-base font-bold text-white dark:text-zinc-900">~{miningDays * 2 + 3}d</div>
         </div>
       </div>
 
-      <p className="text-xs text-[#A0A0A0] leading-relaxed mt-4 dark:text-zinc-500">
+      <p className="text-xs text-white/40 leading-relaxed mt-4 dark:text-zinc-500">
         Auto-sell triggers if DA is not sold manually before the TokenStack period expires (70% payout vs 75% manual).
         Both mining and farming cycles mirror the same duration ({miningDays} days for {levelName}).
       </p>
