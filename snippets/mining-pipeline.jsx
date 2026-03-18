@@ -23,10 +23,11 @@ export const MiningPipeline = () => {
   var nftmCycle2 = lvl.price * lvl.c2;
   var totalNftm = nftmCycle1 + nftmCycle2;
   var totalDays = lvl.days * 2;
-  var daReceived = totalNftm;
-  var sellPayout = daReceived * 0.75;
-  var lendAmount = daReceived * 0.70;
-  var holdValue = daReceived * 1.00;
+  var daPrice = 1.00; // Initial DA price
+  var daReceived = totalNftm / daPrice; // NFTM converts to DA at current price
+  var sellPayout = daReceived * daPrice * 0.75;
+  var lendAmount = daReceived * daPrice * 0.70;
+  var holdValue = daReceived * daPrice;
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
 

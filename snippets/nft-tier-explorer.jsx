@@ -34,7 +34,7 @@ export const NftTierExplorer = () => {
       ((24000 - nft.price) / 24000) * 100,
       (nft.limit / 70000) * 100,
       (nft.depth / 22) * 100,
-      nft.mining ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
+      nft.mining ? 20 + ((45 - nft.mining) / (45 - 40)) * 80 : 0,
       Math.min((roi / 3.0) * 100, 100),
     ];
   };
