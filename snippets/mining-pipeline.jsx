@@ -22,7 +22,7 @@ export const MiningPipeline = () => {
   var nftmCycle1 = lvl.price * lvl.c1;
   var nftmCycle2 = lvl.price * lvl.c2;
   var totalNftm = nftmCycle1 + nftmCycle2;
-  var totalDays = lvl.days * 2;
+  var totalDays = lvl.days * 2 + 3; // mining + farming + 72h claim window
   var daPrice = 1.00; // Initial DA price
   var daReceived = totalNftm / daPrice; // NFTM converts to DA at current price
   var sellPayout = daReceived * daPrice * 0.75;
@@ -89,7 +89,7 @@ export const MiningPipeline = () => {
 
       {/* 3. Options: Sell / Lend / Hold */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(248,113,113,0.3)', backgroundColor: 'rgba(248,113,113,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <span style={{ color: '#f87171', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sell DA</span>
             <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>75% payout</span>
@@ -98,7 +98,7 @@ export const MiningPipeline = () => {
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>25% permanently burned · DA position lost</div>
         </div>
 
-        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(74,222,128,0.3)', backgroundColor: 'rgba(74,222,128,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <span style={{ color: '#4ade80', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Lend DA</span>
             <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>70% LTV</span>
@@ -107,7 +107,7 @@ export const MiningPipeline = () => {
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>30-day cutoff · DA preserved in TokenStack</div>
         </div>
 
-        <div style={{ border: '1px solid rgba(255,255,255,0.1)', backgroundColor: '#383838' }} className="rounded-xl p-4">
+        <div style={{ border: '1px solid rgba(251,191,36,0.3)', backgroundColor: 'rgba(251,191,36,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
             <span style={{ color: '#fbbf24', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Hold DA</span>
             <span style={{ color: 'rgba(255,255,255,0.5)', backgroundColor: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', fontSize: '10px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', marginLeft: 'auto', whiteSpace: 'nowrap' }}>full value</span>
