@@ -67,6 +67,16 @@ To manage the complex flow of funds, RWANFTFI employs a multi-tiered balance sch
      - If no participant in the chain has an active Income Limit, the remaining funds are routed to the DA liquidity pool, increasing the DA token's value for all holders.
 3. **Limit (`limit`):** Represents the maximum remaining income an NFT can generate.
 
+### System Balances
+
+In addition to user balances, the smart contract maintains three internal system balances:
+
+- **Dev Balance (`devBalance`):** Accumulates platform fees and commissions for operational funding.
+- **Token Reserve Balance (`tokenReserveBalance`):** The USDT liquidity pool that 100% backs the DA token. Every income source in the ecosystem feeds into this pool.
+- **Price Impact Balance (`priceImpactBalance`):** A special reserve used to manage DA token price stability during specific ecosystem events.
+
+These balances are managed entirely by the smart contract and are not accessible to any individual user or administrator.
+
 ### Payment Priority
 
 When making a purchase, the smart contract deducts funds in this order:
@@ -86,3 +96,7 @@ When making a purchase, the smart contract deducts funds in this order:
 <Warning>
   Gift Vouchers **cannot** be combined with the Accumulative Balance. Valid combinations: [Voucher + Regular], [100% Accumulative], or [Accumulative + Regular].
 </Warning>
+
+<Note>
+  All transactions on the Binance Smart Chain require standard network gas fees paid in **BNB**. Users must hold a small amount of BNB in their wallet to execute any on-chain operations (purchases, withdrawals, transfers). This is separate from USDT balances used within the ecosystem.
+</Note>
