@@ -6,31 +6,29 @@ icon: "coins"
 
 import { DaPriceSimulator } from "/snippets/da-price-simulator.jsx"
 
-
-The core economic engine of the RWANFTFI ecosystem is the Deflationary Asset (DA). This token model is engineered to be 100% backed by USDT, with deflationary mechanics where tokens are burned upon sale, mathematically reducing supply relative to the liquidity pool.
-
-## Token Parameters
-
-The DA token operates on the Binance Smart Chain (BEP20) as an upgradeable ERC20 token with 6 decimals.
-
-**Core Parameters:**
-* **Maximum Supply:** Hard-capped at 21,000,000 (twenty-one million) tokens.
-* **Initial Price:** 1 USDT per DA.
-* **Transferability:** Peer-to-peer transfers of DA tokens between users are strictly forbidden at the smart contract level. The token can only be interacted with via official ecosystem functions (sell, loan, repay).
-* **Liquidity Pool:** Every income source in the ecosystem feeds into the DA liquidity pool. A 5% commission-tax on all marketing rewards is directly routed to this pool. This 5% commission is deducted from marketing rewards at the time of accrual. It is separate from and unrelated to the sell percentages (75% manual / 70% auto-sell) described in [Selling & Lending](/en/da-selling-lending).
+<CardGroup cols={2}>
+  <Card title="21M Hard Cap" icon="lock">
+    Maximum supply fixed forever. No inflation, no minting.
+  </Card>
+  <Card title="100% USDT Backed" icon="shield-check">
+    Every DA token backed by real USDT in the liquidity pool.
+  </Card>
+  <Card title="Burn on Every Sale" icon="fire">
+    25% (manual) or 30% (auto) permanently removed from supply.
+  </Card>
+  <Card title="No P2P Transfers" icon="ban">
+    DA can only be sold, lent, or repaid — no peer-to-peer transfers.
+  </Card>
+</CardGroup>
 
 ## The "Only Upward" Price Formula
 
-The price of DA is determined dynamically by the smart contract based on the ratio of the USDT liquidity pool to the total circulating supply of DA.
+Price = Liquidity ÷ Circulating Supply
 
-`Price = Liquidity ÷ Circulating Supply`
-
-*(The smart contract internally uses 6-decimal precision: `Price = (Liquidity × 10^6) / TotalSupply`, but the economic principle is straightforward — price equals liquidity divided by supply.)*
-
-Because tokens are burned upon sale (reducing supply) while fees remain in the pool (maintaining or increasing liquidity), the mathematical output of this formula constantly drives the price upward.
+Every time DA is sold, tokens are burned (supply goes down) while USDT stays in the pool (liquidity stays or grows). Less tokens ÷ same or more USDT = higher price per token.
 
 <Tip>
-  **Why does the price only go up?** Every time DA is sold, tokens are burned (removed from supply), but the USDT stays in the liquidity pool. Less tokens ÷ same or more USDT = higher price per token.
+  The 5% commission on all marketing rewards flows directly into the DA liquidity pool — separate from sell percentages. Additional liquidity comes from Lending fees, RWA income, and FinPro revenue.
 </Tip>
 
 <DaPriceSimulator />
