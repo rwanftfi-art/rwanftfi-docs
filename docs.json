@@ -8,10 +8,11 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#9CA3AF",
+    "primary": "#FFFFFF",
     "light": "#000000",
     "dark": "#FFFFFF"
   },
+  "css": "light :root { --primary: #000000; } :root { --primary: #FFFFFF; }",
   "font": {
     "headings": {
       "family": "Georgia",
