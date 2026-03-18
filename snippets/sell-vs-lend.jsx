@@ -1,11 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 
 export const SellVsLend = () => {
   const [daAmount, setDaAmount] = useState(1000);
   const [daPrice, setDaPrice] = useState(1.50);
   const [sellMode, setSellMode] = useState('manual');
 
-  const CURRENT_SUPPLY = 21_000_000;
+  const CURRENT_SUPPLY = 21000000;
 
   const fmtUsd = (n) => {
     const digits = Math.abs(n) >= 10000 ? 0 : 2;
@@ -15,33 +15,29 @@ export const SellVsLend = () => {
 
   const sellMultiplier = sellMode === 'manual' ? 0.75 : 0.70;
 
-  const sellCalc = useMemo(() => {
-    if (daAmount <= 0 || daPrice <= 0) return { payout: 0, burned: 0, newPrice: 0, priceIncrease: 0 };
-    const payout = daAmount * daPrice * sellMultiplier;
-    const burned = daAmount;
-    const currentLiquidity = CURRENT_SUPPLY * daPrice;
-    const newLiquidity = currentLiquidity - payout;
-    const newSupply = CURRENT_SUPPLY - burned;
-    const newPrice = newSupply > 0 ? newLiquidity / newSupply : 0;
-    const priceIncrease = daPrice > 0 ? ((newPrice - daPrice) / daPrice) * 100 : 0;
-    return { payout, burned, newPrice, priceIncrease };
-  }, [daAmount, daPrice, sellMultiplier]);
+  // Inline sell calculations
+  const sellPayout = (daAmount > 0 && daPrice > 0) ? daAmount * daPrice * sellMultiplier : 0;
+  const sellBurned = (daAmount > 0 && daPrice > 0) ? daAmount : 0;
+  const sellCurrentLiquidity = CURRENT_SUPPLY * daPrice;
+  const sellNewLiquidity = sellCurrentLiquidity - sellPayout;
+  const sellNewSupply = CURRENT_SUPPLY - sellBurned;
+  const sellNewPrice = (daAmount > 0 && daPrice > 0 && sellNewSupply > 0) ? sellNewLiquidity / sellNewSupply : 0;
+  const sellPriceIncrease = (daAmount > 0 && daPrice > 0) ? ((sellNewPrice - daPrice) / daPrice) * 100 : 0;
 
-  const lendCalc = useMemo(() => {
-    if (daAmount <= 0 || daPrice <= 0) return { loanAmount: 0, collateral: 0, deadline: 30 };
-    const loanAmount = daAmount * daPrice * 0.70;
-    return { loanAmount, collateral: daAmount, deadline: 30 };
-  }, [daAmount, daPrice]);
+  // Inline lend calculations
+  const lendLoanAmount = (daAmount > 0 && daPrice > 0) ? daAmount * daPrice * 0.70 : 0;
+  const lendCollateral = daAmount;
+  const lendDeadline = 30;
 
   const positionValue = daAmount * daPrice;
-  const sellVsLendDiff = sellCalc.payout - lendCalc.loanAmount;
-  const diffPct = lendCalc.loanAmount > 0 ? Math.abs(sellVsLendDiff / lendCalc.loanAmount) * 100 : 0;
+  const sellVsLendDiff = sellPayout - lendLoanAmount;
+  const diffPct = lendLoanAmount > 0 ? Math.abs(sellVsLendDiff / lendLoanAmount) * 100 : 0;
 
   const getRecommendation = () => {
     if (daAmount <= 0 || daPrice <= 0) return { text: 'Enter DA amount and price to see recommendation.', style: { color: 'rgba(255,255,255,0.4)' } };
     if (sellMode === 'auto') return { text: 'Auto-sell and lending yield the same 70% — lending preserves your DA position and benefits from future price growth.', style: { color: '#4ade80' } };
-    if (diffPct < 10) return { text: 'Difference is <10%. Lending is likely the better strategy — you keep your DA and benefit from future price appreciation.', style: { color: '#4ade80' } };
-    return { text: `Manual sell gives ${fmtUsd(sellVsLendDiff)} more upfront, but burns your DA permanently. Consider if short-term cash outweighs long-term DA appreciation.`, style: { color: '#fbbf24' } };
+    if (diffPct < 10) return { text: 'Difference is less than 10%. Lending is likely the better strategy — you keep your DA and benefit from future price appreciation.', style: { color: '#4ade80' } };
+    return { text: 'Manual sell gives ' + fmtUsd(sellVsLendDiff) + ' more upfront, but burns your DA permanently. Consider if short-term cash outweighs long-term DA appreciation.', style: { color: '#fbbf24' } };
   };
   const rec = getRecommendation();
 
@@ -98,7 +94,7 @@ export const SellVsLend = () => {
         {/* Sell Panel */}
         <div style={{ backgroundColor: 'rgba(239,68,68,0.05)', border: '2px solid rgba(239,68,68,0.2)' }} className="rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-lg">🔥</span>
+            <span className="text-lg">Fire</span>
             <h4 style={{ color: '#f87171' }} className="text-base font-bold">SELL DA</h4>
             <span style={{ color: '#f87171', backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }} className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full">
               {sellMode === 'manual' ? 'Manual' : 'Auto'} — {(sellMultiplier * 100).toFixed(0)}% payout
@@ -106,26 +102,31 @@ export const SellVsLend = () => {
           </div>
           <div className="space-y-3">
             {[
-              ['USDT Received', fmtUsd(sellCalc.payout), true],
-              ['DA Burned', `${fmtNum(sellCalc.burned)} DA`, false],
-              ['New DA Price', fmtUsd(sellCalc.newPrice), false],
-              ['Price Change', `${sellCalc.priceIncrease >= 0 ? '+' : ''}${sellCalc.priceIncrease.toFixed(2)}%`, false],
-            ].map(([label, val, big], i) => (
-              <div key={i} style={{ borderBottom: '1px solid rgba(239,68,68,0.1)' }} className="flex justify-between items-center py-2 last:border-b-0">
-                <span style={{ color: 'rgba(248,113,113,0.7)' }} className="text-sm">{label}</span>
-                <span style={{ color: '#f87171' }} className={`font-bold transition-all duration-300 ${big ? 'text-xl' : 'text-base'}`}>{val}</span>
-              </div>
-            ))}
+              ['USDT Received', fmtUsd(sellPayout), true],
+              ['DA Burned', fmtNum(sellBurned) + ' DA', false],
+              ['New DA Price', fmtUsd(sellNewPrice), false],
+              ['Price Change', (sellPriceIncrease >= 0 ? '+' : '') + sellPriceIncrease.toFixed(2) + '%', false],
+            ].map(function(row, i) {
+              const label = row[0];
+              const val = row[1];
+              const big = row[2];
+              return (
+                <div key={i} style={{ borderBottom: '1px solid rgba(239,68,68,0.1)' }} className="flex justify-between items-center py-2 last:border-b-0">
+                  <span style={{ color: 'rgba(248,113,113,0.7)' }} className="text-sm">{label}</span>
+                  <span style={{ color: '#f87171' }} className={'font-bold transition-all duration-300 ' + (big ? 'text-xl' : 'text-base')}>{val}</span>
+                </div>
+              );
+            })}
           </div>
           <div style={{ backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.1)' }} className="mt-4 px-3 py-2 rounded-lg">
-            <span style={{ color: '#f87171' }} className="text-[11px]">⚠ Tokens are permanently burned. You lose your DA position.</span>
+            <span style={{ color: '#f87171' }} className="text-[11px]">Warning: Tokens are permanently burned. You lose your DA position.</span>
           </div>
         </div>
 
         {/* Lend Panel */}
         <div style={{ backgroundColor: 'rgba(34,197,94,0.05)', border: '2px solid rgba(34,197,94,0.2)' }} className="rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-lg">🏦</span>
+            <span className="text-lg">Bank</span>
             <h4 style={{ color: '#4ade80' }} className="text-base font-bold">LEND DA</h4>
             <span style={{ color: '#4ade80', backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }} className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full">
               70% LTV
@@ -133,24 +134,29 @@ export const SellVsLend = () => {
           </div>
           <div className="space-y-3">
             {[
-              ['USDT Loan', fmtUsd(lendCalc.loanAmount), true],
-              ['DA Collateral', `${fmtNum(lendCalc.collateral)} DA (locked)`, false],
-              ['Loan Deadline', `${lendCalc.deadline} days`, false],
-              ['DA Position', '✓ Preserved', false],
-            ].map(([label, val, big], i) => (
-              <div key={i} style={{ borderBottom: '1px solid rgba(34,197,94,0.1)' }} className="flex justify-between items-center py-2 last:border-b-0">
-                <span style={{ color: 'rgba(74,222,128,0.7)' }} className="text-sm">{label}</span>
-                <span style={{ color: '#4ade80' }} className={`font-bold transition-all duration-300 ${big ? 'text-xl' : 'text-base'}`}>{val}</span>
-              </div>
-            ))}
+              ['USDT Loan', fmtUsd(lendLoanAmount), true],
+              ['DA Collateral', fmtNum(lendCollateral) + ' DA (locked)', false],
+              ['Loan Deadline', lendDeadline + ' days', false],
+              ['DA Position', 'Preserved', false],
+            ].map(function(row, i) {
+              const label = row[0];
+              const val = row[1];
+              const big = row[2];
+              return (
+                <div key={i} style={{ borderBottom: '1px solid rgba(34,197,94,0.1)' }} className="flex justify-between items-center py-2 last:border-b-0">
+                  <span style={{ color: 'rgba(74,222,128,0.7)' }} className="text-sm">{label}</span>
+                  <span style={{ color: '#4ade80' }} className={'font-bold transition-all duration-300 ' + (big ? 'text-xl' : 'text-base')}>{val}</span>
+                </div>
+              );
+            })}
           </div>
           <div style={{ backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.1)' }} className="mt-4 px-3 py-2 rounded-lg">
-            <span style={{ color: '#4ade80' }} className="text-[11px]">✓ DA stays in your TokenStack. Repay loan to unlock. If not repaid within 30 days, collateral may be liquidated.</span>
+            <span style={{ color: '#4ade80' }} className="text-[11px]">DA stays in your TokenStack. Repay loan to unlock. If not repaid within 30 days, collateral may be liquidated.</span>
           </div>
           {sellMode === 'auto' && (
             <div style={{ border: '1px solid rgba(255,255,255,0.2)', backgroundColor: 'rgba(255,255,255,0.05)' }} className="mt-2 px-3 py-2 rounded-lg">
               <span style={{ color: 'rgba(255,255,255,0.6)' }} className="text-[11px] font-semibold">
-                💡 Same 70% payout as auto-sell — but you keep your DA. Your asset continues to appreciate as others burn tokens.
+                Same 70% payout as auto-sell — but you keep your DA. Your asset continues to appreciate as others burn tokens.
               </span>
             </div>
           )}
@@ -163,10 +169,10 @@ export const SellVsLend = () => {
           <div className="flex-1">
             <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider mb-2">Comparison Summary</div>
             <div className="flex items-baseline gap-3 mb-2 flex-wrap">
-              <div><span style={{ color: '#f87171' }} className="text-xs font-medium">Sell:</span> <span style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(sellCalc.payout)}</span></div>
+              <div><span style={{ color: '#f87171' }} className="text-xs font-medium">Sell:</span> <span style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(sellPayout)}</span></div>
               <span style={{ color: 'rgba(255,255,255,0.5)' }}>vs</span>
-              <div><span style={{ color: '#4ade80' }} className="text-xs font-medium">Lend:</span> <span style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lendCalc.loanAmount)}</span></div>
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-sm font-semibold">Δ {fmtUsd(Math.abs(sellVsLendDiff))} ({diffPct.toFixed(1)}%)</span>
+              <div><span style={{ color: '#4ade80' }} className="text-xs font-medium">Lend:</span> <span style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lendLoanAmount)}</span></div>
+              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-sm font-semibold">Diff: {fmtUsd(Math.abs(sellVsLendDiff))} ({diffPct.toFixed(1)}%)</span>
             </div>
             <p style={rec.style} className="text-sm font-medium">{rec.text}</p>
           </div>
@@ -174,13 +180,15 @@ export const SellVsLend = () => {
           <div className="w-full sm:w-48 flex-shrink-0">
             <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] mb-1 text-center">Payout comparison</div>
             <div style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="flex rounded-full overflow-hidden h-4">
-              {(() => {
-                const total = sellCalc.payout + lendCalc.loanAmount;
+              {(function() {
+                const total = sellPayout + lendLoanAmount;
                 if (total <= 0) return null;
-                return (<>
-                  <div className="h-full transition-all duration-300" style={{ width: `${(sellCalc.payout / total) * 100}%`, backgroundColor: '#ef4444' }} />
-                  <div className="h-full transition-all duration-300" style={{ width: `${(lendCalc.loanAmount / total) * 100}%`, backgroundColor: '#22c55e' }} />
-                </>);
+                return (
+                  <>
+                    <div className="h-full transition-all duration-300" style={{ width: ((sellPayout / total) * 100) + '%', backgroundColor: '#ef4444' }} />
+                    <div className="h-full transition-all duration-300" style={{ width: ((lendLoanAmount / total) * 100) + '%', backgroundColor: '#22c55e' }} />
+                  </>
+                );
               })()}
             </div>
             <div className="flex justify-between text-[9px] mt-0.5"><span style={{ color: 'rgba(255,255,255,0.5)' }}>Sell</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>Lend</span></div>
