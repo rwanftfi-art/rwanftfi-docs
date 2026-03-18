@@ -1,0 +1,53 @@
+---
+title: "Selling & Lending"
+description: "Sell DA for USDT or borrow against it — compare your options."
+icon: "scale-balanced"
+---
+
+import { SellVsLend } from "/snippets/sell-vs-lend.jsx"
+
+# Selling & Lending
+
+Once a user holds DA, they have two primary financial options: selling the asset or using it as collateral for a loan.
+
+<CardGroup cols={2}>
+  <Card title="Sell DA" icon="fire">
+    Receive 75% (manual) or 70% (auto) in USDT. Tokens are **permanently burned**, increasing price for remaining holders. You lose your DA position.
+  </Card>
+  <Card title="Lend DA" icon="building-columns">
+    Borrow up to 70% LTV in USDT against your DA. Your DA stays in your TokenStack. 30-day loan cutoff. If not repaid, collateral may be liquidated.
+  </Card>
+</CardGroup>
+
+## Selling DA & Burn Mechanics
+
+When selling DA, there are two distinct scenarios with different conditions:
+
+1. **Manual Sale (user sells independently):**
+   * The user receives **75%** of the value in USDT.
+   * **25%** of the tokens are permanently burned.
+
+2. **Auto-Sell (triggered after TokenStack period expires):**
+   * The user receives **70%** of the value in USDT.
+   * **30%** of the tokens are permanently burned.
+   * Triggers automatically if the user has not sold manually before the period expires.
+
+In both cases, the sold tokens are permanently removed from circulation, which mathematically increases the price of DA for the remaining holders. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
+
+<Info>
+  **Auto-sell** triggers automatically if you don't sell manually before the TokenStack period expires. It pays 5% less (70% vs 75%), incentivizing active management.
+</Info>
+
+## Auto-Sell Periods
+
+To prevent massive simultaneous sell-offs, DA is subject to progressive unlocking periods within a user's TokenStack:
+* Period 1: 25% available to sell
+* Period 2: 40% available to sell
+* Period 3: 50% available to sell
+* Period 4: 100% available to sell
+
+## Lending (Credit against DA)
+
+Instead of selling and losing their position, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
+
+<SellVsLend />

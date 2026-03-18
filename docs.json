@@ -34,19 +34,59 @@
   "navigation": {
     "groups": [
       {
-        "group": "Whitepaper",
-        "icon": "angles-down",
+        "group": "Start Here",
         "pages": [
           "executive-summary",
-          "vision",
-          "nft-ecosystem",
-          "deflationary-asset",
-          "marketing",
-          "technical",
-          "governance",
-          "roadmap",
+          "vision"
+        ]
+      },
+      {
+        "group": "NFT Ecosystem",
+        "pages": [
+          "nft-ecosystem"
+        ]
+      },
+      {
+        "group": "Deflationary Asset (DA)",
+        "pages": [
+          "da-token-mechanics",
+          "da-mining-farming",
+          "da-selling-lending"
+        ]
+      },
+      {
+        "group": "Earning & Marketing",
+        "pages": [
+          "marketing-binary-tree",
+          "marketing-rewards",
+          "marketing-career-ranks"
+        ]
+      },
+      {
+        "group": "Architecture",
+        "pages": [
+          "architecture",
+          "security"
+        ]
+      },
+      {
+        "group": "Governance",
+        "pages": [
+          "governance"
+        ]
+      },
+      {
+        "group": "Roadmap",
+        "pages": [
+          "roadmap"
+        ]
+      },
+      {
+        "group": "Legal & Reference",
+        "pages": [
           "legal",
-          "glossary"
+          "glossary",
+          "technical-reference"
         ]
       }
     ]
