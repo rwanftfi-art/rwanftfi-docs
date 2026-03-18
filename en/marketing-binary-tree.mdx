@@ -4,11 +4,46 @@ description: "22-level structure with spillover."
 icon: "sitemap"
 ---
 
-
-When a user activates an NFT (either Regular or Gift), they are permanently placed into a binary marketing structure. The structure has a maximum depth of 22 levels. When fully filled to Level 22, the tree holds exactly **8,388,606 participant positions**, growing exponentially at each level (2 on Level 1, 4 on Level 2, 8 on Level 3, and so on).
-
-The smart contract automatically places new users using a "weakest branch, left to right" algorithm. A new participant is permanently linked to their sponsor. If a sponsor's first line (2 positions) is already filled, new invitees are placed deeper into the structure. Participants from upline sponsors may automatically be placed into a user's structure (Spillover). Users receive full marketing rewards and profit from these spillover placements just as they would from their own direct invites. Multi-accounting is strictly prohibited.
-
+When a user activates an NFT, they are permanently placed into a binary
+marketing structure with a maximum depth of 22 levels — holding up to
+**8,388,606 positions** when fully filled.
+<CardGroup cols={3}>
+  <Card title="Auto-Placement" icon="wand-magic-sparkles">
+    Smart contract places new users using "weakest branch, left to right"
+    algorithm. No manual positioning needed.
+  </Card>
+  <Card title="Permanent Link" icon="link">
+    Each participant is permanently linked to their sponsor.
+    Changes are impossible — blockchain is immutable.
+  </Card>
+  <Card title="Spillover" icon="arrow-down">
+    Upline sponsors' invites may land in YOUR structure automatically.
+    You earn full rewards from spillover — same as direct invites.
+  </Card>
+</CardGroup>
+## How Placement Works
+<Steps>
+  <Step title="You Invite">
+    Your first 2 invites fill your Level 1 (left and right position).
+  </Step>
+  <Step title="Tree Grows Down">
+    Next invites go to Level 2 under the weakest branch.
+    Your structure grows exponentially: 2 → 4 → 8 → 16 positions per level.
+  </Step>
+  <Step title="Spillover Fills Gaps">
+    When your upline sponsors invite more people than their Level 1 can hold,
+    those users spill into YOUR tree. You earn from them automatically.
+  </Step>
+  <Step title="You Earn from Depth">
+    Your NFT level determines how deep you earn.
+    GENESIS earns from 2 levels. INFINITY earns from 19 levels.
+  </Step>
+</Steps>
 <Info>
-  **Spillover:** Participants from upline sponsors may automatically be placed into your structure. You receive full marketing rewards from spillover placements — same as from your own direct invites.
+  **Multi-accounting is strictly prohibited.** The system enforces
+  a one-user, one-account policy with built-in tracking.
 </Info>
+<Warning>
+  **Sponsor is permanent.** Once placed in the tree, your sponsor
+  cannot be changed. Choose wisely before activating your NFT.
+</Warning>
