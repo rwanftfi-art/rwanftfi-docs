@@ -6,7 +6,7 @@
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/RWAlogoiconsimplebackground(1)copy.png",
   "colors": {
     "primary": "#000000",
     "light": "#383838",
@@ -56,5 +56,15 @@
   },
   "modeToggle": {
     "default": "dark"
+  },
+  "description": "Own Your Future.",
+  "seo": {
+    "indexing": "all"
+  },
+  "styling": {
+    "latex": true
+  },
+  "icons": {
+    "library": "fontawesome"
   }
 }
