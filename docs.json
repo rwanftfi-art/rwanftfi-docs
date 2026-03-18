@@ -3,10 +3,10 @@
   "theme": "mint",
   "name": "RWANFTFI",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/dark.png",
+    "light": "/logo/light.png"
   },
-  "favicon": "/images/RWAlogoiconsimplebackground(1)copy.png",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#000000",
     "light": "#383838",
@@ -82,8 +82,10 @@
         ]
       },
       {
-        "group": "Legal & Reference",
+        "group": "Resources",
         "pages": [
+          "support",
+          "partnerships",
           "legal",
           "glossary",
           "technical-reference"
@@ -92,8 +94,10 @@
     ]
   },
   "footerSocials": {
-    "telegram": "https://t.me/rwanftfi",
-    "twitter": "https://twitter.com/rwanftfi"
+    "website": "https://rwanftfi.com",
+    "x": "https://x.com/rwanftfi",
+    "facebook": "https://www.facebook.com/rwanftfi/",
+    "instagram": "https://www.instagram.com/rwanftfi/"
   },
   "modeToggle": {
     "default": "dark"
@@ -107,5 +111,15 @@
   },
   "icons": {
     "library": "fontawesome"
+  },
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": [
+      { "locale": "en", "name": "English" },
+      { "locale": "ru", "name": "Русский" },
+      { "locale": "es", "name": "Español" },
+      { "locale": "ar", "name": "العربية" },
+      { "locale": "zh", "name": "中文" }
+    ]
   }
 }
