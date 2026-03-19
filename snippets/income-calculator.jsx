@@ -11,6 +11,7 @@ export const IncomeCalculator = () => {
 
   const [nftLevel, setNftLevel] = useState(5);
   const [showAll, setShowAll] = useState(false);
+  const [activePreset, setActivePreset] = useState(null);
   const [levels, setLevels] = useState(
     Array.from({ length: 22 }, (_, i) => ({
       level: i + 1,
@@ -22,11 +23,10 @@ export const IncomeCalculator = () => {
   const maxDepth = DEPTH_BY_NFT[nftLevel - 1];
 
   const calculated = levels.map((l) => {
-    const isPhase2 = l.level >= 16;
-    const isUnlocked = l.level <= maxDepth && !isPhase2;
+    const isUnlocked = l.level <= maxDepth;
     const pct = LEVEL_PERCENTS[l.level - 1];
     const income = isUnlocked ? l.sales * l.avgPrice * (pct / 100) : 0;
-    return { ...l, pct, income, isUnlocked, isPhase2, maxPos: MAX_PARTICIPANTS[l.level - 1] };
+    return { ...l, pct, income, isUnlocked, maxPos: MAX_PARTICIPANTS[l.level - 1] };
   });
 
   const visibleLevels = showAll
@@ -60,37 +60,34 @@ export const IncomeCalculator = () => {
     clear: () => levels.map((l) => ({ ...l, sales: 0 })),
   };
 
-  const inputStyle = {
-    backgroundColor: 'rgba(56,56,56,0.7)',
-    color: '#FFFFFF',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '6px',
-    padding: '4px 8px',
-    fontSize: '12px',
-    width: '60px',
-    textAlign: 'center',
-  };
-
   const selectStyle = {
     backgroundColor: 'rgba(56,56,56,0.7)',
     color: '#FFFFFF',
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '6px',
-    padding: '4px 6px',
+    padding: '6px 4px',
     fontSize: '12px',
-    width: '80px',
+    width: '72px',
+    outline: 'none',
+    cursor: 'pointer',
+    WebkitAppearance: 'none',
+    appearance: 'none',
+    backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'10\' height=\'6\'%3E%3Cpath d=\'M0 0l5 6 5-6z\' fill=\'%23666\'/%3E%3C/svg%3E")',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 6px center',
+    paddingRight: '18px',
   };
 
-  const presetBtnStyle = {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    border: '1px solid rgba(255,255,255,0.15)',
+  const presetBtnStyle = (name) => ({
+    backgroundColor: activePreset === name ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
+    border: `1px solid ${activePreset === name ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.15)'}`,
     color: '#FFFFFF',
     padding: '6px 16px',
     borderRadius: '9999px',
     fontSize: '11px',
     fontWeight: 600,
     cursor: 'pointer',
-  };
+  });
 
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
@@ -151,20 +148,20 @@ export const IncomeCalculator = () => {
         Quick fill presets:
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
-        <button onClick={() => setLevels(presets.small())} style={presetBtnStyle}>
+        <button onClick={() => { setLevels(presets.small()); setActivePreset('small'); }} style={presetBtnStyle('small')}>
           Small Team
         </button>
-        <button onClick={() => setLevels(presets.growing())} style={presetBtnStyle}>
+        <button onClick={() => { setLevels(presets.growing()); setActivePreset('growing'); }} style={presetBtnStyle('growing')}>
           Growing Network
         </button>
-        <button onClick={() => setLevels(presets.clear())} style={presetBtnStyle}>
+        <button onClick={() => { setLevels(presets.clear()); setActivePreset('clear'); }} style={presetBtnStyle('clear')}>
           Clear All
         </button>
       </div>
 
       {/* Scrollable Table */}
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ minWidth: '340px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+        <table style={{ minWidth: '400px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
           <thead>
             <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}>
               <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>Level</th>
@@ -177,19 +174,21 @@ export const IncomeCalculator = () => {
           <tbody>
             {visibleLevels.map((row) => {
               const i = row.level - 1;
-              const isLocked = !row.isUnlocked && !row.isPhase2;
-              const isDisabled = row.isPhase2 || isLocked;
-              const rowBg = i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'transparent';
-              const rowOpacity = isDisabled ? 0.3 : 1;
+              const isLocked = !row.isUnlocked;
+              const rowBg = row.sales > 0 ? 'rgba(255,255,255,0.04)' : (i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'transparent');
+              const rowOpacity = isLocked ? 0.3 : 1;
 
               return (
                 <tr key={row.level} style={{ backgroundColor: rowBg, opacity: rowOpacity }}>
-                  <td style={{ padding: '4px 6px', textAlign: 'center', fontWeight: 600 }}>{row.level}</td>
+                  <td style={{ padding: '4px 6px', textAlign: 'center', fontWeight: 600 }}>
+                    {row.level}
+                    {row.level >= 16 && row.isUnlocked && (
+                      <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '9px', marginLeft: '4px' }}>P2</span>
+                    )}
+                  </td>
                   <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>{row.pct}%</td>
                   <td style={{ padding: '4px 6px', textAlign: 'center' }}>
-                    {row.isPhase2 ? (
-                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Phase 2</span>
-                    ) : isLocked ? (
+                    {isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Upgrade NFT</span>
                     ) : (
                       <select
@@ -204,35 +203,62 @@ export const IncomeCalculator = () => {
                     )}
                   </td>
                   <td style={{ padding: '4px 6px', textAlign: 'center' }}>
-                    {row.isPhase2 || isLocked ? (
+                    {isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.3)' }}>—</span>
                     ) : (
                       <input
-                        type="number"
-                        min={0}
-                        max={row.maxPos}
-                        value={row.sales}
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        value={row.sales === 0 ? '' : row.sales}
+                        placeholder="0"
                         onChange={(e) => {
-                          const val = Math.max(0, Math.min(row.maxPos, Number(e.target.value) || 0));
-                          updateLevel(i, 'sales', val);
+                          const val = e.target.value.replace(/[^0-9]/g, '');
+                          const num = val === '' ? 0 : Math.min(parseInt(val, 10), row.maxPos);
+                          updateLevel(i, 'sales', num);
                         }}
-                        style={inputStyle}
+                        onFocus={(e) => e.target.select()}
+                        style={{
+                          backgroundColor: 'rgba(56,56,56,0.7)',
+                          color: '#FFFFFF',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          borderRadius: '6px',
+                          padding: '6px 8px',
+                          fontSize: '13px',
+                          width: '56px',
+                          textAlign: 'center',
+                          outline: 'none',
+                        }}
                       />
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'right', color: '#FFFFFF', fontWeight: 700 }}>
-                    {row.isUnlocked ? fmtUsd(row.income) : '—'}
+                  <td style={{ padding: '4px 6px', textAlign: 'right', fontWeight: 700 }}>
+                    {row.isUnlocked ? (
+                      row.sales > 0 ? (
+                        <span style={{ color: '#4ade80' }}>{fmtUsd(row.income)}</span>
+                      ) : (
+                        <span style={{ color: 'rgba(255,255,255,0.3)' }}>—</span>
+                      )
+                    ) : '—'}
                   </td>
                 </tr>
               );
             })}
-            {/* TOTAL row */}
-            <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)', fontWeight: 800, fontSize: '14px' }}>
-              <td colSpan={4} style={{ padding: '8px 6px', textAlign: 'right' }}>TOTAL</td>
-              <td style={{ padding: '8px 6px', textAlign: 'right', color: '#FFFFFF' }}>{fmtUsd(totalIncome)}</td>
-            </tr>
           </tbody>
         </table>
+        {/* TOTAL row */}
+        <div style={{
+          backgroundColor: 'rgba(255,255,255,0.08)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '12px 16px',
+          borderRadius: '0 0 12px 12px',
+          fontSize: '14px',
+          fontWeight: 800,
+        }}>
+          <span style={{ color: 'rgba(255,255,255,0.6)' }}>TOTAL</span>
+          <span style={{ color: '#4ade80' }}>{fmtUsd(totalIncome)}</span>
+        </div>
       </div>
 
       {/* Show/hide locked levels toggle */}
