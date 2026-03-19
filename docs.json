@@ -364,6 +364,11 @@
   "seo": {
     "indexing": "all"
   },
+  "metadata": {
+    "og:image": "/og-image.png",
+    "og:title": "RWANFTFI — Own Your Future",
+    "og:description": "Web3 protocol bridging NFTs, RWA, DeFi and CeFi into a unified financial ecosystem."
+  },
   "icons": {
     "library": "fontawesome"
   }
