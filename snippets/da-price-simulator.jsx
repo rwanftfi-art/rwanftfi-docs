@@ -118,9 +118,9 @@ export const DaPriceSimulator = () => {
       {/* Sliders */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div className="flex justify-between items-center mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontWeight: 500 }}>DA in Circulation</label>
-            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>{fmtNum(daMinted)} DA</span>
+          <div className="mb-2">
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>DA in Circulation</label>
+            <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtNum(daMinted)} DA</span>
           </div>
           <input type="range" min="100000" max="21000000" step="100000" value={daMinted}
             onChange={function(e) {
@@ -141,9 +141,9 @@ export const DaPriceSimulator = () => {
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>100K</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>21M DA</span></div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div className="flex justify-between items-center mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontWeight: 500 }}>USDT Liquidity Pool</label>
-            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>{fmtUsd(liquidityPool)}</span>
+          <div className="mb-2">
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>USDT Liquidity Pool</label>
+            <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtUsd(liquidityPool)}</span>
           </div>
           <input type="range" min="100000" max="50000000" step="100000" value={liquidityPool}
             onChange={function(e) { setLiquidityPool(Number(e.target.value)); }}
@@ -160,9 +160,9 @@ export const DaPriceSimulator = () => {
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>$100K</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>$50M</span></div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div className="flex justify-between items-center mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', fontWeight: 500 }}>DA Burned (from sales)</label>
-            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>{fmtNum(tokensBurned)} DA</span>
+          <div className="mb-2">
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>DA Burned (from sales)</label>
+            <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtNum(tokensBurned)} DA</span>
           </div>
           <input type="range" min="0" max={maxBurn} step="10000" value={Math.min(tokensBurned, maxBurn)}
             onChange={function(e) { setTokensBurned(Number(e.target.value)); }}
