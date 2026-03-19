@@ -1,9 +1,66 @@
 ---
-title: "Rewards & Compensation"
-description: "Sponsor bonus, 22-level tree distribution, compression, and matching bonus."
+title: "奖励与报酬"
+description: "如何从您的网络中获利。"
 icon: "money-bill-trend-up"
 ---
 
-<Info>
-  此页面正在翻译中。请参阅[英文版本](/en/marketing-rewards)获取完整信息。
-</Info>
+import { IncomeCalculator } from "/snippets/income-calculator.jsx"
+
+<CardGroup cols={2}>
+  <Card title="第一阶段——新售" icon="user-plus">
+    推荐人获得 NFT 售价的 **30%**。重复购买（rebuy）：**20%**。
+  </Card>
+  <Card title="第二阶段——调整后" icon="arrows-rotate">
+    新售调整为 **20%**。Rebuy 保持 **20%**。16–22 层完全解锁。
+  </Card>
+</CardGroup>
+
+## 树形分配
+
+从下线中每笔 NFT 销售获取百分比，最深可达 22 层：
+
+<AccordionGroup>
+  <Accordion title="第 1–6 层 · 入门层" icon="layer-group">
+    - 第 1 层：**0%**（直属线——由上方推荐人奖金覆盖）
+    - 第 2 层：**1%**
+    - 第 3–4 层：各 **2%**
+    - 第 5–6 层：各 **3%**
+  </Accordion>
+  <Accordion title="第 7–15 层 · 核心收益层" icon="chart-simple">
+    - 第 7–14 层：各 **4%**（8 层 × 4% = 主要收入来源）
+    - 第 15 层：**5%**（单层最高百分比）
+  </Accordion>
+  <Accordion title="第 16–22 层 · 第二阶段扩展" icon="unlock">
+    - 第 16–17 层：各 **2%**
+    - 第 18 层：**1%**
+    - 第 19–22 层：各 **0.5%**
+
+    *第二阶段解锁（2026 年 Q4）。完整深度需要 INFINITY NFT。*
+  </Accordion>
+</AccordionGroup>
+
+## 压缩
+
+<Tip>
+  **压缩对您有利。** 如果您上方的人收入上限耗尽或 NFT 等级不足，他们的奖励会向上压缩——可能传递给您。您的 NFT 营销深度越大，能获取的压缩奖励越多。
+</Tip>
+
+当下线用户被跳过（收入上限 = 0 或 NFT 等级不够），奖励传递给下一位合格参与者。被跳过者会收到 **Lost Income** 通知。
+
+<IncomeCalculator />
+
+## Matching Bonus（5% + 5% + 5%）
+
+从直属合作伙伴的收入中获取百分比，跨 3 个层级：
+
+<Steps>
+  <Step title="第 1 层——5%">
+    需持有 4 级（ECLIPSE，275 USDT）或以上 NFT。
+  </Step>
+  <Step title="第 2 层——5%">
+    需累计个人销售额达 1,000 USDT。
+  </Step>
+  <Step title="第 3 层——5%">
+    需累计个人销售额达 3,000 USDT。
+  </Step>
+</Steps>

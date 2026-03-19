@@ -1,9 +1,34 @@
 ---
-title: "Mining & Farming"
-description: "Two-step pipeline from NFTM mining to DA token generation."
+title: "挖矿与农耕"
+description: "从 NFTM 到 DA，两步完成。"
 icon: "pickaxe"
 ---
 
+import { MiningPipeline } from "/snippets/mining-pipeline.jsx"
+
+获取 DA 需要参与两步流程：挖矿和农耕。仅 Premium（5 级以上）和 Elite NFT 可参与。
+
 <Info>
-  此页面正在翻译中。请参阅[英文版本](/en/da-mining-farming)获取完整信息。
+  **NFTM 不是代币。** 它是智能合约追踪的内部挖矿计数器。界面中显示进度条和预期 NFTM 数量。NFTM 无市场价值，不可交易或转让——它仅用于质押进入农耕并转换为 DA。
 </Info>
+
+<Steps>
+  <Step title="激活挖矿">
+    在您的 NFT 上启动挖矿。周期时长取决于等级——从 45 天（HYDRO）到 40 天（INFINITY）。
+  </Step>
+  <Step title="生成 NFTM">
+    NFT 在周期内生成 NFTM。5–7 级：两个周期各 10% + 10%。8–10 级：10% + **15%**（增强生成）。
+  </Step>
+  <Step title="72 小时内领取">
+    挖矿完成后，您有 **72 小时**将 NFTM 质押进农耕。错过此窗口，必须从头开始。
+  </Step>
+  <Step title="农耕 DA">
+    质押的 NFTM 进入农耕阶段，时长与挖矿周期相同。结束后，NFTM 按当前价格转换为 DA，计入您的 TokenStack。
+  </Step>
+</Steps>
+
+<Warning>
+  **72 小时关键窗口：** 如果您在挖矿完成后 72 小时内未质押 NFTM，整个周期将丢失。必须重新开始挖矿。请设置提醒。
+</Warning>
+
+<MiningPipeline />

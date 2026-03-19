@@ -1,9 +1,60 @@
 ---
-title: "NFT Ecosystem"
-description: "10 NFT tiers from Basic to Elite — pricing, income limits, features, and exclusive editions."
+title: "NFT 生态系统"
+description: "10 个等级，从 28 到 24,000 USDT。"
 icon: "id-card"
 ---
 
-<Info>
-  此页面正在翻译中。请参阅[英文版本](/en/nft-ecosystem)获取完整信息。
-</Info>
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · RWA 与 FinPro 准入
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5,500 USDT · 挖矿、借贷、Matching Bonus
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11,000 – 24,000 USDT · 最大深度、最短周期
+  </Card>
+</CardGroup>
+
+持有 NFT 是参与营销、挖矿 DA 和使用金融工具的必要条件。每个账户仅限一个活跃 NFT——升级时自动替换旧 NFT。
+
+<NftTierExplorer />
+
+## 收入上限与自动续期
+<AccordionGroup>
+  <Accordion title="收入上限如何运作" icon="gauge-high">
+    每个 NFT 都有严格的收入上限。当营销奖励达到此上限时，上限归零，您将**错过所有后续奖励**。请续期 NFT 以避免此情况。剩余上限高于 30% 时无法手动回购。
+  </Accordion>
+  <Accordion title="Autobuy（3/3 系统）" icon="rotate">
+    除 Elite（L9–L10）外的所有 NFT 均可激活 Autobuy——上限归零时自动回购同级 NFT，最多 3 次。需要账户余额充足。升级 NFT 后重置为 3/3。
+  </Accordion>
+  <Accordion title="业务出售" icon="handshake">
+    通过 DAO 授权，将整个业务结构（合作树和下线）出售给其他用户。固定佣金：500 USDT（可通过 DAO 调整）。不支持单独出售 NFT。
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **收入上限：** 当 NFT 收入上限耗尽，您将停止接收所有营销奖励。启用 Autobuy 以防止这种情况——或在上限降至 30% 以下时手动续期。
+</Warning>
+## Gift NFT 与代金券
+<CardGroup cols={2}>
+  <Card title="Gift NFT" icon="gift">
+    不可出售的推广资产，将用户永久放置在二叉树中。无法购买——通过推广活动或职业等级获得。每个账户不限数量。
+  </Card>
+  <Card title="礼品代金券" icon="ticket">
+    用户生成的优惠券，最低 5 USDT，有效期 365 天。可覆盖 NFT 购买价格的 100%。0% 佣金转让。不可与累积余额合并使用。
+  </Card>
+</CardGroup>
+<Warning>
+  **Gift NFT 覆盖：** 如果您已拥有普通 NFT 并激活 Gift NFT，Gift NFT 将**覆盖**您的普通 NFT。仅在没有普通 NFT 的账户上激活 Gift NFT。
+</Warning>
+## Ambassador 与 VIP Edition
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    限量 **100 枚**（2026 年 Q4）。无收入上限。独立奖励系统。业务出售时不转移。
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    限量 **100 枚**（2026 年 Q4）。达到 **Leader** 职业等级或更高即可获得。
+  </Card>
+</CardGroup>
