@@ -1,4 +1,47 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+const LazyNftVideo = ({ src, style = {} }) => {
+  const videoRef = useRef(null);
+  const hasLoadedRef = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!hasLoadedRef.current) {
+            video.src = src;
+            video.load();
+            hasLoadedRef.current = true;
+          }
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: '150px', threshold: 0.01 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [src]);
+
+  return (
+    <video
+      ref={videoRef}
+      muted
+      loop
+      playsInline
+      preload="none"
+      style={{
+        backgroundColor: '#1a1a2e',
+        ...style,
+      }}
+    />
+  );
+};
 
 export const NftTierExplorer = () => {
   const [filter, setFilter] = useState("All");
@@ -128,20 +171,14 @@ export const NftTierExplorer = () => {
               className="relative rounded-xl transition-all duration-300 border">
               {/* Video */}
               <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1' }}>
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  loading="lazy"
-                  preload={nft.level <= 5 ? 'auto' : 'none'}
+                <LazyNftVideo
+                  src={`/videos/${String(nft.level).padStart(2, '0')}_1.mp4`}
                   style={{
                     width: '100%',
                     aspectRatio: '1 / 1',
                     objectFit: 'cover',
                     display: 'block',
                   }}
-                  src={`/videos/${String(nft.level).padStart(2, '0')}_1.mp4`}
                 />
               </div>
               {/* Card Info */}
@@ -194,18 +231,14 @@ export const NftTierExplorer = () => {
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
                 <div style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '260px', marginBottom: '12px' }}>
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                  <LazyNftVideo
+                    src={`/videos/${String(selected.level).padStart(2, '0')}_1.mp4`}
                     style={{
                       width: '100%',
                       aspectRatio: '1 / 1',
                       objectFit: 'cover',
                       display: 'block',
                     }}
-                    src={`/videos/${String(selected.level).padStart(2, '0')}_1.mp4`}
                   />
                 </div>
                 <RadarChart items={[selected]} size={200} />
@@ -232,18 +265,14 @@ export const NftTierExplorer = () => {
             <div className="flex justify-center gap-4 w-full">
               {compare.map((item) => (
                 <div key={item.level} style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '180px' }}>
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                  <LazyNftVideo
+                    src={`/videos/${String(item.level).padStart(2, '0')}_1.mp4`}
                     style={{
                       width: '100%',
                       aspectRatio: '1 / 1',
                       objectFit: 'cover',
                       display: 'block',
                     }}
-                    src={`/videos/${String(item.level).padStart(2, '0')}_1.mp4`}
                   />
                 </div>
               ))}
