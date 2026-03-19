@@ -23,6 +23,7 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 <NftTierExplorer />
 
 ## 收入上限与自动续期
+
 <AccordionGroup>
   <Accordion title="收入上限如何运作" icon="gauge-high">
     每个 NFT 都有严格的收入上限。当营销奖励达到此上限时，上限归零，您将**错过所有后续奖励**。请续期 NFT 以避免此情况。剩余上限高于 30% 时无法手动回购。
@@ -34,10 +35,13 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
     通过 DAO 授权，将整个业务结构（合作树和下线）出售给其他用户。固定佣金：500 USDT（可通过 DAO 调整）。不支持单独出售 NFT。
   </Accordion>
 </AccordionGroup>
+
 <Warning>
   **收入上限：** 当 NFT 收入上限耗尽，您将停止接收所有营销奖励。启用 Autobuy 以防止这种情况——或在上限降至 30% 以下时手动续期。
 </Warning>
+
 ## Gift NFT 与代金券
+
 <CardGroup cols={2}>
   <Card title="Gift NFT" icon="gift">
     不可出售的推广资产，将用户永久放置在二叉树中。无法购买——通过推广活动或职业等级获得。每个账户不限数量。
@@ -46,10 +50,13 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
     用户生成的优惠券，最低 5 USDT，有效期 365 天。可覆盖 NFT 购买价格的 100%。0% 佣金转让。不可与累积余额合并使用。
   </Card>
 </CardGroup>
+
 <Warning>
   **Gift NFT 覆盖：** 如果您已拥有普通 NFT 并激活 Gift NFT，Gift NFT 将**覆盖**您的普通 NFT。仅在没有普通 NFT 的账户上激活 Gift NFT。
 </Warning>
+
 ## Ambassador 与 VIP Edition
+
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">
     限量 **100 枚**（2026 年 Q4）。无收入上限。独立奖励系统。业务出售时不转移。

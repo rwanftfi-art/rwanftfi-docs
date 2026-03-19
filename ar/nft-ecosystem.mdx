@@ -23,6 +23,7 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 <NftTierExplorer />
 
 ## حد الدخل والتجديد التلقائي
+
 <AccordionGroup>
   <Accordion title="كيف يعمل حد الدخل" icon="gauge-high">
     لكل NFT حد دخل صارم. عندما تصل مكافآت التسويق إلى هذا الحد، يصبح صفراً و**تفقد جميع المكافآت اللاحقة**. جدّد NFT لتجنب ذلك. لا يمكن إعادة الشراء يدوياً إذا كان الحد المتبقي أعلى من 30%.
@@ -34,10 +35,13 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
     بيع كامل هيكل الأعمال (شجرة الشركاء والتنازليين) لمستخدم آخر عبر عملية مصرّح بها من DAO. عمولة ثابتة: 500 USDT (قابلة للتعديل عبر DAO). لا يُدعم بيع NFT الفردي بدون الهيكل.
   </Accordion>
 </AccordionGroup>
+
 <Warning>
   **حد الدخل:** عندما يُستنفد حد NFT، تتوقف عن تلقي جميع مكافآت التسويق. فعّل Autobuy لمنع ذلك — أو جدّد يدوياً عندما ينخفض الحد عن 30%.
 </Warning>
+
 ## Gift NFT والقسائم
+
 <CardGroup cols={2}>
   <Card title="Gift NFT" icon="gift">
     أصول ترويجية غير قابلة للبيع تضع المستخدم بشكل دائم في الشجرة الثنائية. لا يمكن شراؤها — تُمنح عبر العروض الترويجية أو إنجازات الرتب. بلا حد للعدد لكل حساب.
@@ -46,10 +50,13 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
     قسائم يولّدها المستخدم بدءاً من 5 USDT، صالحة 365 يوماً. تغطي حتى 100% من سعر NFT. قابلة للتحويل بعمولة 0%. لا يمكن دمجها مع الرصيد التراكمي.
   </Card>
 </CardGroup>
+
 <Warning>
   **استبدال Gift NFT:** إذا كنت تمتلك NFT عادياً وفعّلت Gift NFT، فسيقوم Gift NFT **باستبدال** NFT العادي. فعّل Gift NFT فقط على حسابات بدون NFT عادي.
 </Warning>
+
 ## Ambassador وVIP Edition
+
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">
     محدود بـ **100 وحدة** (الربع الرابع 2026). بلا حد للدخل. نظام مكافآت خاص. لا يُنقل عند بيع الأعمال.
