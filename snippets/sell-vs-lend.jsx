@@ -193,85 +193,113 @@ export const SellVsLend = () => {
         <>
           {/* Step 1: Borrow */}
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)' }} className="rounded-xl p-5 mb-2">
-            <div className="flex items-center gap-2 mb-3">
-              <span style={{ color: '#000000', backgroundColor: 'rgba(255,255,255,0.8)' }} className="text-[10px] font-bold px-2 py-0.5 rounded-full">STEP 1</span>
-              <h4 style={{ color: '#FFFFFF' }} className="text-sm font-bold">BORROW</h4>
+            <div className="flex items-center mb-4">
+              <div style={{
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                width: '28px', height: '28px',
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '13px', fontWeight: 700, color: '#FFFFFF',
+                flexShrink: 0
+              }}>1</div>
+              <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, marginLeft: '10px' }}>BORROW</span>
               <span style={{ color: '#4ade80', backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }} className="ml-auto text-[10px] font-semibold px-2 py-0.5 rounded-full">
                 70% LTV
               </span>
             </div>
-            <div className="flex justify-between items-center mb-2">
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Loan received</span>
-              <span style={{ color: '#FFFFFF' }} className="text-lg font-bold">{fmtUsd(loanAmount)}</span>
-            </div>
-            <div className="flex justify-between items-center mb-2">
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">DA locked</span>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }} className="text-sm font-medium">{daAmount.toLocaleString('en-US')} DA</span>
-            </div>
-            <p style={{ color: 'rgba(255,255,255,0.35)' }} className="text-[11px]">Your DA stays locked. You receive USDT loan (minus 5% fee).</p>
+            <div style={{ color: '#FFFFFF', fontSize: '28px', fontWeight: 900 }}>{fmtUsd(loanAmount)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>USDT loan (70% LTV minus 5% fee)</div>
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', marginTop: '8px' }}>DA locked: {daAmount.toLocaleString('en-US')} DA</div>
           </div>
 
-          {/* Arrow */}
-          <div style={{ color: '#4ade80', fontSize: '12px', fontWeight: 600, textAlign: 'center', padding: '8px 0' }}>
-            ↓ DA price grows to {fmtUsd(futurePrice)} ↓
+          {/* Connector: Step 1 → Step 2 */}
+          <div style={{ textAlign: 'center', padding: '4px 0' }}>
+            <div style={{
+              width: '1px', height: '16px',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              margin: '0 auto'
+            }} />
+            <div style={{
+              color: '#4ade80', fontSize: '11px', fontWeight: 600,
+              padding: '4px 12px',
+              backgroundColor: 'rgba(74,222,128,0.08)',
+              borderRadius: '9999px',
+              display: 'inline-block'
+            }}>
+              DA price grows to {fmtUsd(futurePrice)}
+            </div>
+            <div style={{
+              width: '1px', height: '16px',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              margin: '0 auto'
+            }} />
           </div>
 
           {/* Step 2: Partial Repay */}
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)' }} className="rounded-xl p-5 mb-2">
-            <div className="flex items-center gap-2 mb-3">
-              <span style={{ color: '#000000', backgroundColor: 'rgba(255,255,255,0.8)' }} className="text-[10px] font-bold px-2 py-0.5 rounded-full">STEP 2</span>
-              <h4 style={{ color: '#FFFFFF' }} className="text-sm font-bold">PARTIAL REPAY</h4>
+            <div className="flex items-center mb-4">
+              <div style={{
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                width: '28px', height: '28px',
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '13px', fontWeight: 700, color: '#FFFFFF',
+                flexShrink: 0
+              }}>2</div>
+              <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, marginLeft: '10px' }}>PARTIAL REPAY</span>
             </div>
-            <div className="flex justify-between items-center mb-2">
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Repay half</span>
-              <span style={{ color: '#FFFFFF' }} className="text-lg font-bold">{fmtUsd(repayHalf)}</span>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginBottom: '4px' }}>PAY BACK</div>
+                <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 700 }}>{fmtUsd(repayHalf)}</div>
+              </div>
+              <div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginBottom: '4px' }}>GET BACK</div>
+                <div style={{ color: '#4ade80', fontSize: '20px', fontWeight: 700 }}>{unlockTokens.toLocaleString('en-US')} DA</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>worth {fmtUsd(unlockValue)}</div>
+              </div>
             </div>
-            <div className="flex justify-between items-center mb-2">
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Unlock</span>
-              <span style={{ color: 'rgba(255,255,255,0.7)' }} className="text-sm font-medium">{unlockTokens.toLocaleString('en-US')} DA</span>
-            </div>
-            <div className="flex justify-between items-center mb-2">
-              <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Your {unlockTokens.toLocaleString('en-US')} DA now worth</span>
-              <span style={{ color: '#4ade80' }} className="text-sm font-bold">{fmtUsd(unlockValue)}</span>
-            </div>
-            <p style={{ color: 'rgba(255,255,255,0.35)' }} className="text-[11px]">Repay half the loan → get half your tokens back at NEW price.</p>
           </div>
 
-          {/* Arrow */}
-          <div style={{ color: 'rgba(255,255,255,0.3)' }} className="text-center text-xl py-1">↓</div>
+          {/* Connector: Step 2 → Step 3 */}
+          <div style={{ textAlign: 'center', padding: '4px 0' }}>
+            <div style={{
+              width: '1px', height: '24px',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              margin: '0 auto'
+            }} />
+          </div>
 
           {/* Step 3: Your Profit */}
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)' }} className="rounded-xl p-5 mb-4">
-            <div className="flex items-center gap-2 mb-3">
-              <span style={{ color: '#000000', backgroundColor: 'rgba(255,255,255,0.8)' }} className="text-[10px] font-bold px-2 py-0.5 rounded-full">STEP 3</span>
-              <h4 style={{ color: '#FFFFFF' }} className="text-sm font-bold">YOUR PROFIT</h4>
+            <div className="flex items-center mb-4">
+              <div style={{
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                width: '28px', height: '28px',
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '13px', fontWeight: 700, color: '#FFFFFF',
+                flexShrink: 0
+              }}>3</div>
+              <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, marginLeft: '10px' }}>YOUR PROFIT</span>
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Cash received</span>
-                <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{fmtUsd(loanAmount)}</span>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ color: '#FFFFFF', fontSize: '36px', fontWeight: 900 }}>{fmtUsd(netPosition)}</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px' }}>Net position</div>
+            </div>
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '16px' }} />
+            <div className="grid grid-cols-3 gap-3 text-center" style={{ marginTop: '12px' }}>
+              <div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>NET POSITION</div>
+                <div style={{ color: '#4ade80', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(netPosition)}</div>
               </div>
-              <div className="flex justify-between items-center">
-                <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">Cash repaid</span>
-                <span style={{ color: '#f87171' }} className="text-sm font-bold">-{fmtUsd(repayHalf)}</span>
+              <div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS HOLD</div>
+                <div style={{ color: '#FFFFFF', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(futureValue)}</div>
               </div>
-              <div className="flex justify-between items-center">
-                <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">DA returned</span>
-                <span style={{ color: '#4ade80' }} className="text-sm font-bold">{unlockTokens.toLocaleString('en-US')} DA ({fmtUsd(unlockValue)})</span>
-              </div>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '8px', marginTop: '4px' }} className="flex justify-between items-center">
-                <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">Net position</span>
-                <span style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900 }}>{fmtUsd(netPosition)}</span>
-              </div>
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '12px', paddingTop: '8px' }}>
-                <div className="flex justify-between items-center mb-1">
-                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs just holding</span>
-                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(futureValue)}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs manual sell</span>
-                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(manualSellPayout)}</span>
-                </div>
+              <div>
+                <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS SELL NOW</div>
+                <div style={{ color: '#f87171', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(manualSellPayout)}</div>
               </div>
             </div>
           </div>
@@ -290,6 +318,7 @@ export const SellVsLend = () => {
           <div style={{
             backgroundColor: 'rgba(239,68,68,0.08)',
             border: '1px solid rgba(239,68,68,0.2)',
+            marginTop: '12px',
           }} className="rounded-xl p-4 text-center">
             <div style={{ color: '#f87171', fontSize: '11px' }}>
               Loan must be managed within 30 days. If less than 30 days remain before auto-sell, lending is not available.
