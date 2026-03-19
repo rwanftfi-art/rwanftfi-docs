@@ -1,0 +1,51 @@
+---
+title: "Satış ve Borç Verme"
+description: "Sat, ödünç ver veya tut — sizin seçiminiz."
+icon: "scale-balanced"
+---
+
+import { SellVsLend } from "/snippets/sell-vs-lend.jsx"
+
+Kullanıcı DA sahibi olduğunda iki ana finansal seçeneğe sahiptir: varlığı satmak veya kredi teminatı olarak kullanmak.
+
+<CardGroup cols={2}>
+  <Card title="DA Sat" icon="fire">
+    %75 (manuel) veya %70 (otomatik) USDT alın. Tokenlar **kalıcı olarak yakılır**, kalan sahipler için fiyatı artırır. DA pozisyonunuzu kaybedersiniz.
+  </Card>
+  <Card title="DA Ödünç Ver" icon="building-columns">
+    DA'nıza karşı %70 LTV'ye kadar USDT borçlanın. DA'nız TokenStack'te kalır. 30 günlük kredi süresi. Ödenmezse teminat tasfiye edilebilir.
+  </Card>
+</CardGroup>
+
+## Satış ve Yakım Mekaniği
+
+DA satışında iki senaryo vardır:
+
+1. **Manuel Satış (kullanıcı bağımsız olarak satar):**
+   * Kullanıcı değerin **%75**'ini USDT olarak alır.
+   * Tokenların **%25**'i kalıcı olarak yakılır.
+
+2. **Otomatik Satış (TokenStack süresi dolduğunda tetiklenir):**
+   * Kullanıcı değerin **%70**'ini USDT olarak alır.
+   * Tokenların **%30**'u kalıcı olarak yakılır.
+   * Kullanıcı süre dolmadan manuel satış yapmazsa otomatik tetiklenir.
+
+Her iki durumda da satılan tokenlar dolaşımdan kalıcı olarak çıkarılır ve DA fiyatını matematiksel olarak artırır. Otomatik satış %5 daha az öder, aktif pozisyon yönetimini teşvik eder.
+
+<Info>
+  **Otomatik satış**, TokenStack süresi dolduğunda otomatik tetiklenir. Manuel satıştan %5 daha az öder (%70 vs %75), aktif yönetimi teşvik eder.
+</Info>
+
+## Otomatik Satış Dönemleri
+
+Toplu eşzamanlı satışları önlemek için DA, TokenStack içinde aşamalı kilit açma dönemlerine tabidir:
+* Dönem 1: %25 satışa uygun
+* Dönem 2: %40 satışa uygun
+* Dönem 3: %50 satışa uygun
+* Dönem 4: %100 satışa uygun
+
+## Borç Verme (DA Karşılığı Kredi)
+
+Kullanıcılar satmak yerine DA varlıklarına karşı USDT kredi alabilir. Maksimum DA teminatının güncel USDT değerinin **%70**'i (LTV). Akıllı sözleşme 30 günlük katı kredi süresi uygular. Kredi gerektiği gibi yönetilmezse teminatlandırılmış TokenStack tasfiye edilebilir.
+
+<SellVsLend />
