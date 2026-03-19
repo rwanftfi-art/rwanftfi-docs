@@ -77,40 +77,43 @@ export const SellVsLend = () => {
         <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
       </div>
 
-      {/* Sliders Row: DA Amount + Current Price */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
+      {/* Sliders — each full width */}
+      <div className="space-y-3 mb-6">
+        {/* DA Amount slider */}
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="flex justify-between items-center mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider">DA Amount</label>
-            <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{daAmount.toLocaleString('en-US')} DA</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>DA Amount</span>
+            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>{daAmount.toLocaleString('en-US')} DA</span>
           </div>
           <input type="range" min="0" max="10000" step="100" value={daAmount}
             onChange={(e) => setDaAmount(Number(e.target.value))}
             className="w-full cursor-pointer"
             style={sliderStyle} />
         </div>
-        <div>
+
+        {/* Current Price slider */}
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="flex justify-between items-center mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider">Current DA Price</label>
-            <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">${currentPrice.toFixed(2)}</span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>Current DA Price</span>
+            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>${currentPrice.toFixed(2)}</span>
           </div>
           <input type="range" min="1.00" max="10.00" step="0.10" value={currentPrice}
             onChange={(e) => setCurrentPrice(Number(e.target.value))}
             className="w-full cursor-pointer"
             style={sliderStyle} />
         </div>
-      </div>
 
-      {/* Full-width slider: Future Price */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider">Expected DA Price in 4 months</label>
-          <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">${futurePrice.toFixed(2)}</span>
+        {/* Future Price slider */}
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
+          <div className="flex justify-between items-center mb-2">
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>Expected Price in 4 Months</span>
+            <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>${futurePrice.toFixed(2)}</span>
+          </div>
+          <input type="range" min="1.00" max="20.00" step="0.10" value={futurePrice}
+            onChange={(e) => setFuturePrice(Number(e.target.value))}
+            className="w-full cursor-pointer"
+            style={sliderStyle} />
         </div>
-        <input type="range" min="1.00" max="20.00" step="0.10" value={futurePrice}
-          onChange={(e) => setFuturePrice(Number(e.target.value))}
-          className="w-full cursor-pointer"
-          style={sliderStyle} />
       </div>
 
       {/* Tab Switcher */}
@@ -140,14 +143,12 @@ export const SellVsLend = () => {
                 </span>
               </div>
               <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-3">{fmtUsd(manualSellPayout)}</div>
-              <div className="space-y-1">
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">75% payout</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">At current price</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">25% burned</p>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', lineHeight: '1.6' }}>
+                75% payout · At current price · 25% burned
               </div>
-              <p style={{ color: 'rgba(255,255,255,0.35)', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '12px', paddingTop: '12px' }} className="text-[11px]">
-                Sell now at current price. 25% burned. You lose DA position.
-              </p>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
+                Sell now at current price. You lose DA position.
+              </div>
             </div>
 
             {/* Auto-Sell Card */}
@@ -159,14 +160,12 @@ export const SellVsLend = () => {
                 </span>
               </div>
               <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-3">{fmtUsd(autoSellPayout)}</div>
-              <div className="space-y-1">
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">70% payout</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">At future price</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs">30% burned</p>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', lineHeight: '1.6' }}>
+                70% payout · At future price · 30% burned
               </div>
-              <p style={{ color: 'rgba(255,255,255,0.35)', borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '12px', paddingTop: '12px' }} className="text-[11px]">
-                DA sells automatically after TokenStack expires. Price grows over 4 months — you sell at peak. 30% burned.
-              </p>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
+                Sells automatically after TokenStack expires. Price grows over 4 months.
+              </div>
             </div>
           </div>
 
@@ -213,7 +212,9 @@ export const SellVsLend = () => {
           </div>
 
           {/* Arrow */}
-          <div style={{ color: 'rgba(255,255,255,0.3)' }} className="text-center text-xl py-1">↓ <span className="text-[10px]">DA price grows to ${futurePrice.toFixed(2)}</span> ↓</div>
+          <div style={{ color: '#4ade80', fontSize: '12px', fontWeight: 600, textAlign: 'center', padding: '8px 0' }}>
+            ↓ DA price grows to {fmtUsd(futurePrice)} ↓
+          </div>
 
           {/* Step 2: Partial Repay */}
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)' }} className="rounded-xl p-5 mb-2">
@@ -260,23 +261,25 @@ export const SellVsLend = () => {
               </div>
               <div style={{ borderTop: '1px solid rgba(255,255,255,0.15)', paddingTop: '8px', marginTop: '4px' }} className="flex justify-between items-center">
                 <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">Net position</span>
-                <span style={{ color: '#FFFFFF' }} className="text-xl font-bold">{fmtUsd(netPosition)}</span>
+                <span style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900 }}>{fmtUsd(netPosition)}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs just holding</span>
-                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(futureValue)}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs manual sell</span>
-                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(manualSellPayout)}</span>
+              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', marginTop: '12px', paddingTop: '8px' }}>
+                <div className="flex justify-between items-center mb-1">
+                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs just holding</span>
+                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(futureValue)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">vs manual sell</span>
+                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs">{fmtUsd(manualSellPayout)}</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Lend Insight */}
           <div style={{
-            backgroundColor: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            backgroundColor: 'rgba(34,197,94,0.08)',
+            border: '1px solid rgba(34,197,94,0.2)',
           }} className="rounded-xl p-4 text-center mb-3">
             <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
               Lending lets you access liquidity <span style={{ color: '#FFFFFF', fontWeight: 600 }}>NOW</span> while keeping exposure to DA price growth.
@@ -285,10 +288,10 @@ export const SellVsLend = () => {
 
           {/* Warning */}
           <div style={{
-            backgroundColor: 'rgba(251,191,36,0.05)',
-            border: '1px solid rgba(251,191,36,0.15)',
+            backgroundColor: 'rgba(239,68,68,0.08)',
+            border: '1px solid rgba(239,68,68,0.2)',
           }} className="rounded-xl p-4 text-center">
-            <div style={{ color: 'rgba(251,191,36,0.7)', fontSize: '11px' }}>
+            <div style={{ color: '#f87171', fontSize: '11px' }}>
               Loan must be managed within 30 days. If less than 30 days remain before auto-sell, lending is not available.
             </div>
           </div>
