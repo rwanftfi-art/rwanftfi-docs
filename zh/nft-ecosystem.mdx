@@ -4,6 +4,8 @@ description: "10 个等级，从 28 到 24,000 USDT。"
 icon: "id-card"
 ---
 
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
 <CardGroup cols={3}>
   <Card title="Basic · L1–L4" icon="circle">
     28 – 275 USDT · RWA 与 FinPro 准入
@@ -18,22 +20,7 @@ icon: "id-card"
 
 持有 NFT 是参与营销、挖矿 DA 和使用金融工具的必要条件。每个账户仅限一个活跃 NFT——升级时自动替换旧 NFT。
 
-<Info>
-  交互式 NFT 浏览器可在[英文版](/en/nft-ecosystem)中使用。以下是各级别的完整数据。
-</Info>
-
-| 级别 | 名称 | 价格 (USDT) | 收入上限 | 深度 | 挖矿 | Matching | 借贷 |
-|------|------|------------|---------|------|-------|----------|------|
-| L1 | GENESIS | 28 | 75 | 2 | — | ✗ | ✗ |
-| L2 | ADVANCE | 55 | 160 | 3 | — | ✗ | ✗ |
-| L3 | ASCEND | 140 | 375 | 4 | — | ✗ | ✗ |
-| L4 | ECLIPSE | 275 | 650 | 6 | — | ✓ | ✗ |
-| L5 | HYDRO | 550 | 1,400 | 9 | 45 天 | ✓ | ✓ |
-| L6 | QUANTUM | 1,100 | 2,700 | 11 | 44 天 | ✓ | ✓ |
-| L7 | PULSE | 2,200 | 5,800 | 12 | 43 天 | ✓ | ✓ |
-| L8 | AURORA | 5,500 | 12,800 | 13 | 42 天 | ✓ | ✓ |
-| L9 | FLAME | 11,000 | 28,000 | 15 | 41 天 | ✓ | ✓ |
-| L10 | INFINITY | 24,000 | 70,000 | 19 | 40 天 | ✓ | ✓ |
+<NftTierExplorer />
 
 ## 收入上限与自动续期
 <AccordionGroup>
