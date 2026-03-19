@@ -1,9 +1,34 @@
 ---
-title: "Mining & Farming"
-description: "Two-step pipeline from NFTM mining to DA token generation."
+title: "Minería y Farming"
+description: "De NFTM a DA en dos pasos."
 icon: "pickaxe"
 ---
 
+import { MiningPipeline } from "/snippets/mining-pipeline.jsx"
+
+Para obtener DA, los usuarios participan en un proceso de dos pasos: Minería y Farming. Solo disponible para NFT Premium (Nivel 5+) y Elite.
+
 <Info>
-  Esta página está en proceso de traducción. Por favor, consulte la [versión en inglés](/en/da-mining-farming) para obtener información completa.
+  **NFTM no es un token.** Es un contador interno de minería rastreado por el contrato inteligente. En la interfaz se muestra una barra de progreso y la cantidad esperada de NFTM. No tiene valor de mercado ni puede negociarse — solo existe para ser depositado en Farming y convertido a DA.
 </Info>
+
+<Steps>
+  <Step title="Activar Minería">
+    Inicie la minería en su NFT elegible. La duración del ciclo depende del nivel — desde 45 días (HYDRO) hasta 40 días (INFINITY).
+  </Step>
+  <Step title="Generar NFTM">
+    Su NFT genera NFTM durante el ciclo. Niveles 5–7: 10% + 10% en dos ciclos. Niveles 8–10: 10% + **15%** (generación mejorada).
+  </Step>
+  <Step title="Reclamar en 72 Horas">
+    Al completarse la minería, tiene exactamente **72 horas** para depositar su NFTM en Farming. Si pierde esta ventana, debe reiniciar desde cero.
+  </Step>
+  <Step title="Farming de DA">
+    El NFTM depositado entra en Farming por la misma duración que el ciclo de minería. Al finalizar, se convierte a DA según el precio actual y se acredita en su TokenStack.
+  </Step>
+</Steps>
+
+<Warning>
+  **Ventana Crítica de 72 Horas:** Si no deposita su NFTM dentro de las 72 horas posteriores a la minería, el ciclo completo se pierde. Debe reiniciar desde cero. Configure un recordatorio.
+</Warning>
+
+<MiningPipeline />
