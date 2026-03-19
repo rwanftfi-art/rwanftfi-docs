@@ -1,0 +1,47 @@
+---
+title: "Teknik Referans"
+description: "Geliştiriciler için sözleşme detayları."
+icon: "code"
+---
+
+<AccordionGroup>
+  <Accordion title="Accumulative Event" icon="clock">
+    DAO tarafından başlatılan 30 günlük dönem (180 gün bekleme süresi), kullanıcıların süresi dolmuş birikim bakiyelerini talep edebileceği süre.
+  </Accordion>
+  <Accordion title="ADMIN_ROLE" icon="user-shield">
+    Sistem parametrelerini yönetme ve erişim verme yetkilerine sahip rol.
+  </Accordion>
+  <Accordion title="Diamond Pattern (EIP-2535)" icon="diamond">
+    Mantığı modüllere (Facets) bölerek 24KB boyut limitini aşan akıllı sözleşme mimari deseni.
+  </Accordion>
+  <Accordion title="Freeze (Dondurma)" icon="snowflake">
+    Yalnızca DAO oylamasıyla başlatılan, belirli bir kullanıcı hesabının tüm finansal işlemlerini engelleyen moderasyon mekanizması. Politika uygulaması için kullanılır, acil güvenlik aracı değildir. Dondurma ve çözme DAO oyu gerektirir.
+  </Accordion>
+  <Accordion title="freezeTime" icon="hourglass">
+    DAO aracılığıyla engellendiğinde hesap dondurma süresini tanımlayan parametre.
+  </Accordion>
+  <Accordion title="GovToken" icon="landmark">
+    DAO oylaması için kullanılan ERC20Votes yönetişim tokeni (10M arz, 6 ondalık). Otomatik delege etkin, manuel delege devre dışı.
+  </Accordion>
+  <Accordion title="LibSignatureLogic" icon="signature">
+    SIGNER_ROLE kullanarak kriptografik imzaları doğrulayan akıllı sözleşme kütüphanesi.
+  </Accordion>
+  <Accordion title="Price Impact Event" icon="chart-line">
+    Özel yedek bakiye (priceImpactBalance) aracılığıyla DA fiyat istikrarını yöneten mekanizma.
+  </Accordion>
+  <Accordion title="processExpiredStacks" icon="rotate">
+    Kilit açma süreleri tamamen dolmuş DA yığınlarını işleyen ResolverFacet fonksiyonu.
+  </Accordion>
+  <Accordion title="SERVICE_ROLE" icon="server">
+    Otomatik arka plan işlemleri için akıllı sözleşme rolü — zincirler arası yatırımları işleme ve süresi dolmuş yığınları çözme.
+  </Accordion>
+  <Accordion title="SIGNER_ROLE" icon="key">
+    Kupon transferleri gibi işlemleri yetkilendirirken kriptografik imza doğrulama rolü.
+  </Accordion>
+  <Accordion title="TokenStack" icon="layer-group">
+    Kullanıcının DA tokenlarını tutan, aşamalı zaman tabanlı kilit açma dönemlerini (25%, 40%, 50%, 100%) izleyen akıllı sözleşme veri yapısı.
+  </Accordion>
+  <Accordion title="Transparent Proxy" icon="arrows-rotate">
+    TokenReserve (DA) sözleşmesi için yükseltme deseni, sözleşme adresi değişmeden mantık güncellemelerine izin verir.
+  </Accordion>
+</AccordionGroup>

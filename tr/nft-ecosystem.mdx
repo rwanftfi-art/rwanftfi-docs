@@ -1,0 +1,60 @@
+---
+title: "NFT Ekosistemi"
+description: "28'den 24.000 USDT'ye 10 seviye."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · RWA ve FinPro erişimi
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5.500 USDT · Madencilik, Borç Verme, Matching Bonus
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11.000 – 24.000 USDT · Maksimum derinlik, en kısa döngüler
+  </Card>
+</CardGroup>
+
+NFT sahibi olmak, pazarlamaya katılmak, DA madenciliği yapmak ve finansal araçlara erişmek için zorunludur. Hesap başına bir aktif NFT — yükseltmede önceki otomatik olarak değiştirilir.
+
+<NftTierExplorer />
+
+## Gelir Limiti ve Otomatik Yenileme
+<AccordionGroup>
+  <Accordion title="Gelir Limiti Nasıl Çalışır" icon="gauge-high">
+    Her NFT'nin katı bir gelir limiti vardır. Pazarlama ödülleri bu limite ulaştığında sıfırlanır ve **sonraki tüm ödülleri kaçırırsınız**. Bunu önlemek için NFT'nizi yenileyin. Kalan limit %30'un üzerindeyse manuel geri alım yapılamaz.
+  </Accordion>
+  <Accordion title="Autobuy (3/3 Sistemi)" icon="rotate">
+    Elite (L9–L10) hariç tüm NFT'ler için Autobuy'ı etkinleştirin — limit sıfırlandığında aynı NFT'yi otomatik olarak 3 kez geri satın alır. Yeterli bakiye gerekir. NFT yükseltmesinde 3/3'e sıfırlanır.
+  </Accordion>
+  <Accordion title="İş Satışı" icon="handshake">
+    Tüm iş yapınızı (iş ortağı ağacı ve alt hatlar) DAO yetkisiyle başka bir kullanıcıya satın. Sabit komisyon: 500 USDT (DAO tarafından ayarlanabilir). Yapı olmadan bireysel NFT satışı desteklenmez.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Gelir Limiti:** NFT'nizin gelir limiti tükendiğinde, TÜM pazarlama ödüllerini almayı bırakırsınız. Bunu önlemek için Autobuy'ı etkinleştirin — veya limit %30'un altına düştüğünde manuel olarak yenileyin.
+</Warning>
+## Gift NFT ve Kuponlar
+<CardGroup cols={2}>
+  <Card title="Gift NFT" icon="gift">
+    Satılamaz promosyon varlıkları, kullanıcıları ikili ağaçta kalıcı olarak konumlandırır. Satın alınamaz — promosyonlar veya kariyer başarıları ile verilir. Hesap başına sınırsız.
+  </Card>
+  <Card title="Hediye Kuponları" icon="ticket">
+    Kullanıcı tarafından oluşturulan kuponlar, minimum 5 USDT, 365 gün geçerlilik. NFT satın alma fiyatının %100'üne kadar karşılar. %0 komisyonla transfer edilebilir. Birikim Bakiyesi ile birleştirilemez.
+  </Card>
+</CardGroup>
+<Warning>
+  **Gift NFT Üzerine Yazma:** Zaten bir Normal NFT'niz varsa ve Gift NFT etkinleştirirseniz, Gift NFT Normal NFT'nizin **üzerine yazar**. Gift NFT'leri yalnızca Normal NFT'si olmayan hesaplarda etkinleştirin.
+</Warning>
+## Ambassador ve VIP Edition
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    **100 adet** ile sınırlı (2026 Q4). Gelir limiti yok. Kendi ödül sistemi. İş Satışında transfer edilmez.
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    **100 adet** ile sınırlı (2026 Q4). **Leader** Kariyer Rütbesi veya üstüne ulaşıldığında erişim sağlanır.
+  </Card>
+</CardGroup>

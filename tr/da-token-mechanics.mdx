@@ -1,0 +1,34 @@
+---
+title: "DA Token Mekaniği"
+description: "«Yalnızca yükselen» fiyat modeli."
+icon: "coins"
+---
+
+import { DaPriceSimulator } from "/snippets/da-price-simulator.jsx"
+
+<CardGroup cols={2}>
+  <Card title="21M Sert Üst Limit" icon="cube">
+    Maksimum arz sonsuza dek sabitlenmiştir. Enflasyon yok, basım yok.
+  </Card>
+  <Card title="%100 USDT Destekli" icon="shield-check">
+    Her DA tokeni likidite havuzundaki gerçek USDT ile desteklenir.
+  </Card>
+  <Card title="Her Satışta Yakım" icon="fire">
+    %25 (manuel) veya %30 (otomatik) kalıcı olarak arzdan çıkarılır.
+  </Card>
+  <Card title="P2P Transfer Yok" icon="ban">
+    DA yalnızca satılabilir, ödünç verilebilir veya geri ödenebilir — kullanıcılar arası transfer yoktur.
+  </Card>
+</CardGroup>
+
+## «Yalnızca Yükselen» Fiyat Formülü
+
+`Price = Liquidity ÷ Circulating Supply`
+
+DA her satıldığında tokenlar yakılır (arz düşer), USDT ise havuzda kalır (likidite korunur veya artar). Daha az token ÷ aynı veya daha fazla USDT = token başına daha yüksek fiyat.
+
+<Tip>
+  Tüm pazarlama ödüllerindeki %5 komisyon doğrudan DA likidite havuzuna akar — satış yüzdelerinden bağımsızdır. Ek likidite borç verme ücretleri, RWA geliri ve FinPro gelirlerinden gelir.
+</Tip>
+
+<DaPriceSimulator />

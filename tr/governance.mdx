@@ -1,0 +1,42 @@
+---
+title: "Yönetişim — DAO"
+description: "10M token, topluluk odaklı kararlar."
+icon: "landmark"
+---
+
+Merkeziyetsizlik, bağımsızlık ve güvenliği sağlamak için RWANFTFI, akıllı sözleşme tabanlı DAO'ya dayanır. Geliştiriciler tek taraflı olarak kuralları değiştiremez, kullanıcı fonlarına erişemez veya bakiyeleri manipüle edemez.
+
+## GovToken
+
+DAO, protokol parametreleri üzerindeki en yüksek otoritedir. Özel yönetişim tokeni (`GovToken`, ERC20Votes, 6 ondalık) kullanır.
+* **Arz:** 10.000.000 token.
+* **Oylama Mekaniği:** Zaman tabanlı mekanizma. Manuel delege devre dışı; transferde otomatik delege.
+
+## DAO Yetenekleri
+
+Teklif sunmak için toplam arzın %30'u desteği gerekir. Onaylanıp zincir üzerinde yürütülmesi için %50 çoğunluk oyu gerekir.
+
+<CardGroup cols={2}>
+  <Card title="Sunmak İçin %30" icon="file-signature">
+    Teklif, toplam GovToken arzının %30 desteğini gerektirir.
+  </Card>
+  <Card title="Onaylamak İçin %50" icon="check-double">
+    Zincir üzerinde yürütme için %50 çoğunluk oyu gerekir.
+  </Card>
+</CardGroup>
+
+DAO kritik işlevler üzerinde oy kullanır:
+* «Accumulative Event» tetikleme (30 günlük talep penceresi, 180 gün bekleme).
+* İş yapısı satışı yetkilendirme.
+* Güvenliği ihlal edilmiş cüzdan adresi değişikliği onayı.
+* Kullanıcı NFT'sini dondurma/çözme (Freeze/Unfreeze).
+
+## Hesap Dondurma Mekanizması
+
+DAO, bir kullanıcının NFT işlevselliğini dondurmak için oy kullanabilir. Bu bir moderasyon aracıdır, acil güvenlik önlemi değildir.
+
+<Warning>
+  **NFT dondurulduğunda:** Kullanıcı tüm finansal işlemlere erişimi kaybeder. Ancak NFT, kullanıcının blokzincir cüzdanında mülkü olarak kalır. **Çözme** de ayrı bir DAO oyu gerektirir.
+</Warning>
+
+Platform, kullanıcının cüzdanından NFT'ye el koyma teknik kapasitesine sahip değildir. Dondurma yalnızca RWANFTFI platformu içindeki işlevselliği devre dışı bırakır.
