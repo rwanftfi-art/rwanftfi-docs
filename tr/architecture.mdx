@@ -52,8 +52,10 @@ Sistem hiyerarşik rol yapısı (AccessControlEnumerable) kullanır:
 
 ## Bakiye Şeması ve Ödeme Önceliği
 
+Karmaşık fon akışını yönetmek için RWANFTFI, akıllı sözleşme içinde çok katmanlı bakiye şeması kullanır.
+
 **Kullanıcı Bakiyeleri:**
-1. **Normal Bakiye (`balance`):** Ana USDT cüzdanı. Her zaman çekilebilir.
+1. **Normal Bakiye (`balance`):** Ana USDT cüzdanı. Fonlar her zaman çekilebilir, NFT satın almak veya kupon oluşturmak için kullanılabilir.
 2. **Birikim Bakiyesi (`accumulativeBalance`):** Her pazarlama ödülünün %20'si otomatik olarak kaydedilir.
    * Kullanım: yalnızca NFT satın alma veya yükseltme için.
    * Kullanım veya transferde %20 ücret.
@@ -65,6 +67,8 @@ Sistem hiyerarşik rol yapısı (AccessControlEnumerable) kullanır:
 - **Dev Balance (`devBalance`):** Platform ücretleri ve komisyonları.
 - **Token Reserve Balance (`tokenReserveBalance`):** DA tokenini %100 destekleyen USDT likidite havuzu.
 - **Price Impact Balance (`priceImpactBalance`):** DA fiyat istikrarı için özel yedek.
+
+Bu bakiyeler tamamen akıllı sözleşme tarafından yönetilir ve hiçbir kullanıcı veya yönetici tarafından erişilemez.
 
 ### Ödeme Önceliği
 
