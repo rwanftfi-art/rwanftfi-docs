@@ -1,9 +1,67 @@
 ---
 title: "Экосистема NFT"
-description: "10 NFT tiers from Basic to Elite — pricing, income limits, features, and exclusive editions."
+description: "10 уровней от 28 до 24 000 USDT."
 icon: "id-card"
 ---
 
-<Info>
-  Эта страница находится в процессе перевода. Пожалуйста, обратитесь к [английской версии](/en/nft-ecosystem) для полной информации.
-</Info>
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · Доступ к RWA и FinPro
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5 500 USDT · Майнинг, кредитование, Matching Bonus
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11 000 – 24 000 USDT · Максимальная глубина, кратчайшие циклы
+  </Card>
+</CardGroup>
+
+Владение NFT обязательно для участия в маркетинге, майнинге DA и доступа к финансовым инструментам. Один активный NFT на аккаунт — при апгрейде предыдущий заменяется автоматически.
+
+<NftTierExplorer />
+
+## Лимит дохода и автообновление
+
+<AccordionGroup>
+  <Accordion title="Как работает лимит дохода" icon="gauge-high">
+    Каждый NFT имеет строгий лимит дохода. Как только маркетинговые вознаграждения достигают этого лимита, он обнуляется и вы пропускаете все дальнейшие награды. Обновите NFT, чтобы этого избежать. Ручная перепокупка невозможна при остатке лимита выше 30%.
+  </Accordion>
+  <Accordion title="Autobuy (система 3/3)" icon="rotate">
+    Для всех NFT кроме Elite (L9–L10) активируйте Autobuy — автоматическая перепокупка того же NFT до 3 раз при обнулении лимита. Требуется достаточно USDT на балансе. Сбрасывается до 3/3 при апгрейде.
+  </Accordion>
+  <Accordion title="Продажа бизнеса" icon="handshake">
+    Продайте всю бизнес-структуру (дерево партнёров) другому пользователю через DAO. Комиссия: 500 USDT (регулируется DAO). Продажа отдельного NFT без структуры невозможна.
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+  Лимит дохода: Когда лимит NFT исчерпан, вы перестаёте получать ВСЕ маркетинговые вознаграждения. Включите Autobuy или обновите NFT вручную при остатке ниже 30%.
+</Warning>
+
+## Gift NFT и ваучеры
+
+<CardGroup cols={2}>
+  <Card title="Gift NFT" icon="gift">
+    Непродаваемые промо-активы для постоянного размещения в бинарном дереве. Нельзя купить — выдаются через промо-акции или карьерные ранги. Без ограничений на количество.
+  </Card>
+  <Card title="Подарочные ваучеры" icon="ticket">
+    Пользовательские купоны от 5 USDT, срок действия 365 дней. Покрывают до 100% стоимости NFT. Передаваемые с комиссией 0%. Нельзя комбинировать с накопительным балансом.
+  </Card>
+</CardGroup>
+
+<Warning>
+  Перезапись Gift NFT: Если у вас уже есть обычный NFT и вы активируете Gift NFT, он перезапишет ваш обычный NFT. Активируйте Gift NFT только на аккаунтах без обычного NFT.
+</Warning>
+
+## Ambassador и VIP Edition
+
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    Лимит 100 штук (Q4 2026). Без лимита дохода. Собственная система наград. Не передаётся при продаже бизнеса.
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    Лимит 100 штук (Q4 2026). Доступ за достижение ранга Leader или выше.
+  </Card>
+</CardGroup>

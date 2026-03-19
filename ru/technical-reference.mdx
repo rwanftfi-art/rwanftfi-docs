@@ -1,60 +1,47 @@
 ---
 title: "Техническая справка"
-description: "Developer-facing glossary of smart contract terms, roles, and architecture components."
+description: "Глоссарий терминов смарт-контрактов, ролей и компонентов архитектуры."
 icon: "code"
 ---
 
 <AccordionGroup>
   <Accordion title="Accumulative Event" icon="clock">
-    A 30-day period (with a 180-day cooldown) initiated via the DAO,
-    during which users can claim expired accumulative balances.
+    30-дневный период (с кулдауном 180 дней), инициируемый через DAO, в течение которого пользователи могут заявить права на истёкшие накопительные балансы.
   </Accordion>
   <Accordion title="ADMIN_ROLE" icon="user-shield">
-    A role with permissions to manage system parameters and grant access.
+    Роль с правами управления системными параметрами и предоставления доступа.
   </Accordion>
   <Accordion title="Diamond Pattern (EIP-2535)" icon="diamond">
-    A smart contract architectural pattern that bypasses the 24KB size limit
-    by splitting logic into modules (Facets).
+    Архитектурный паттерн смарт-контрактов, обходящий лимит размера 24KB путём разделения логики на модули (Facets).
   </Accordion>
   <Accordion title="Freeze" icon="snowflake">
-    Moderation mechanism initiated exclusively through DAO voting that blocks
-    all financial operations for a specific user account. Used for policy
-    enforcement, not as an emergency security tool. Both freezing and
-    unfreezing require a DAO vote.
+    Механизм модерации, инициируемый исключительно через голосование DAO, блокирующий все финансовые операции для конкретного аккаунта пользователя. Используется для соблюдения политики, а не как экстренный инструмент безопасности. Как заморозка, так и разморозка требуют голосования DAO.
   </Accordion>
   <Accordion title="freezeTime" icon="hourglass">
-    A parameter defining the duration of an account freeze when blocked via the DAO.
+    Параметр, определяющий длительность заморозки аккаунта при блокировке через DAO.
   </Accordion>
   <Accordion title="GovToken" icon="landmark">
-    The ERC20Votes governance token (10M supply, 6 decimals) used for DAO voting,
-    with auto-delegation and manual delegation disabled.
+    Токен управления ERC20Votes (объём 10M, 6 десятичных знаков), используемый для голосования DAO, с автоделегацией и отключённой ручной делегацией.
   </Accordion>
   <Accordion title="LibSignatureLogic" icon="signature">
-    A smart contract library for verifying cryptographic signatures
-    using the SIGNER_ROLE.
+    Библиотека смарт-контрактов для верификации криптографических подписей с использованием SIGNER_ROLE.
   </Accordion>
   <Accordion title="Price Impact Event" icon="chart-line">
-    A mechanism for managing DA price stability through a special reserve
-    balance (priceImpactBalance).
+    Механизм управления стабильностью цены DA через специальный резервный баланс (priceImpactBalance).
   </Accordion>
   <Accordion title="processExpiredStacks" icon="rotate">
-    A ResolverFacet function for processing DA stacks whose unlock periods
-    have fully expired.
+    Функция ResolverFacet для обработки DA-стеков, периоды разблокировки которых полностью истекли.
   </Accordion>
   <Accordion title="SERVICE_ROLE" icon="server">
-    A smart contract role for automated backend operations — processing
-    cross-chain deposits and resolving expired stacks.
+    Роль смарт-контракта для автоматизированных бэкенд-операций — обработка кросс-чейн депозитов и разрешение истёкших стеков.
   </Accordion>
   <Accordion title="SIGNER_ROLE" icon="key">
-    A role for cryptographic signature verification when authorizing
-    operations such as voucher transfers.
+    Роль для криптографической верификации подписей при авторизации операций, таких как передача ваучеров.
   </Accordion>
   <Accordion title="TokenStack" icon="layer-group">
-    A smart contract data structure that holds a user's DA tokens, tracking
-    progressive time-based unlock periods (25%, 40%, 50%, 100%) for selling.
+    Структура данных смарт-контракта, хранящая токены DA пользователя и отслеживающая прогрессивные периоды разблокировки по времени (25%, 40%, 50%, 100%) для продажи.
   </Accordion>
   <Accordion title="Transparent Proxy" icon="arrows-rotate">
-    An upgrade pattern for the TokenReserve (DA) contract, allowing logic
-    updates without changing the contract address.
+    Паттерн обновления контракта TokenReserve (DA), позволяющий обновлять логику без смены адреса контракта.
   </Accordion>
 </AccordionGroup>
