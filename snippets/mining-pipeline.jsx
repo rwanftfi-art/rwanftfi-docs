@@ -61,7 +61,7 @@ export const MiningPipeline = () => {
         </div>
 
         <div className="flex items-center gap-0.5" style={{ height: '48px', borderRadius: '12px', overflow: 'hidden' }}>
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.15)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.18)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Mining</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>
@@ -73,7 +73,7 @@ export const MiningPipeline = () => {
           <div style={{ backgroundColor: '#ef4444', width: '4%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ color: '#FFFFFF', fontSize: '9px', fontWeight: 900 }}>72h</div>
           </div>
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.08)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Farming</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.days} days — {fmtNum(daReceived)} DA</div>
@@ -102,6 +102,10 @@ export const MiningPipeline = () => {
           {fmtNum(daReceived)} DA
         </div>
         <div style={{ color: 'rgba(255,255,255,0.5)' }}
+             className="text-xs mt-1">
+          Worth {fmtUsd(daReceived * daPrice)} at current DA price
+        </div>
+        <div style={{ color: 'rgba(255,255,255,0.5)' }}
              className="text-xs mt-2">
           From {fmtUsd(lvl.price)} investment · {lvl.cycles === 1
             ? 'Cycle 1: ' + fmtNum(nftmCycle1) + ' NFTM'
@@ -109,14 +113,31 @@ export const MiningPipeline = () => {
           }
         </div>
       </div>
+      <div className="grid grid-cols-3 gap-3" style={{ marginTop: '12px' }}>
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
+             className="rounded-xl p-3 text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Investment</div>
+          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lvl.price)}</div>
+        </div>
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
+             className="rounded-xl p-3 text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">DA Value</div>
+          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(daReceived * daPrice)}</div>
+        </div>
+        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
+             className="rounded-xl p-3 text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Pipeline</div>
+          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{totalDays} days</div>
+        </div>
+      </div>
       {lvl.cycles === 1 && (
         <div style={{
           backgroundColor: 'rgba(255,255,255,0.05)',
-          border: '1px solid rgba(255,255,255,0.1)',
+          border: '1px solid rgba(255,255,255,0.15)',
           marginTop: '12px'
         }} className="rounded-xl p-4 text-center">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-            Second cycle (15%) can be activated for this NFT level
+            DAO Second cycle (15%) can be activated for this NFT level
             via DAO voting, increasing total NFTM by {fmtNum(lvl.price * 0.15)}.
           </div>
         </div>
