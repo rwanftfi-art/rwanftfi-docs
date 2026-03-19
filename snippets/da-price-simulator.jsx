@@ -137,8 +137,9 @@ export const DaPriceSimulator = () => {
               outline: 'none',
               WebkitAppearance: 'none',
               appearance: 'none',
+              direction: 'rtl',
             }} />
-          <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>100K</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>21M DA</span></div>
+          <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>21M DA</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>100K</span></div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="mb-2">
