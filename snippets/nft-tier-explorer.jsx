@@ -110,7 +110,7 @@ export const NftTierExplorer = () => {
       </div>
 
       {/* Card Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {filtered.map(nft => {
           const isSel = selected?.level === nft.level;
           const isCmp = compare.find(c => c.level === nft.level);
@@ -121,17 +121,40 @@ export const NftTierExplorer = () => {
                 backgroundColor: '#383838',
                 borderColor: isSel ? 'rgba(255,255,255,0.6)' : isCmp ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.05)',
                 textAlign: 'left',
-                boxShadow: isSel ? '0 0 15px rgba(255,255,255,0.15)' : isCmp ? 'none' : 'none',
+                boxShadow: isSel ? '0 0 15px rgba(255,255,255,0.15)' : 'none',
+                padding: 0,
+                overflow: 'hidden',
               }}
-              className="relative p-4 rounded-xl transition-all duration-300 border">
-              <div className="flex items-center justify-between mb-2">
-                <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">{nft.tier}</span>
-                <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px]">L{nft.level}</span>
+              className="relative rounded-xl transition-all duration-300 border">
+              {/* Video */}
+              <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1' }}>
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  loading="lazy"
+                  preload={nft.level <= 5 ? 'auto' : 'none'}
+                  style={{
+                    width: '100%',
+                    aspectRatio: '1 / 1',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                  src={`/videos/${String(nft.level).padStart(2, '0')}_1.mp4`}
+                />
               </div>
-              <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
-              <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Limit: {fmtUsd(nft.limit)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Depth: {nft.depth} levels</div>
+              {/* Card Info */}
+              <div style={{ padding: '12px' }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">{nft.tier}</span>
+                  <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px]">L{nft.level}</span>
+                </div>
+                <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
+                <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Limit: {fmtUsd(nft.limit)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Depth: {nft.depth} levels</div>
+              </div>
               {isCmp && (
                 <div style={{ backgroundColor: '#FFFFFF', boxShadow: '0 0 8px rgba(255,255,255,0.3)' }} className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center">
                   <span style={{ color: '#000000' }} className="text-[10px] font-bold">{compare.indexOf(isCmp) + 1}</span>
@@ -170,6 +193,21 @@ export const NftTierExplorer = () => {
                 </div>
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
+                <div style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '260px', marginBottom: '12px' }}>
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                      width: '100%',
+                      aspectRatio: '1 / 1',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                    src={`/videos/${String(selected.level).padStart(2, '0')}_1.mp4`}
+                  />
+                </div>
                 <RadarChart items={[selected]} size={200} />
                 <button onClick={() => toggleCompare(selected)}
                   style={compare.find(c => c.level === selected.level)
@@ -191,6 +229,25 @@ export const NftTierExplorer = () => {
             {compare[0].name} <span style={{ color: 'rgba(255,255,255,0.4)' }} className="mx-2">vs</span> {compare[1].name}
           </h4>
           <div className="flex flex-col items-center gap-6">
+            <div className="flex justify-center gap-4 w-full">
+              {compare.map((item) => (
+                <div key={item.level} style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '180px' }}>
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                      width: '100%',
+                      aspectRatio: '1 / 1',
+                      objectFit: 'cover',
+                      display: 'block',
+                    }}
+                    src={`/videos/${String(item.level).padStart(2, '0')}_1.mp4`}
+                  />
+                </div>
+              ))}
+            </div>
             <div className="w-full max-w-[280px]">
               <RadarChart items={compare} size={260} />
               <div className="flex justify-center gap-6 mt-2">
