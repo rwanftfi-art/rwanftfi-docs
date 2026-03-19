@@ -12,6 +12,7 @@ export const IncomeCalculator = () => {
   const [nftLevel, setNftLevel] = useState(5);
   const [showAll, setShowAll] = useState(false);
   const [activePreset, setActivePreset] = useState(null);
+  const [salesRaw, setSalesRaw] = useState(() => Object.fromEntries(Array.from({ length: 22 }, (_, i) => [i, ''])));
   const [levels, setLevels] = useState(
     Array.from({ length: 22 }, (_, i) => ({
       level: i + 1,
@@ -40,6 +41,14 @@ export const IncomeCalculator = () => {
 
   const updateLevel = (index, field, value) => {
     setLevels((prev) => prev.map((l, i) => i === index ? { ...l, [field]: value } : l));
+  };
+
+  const applyPreset = (name, newLevels) => {
+    setLevels(newLevels);
+    const newRaw = {};
+    newLevels.forEach((l, i) => { newRaw[i] = l.sales > 0 ? String(l.sales) : ''; });
+    setSalesRaw(newRaw);
+    setActivePreset(name);
   };
 
   const presets = {
@@ -148,13 +157,13 @@ export const IncomeCalculator = () => {
         Quick fill presets:
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
-        <button onClick={() => { setLevels(presets.small()); setActivePreset('small'); }} style={presetBtnStyle('small')}>
+        <button onClick={() => applyPreset('small', presets.small())} style={presetBtnStyle('small')}>
           Small Team
         </button>
-        <button onClick={() => { setLevels(presets.growing()); setActivePreset('growing'); }} style={presetBtnStyle('growing')}>
+        <button onClick={() => applyPreset('growing', presets.growing())} style={presetBtnStyle('growing')}>
           Growing Network
         </button>
-        <button onClick={() => { setLevels(presets.clear()); setActivePreset('clear'); }} style={presetBtnStyle('clear')}>
+        <button onClick={() => applyPreset('clear', presets.clear())} style={presetBtnStyle('clear')}>
           Clear All
         </button>
       </div>
@@ -186,7 +195,13 @@ export const IncomeCalculator = () => {
                       <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '9px', marginLeft: '4px' }}>P2</span>
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>{row.pct}%</td>
+                  <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
+                    {row.level === 1 ? (
+                      <span>0% <span style={{ color: '#9CA3AF', fontSize: '10px' }}>*</span></span>
+                    ) : (
+                      <span>{row.pct}%</span>
+                    )}
+                  </td>
                   <td style={{ padding: '4px 6px', textAlign: 'center' }}>
                     {isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Upgrade NFT</span>
@@ -210,11 +225,12 @@ export const IncomeCalculator = () => {
                         type="text"
                         inputMode="numeric"
                         pattern="[0-9]*"
-                        value={row.sales === 0 ? '' : row.sales}
+                        value={salesRaw[i] ?? ''}
                         placeholder="0"
                         onChange={(e) => {
                           const val = e.target.value.replace(/[^0-9]/g, '');
-                          const num = val === '' ? 0 : Math.min(parseInt(val, 10), row.maxPos);
+                          setSalesRaw((prev) => ({ ...prev, [i]: val }));
+                          const num = val === '' ? 0 : parseInt(val, 10);
                           updateLevel(i, 'sales', num);
                         }}
                         onFocus={(e) => e.target.select()}
@@ -259,6 +275,11 @@ export const IncomeCalculator = () => {
           <span style={{ color: 'rgba(255,255,255,0.6)' }}>TOTAL</span>
           <span style={{ color: '#4ade80' }}>{fmtUsd(totalIncome)}</span>
         </div>
+      </div>
+
+      {/* Level 1 footnote */}
+      <div style={{ color: '#9CA3AF', fontSize: '12px', marginTop: '8px' }}>
+        * Level 1 earnings come from the Sponsor Bonus (30% new sale / 20% rebuy), not from the tree distribution percentage.
       </div>
 
       {/* Show/hide locked levels toggle */}
