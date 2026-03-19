@@ -29,6 +29,38 @@ export const IncomeCalculator = () => {
   const daTax = totalIncome * 0.05;
 
   return (
+    <>
+    <style>{`
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 6px rgba(255,255,255,0.2);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.3);
+    box-shadow: 0 0 6px rgba(255,255,255,0.2);
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 3px;
+  }
+  input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.15);
+  }
+`}</style>
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       {/* Header + Interactive badge */}
       <div className="flex items-center justify-between mb-6">
@@ -57,8 +89,16 @@ export const IncomeCalculator = () => {
           </div>
           <input type="range" min="28" max="24000" step="1" value={avgPrice}
             onChange={(e) => setAvgPrice(Number(e.target.value))}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-white"
-            style={{ touchAction: 'manipulation', backgroundColor: 'rgba(56,56,56,0.7)' }} />
+            className="w-full cursor-pointer"
+            style={{
+              touchAction: 'manipulation',
+              height: '6px',
+              borderRadius: '3px',
+              background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))',
+              outline: 'none',
+              WebkitAppearance: 'none',
+              appearance: 'none',
+            }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>$28</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>$24,000</span></div>
         </div>
 
@@ -69,8 +109,16 @@ export const IncomeCalculator = () => {
           </div>
           <input type="range" min="1" max="50" step="1" value={salesPerLevel}
             onChange={(e) => setSalesPerLevel(Number(e.target.value))}
-            className="w-full h-2 rounded-lg appearance-none cursor-pointer accent-white"
-            style={{ touchAction: 'manipulation', backgroundColor: 'rgba(56,56,56,0.7)' }} />
+            className="w-full cursor-pointer"
+            style={{
+              touchAction: 'manipulation',
+              height: '6px',
+              borderRadius: '3px',
+              background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))',
+              outline: 'none',
+              WebkitAppearance: 'none',
+              appearance: 'none',
+            }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>1</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>50</span></div>
         </div>
       </div>
@@ -101,5 +149,6 @@ export const IncomeCalculator = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
