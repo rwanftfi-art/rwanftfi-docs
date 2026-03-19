@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useLang, t } from '/snippets/i18n.js';
 
 export const MiningPipeline = () => {
+  const lang = useLang();
   const [selectedLevel, setSelectedLevel] = useState(5);
 
   const LEVELS = {
@@ -22,20 +24,20 @@ export const MiningPipeline = () => {
   var nftmCycle1 = lvl.price * lvl.c1;
   var nftmCycle2 = lvl.price * lvl.c2;
   var totalNftm = nftmCycle1 + nftmCycle2;
-  var totalDays = lvl.cycles === 1 ? lvl.days * 2 : lvl.days * 2;
-  // Mining + Farming одинаковой длины, независимо от количества циклов
-  // 1 цикл: mine days + farm days
-  // 2 цикла: (mine days + farm days) — оба цикла внутри одного pipeline
-  var daPrice = 1.00; // Initial DA price
-  var daReceived = totalNftm / daPrice; // NFTM converts to DA at current price
+  var totalDays = lvl.days * 2;
+  var daPrice = 1.00;
+  var daReceived = totalNftm / daPrice;
+
+  var sellingLendingHref = lang === 'en' ? '/en/da-selling-lending' : '/' + lang + '/da-selling-lending';
+
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
 
       {/* 1. Header + NFT Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">Mining Dashboard</h3>
-          <p style={{ color: 'rgba(255,255,255,0.4)', margin: '4px 0 0 0' }} className="text-xs">Full pipeline overview — from NFT purchase to DA harvest</p>
+          <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">{t(lang, 'miningDashboard')}</h3>
+          <p style={{ color: 'rgba(255,255,255,0.4)', margin: '4px 0 0 0' }} className="text-xs">{t(lang, 'miningDashboardDesc')}</p>
         </div>
         <div className="flex items-center gap-3">
           <select
@@ -46,27 +48,27 @@ export const MiningPipeline = () => {
             {Object.entries(LEVELS).map(function(entry) {
               var k = entry[0];
               var d = entry[1];
-              return <option key={k} value={k}>L{k} — {d.name} ({d.price} USDT) — {d.days} days</option>;
+              return <option key={k} value={k}>L{k} — {d.name} ({d.price} USDT) — {d.days} {t(lang, 'days')}</option>;
             })}
           </select>
-          <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>Interactive</span>
+          <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>{t(lang, 'interactive')}</span>
         </div>
       </div>
 
       {/* 2. Timeline Bar */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
-          <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs font-medium">Total Pipeline</span>
-          <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{totalDays} days</span>
+          <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs font-medium">{t(lang, 'totalPipeline')}</span>
+          <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{totalDays} {t(lang, 'days')}</span>
         </div>
 
         <div className="flex items-center gap-0.5" style={{ height: '48px', borderRadius: '12px', overflow: 'hidden' }}>
           <div style={{ backgroundColor: 'rgba(255,255,255,0.18)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Mining</div>
+              <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>{t(lang, 'mining')}</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>
-                {lvl.days} days — {fmtNum(totalNftm)} NFTM
-                {lvl.cycles === 1 ? ' (1 cycle)' : ' (2 cycles)'}
+                {lvl.days} {t(lang, 'days')} — {fmtNum(totalNftm)} NFTM
+                {lvl.cycles === 1 ? ' (' + t(lang, 'cycles1') + ')' : ' (' + t(lang, 'cycles2') + ')'}
               </div>
             </div>
           </div>
@@ -75,8 +77,8 @@ export const MiningPipeline = () => {
           </div>
           <div style={{ backgroundColor: 'rgba(255,255,255,0.08)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Farming</div>
-              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.days} days — {fmtNum(daReceived)} DA</div>
+              <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>{t(lang, 'farming')}</div>
+              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.days} {t(lang, 'days')} — {fmtNum(daReceived)} DA</div>
             </div>
           </div>
         </div>
@@ -86,7 +88,7 @@ export const MiningPipeline = () => {
             <span className="animate-ping absolute inline-flex rounded-full" style={{ height: '100%', width: '100%', backgroundColor: '#ef4444', opacity: 0.75 }} />
             <span className="relative inline-flex rounded-full" style={{ height: '8px', width: '8px', backgroundColor: '#ef4444' }} />
           </span>
-          <span style={{ color: '#f87171', fontSize: '11px', fontWeight: 500 }}>72-hour critical window — miss it and the entire cycle restarts from scratch</span>
+          <span style={{ color: '#f87171', fontSize: '11px', fontWeight: 500 }}>{t(lang, 'criticalWindow')}</span>
         </div>
       </div>
 
@@ -95,7 +97,7 @@ export const MiningPipeline = () => {
            className="rounded-xl p-5 text-center">
         <div style={{ color: 'rgba(255,255,255,0.4)' }}
              className="text-[10px] uppercase tracking-wider mb-1">
-          You Receive After {totalDays} Days
+          {t(lang, 'youReceive')} {totalDays} {t(lang, 'days')}
         </div>
         <div style={{ color: '#FFFFFF', fontSize: '36px' }}
              className="font-black">
@@ -103,31 +105,31 @@ export const MiningPipeline = () => {
         </div>
         <div style={{ color: 'rgba(255,255,255,0.5)' }}
              className="text-xs mt-1">
-          Worth {fmtUsd(daReceived * daPrice)} at current DA price
+          {t(lang, 'worth')} {fmtUsd(daReceived * daPrice)} {t(lang, 'atCurrentPrice')}
         </div>
         <div style={{ color: 'rgba(255,255,255,0.5)' }}
              className="text-xs mt-2">
-          From {fmtUsd(lvl.price)} investment · {lvl.cycles === 1
-            ? 'Cycle 1: ' + fmtNum(nftmCycle1) + ' NFTM'
-            : 'Cycle 1: ' + fmtNum(nftmCycle1) + ' + Cycle 2: ' + fmtNum(nftmCycle2) + ' NFTM'
+          {t(lang, 'from')} {fmtUsd(lvl.price)} {t(lang, 'investment').toLowerCase()} · {lvl.cycles === 1
+            ? t(lang, 'cycle') + ' 1: ' + fmtNum(nftmCycle1) + ' NFTM'
+            : t(lang, 'cycle') + ' 1: ' + fmtNum(nftmCycle1) + ' + ' + t(lang, 'cycle') + ' 2: ' + fmtNum(nftmCycle2) + ' NFTM'
           }
         </div>
       </div>
       <div className="grid grid-cols-3 gap-3" style={{ marginTop: '12px' }}>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
              className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Investment</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'investment')}</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lvl.price)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
              className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">DA Value</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'daValue')}</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(daReceived * daPrice)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
              className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Pipeline</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{totalDays} days</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'pipeline')}</div>
+          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{totalDays} {t(lang, 'days')}</div>
         </div>
       </div>
       {lvl.cycles === 1 && (
@@ -137,17 +139,16 @@ export const MiningPipeline = () => {
           marginTop: '12px'
         }} className="rounded-xl p-4 text-center">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-            DAO Second cycle (15%) can be activated for this NFT level
-            via DAO voting, increasing total NFTM by {fmtNum(lvl.price * 0.15)}.
+            {t(lang, 'daoSecondCycle')} {fmtNum(lvl.price * 0.15)}.
           </div>
         </div>
       )}
       <div style={{ color: 'rgba(255,255,255,0.4)' }}
            className="text-xs text-center mt-3">
-        Once harvested, compare your options on{' '}
-        <a href="/en/da-selling-lending"
+        {t(lang, 'onceHarvested')}{' '}
+        <a href={sellingLendingHref}
            style={{ color: '#FFFFFF', textDecoration: 'underline' }}>
-          Selling &amp; Lending
+          {t(lang, 'sellingLending')}
         </a>
       </div>
 
