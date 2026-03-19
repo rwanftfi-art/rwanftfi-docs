@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useLang, t } from '/snippets/i18n.js';
+import { useT } from '/snippets/i18n.js';
 
 export const DaPriceSimulator = () => {
-  const lang = useLang();
+  var t = useT();
   var [daMinted, setDaMinted] = useState(1000000);
   var [liquidityPool, setLiquidityPool] = useState(1000000);
   var [tokensBurned, setTokensBurned] = useState(0);
@@ -92,28 +92,28 @@ export const DaPriceSimulator = () => {
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">{t(lang, 'daPriceSimulator')}</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>{t(lang, 'interactive')}</span>
+        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">{t('daPriceSimulator')}</h3>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>{t('interactive')}</span>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'daPrice')}</div>
+          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t('daPrice')}</div>
           <div style={{ color: '#FFFFFF', fontSize: '28px', fontWeight: 900, lineHeight: 1.2 }} className="transition-all duration-300">{fmtUsd(price)}</div>
           <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontWeight: 600, marginTop: '4px' }}>
-            {priceChange >= 0 ? t(lang, 'up') : t(lang, 'down')} {Math.abs(priceChange).toFixed(2)}% {t(lang, 'from')} $1.00
+            {priceChange >= 0 ? t('up') : t('down')} {Math.abs(priceChange).toFixed(2)}% {t('from')} $1.00
           </div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'circulatingSupply')}</div>
+          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t('circulatingSupply')}</div>
           <div style={{ color: '#FFFFFF' }} className="text-lg md:text-xl font-black transition-all duration-300">{fmtNum(circulatingSupply)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{t(lang, 'minted')}: {fmtNum(daMinted)} · {t(lang, 'burned')}: {fmtNum(tokensBurned)}</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{t('minted')}: {fmtNum(daMinted)} · {t('burned')}: {fmtNum(tokensBurned)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t(lang, 'liquidityPool')}</div>
+          <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">{t('liquidityPool')}</div>
           <div style={{ color: '#FFFFFF' }} className="text-lg md:text-xl font-black transition-all duration-300">{fmtUsd(liquidityPool)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{t(lang, 'usdtBacked')}</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{t('usdtBacked')}</div>
         </div>
       </div>
 
@@ -121,7 +121,7 @@ export const DaPriceSimulator = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t(lang, 'daInCirculation')}</label>
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t('daInCirculation')}</label>
             <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtNum(daMinted)} DA</span>
           </div>
           <input type="range" min="100000" max="21000000" step="100000" value={daMinted}
@@ -144,7 +144,7 @@ export const DaPriceSimulator = () => {
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t(lang, 'usdtLiquidityPool')}</label>
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t('usdtLiquidityPool')}</label>
             <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtUsd(liquidityPool)}</span>
           </div>
           <input type="range" min="100000" max="50000000" step="100000" value={liquidityPool}
@@ -163,7 +163,7 @@ export const DaPriceSimulator = () => {
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="mb-2">
-            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t(lang, 'daBurnedFromSales')}</label>
+            <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px' }}>{t('daBurnedFromSales')}</label>
             <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block' }}>{fmtNum(tokensBurned)} DA</span>
           </div>
           <input type="range" min="0" max={maxBurn} step="10000" value={Math.min(tokensBurned, maxBurn)}
@@ -184,12 +184,12 @@ export const DaPriceSimulator = () => {
 
       {/* SVG Chart */}
       <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 overflow-x-auto">
-        <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>{t(lang, 'priceCurve')}</div>
+        <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>{t('priceCurve')}</div>
         {tokensBurned === 0 && (
           <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }} className="flex items-center gap-3 px-4 py-3 mb-3 rounded-lg">
-            <span style={{ fontSize: '18px' }}>{t(lang, 'hint')}</span>
+            <span style={{ fontSize: '18px' }}>{t('hint')}</span>
             <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '12px', fontWeight: 500 }}>
-              {t(lang, 'hintText')}
+              {t('hintText')}
             </span>
           </div>
         )}
@@ -217,13 +217,13 @@ export const DaPriceSimulator = () => {
               <text x={getX(N)} y={getY(lastPt.price) - 12} textAnchor="middle" fill="#FFFFFF" style={{ fontSize: '10px', fontWeight: 'bold' }}>{fmtUsd(lastPt.price)}</text>
             </g>
           )}
-          <text x={W / 2} y={H - 4} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '9px' }}>{t(lang, 'tokensBurned')}</text>
+          <text x={W / 2} y={H - 4} textAnchor="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '9px' }}>{t('tokensBurned')}</text>
         </svg>
       </div>
 
       {/* Disclaimer */}
       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', lineHeight: 1.6, marginTop: '16px', marginBottom: 0 }}>
-        {t(lang, 'simplifiedModel')}
+        {t('simplifiedModel')}
       </p>
     </div>
     </>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLang, t } from '/snippets/i18n.js';
+import { useT } from '/snippets/i18n.js';
 
 const LEVEL_PERCENTS = [0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 2, 2, 1, 0.5, 0.5, 0.5, 0.5];
 const DEPTH_BY_NFT = [2, 3, 4, 6, 9, 11, 12, 13, 15, 19];
@@ -17,7 +17,7 @@ const makeInitialLevels = () =>
   }));
 
 export const IncomeCalculator = () => {
-  const lang = useLang();
+  const t = useT();
   const [nftLevel, setNftLevel] = useState(5);
   const [showAll, setShowAll] = useState(false);
   const [activePreset, setActivePreset] = useState(null);
@@ -102,69 +102,69 @@ export const IncomeCalculator = () => {
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       {/* Header + Interactive badge */}
       <div className="flex items-center justify-between mb-6">
-        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">{t(lang, 'marketingIncomeCalc')}</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">{t(lang, 'interactive')}</span>
+        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">{t('marketingIncomeCalc')}</h3>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">{t('interactive')}</span>
       </div>
 
       {/* NFT Selector */}
       <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="rounded-xl border p-4 mb-4">
-        <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider mb-2 block">{t(lang, 'yourNftLevel')}</label>
+        <label style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] font-semibold uppercase tracking-wider mb-2 block">{t('yourNftLevel')}</label>
         <select value={nftLevel} onChange={(e) => setNftLevel(Number(e.target.value))}
           style={{ backgroundColor: 'rgba(56,56,56,0.7)', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }}
           className="w-full p-2.5 rounded-lg text-sm font-medium border">
           {NFT_NAMES.map((name, i) => (
-            <option key={i} value={i + 1}>L{i + 1} — {name} ({fmtUsd(NFT_PRICES[i])}) — {DEPTH_BY_NFT[i]} {t(lang, 'lvls')}</option>
+            <option key={i} value={i + 1}>L{i + 1} — {name} ({fmtUsd(NFT_PRICES[i])}) — {DEPTH_BY_NFT[i]} {t('lvls')}</option>
           ))}
         </select>
       </div>
 
       {/* HERO: Total Gross Income */}
       <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.1)' }} className="rounded-xl p-6 text-center mb-4">
-        <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">{t(lang, 'totalGrossIncome')}</div>
+        <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">{t('totalGrossIncome')}</div>
         {totalIncome === 0 ? (
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
-            {t(lang, 'enterSalesData')}
+            {t('enterSalesData')}
           </div>
         ) : (
           <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
         )}
-        <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{t(lang, 'basedOnInputs')}</div>
+        <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">{t('basedOnInputs')}</div>
       </div>
 
       {/* Three monochrome cards — hidden when total = 0 */}
       {totalIncome > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t(lang, 'netIncome')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t('netIncome')}</div>
             <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t(lang, 'regularBalance')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t('regularBalance')}</div>
           </div>
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t(lang, 'accumulative')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t('accumulative')}</div>
             <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t(lang, 'accTimer')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t('accTimer')}</div>
           </div>
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t(lang, 'daLiquidity')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">{t('daLiquidity')}</div>
             <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t(lang, 'daPoolText')}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{t('daPoolText')}</div>
           </div>
         </div>
       )}
 
       {/* Quick Fill Presets */}
       <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '8px' }}>
-        {t(lang, 'quickFill')}
+        {t('quickFill')}
       </div>
       <div className="flex gap-2 mb-3 flex-wrap">
         <button onClick={() => applyPreset('small', presets.small())} style={presetBtnStyle('small')}>
-          {t(lang, 'smallTeam')}
+          {t('smallTeam')}
         </button>
         <button onClick={() => applyPreset('growing', presets.growing())} style={presetBtnStyle('growing')}>
-          {t(lang, 'growingNetwork')}
+          {t('growingNetwork')}
         </button>
         <button onClick={() => applyPreset('clear', presets.clear())} style={presetBtnStyle('clear')}>
-          {t(lang, 'clearAll')}
+          {t('clearAll')}
         </button>
       </div>
 
@@ -173,11 +173,11 @@ export const IncomeCalculator = () => {
         <table style={{ minWidth: '400px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
           <thead>
             <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}>
-              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>{t(lang, 'level')}</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>{t('level')}</th>
               <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>%</th>
-              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>{t(lang, 'nftPrice')}</th>
-              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '60px' }}>{t(lang, 'sales')}</th>
-              <th style={{ padding: '6px 6px', textAlign: 'right', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>{t(lang, 'income')}</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>{t('nftPrice')}</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '60px' }}>{t('sales')}</th>
+              <th style={{ padding: '6px 6px', textAlign: 'right', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>{t('income')}</th>
             </tr>
           </thead>
           <tbody>
@@ -197,14 +197,14 @@ export const IncomeCalculator = () => {
                   </td>
                   <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
                     {row.level === 1 ? (
-                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>{t(lang, 'directSale')}</span>
+                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>{t('directSale')}</span>
                     ) : (
                       <span>{row.pct}%</span>
                     )}
                   </td>
                   <td style={{ padding: '4px 6px', textAlign: 'center' }}>
                     {isLocked ? (
-                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>{t(lang, 'upgradeNft')}</span>
+                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>{t('upgradeNft')}</span>
                     ) : (
                       <select
                         value={row.avgPrice}
@@ -271,20 +271,20 @@ export const IncomeCalculator = () => {
           fontSize: '14px',
           fontWeight: 800,
         }}>
-          <span style={{ color: 'rgba(255,255,255,0.6)' }}>{t(lang, 'total')}</span>
+          <span style={{ color: 'rgba(255,255,255,0.6)' }}>{t('total')}</span>
           <span style={{ color: '#4ade80' }}>{fmtUsd(totalIncome)}</span>
         </div>
       </div>
 
       {/* Level 1 footnote */}
       <div style={{ color: '#9CA3AF', fontSize: '12px', marginTop: '8px' }}>
-        {t(lang, 'level1Note')}
+        {t('level1Note')}
       </div>
 
       {/* Show/hide locked levels toggle */}
       <button onClick={() => setShowAll(!showAll)}
         style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-        {showAll ? t(lang, 'hideLocked') : t(lang, 'showAll')}
+        {showAll ? t('hideLocked') : t('showAll')}
       </button>
     </div>
   );
