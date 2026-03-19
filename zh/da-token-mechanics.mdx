@@ -1,9 +1,34 @@
 ---
-title: "DA Token Mechanics"
-description: "21M hard-capped, 100% USDT backed, deflationary by design."
+title: "DA 代币机制"
+description: "「只涨不跌」的价格模型。"
 icon: "coins"
 ---
 
-<Info>
-  此页面正在翻译中。请参阅[英文版本](/en/da-token-mechanics)获取完整信息。
-</Info>
+import { DaPriceSimulator } from "/snippets/da-price-simulator.jsx"
+
+<CardGroup cols={2}>
+  <Card title="2100 万硬顶" icon="cube">
+    最大供应量永久固定。无通胀、无增发。
+  </Card>
+  <Card title="100% USDT 支撑" icon="shield-check">
+    每枚 DA 代币均由流动性池中的真实 USDT 支撑。
+  </Card>
+  <Card title="每次出售都销毁" icon="fire">
+    手动出售销毁 25%，自动出售销毁 30%，永久移出流通。
+  </Card>
+  <Card title="禁止 P2P 转账" icon="ban">
+    DA 只能出售、抵押或偿还——无法在用户间转账。
+  </Card>
+</CardGroup>
+
+## 「只涨不跌」价格公式
+
+`Price = Liquidity ÷ Circulating Supply`
+
+每次出售 DA 时，代币被销毁（供应减少），而 USDT 留在池中（流动性不变或增加）。更少的代币 ÷ 同等或更多的 USDT = 每枚代币价格更高。
+
+<Tip>
+  所有营销奖励的 5% 佣金直接流入 DA 流动性池——独立于出售百分比。额外流动性来自借贷费用、RWA 收入和 FinPro 收入。
+</Tip>
+
+<DaPriceSimulator />

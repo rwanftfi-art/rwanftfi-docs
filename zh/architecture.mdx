@@ -1,9 +1,89 @@
 ---
-title: "Smart Contract Architecture"
-description: "Diamond Pattern (EIP-2535), Facets, upgradability, role management, and balance schema."
+title: "智能合约架构"
+description: "Diamond Pattern 与 7 个 Facets。"
 icon: "cubes"
 ---
 
-<Info>
-  此页面正在翻译中。请参阅[英文版本](/en/architecture)获取完整信息。
-</Info>
+RWANFTFI 平台构建在模块化、安全的智能合约架构之上，无需中心化控制即可管理所有交互、分配和代币机制。
+
+## Diamond Pattern（EIP-2535）
+
+系统核心采用 Diamond Pattern（EIP-2535）实现。该架构通过将功能拆分为独立模块（Facets）来绕过标准智能合约 24KB 大小限制，所有模块通过单一代理合约访问。
+
+## 核心 Facets
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    系统参数、角色、业务出售和特殊 NFT 铸造。
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    用户注册、NFT 购买和营销奖励分配。
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    NFTM 挖矿和 DA 农耕周期管理。
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    充值、提现、代金券创建和累积转账。
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    22 层二叉树逻辑和用户配置算法。
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    过期 DA 栈处理、代金券销毁和冻结账户解析。
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    只读查询：用户数据、余额和树形结构。
+  </Card>
+</CardGroup>
+
+## 可升级性矩阵
+
+* **Diamond Contract（EIP-2535）：** 通过 Facet cuts 可升级——可添加、替换或移除模块，无需重新部署。
+* **TokenReserve（DA）：** 通过 Transparent Proxy 可升级——可更新逻辑，合约地址不变。
+* **NFT（Regular、Gift、Ambassador）、GovToken、AdminContract：** 不可升级——确保核心资产不可篡改。
+
+## 角色管理
+
+系统使用分层角色结构（AccessControlEnumerable）：
+* `ADMIN_ROLE`：管理角色和关键系统参数。
+* `SERVICE_ROLE`：后端自动化操作。
+* `SIGNER_ROLE`：密码学签名验证。
+* `MINTER_ROLE`：代币和 NFT 铸造授权。
+
+## 余额体系与支付优先级
+
+**用户余额：**
+1. **普通余额（`balance`）：** 主要 USDT 钱包。随时可提现。
+2. **累积余额（`accumulativeBalance`）：** 每笔营销奖励的 20% 自动计入。
+   * 用途：仅可用于购买同级或升级 NFT。
+   * 使用或转让收取 20% 费用。
+   * **120 天重新分配：** 70% 留存，30% 转给推荐人。若推荐人上限 = 0，继续向上传递。无人符合条件则进入 DA 流动性池。
+3. **上限（`limit`）：** NFT 可产生的最大剩余收入。
+
+### 系统余额
+
+- **开发余额（`devBalance`）：** 平台费用和佣金。
+- **代币储备余额（`tokenReserveBalance`）：** 100% 支撑 DA 代币的 USDT 流动性池。
+- **价格影响余额（`priceImpactBalance`）：** 用于 DA 价格稳定性的特殊储备。
+
+### 支付优先级
+
+<Steps>
+  <Step title="代金券">
+    代金券价值优先扣除。
+  </Step>
+  <Step title="累积余额">
+    其次扣除，收取 20% 费用。
+  </Step>
+  <Step title="普通余额">
+    剩余金额从可用余额扣除。
+  </Step>
+</Steps>
+
+<Warning>
+  代金券**不可**与累积余额合并使用。有效组合：[代金券 + 普通]、[100% 累积]、[累积 + 普通]。
+</Warning>
+
+<Note>
+  BSC 上的所有交易需要以 **BNB** 支付标准 Gas 费。请在钱包中持有少量 BNB 以执行任何链上操作。
+</Note>
