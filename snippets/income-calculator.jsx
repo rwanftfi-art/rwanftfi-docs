@@ -10,6 +10,7 @@ export const IncomeCalculator = () => {
   const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 }).format(n);
 
   const [nftLevel, setNftLevel] = useState(5);
+  const [showAll, setShowAll] = useState(false);
   const [levels, setLevels] = useState(
     Array.from({ length: 22 }, (_, i) => ({
       level: i + 1,
@@ -27,6 +28,10 @@ export const IncomeCalculator = () => {
     const income = isUnlocked ? l.sales * l.avgPrice * (pct / 100) : 0;
     return { ...l, pct, income, isUnlocked, isPhase2, maxPos: MAX_PARTICIPANTS[l.level - 1] };
   });
+
+  const visibleLevels = showAll
+    ? calculated
+    : calculated.filter(l => l.isUnlocked || l.sales > 0);
 
   const totalIncome = calculated.reduce((s, l) => s + l.income, 0);
   const netIncome = totalIncome * 0.75;
@@ -61,8 +66,8 @@ export const IncomeCalculator = () => {
     border: '1px solid rgba(255,255,255,0.1)',
     borderRadius: '6px',
     padding: '4px 8px',
-    fontSize: '13px',
-    width: '70px',
+    fontSize: '12px',
+    width: '60px',
     textAlign: 'center',
   };
 
@@ -73,6 +78,18 @@ export const IncomeCalculator = () => {
     borderRadius: '6px',
     padding: '4px 6px',
     fontSize: '12px',
+    width: '80px',
+  };
+
+  const presetBtnStyle = {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    border: '1px solid rgba(255,255,255,0.15)',
+    color: '#FFFFFF',
+    padding: '6px 16px',
+    borderRadius: '9999px',
+    fontSize: '11px',
+    fontWeight: 600,
+    cursor: 'pointer',
   };
 
   return (
@@ -98,66 +115,68 @@ export const IncomeCalculator = () => {
       {/* HERO: Total Gross Income */}
       <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.1)' }} className="rounded-xl p-6 text-center mb-4">
         <div style={{ color: 'rgba(255,255,255,0.6)' }} className="text-xs uppercase tracking-wider mb-1">Total Gross Income</div>
-        <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
+        {totalIncome === 0 ? (
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px' }}>
+            Enter sales data below or use a preset
+          </div>
+        ) : (
+          <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
+        )}
         <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">Based on your custom level inputs below</div>
       </div>
 
-      {/* Three monochrome cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
-        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% Net Income</div>
-          <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
+      {/* Three monochrome cards — hidden when total = 0 */}
+      {totalIncome > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% Net Income</div>
+            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
+          </div>
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% Accumulative</div>
+            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day timer, 70% stays / 30% sponsor</div>
+          </div>
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% DA Liquidity</div>
+            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool, increases DA price</div>
+          </div>
         </div>
-        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% Accumulative</div>
-          <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day timer, 70% stays / 30% sponsor</div>
-        </div>
-        <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% DA Liquidity</div>
-          <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool, increases DA price</div>
-        </div>
-      </div>
+      )}
 
       {/* Quick Fill Presets */}
+      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '8px' }}>
+        Quick fill presets:
+      </div>
       <div className="flex gap-2 mb-3 flex-wrap">
-        <button
-          onClick={() => setLevels(presets.small())}
-          style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '6px 14px', fontSize: '12px', cursor: 'pointer' }}
-        >
+        <button onClick={() => setLevels(presets.small())} style={presetBtnStyle}>
           Small Team
         </button>
-        <button
-          onClick={() => setLevels(presets.growing())}
-          style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '6px 14px', fontSize: '12px', cursor: 'pointer' }}
-        >
+        <button onClick={() => setLevels(presets.growing())} style={presetBtnStyle}>
           Growing Network
         </button>
-        <button
-          onClick={() => setLevels(presets.clear())}
-          style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px', padding: '6px 14px', fontSize: '12px', cursor: 'pointer' }}
-        >
+        <button onClick={() => setLevels(presets.clear())} style={presetBtnStyle}>
           Clear All
         </button>
       </div>
 
       {/* Scrollable Table */}
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ minWidth: '600px', width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+        <table style={{ minWidth: '340px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
           <thead>
             <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}>
-              <th style={{ padding: '8px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Level</th>
-              <th style={{ padding: '8px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Max Pos.</th>
-              <th style={{ padding: '8px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>%</th>
-              <th style={{ padding: '8px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>NFT Price</th>
-              <th style={{ padding: '8px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sales</th>
-              <th style={{ padding: '8px 10px', textAlign: 'right', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Income</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>Level</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '40px' }}>%</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>NFT Price</th>
+              <th style={{ padding: '6px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '60px' }}>Sales</th>
+              <th style={{ padding: '6px 6px', textAlign: 'right', color: 'rgba(255,255,255,0.5)', fontWeight: 600, fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em', width: '80px' }}>Income</th>
             </tr>
           </thead>
           <tbody>
-            {calculated.map((row, i) => {
+            {visibleLevels.map((row) => {
+              const i = row.level - 1;
               const isLocked = !row.isUnlocked && !row.isPhase2;
               const isDisabled = row.isPhase2 || isLocked;
               const rowBg = i % 2 === 0 ? 'rgba(255,255,255,0.03)' : 'transparent';
@@ -165,14 +184,13 @@ export const IncomeCalculator = () => {
 
               return (
                 <tr key={row.level} style={{ backgroundColor: rowBg, opacity: rowOpacity }}>
-                  <td style={{ padding: '6px 10px', textAlign: 'center', fontWeight: 600 }}>{row.level}</td>
-                  <td style={{ padding: '6px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>{row.maxPos.toLocaleString()}</td>
-                  <td style={{ padding: '6px 10px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>{row.pct}%</td>
-                  <td style={{ padding: '6px 10px', textAlign: 'center' }}>
+                  <td style={{ padding: '4px 6px', textAlign: 'center', fontWeight: 600 }}>{row.level}</td>
+                  <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>{row.pct}%</td>
+                  <td style={{ padding: '4px 6px', textAlign: 'center' }}>
                     {row.isPhase2 ? (
-                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>Phase 2</span>
+                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Phase 2</span>
                     ) : isLocked ? (
-                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>Upgrade NFT</span>
+                      <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Upgrade NFT</span>
                     ) : (
                       <select
                         value={row.avgPrice}
@@ -185,7 +203,7 @@ export const IncomeCalculator = () => {
                       </select>
                     )}
                   </td>
-                  <td style={{ padding: '6px 10px', textAlign: 'center' }}>
+                  <td style={{ padding: '4px 6px', textAlign: 'center' }}>
                     {row.isPhase2 || isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.3)' }}>—</span>
                     ) : (
@@ -202,20 +220,26 @@ export const IncomeCalculator = () => {
                       />
                     )}
                   </td>
-                  <td style={{ padding: '6px 10px', textAlign: 'right', color: '#FFFFFF', fontWeight: 700 }}>
+                  <td style={{ padding: '4px 6px', textAlign: 'right', color: '#FFFFFF', fontWeight: 700 }}>
                     {row.isUnlocked ? fmtUsd(row.income) : '—'}
                   </td>
                 </tr>
               );
             })}
             {/* TOTAL row */}
-            <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)', fontWeight: 800, fontSize: '16px' }}>
-              <td colSpan={5} style={{ padding: '10px', textAlign: 'right' }}>TOTAL</td>
-              <td style={{ padding: '10px', textAlign: 'right', color: '#FFFFFF' }}>{fmtUsd(totalIncome)}</td>
+            <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)', fontWeight: 800, fontSize: '14px' }}>
+              <td colSpan={4} style={{ padding: '8px 6px', textAlign: 'right' }}>TOTAL</td>
+              <td style={{ padding: '8px 6px', textAlign: 'right', color: '#FFFFFF' }}>{fmtUsd(totalIncome)}</td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      {/* Show/hide locked levels toggle */}
+      <button onClick={() => setShowAll(!showAll)}
+        style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+        {showAll ? 'Hide locked levels' : 'Show all 22 levels'}
+      </button>
     </div>
   );
 };
