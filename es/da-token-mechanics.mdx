@@ -1,9 +1,34 @@
 ---
-title: "DA Token Mechanics"
-description: "21M hard-capped, 100% USDT backed, deflationary by design."
+title: "Mecánica del Token DA"
+description: "El modelo de precio «solo sube»."
 icon: "coins"
 ---
 
-<Info>
-  Esta página está en proceso de traducción. Por favor, consulte la [versión en inglés](/en/da-token-mechanics) para obtener información completa.
-</Info>
+import { DaPriceSimulator } from "/snippets/da-price-simulator.jsx"
+
+<CardGroup cols={2}>
+  <Card title="Límite de 21M" icon="cube">
+    Suministro máximo fijado permanentemente. Sin inflación, sin acuñación.
+  </Card>
+  <Card title="100% Respaldado en USDT" icon="shield-check">
+    Cada token DA está respaldado por USDT real en el pool de liquidez.
+  </Card>
+  <Card title="Quema en Cada Venta" icon="fire">
+    25% (manual) o 30% (automática) eliminados permanentemente de circulación.
+  </Card>
+  <Card title="Sin Transferencias P2P" icon="ban">
+    DA solo puede venderse, prestarse o reembolsarse — sin transferencias entre usuarios.
+  </Card>
+</CardGroup>
+
+## La Fórmula de Precio «Solo Sube»
+
+`Price = Liquidity ÷ Circulating Supply`
+
+Cada vez que se vende DA, los tokens se queman (el suministro disminuye) mientras que el USDT permanece en el pool (la liquidez se mantiene o crece). Menos tokens ÷ igual o más USDT = precio más alto por token.
+
+<Tip>
+  La comisión del 5% sobre todas las recompensas de marketing fluye directamente al pool de liquidez DA — independiente de los porcentajes de venta. Liquidez adicional proviene de comisiones de préstamo, ingresos de RWA y FinPro.
+</Tip>
+
+<DaPriceSimulator />
