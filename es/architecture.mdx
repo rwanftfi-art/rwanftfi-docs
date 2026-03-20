@@ -52,10 +52,8 @@ El sistema utiliza una estructura jerárquica de roles (AccessControlEnumerable)
 
 ## Esquema de Saldos y Prioridad de Pago
 
-Para gestionar el complejo flujo de fondos, RWANFTFI emplea un esquema de saldos multinivel dentro del contrato inteligente.
-
 **Saldos del Usuario:**
-1. **Saldo Regular (`balance`):** Billetera principal de USDT. Los fondos pueden retirarse en cualquier momento, usarse para comprar NFT o generar vouchers.
+1. **Saldo Regular (`balance`):** Billetera principal de USDT. Retiro en cualquier momento.
 2. **Saldo Acumulativo (`accumulativeBalance`):** El 20% de cada recompensa de marketing se acredita automáticamente.
    * Uso: solo para comprar o mejorar NFT.
    * Comisión del 20% al usar o transferir.
@@ -67,8 +65,6 @@ Para gestionar el complejo flujo de fondos, RWANFTFI emplea un esquema de saldos
 - **Dev Balance (`devBalance`):** Comisiones y tarifas de la plataforma.
 - **Token Reserve Balance (`tokenReserveBalance`):** Pool de liquidez USDT que respalda al 100% el token DA.
 - **Price Impact Balance (`priceImpactBalance`):** Reserva especial para estabilidad de precio DA.
-
-Estos saldos son gestionados íntegramente por el contrato inteligente y no son accesibles para ningún usuario ni administrador.
 
 ### Prioridad de Pago
 
