@@ -3,7 +3,7 @@ title: "Selling & Lending"
 description: "Sell, lend, or hold — your choice."
 icon: "scale-balanced"
 ---
-
+import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
 
 
 Once a user holds DA, they have two primary financial options: selling the asset or using it as collateral for a loan.
@@ -48,3 +48,4 @@ To prevent massive simultaneous sell-offs, DA is subject to progressive unlockin
 
 Instead of selling and losing their position, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
 
+<SellVsLend />
