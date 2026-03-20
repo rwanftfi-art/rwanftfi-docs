@@ -428,5 +428,11 @@
   },
   "icons": {
     "library": "fontawesome"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/en/executive-summary"
+    }
+  ]
 }
