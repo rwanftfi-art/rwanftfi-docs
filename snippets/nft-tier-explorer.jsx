@@ -8,6 +8,13 @@ const LazyNftVideo = ({ src, style = {} }) => {
     const video = videoRef.current;
     if (!video) return;
 
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      video.src = src;
+      video.load();
+      video.play().catch(() => {});
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
