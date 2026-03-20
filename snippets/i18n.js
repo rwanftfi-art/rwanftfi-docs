@@ -1,12 +1,6 @@
-export function getLanguage() {
-  if (typeof window === 'undefined') return 'en';
-  var path = window.location.pathname;
-  var match = path.match(/^\/(en|ru|es|ar|zh|tr)\//);
-  return match ? match[1] : 'en';
-}
-
-const translations = {
+export const translations = {
   en: {
+    // da-price-simulator
     daPriceSimulator: 'DA Price Simulator',
     interactive: 'Interactive',
     daPrice: 'DA Price',
@@ -26,6 +20,8 @@ const translations = {
     up: 'Up',
     down: 'Down',
     from: 'from',
+
+    // income-calculator
     marketingIncomeCalc: 'Marketing Income Calculator',
     yourNftLevel: 'Your NFT Level',
     totalGrossIncome: 'Total Gross Income',
@@ -52,6 +48,8 @@ const translations = {
     level1Note: 'Level 1 earnings come from the Sponsor Bonus (30% new sale / 20% rebuy), not from the tree distribution percentage.',
     showAll: 'Show all 22 levels',
     hideLocked: 'Hide locked levels',
+
+    // mining-pipeline
     miningDashboard: 'Mining Dashboard',
     miningDashboardDesc: 'Full pipeline overview — from NFT purchase to DA harvest',
     totalPipeline: 'Total Pipeline',
@@ -65,12 +63,14 @@ const translations = {
     investment: 'Investment',
     daValue: 'DA Value',
     pipeline: 'Pipeline',
-    cycle: 'cycle',
+    cycle: 'Cycle',
     cycles1: '1 cycle',
     cycles2: '2 cycles',
     daoSecondCycle: 'DAO Second cycle (15%) can be activated for this NFT level via DAO voting, increasing total NFTM by',
     onceHarvested: 'Once harvested, compare your options on',
     sellingLending: 'Selling & Lending',
+
+    // nft-tier-explorer
     nftTierExplorer: 'NFT Tier Explorer',
     all: 'All',
     basic: 'Basic',
@@ -95,6 +95,8 @@ const translations = {
     metric: 'Metric',
     clearComparison: 'Clear comparison',
     clickToExpand: 'Click any card to expand details. Select two cards to compare side-by-side with radar chart.',
+
+    // sell-vs-lend
     sellVsLend: 'Sell vs Lend Strategy Tool',
     daAmount: 'DA Amount',
     currentDaPrice: 'Current DA Price',
@@ -130,6 +132,7 @@ const translations = {
     keepExposure: 'while keeping exposure to DA price growth.',
     loanWarning: 'Loan must be managed within 30 days. If less than 30 days remain before auto-sell, lending is not available.',
   },
+
   ru: {
     daPriceSimulator: 'Симулятор цены DA',
     interactive: 'Интерактивный',
@@ -254,139 +257,14 @@ const translations = {
     keepExposure: 'сохраняя позицию для роста цены DA.',
     loanWarning: 'Займ должен быть погашен в течение 30 дней. Если до автопродажи менее 30 дней, кредитование недоступно.',
   },
-  ar: {
-    daPriceSimulator: 'محاكي سعر DA',
-    interactive: 'تفاعلي',
-    daPrice: 'سعر DA',
-    circulatingSupply: 'العرض المتداول',
-    liquidityPool: 'مجمع السيولة',
-    minted: 'تم سكّه',
-    burned: 'تم حرقه',
-    usdtBacked: 'مدعوم 100% بـ USDT',
-    daInCirculation: 'DA في التداول',
-    usdtLiquidityPool: 'مجمع سيولة USDT',
-    daBurnedFromSales: 'DA محروق (من المبيعات)',
-    priceCurve: 'منحنى السعر',
-    hint: 'تلميح',
-    hintText: 'حرّك المؤشرات أعلاه لمحاكاة كيف يرفع حرق DA السعر عند مستوى سيولة معين.',
-    tokensBurned: 'الرموز المحروقة',
-    simplifiedModel: 'نموذج مبسّط. السعر = مجمع السيولة ÷ العرض المتداول. يتم سك DA عبر الزراعة وحرقه عند البيع (25% يدوي، 30% بيع تلقائي). تنمو السيولة من عمولة التسويق 5%، رسوم الإقراض، إيرادات RWA وFinPro. الحد الأقصى: 21,000,000 DA.',
-    up: 'صعود',
-    down: 'هبوط',
-    from: 'من',
-    marketingIncomeCalc: 'حاسبة دخل التسويق',
-    yourNftLevel: 'مستوى NFT الخاص بك',
-    totalGrossIncome: 'إجمالي الدخل',
-    enterSalesData: 'أدخل بيانات المبيعات أدناه أو استخدم إعداد مسبق',
-    basedOnInputs: 'بناءً على مدخلاتك أدناه',
-    netIncome: '75% صافي الدخل',
-    regularBalance: 'الرصيد العادي — سحب في أي وقت',
-    accumulative: '20% تراكمي',
-    accTimer: 'مؤقت 120 يوم، 70% يبقى / 30% للراعي',
-    daLiquidity: '5% سيولة DA',
-    daPoolText: 'يغذي مجمع DA، يرفع سعر DA',
-    quickFill: 'إعدادات سريعة:',
-    smallTeam: 'فريق صغير',
-    growingNetwork: 'شبكة متنامية',
-    clearAll: 'مسح الكل',
-    level: 'المستوى',
-    nftPrice: 'سعر NFT',
-    sales: 'المبيعات',
-    income: 'الدخل',
-    total: 'المجموع',
-    directSale: 'بيع مباشر',
-    upgradeNft: 'قم بترقية NFT',
-    lvls: 'مستويات',
-    level1Note: 'أرباح المستوى 1 تأتي من مكافأة الراعي (30% بيع جديد / 20% إعادة شراء)، وليس من نسبة توزيع الشجرة.',
-    showAll: 'عرض جميع المستويات الـ 22',
-    hideLocked: 'إخفاء المقفلة',
-    miningDashboard: 'لوحة التعدين',
-    miningDashboardDesc: 'نظرة شاملة — من شراء NFT إلى حصاد DA',
-    totalPipeline: 'خط الإنتاج الكامل',
-    mining: 'التعدين',
-    farming: 'الزراعة',
-    criticalWindow: 'نافذة حرجة 72 ساعة — فوّتها ويعاد الدورة من البداية',
-    youReceive: 'تستلم بعد',
-    days: 'أيام',
-    worth: 'القيمة',
-    atCurrentPrice: 'بسعر DA الحالي',
-    investment: 'الاستثمار',
-    daValue: 'قيمة DA',
-    pipeline: 'خط الإنتاج',
-    cycle: 'دورة',
-    cycles1: 'دورة واحدة',
-    cycles2: 'دورتان',
-    daoSecondCycle: 'يمكن تفعيل الدورة الثانية (15%) لهذا المستوى عبر تصويت DAO، مما يزيد إجمالي NFTM بمقدار',
-    onceHarvested: 'بعد الحصاد، قارن خياراتك في',
-    sellingLending: 'البيع والإقراض',
-    nftTierExplorer: 'مستكشف مستويات NFT',
-    all: 'الكل',
-    basic: 'أساسي',
-    premium: 'متميز',
-    elite: 'نخبة',
-    price: 'السعر',
-    incomeLimit: 'حد الدخل',
-    mktDepth: 'العمق',
-    levels: 'مستويات',
-    miningCycle: 'دورة التعدين',
-    l5Only: 'L5+ فقط',
-    autobuy: 'شراء تلقائي',
-    roiRatio: 'نسبة ROI',
-    rwaAccess: 'وصول RWA',
-    finpro: 'FinPro',
-    matchingBonus: 'مكافأة المطابقة',
-    lending: 'الإقراض',
-    daMining: 'تعدين DA',
-    inComparison: '✓ في المقارنة',
-    addToCompare: '+ مقارنة',
-    vs: 'مقابل',
-    metric: 'المقياس',
-    clearComparison: 'مسح المقارنة',
-    clickToExpand: 'انقر على أي بطاقة للتفاصيل. اختر اثنتين للمقارنة.',
-    sellVsLend: 'البيع مقابل الإقراض — استراتيجية',
-    daAmount: 'كمية DA',
-    currentDaPrice: 'سعر DA الحالي',
-    expectedPrice: 'السعر المتوقع خلال 4 أشهر',
-    sellDa: 'بيع DA',
-    lendDa: 'إقراض DA',
-    manualSell: 'بيع يدوي',
-    sellNow: 'بيع الآن',
-    manualSellDesc: '75% دفع · بالسعر الحالي · 25% محروق',
-    manualSellDesc2: 'بيع الآن بالسعر الحالي. تفقد مركز DA.',
-    autoSell: 'بيع تلقائي',
-    sellAtPeak: 'بيع عند الذروة',
-    autoSellDesc: '70% دفع · بالسعر المستقبلي · 30% محروق',
-    autoSellDesc2: 'يُباع تلقائيًا بعد انتهاء TokenStack. السعر ينمو 4 أشهر.',
-    autoSellPaysMore: 'البيع التلقائي يدفع',
-    more: 'أكثر',
-    despite30burn: 'رغم حرق 30% — نمو سعر DA يفوق الـ 5% الإضافية.',
-    manualSellPaysMore: 'عند هذا التوقع السعري، البيع اليدوي يدفع',
-    borrow: 'اقتراض',
-    ltv70: '70% LTV',
-    usdtLoan: 'قرض USDT (70% LTV ناقص 5% رسوم)',
-    daLocked: 'DA مقفل',
-    daPriceGrowsTo: 'سعر DA ينمو إلى',
-    partialRepay: 'سداد جزئي',
-    payBack: 'إرجاع',
-    getBack: 'استرداد',
-    yourProfit: 'ربحك',
-    netPosition: 'المركز الصافي',
-    vsHold: 'مقابل الاحتفاظ',
-    vsSellNow: 'مقابل البيع الآن',
-    lendInsight: 'الإقراض يمنحك سيولة',
-    now: 'الآن',
-    keepExposure: 'مع الحفاظ على التعرض لنمو سعر DA.',
-    loanWarning: 'يجب إدارة القرض خلال 30 يومًا. إذا تبقى أقل من 30 يومًا قبل البيع التلقائي، الإقراض غير متاح.',
-  },
 };
 
-export function t(key, lang) {
-  var l = lang || getLanguage();
-  var dict = translations[l] || translations.en;
-  return dict[key] || translations.en[key] || key;
+export function useLang() {
+  if (typeof window === 'undefined') return 'en';
+  const match = window.location.pathname.match(/^\/(en|ru|es|ar|zh|tr)\//);
+  return match ? match[1] : 'en';
 }
 
-export function useT() {
-  var lang = getLanguage();
-  return function(key) { return t(key, lang); };
+export function t(lang, key) {
+  return (translations[lang] && translations[lang][key]) || translations.en[key] || key;
 }
