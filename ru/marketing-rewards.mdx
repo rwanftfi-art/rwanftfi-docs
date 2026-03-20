@@ -4,6 +4,8 @@ description: "Как вы зарабатываете от своей сети."
 icon: "money-bill-trend-up"
 ---
 
+import { IncomeCalculator } from "/snippets/income-calculator.jsx"
+
 <CardGroup cols={2}>
   <Card title="Фаза 1 — Новая продажа" icon="user-plus">
     Спонсор получает 30% от цены NFT. Повторная покупка (rebuy): 20%.
@@ -45,9 +47,7 @@ icon: "money-bill-trend-up"
 
 Когда пользователь в вашей структуре пропускается (лимит = 0 или уровень NFT слишком низкий), награда передаётся вверх следующему квалифицированному участнику. Это отмечается как Lost Income для пропущенного.
 
-<Info>
-  Интерактивный калькулятор доступен в [английской версии](/en/marketing-rewards).
-</Info>
+<IncomeCalculator />
 
 ## Matching Bonus (5% + 5% + 5%)
 
