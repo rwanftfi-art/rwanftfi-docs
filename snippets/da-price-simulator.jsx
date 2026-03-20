@@ -17,7 +17,6 @@ export const DaPriceSimulator = () => {
 
   var maxBurn = Math.max(daMinted - 1, 0);
 
-  // Chart data: X = tokens burned (0 to current tokensBurned), Y = price at that burn level
   var curveData = [];
   var N = 50;
   for (var i = 0; i <= N; i++) {
@@ -55,46 +54,12 @@ export const DaPriceSimulator = () => {
   var lastPt = curveData[curveData.length - 1];
 
   return (
-    <>
-    <style>{`
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.3);
-    box-shadow: 0 0 6px rgba(255,255,255,0.2);
-  }
-  input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.3);
-    box-shadow: 0 0 6px rgba(255,255,255,0.2);
-  }
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 6px;
-    border-radius: 3px;
-  }
-  input[type="range"]::-moz-range-track {
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.15);
-  }
-`}</style>
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">DA Price Simulator</h3>
         <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>Interactive</span>
       </div>
 
-      {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-[10px] uppercase tracking-wider mb-1">DA Price</div>
@@ -115,7 +80,6 @@ export const DaPriceSimulator = () => {
         </div>
       </div>
 
-      {/* Sliders */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="mb-2">
@@ -129,15 +93,7 @@ export const DaPriceSimulator = () => {
               if (tokensBurned >= val) setTokensBurned(Math.max(val - 1, 0));
             }}
             className="w-full cursor-pointer"
-            style={{
-              touchAction: 'manipulation',
-              height: '6px',
-              borderRadius: '3px',
-              background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))',
-              outline: 'none',
-              WebkitAppearance: 'none',
-              appearance: 'none',
-            }} />
+            style={{ touchAction: 'manipulation', height: '6px', borderRadius: '3px', background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))', outline: 'none', WebkitAppearance: 'none', appearance: 'none' }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>100K</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>21M DA</span></div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
@@ -148,15 +104,7 @@ export const DaPriceSimulator = () => {
           <input type="range" min="100000" max="50000000" step="100000" value={liquidityPool}
             onChange={function(e) { setLiquidityPool(Number(e.target.value)); }}
             className="w-full cursor-pointer"
-            style={{
-              touchAction: 'manipulation',
-              height: '6px',
-              borderRadius: '3px',
-              background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))',
-              outline: 'none',
-              WebkitAppearance: 'none',
-              appearance: 'none',
-            }} />
+            style={{ touchAction: 'manipulation', height: '6px', borderRadius: '3px', background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))', outline: 'none', WebkitAppearance: 'none', appearance: 'none' }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>$100K</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>$50M</span></div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
@@ -167,20 +115,11 @@ export const DaPriceSimulator = () => {
           <input type="range" min="0" max={maxBurn} step="10000" value={Math.min(tokensBurned, maxBurn)}
             onChange={function(e) { setTokensBurned(Number(e.target.value)); }}
             className="w-full cursor-pointer"
-            style={{
-              touchAction: 'manipulation',
-              height: '6px',
-              borderRadius: '3px',
-              background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))',
-              outline: 'none',
-              WebkitAppearance: 'none',
-              appearance: 'none',
-            }} />
+            style={{ touchAction: 'manipulation', height: '6px', borderRadius: '3px', background: 'linear-gradient(to right, rgba(255,255,255,0.4), rgba(255,255,255,0.15))', outline: 'none', WebkitAppearance: 'none', appearance: 'none' }} />
           <div className="flex justify-between text-[10px] mt-1"><span style={{ color: 'rgba(255,255,255,0.5)' }}>0</span><span style={{ color: 'rgba(255,255,255,0.5)' }}>{fmtNum(maxBurn)} DA</span></div>
         </div>
       </div>
 
-      {/* SVG Chart */}
       <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 overflow-x-auto">
         <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px', fontWeight: 600, marginBottom: '8px' }}>Price Curve</div>
         {tokensBurned === 0 && (
@@ -219,11 +158,9 @@ export const DaPriceSimulator = () => {
         </svg>
       </div>
 
-      {/* Disclaimer */}
       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', lineHeight: 1.6, marginTop: '16px', marginBottom: 0 }}>
         Simplified model. Price = Liquidity Pool ÷ Circulating Supply. DA tokens are minted through farming and burned when sold (25% manual, 30% auto-sell). Liquidity grows from 5% marketing commission, lending fees, RWA and FinPro revenue. Maximum supply: 21,000,000 DA.
       </p>
     </div>
-    </>
   );
 };
