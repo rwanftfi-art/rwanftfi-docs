@@ -38,40 +38,7 @@ export const SellVsLend = () => {
   };
 
   return (
-    <>
-    <style>{`
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.3);
-    box-shadow: 0 0 6px rgba(255,255,255,0.2);
-  }
-  input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #FFFFFF;
-    cursor: pointer;
-    border: 2px solid rgba(255,255,255,0.3);
-    box-shadow: 0 0 6px rgba(255,255,255,0.2);
-  }
-  input[type="range"]::-webkit-slider-runnable-track {
-    height: 6px;
-    border-radius: 3px;
-  }
-  input[type="range"]::-moz-range-track {
-    height: 6px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.15);
-  }
-`}</style>
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">Sell vs Lend Strategy Tool</h3>
         <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
@@ -327,6 +294,5 @@ export const SellVsLend = () => {
         </>
       )}
     </div>
-    </>
   );
 };
