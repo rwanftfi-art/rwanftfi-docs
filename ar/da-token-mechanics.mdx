@@ -4,6 +4,8 @@ description: "نموذج السعر «صعود فقط»."
 icon: "coins"
 ---
 
+import { DaPriceSimulator } from "/snippets/da-price-simulator.jsx"
+
 <CardGroup cols={2}>
   <Card title="سقف 21 مليون" icon="cube">
     الحد الأقصى للعرض ثابت للأبد. لا تضخم، لا سك إضافي.
@@ -29,6 +31,4 @@ icon: "coins"
   عمولة 5% على جميع مكافآت التسويق تتدفق مباشرة إلى مجمع سيولة DA — منفصلة عن نسب البيع. سيولة إضافية تأتي من رسوم الإقراض وعوائد RWA وإيرادات FinPro.
 </Tip>
 
-<Info>
-  محاكي السعر التفاعلي متاح في [النسخة الإنجليزية](/en/da-token-mechanics).
-</Info>
+<DaPriceSimulator />
