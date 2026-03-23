@@ -18,6 +18,10 @@ icon: "code"
     A smart contract architectural pattern that bypasses the 24KB size limit by splitting logic into modules (Facets).
   </Accordion>
 
+  <Accordion title="Deflationary Cycle" icon="fire">
+    A protocol-level event triggered twice per year, lasting up to 30 days. During the cycle, the FarmingFacet suspends all NFTM mining, staking, and DA generation across the platform. Auto-sell and voluntary sale mechanisms are activated, with daily token burns executed to reduce circulating supply. The cycle is designed to create predictable, scheduled deflation and is governed by DAO parameters.
+  </Accordion>
+
   <Accordion title="Freeze" icon="snowflake">
     Moderation mechanism initiated exclusively through DAO voting that blocks all financial operations for a specific user account. Used for policy enforcement, not as an emergency security tool. Both freezing and unfreezing require a DAO vote.
   </Accordion>
@@ -32,6 +36,10 @@ icon: "code"
 
   <Accordion title="LibSignatureLogic" icon="signature">
     A smart contract library for verifying cryptographic signatures using the SIGNER_ROLE.
+  </Accordion>
+
+  <Accordion title="Lending Default" icon="triangle-exclamation">
+    A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, 100% of the collateralized DA in the user's TokenStack is permanently burned via the ResolverFacet. This emits a TokenStackLiquidated event and removes the tokens from circulating supply entirely. The mechanism serves as both a risk management tool and a deflationary driver.
   </Accordion>
 
   <Accordion title="Price Impact Event" icon="chart-line">
@@ -51,7 +59,7 @@ icon: "code"
   </Accordion>
 
   <Accordion title="TokenStack" icon="layer-group">
-    A smart contract data structure that holds a user's DA tokens, tracking progressive time-based unlock periods (25%, 40%, 50%, 100%) for selling.
+    A smart contract data structure that holds a user's DA tokens, tracking progressive time-based unlock periods for selling: Period 1 — 25% unlocked after 4 months, Period 2 — 40% after 3 months, Period 3 — 50% after 3 months, Period 4 — 100% after 2 months (12-month total cycle). If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the entire stack is burned.
   </Accordion>
 
   <Accordion title="Transparent Proxy" icon="arrows-rotate">
