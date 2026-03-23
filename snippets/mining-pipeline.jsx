@@ -22,7 +22,7 @@ export const MiningPipeline = () => {
   var nftmCycle1 = lvl.price * lvl.c1;
   var nftmCycle2 = lvl.price * lvl.c2;
   var totalNftm = nftmCycle1 + nftmCycle2;
-  var totalDays = lvl.cycles === 1 ? lvl.days * 2 : lvl.days * 2;
+  var totalDays = lvl.days * 2 * lvl.cycles;
   var daPrice = 1.00;
   var daReceived = totalNftm / daPrice;
   return (
@@ -62,8 +62,7 @@ export const MiningPipeline = () => {
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Mining</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>
-                {lvl.days} days — {fmtNum(totalNftm)} NFTM
-                {lvl.cycles === 1 ? ' (1 cycle)' : ' (2 cycles)'}
+                {lvl.cycles === 1 ? lvl.days + ' days' : '2 × ' + lvl.days + ' days'} — {fmtNum(totalNftm)} NFTM
               </div>
             </div>
           </div>
@@ -73,7 +72,7 @@ export const MiningPipeline = () => {
           <div style={{ backgroundColor: 'rgba(255,255,255,0.08)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>Farming</div>
-              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.days} days — {fmtNum(daReceived)} DA</div>
+              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.cycles === 1 ? lvl.days + ' days' : '2 × ' + lvl.days + ' days'} — {fmtNum(daReceived)} DA</div>
             </div>
           </div>
         </div>
