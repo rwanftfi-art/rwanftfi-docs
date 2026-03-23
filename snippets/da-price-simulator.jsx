@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 
 export const DaPriceSimulator = () => {
   if (typeof window === 'undefined') { return null; }
@@ -6,6 +6,28 @@ export const DaPriceSimulator = () => {
   var [totalParticipants, setTotalParticipants] = useState(5000);
   var [avgPrice, setAvgPrice] = useState(500);
   var [period, setPeriod] = useState(12);
+
+  var [debouncedParticipants, setDebouncedParticipants] = useState(5000);
+  var [debouncedPrice, setDebouncedPrice] = useState(500);
+  var [debouncedPeriod, setDebouncedPeriod] = useState(12);
+
+  var debounceRef = useRef(null);
+
+  useEffect(function() {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    debounceRef.current = setTimeout(function() {
+      setDebouncedParticipants(totalParticipants);
+      setDebouncedPrice(avgPrice);
+      setDebouncedPeriod(period);
+    }, 150);
+    return function() {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [totalParticipants, avgPrice, period]);
 
   var fmtUsd = function(n) {
     var digits = Math.abs(n) >= 10000 ? 0 : 2;
@@ -23,11 +45,11 @@ export const DaPriceSimulator = () => {
     var dataPoints = [];
 
     var prevPrice = 1.00;
-    for (var month = 1; month <= period; month++) {
+    for (var month = 1; month <= debouncedPeriod; month++) {
       // Step 1: Activity
-      var newUsers = totalParticipants / period;
-      var nftRevenue = newUsers * avgPrice;
-      var rebuyRevenue = accumulatedUsers * 0.025 * avgPrice;
+      var newUsers = debouncedParticipants / debouncedPeriod;
+      var nftRevenue = newUsers * debouncedPrice;
+      var rebuyRevenue = accumulatedUsers * 0.025 * debouncedPrice;
       var totalRevenue = nftRevenue + rebuyRevenue;
       accumulatedUsers += newUsers;
 
@@ -70,7 +92,7 @@ export const DaPriceSimulator = () => {
     var priceChange = ((finalPrice - 1.00) / 1.00) * 100;
 
     return { dataPoints: dataPoints, finalPrice: finalPrice, finalPool: finalPool, finalSupply: finalSupply, totalMinted: totalMinted, totalBurned: totalBurned, priceChange: priceChange };
-  }, [totalParticipants, avgPrice, period]);
+  }, [debouncedParticipants, debouncedPrice, debouncedPeriod]);
 
   // Chart dimensions
   var W = 640, H = 260;
@@ -87,7 +109,7 @@ export const DaPriceSimulator = () => {
   maxP = maxP + yPad;
   var rangeP = maxP - minP || 0.01;
 
-  var getX = function(month) { return PAD.left + ((month - 1) / Math.max(period - 1, 1)) * cW; };
+  var getX = function(month) { return PAD.left + ((month - 1) / Math.max(debouncedPeriod - 1, 1)) * cW; };
   var getY = function(p) { return PAD.top + cH - ((p - minP) / rangeP) * cH; };
 
   var pathD = sim.dataPoints.map(function(d, idx) {
@@ -99,9 +121,9 @@ export const DaPriceSimulator = () => {
 
   // X axis labels
   var xLabels = [];
-  var xStep = period <= 12 ? 1 : period <= 24 ? 3 : 6;
-  for (var m = 1; m <= period; m += xStep) { xLabels.push(m); }
-  if (xLabels[xLabels.length - 1] !== period) xLabels.push(period);
+  var xStep = debouncedPeriod <= 12 ? 1 : debouncedPeriod <= 24 ? 3 : 6;
+  for (var m = 1; m <= debouncedPeriod; m += xStep) { xLabels.push(m); }
+  if (xLabels[xLabels.length - 1] !== debouncedPeriod) xLabels.push(debouncedPeriod);
 
   var sliderStyle = {
     touchAction: 'manipulation',
@@ -167,7 +189,7 @@ export const DaPriceSimulator = () => {
         {/* Video */}
         <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
           <video autoPlay muted loop playsInline style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
-            <source src="/DAalpha-trimmed.webm" type="video/webm" />
+            <source src="/DAalpha-Uncompressed8-bit422.webm" type="video/webm" />
           </video>
         </div>
         {/* KPI Cards */}
@@ -209,7 +231,7 @@ export const DaPriceSimulator = () => {
           {/* Deflationary cycle bands */}
           {sim.dataPoints.map(function(d) {
             if (!d.isDeflationaryCycle) return null;
-            var bandW = Math.min(cW / Math.max(period - 1, 1) * 0.5, 20);
+            var bandW = Math.min(cW / Math.max(debouncedPeriod - 1, 1) * 0.5, 20);
             return (
               <rect key={'dc-' + d.month} x={getX(d.month) - bandW / 2} y={PAD.top} width={bandW} height={cH} fill="#fbbf24" fillOpacity="0.08" />
             );
