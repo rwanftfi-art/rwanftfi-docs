@@ -151,7 +151,7 @@ export const NftTierExplorer = () => {
               className="relative rounded-xl transition-all duration-300 border">
               {/* Video */}
               <div style={{ width: '100%', overflow: 'hidden', aspectRatio: '1 / 1', backgroundColor: '#1a1a2e', position: 'relative' }}>
-                <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: nft.level <= 2 ? 'center' : 'top', display: 'block' }} />
+                <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: nft.level <= 2 ? '115%' : '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} />
               </div>
               {/* Card Info */}
               <div style={{ padding: '12px' }}>
