@@ -58,16 +58,16 @@ export const NftTierExplorer = () => {
   const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 
   const NFT_DATA = [
-    { name: "GENESIS",  tier: "Basic",   level: 1,  price: 28,    limit: 75,     depth: 2,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3" },
-    { name: "ADVANCE",  tier: "Basic",   level: 2,  price: 55,    limit: 160,    depth: 3,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3" },
-    { name: "ASCEND",   tier: "Basic",   level: 3,  price: 140,   limit: 375,    depth: 4,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3" },
-    { name: "ECLIPSE",  tier: "Basic",   level: 4,  price: 275,   limit: 650,    depth: 6,  mining: null, matchingBonus: true,  lending: false, daMining: false, autobuy: "3/3" },
-    { name: "HYDRO",    tier: "Premium", level: 5,  price: 550,   limit: 1400,   depth: 9,  mining: 45,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3" },
-    { name: "QUANTUM",  tier: "Premium", level: 6,  price: 1100,  limit: 2700,   depth: 11, mining: 44,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3" },
-    { name: "PULSE",    tier: "Premium", level: 7,  price: 2200,  limit: 5800,   depth: 12, mining: 43,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3" },
-    { name: "AURORA",   tier: "Premium", level: 8,  price: 5500,  limit: 12800,  depth: 13, mining: 42,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3" },
-    { name: "FLAME",    tier: "Elite",   level: 9,  price: 11000, limit: 28000,  depth: 15, mining: 41,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A" },
-    { name: "INFINITY", tier: "Elite",   level: 10, price: 24000, limit: 70000,  depth: 19, mining: 40,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A" },
+    { name: "GENESIS",  tier: "Basic",   level: 1,  price: 28,    limit: 75,     depth: 2,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
+    { name: "ADVANCE",  tier: "Basic",   level: 2,  price: 55,    limit: 160,    depth: 3,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
+    { name: "ASCEND",   tier: "Basic",   level: 3,  price: 140,   limit: 375,    depth: 4,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
+    { name: "ECLIPSE",  tier: "Basic",   level: 4,  price: 275,   limit: 650,    depth: 6,  mining: null, matchingBonus: true,  lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
+    { name: "HYDRO",    tier: "Premium", level: 5,  price: 550,   limit: 1400,   depth: 9,  mining: 45,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 1, c1: 0.10, c2: 0 },
+    { name: "QUANTUM",  tier: "Premium", level: 6,  price: 1100,  limit: 2700,   depth: 11, mining: 44,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 1, c1: 0.10, c2: 0 },
+    { name: "PULSE",    tier: "Premium", level: 7,  price: 2200,  limit: 5800,   depth: 12, mining: 43,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 1, c1: 0.10, c2: 0 },
+    { name: "AURORA",   tier: "Premium", level: 8,  price: 5500,  limit: 12800,  depth: 13, mining: 42,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 2, c1: 0.10, c2: 0.15 },
+    { name: "FLAME",    tier: "Elite",   level: 9,  price: 11000, limit: 28000,  depth: 15, mining: 41,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A", cycles: 2, c1: 0.10, c2: 0.15 },
+    { name: "INFINITY", tier: "Elite",   level: 10, price: 24000, limit: 70000,  depth: 19, mining: 40,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A", cycles: 2, c1: 0.10, c2: 0.15 },
   ];
 
   const TIER_COLORS = {
@@ -84,7 +84,7 @@ export const NftTierExplorer = () => {
       ((24000 - nft.price) / 24000) * 100,
       (nft.limit / 70000) * 100,
       (nft.depth / 22) * 100,
-      nft.mining ? 20 + ((45 - nft.mining) / (45 - 40)) * 80 : 0,
+      nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
       Math.min((roi / 3.0) * 100, 100),
     ];
   };
@@ -221,7 +221,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.mining ? `${selected.mining} days` : 'L5+ only'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? `${selected.mining} days · 10%` : '42–40 days · 10%+15%'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
@@ -233,7 +233,7 @@ export const NftTierExplorer = () => {
                   <FeaturePill on={true} label="FinPro" />
                   <FeaturePill on={selected.matchingBonus} label="Matching Bonus" />
                   <FeaturePill on={selected.lending} label="Lending" />
-                  <FeaturePill on={selected.daMining} label="DA Mining" />
+                  <FeaturePill on={selected.daMining} label={selected.daMining ? `DA Mining · ${selected.cycles} cycle${selected.cycles > 1 ? 's' : ''}` : 'DA Mining'} />
                 </div>
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
