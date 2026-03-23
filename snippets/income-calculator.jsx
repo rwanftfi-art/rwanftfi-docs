@@ -87,7 +87,7 @@ export const IncomeCalculator = () => {
 
   const presetBtnStyle = (name) => ({
     backgroundColor: activePreset === name ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
-    border: `1px solid ${activePreset === name ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.15)'}`,
+    border: '1px solid ' + (activePreset === name ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.15)'),
     color: '#FFFFFF',
     padding: '6px 16px',
     borderRadius: '9999px',
