@@ -254,7 +254,7 @@ export const IncomeCalculator = () => {
 
       {/* Scrollable Table */}
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ minWidth: '400px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
+        <table style={{ minWidth: '400px', width: '100%', borderCollapse: 'collapse', fontSize: '12px', tableLayout: 'fixed' }}>
           <thead>
             <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}>
               <th style={thStyle('32px', 'center')}>Level</th>
