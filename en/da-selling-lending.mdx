@@ -38,14 +38,35 @@ In both cases, the sold tokens are permanently removed from circulation, which m
 
 ## Auto-Sell Periods
 
-To prevent massive simultaneous sell-offs, DA is subject to progressive unlocking periods within a user's TokenStack:
-* Period 1: 25% available to sell
-* Period 2: 40% available to sell
-* Period 3: 50% available to sell
-* Period 4: 100% available to sell
+To prevent massive simultaneous sell-offs, DA is subject to progressive unlocking periods within a user's TokenStack. The total cycle spans **12 months**:
+
+<Steps>
+  <Step title="Period 1 — 25% available to sell (4 months)">
+    After the first 4 months, 25% of the DA in the TokenStack is unlocked for sale.
+  </Step>
+  <Step title="Period 2 — 40% available to sell (3 months)">
+    After the next 3 months (month 7), 40% of the DA is available for sale.
+  </Step>
+  <Step title="Period 3 — 50% available to sell (3 months)">
+    After the next 3 months (month 10), 50% of the DA is available for sale.
+  </Step>
+  <Step title="Period 4 — 100% available to sell (2 months)">
+    After the final 2 months (month 12), 100% of the DA is fully unlocked.
+  </Step>
+</Steps>
+
+<Warning>
+  **Auto-Sell with Zero Income Limit:** If DA auto-sell triggers and the user has zero Income Limit on their NFT (meaning the NFT has not been renewed), 100% of proceeds are directed either to the Liquidity Pool or to DA burn. The exact mechanism is determined by DAO settings. Users should always maintain an active Income Limit to receive their auto-sell payout.
+</Warning>
 
 ## Lending (Credit against DA)
 
 Instead of selling and losing their position, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
+
+When taking a loan, the borrower pays a one-time **5% commission** that is directed to the DA Liquidity Pool. The borrower receives 95% of the loan value. Example: for a $1,000 loan, the borrower receives $950 and $50 goes to the Liquidity Pool. This commission is collected with every new loan — users can take new loans after receiving new DA batches, meaning the commission flows into the Pool repeatedly.
+
+<Warning>
+  **Lending Default — 100% Burn:** If a loan is not repaid within the required parameters, 100% of the collateralized DA is fully burned. This is not a partial penalty — the entire collateral is permanently removed from circulation. This mechanism protects system liquidity, reduces risk, maintains price stability, and enforces financial discipline across the ecosystem.
+</Warning>
 
 <SellVsLend />
