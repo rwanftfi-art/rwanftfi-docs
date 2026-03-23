@@ -144,7 +144,7 @@ export const IncomeCalculator = () => {
     borderRadius: '6px',
     padding: '6px 4px',
     fontSize: '12px',
-    width: '72px',
+    width: '68px',
     outline: 'none',
     cursor: 'pointer',
     WebkitAppearance: 'none',
@@ -162,14 +162,14 @@ export const IncomeCalculator = () => {
     borderRadius: '6px',
     padding: '6px 8px',
     fontSize: '13px',
-    width: '56px',
+    width: '48px',
     textAlign: 'center',
     outline: 'none',
   };
 
   var thStyle = function(width, align) {
     return {
-      padding: '6px 6px',
+      padding: '4px 4px',
       textAlign: align || 'center',
       color: 'rgba(255,255,255,0.5)',
       fontWeight: 600,
@@ -257,11 +257,11 @@ export const IncomeCalculator = () => {
         <table style={{ minWidth: '400px', width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
           <thead>
             <tr style={{ backgroundColor: 'rgba(255,255,255,0.08)' }}>
-              <th style={thStyle('40px', 'center')}>Level</th>
-              <th style={thStyle('40px', 'center')}>%</th>
-              <th style={thStyle('80px', 'center')}>NFT Price</th>
-              <th style={thStyle('60px', 'center')}>Sales</th>
-              <th style={thStyle('80px', 'right')}>Income</th>
+              <th style={thStyle('32px', 'center')}>Level</th>
+              <th style={thStyle('36px', 'center')}>%</th>
+              <th style={thStyle('72px', 'center')}>NFT Price</th>
+              <th style={thStyle('52px', 'center')}>Sales</th>
+              <th style={thStyle('72px', 'right')}>Income</th>
             </tr>
           </thead>
           <tbody>
@@ -273,20 +273,20 @@ export const IncomeCalculator = () => {
 
               return (
                 <tr key={row.level} style={{ backgroundColor: rowBg, opacity: rowOpacity }}>
-                  <td style={{ padding: '4px 6px', textAlign: 'center', fontWeight: 600 }}>
+                  <td style={{ padding: '4px 4px', textAlign: 'center', fontWeight: 600 }}>
                     {row.level}
                     {row.level >= 16 && row.isUnlocked && (
                       <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '9px', marginLeft: '4px' }}>P2</span>
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
+                  <td style={{ padding: '4px 4px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
                     {row.level === 1 ? (
                       <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>Direct Sale</span>
                     ) : (
                       <span>{row.pct + '%'}</span>
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'center' }}>
+                  <td style={{ padding: '4px 4px', textAlign: 'center' }}>
                     {isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px' }}>Upgrade NFT</span>
                     ) : (
@@ -303,7 +303,7 @@ export const IncomeCalculator = () => {
                       </select>
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'center' }}>
+                  <td style={{ padding: '4px 4px', textAlign: 'center' }}>
                     {isLocked ? (
                       <span style={{ color: 'rgba(255,255,255,0.3)' }}>{'\u2014'}</span>
                     ) : (
@@ -323,7 +323,7 @@ export const IncomeCalculator = () => {
                       />
                     )}
                   </td>
-                  <td style={{ padding: '4px 6px', textAlign: 'right', fontWeight: 700 }}>
+                  <td style={{ padding: '4px 4px', textAlign: 'right', fontWeight: 700 }}>
                     {row.isUnlocked ? (
                       row.sales > 0 ? (
                         <span style={{ color: '#4ade80' }}>{fmtUsd(row.income)}</span>
