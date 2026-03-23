@@ -50,6 +50,50 @@ const LazyNftVideo = ({ src, style = {} }) => {
   );
 };
 
+const RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
+
+const normalize = (nft) => {
+  const roi = nft.limit / nft.price;
+  return [
+    ((24000 - nft.price) / 24000) * 100,
+    (nft.limit / 70000) * 100,
+    (nft.depth / 22) * 100,
+    nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
+    Math.min((roi / 3.0) * 100, 100),
+  ];
+};
+
+const RadarChart = ({ items, size = 240 }) => {
+  const cx = size / 2, cy = size / 2, r = size * 0.36;
+  const axes = 5, step = (2 * Math.PI) / axes, start = -Math.PI / 2;
+  const pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
+  const colors = ['#FFFFFF', '#F59E0B'];
+  return (
+    <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[260px] mx-auto">
+      {[25, 50, 75, 100].map(lv => (
+        <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
+      ))}
+      {Array.from({ length: axes }, (_, i) => (
+        <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
+      ))}
+      {items.map((item, idx) => {
+        const vals = normalize(item);
+        const pts = vals.map((v, i) => pt(i, v));
+        return (
+          <g key={item.level}>
+            <polygon points={pts.map(p => `${p.x},${p.y}`).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
+            {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[idx]} />)}
+          </g>
+        );
+      })}
+      {Array.from({ length: axes }, (_, i) => {
+        const lp = pt(i, 120);
+        return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
+      })}
+    </svg>
+  );
+};
+
 export const NftTierExplorer = () => {
   const [filter, setFilter] = useState("All");
   const [selected, setSelected] = useState(null);
@@ -76,19 +120,6 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  const RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
-
-  const normalize = (nft) => {
-    const roi = nft.limit / nft.price;
-    return [
-      ((24000 - nft.price) / 24000) * 100,
-      (nft.limit / 70000) * 100,
-      (nft.depth / 22) * 100,
-      nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
-      Math.min((roi / 3.0) * 100, 100),
-    ];
-  };
-
   const filtered = filter === "All" ? NFT_DATA : NFT_DATA.filter(n => n.tier === filter);
 
   const toggleCompare = (nft) => {
@@ -98,37 +129,6 @@ export const NftTierExplorer = () => {
       if (prev.length >= 2) return [prev[1], nft];
       return [...prev, nft];
     });
-  };
-
-  const RadarChart = ({ items, size = 240 }) => {
-    const cx = size / 2, cy = size / 2, r = size * 0.36;
-    const axes = 5, step = (2 * Math.PI) / axes, start = -Math.PI / 2;
-    const pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
-    const colors = ['#FFFFFF', '#F59E0B'];
-    return (
-      <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[260px] mx-auto">
-        {[25, 50, 75, 100].map(lv => (
-          <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
-        ))}
-        {Array.from({ length: axes }, (_, i) => (
-          <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
-        ))}
-        {items.map((item, idx) => {
-          const vals = normalize(item);
-          const pts = vals.map((v, i) => pt(i, v));
-          return (
-            <g key={item.level}>
-              <polygon points={pts.map(p => `${p.x},${p.y}`).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
-              {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[idx]} />)}
-            </g>
-          );
-        })}
-        {Array.from({ length: axes }, (_, i) => {
-          const lp = pt(i, 120);
-          return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
-        })}
-      </svg>
-    );
   };
 
   const FeaturePill = ({ on, label }) => (
@@ -151,7 +151,7 @@ export const NftTierExplorer = () => {
       {/* Tier Filter */}
       <div className="flex gap-2 mb-5 flex-wrap">
         {['All', 'Basic', 'Premium', 'Elite'].map(f => (
-          <button key={f} onClick={() => { setFilter(f); setSelected(null); }}
+          <button key={f} onClick={() => { setFilter(f); setSelected(null); setCompare([]); }}
             style={filter === f ? { backgroundColor: '#FFFFFF', color: '#000000' } : { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.7)' }}
             className="px-4 py-1.5 rounded-full text-xs font-medium transition-all">
             {f}
@@ -160,7 +160,7 @@ export const NftTierExplorer = () => {
       </div>
 
       {/* Card Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {filtered.map(nft => {
           const isSel = selected?.level === nft.level;
           const isCmp = compare.find(c => c.level === nft.level);
@@ -221,10 +221,11 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? `${selected.mining} days · 10%` : '42–40 days · 10%+15%'], ['Autobuy', selected.autobuy], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? `${selected.mining} days · 10%` : '42–40 days · 10%+15%'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite tier perk' : 'Auto-reinvest limit'], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
+                      {subtext && <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{subtext}</div>}
                     </div>
                   ))}
                 </div>
