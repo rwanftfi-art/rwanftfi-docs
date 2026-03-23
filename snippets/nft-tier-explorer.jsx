@@ -1,103 +1,23 @@
-import { useState, useRef, useEffect } from 'react';
-
-const LazyNftVideo = ({ src, style = {} }) => {
-  const videoRef = useRef(null);
-  const hasLoadedRef = useRef(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      video.src = src;
-      video.load();
-      video.play().catch(() => {});
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (!hasLoadedRef.current) {
-            video.src = src;
-            video.load();
-            hasLoadedRef.current = true;
-          }
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { rootMargin: '150px', threshold: 0.01 }
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, [src]);
-
-  return (
-    <video
-      ref={videoRef}
-      muted
-      loop
-      playsInline
-      preload="none"
-      style={{
-        backgroundColor: '#1a1a2e',
-        ...style,
-      }}
-    />
-  );
-};
-
-const RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
-
-const normalize = (nft) => {
-  const roi = nft.limit / nft.price;
-  return [
-    ((24000 - nft.price) / 24000) * 100,
-    (nft.limit / 70000) * 100,
-    (nft.depth / 22) * 100,
-    nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
-    Math.min((roi / 3.0) * 100, 100),
-  ];
-};
-
-const RadarChart = ({ items, size = 240 }) => {
-  const cx = size / 2, cy = size / 2, r = size * 0.36;
-  const axes = 5, step = (2 * Math.PI) / axes, start = -Math.PI / 2;
-  const pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
-  const colors = ['#FFFFFF', '#F59E0B'];
-  return (
-    <svg viewBox={'0 0 ' + size + ' ' + size} className="w-full max-w-[260px] mx-auto">
-      {[25, 50, 75, 100].map(lv => (
-        <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => p.x + ',' + p.y).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
-      ))}
-      {Array.from({ length: axes }, (_, i) => (
-        <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
-      ))}
-      {items.map((item, idx) => {
-        const vals = normalize(item);
-        const pts = vals.map((v, i) => pt(i, v));
-        return (
-          <g key={item.level}>
-            <polygon points={pts.map(p => p.x + ',' + p.y).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
-            {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[idx]} />)}
-          </g>
-        );
-      })}
-      {Array.from({ length: axes }, (_, i) => {
-        const lp = pt(i, 120);
-        return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
-      })}
-    </svg>
-  );
-};
+import { useState } from 'react';
 
 export const NftTierExplorer = () => {
   const [filter, setFilter] = useState("All");
   const [selected, setSelected] = useState(null);
   const [compare, setCompare] = useState([]);
+
+  const VIDEO_SRCS = [
+    null,
+    '/videos/01_1.mp4',
+    '/videos/02_1.mp4',
+    '/videos/03_1.mp4',
+    '/videos/04_1.mp4',
+    '/videos/05_1.mp4',
+    '/videos/06_1.mp4',
+    '/videos/07_1.mp4',
+    '/videos/08_1.mp4',
+    '/videos/09_1.mp4',
+    '/videos/10_1.mp4',
+  ];
 
   const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 
@@ -120,18 +40,63 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  const filtered = filter === "All" ? NFT_DATA : NFT_DATA.filter(n => n.tier === filter);
+  var RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
 
-  const toggleCompare = (nft) => {
+  var normalize = (nft) => {
+    var roi = nft.limit / nft.price;
+    return [
+      ((24000 - nft.price) / 24000) * 100,
+      (nft.limit / 70000) * 100,
+      (nft.depth / 22) * 100,
+      nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
+      Math.min((roi / 3.0) * 100, 100),
+    ];
+  };
+
+  var filtered = filter === "All" ? NFT_DATA : NFT_DATA.filter(n => n.tier === filter);
+
+  var toggleCompare = (nft) => {
     setCompare(prev => {
-      const exists = prev.find(c => c.level === nft.level);
+      var exists = prev.find(c => c.level === nft.level);
       if (exists) return prev.filter(c => c.level !== nft.level);
       if (prev.length >= 2) return [prev[1], nft];
       return [...prev, nft];
     });
   };
 
-  const FeaturePill = ({ on, label }) => (
+  var RadarChart = ({ items, size }) => {
+    var s = size || 240;
+    var cx = s / 2, cy = s / 2, r = s * 0.36;
+    var axes = 5, step = (2 * Math.PI) / axes, start = -Math.PI / 2;
+    var pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
+    var colors = ['#FFFFFF', '#F59E0B'];
+    return (
+      <svg viewBox={'0 0 ' + s + ' ' + s} className="w-full max-w-[260px] mx-auto">
+        {[25, 50, 75, 100].map(lv => (
+          <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => p.x + ',' + p.y).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
+        ))}
+        {Array.from({ length: axes }, (_, i) => (
+          <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
+        ))}
+        {items.map((item, idx) => {
+          var vals = normalize(item);
+          var pts = vals.map((v, i) => pt(i, v));
+          return (
+            <g key={item.level}>
+              <polygon points={pts.map(p => p.x + ',' + p.y).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
+              {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[idx]} />)}
+            </g>
+          );
+        })}
+        {Array.from({ length: axes }, (_, i) => {
+          var lp = pt(i, 120);
+          return <text key={i} x={lp.x} y={lp.y} textAnchor="middle" dominantBaseline="middle" fill="rgba(255,255,255,0.5)" style={{ fontSize: '7.5px' }}>{RADAR_AXES[i]}</text>;
+        })}
+      </svg>
+    );
+  };
+
+  var FeaturePill = ({ on, label }) => (
     <span style={on
       ? { color: '#4ade80', backgroundColor: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }
       : { color: 'rgba(255,255,255,0.4)', backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.05)' }}
@@ -139,6 +104,14 @@ export const NftTierExplorer = () => {
       {on ? '✓' : '✗'} {label}
     </span>
   );
+
+  var videoStyle = {
+    width: '100%',
+    aspectRatio: '1 / 1',
+    objectFit: 'cover',
+    display: 'block',
+    backgroundColor: '#1a1a2e',
+  };
 
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
@@ -162,9 +135,9 @@ export const NftTierExplorer = () => {
       {/* Card Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {filtered.map(nft => {
-          const isSel = selected?.level === nft.level;
-          const isCmp = compare.find(c => c.level === nft.level);
-          const tc = TIER_COLORS[nft.tier];
+          var isSel = selected?.level === nft.level;
+          var isCmp = compare.find(c => c.level === nft.level);
+          var tc = TIER_COLORS[nft.tier];
           return (
             <button key={nft.level} onClick={() => setSelected(isSel ? null : nft)}
               style={{
@@ -178,15 +151,7 @@ export const NftTierExplorer = () => {
               className="relative rounded-xl transition-all duration-300 border">
               {/* Video */}
               <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1' }}>
-                <LazyNftVideo
-                  src={'/videos/' + String(nft.level).padStart(2, '0') + '_1.mp4'}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '1 / 1',
-                    objectFit: 'cover',
-                    display: 'block',
-                  }}
-                />
+                <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={videoStyle} />
               </div>
               {/* Card Info */}
               <div style={{ padding: '12px' }}>
@@ -211,7 +176,7 @@ export const NftTierExplorer = () => {
 
       {/* Detail Panel */}
       {selected && (() => {
-        const tc = TIER_COLORS[selected.tier];
+        var tc = TIER_COLORS[selected.tier];
         return (
           <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="p-5 rounded-xl border mb-6">
             <div className="flex flex-col md:flex-row md:items-start gap-6">
@@ -239,15 +204,7 @@ export const NftTierExplorer = () => {
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
                 <div style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '260px', marginBottom: '12px' }}>
-                  <LazyNftVideo
-                    src={'/videos/' + String(selected.level).padStart(2, '0') + '_1.mp4'}
-                    style={{
-                      width: '100%',
-                      aspectRatio: '1 / 1',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
+                  <video autoPlay muted loop playsInline src={VIDEO_SRCS[selected.level]} style={videoStyle} />
                 </div>
                 <RadarChart items={[selected]} size={200} />
                 <button onClick={() => toggleCompare(selected)}
@@ -273,15 +230,7 @@ export const NftTierExplorer = () => {
             <div className="flex justify-center gap-4 w-full">
               {compare.map((item) => (
                 <div key={item.level} style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '180px' }}>
-                  <LazyNftVideo
-                    src={'/videos/' + String(item.level).padStart(2, '0') + '_1.mp4'}
-                    style={{
-                      width: '100%',
-                      aspectRatio: '1 / 1',
-                      objectFit: 'cover',
-                      display: 'block',
-                    }}
-                  />
+                  <video autoPlay muted loop playsInline src={VIDEO_SRCS[item.level]} style={videoStyle} />
                 </div>
               ))}
             </div>
