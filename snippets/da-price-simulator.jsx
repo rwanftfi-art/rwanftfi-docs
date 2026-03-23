@@ -167,7 +167,7 @@ export const DaPriceSimulator = () => {
         {/* Video */}
         <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
           <video autoPlay muted loop playsInline style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
-            <source src="/DAalpha-trimmed.webm" type="video/webm" />
+            <source src="/DAalpha-Uncompressed8-bit422.webm" type="video/webm" />
           </video>
         </div>
         {/* KPI Cards */}
