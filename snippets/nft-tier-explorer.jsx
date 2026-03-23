@@ -69,9 +69,9 @@ const RadarChart = ({ items, size = 240 }) => {
   const pt = (ai, val) => ({ x: cx + r * (val / 100) * Math.cos(start + ai * step), y: cy + r * (val / 100) * Math.sin(start + ai * step) });
   const colors = ['#FFFFFF', '#F59E0B'];
   return (
-    <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[260px] mx-auto">
+    <svg viewBox={'0 0 ' + size + ' ' + size} className="w-full max-w-[260px] mx-auto">
       {[25, 50, 75, 100].map(lv => (
-        <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
+        <polygon key={lv} points={Array.from({ length: axes }, (_, i) => pt(i, lv)).map(p => p.x + ',' + p.y).join(' ')} fill="none" stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
       ))}
       {Array.from({ length: axes }, (_, i) => (
         <line key={i} x1={cx} y1={cy} x2={pt(i, 100).x} y2={pt(i, 100).y} stroke="white" strokeOpacity="0.08" strokeWidth="0.5" />
@@ -81,7 +81,7 @@ const RadarChart = ({ items, size = 240 }) => {
         const pts = vals.map((v, i) => pt(i, v));
         return (
           <g key={item.level}>
-            <polygon points={pts.map(p => `${p.x},${p.y}`).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
+            <polygon points={pts.map(p => p.x + ',' + p.y).join(' ')} fill={colors[idx]} fillOpacity="0.15" stroke={colors[idx]} strokeWidth="1.5" />
             {pts.map((p, i) => <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[idx]} />)}
           </g>
         );
@@ -179,7 +179,7 @@ export const NftTierExplorer = () => {
               {/* Video */}
               <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1' }}>
                 <LazyNftVideo
-                  src={`/videos/${String(nft.level).padStart(2, '0')}_1.mp4`}
+                  src={'/videos/' + String(nft.level).padStart(2, '0') + '_1.mp4'}
                   style={{
                     width: '100%',
                     aspectRatio: '1 / 1',
@@ -221,7 +221,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', `${selected.depth} levels`], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? `${selected.mining} days · 10%` : '42–40 days · 10%+15%'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite tier perk' : 'Auto-reinvest limit'], ['ROI Ratio', `${(selected.limit / selected.price).toFixed(2)}x`]].map(([label, val, subtext]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days · 10%' : '42–40 days · 10%+15%'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite tier perk' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
@@ -234,13 +234,13 @@ export const NftTierExplorer = () => {
                   <FeaturePill on={true} label="FinPro" />
                   <FeaturePill on={selected.matchingBonus} label="Matching Bonus" />
                   <FeaturePill on={selected.lending} label="Lending" />
-                  <FeaturePill on={selected.daMining} label={selected.daMining ? `DA Mining · ${selected.cycles} cycle${selected.cycles > 1 ? 's' : ''}` : 'DA Mining'} />
+                  <FeaturePill on={selected.daMining} label={selected.daMining ? 'DA Mining · ' + selected.cycles + ' cycle' + (selected.cycles > 1 ? 's' : '') : 'DA Mining'} />
                 </div>
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
                 <div style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '260px', marginBottom: '12px' }}>
                   <LazyNftVideo
-                    src={`/videos/${String(selected.level).padStart(2, '0')}_1.mp4`}
+                    src={'/videos/' + String(selected.level).padStart(2, '0') + '_1.mp4'}
                     style={{
                       width: '100%',
                       aspectRatio: '1 / 1',
@@ -274,7 +274,7 @@ export const NftTierExplorer = () => {
               {compare.map((item) => (
                 <div key={item.level} style={{ backgroundColor: '#1a1a2e', borderRadius: '8px', overflow: 'hidden', aspectRatio: '1 / 1', width: '100%', maxWidth: '180px' }}>
                   <LazyNftVideo
-                    src={`/videos/${String(item.level).padStart(2, '0')}_1.mp4`}
+                    src={'/videos/' + String(item.level).padStart(2, '0') + '_1.mp4'}
                     style={{
                       width: '100%',
                       aspectRatio: '1 / 1',
@@ -307,9 +307,9 @@ export const NftTierExplorer = () => {
                   {[
                     ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
                     ['Income Limit', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
-                    ['ROI', `${(compare[0].limit / compare[0].price).toFixed(2)}x`, `${(compare[1].limit / compare[1].price).toFixed(2)}x`],
-                    ['Mkt Depth', `${compare[0].depth} lvls`, `${compare[1].depth} lvls`],
-                    ['Mining', compare[0].mining ? `${compare[0].mining}d` : '—', compare[1].mining ? `${compare[1].mining}d` : '—'],
+                    ['ROI', (compare[0].limit / compare[0].price).toFixed(2) + 'x', (compare[1].limit / compare[1].price).toFixed(2) + 'x'],
+                    ['Mkt Depth', compare[0].depth + ' lvls', compare[1].depth + ' lvls'],
+                    ['Mining', compare[0].mining ? compare[0].mining + 'd' : '—', compare[1].mining ? compare[1].mining + 'd' : '—'],
                     ['Matching Bonus', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
                     ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
                     ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
