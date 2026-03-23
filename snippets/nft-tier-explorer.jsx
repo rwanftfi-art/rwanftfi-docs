@@ -133,8 +133,8 @@ export const NftTierExplorer = () => {
       </div>
 
       {/* Card Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
-        {filtered.map(nft => {
+      {(() => {
+        var renderCard = (nft) => {
           var isSel = selected?.level === nft.level;
           var isCmp = compare.find(c => c.level === nft.level);
           var tc = TIER_COLORS[nft.tier];
@@ -149,11 +149,9 @@ export const NftTierExplorer = () => {
                 overflow: 'hidden',
               }}
               className="relative rounded-xl transition-all duration-300 border">
-              {/* Video */}
               <div style={{ width: '100%', overflow: 'hidden', aspectRatio: '1 / 1', backgroundColor: '#1a1a2e' }}>
                 <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
               </div>
-              {/* Card Info */}
               <div style={{ padding: '12px' }}>
                 <div className="flex items-center justify-between mb-2">
                   <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">{nft.tier}</span>
@@ -171,8 +169,31 @@ export const NftTierExplorer = () => {
               )}
             </button>
           );
-        })}
-      </div>
+        };
+
+        if (filter === "All") {
+          var basic = NFT_DATA.filter(n => n.tier === 'Basic');
+          var premium = NFT_DATA.filter(n => n.tier === 'Premium');
+          var elite = NFT_DATA.filter(n => n.tier === 'Elite');
+          return (
+            <div className="mb-6">
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }} className="uppercase tracking-wider">Basic · L1–L4</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{basic.map(renderCard)}</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Premium · L5–L8</div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{premium.map(renderCard)}</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Elite · L9–L10</div>
+              <div className="grid grid-cols-2 sm:grid-cols-2 max-w-[420px] mx-auto gap-3">{elite.map(renderCard)}</div>
+            </div>
+          );
+        }
+
+        var isElite = filter === "Elite";
+        return (
+          <div className={`grid gap-3 mb-6 ${isElite ? 'grid-cols-2 max-w-[420px] mx-auto' : 'grid-cols-2 sm:grid-cols-4'}`}>
+            {filtered.map(renderCard)}
+          </div>
+        );
+      })()}
 
       {/* Detail Panel */}
       {selected && (() => {
