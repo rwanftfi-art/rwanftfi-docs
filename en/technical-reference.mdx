@@ -14,12 +14,12 @@ icon: "code"
     A role with permissions to manage system parameters and grant access.
   </Accordion>
 
-  <Accordion title="Diamond Pattern (EIP-2535)" icon="diamond">
-    A smart contract architectural pattern that bypasses the 24KB size limit by splitting logic into modules (Facets).
-  </Accordion>
-
   <Accordion title="Deflationary Cycle" icon="fire">
     A protocol-level event triggered twice per year, lasting up to 30 days. During the cycle, the FarmingFacet suspends all NFTM mining, staking, and DA generation across the platform. Auto-sell and voluntary sale mechanisms are activated, with daily token burns executed to reduce circulating supply. The cycle is designed to create predictable, scheduled deflation and is governed by DAO parameters.
+  </Accordion>
+
+  <Accordion title="Diamond Pattern (EIP-2535)" icon="diamond">
+    A smart contract architectural pattern that bypasses the 24KB size limit by splitting logic into modules (Facets).
   </Accordion>
 
   <Accordion title="Freeze" icon="snowflake">
@@ -34,12 +34,12 @@ icon: "code"
     The ERC20Votes governance token (10M supply, 6 decimals) used for DAO voting, with auto-delegation and manual delegation disabled.
   </Accordion>
 
-  <Accordion title="LibSignatureLogic" icon="signature">
-    A smart contract library for verifying cryptographic signatures using the SIGNER_ROLE.
-  </Accordion>
-
   <Accordion title="Lending Default" icon="triangle-exclamation">
     A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, 100% of the collateralized DA in the user's TokenStack is permanently burned via the ResolverFacet. This emits a TokenStackLiquidated event and removes the tokens from circulating supply entirely. The mechanism serves as both a risk management tool and a deflationary driver.
+  </Accordion>
+
+  <Accordion title="LibSignatureLogic" icon="signature">
+    A smart contract library for verifying cryptographic signatures using the SIGNER_ROLE.
   </Accordion>
 
   <Accordion title="Price Impact Event" icon="chart-line">
