@@ -7,12 +7,16 @@ icon: "book"
 <AccordionGroup>
   <Accordion title="Accumulative Balance">
     A mandatory system wallet where 20% of a user's marketing rewards are stored,
-    usable only for NFT repurchases or upgrades. 120-day decay: 70% stays,
-    30% transfers to upline sponsor.
+    usable only for NFT repurchases or upgrades. 120-day decay: 70% directed to
+    the DA Liquidity Pool for minting new DA, 30% transfers to upline sponsor
+    (cascades up if sponsor has zero Income Limit).
   </Accordion>
   <Accordion title="Auto-sell">
     Automatic sale of DA when the TokenStack period expires. The user receives
     70% in USDT (5% less than manual sale). 30% of tokens permanently burned.
+    Auto-sell follows progressive unlock periods: Period 1 (25%) after 4 months,
+    Period 2 (40%) after 3 months, Period 3 (50%) after 3 months, Period 4 (100%)
+    after 2 months — 12-month total cycle.
   </Accordion>
   <Accordion title="Autobuy (3/3)">
     Smart contract feature that automatically repurchases an NFT up to 3 times
@@ -37,6 +41,12 @@ icon: "book"
     a USDT liquidity pool. Price = Liquidity ÷ Supply. Tokens burned on every
     sale — price mathematically increases over time.
   </Accordion>
+  <Accordion title="Deflationary Cycle">
+    A system-wide event triggered twice per year, lasting up to 30 days. During this
+    period, NFTM mining, staking, and DA generation are temporarily paused. Automatic
+    and voluntary DA sale mechanisms activate, with daily token burns reducing market
+    supply and intensifying scarcity to strengthen the asset's value.
+  </Accordion>
   <Accordion title="Cross-Chain Bridge">
     Built-in bridge allowing users to fund their accounts from any supported
     blockchain network. Deposits are processed on-chain via the SERVICE_ROLE.
@@ -56,6 +66,11 @@ icon: "book"
   <Accordion title="Income Limit">
     Maximum USDT rewards a specific NFT can generate before renewal is required.
     When limit reaches zero, all rewards are skipped (compression activates).
+  </Accordion>
+  <Accordion title="Lending Default">
+    If a borrower fails to repay their loan within the 30-day cutoff period, 100% of
+    the collateralized DA is permanently burned. This mechanism protects system
+    liquidity, reduces risk, and enforces financial discipline.
   </Accordion>
   <Accordion title="Lost Income">
     Notification that a user missed a marketing reward due to insufficient NFT level
@@ -89,6 +104,7 @@ icon: "book"
   <Accordion title="Voucher (Gift Voucher)">
     User-generated digital coupon — minimum 5 USDT, 365-day validity.
     Covers up to 100% of NFT purchase. Transferable at 0% commission.
-    Cannot combine with Accumulative Balance.
+    Cannot combine with Accumulative Balance. If a Voucher remains unused for its
+    full 365-day lifetime, 100% of its value is directed to the DA Liquidity Pool.
   </Accordion>
 </AccordionGroup>
