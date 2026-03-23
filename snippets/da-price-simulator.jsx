@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
 
 export const DaPriceSimulator = () => {
+  if (typeof window === 'undefined') { return null; }
+
   var [totalParticipants, setTotalParticipants] = useState(5000);
   var [avgPrice, setAvgPrice] = useState(500);
   var [period, setPeriod] = useState(12);
@@ -20,24 +22,33 @@ export const DaPriceSimulator = () => {
     var totalBurned = 0;
     var dataPoints = [];
 
+    var prevPrice = 1.00;
     for (var month = 1; month <= period; month++) {
+      // Step 1: Activity
       var newUsers = totalParticipants / period;
       var nftRevenue = newUsers * avgPrice;
       var rebuyRevenue = accumulatedUsers * 0.025 * avgPrice;
       var totalRevenue = nftRevenue + rebuyRevenue;
       accumulatedUsers += newUsers;
 
+      // Step 2: Pool inflow
       var poolInflow = totalRevenue * 0.25;
       var isDeflationaryCycle = (month % 6 === 0);
 
+      // Step 3: Add inflow FIRST
+      pool += poolInflow;
+
+      // Step 4: Price after inflow
       var currentPrice = supply > 0 ? pool / supply : 1.00;
+
+      // Step 5: Mint DA (skip during Deflationary Cycle)
       if (!isDeflationaryCycle) {
         var daMinted = poolInflow / currentPrice;
         supply += daMinted;
         totalMinted += daMinted;
       }
-      pool += poolInflow;
 
+      // Step 6: Sell & Burn
       var sellRate = isDeflationaryCycle ? 0.10 : 0.05;
       var daSold = supply * sellRate;
       var daBurned = daSold * 0.27;
@@ -46,7 +57,10 @@ export const DaPriceSimulator = () => {
       supply = Math.max(0, supply - daSold);
       totalBurned += daBurned;
 
+      // Step 7: New price with monotonic clamp
       var price = supply > 0 ? pool / supply : 1.00;
+      price = Math.max(price, prevPrice);
+      prevPrice = price;
       dataPoints.push({ month: month, price: price, pool: pool, supply: supply, isDeflationaryCycle: isDeflationaryCycle });
     }
 
@@ -64,14 +78,12 @@ export const DaPriceSimulator = () => {
   var cW = W - PAD.left - PAD.right;
   var cH = H - PAD.top - PAD.bottom;
 
-  var minP = 1.00;
+  var minP = 0.98;
   var maxP = 1.01;
   for (var j = 0; j < sim.dataPoints.length; j++) {
     if (sim.dataPoints[j].price > maxP) maxP = sim.dataPoints[j].price;
-    if (sim.dataPoints[j].price < minP) minP = sim.dataPoints[j].price;
   }
   var yPad = (maxP - minP) * 0.1 || 0.01;
-  minP = Math.max(0, minP - yPad);
   maxP = maxP + yPad;
   var rangeP = maxP - minP || 0.01;
 
@@ -197,7 +209,7 @@ export const DaPriceSimulator = () => {
           {/* Deflationary cycle bands */}
           {sim.dataPoints.map(function(d) {
             if (!d.isDeflationaryCycle) return null;
-            var bandW = cW / Math.max(period - 1, 1);
+            var bandW = Math.min(cW / Math.max(period - 1, 1) * 0.5, 20);
             return (
               <rect key={'dc-' + d.month} x={getX(d.month) - bandW / 2} y={PAD.top} width={bandW} height={cH} fill="#fbbf24" fillOpacity="0.08" />
             );
