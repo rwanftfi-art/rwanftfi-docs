@@ -31,4 +31,87 @@ Every time DA is sold, tokens are burned (supply goes down) while USDT stays in 
   The 5% commission on all marketing rewards flows directly into the DA liquidity pool — separate from sell percentages. Additional liquidity comes from Lending fees, RWA income, and FinPro revenue.
 </Tip>
 
+## Liquidity Pool Sources
+
+The Liquidity Pool is the foundation of DA economics. It is funded from multiple sources across the RWANFTFI ecosystem, ensuring continuous growth of the token's backing. Every protocol revenue stream flows into a single pool, reinforcing the Price = Liquidity ÷ Supply formula.
+
+<AccordionGroup>
+  <Accordion title="NFT Activity">
+    **NFT Purchases** — 20% of every NFT purchase is automatically routed to the Liquidity Pool for minting new DA.
+
+    **Rebuy & Autobuy** — an additional 20% from every repeat or automatic NFT purchase flows into the Liquidity Pool. This incentivizes position renewal and supports system growth.
+  </Accordion>
+
+  <Accordion title="Fees & Commissions">
+    **Marketing Rewards Tax** — 5% of all marketing rewards across the referral network are automatically directed to the Liquidity Pool. Network activity directly strengthens DA backing.
+
+    **Accumulative Balance Transfer Fee** — when transferring Accumulative Balance to another user, a 20% commission is routed to the Liquidity Pool.
+
+    **Accumulative Balance Purchase Fee** — when purchasing an NFT using Accumulative Balance, an additional 20% of the amount goes to the Liquidity Pool. Example: balance $1,400, NFT purchase $1,100 → available after fee $1,120, $280 goes to Pool, $20 remains.
+
+    **Lending Commission** — when taking a loan, the borrower pays a one-time 5% commission directed to the Liquidity Pool. Example: loan $1,000, borrower receives $950, $50 goes to Pool. The commission is collected with every new loan.
+  </Accordion>
+
+  <Accordion title="Expired & Unused Funds">
+    **Auto-Sell with Zero Income Limit** — if DA auto-sell triggers and the user has zero Income Limit on their NFT, 100% of proceeds go either to the Liquidity Pool or to DA burn (exact mechanism determined by DAO settings).
+
+    **Expired Vouchers** — if Vouchers remain unused for 365 days, 100% of funds are directed to the Liquidity Pool. This prevents idle funds and eliminates inactive liabilities.
+
+    **Unused Accumulative Balance** — if the Accumulative Balance remains unused for 120 days, 70% of funds are directed to the Liquidity Pool for minting new DA.
+  </Accordion>
+
+  <Accordion title="External Revenue">
+    **SWAP Commissions** — commissions from all exchange (SWAP) operations are automatically routed to the Liquidity Pool.
+
+    **Debit Card Commissions** — commissions from the Debit Card program flow into the Liquidity Pool, creating real cash flow from the external economy.
+
+    **RWA Income** — a portion of revenue from real estate, rental income, commercial assets, and other real-world assets is directed to the Liquidity Pool, anchoring the system to the real economy.
+
+    **FinPro Revenue** — a portion of profits from financial products (Lending, investment products, financial services) flows into the Liquidity Pool.
+
+    **Ecosystem Revenue** — a portion of total protocol revenue may be directed to the Liquidity Pool or used to create additional liquidity for minting new DA.
+  </Accordion>
+</AccordionGroup>
+
+## DA Burn Mechanics
+
+DA burning is the core deflationary mechanism — it reduces token supply and creates sustained upward pressure on the asset's value.
+
+<CardGroup cols={3}>
+  <Card title="Manual Sale" icon="fire">
+    25% of sold DA volume is automatically burned on voluntary sale.
+  </Card>
+  <Card title="Auto-Sell" icon="clock">
+    30% of volume is burned on automatic sale. Cycles: 4 months → 3 months → 3 months → 2 months (12 months total).
+  </Card>
+  <Card title="Lending Default" icon="ban">
+    100% of collateralized DA is fully burned if the loan is not repaid. Protects system liquidity and enforces financial discipline.
+  </Card>
+</CardGroup>
+
+## Deflationary Cycle
+
+Twice a year the system triggers a special Deflationary Cycle lasting up to 30 days, designed to intensify token scarcity.
+
+<Steps>
+  <Step title="Pause generation">
+    NFTM mining, staking, and DA generation are temporarily paused.
+  </Step>
+  <Step title="Activate sale mechanisms">
+    Automatic or voluntary DA sale mechanisms are activated.
+  </Step>
+  <Step title="Daily burn">
+    A portion of tokens is burned daily.
+  </Step>
+  <Step title="Supply shrinks">
+    Market supply shrinks, strengthening upward price pressure.
+  </Step>
+</Steps>
+
+<Info>
+  The Deflationary Cycle makes the DA economy predictable, manageable, and sustainable over the long term.
+</Info>
+
+Increased activity → increased liquidity → increased DA issuance → increased burning → increased scarcity → increased asset value. This closed-loop system means the more actively the ecosystem develops, the stronger the DA economy becomes.
+
 <DaPriceSimulator />
