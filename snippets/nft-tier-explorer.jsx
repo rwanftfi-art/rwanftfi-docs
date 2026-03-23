@@ -150,8 +150,8 @@ export const NftTierExplorer = () => {
               }}
               className="relative rounded-xl transition-all duration-300 border">
               {/* Video */}
-              <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1' }}>
-                <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={videoStyle} />
+              <div style={{ backgroundColor: '#1a1a2e', overflow: 'hidden', aspectRatio: '1 / 1', position: 'relative', width: '100%' }}>
+                <video autoPlay muted loop playsInline src={VIDEO_SRCS[nft.level]} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'absolute', inset: 0, backgroundColor: '#1a1a2e' }} />
               </div>
               {/* Card Info */}
               <div style={{ padding: '12px' }}>
@@ -186,7 +186,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days · 10%' : '42–40 days · 10%+15%'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite tier perk' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite tier perk' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
