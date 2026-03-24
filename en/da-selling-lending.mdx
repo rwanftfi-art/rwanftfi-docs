@@ -10,10 +10,10 @@ Once a user holds DA, they have two primary financial options: selling the asset
 
 <CardGroup cols={2}>
   <Card title="Sell DA" icon="fire">
-    Receive 75% (manual) or 70% (auto) in USDT. Tokens are **permanently burned**, increasing price for remaining holders. You lose your DA position.
+    100% of sold DA is permanently burned. You receive 75% (manual) or 70% (auto) of value in USDT. The commission (25% or 30%) stays in the liquidity pool, increasing price for remaining holders.
   </Card>
   <Card title="Lend DA" icon="building-columns">
-    Borrow up to 70% LTV in USDT against your DA. Your DA stays in your TokenStack. 30-day loan cutoff. If not repaid, collateral is fully burned.
+    Borrow up to 70% LTV in USDT against your DA. Your DA stays in your TokenStack. 30-day loan period with a one-time 5% commission.
   </Card>
 </CardGroup>
 
@@ -22,15 +22,17 @@ Once a user holds DA, they have two primary financial options: selling the asset
 When selling DA, there are two distinct scenarios with different conditions:
 
 1. **Manual Sale (user sells independently):**
-   * The user receives **75%** of the value in USDT.
-   * **25%** of the tokens are permanently burned.
+   * The user receives **75%** of the DA value in USDT at the current price.
+   * **100%** of the sold DA tokens are permanently burned.
+   * The 25% commission (difference between token value and USDT payout) remains in the liquidity pool, increasing DA price.
 
 2. **Auto-Sell (triggered after TokenStack period expires):**
-   * The user receives **70%** of the value in USDT.
-   * **30%** of the tokens are permanently burned.
-   * Triggers automatically if the user has not sold manually before the period expires.
+   * The user receives **70%** of the DA value in USDT at the price on the date of auto-sell.
+   * **100%** of the auto-sold DA tokens are permanently burned.
+   * The 30% commission remains in the liquidity pool.
+   * Auto-sell triggers automatically if the user has not sold manually before the period expires.
 
-In both cases, the sold tokens are permanently removed from circulation, which mathematically increases the price of DA for the remaining holders. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
+In both cases, 100% of sold tokens are burned — the 25%/30% represents the commission that stays in the pool, not the burn rate. This mathematically increases the price of DA for the remaining holders. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
 
 <Info>
   **Auto-sell** triggers automatically if you don't sell manually before the TokenStack period expires. It pays 5% less (70% vs 75%), incentivizing active management.
@@ -38,22 +40,26 @@ In both cases, the sold tokens are permanently removed from circulation, which m
 
 ## Auto-Sell Periods
 
-To prevent massive simultaneous sell-offs, DA is subject to progressive unlocking periods within a user's TokenStack. The total cycle spans **12 months**:
+DA is 100% available to the user immediately upon farming — there is no lock-up period. The user can sell manually at any time (receiving 75% in USDT) or take a loan against their DA. If the user does **not** act, the system triggers automatic forced sales from the **remaining balance** progressively over 4 periods spanning **12 months** total.
+
+**Example starting with 100 DA:**
 
 <Steps>
-  <Step title="Period 1 — 25% available to sell (4 months)">
-    After the first 4 months, 25% of the DA in the TokenStack is unlocked for sale.
+  <Step title="Period 1 — 25% auto-sell after 4 months">
+    If you haven't sold manually within 4 months, 25% of your current DA balance is auto-sold. 25% of 100 DA = **25 DA auto-sold** → You receive 70% of value in USDT at current price → 100% of 25 DA burned → Remaining: **75 DA**
   </Step>
-  <Step title="Period 2 — 40% available to sell (3 months)">
-    After the next 3 months (month 7), 40% of the DA is available for sale.
+  <Step title="Period 2 — 40% auto-sell after 3 more months (month 7)">
+    40% of the remaining balance is auto-sold. 40% of 75 DA = **30 DA auto-sold** → Remaining: **45 DA**
   </Step>
-  <Step title="Period 3 — 50% available to sell (3 months)">
-    After the next 3 months (month 10), 50% of the DA is available for sale.
+  <Step title="Period 3 — 50% auto-sell after 3 more months (month 10)">
+    50% of the remaining balance is auto-sold. 50% of 45 DA = **22.5 DA auto-sold** → Remaining: **22.5 DA**
   </Step>
-  <Step title="Period 4 — 100% available to sell (2 months)">
-    After the final 2 months (month 12), 100% of the DA is fully unlocked.
+  <Step title="Period 4 — 100% auto-sell after 2 more months (month 12)">
+    100% of the remaining balance is auto-sold. Position fully closed. 100% of 22.5 DA = **22.5 DA auto-sold** → Remaining: **0 DA**
   </Step>
 </Steps>
+
+Each auto-sell executes at the DA price at that moment, not the original farming price. Since price grows over time, later auto-sells burn tokens at a higher price — strengthening deflation further.
 
 <Warning>
   **Auto-Sell with Zero Income Limit:** If DA auto-sell triggers and the user has zero Income Limit on their NFT (meaning the NFT has not been renewed), 100% of proceeds are directed either to the Liquidity Pool or to DA burn. The exact mechanism is determined by DAO settings. Users should always maintain an active Income Limit to receive their auto-sell payout.
@@ -61,12 +67,35 @@ To prevent massive simultaneous sell-offs, DA is subject to progressive unlockin
 
 ## Lending (Credit against DA)
 
-Instead of selling and losing their position, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
+Instead of selling, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
 
 When taking a loan, the borrower pays a one-time **5% commission** that is directed to the DA Liquidity Pool. The borrower receives 95% of the loan value. Example: for a $1,000 loan, the borrower receives $950 and $50 goes to the Liquidity Pool. This commission is collected with every new loan — users can take new loans after receiving new DA batches, meaning the commission flows into the Pool repeatedly.
 
+### Multi-Batch Lending
+
+Each DA batch from a mining cycle serves as independent collateral. Users can take a separate 70% LTV loan against each batch individually:
+
+<Steps>
+  <Step title="Mine Batch 1">
+    Complete a mining cycle and receive DA batch 1.
+  </Step>
+  <Step title="Borrow against Batch 1">
+    Take a 70% LTV loan against batch 1 (5% commission to the Liquidity Pool).
+  </Step>
+  <Step title="Mine Batch 2">
+    Start a new mining cycle and receive DA batch 2.
+  </Step>
+  <Step title="Borrow against Batch 2">
+    Take another 70% LTV loan against batch 2 (separate 5% commission).
+  </Step>
+</Steps>
+
+<Tip>
+  Multiple simultaneous active loans are possible — one per DA batch. Each loan has its own 30-day cutoff and 5% commission. Smaller NFTs produce smaller loans, larger NFTs produce larger loans. If any individual loan defaults, only that batch's collateral enters the auto-sell cycle — not all DA holdings.
+</Tip>
+
 <Warning>
-  **Lending Default — 100% Burn:** If a loan is not repaid within the required parameters, 100% of the collateralized DA is fully burned. This is not a partial penalty — the entire collateral is permanently removed from circulation. This mechanism protects system liquidity, reduces risk, maintains price stability, and enforces financial discipline across the ecosystem.
+  **Lending Default — Progressive Burn:** If a loan is not repaid, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining). The user does **not** receive USDT from these auto-sells — proceeds are directed to the Liquidity Pool. This mechanism protects system liquidity, reduces risk, and enforces financial discipline across the ecosystem.
 </Warning>
 
 <SellVsLend />
