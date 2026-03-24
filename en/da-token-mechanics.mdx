@@ -28,7 +28,7 @@ Price = Liquidity ÷ Circulating Supply
 Every time DA is sold, tokens are burned (supply goes down) while USDT stays in the pool (liquidity stays or grows). Less tokens ÷ same or more USDT = higher price per token.
 
 <Info>
-  **Founder's Example:** 200 DA in circulation, $200 in the liquidity pool. Price = $1.00 per DA. A user sells 100 DA. The pool pays out $70 (70% of $100 value). All 100 DA are burned. Result: 100 DA remain, $130 in the pool. New price = $130 ÷ 100 = **$1.30 per DA**.
+  **How it works:** 200 DA in circulation, 200 USDT in the liquidity pool. Price = 1.00 USDT per DA. A user sells 100 DA. The pool pays out 70 USDT (70% of 100 USDT value). All 100 DA are burned. Result: 100 DA remain, 130 USDT in the pool. New price = 130 ÷ 100 = **1.30 USDT per DA**.
 </Info>
 
 <Tip>
@@ -89,7 +89,7 @@ DA burning is the core deflationary mechanism — it reduces token supply and cr
     100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. Commission: 30% stays in the liquidity pool. Triggers progressively from remaining balance over 4 periods (12 months total).
   </Card>
   <Card title="Lending Default" icon="ban">
-    100% of collateralized DA is fully burned if the loan is not repaid. Protects system liquidity and enforces financial discipline.
+    If a loan is not repaid, collateralized DA is progressively burned through the auto-sell cycle. Protects system liquidity and enforces financial discipline.
   </Card>
 </CardGroup>
 
@@ -157,7 +157,7 @@ Each DA batch from each mining cycle serves as independent collateral. This enab
 
 This allows multiple simultaneous micro-loans, one per DA batch. Each loan has its own 30-day cutoff period. If any individual loan defaults, only that batch's collateral is burned — not all DA holdings.
 
-For detailed sell vs. lend comparison, see [Selling & Lending](/en/selling-and-lending).
+For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-lending).
 
 ## Deflationary Cycle
 
