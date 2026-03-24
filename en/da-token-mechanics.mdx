@@ -14,7 +14,7 @@ import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
     Every DA token backed by real USDT in the liquidity pool.
   </Card>
   <Card title="Burn on Every Sale" icon="fire">
-    25% (manual) or 30% (auto) permanently removed from supply.
+    100% of sold tokens are permanently burned. User receives 75% (manual) or 70% (auto) of value in USDT. The commission (25% or 30%) remains in the liquidity pool, increasing the price for remaining holders.
   </Card>
   <Card title="No P2P Transfers" icon="ban">
     DA can only be sold, lent, or repaid — no peer-to-peer transfers.
@@ -26,6 +26,10 @@ import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
 Price = Liquidity ÷ Circulating Supply
 
 Every time DA is sold, tokens are burned (supply goes down) while USDT stays in the pool (liquidity stays or grows). Less tokens ÷ same or more USDT = higher price per token.
+
+<Info>
+  **Founder's Example:** 200 DA in circulation, $200 in the liquidity pool. Price = $1.00 per DA. A user sells 100 DA. The pool pays out $70 (70% of $100 value). All 100 DA are burned. Result: 100 DA remain, $130 in the pool. New price = $130 ÷ 100 = **$1.30 per DA**.
+</Info>
 
 <Tip>
   The 5% commission on all marketing rewards flows directly into the DA liquidity pool — separate from sell percentages. Additional liquidity comes from Lending fees, RWA income, and FinPro revenue.
@@ -79,15 +83,81 @@ DA burning is the core deflationary mechanism — it reduces token supply and cr
 
 <CardGroup cols={3}>
   <Card title="Manual Sale" icon="fire">
-    25% of sold DA volume is automatically burned on voluntary sale.
+    100% of sold DA is permanently burned. User receives 75% of value in USDT. Commission: 25% stays in the liquidity pool.
   </Card>
   <Card title="Auto-Sell" icon="clock">
-    30% of volume is burned on automatic sale. Cycles: 4 months → 3 months → 3 months → 2 months (12 months total).
+    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. Commission: 30% stays in the liquidity pool. Triggers progressively from remaining balance over 4 periods (12 months total).
   </Card>
   <Card title="Lending Default" icon="ban">
     100% of collateralized DA is fully burned if the loan is not repaid. Protects system liquidity and enforces financial discipline.
   </Card>
 </CardGroup>
+
+## Instant Access & Auto-Sell Cycle
+
+### Instant Access
+
+DA tokens are 100% available to the user from the moment they are farmed. There is no lock-up period. The user can immediately:
+
+- **Sell manually** — receive 75% of value in USDT, 100% of tokens are burned
+- **Take a loan** — 70% LTV against DA collateral, 5% commission fee
+- **Hold and wait** — keep tokens and benefit from price growth over time
+
+### Auto-Sell Cycle
+
+If the user does not sell manually, the system triggers automatic sales from the **remaining balance** over 4 periods spanning 12 months total.
+
+**Example starting with 100 DA:**
+
+<Steps>
+  <Step title="Period 1 — After 4 months">
+    25% of current balance is auto-sold. 25% of 100 = **25 DA sold** → Remaining: **75 DA**
+  </Step>
+  <Step title="Period 2 — After 3 more months (month 7)">
+    40% of remaining balance is auto-sold. 40% of 75 = **30 DA sold** → Remaining: **45 DA**
+  </Step>
+  <Step title="Period 3 — After 3 more months (month 10)">
+    50% of remaining balance is auto-sold. 50% of 45 = **22.5 DA sold** → Remaining: **22.5 DA**
+  </Step>
+  <Step title="Period 4 — After 2 more months (month 12)">
+    100% of remaining balance is auto-sold. 100% of 22.5 = **22.5 DA sold** → Remaining: **0 DA**
+  </Step>
+</Steps>
+
+Each auto-sell executes at the DA price at the time of that period's trigger — not the original farming price. 100% of auto-sold tokens are burned, and the user receives 70% of value in USDT at the price on the date of auto-sell. Since the price grows over time, later periods burn tokens at a higher price, accelerating deflation.
+
+The user can sell manually at any time before auto-sell triggers, receiving 75% instead of 70%.
+
+<Tip>
+  Manual sell (75% payout) is always more profitable per token than auto-sell (70% payout). However, auto-sell benefits from price growth over time — later periods execute at a higher DA price.
+</Tip>
+
+<Warning>
+  **Auto-Sell with Zero Income Limit:** If auto-sell triggers and the user has zero Income Limit (NFT not renewed), 100% of proceeds go to the Liquidity Pool or DA burn (determined by DAO). The user receives nothing. Always maintain an active Income Limit.
+</Warning>
+
+## Multi-Batch Lending
+
+Each DA batch from each mining cycle serves as independent collateral. This enables a continuous micro-loan cycle:
+
+<Steps>
+  <Step title="Mine Batch 1">
+    User completes a mining cycle and receives DA batch 1.
+  </Step>
+  <Step title="Borrow against Batch 1">
+    User takes a 70% LTV loan against batch 1 (5% commission to the Liquidity Pool).
+  </Step>
+  <Step title="Mine Batch 2">
+    User starts a new mining cycle and receives DA batch 2.
+  </Step>
+  <Step title="Borrow against Batch 2">
+    User takes another 70% LTV loan against batch 2 (separate 5% commission).
+  </Step>
+</Steps>
+
+This allows multiple simultaneous micro-loans, one per DA batch. Each loan has its own 30-day cutoff period. If any individual loan defaults, only that batch's collateral is burned — not all DA holdings.
+
+For detailed sell vs. lend comparison, see [Selling & Lending](/en/selling-and-lending).
 
 ## Deflationary Cycle
 
