@@ -5,6 +5,7 @@ export const SellVsLend = () => {
   const [currentPrice, setCurrentPrice] = useState(1.00);
   const [futurePrice, setFuturePrice] = useState(2.00);
   const [tab, setTab] = useState('sell');
+  const [paybackPercent, setPaybackPercent] = useState(100);
 
   const fmtUsd = (n) => {
     const digits = Math.abs(n) >= 10000 ? 0 : 2;
@@ -18,10 +19,12 @@ export const SellVsLend = () => {
   // Lend calculations
   const loanAmount = daAmount * currentPrice * 0.70 * 0.95;
   const futureValue = daAmount * futurePrice;
-  const repayHalf = loanAmount / 2;
-  const unlockTokens = daAmount / 2;
-  const unlockValue = unlockTokens * futurePrice;
-  const netPosition = loanAmount - repayHalf + unlockValue;
+  const paybackFraction = paybackPercent / 100;
+  const repayAmount = loanAmount * paybackFraction;
+  const tokensReturned = daAmount * paybackFraction;
+  const tokensReturnedValue = tokensReturned * futurePrice;
+  const tokensLocked = daAmount * (1 - paybackFraction);
+  const netPosition = (loanAmount - repayAmount) + tokensReturnedValue;
 
   // Insight for sell tab
   const autoSellBetter = futurePrice > currentPrice * (75 / 70);
@@ -109,12 +112,13 @@ export const SellVsLend = () => {
                   Sell now
                 </span>
               </div>
-              <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-3">{fmtUsd(manualSellPayout)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', lineHeight: '1.6' }}>
-                75% payout · At current price · 25% burned
+              <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-1">{fmtUsd(manualSellPayout)}</div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(25% commission included)</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', lineHeight: '1.6' }}>
+                100% DA burned · 25% commission to pool · 75% payout in USDT
               </div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
-                Sell now at current price. You lose DA position.
+                Sell now at current price. Commission included.
               </div>
             </div>
 
@@ -126,12 +130,13 @@ export const SellVsLend = () => {
                   Sell at peak
                 </span>
               </div>
-              <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-3">{fmtUsd(autoSellPayout)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '8px', lineHeight: '1.6' }}>
-                70% payout · At future price · 30% burned
+              <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-1">{fmtUsd(autoSellPayout)}</div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(30% commission included)</div>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', lineHeight: '1.6' }}>
+                100% DA burned · 30% commission to pool · 70% payout in USDT
               </div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
-                Sells automatically after TokenStack expires. Price grows over 4 months.
+                Auto-sells progressively from remaining balance if not sold manually.
               </div>
             </div>
           </div>
@@ -145,7 +150,7 @@ export const SellVsLend = () => {
             }} className="rounded-xl p-4 text-center">
               <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
                 {autoSellBetter ? (
-                  <>Auto-sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span> despite 30% burn — DA price growth outweighs the extra 5% burn.</>
+                  <>Auto-sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span> despite 30% commission — DA price growth outweighs the extra 5% commission.</>
                 ) : (
                   <>At this price projection, manual sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span>.</>
                 )}
@@ -179,7 +184,7 @@ export const SellVsLend = () => {
             <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', marginTop: '8px' }}>DA locked: {daAmount.toLocaleString('en-US')} DA</div>
           </div>
 
-          {/* Connector: Step 1 → Step 2 */}
+          {/* Connector: Step 1 → Payback slider */}
           <div style={{ textAlign: 'center', padding: '4px 0' }}>
             <div style={{
               width: '1px', height: '16px',
@@ -202,7 +207,23 @@ export const SellVsLend = () => {
             }} />
           </div>
 
-          {/* Step 2: Partial Repay */}
+          {/* Payback Percentage Slider */}
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4 mb-2">
+            <div className="flex justify-between items-center mb-2">
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>Loan Repayment</span>
+              <span style={{ color: '#FFFFFF', fontSize: '14px', fontWeight: 700 }}>{paybackPercent}%</span>
+            </div>
+            <input type="range" min="0" max="100" step="10" value={paybackPercent}
+              onChange={(e) => setPaybackPercent(Number(e.target.value))}
+              className="w-full cursor-pointer"
+              style={sliderStyle} />
+            <div className="flex justify-between mt-1">
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>0%</span>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>100%</span>
+            </div>
+          </div>
+
+          {/* Step 2: Repay */}
           <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.15)' }} className="rounded-xl p-5 mb-2">
             <div className="flex items-center mb-4">
               <div style={{
@@ -213,19 +234,27 @@ export const SellVsLend = () => {
                 fontSize: '13px', fontWeight: 700, color: '#FFFFFF',
                 flexShrink: 0
               }}>2</div>
-              <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, marginLeft: '10px' }}>PARTIAL REPAY</span>
+              <span style={{ color: '#FFFFFF', fontSize: '15px', fontWeight: 700, marginLeft: '10px' }}>
+                {paybackPercent === 100 ? 'FULL REPAY' : `PARTIAL REPAY (${paybackPercent}%)`}
+              </span>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginBottom: '4px' }}>PAY BACK</div>
-                <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 700 }}>{fmtUsd(repayHalf)}</div>
+                <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 700 }}>{fmtUsd(repayAmount)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>{paybackPercent}% of loan</div>
               </div>
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginBottom: '4px' }}>GET BACK</div>
-                <div style={{ color: '#4ade80', fontSize: '20px', fontWeight: 700 }}>{unlockTokens.toLocaleString('en-US')} DA</div>
-                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>worth {fmtUsd(unlockValue)}</div>
+                <div style={{ color: '#4ade80', fontSize: '20px', fontWeight: 700 }}>{tokensReturned.toLocaleString('en-US')} DA</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px' }}>worth {fmtUsd(tokensReturnedValue)} at future price</div>
               </div>
             </div>
+            {paybackPercent < 100 && tokensLocked > 0 && (
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '11px', marginTop: '10px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '8px' }}>
+                {tokensLocked.toLocaleString('en-US')} DA remain locked as collateral
+              </div>
+            )}
           </div>
 
           {/* Connector: Step 2 → Step 3 */}
@@ -259,6 +288,7 @@ export const SellVsLend = () => {
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>NET POSITION</div>
                 <div style={{ color: '#4ade80', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(netPosition)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>Commission included</div>
               </div>
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS HOLD</div>
@@ -267,6 +297,7 @@ export const SellVsLend = () => {
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS SELL NOW</div>
                 <div style={{ color: '#f87171', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(manualSellPayout)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>25% commission included</div>
               </div>
             </div>
           </div>
@@ -278,6 +309,11 @@ export const SellVsLend = () => {
           }} className="rounded-xl p-4 text-center mb-3">
             <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
               Lending lets you access liquidity <span style={{ color: '#FFFFFF', fontWeight: 600 }}>NOW</span> while keeping exposure to DA price growth.
+              {paybackPercent === 100 ? (
+                <span> At 100% repayment, you recover your full DA position at the new price.</span>
+              ) : (
+                <span> At {paybackPercent}% repayment, {tokensLocked.toLocaleString('en-US')} DA remain locked. Unpaid loans default through the auto-sell cycle.</span>
+              )}
             </div>
           </div>
 
@@ -288,7 +324,7 @@ export const SellVsLend = () => {
             marginTop: '12px',
           }} className="rounded-xl p-4 text-center">
             <div style={{ color: '#f87171', fontSize: '11px' }}>
-              Loan must be managed within 30 days. If less than 30 days remain before auto-sell, lending is not available.
+              Each loan has a 30-day cutoff. If not repaid, collateralized DA enters the auto-sell cycle and is progressively burned.
             </div>
           </div>
         </>
