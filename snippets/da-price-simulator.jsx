@@ -332,7 +332,7 @@ export const DaPriceSimulator = () => {
 
       {/* Footer */}
       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', lineHeight: 1.6, marginTop: '16px', marginBottom: 0 }}>
-        Direct formula calculator. DA Price = Liquidity Pool ÷ Circulating Supply. Supply starts at 0 and grows via farming — hard cap 21M. Every sale burns 100% of sold tokens. Commission (25% manual / 30% auto-sell) stays in the pool.
+        Direct formula calculator. DA Price = Liquidity Pool ÷ Circulating Supply. Supply starts at 0 and grows via farming — hard cap 21M. Every sale burns 100% of sold tokens. On every sale, 25% (manual) or 30% (auto) of USDT backing stays in the pool — this drives the price upward.
       </p>
     </div>
   );

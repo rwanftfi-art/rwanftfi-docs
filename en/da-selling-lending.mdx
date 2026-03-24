@@ -10,7 +10,7 @@ Once a user holds DA, they have two primary financial options: selling the asset
 
 <CardGroup cols={2}>
   <Card title="Sell DA" icon="fire">
-    100% of sold DA is permanently burned. You receive 75% (manual) or 70% (auto) of value in USDT. The commission (25% or 30%) stays in the liquidity pool, increasing price for remaining holders.
+    100% of sold DA is permanently burned. You receive 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) stays as backing in the pool — this drives the DA price upward.
   </Card>
   <Card title="Lend DA" icon="building-columns">
     Borrow up to 70% LTV in USDT against your DA. Your DA stays in your TokenStack. 30-day loan period with a one-time 5% commission.
@@ -24,15 +24,15 @@ When selling DA, there are two distinct scenarios with different conditions:
 1. **Manual Sale (user sells independently):**
    * The user receives **75%** of the DA value in USDT at the current price.
    * **100%** of the sold DA tokens are permanently burned.
-   * The 25% commission (difference between token value and USDT payout) remains in the liquidity pool, increasing DA price.
+   * The remaining 25% of USDT backing stays in the pool — with fewer tokens and the same liquidity, this 25% directly drives the price growth.
 
 2. **Auto-Sell (triggered after TokenStack period expires):**
    * The user receives **70%** of the DA value in USDT at the price on the date of auto-sell.
    * **100%** of the auto-sold DA tokens are permanently burned.
-   * The 30% commission remains in the liquidity pool.
+   * The remaining 30% of USDT backing stays in the pool — this 30% is what drives the price upward.
    * Auto-sell triggers automatically if the user has not sold manually before the period expires.
 
-In both cases, 100% of sold tokens are burned — the 25%/30% represents the commission that stays in the pool, not the burn rate. This mathematically increases the price of DA for the remaining holders. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
+In both cases, 100% of sold tokens are burned — the 25%/30% represents the USDT backing that stays in the pool. This is the mechanism that drives price growth: fewer tokens + same liquidity = higher price per DA. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
 
 <Info>
   **Auto-sell** triggers automatically if you don't sell manually before the TokenStack period expires. It pays 5% less (70% vs 75%), incentivizing active management.
