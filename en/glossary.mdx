@@ -12,11 +12,13 @@ icon: "book"
     (cascades up if sponsor has zero Income Limit).
   </Accordion>
   <Accordion title="Auto-sell">
-    Automatic sale of DA when the TokenStack period expires. The user receives
-    70% in USDT (5% less than manual sale). 30% of tokens permanently burned.
-    Auto-sell follows progressive unlock periods: Period 1 (25%) after 4 months,
-    Period 2 (40%) after 3 months, Period 3 (50%) after 3 months, Period 4 (100%)
-    after 2 months — 12-month total cycle.
+    Automatic forced sale of DA if the user does not sell manually. The user receives
+    70% of value in USDT (5% less than manual sale). 100% of auto-sold tokens are
+    permanently burned; the 30% commission stays in the liquidity pool. DA is 100%
+    available from day one — auto-sell triggers progressively from the remaining
+    balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after
+    3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of
+    remaining after 2 months. Total cycle: 12 months.
   </Accordion>
   <Accordion title="Autobuy (3/3)">
     Smart contract feature that automatically repurchases an NFT up to 3 times
@@ -42,8 +44,9 @@ icon: "book"
   </Accordion>
   <Accordion title="DA (Deflationary Asset)">
     The ecosystem's core economic token. Hard-capped at 21M, 100% backed by
-    a USDT liquidity pool. Price = Liquidity ÷ Supply. Tokens burned on every
-    sale — price mathematically increases over time.
+    a USDT liquidity pool. Price = Liquidity ÷ Supply. 100% of sold tokens are
+    permanently burned on every sale. Commission (25% manual / 30% auto) stays
+    in the pool — price mathematically increases over time.
   </Accordion>
   <Accordion title="Deflationary Cycle">
     A system-wide event triggered twice per year, lasting up to 30 days. During this
@@ -68,9 +71,12 @@ icon: "book"
     When limit reaches zero, all rewards are skipped (compression activates).
   </Accordion>
   <Accordion title="Lending Default">
-    If a borrower fails to repay their loan within the 30-day cutoff period, 100% of
-    the collateralized DA is permanently burned. This mechanism protects system
-    liquidity, reduces risk, and enforces financial discipline.
+    If a borrower fails to repay their loan within the 30-day cutoff period, the
+    collateralized DA enters the auto-sell cycle. Tokens are progressively burned
+    through the standard 4-period schedule (25% → 40% → 50% → 100% of remaining
+    balance over 12 months). The user does not receive proceeds from default
+    auto-sells. This mechanism protects system liquidity, reduces risk, and
+    enforces financial discipline.
   </Accordion>
   <Accordion title="Lost Income">
     Notification that a user missed a marketing reward due to insufficient NFT level
