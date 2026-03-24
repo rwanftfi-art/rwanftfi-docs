@@ -113,12 +113,12 @@ export const SellVsLend = () => {
                 </span>
               </div>
               <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-1">{fmtUsd(manualSellPayout)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(25% commission included)</div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(25% stays in pool)</div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', lineHeight: '1.6' }}>
-                100% DA burned · 25% commission to pool · 75% payout in USDT
+                100% DA burned · 75% payout in USDT · 25% stays in pool — drives price up
               </div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
-                Sell now at current price. Commission included.
+                Sell now at current price. 25% stays as backing in the pool.
               </div>
             </div>
 
@@ -131,9 +131,9 @@ export const SellVsLend = () => {
                 </span>
               </div>
               <div style={{ color: '#FFFFFF' }} className="text-2xl font-bold mb-1">{fmtUsd(autoSellPayout)}</div>
-              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(30% commission included)</div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginBottom: '8px' }}>(30% stays in pool)</div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', lineHeight: '1.6' }}>
-                100% DA burned · 30% commission to pool · 70% payout in USDT
+                100% DA burned · 70% payout in USDT · 30% stays in pool — drives price up
               </div>
               <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '11px', marginTop: '4px', lineHeight: '1.6' }}>
                 Auto-sells progressively from remaining balance if not sold manually.
@@ -150,7 +150,7 @@ export const SellVsLend = () => {
             }} className="rounded-xl p-4 text-center">
               <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: '12px' }}>
                 {autoSellBetter ? (
-                  <>Auto-sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span> despite 30% commission — DA price growth outweighs the extra 5% commission.</>
+                  <>Auto-sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span> despite 30% retention — DA price growth outweighs the extra 5% retention.</>
                 ) : (
                   <>At this price projection, manual sell pays <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{fmtUsd(sellDifference)} more</span>.</>
                 )}
@@ -288,7 +288,7 @@ export const SellVsLend = () => {
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>NET POSITION</div>
                 <div style={{ color: '#4ade80', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(netPosition)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>Commission included</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>All fees included</div>
               </div>
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS HOLD</div>
@@ -297,7 +297,7 @@ export const SellVsLend = () => {
               <div>
                 <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px' }}>VS SELL NOW</div>
                 <div style={{ color: '#f87171', fontSize: '16px', fontWeight: 700 }}>{fmtUsd(manualSellPayout)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>25% commission included</div>
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '10px' }}>25% stays in pool</div>
               </div>
             </div>
           </div>
