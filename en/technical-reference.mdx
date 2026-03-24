@@ -59,7 +59,7 @@ icon: "code"
   </Accordion>
 
   <Accordion title="TokenStack" icon="layer-group">
-    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after 3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of remaining after 2 months (12-month total cycle). Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT, 30% commission stays in the pool. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
+    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after 3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of remaining after 2 months (12-month total cycle). Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT. The remaining 30% stays as backing in the pool, driving price growth. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
   </Accordion>
 
   <Accordion title="Transparent Proxy" icon="arrows-rotate">
