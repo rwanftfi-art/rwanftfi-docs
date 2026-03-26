@@ -7,24 +7,24 @@ icon: "landmark"
 
 To ensure the ecosystem remains decentralized, independent, and secure, RWANFTFI relies on a Decentralized Autonomous Organization (DAO) governed by smart contracts. The developers cannot unilaterally alter system rules, access user funds, or manipulate balances.
 
-<div style={{ display: 'flex', justifyContent: 'center', margin: '32px 0' }}>
-  <video
-    autoPlay
-    muted
-    loop
-    playsInline
-    preload="metadata"
-    style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}
-  >
-    <source src="/DAO_animation.webm" type="video/webm" />
-  </video>
-</div>
-
 ## GovToken
 
-The DAO is the ultimate authority over the protocol's parameters. It operates using a dedicated governance token (`GovToken`, an ERC20Votes token with 6 decimals).
-* **Token Supply:** There are exactly 10,000,000 (ten million) DAO tokens.
-* **Voting Mechanics:** The system uses a time-based voting mechanism. Manual delegation is disabled; tokens auto-delegate upon transfer to ensure voting power accurately reflects current holdings.
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'center', marginTop: '16px', marginBottom: '24px' }}>
+  <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
+    <video autoPlay muted loop playsInline preload="metadata" style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
+      <source src="/DAO_animation.webm" type="video/webm" />
+    </video>
+  </div>
+  <div style={{ flex: '1 1 0%', minWidth: '240px' }}>
+    <p style={{ margin: '0 0 8px 0' }}>
+      The DAO is the ultimate authority over the protocol's parameters. It operates using a dedicated governance token (<code>GovToken</code>, an ERC20Votes token with 6 decimals).
+    </p>
+    <ul style={{ margin: 0, paddingLeft: '20px' }}>
+      <li><strong>Token Supply:</strong> There are exactly 10,000,000 (ten million) DAO tokens.</li>
+      <li><strong>Voting Mechanics:</strong> The system uses a time-based voting mechanism. Manual delegation is disabled; tokens auto-delegate upon transfer to ensure voting power accurately reflects current holdings.</li>
+    </ul>
+  </div>
+</div>
 
 ## DAO Capabilities
 
