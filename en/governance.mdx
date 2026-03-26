@@ -9,41 +9,19 @@ To ensure the ecosystem remains decentralized, independent, and secure, RWANFTFI
 
 ## GovToken
 
-<div style={{
-  display: 'flex',
-  alignItems: 'center',
-  gap: '32px',
-  margin: '16px 0 32px 0'
-}}>
-  <div style={{
-    flexShrink: 0,
-    width: '180px',
-    height: '180px',
-    borderRadius: '50%',
-    overflow: 'hidden'
-  }}>
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      style={{
-        width: '180px',
-        height: '180px',
-        objectFit: 'contain',
-        display: 'block'
-      }}
-    >
+<div style={{ backgroundColor: '#383838', borderRadius: '16px', padding: '24px', margin: '16px 0 32px 0', display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'center', border: '1px solid rgba(255,255,255,0.05)' }}>
+  <div style={{ flexShrink: 0, display: 'flex', justifyContent: 'center', width: '100px' }} className="mx-auto sm:mx-0">
+    <video autoPlay muted loop playsInline preload="metadata" style={{ width: '100px', height: '100px', borderRadius: '12px', objectFit: 'cover', display: 'block' }}>
       <source src="/DAO_animation.webm" type="video/webm" />
     </video>
   </div>
-  <div style={{ flex: 1, fontSize: '16px', lineHeight: '2' }}>
-    <div style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>GovToken</div>
-    <div>ERC20Votes governance token · 6 decimals</div>
-    <div>Total supply: <strong>10,000,000</strong></div>
-    <div>Auto-delegation on transfer</div>
-    <div>Manual delegation disabled</div>
+  <div style={{ flex: '1 1 200px', minWidth: '200px' }}>
+    <div style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 700, marginBottom: '8px' }}>GovToken</div>
+    <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '13px', lineHeight: '1.8' }}>
+      ERC20Votes governance token · 6 decimals<br/>
+      Total supply: <span style={{ color: '#FFFFFF', fontWeight: 700 }}>10,000,000</span><br/>
+      Auto-delegation on transfer · Manual delegation disabled
+    </div>
   </div>
 </div>
 
