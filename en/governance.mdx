@@ -15,31 +15,25 @@ To ensure the ecosystem remains decentralized, independent, and secure, RWANFTFI
   gap: '32px',
   margin: '16px 0 32px 0'
 }}>
-  <div style={{
-    flexShrink: 0,
-    width: '180px',
-    height: '180px',
-    borderRadius: '50%',
-    overflow: 'hidden'
-  }}>
-    <video
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
-      style={{
-        width: '180px',
-        height: '180px',
-        objectFit: 'contain',
-        display: 'block'
-      }}
-    >
-      <source src="/DAO_animation.webm" type="video/webm" />
-    </video>
-  </div>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    preload="metadata"
+    style={{
+      flexShrink: 0,
+      width: '180px',
+      height: '180px',
+      objectFit: 'contain',
+      display: 'block',
+      clipPath: 'circle(50%)',
+      background: 'transparent'
+    }}
+  >
+    <source src="/DAO_animation.webm" type="video/webm" />
+  </video>
   <div style={{ flex: 1, fontSize: '16px', lineHeight: '2' }}>
-    <div style={{ fontSize: '22px', fontWeight: 700, marginBottom: '8px' }}>GovToken</div>
     <div>ERC20Votes governance token · 6 decimals</div>
     <div>Total supply: <strong>10,000,000</strong></div>
     <div>Auto-delegation on transfer</div>
