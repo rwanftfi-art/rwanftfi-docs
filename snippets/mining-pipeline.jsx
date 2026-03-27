@@ -90,9 +90,7 @@ export const MiningPipeline = () => {
       <div className="mb-6" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
         {/* Video */}
         <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
-          <video autoPlay muted loop playsInline style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
-            <source src="/NFTManimation.webm" type="video/webm" />
-          </video>
+          <img src="/NFTManimation.jpg" alt="NFTM Token" style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }} />
         </div>
         {/* Content */}
         <div style={{ flex: '1 1 0%', minWidth: '240px' }}>
