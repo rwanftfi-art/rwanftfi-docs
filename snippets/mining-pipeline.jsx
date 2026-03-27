@@ -87,37 +87,26 @@ export const MiningPipeline = () => {
       </div>
 
       {/* 3. Your DA Output */}
-      <div className="mb-6" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
-        {/* NFTM Video */}
-        <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
-          <video autoPlay muted loop playsInline preload="metadata" style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
-            <source src="/NFTManimation.webm" type="video/webm" />
-          </video>
+      <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
+           className="rounded-xl p-5 text-center">
+        <div style={{ color: 'rgba(255,255,255,0.4)' }}
+             className="text-[10px] uppercase tracking-wider mb-1">
+          You Receive After {totalDays} days
         </div>
-        {/* Output Content */}
-        <div style={{ flex: '1 1 0%', minWidth: '200px' }}>
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
-               className="rounded-xl p-5 text-center">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }}
-                 className="text-[10px] uppercase tracking-wider mb-1">
-              You Receive After {totalDays} days
-            </div>
-            <div style={{ color: '#FFFFFF', fontSize: '36px' }}
-                 className="font-black">
-              {fmtNum(daReceived)} DA
-            </div>
-            <div style={{ color: 'rgba(255,255,255,0.5)' }}
-                 className="text-xs mt-1">
-              Worth {fmtUsd(daReceived * daPrice)} at current DA price
-            </div>
-            <div style={{ color: 'rgba(255,255,255,0.5)' }}
-                 className="text-xs mt-2">
-              from {fmtUsd(lvl.price)} investment · {lvl.cycles === 1
-                ? 'cycle 1: ' + fmtNum(nftmCycle1) + ' NFTM'
-                : 'cycle 1: ' + fmtNum(nftmCycle1) + ' + cycle 2: ' + fmtNum(nftmCycle2) + ' NFTM'
-              }
-            </div>
-          </div>
+        <div style={{ color: '#FFFFFF', fontSize: '36px' }}
+             className="font-black">
+          {fmtNum(daReceived)} DA
+        </div>
+        <div style={{ color: 'rgba(255,255,255,0.5)' }}
+             className="text-xs mt-1">
+          Worth {fmtUsd(daReceived * daPrice)} at current DA price
+        </div>
+        <div style={{ color: 'rgba(255,255,255,0.5)' }}
+             className="text-xs mt-2">
+          from {fmtUsd(lvl.price)} investment · {lvl.cycles === 1
+            ? 'cycle 1: ' + fmtNum(nftmCycle1) + ' NFTM'
+            : 'cycle 1: ' + fmtNum(nftmCycle1) + ' + cycle 2: ' + fmtNum(nftmCycle2) + ' NFTM'
+          }
         </div>
       </div>
       <div className="grid grid-cols-3 gap-3" style={{ marginTop: '12px' }}>
