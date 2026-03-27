@@ -91,7 +91,7 @@ export const MiningPipeline = () => {
         {/* Video */}
         <div style={{ flexShrink: 0, width: '120px', display: 'flex', justifyContent: 'center' }} className="mx-auto sm:mx-0">
           <video autoPlay muted loop playsInline style={{ width: '120px', height: '120px', borderRadius: '12px', objectFit: 'cover' }}>
-            <source src="/NFTManimation.webm" type="video/webm" />
+            <source src="/NFTManimation-2.webm" type="video/webm" />
           </video>
         </div>
         {/* Content */}
