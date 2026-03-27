@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 
-export function DaPriceSimulator() {
+export var DaPriceSimulator = function() {
   if (typeof window === 'undefined') { return null; }
 
   var [minted, setMinted] = useState(1000000);
@@ -433,4 +433,4 @@ export function DaPriceSimulator() {
       </p>
     </div>
   );
-}
+};
