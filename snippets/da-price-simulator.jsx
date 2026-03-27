@@ -1,22 +1,11 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 
-export var DaPriceSimulator = function() {
+export const DaPriceSimulator = () => {
   if (typeof window === 'undefined') { return null; }
 
   var [minted, setMinted] = useState(1000000);
   var [liquidity, setLiquidity] = useState(1000000);
   var [burned, setBurned] = useState(0);
-
-  var [editingField, setEditingField] = useState(null);
-  var [editValue, setEditValue] = useState('');
-  var editInputRef = useRef(null);
-
-  useEffect(function() {
-    if (editingField && editInputRef.current) {
-      editInputRef.current.focus();
-      editInputRef.current.select();
-    }
-  }, [editingField]);
 
   // Debounced values for chart rendering
   var [dbMinted, setDbMinted] = useState(1000000);
@@ -46,56 +35,6 @@ export var DaPriceSimulator = function() {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits }).format(n);
   };
   var fmtNum = function(n) { return new Intl.NumberFormat('en-US').format(Math.round(n)); };
-
-  var commitEdit = function(field, raw) {
-    var parsed = parseFloat(String(raw).replace(/[^0-9.\-]/g, ''));
-    if (isNaN(parsed)) { setEditingField(null); return; }
-    parsed = Math.round(parsed);
-    if (field === 'minted') {
-      if (parsed < 10000) parsed = 10000;
-      if (parsed > 21000000) parsed = 21000000;
-      setMinted(parsed);
-      if (burned >= parsed) setBurned(parsed - 1);
-    } else if (field === 'liquidity') {
-      if (parsed < 10000) parsed = 10000;
-      if (parsed > 100000000) parsed = 100000000;
-      setLiquidity(parsed);
-    } else if (field === 'burned') {
-      if (parsed < 0) parsed = 0;
-      if (parsed > minted - 1) parsed = minted - 1;
-      setBurned(parsed);
-    }
-    setEditingField(null);
-  };
-
-  var startEdit = function(field, numericValue) {
-    setEditingField(field);
-    setEditValue(String(Math.round(numericValue)));
-  };
-
-  var editInputStyle = {
-    background: 'rgba(255,255,255,0.1)',
-    color: '#FFFFFF',
-    fontSize: '18px',
-    fontWeight: 800,
-    border: '1px solid rgba(255,255,255,0.2)',
-    borderRadius: '6px',
-    width: '100%',
-    outline: 'none',
-    padding: '2px 4px',
-    display: 'block',
-    marginBottom: '8px',
-    boxSizing: 'border-box'
-  };
-
-  var displaySpanStyle = {
-    color: '#FFFFFF',
-    fontSize: '18px',
-    fontWeight: 800,
-    display: 'block',
-    marginBottom: '8px',
-    cursor: 'pointer'
-  };
 
   // Instant KPI values (raw state)
   var circulating = minted - burned;
@@ -217,19 +156,7 @@ export var DaPriceSimulator = function() {
         {/* DA Minted */}
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>DA Minted</label>
-          {editingField === 'minted' ? (
-            <input type="text" inputMode="numeric" ref={editInputRef} value={editValue}
-              style={editInputStyle}
-              onChange={function(e) { setEditValue(e.target.value); }}
-              onKeyDown={function(e) {
-                if (e.key === 'Enter') { commitEdit('minted', editValue); }
-                if (e.key === 'Escape') { setEditingField(null); }
-              }}
-              onBlur={function() { commitEdit('minted', editValue); }}
-            />
-          ) : (
-            <span style={displaySpanStyle} onClick={function() { startEdit('minted', minted); }}>{fmtNum(minted)} DA</span>
-          )}
+          <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block', marginBottom: '8px' }}>{fmtNum(minted)} DA</span>
           <input type="range" min="10000" max="21000000" step="10000" value={minted}
             onChange={function(e) {
               var val = Number(e.target.value);
@@ -245,19 +172,7 @@ export var DaPriceSimulator = function() {
         {/* USDT Liquidity Pool */}
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>USDT Liquidity Pool</label>
-          {editingField === 'liquidity' ? (
-            <input type="text" inputMode="numeric" ref={editInputRef} value={editValue}
-              style={editInputStyle}
-              onChange={function(e) { setEditValue(e.target.value); }}
-              onKeyDown={function(e) {
-                if (e.key === 'Enter') { commitEdit('liquidity', editValue); }
-                if (e.key === 'Escape') { setEditingField(null); }
-              }}
-              onBlur={function() { commitEdit('liquidity', editValue); }}
-            />
-          ) : (
-            <span style={displaySpanStyle} onClick={function() { startEdit('liquidity', liquidity); }}>{fmtUsdFull(liquidity)}</span>
-          )}
+          <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block', marginBottom: '8px' }}>{fmtUsdFull(liquidity)}</span>
           <input type="range" min="10000" max="100000000" step="10000" value={liquidity}
             onChange={function(e) { setLiquidity(Number(e.target.value)); }}
             className="w-full cursor-pointer" style={sliderStyle} />
@@ -269,19 +184,7 @@ export var DaPriceSimulator = function() {
         {/* DA Burned */}
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 500, display: 'block', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>DA Burned</label>
-          {editingField === 'burned' ? (
-            <input type="text" inputMode="numeric" ref={editInputRef} value={editValue}
-              style={editInputStyle}
-              onChange={function(e) { setEditValue(e.target.value); }}
-              onKeyDown={function(e) {
-                if (e.key === 'Enter') { commitEdit('burned', editValue); }
-                if (e.key === 'Escape') { setEditingField(null); }
-              }}
-              onBlur={function() { commitEdit('burned', editValue); }}
-            />
-          ) : (
-            <span style={displaySpanStyle} onClick={function() { startEdit('burned', actualBurned); }}>{fmtNum(actualBurned)} DA</span>
-          )}
+          <span style={{ color: '#FFFFFF', fontSize: '18px', fontWeight: 800, display: 'block', marginBottom: '8px' }}>{fmtNum(actualBurned)} DA</span>
           <input type="range" min="0" max={burnedMax} step="10000" value={actualBurned}
             onChange={function(e) { setBurned(Number(e.target.value)); }}
             className="w-full cursor-pointer" style={sliderStyle} />
