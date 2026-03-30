@@ -269,7 +269,7 @@ export const IncomeCalculator = () => {
                   </td>
                   <td style={{ padding: '4px 4px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
                     {row.level === 1 ? (
-                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>30% Sponsor</span>
+                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>Direct Sale</span>
                     ) : (
                       <span>{row.pct + '%'}</span>
                     )}
