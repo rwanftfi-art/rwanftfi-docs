@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const IncomeCalculator = () => {
-  var LEVEL_PERCENTS = [0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 2, 2, 1, 0.5, 0.5, 0.5, 0.5];
+  var LEVEL_PERCENTS = [30, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5, 2, 2, 1, 0.5, 0.5, 0.5, 0.5];
   var DEPTH_BY_NFT = [2, 3, 4, 6, 9, 11, 12, 13, 15, 19];
   var NFT_NAMES = ['GENESIS', 'ADVANCE', 'ASCEND', 'ECLIPSE', 'HYDRO', 'QUANTUM', 'PULSE', 'AURORA', 'FLAME', 'INFINITY'];
   var NFT_PRICES = [28, 55, 140, 275, 550, 1100, 2200, 5500, 11000, 24000];
@@ -269,7 +269,7 @@ export const IncomeCalculator = () => {
                   </td>
                   <td style={{ padding: '4px 4px', textAlign: 'center', color: 'rgba(255,255,255,0.5)' }}>
                     {row.level === 1 ? (
-                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>Direct Sale</span>
+                      <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.5)' }}>30% Sponsor</span>
                     ) : (
                       <span>{row.pct + '%'}</span>
                     )}
