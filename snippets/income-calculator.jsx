@@ -211,18 +211,17 @@ export const IncomeCalculator = () => {
           <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{'≈ ' + fmtUsd(totalIncome)}</div>
         )}
         <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">Based on your custom level inputs below</div>
-      </div>
-
-      {/* Net Income card — hidden when total = 0 */}
-      {totalIncome > 0 && (
-        <div className="mb-4">
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% Net Income</div>
-            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
+        {totalIncome > 0 && (
+          <div>
+            <div style={{ height: '1px', width: '80px', backgroundColor: 'rgba(255,255,255,0.1)', margin: '14px auto' }} />
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.15)', borderRadius: '9999px', padding: '6px 16px' }}>
+              <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>75% net income</span>
+              <span style={{ color: '#4ade80', fontSize: '14px', fontWeight: 800 }}>{fmtUsd(netIncome)}</span>
+            </div>
+            <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '11px', marginTop: '10px' }}>Regular Balance — withdraw anytime</div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Quick Fill Presets */}
       <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', marginBottom: '8px' }}>
@@ -336,7 +335,7 @@ export const IncomeCalculator = () => {
           fontWeight: 800,
         }}>
           <span style={{ color: 'rgba(255,255,255,0.6)' }}>TOTAL</span>
-          <span style={{ color: '#4ade80' }}>{fmtUsd(totalIncome)}</span>
+          <span style={{ color: '#4ade80' }}>{'≈ ' + fmtUsd(totalIncome)}</span>
         </div>
       </div>
 
