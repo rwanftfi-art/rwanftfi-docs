@@ -61,8 +61,6 @@ export const IncomeCalculator = () => {
     totalIncome = totalIncome + calculated[ti].income;
   }
   var netIncome = totalIncome * 0.75;
-  var accumulative = totalIncome * 0.20;
-  var daTax = totalIncome * 0.05;
 
   var updateLevel = function(index, updates) {
     setLevels(function(prev) {
@@ -210,28 +208,18 @@ export const IncomeCalculator = () => {
             Enter sales data below or use a preset
           </div>
         ) : (
-          <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{fmtUsd(totalIncome)}</div>
+          <div style={{ color: '#FFFFFF', fontSize: '40px' }} className="font-black transition-all duration-300">{'≈ ' + fmtUsd(totalIncome)}</div>
         )}
         <div style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs mt-1">Based on your custom level inputs below</div>
       </div>
 
-      {/* Three monochrome cards — hidden when total = 0 */}
+      {/* Net Income card — hidden when total = 0 */}
       {totalIncome > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+        <div className="mb-4">
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
             <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">75% Net Income</div>
             <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(netIncome)}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Regular Balance — withdraw anytime</div>
-          </div>
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">20% Accumulative</div>
-            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(accumulative)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">120-day decay: 70% → DA Pool / 30% → sponsor</div>
-          </div>
-          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider font-semibold mb-1">5% DA Liquidity</div>
-            <div style={{ color: '#FFFFFF' }} className="text-xl font-black transition-all duration-300">{fmtUsd(daTax)}</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Feeds into DA pool, increases DA price</div>
           </div>
         </div>
       )}
