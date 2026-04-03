@@ -41,8 +41,7 @@
             "group": "Start Here",
             "pages": [
               "en/executive-summary",
-              "en/vision",
-              "en/corporate-structure"
+              "en/vision"
             ]
           },
           {
@@ -88,6 +87,7 @@
           {
             "group": "Resources",
             "pages": [
+              "en/corporate-structure",
               "en/support",
               "en/partnerships",
               "en/legal",
