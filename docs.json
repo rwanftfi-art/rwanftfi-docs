@@ -69,6 +69,7 @@
             "group": "Architecture",
             "pages": [
               "en/architecture",
+              "en/contract-parameters",
               "en/security"
             ]
           },

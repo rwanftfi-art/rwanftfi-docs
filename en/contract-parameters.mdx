@@ -1,0 +1,173 @@
+---
+title: "Contract Parameters"
+description: "On-chain parameters, DAO-adjustable ranges, and immutable guarantees."
+icon: "sliders"
+---
+
+Every parameter in the RWANFTFI ecosystem is defined and enforced by the smart contract. Each parameter is publicly verifiable on-chain. A subset of parameters can be adjusted by DAO governance within predefined safety ranges. The remaining parameters are permanently hardcoded and cannot be modified by anyone — including developers.
+
+<CardGroup cols={3}>
+  <Card title="DAO-Adjustable" icon="sliders">
+    Parameters that DAO governance can modify within predefined safety ranges.
+  </Card>
+  <Card title="Immutable" icon="lock">
+    Hardcoded parameters that can never be changed by anyone — including developers.
+  </Card>
+  <Card title="On-Chain Verified" icon="link">
+    All values stored in audited smart contracts, publicly verifiable on BscScan.
+  </Card>
+</CardGroup>
+
+## NFT Purchase Distribution
+
+When a user purchases an NFT, the payment is automatically split across multiple destinations by the smart contract. The distribution differs between first-time purchases and repeat purchases (rebuys).
+
+<Tabs>
+  <Tab title="First Purchase">
+    | Parameter | Current | Range |
+    |---|---|---|
+    | Sponsor Bonus | 30% | 10% – 35% |
+    | Token Reserve (DA Pool) | 0% | 0% – 30% |
+    | Platform Operations | 7% | 2% – 10% |
+    | Accumulative Balance | 20% | 15% – 30% |
+  </Tab>
+  <Tab title="Repeat Purchase (Rebuy)">
+    | Parameter | Current | Range |
+    |---|---|---|
+    | Sponsor Bonus | 20% | 10% – 35% |
+    | Token Reserve (DA Pool) | 10% | 10% – 30% |
+    | Platform Operations | 7% | 2% – 10% |
+    | Accumulative Balance | 20% | 15% – 30% |
+  </Tab>
+</Tabs>
+
+## Fees & Commissions
+
+All fees are enforced by the smart contract and adjustable within defined ranges through DAO governance.
+
+| Parameter | Current | Range |
+|---|---|---|
+| Marketing Rewards Tax | 5% | 5% – 15% |
+| Accumulative Transfer Fee | 20% | 10% – 30% |
+| Accumulative Use Fee (NFT Purchase) | 20% | 10% – 30% |
+| Loan Fee | 5% | 0% – 5% |
+| Withdrawal Fee | 0% | 0% – 5% |
+| Gift Send Price | $0 | $0 – $25 |
+| Business Sale Fee | $500 | $0 – $500 |
+| Frozen Balance → Sponsor | 30% | 0% – 30% |
+| BNB Transaction Fee | 0.001 BNB | 0.00003 – 0.005 BNB |
+
+## Timers & Schedules
+
+Time-based parameters control critical system windows and deadlines across the ecosystem.
+
+| Parameter | Current | Range |
+|---|---|---|
+| Accumulative Balance Lifetime | 120 days | 90 – 180 days |
+| NFTM Claim Window | 72 hours | 24 – 96 hours |
+| Gift NFTs per Address | 100 | 1 – 400 |
+| Business Sale | Disabled | Disabled – Enabled |
+
+### Auto-Sell Periods
+
+The auto-sell cycle triggers progressively from the remaining DA balance if the user does not sell manually. Total cycle duration is the sum of all four periods.
+
+| Period | Current | Range |
+|---|---|---|
+| Period 1 | 120 days | 60 – 120 days |
+| Period 2 | 90 days | 60 – 120 days |
+| Period 3 | 90 days | 60 – 120 days |
+| Period 4 | 65 days | 60 – 120 days |
+| **Total Cycle** | **365 days** | — |
+
+## Expired Balance Redistribution
+
+When an Accumulative Balance expires (after the lifetime period), funds are redistributed according to the following rules. Distribution differs between Regular NFT holders and Gift NFT holders.
+
+<Tabs>
+  <Tab title="Regular NFT">
+    | Destination | Current | Range |
+    |---|---|---|
+    | Upline Sponsor | 30% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 70% | 50% – 100% |
+  </Tab>
+  <Tab title="Gift NFT">
+    | Destination | Current | Range |
+    |---|---|---|
+    | Upline Sponsor | 20% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 80% | 50% – 100% |
+  </Tab>
+</Tabs>
+
+## Marketing Tree Distribution
+
+Each level of the 22-level binary tree has a fixed reward percentage that determines how much a user earns from NFT sales at that depth. Percentages are DAO-adjustable within defined ranges. Levels 16–22 are unlocked in Phase 2.
+
+<AccordionGroup>
+  <Accordion title="Levels 1–6 · Entry Layers" icon="layer-group">
+    | Level | Current | Range |
+    |---|---|---|
+    | Level 1 | 0% | 0% |
+    | Level 2 | 1% | 1% – 2% |
+    | Level 3 | 2% | 2% – 3% |
+    | Level 4 | 2% | 2% – 3% |
+    | Level 5 | 3% | 3% – 4% |
+    | Level 6 | 3% | 3% – 4% |
+  </Accordion>
+  <Accordion title="Levels 7–15 · Core Earning Depth" icon="chart-simple">
+    | Level | Current | Range |
+    |---|---|---|
+    | Level 7 | 4% | 4% – 5% |
+    | Level 8 | 4% | 4% – 5% |
+    | Level 9 | 4% | 4% – 5% |
+    | Level 10 | 4% | 3% – 5% |
+    | Level 11 | 4% | 3% – 5% |
+    | Level 12 | 4% | 3% – 5% |
+    | Level 13 | 4% | 3% – 5% |
+    | Level 14 | 4% | 3% – 5% |
+    | Level 15 | 5% | 3% – 5% |
+  </Accordion>
+  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="unlock">
+    | Level | Current | Range |
+    |---|---|---|
+    | Level 16 | 0% | 0% – 2.5% |
+    | Level 17 | 0% | 0% – 2.5% |
+    | Level 18 | 0% | 0% – 2.5% |
+    | Level 19 | 0% | 0% – 2.5% |
+    | Level 20 | 0% | 0% – 2.5% |
+    | Level 21 | 0% | 0% – 2.5% |
+    | Level 22 | 0% | 0% – 2.5% |
+  </Accordion>
+</AccordionGroup>
+
+### Matching Bonus Thresholds
+
+Matching Bonus pays 5% across three levels of direct partner income. Each level requires cumulative personal sales to unlock. The matching percentage (5%) is immutable.
+
+| Level | Required Sales | Range |
+|---|---|---|
+| Level 1 (5%) | $0 | Fixed |
+| Level 2 (5%) | $1,000 | $1,000 – $5,000 |
+| Level 3 (5%) | $3,000 | $3,000 – $7,000 |
+
+## Immutable Parameters
+
+<CardGroup cols={1}>
+  <Card title="Hardcoded in Smart Contract" icon="lock">
+    The following parameters are permanently fixed in the smart contract code. They cannot be modified by the DAO, developers, or any other party.
+  </Card>
+</CardGroup>
+
+| Parameter | Value |
+|---|---|
+| Manual Sell Payout | 75% |
+| Auto-Sell / Lending Payout | 70% |
+| Matching Bonus per Level | 5% |
+| Frozen Balance Window | 72 hours |
+| Voucher Lifetime | 365 days |
+| Voucher Transfer Lock | Last 1 day |
+| Loan Cutoff Period | 30 days |
+| DAO Inactivity Threshold | 31 days |
+| DAO Grace Period | 7 days |
