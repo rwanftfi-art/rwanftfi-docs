@@ -97,6 +97,70 @@
             ]
           }
         ]
+      },
+      {
+        "language": "ru",
+        "groups": [
+          {
+            "group": "Начало",
+            "pages": [
+              "ru/executive-summary",
+              "ru/vision"
+            ]
+          },
+          {
+            "group": "Экосистема NFT",
+            "pages": [
+              "ru/nft-ecosystem"
+            ]
+          },
+          {
+            "group": "Дефляционный Актив (DA)",
+            "pages": [
+              "ru/da-token-mechanics",
+              "ru/da-mining-farming",
+              "ru/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Заработок и Маркетинг",
+            "pages": [
+              "ru/marketing-binary-tree",
+              "ru/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Архитектура",
+            "pages": [
+              "ru/architecture",
+              "ru/contract-parameters",
+              "ru/security"
+            ]
+          },
+          {
+            "group": "Управление",
+            "pages": [
+              "ru/governance"
+            ]
+          },
+          {
+            "group": "Дорожная карта",
+            "pages": [
+              "ru/roadmap"
+            ]
+          },
+          {
+            "group": "Ресурсы",
+            "pages": [
+              "ru/corporate-structure",
+              "ru/support",
+              "ru/partnerships",
+              "ru/legal",
+              "ru/glossary",
+              "ru/technical-reference"
+            ]
+          }
+        ]
       }
     ]
   },
