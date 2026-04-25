@@ -128,6 +128,10 @@ If the user does not sell manually, the system triggers automatic sales from the
   </Step>
 </Steps>
 
+<Note>
+  The auto-sell percentages (25% / 40% / 50% / 100%) shown above represent the current protocol configuration. Specific values are stored as protocol parameters and are subject to standard governance procedures. Always check the smart contract or current protocol documentation for the latest values.
+</Note>
+
 Each auto-sell executes at the DA price at the time of that period's trigger — not the original farming price. 100% of auto-sold tokens are burned, and the user receives 70% of value in USDT at the price on the date of auto-sell. Since the price grows over time, later periods burn tokens at a higher price, accelerating deflation.
 
 The user can sell manually at any time before auto-sell triggers, receiving 75% instead of 70%.
