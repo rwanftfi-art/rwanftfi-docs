@@ -47,6 +47,15 @@ The core of the RWANFTFI system is implemented using the Diamond Pattern (EIP-25
   </Card>
 </CardGroup>
 
+## NFT Contracts & Token ID Spaces
+
+The protocol uses three distinct NFT contracts (Regular, Gift, Ambassador). To prevent identifier collisions in the on-chain `registeredTokens` mapping that tracks every minted NFT across the system, **Regular NFTs and Gift NFTs mint into separated `tokenId` spaces partitioned by parity**:
+
+- **Regular NFT** — odd token IDs (`1, 3, 5, 7, …`).
+- **Gift NFT** — even token IDs (`2, 4, 6, 8, …`).
+
+The split is enforced inside each NFT contract's minter logic at mint time. Because a successful mint on one contract can never produce an identifier the other contract could ever issue, an entire class of mapping-collision bugs is eliminated at the type-system level — no runtime guard or per-call deduplication check is required. The partitioning is invisible to end users: wallets and marketplaces continue to display each NFT under its native contract.
+
 ## Upgradability Matrix
 
 * **Diamond Contract (EIP-2535):** Upgradeable via Facet cuts — allows adding, replacing, or removing individual modules without redeploying the entire system.
