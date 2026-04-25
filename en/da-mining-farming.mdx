@@ -12,6 +12,10 @@ To acquire DA, users must participate in a two-step process: Mining and Farming.
   **NFTM is not a token.** It is an internal mining counter (metric) tracked by the smart contract. In the interface, you see a progress bar and the expected NFTM amount. NFTM has no market value and cannot be traded or transferred — it exists only to be staked into Farming and converted to DA.
 </Info>
 
+<Info>
+  **Active Income Limit is required to mine.** Both Mining and Farming require the eligible NFT to have a non-zero **Income Limit**. If your limit has reached zero, the smart contract will refuse to start a new mining cycle. To resume mining, first refresh your Income Limit — through the Autobuy 3/3 system, a manual same-level renewal, or an upgrade to a higher-level NFT — and then activate the next cycle. Income Limit is the gating condition; without it, the mining flow does not begin.
+</Info>
+
 <Steps>
   <Step title="Activate Mining">
     Start mining on your eligible NFT. The cycle duration depends on your level — from 45 days (HYDRO) down to 40 days (INFINITY).
@@ -29,6 +33,12 @@ To acquire DA, users must participate in a two-step process: Mining and Farming.
 
 <Warning>
   **72-Hour Critical Window:** If you fail to stake your NFTM within 72 hours after mining completes, the entire cycle is lost. You must restart mining from scratch. Set a reminder.
+</Warning>
+
+<Warning>
+  **Claim Before You Upgrade — Unclaimed Farming Rewards Are Destroyed:** Any NFT purchase or upgrade triggers `terminate()` on the user's mining/farming state. By design, `terminate()` stops the active session and **destroys all unclaimed farming rewards**, including rewards that have already matured but have not yet been claimed. The team has confirmed this is intentional in the audit response: *"It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
+
+  **Operational rule:** if you have a matured-but-unclaimed farming reward, **claim it first**, and only then purchase or upgrade the NFT. Otherwise the reward is permanently lost the moment the new NFT transaction is confirmed.
 </Warning>
 
 <Warning>
