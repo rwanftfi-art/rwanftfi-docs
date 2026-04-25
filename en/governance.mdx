@@ -29,6 +29,35 @@ The DAO votes on critical ecosystem functions, such as:
 * Verifying and approving a user's request to change their compromised financial wallet.
 * Voting to block a specific user's NFT (Freeze). When an NFT is blocked, the user loses access to the platform's financial products. Unblocking is also executed exclusively through a DAO vote.
 
+<Info>
+  **Proposal Threshold in Practice — Honest Disclosure:** The 30% submission threshold is a single, supply-weighted bar; it does not partition voting power by role. In the **current** token distribution (RWANFTFI Corporation 30% + 20 Guardians at 3.5% each), the threshold is realistically reachable only by the Corporation acting directly, or by the Corporation together with a coordinated subset of Guardians. An individual Guardian holds well below 30% and **cannot single-handedly submit a proposal** under the current allocation. The team has formally acknowledged this in the audit response: by design, under the current allocation, only the Corporation has enough tokens to create proposals on its own, and there is no external delegation mechanism that would let smaller holders pool voting power off-chain to meet the threshold (see [Voting Mechanics](#voting-mechanics) below). The on-chain bar itself remains 30% — what changes over time is the breadth of participants able to clear it. The [Future Redistribution Plan](#future-redistribution-plan) (Corporation 30% + 20 Guardians at 1.5% + 80 Leaders at 0.5%) widens the coalitions that can together meet the threshold, progressively decentralizing proposal creation without lowering the threshold itself.
+</Info>
+
+## Voting Mechanics
+
+The mechanics below describe how a proposal moves from submission to execution, and how voting power is held and rotated at the contract level.
+
+<CardGroup cols={2}>
+  <Card title="Voting Closes at Deadline" icon="hourglass-end">
+    Voting on a proposal closes **strictly at the deadline** — never earlier. Reaching majority support before the deadline does not lock the outcome; additional votes (for or against) continue to be accepted until the timer expires.
+  </Card>
+  <Card title="Auto-Delegation, No Manual Delegation" icon="link-slash">
+    GovToken **auto-delegates voting power on transfer** to the recipient. There is no `delegate()` path to assign voting power to a third party — voting weight always tracks the current token holder.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Voting on Succeeded proposals:** Even after a proposal has accumulated enough support to be considered "succeeded" on its current tally, the voting window remains open until its deadline. Every eligible holder retains the ability to register a confirming or opposing vote up to the moment the window closes — early-succeeded status does not curtail participation.
+</Note>
+
+<Note>
+  **No external delegation.** Because GovToken does not expose a manual delegation mechanism, smaller holders cannot pool their voting power off-chain to clear the proposal threshold. The only way to move voting weight is to move the underlying tokens, and any such transfer auto-delegates to the recipient. This keeps the relationship between token ownership and governance authority direct and on-chain traceable.
+</Note>
+
+<Info>
+  **DAO Authority Sync — single source of truth:** The DAO authority that governs GovToken is not stored as a duplicate value inside GovToken. When the DAO authority is rotated via `setDAO()` on the Diamond contract, GovToken **reads the updated DAO address directly from the Diamond contract** rather than relying on a separately maintained pointer. This eliminates the risk of the two contracts drifting into a split-authority state during a rotation — there is no window in which GovToken could honor a stale authority that the Diamond has already replaced.
+</Info>
+
 ## GovToken Overview
 
 GovToken is the governance and voting token of the RWANFTFI ecosystem. It is an ERC20Votes token with a permanently fixed supply. No additional minting is possible after deployment. There is no inflation mechanism — the supply model is fully fixed.
