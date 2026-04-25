@@ -75,6 +75,14 @@ Instead of selling, users can take a loan in USDT against their DA holdings. Use
 
 When taking a loan, the borrower pays a one-time **5% commission** that is directed to the DA Liquidity Pool. The borrower receives 95% of the loan value. Example: for a $1,000 loan, the borrower receives $950 and $50 goes to the Liquidity Pool. This commission is collected with every new loan — users can take new loans after receiving new DA batches, meaning the commission flows into the Pool repeatedly.
 
+<Info>
+  **Independent Loan Fee Parameter:** The 5% lending commission is stored on-chain as a dedicated `loanFee` parameter, separate from the protocol's other fee parameters. This isolation lets the DAO tune the loan fee independently — without affecting marketing taxes, accumulative fees, or any other commission — and keeps the loan economics governable as a single, explicit lever.
+</Info>
+
+<Note>
+  **Minimum Loan Amount:** The smart contract rejects zero-value loans. If the requested loan size is so small that the post-fee payout would round down to 0 USDT, the transaction reverts. Borrowers must request an amount large enough that the borrower payout (95% of loan value) is non-zero after on-chain rounding. This prevents dust loans that would lock collateral with no economic benefit to the borrower.
+</Note>
+
 ### Multi-Batch Lending
 
 Each DA batch from a mining cycle serves as independent collateral. Users can take a separate 70% LTV loan against each batch individually:
@@ -97,6 +105,10 @@ Each DA batch from a mining cycle serves as independent collateral. Users can ta
 <Tip>
   Multiple simultaneous active loans are possible — one per DA batch. Each loan has its own 30-day cutoff and 5% commission. Smaller NFTs produce smaller loans, larger NFTs produce larger loans. If any individual loan defaults, only that batch's collateral enters the auto-sell cycle — not all DA holdings.
 </Tip>
+
+<Note>
+  **Repay Window — No Late Repayments:** A loan can only be repaid via `repay()` while it is still active. Once the 30-day cutoff has passed and the position has crossed into the auto-sell deadline, `repay()` reverts — the borrower **cannot** unwind the loan to bypass the liquidation schedule. An overdue position must instead be processed through `processExpiredStacks()`, which executes the progressive burn described below. There is no path that lets a borrower escape the default penalties by repaying late.
+</Note>
 
 <Warning>
   **Lending Default — Progressive Burn:** If a loan is not repaid within the 30-day cutoff period, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining balance over 365 days / 1 year total: 120 / 90 / 90 / 65 days per period).
