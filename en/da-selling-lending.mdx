@@ -40,21 +40,21 @@ In both cases, 100% of sold tokens are burned — the 25%/30% represents the USD
 
 ## Auto-Sell Periods
 
-DA is 100% available to the user immediately upon farming — there is no lock-up period. The user can sell manually at any time (receiving 75% in USDT) or take a loan against their DA. If the user does **not** act, the system triggers automatic forced sales from the **remaining balance** progressively over 4 periods spanning **12 months** total.
+DA is 100% available to the user immediately upon farming — there is no lock-up period. The user can sell manually at any time (receiving 75% in USDT) or take a loan against their DA. If the user does **not** act, the system triggers automatic forced sales from the **remaining balance** progressively over 4 periods spanning **365 days (1 year)** total. Period durations are denominated in days on-chain (120 / 90 / 90 / 65 days); the month references below are approximations for readability.
 
 **Example starting with 100 DA:**
 
 <Steps>
-  <Step title="Period 1 — 25% auto-sell after 4 months">
-    If you haven't sold manually within 4 months, 25% of your current DA balance is auto-sold. 25% of 100 DA = **25 DA auto-sold** → You receive 70% of value in USDT at current price → 100% of 25 DA burned → Remaining: **75 DA**
+  <Step title="Period 1 — 25% auto-sell after 120 days (~4 months)">
+    If you haven't sold manually within 120 days (~4 months), 25% of your current DA balance is auto-sold. 25% of 100 DA = **25 DA auto-sold** → You receive 70% of value in USDT at current price → 100% of 25 DA burned → Remaining: **75 DA**
   </Step>
-  <Step title="Period 2 — 40% auto-sell after 3 more months (month 7)">
+  <Step title="Period 2 — 40% auto-sell after 90 more days (~3 months, day 210)">
     40% of the remaining balance is auto-sold. 40% of 75 DA = **30 DA auto-sold** → Remaining: **45 DA**
   </Step>
-  <Step title="Period 3 — 50% auto-sell after 3 more months (month 10)">
+  <Step title="Period 3 — 50% auto-sell after 90 more days (~3 months, day 300)">
     50% of the remaining balance is auto-sold. 50% of 45 DA = **22.5 DA auto-sold** → Remaining: **22.5 DA**
   </Step>
-  <Step title="Period 4 — 100% auto-sell after 2 more months (month 12)">
+  <Step title="Period 4 — 100% auto-sell after 65 more days (~2 months, day 365)">
     100% of the remaining balance is auto-sold. Position fully closed. 100% of 22.5 DA = **22.5 DA auto-sold** → Remaining: **0 DA**
   </Step>
 </Steps>
@@ -99,7 +99,7 @@ Each DA batch from a mining cycle serves as independent collateral. Users can ta
 </Tip>
 
 <Warning>
-  **Lending Default — Progressive Burn:** If a loan is not repaid within the 30-day cutoff period, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining balance over 12 months total).
+  **Lending Default — Progressive Burn:** If a loan is not repaid within the 30-day cutoff period, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining balance over 365 days / 1 year total: 120 / 90 / 90 / 65 days per period).
 
   The user does **NOT** receive USDT from these auto-sells — **100% of proceeds are directed to the DA Liquidity Pool**. The user **keeps the original loan amount** they received, but **loses the entire DA collateral**. This mechanism protects system liquidity, reduces systemic risk, and enforces financial discipline across the ecosystem.
 </Warning>
