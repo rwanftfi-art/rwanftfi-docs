@@ -100,9 +100,12 @@ If Autobuy is enabled, the system first triggers an automatic rebuy (same-level 
     achievements. Up to 100 per address (DAO-adjustable, current).
   </Card>
   <Card title="Gift Vouchers" icon="ticket">
-    User-generated coupons from 5 USDT, valid 365 days. Cover up to 100%
-    of NFT purchase. Transferable at 0% commission. Cannot combine
-    with Accumulative Balance.
+    User-generated coupons with a smart-contract-enforced minimum of **5 USDT**
+    (zero-value vouchers are rejected on-chain), valid for **365 days**. Cover up to
+    100% of an NFT purchase. Transferable at 0% commission, except during the
+    **last 24 hours** before expiry, when transfers are locked. Cannot combine
+    with Accumulative Balance. If unused for the full 365-day lifetime,
+    **100% of the voucher value is directed to the DA Liquidity Pool**.
   </Card>
 </CardGroup>
 <Warning>

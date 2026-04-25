@@ -69,4 +69,15 @@ icon: "code"
   <Accordion title="Transparent Proxy" icon="arrows-rotate">
     An upgrade pattern for the TokenReserve (DA) contract, allowing logic updates without changing the contract address.
   </Accordion>
+
+  <Accordion title="Voucher" icon="ticket">
+    A user-issued digital coupon redeemable against NFT purchases. Created on-chain from a user's Regular Balance, transferable to other addresses, and consumed at the front of the payment-priority order (Voucher → Accumulative → Regular). Voucher transfers are authorized via the SIGNER_ROLE.
+
+    **On-chain rules and parameters:**
+    - **Minimum creation value:** 5 USDT, enforced by the smart contract — zero-value vouchers revert on creation (RWA-83).
+    - **Lifetime:** 365 days from issuance (`voucherLifetime`). This is the final value after the audit corrections in RWA-26 and RWA-51; the previously deployed value of 4 hours was a misconfiguration that the audit identified and remediated.
+    - **Transfer Lock:** Transfers are blocked during the last **24 hours (1 day)** before expiry, preventing handoff of a voucher the recipient could not realistically redeem in time.
+    - **Expiry handling:** If a voucher is not redeemed within its 365-day lifetime, **100% of its value is routed to the DA Liquidity Pool**. This replaces the pre-audit behavior introduced together with the lifetime fix (RWA-26).
+    - **Combination restriction:** A Voucher **cannot be combined with the Accumulative Balance** in the same NFT purchase. The smart contract permits only the following payment combinations: `Voucher + Regular`, `100% Accumulative`, or `Accumulative + Regular`. This restriction is enforced at the same layer as the payment-priority order.
+  </Accordion>
 </AccordionGroup>

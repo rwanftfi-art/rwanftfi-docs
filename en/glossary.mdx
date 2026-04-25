@@ -132,9 +132,15 @@ icon: "book"
     Designed to help users navigate the ecosystem's financial tools.
   </Accordion>
   <Accordion title="Voucher (Gift Voucher)">
-    User-generated digital coupon — minimum 5 USDT, 365-day validity.
-    Covers up to 100% of NFT purchase. Transferable at 0% commission.
-    Cannot combine with Accumulative Balance. If a Voucher remains unused for its
-    full 365-day lifetime, 100% of its value is directed to the DA Liquidity Pool.
+    User-generated digital coupon. The smart contract enforces a **minimum
+    creation value of 5 USDT** — zero-value vouchers are rejected on-chain.
+    Validity is **365 days** from issuance. Covers up to 100% of an NFT
+    purchase. Transferable at 0% commission, except during the **Voucher
+    Transfer Lock** — the last 24 hours before expiry, when transfers are
+    blocked so a recipient cannot be handed a voucher they will not have time
+    to use. **Cannot combine with Accumulative Balance** (valid combinations:
+    Voucher + Regular, 100% Accumulative, or Accumulative + Regular). If a
+    Voucher remains unused for its full 365-day lifetime, **100% of its value
+    is directed to the DA Liquidity Pool**.
   </Accordion>
 </AccordionGroup>
