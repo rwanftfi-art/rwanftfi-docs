@@ -13,6 +13,21 @@ icon: "book"
     the DA Liquidity Pool, 20% to the upline sponsor. In both cases, the sponsor
     share cascades up if the sponsor has zero Income Limit, and routes entirely
     to the Pool if no eligible upline exists.
+
+    <Note>
+      **120 days is a guaranteed minimum window, not an automatic expiry.** The
+      `accumulativeDecayTime` check is enforced **only** inside
+      `withdrawAccumulative()` — the admin/service-triggered redistribution path
+      — and **not** on the spend or transfer paths. Within the first 120 days,
+      the balance is guaranteed against redistribution. After day 120 the
+      balance becomes **eligible** for redistribution, but the actual split is
+      executed only when `withdrawAccumulative()` is invoked for that user by
+      the SERVICE_ROLE or ADMIN_ROLE. Until that call lands, an "expired"
+      Accumulative Balance is still spendable on NFT purchases/upgrades and
+      transferable under the standard fees. As stated by the team in the audit
+      response: *"Our goal is to guarantee the user's funds' integrity for a
+      certain period of time, not to give them a lifecycle."*
+    </Note>
   </Accordion>
   <Accordion title="Auto-sell">
     Automatic forced sale of DA if the user does not sell manually. The user receives
