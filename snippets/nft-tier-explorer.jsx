@@ -30,8 +30,8 @@ export const NftTierExplorer = () => {
     { name: "QUANTUM",  tier: "Premium", level: 6,  price: 1100,  limit: 2700,   depth: 11, mining: 44,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 1, c1: 0.10, c2: 0 },
     { name: "PULSE",    tier: "Premium", level: 7,  price: 2200,  limit: 5800,   depth: 12, mining: 43,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 1, c1: 0.10, c2: 0 },
     { name: "AURORA",   tier: "Premium", level: 8,  price: 5500,  limit: 12800,  depth: 13, mining: 42,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "3/3", cycles: 2, c1: 0.10, c2: 0.15 },
-    { name: "FLAME",    tier: "Elite",   level: 9,  price: 11000, limit: 28000,  depth: 15, mining: 41,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A", cycles: 2, c1: 0.10, c2: 0.15 },
-    { name: "INFINITY", tier: "Elite",   level: 10, price: 24000, limit: 70000,  depth: 19, mining: 40,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "N/A", cycles: 2, c1: 0.10, c2: 0.15 },
+    { name: "FLAME",    tier: "Elite",   level: 9,  price: 11000, limit: 28000,  depth: 15, mining: 41,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "Unlimited", cycles: 2, c1: 0.10, c2: 0.15 },
+    { name: "INFINITY", tier: "Elite",   level: 10, price: 24000, limit: 70000,  depth: 19, mining: 40,   matchingBonus: true,  lending: true,  daMining: true,  autobuy: "Unlimited", cycles: 2, c1: 0.10, c2: 0.15 },
   ];
 
   const TIER_COLORS = {
@@ -207,7 +207,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'N/A' ? 'Not available' : '3 of 3 slots', selected.autobuy === 'N/A' ? 'Elite: manual renewal only' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'Unlimited' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'Unlimited' ? 'Elite: no autobuy cap' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>

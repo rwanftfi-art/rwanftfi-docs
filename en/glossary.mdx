@@ -7,9 +7,12 @@ icon: "book"
 <AccordionGroup>
   <Accordion title="Accumulative Balance">
     A mandatory system wallet where 20% of a user's marketing rewards are stored,
-    usable only for NFT repurchases or upgrades. 120-day decay: 70% directed to
-    the DA Liquidity Pool for minting new DA, 30% transfers to upline sponsor
-    (cascades up if sponsor has zero Income Limit).
+    usable only for NFT repurchases or upgrades. 120-day decay splits the unused
+    balance differently by NFT type: **Regular NFT holders** — 70% to the DA
+    Liquidity Pool, 30% to the upline sponsor; **Gift NFT holders** — 80% to
+    the DA Liquidity Pool, 20% to the upline sponsor. In both cases, the sponsor
+    share cascades up if the sponsor has zero Income Limit, and routes entirely
+    to the Pool if no eligible upline exists.
   </Accordion>
   <Accordion title="Auto-sell">
     Automatic forced sale of DA if the user does not sell manually. The user receives
@@ -27,12 +30,13 @@ icon: "book"
     only automatic renewals — the initial purchase is separate — so the same
     NFT level can be active a maximum of 4 times total (1 manual + 3 auto).
     Requires sufficient USDT on Regular or Accumulative Balance (both can be
-    combined). Counter resets to 0/3 on NFT upgrade. Not available for Elite
-    (L9–L10).
+    combined). Counter resets to 0/3 on NFT upgrade. Elite tier (L9–L10)
+    supports unlimited autobuys.
   </Accordion>
   <Accordion title="Business Sale">
     Transfer of an entire business structure (partner tree) to another user
-    through a DAO vote. Commission: 500 USDT (regulated by DAO).
+    through a DAO vote. The seller pays a fixed fee of 500 USDT (regulated
+    by DAO) to execute the transfer; the buyer only receives the structure.
   </Accordion>
   <Accordion title="CeFi (Centralized Finance)">
     Traditional financial services and products integrated into the ecosystem
@@ -44,8 +48,10 @@ icon: "book"
     eligible user. Enables "infinite depth" earning.
   </Accordion>
   <Accordion title="Cross-Chain Bridge">
-    Built-in bridge allowing users to fund their accounts from any supported
-    blockchain network. Deposits are processed on-chain via the SERVICE_ROLE.
+    Managed cross-chain deposit service allowing users to fund their accounts
+    from any supported blockchain. Deposits are processed on-chain via the
+    SERVICE_ROLE through the DepositTR contract. This is a service-managed
+    solution, not a trustless peer-to-peer bridge.
   </Accordion>
   <Accordion title="DA (Deflationary Asset)">
     The ecosystem's core economic token. Hard-capped at 21M, 100% backed by
@@ -89,9 +95,10 @@ icon: "book"
     If a borrower fails to repay their loan within the 30-day cutoff period, the
     collateralized DA enters the auto-sell cycle. Tokens are progressively burned
     through the standard 4-period schedule (25% → 40% → 50% → 100% of remaining
-    balance over 12 months). The user does not receive proceeds from default
-    auto-sells. This mechanism protects system liquidity, reduces risk, and
-    enforces financial discipline.
+    balance over 12 months). The user keeps the original loan amount they received
+    but loses the entire DA collateral; 100% of auto-sell proceeds are directed
+    to the DA Liquidity Pool, not to the borrower. This mechanism protects system
+    liquidity, reduces risk, and enforces financial discipline.
   </Accordion>
   <Accordion title="Lost Income">
     Notification that a user missed a marketing reward due to insufficient NFT level

@@ -144,7 +144,7 @@ export const MiningPipeline = () => {
           marginTop: '12px'
         }} className="rounded-xl p-4 text-center">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-            DAO Second cycle (15%) can be activated for this NFT level via DAO voting, increasing total NFTM by {fmtNum(lvl.price * 0.15)}.
+            This NFT tier has 1 mining cycle producing 10% of NFT price in NFTM.
           </div>
         </div>
       )}

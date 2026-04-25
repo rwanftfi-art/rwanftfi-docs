@@ -59,6 +59,10 @@ DA is 100% available to the user immediately upon farming — there is no lock-u
   </Step>
 </Steps>
 
+<Note>
+  The auto-sell percentages (25% / 40% / 50% / 100%) shown above represent the current protocol configuration. Specific values are stored as protocol parameters and are subject to standard governance procedures. Always check the smart contract or current protocol documentation for the latest values.
+</Note>
+
 Each auto-sell executes at the DA price at that moment, not the original farming price. Since price grows over time, later auto-sells burn tokens at a higher price — strengthening deflation further.
 
 <Warning>
@@ -95,7 +99,9 @@ Each DA batch from a mining cycle serves as independent collateral. Users can ta
 </Tip>
 
 <Warning>
-  **Lending Default — Progressive Burn:** If a loan is not repaid, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining). The user does **not** receive USDT from these auto-sells — proceeds are directed to the Liquidity Pool. This mechanism protects system liquidity, reduces risk, and enforces financial discipline across the ecosystem.
+  **Lending Default — Progressive Burn:** If a loan is not repaid within the 30-day cutoff period, the collateralized DA enters the auto-sell cycle. Tokens are progressively burned through the same 4-period schedule (25% → 40% → 50% → 100% of remaining balance over 12 months total).
+
+  The user does **NOT** receive USDT from these auto-sells — **100% of proceeds are directed to the DA Liquidity Pool**. The user **keeps the original loan amount** they received, but **loses the entire DA collateral**. This mechanism protects system liquidity, reduces systemic risk, and enforces financial discipline across the ecosystem.
 </Warning>
 
 <SellVsLend />
