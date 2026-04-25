@@ -35,7 +35,7 @@ icon: "code"
   </Accordion>
 
   <Accordion title="Lending Default" icon="triangle-exclamation">
-    A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, the collateralized DA enters the auto-sell cycle managed by the ResolverFacet. Tokens are progressively burned through the standard 4-period schedule (25% of balance after 4 months, 40% of remaining after 3 months, 50% of remaining after 3 months, 100% of remaining after 2 months). The user does not receive USDT proceeds — funds are directed to the Liquidity Pool. Each burn emits a TokenStackLiquidated event. The mechanism serves as both a risk management tool and a deflationary driver.
+    A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, the collateralized DA enters the auto-sell cycle managed by the ResolverFacet. Tokens are progressively burned through the standard 4-period schedule (25% of balance after 120 days, 40% of remaining after 90 days, 50% of remaining after 90 days, 100% of remaining after 65 days — total 365 days / 1 year; the corresponding month-level approximations are ~4 / ~3 / ~3 / ~2 months). The user does not receive USDT proceeds — funds are directed to the Liquidity Pool. Each burn emits a TokenStackLiquidated event. The mechanism serves as both a risk management tool and a deflationary driver.
   </Accordion>
 
   <Accordion title="LibSignatureLogic" icon="signature">
@@ -72,7 +72,7 @@ icon: "code"
   </Accordion>
 
   <Accordion title="TokenStack" icon="layer-group">
-    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after 3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of remaining after 2 months (12-month total cycle). Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT. The remaining 30% stays as backing in the pool, driving price growth. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
+    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 120 days (~4 months), Period 2 — 40% of remaining after 90 days (~3 months, day 210), Period 3 — 50% of remaining after 90 days (~3 months, day 300), Period 4 — 100% of remaining after 65 days (~2 months, day 365). Total cycle: **365 days (1 year)**; period durations are denominated in days on-chain (120 / 90 / 90 / 65) and the month references are approximations. Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT. The remaining 30% stays as backing in the pool, driving price growth. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
   </Accordion>
 
   <Accordion title="Transparent Proxy" icon="arrows-rotate">

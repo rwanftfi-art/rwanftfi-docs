@@ -34,9 +34,12 @@ icon: "book"
     70% of value in USDT (5% less than manual sale). 100% of auto-sold tokens are
     permanently burned; the remaining 30% stays as backing in the pool — this drives the price growth. DA is 100%
     available from day one — auto-sell triggers progressively from the remaining
-    balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after
-    3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of
-    remaining after 2 months. Total cycle: 12 months.
+    balance: Period 1 — 25% after 120 days (~4 months), Period 2 — 40% of remaining
+    after 90 days (~3 months, day 210), Period 3 — 50% of remaining after 90 days
+    (~3 months, day 300), Period 4 — 100% of remaining after 65 days (~2 months,
+    day 365). Total cycle: **365 days (1 year)**. Period durations are denominated
+    in days on-chain (120 / 90 / 90 / 65); month references are approximations for
+    readability.
   </Accordion>
   <Accordion title="Autobuy (3/3)">
     Smart contract feature that automatically repurchases an NFT up to 3
@@ -116,10 +119,11 @@ icon: "book"
     If a borrower fails to repay their loan within the 30-day cutoff period, the
     collateralized DA enters the auto-sell cycle. Tokens are progressively burned
     through the standard 4-period schedule (25% → 40% → 50% → 100% of remaining
-    balance over 12 months). The user keeps the original loan amount they received
-    but loses the entire DA collateral; 100% of auto-sell proceeds are directed
-    to the DA Liquidity Pool, not to the borrower. This mechanism protects system
-    liquidity, reduces risk, and enforces financial discipline.
+    balance over **365 days (1 year)** total: 120 / 90 / 90 / 65 days per period).
+    The user keeps the original loan amount they received but loses the entire DA
+    collateral; 100% of auto-sell proceeds are directed to the DA Liquidity Pool,
+    not to the borrower. This mechanism protects system liquidity, reduces risk,
+    and enforces financial discipline.
   </Accordion>
   <Accordion title="Lost Income">
     Notification that a user missed a marketing reward due to insufficient NFT level
