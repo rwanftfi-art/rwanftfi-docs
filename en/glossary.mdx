@@ -13,15 +13,33 @@ icon: "book"
     the DA Liquidity Pool, 20% to the upline sponsor. In both cases, the sponsor
     share cascades up if the sponsor has zero Income Limit, and routes entirely
     to the Pool if no eligible upline exists.
+
+    <Note>
+      **120 days is a guaranteed minimum window, not an automatic expiry.** The
+      `accumulativeDecayTime` check is enforced **only** inside
+      `withdrawAccumulative()` — the admin/service-triggered redistribution path
+      — and **not** on the spend or transfer paths. Within the first 120 days,
+      the balance is guaranteed against redistribution. After day 120 the
+      balance becomes **eligible** for redistribution, but the actual split is
+      executed only when `withdrawAccumulative()` is invoked for that user by
+      the SERVICE_ROLE or ADMIN_ROLE. Until that call lands, an "expired"
+      Accumulative Balance is still spendable on NFT purchases/upgrades and
+      transferable under the standard fees. As stated by the team in the audit
+      response: *"Our goal is to guarantee the user's funds' integrity for a
+      certain period of time, not to give them a lifecycle."*
+    </Note>
   </Accordion>
   <Accordion title="Auto-sell">
     Automatic forced sale of DA if the user does not sell manually. The user receives
     70% of value in USDT (5% less than manual sale). 100% of auto-sold tokens are
     permanently burned; the remaining 30% stays as backing in the pool — this drives the price growth. DA is 100%
     available from day one — auto-sell triggers progressively from the remaining
-    balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after
-    3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of
-    remaining after 2 months. Total cycle: 12 months.
+    balance: Period 1 — 25% after 120 days (~4 months), Period 2 — 40% of remaining
+    after 90 days (~3 months, day 210), Period 3 — 50% of remaining after 90 days
+    (~3 months, day 300), Period 4 — 100% of remaining after 65 days (~2 months,
+    day 365). Total cycle: **365 days (1 year)**. Period durations are denominated
+    in days on-chain (120 / 90 / 90 / 65); month references are approximations for
+    readability.
   </Accordion>
   <Accordion title="Autobuy (3/3)">
     Smart contract feature that automatically repurchases an NFT up to 3
@@ -35,8 +53,14 @@ icon: "book"
   </Accordion>
   <Accordion title="Business Sale">
     Transfer of an entire business structure (partner tree) to another user
-    through a DAO vote. The seller pays a fixed fee of 500 USDT (regulated
-    by DAO) to execute the transfer; the buyer only receives the structure.
+    through a DAO-authorized process. The fee is a **transfer commission paid
+    by the seller**, not a sale price collected from the buyer: it is fixed
+    at **500 USDT** and DAO-adjustable in the range **0–500 USDT**. The
+    **buyer pays no on-chain commission to the protocol** and receives the
+    structure on execution. The underlying on-chain parameter is
+    `businessTransferFee` (renamed from the legacy `businessSalePrice` to
+    reflect its true commission semantics). Individual NFT sales without the
+    structure are not supported.
   </Accordion>
   <Accordion title="CeFi (Centralized Finance)">
     Traditional financial services and products integrated into the ecosystem
@@ -95,10 +119,11 @@ icon: "book"
     If a borrower fails to repay their loan within the 30-day cutoff period, the
     collateralized DA enters the auto-sell cycle. Tokens are progressively burned
     through the standard 4-period schedule (25% → 40% → 50% → 100% of remaining
-    balance over 12 months). The user keeps the original loan amount they received
-    but loses the entire DA collateral; 100% of auto-sell proceeds are directed
-    to the DA Liquidity Pool, not to the borrower. This mechanism protects system
-    liquidity, reduces risk, and enforces financial discipline.
+    balance over **365 days (1 year)** total: 120 / 90 / 90 / 65 days per period).
+    The user keeps the original loan amount they received but loses the entire DA
+    collateral; 100% of auto-sell proceeds are directed to the DA Liquidity Pool,
+    not to the borrower. This mechanism protects system liquidity, reduces risk,
+    and enforces financial discipline.
   </Accordion>
   <Accordion title="Lost Income">
     Notification that a user missed a marketing reward due to insufficient NFT level
@@ -132,9 +157,15 @@ icon: "book"
     Designed to help users navigate the ecosystem's financial tools.
   </Accordion>
   <Accordion title="Voucher (Gift Voucher)">
-    User-generated digital coupon — minimum 5 USDT, 365-day validity.
-    Covers up to 100% of NFT purchase. Transferable at 0% commission.
-    Cannot combine with Accumulative Balance. If a Voucher remains unused for its
-    full 365-day lifetime, 100% of its value is directed to the DA Liquidity Pool.
+    User-generated digital coupon. The smart contract enforces a **minimum
+    creation value of 5 USDT** — zero-value vouchers are rejected on-chain.
+    Validity is **365 days** from issuance. Covers up to 100% of an NFT
+    purchase. Transferable at 0% commission, except during the **Voucher
+    Transfer Lock** — the last 24 hours before expiry, when transfers are
+    blocked so a recipient cannot be handed a voucher they will not have time
+    to use. **Cannot combine with Accumulative Balance** (valid combinations:
+    Voucher + Regular, 100% Accumulative, or Accumulative + Regular). If a
+    Voucher remains unused for its full 365-day lifetime, **100% of its value
+    is directed to the DA Liquidity Pool**.
   </Accordion>
 </AccordionGroup>

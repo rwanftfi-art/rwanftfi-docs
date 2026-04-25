@@ -65,6 +65,10 @@ All fees are enforced by the smart contract and adjustable within defined ranges
 | Frozen Balance → Sponsor | 30% | 0% – 30% |
 | BNB Transaction Fee | 0.001 BNB | 0.00003 – 0.005 BNB |
 
+<Note>
+  **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
+</Note>
+
 ## Timers & Schedules
 
 Time-based parameters control critical system windows and deadlines across the ecosystem.
@@ -140,17 +144,25 @@ These percentages apply to the ~43% of each NFT purchase allocated to tree distr
     | Level 15 | 5% | 3% – 5% |
   </Accordion>
   <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="rocket">
-    | Level | Current | Range |
-    |---|---|---|
-    | Level 16 | 0% | 0% – 2.5% |
-    | Level 17 | 0% | 0% – 2.5% |
-    | Level 18 | 0% | 0% – 2.5% |
-    | Level 19 | 0% | 0% – 2.5% |
-    | Level 20 | 0% | 0% – 2.5% |
-    | Level 21 | 0% | 0% – 2.5% |
-    | Level 22 | 0% | 0% – 2.5% |
+    | Level | Current | Planned (Phase 2) | Range |
+    |---|---|---|---|
+    | Level 16 | 0% | 2% | 0% – 2.5% |
+    | Level 17 | 0% | 2% | 0% – 2.5% |
+    | Level 18 | 0% | 1% | 0% – 2.5% |
+    | Level 19 | 0% | 0.5% | 0% – 2.5% |
+    | Level 20 | 0% | 0.5% | 0% – 2.5% |
+    | Level 21 | 0% | 0.5% | 0% – 2.5% |
+    | Level 22 | 0% | 0.5% | 0% – 2.5% |
+
+    <Note>
+      **Current = 0%** until Phase 2 is activated by DAO vote (planned **Q4 2026**). **Planned (Phase 2)** = the values the DAO is expected to enable on activation. All Planned values fall inside the on-chain `Range`, so activation does not require widening any parameter bound.
+    </Note>
   </Accordion>
 </AccordionGroup>
+
+<Note>
+  **Tree distribution budget vs per-level caps.** Per-level percentages in the tables above represent the **maximum payout per level**. The total tree distribution **budget per NFT purchase is approximately 43%** (calculated as 100% minus Sponsor Bonus, Token Reserve / DA Pool, Platform Operations, and Accumulative Balance). The arithmetic difference between the theoretical per-level sum (~48% across Phase 1, growing to ~55% if Phase 2 activates at the Planned values) and the actual ~43% budget is absorbed through the **compression mechanism**: when an upline user does not qualify (exhausted Income Limit or insufficient NFT level for that depth), the unallocated portion is not forced further up the tree — it flows to the platform / dev residual instead. In other words, the per-level rates are a ceiling on what a fully eligible position at each depth can earn from a single purchase, not a guarantee of the full sum being paid out to the tree on every purchase.
+</Note>
 
 ### Matching Bonus Thresholds
 

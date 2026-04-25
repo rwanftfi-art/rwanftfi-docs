@@ -35,7 +35,7 @@ icon: "code"
   </Accordion>
 
   <Accordion title="Lending Default" icon="triangle-exclamation">
-    A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, the collateralized DA enters the auto-sell cycle managed by the ResolverFacet. Tokens are progressively burned through the standard 4-period schedule (25% of balance after 4 months, 40% of remaining after 3 months, 50% of remaining after 3 months, 100% of remaining after 2 months). The user does not receive USDT proceeds — funds are directed to the Liquidity Pool. Each burn emits a TokenStackLiquidated event. The mechanism serves as both a risk management tool and a deflationary driver.
+    A liquidation event triggered when a borrower fails to repay their loan within the 30-day LOAN_CUTOFF_PERIOD. Upon default, the collateralized DA enters the auto-sell cycle managed by the ResolverFacet. Tokens are progressively burned through the standard 4-period schedule (25% of balance after 120 days, 40% of remaining after 90 days, 50% of remaining after 90 days, 100% of remaining after 65 days — total 365 days / 1 year; the corresponding month-level approximations are ~4 / ~3 / ~3 / ~2 months). The user does not receive USDT proceeds — funds are directed to the Liquidity Pool. Each burn emits a TokenStackLiquidated event. The mechanism serves as both a risk management tool and a deflationary driver.
   </Accordion>
 
   <Accordion title="LibSignatureLogic" icon="signature">
@@ -50,6 +50,10 @@ icon: "code"
     A ResolverFacet function for processing DA stacks whose auto-sell periods have fully expired.
   </Accordion>
 
+  <Accordion title="Seed Supply" icon="seedling">
+    A permanent, non-burnable DA pre-deposit minted into the TokenReserve at protocol launch as a technical safeguard for the pricing formula `getPrice() = liquidity / totalSupply`. The Seed Supply ensures `totalSupply > 0` at all times, preventing a division-by-zero revert in `getPrice()` in the extreme edge case where every other token in circulation has been burned but liquidity remains in the pool. The reserve is excluded from circulating supply, cannot be sold (manually or via auto-sell), is not part of any TokenStack, and does not participate in farming, lending, or marketing distributions. It has no effect on price discovery under normal operation — it exists purely as a deterministic supply floor. Introduced in response to audit finding RWA-29 (commit `015b64c1`), which identified that `getPrice()` would revert when `totalSupply == 0 && liquidity > 0`.
+  </Accordion>
+
   <Accordion title="SERVICE_ROLE" icon="server">
     A smart contract role for automated backend operations — processing cross-chain deposits and resolving expired stacks.
   </Accordion>
@@ -58,11 +62,31 @@ icon: "code"
     A role for cryptographic signature verification when authorizing operations such as voucher transfers.
   </Accordion>
 
+  <Accordion title="Token ID Separation" icon="arrow-down-up-across-line">
+    A protocol-level invariant that prevents `tokenId` collisions between Regular NFTs and Gift NFTs in the shared on-chain `registeredTokens` mapping. The two NFT contracts mint into **disjoint tokenId spaces partitioned by parity**:
+
+    - **Regular NFT** uses odd token IDs (`1, 3, 5, 7, …`).
+    - **Gift NFT** uses even token IDs (`2, 4, 6, 8, …`).
+
+    The parity is enforced inside each contract's minter logic at mint time. Because a successful mint on one contract is structurally incapable of producing an identifier the other contract could ever issue, an entire class of mapping-collision bugs is eliminated at the type-system level — no runtime guard or per-call deduplication check is required. Introduced in response to audit finding RWA-19.
+  </Accordion>
+
   <Accordion title="TokenStack" icon="layer-group">
-    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 4 months, Period 2 — 40% of remaining after 3 months, Period 3 — 50% of remaining after 3 months, Period 4 — 100% of remaining after 2 months (12-month total cycle). Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT. The remaining 30% stays as backing in the pool, driving price growth. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
+    A smart contract data structure that holds a user's DA tokens. DA is 100% available for manual sale or lending from the moment of farming. If the user does not act, the TokenStack enforces progressive auto-sell from the remaining balance: Period 1 — 25% after 120 days (~4 months), Period 2 — 40% of remaining after 90 days (~3 months, day 210), Period 3 — 50% of remaining after 90 days (~3 months, day 300), Period 4 — 100% of remaining after 65 days (~2 months, day 365). Total cycle: **365 days (1 year)**; period durations are denominated in days on-chain (120 / 90 / 90 / 65) and the month references are approximations. Each auto-sell burns 100% of the sold tokens; user receives 70% of value in USDT. The remaining 30% stays as backing in the pool, driving price growth. If the stack expires without manual sale, the SERVICE_ROLE processes it via processExpiredStacks. In a Lending Default scenario, the collateral enters the same auto-sell cycle but proceeds go to the Liquidity Pool instead of the user.
   </Accordion>
 
   <Accordion title="Transparent Proxy" icon="arrows-rotate">
     An upgrade pattern for the TokenReserve (DA) contract, allowing logic updates without changing the contract address.
+  </Accordion>
+
+  <Accordion title="Voucher" icon="ticket">
+    A user-issued digital coupon redeemable against NFT purchases. Created on-chain from a user's Regular Balance, transferable to other addresses, and consumed at the front of the payment-priority order (Voucher → Accumulative → Regular). Voucher transfers are authorized via the SIGNER_ROLE.
+
+    **On-chain rules and parameters:**
+    - **Minimum creation value:** 5 USDT, enforced by the smart contract — zero-value vouchers revert on creation (RWA-83).
+    - **Lifetime:** 365 days from issuance (`voucherLifetime`). This is the final value after the audit corrections in RWA-26 and RWA-51; the previously deployed value of 4 hours was a misconfiguration that the audit identified and remediated.
+    - **Transfer Lock:** Transfers are blocked during the last **24 hours (1 day)** before expiry, preventing handoff of a voucher the recipient could not realistically redeem in time.
+    - **Expiry handling:** If a voucher is not redeemed within its 365-day lifetime, **100% of its value is routed to the DA Liquidity Pool**. This replaces the pre-audit behavior introduced together with the lifetime fix (RWA-26).
+    - **Combination restriction:** A Voucher **cannot be combined with the Accumulative Balance** in the same NFT purchase. The smart contract permits only the following payment combinations: `Voucher + Regular`, `100% Accumulative`, or `Accumulative + Regular`. This restriction is enforced at the same layer as the payment-priority order.
   </Accordion>
 </AccordionGroup>

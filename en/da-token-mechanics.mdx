@@ -36,7 +36,12 @@ Every time DA is sold, tokens are burned (supply goes down) while USDT stays in 
 </Tip>
 
 <Info>
-  **Seed Supply Protection:** A small permanent DA reserve is initialized at protocol launch and cannot be burned. This ensures the price formula always remains stable and protects against extreme edge cases where total supply could otherwise approach zero. The seed supply is excluded from circulation and auto-sell cycles.
+  **Seed Supply Protection:** A small permanent DA reserve — the **Seed Supply** — is pre-deposited into the protocol at launch as a technical safeguard for the pricing formula.
+
+  - **Permanent and non-sellable.** The Seed Supply is locked at the protocol level: it **cannot be burned**, **cannot be sold** (manually or via auto-sell), and is **excluded from auto-sell cycles**.
+  - **Outside circulation.** It is **not counted as circulating supply** and never participates in user balances, farming, lending, or marketing distributions.
+  - **Guarantees a non-zero denominator.** Because `Price = Liquidity ÷ Circulating Supply`, the formula must never divide by zero. The Seed Supply guarantees `totalSupply > 0` at all times, so the price function is always defined — even in the extreme edge case where every other token in circulation has been burned.
+  - **Edge-case-only protection.** Under normal operation the Seed Supply has no effect on price discovery. It exists purely as a deterministic floor that keeps `getPrice()` well-defined when liquidity is present but circulating supply would otherwise reach zero.
 </Info>
 
 ## Liquidity Pool Sources
@@ -90,7 +95,7 @@ DA burning is the core deflationary mechanism — it reduces token supply and cr
     100% of sold DA is permanently burned. User receives 75% of value in USDT. The remaining 25% stays in the pool, driving price growth.
   </Card>
   <Card title="Auto-Sell" icon="clock">
-    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. The remaining 30% stays in the pool, driving price growth. Triggers progressively from remaining balance over 4 periods (12 months total).
+    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. The remaining 30% stays in the pool, driving price growth. Triggers progressively from remaining balance over 4 periods (365 days / 1 year total).
   </Card>
   <Card title="Lending Default" icon="ban">
     If a loan is not repaid, collateralized DA is progressively burned through the auto-sell cycle. Protects system liquidity and enforces financial discipline.
@@ -109,21 +114,21 @@ DA tokens are 100% available to the user from the moment they are farmed. There 
 
 ### Auto-Sell Cycle
 
-If the user does not sell manually, the system triggers automatic sales from the **remaining balance** over 4 periods spanning 12 months total.
+If the user does not sell manually, the system triggers automatic sales from the **remaining balance** over 4 periods spanning **365 days (1 year)** total. Period durations are denominated in days on-chain (120 / 90 / 90 / 65 days); the month references below are approximations for readability.
 
 **Example starting with 100 DA:**
 
 <Steps>
-  <Step title="Period 1 — After 4 months">
+  <Step title="Period 1 — After 120 days (~4 months)">
     25% of current balance is auto-sold. 25% of 100 = **25 DA sold** → Remaining: **75 DA**
   </Step>
-  <Step title="Period 2 — After 3 more months (month 7)">
+  <Step title="Period 2 — After 90 more days (~3 months, day 210)">
     40% of remaining balance is auto-sold. 40% of 75 = **30 DA sold** → Remaining: **45 DA**
   </Step>
-  <Step title="Period 3 — After 3 more months (month 10)">
+  <Step title="Period 3 — After 90 more days (~3 months, day 300)">
     50% of remaining balance is auto-sold. 50% of 45 = **22.5 DA sold** → Remaining: **22.5 DA**
   </Step>
-  <Step title="Period 4 — After 2 more months (month 12)">
+  <Step title="Period 4 — After 65 more days (~2 months, day 365)">
     100% of remaining balance is auto-sold. 100% of 22.5 = **22.5 DA sold** → Remaining: **0 DA**
   </Step>
 </Steps>

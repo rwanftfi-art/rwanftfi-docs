@@ -44,11 +44,15 @@ Owning an NFT is mandatory to participate in marketing, mine DA, and access fina
     0/3 on NFT upgrade.
   </Accordion>
   <Accordion title="Business Sale" icon="handshake">
-    Sell your entire business structure (partner tree and downline) to another
-    user through a DAO-authorized process. **The seller pays a fixed fee of
-    500 USDT** to transfer the structure (adjustable via DAO); the buyer only
-    receives the structure. Individual NFT sales without the structure are
-    not supported.
+    Transfer your entire business structure (partner tree and downline) to
+    another user through a DAO-authorized process. The transfer is gated by a
+    smart-contract **transfer commission**, not a sale price: **the seller
+    pays a fixed 500 USDT fee** (DAO-adjustable in the range **0–500 USDT**)
+    in order to execute the transfer. The **buyer pays no on-chain commission
+    to the protocol** and receives the entire structure on execution. The
+    underlying on-chain parameter is `businessTransferFee` (renamed from the
+    legacy `businessSalePrice` to reflect its true commission semantics).
+    Individual NFT sales without the structure are not supported.
   </Accordion>
 </AccordionGroup>
 <Warning>
@@ -67,11 +71,19 @@ When a marketing reward is generated that exceeds your NFT's remaining Income Li
 You then have exactly **72 hours** to upgrade your NFT to a higher level (which carries a higher Income Limit). Upon upgrading, the frozen funds are released and credited using the same 75/20/5 split. The released amount is deducted from your **new** NFT's Income Limit.
 
 <Warning>
-  **72-Hour Deadline:** If you do not upgrade within 72 hours, the frozen funds are **permanently forfeited** and redistributed: **70%** is directed to the DA Liquidity Pool for DA generation, and **30%** is transferred to your upline sponsor in the network. If the upline sponsor's Income Limit is exhausted (zero), the 30% passes further up to the next eligible participant — the same cascade logic used by Accumulative Balance 120-day decay. If no one in the upline chain has an active Income Limit, the 30% is also directed to the DA Liquidity Pool. You receive nothing — the opportunity is lost.
+  **72-Hour Deadline:** If you do not upgrade within 72 hours, the frozen funds are **permanently forfeited** and redistributed: **70%** is directed to the DA Liquidity Pool for DA generation, and **30%** is transferred to your upline sponsor in the network.
+
+  **Cascade rule (identical to the Accumulative Balance 120-day decay cascade):** If the direct upline sponsor's Income Limit is exhausted (zero), the 30% sponsor share passes further up the chain to the next participant with an active Income Limit. If **no one** in the entire upline has an active Income Limit, the 30% sponsor share is also routed to the DA Liquidity Pool — so **100% of the forfeited amount ends up in the DA Liquidity Pool**. Either way, you receive nothing — the opportunity is lost.
 </Warning>
 
 **Interaction with Autobuy:**
-If Autobuy is enabled, the system first triggers an automatic rebuy (same-level NFT repurchase), which refreshes your Income Limit. After the rebuy, more of the pending reward can be claimed within the refreshed limit. If excess **still** remains after the autobuy cycle, the remaining amount is frozen with the same 72-hour timer. You can then manually upgrade to a higher-level NFT to unlock the rest.
+If Autobuy is enabled, the smart contract evaluates the rebuy **before** any portion of the reward is moved into Frozen Balance. The sequence is strictly ordered:
+
+1. The same-level NFT is automatically repurchased (subject to the standard 3/3 cap on L1–L8 — see Autobuy above), refreshing your Income Limit. Funds for the rebuy are drawn from Regular and/or Accumulative Balance.
+2. The pending reward is re-evaluated against the refreshed Income Limit; as much as fits is credited normally with the 75/20/5 split.
+3. Only the residual that still does not fit after step 2 is placed into Frozen Balance with the 72-hour timer.
+
+You can then manually upgrade to a higher-level NFT within the 72-hour window to unlock the rest.
 
 <Info>
   **Example:** You hold a small NFT with an Income Limit of 160 USDT. Your direct partner purchases an NFT for 2,200 USDT, generating a 30% Direct Sale commission of 660 USDT.
@@ -92,6 +104,10 @@ If Autobuy is enabled, the system first triggers an automatic rebuy (same-level 
   </Step>
 </Steps>
 
+<Note>
+  **Bulk processing of expired freezes (technical):** When the protocol resolves expired Frozen Balances at scale, the smart contract walks the queue in **paginated batches with a hard cap on the number of entries handled per call**. This is a deliberate gas-exhaustion safeguard — it prevents a single transaction from being pushed into a denial-of-service condition by an unbounded freeze queue. For an individual user this is invisible during normal operation; in the rare case of an unusually large queue, full resolution may simply take more than one transaction to complete. The economic outcome for your funds — release on upgrade within 72 hours, or the 70/30 redistribution described above after the deadline — is unchanged.
+</Note>
+
 ## Gift NFTs & Vouchers
 <CardGroup cols={2}>
   <Card title="Gift NFTs" icon="gift">
@@ -100,9 +116,12 @@ If Autobuy is enabled, the system first triggers an automatic rebuy (same-level 
     achievements. Up to 100 per address (DAO-adjustable, current).
   </Card>
   <Card title="Gift Vouchers" icon="ticket">
-    User-generated coupons from 5 USDT, valid 365 days. Cover up to 100%
-    of NFT purchase. Transferable at 0% commission. Cannot combine
-    with Accumulative Balance.
+    User-generated coupons with a smart-contract-enforced minimum of **5 USDT**
+    (zero-value vouchers are rejected on-chain), valid for **365 days**. Cover up to
+    100% of an NFT purchase. Transferable at 0% commission, except during the
+    **last 24 hours** before expiry, when transfers are locked. Cannot combine
+    with Accumulative Balance. If unused for the full 365-day lifetime,
+    **100% of the voucher value is directed to the DA Liquidity Pool**.
   </Card>
 </CardGroup>
 <Warning>

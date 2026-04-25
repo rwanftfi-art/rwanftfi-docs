@@ -71,3 +71,12 @@ Each level of the binary tree has a fixed number of positions and a correspondin
   **Sponsor is permanent.** Once placed in the tree, your sponsor
   cannot be changed. Choose wisely before activating your NFT.
 </Warning>
+
+<Info>
+  **Sponsor must be an active tree node.** When a new user is registered through `registerUser()`, the smart contract does not accept any existing user ID as a sponsor — the supplied sponsor must be an **active node in the binary tree**. Concretely, the sponsor must:
+
+  - Hold an **active NFT** in the system, and
+  - Be **registered in the tree** as a live node (tree node active).
+
+  An **identity-only mapping** — a wallet that has been assigned a user ID but does not currently hold an active NFT — can no longer sponsor new invites. This prevents new participants from being placed under inactive sponsors, blocks the creation of dead branches in the structure, and preserves the integrity of every sub-tree's reward flow.
+</Info>

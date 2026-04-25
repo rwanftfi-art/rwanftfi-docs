@@ -47,6 +47,15 @@ The core of the RWANFTFI system is implemented using the Diamond Pattern (EIP-25
   </Card>
 </CardGroup>
 
+## NFT Contracts & Token ID Spaces
+
+The protocol uses three distinct NFT contracts (Regular, Gift, Ambassador). To prevent identifier collisions in the on-chain `registeredTokens` mapping that tracks every minted NFT across the system, **Regular NFTs and Gift NFTs mint into separated `tokenId` spaces partitioned by parity**:
+
+- **Regular NFT** — odd token IDs (`1, 3, 5, 7, …`).
+- **Gift NFT** — even token IDs (`2, 4, 6, 8, …`).
+
+The split is enforced inside each NFT contract's minter logic at mint time. Because a successful mint on one contract can never produce an identifier the other contract could ever issue, an entire class of mapping-collision bugs is eliminated at the type-system level — no runtime guard or per-call deduplication check is required. The partitioning is invisible to end users: wallets and marketplaces continue to display each NFT under its native contract.
+
 ## Upgradability Matrix
 
 * **Diamond Contract (EIP-2535):** Upgradeable via Facet cuts — allows adding, replacing, or removing individual modules without redeploying the entire system.
@@ -70,10 +79,20 @@ To manage the complex flow of funds, RWANFTFI employs a multi-tiered balance sch
 2. **Accumulative Balance (`accumulativeBalance`):** A mandatory savings account where 20% of each marketing reward is credited immediately upon accrual.
    * **Usage:** Can only be used to purchase the same level NFT or upgrade to a higher level.
    * **Fees:** Using this balance for NFT purchases incurs a 20% fee. Transferring it to another user also incurs a 20% fee.
-   * **120-Day Redistribution:** If the user does not use their Accumulative Balance within 120 days, the unused balance is redistributed. The split depends on the user's NFT type:
+   * **120-Day Redistribution:** If the user does not use their Accumulative Balance within 120 days, the unused balance becomes eligible for redistribution. The split depends on the user's NFT type:
      - **Regular NFT holders:** **70%** is directed to the DA Liquidity Pool for minting new DA tokens; **30%** is transferred to the user's direct upline sponsor.
      - **Gift NFT holders:** **80%** is directed to the DA Liquidity Pool; **20%** is transferred to the direct upline sponsor (governed by the separate `accumulativeClaimDistributeGift` parameter).
      - **Cascade rule (both types):** If the upline sponsor's Income Limit is exhausted (equals zero), the sponsor share passes further up to the next eligible participant in the structure. If no participant in the chain has an active Income Limit, the entire amount is routed to the DA Liquidity Pool.
+
+   <Note>
+     **120 Days = Guaranteed Minimum Window, Not an Automatic Expiry:** The `accumulativeDecayTime` parameter is checked **only inside `withdrawAccumulative()`** — the admin/service-triggered redistribution path. It is **not** evaluated on the spend or transfer paths. In practice this means:
+
+     - For the first 120 days after a credit, the Accumulative Balance is **guaranteed integrity** — it cannot be redistributed by anyone.
+     - After day 120, the balance becomes **eligible** for redistribution, but redistribution does not fire automatically when the timer elapses. It happens only when `withdrawAccumulative()` is invoked for that specific user by the SERVICE_ROLE or ADMIN_ROLE.
+     - **Until that call lands**, an "expired" Accumulative Balance remains spendable on NFT purchases and upgrades and transferable to other users under the standard rules and fees.
+
+     The team's stated intent, recorded in the audit response: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Treat 120 days as the **minimum guaranteed window before potential redistribution**, not as a hard on-chain expiry timestamp.
+   </Note>
 3. **Limit (`limit`):** Represents the maximum remaining income an NFT can generate.
 
 ### System Balances
