@@ -36,7 +36,12 @@ Every time DA is sold, tokens are burned (supply goes down) while USDT stays in 
 </Tip>
 
 <Info>
-  **Seed Supply Protection:** A small permanent DA reserve is initialized at protocol launch and cannot be burned. This ensures the price formula always remains stable and protects against extreme edge cases where total supply could otherwise approach zero. The seed supply is excluded from circulation and auto-sell cycles.
+  **Seed Supply Protection:** A small permanent DA reserve — the **Seed Supply** — is pre-deposited into the protocol at launch as a technical safeguard for the pricing formula.
+
+  - **Permanent and non-sellable.** The Seed Supply is locked at the protocol level: it **cannot be burned**, **cannot be sold** (manually or via auto-sell), and is **excluded from auto-sell cycles**.
+  - **Outside circulation.** It is **not counted as circulating supply** and never participates in user balances, farming, lending, or marketing distributions.
+  - **Guarantees a non-zero denominator.** Because `Price = Liquidity ÷ Circulating Supply`, the formula must never divide by zero. The Seed Supply guarantees `totalSupply > 0` at all times, so the price function is always defined — even in the extreme edge case where every other token in circulation has been burned.
+  - **Edge-case-only protection.** Under normal operation the Seed Supply has no effect on price discovery. It exists purely as a deterministic floor that keeps `getPrice()` well-defined when liquidity is present but circulating supply would otherwise reach zero.
 </Info>
 
 ## Liquidity Pool Sources
