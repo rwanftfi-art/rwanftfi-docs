@@ -65,6 +65,10 @@ All fees are enforced by the smart contract and adjustable within defined ranges
 | Frozen Balance → Sponsor | 30% | 0% – 30% |
 | BNB Transaction Fee | 0.001 BNB | 0.00003 – 0.005 BNB |
 
+<Note>
+  **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
+</Note>
+
 ## Timers & Schedules
 
 Time-based parameters control critical system windows and deadlines across the ecosystem.

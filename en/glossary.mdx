@@ -50,8 +50,14 @@ icon: "book"
   </Accordion>
   <Accordion title="Business Sale">
     Transfer of an entire business structure (partner tree) to another user
-    through a DAO vote. The seller pays a fixed fee of 500 USDT (regulated
-    by DAO) to execute the transfer; the buyer only receives the structure.
+    through a DAO-authorized process. The fee is a **transfer commission paid
+    by the seller**, not a sale price collected from the buyer: it is fixed
+    at **500 USDT** and DAO-adjustable in the range **0–500 USDT**. The
+    **buyer pays no on-chain commission to the protocol** and receives the
+    structure on execution. The underlying on-chain parameter is
+    `businessTransferFee` (renamed from the legacy `businessSalePrice` to
+    reflect its true commission semantics). Individual NFT sales without the
+    structure are not supported.
   </Accordion>
   <Accordion title="CeFi (Centralized Finance)">
     Traditional financial services and products integrated into the ecosystem
