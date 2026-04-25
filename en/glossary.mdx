@@ -7,9 +7,12 @@ icon: "book"
 <AccordionGroup>
   <Accordion title="Accumulative Balance">
     A mandatory system wallet where 20% of a user's marketing rewards are stored,
-    usable only for NFT repurchases or upgrades. 120-day decay: 70% directed to
-    the DA Liquidity Pool for minting new DA, 30% transfers to upline sponsor
-    (cascades up if sponsor has zero Income Limit).
+    usable only for NFT repurchases or upgrades. 120-day decay splits the unused
+    balance differently by NFT type: **Regular NFT holders** — 70% to the DA
+    Liquidity Pool, 30% to the upline sponsor; **Gift NFT holders** — 80% to
+    the DA Liquidity Pool, 20% to the upline sponsor. In both cases, the sponsor
+    share cascades up if the sponsor has zero Income Limit, and routes entirely
+    to the Pool if no eligible upline exists.
   </Accordion>
   <Accordion title="Auto-sell">
     Automatic forced sale of DA if the user does not sell manually. The user receives
