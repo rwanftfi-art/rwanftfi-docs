@@ -1,37 +1,67 @@
 ---
 title: "Security & Audit"
-description: "CertiK audited, multi-layer protection."
+description: "Independently audited by CertiK."
 icon: "shield-halved"
 ---
 
 
-<CardGroup cols={2}>
-  <Card title="Smart Contract Security" icon="code">
-    All logic locked in immutable code. 100% transparent and verifiable on-chain.
-  </Card>
-  <Card title="CertiK Audit" icon="shield-check">
-    Comprehensive independent audit verifying architecture, vulnerabilities, and logic correctness.
-  </Card>
-  <Card title="DAO Governance" icon="landmark">
-    System evolution managed collectively. No centralized points of failure.
-  </Card>
-  <Card title="Account Protection" icon="user-shield">
-    3-level security, TAN codes, financial password, 2FA, and Telegram Bot verification.
+<CardGroup cols={1}>
+  <Card title="Audited by CertiK" icon="shield-check">
+    The RWANFTFI smart contracts have been independently audited by **CertiK**. Final report published **April 21, 2026** — full PDF below, and on the public [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-## Smart Contract Security
+CertiK is one of the longest-established security firms in Web3 and audits a significant share of the major protocols in the space. The audit was conducted using their standard methodology — Static Analysis, Manual Review, and Formal Verification — and the full report is published publicly, both on this page and on CertiK's own Skynet directory.
 
-Security is embedded across multiple levels within the platform. All logic and distribution algorithms are locked in immutable code, ensuring 100% transparency. System evolution is managed collectively via the DAO, removing centralized points of failure.
+## Read the Report
 
-## CertiK Audit
+You have three independent ways to interact with the audit. The point isn't to give the same thing three times — it's so there is no doubt the version on this page matches the version CertiK itself publishes, and so the report is accessible regardless of device.
 
-The smart contracts have passed a comprehensive independent audit by **CertiK**, a leading Web3 security firm. This audit verified the architecture, assessed vulnerabilities, and confirmed logic correctness.
+<CardGroup cols={3}>
+  <Card title="Inline Preview" icon="eye">
+    Read the full PDF directly on this page. Best in desktop browsers.
+  </Card>
+  <Card title="Download PDF" icon="download" href="/assets/audit/CertiK-RWANFTFI-Audit.pdf">
+    Save the original report to your device. Recommended on mobile.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    Verify the report on CertiK's own public directory.
+  </Card>
+</CardGroup>
+
+<iframe
+  src="/assets/audit/CertiK-RWANFTFI-Audit.pdf"
+  style={{ width: '100%', height: '900px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+  title="CertiK Audit Report — RWANFTFI"
+></iframe>
+
+<Info>
+  **On mobile** the inline preview above may render as an empty area — most mobile browsers (notably iOS Safari) do not embed PDFs in iframes. Use the **Download PDF** button to open the report on your device.
+</Info>
 
 ## Account Protection
 
-The platform employs a robust multi-layer protection system for user accounts, including a three-level security system, Transaction Authentication Number (TAN) codes, a separate financial password, standard Two-Factor Authentication (2FA), and Telegram Bot verification.
+The audit covers the on-chain smart contract layer. At the application layer, user accounts are additionally protected by several independent mechanisms:
+
+<CardGroup cols={2}>
+  <Card title="Three-Level Security" icon="layer-group">
+    Tiered protection separating login, financial actions, and high-value operations.
+  </Card>
+  <Card title="TAN Codes" icon="key">
+    Single-use Transaction Authentication Numbers required for every financial transaction.
+  </Card>
+  <Card title="Financial Password" icon="lock">
+    A password separate from your login credentials, required only for moving funds.
+  </Card>
+  <Card title="2FA + Telegram Bot" icon="telegram">
+    Standard two-factor authentication, plus action verification through the official Telegram bot.
+  </Card>
+</CardGroup>
 
 <Info>
-  While users can log into the web dashboard with email/password to view data, executing any financial transaction **requires** a connected Web3 wallet (MetaMask, Trust Wallet, etc.).
+  **Transactions require a Web3 wallet.** You can sign in to the dashboard with email and password to view your data, but executing any financial action requires a connected Web3 wallet (MetaMask, Trust Wallet, or another EVM-compatible wallet).
 </Info>
+
+<Warning>
+  **Beware of impersonators.** RWANFTFI staff will never contact you first, never ask for your private keys or seed phrase, and never request payments outside the official platform. Always verify you are on **rwanftfi.com** before connecting your wallet or entering credentials.
+</Warning>
