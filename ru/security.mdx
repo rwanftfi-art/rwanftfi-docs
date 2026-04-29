@@ -7,7 +7,7 @@ icon: "shield-halved"
 
 <CardGroup cols={1}>
   <Card title="Аудит проведён CertiK" icon="shield-check">
-    Смарт-контракты RWANFTFI прошли независимый аудит **CertiK**. Финальный отчёт опубликован **21 апреля 2026 года** — полный PDF доступен ниже, а также в публичной директории [CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+    Смарт-контракты RWANFTFI прошли независимый аудит **CertiK**. Финальный отчёт опубликован **28 апреля 2026 года** — полный PDF доступен ниже, а также в публичной директории [CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
@@ -29,14 +29,22 @@ CertiK — одна из старейших и наиболее авторите
   </Card>
 </CardGroup>
 
-<iframe
-  src="/assets/audit/CertiK-RWANFTFI-Audit.pdf"
-  style={{ width: '100%', height: '900px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
-  title="Отчёт об аудите CertiK — RWANFTFI"
-></iframe>
+<object
+  data="/assets/audit/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="Отчёт об аудите CertiK — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Встроенный просмотр PDF не поддерживается этим браузером.</div>
+    <a href="/assets/audit/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Открыть отчёт об аудите (PDF)
+    </a>
+  </div>
+</object>
 
 <Info>
-  **На мобильных устройствах** встроенный просмотр выше может отображаться как пустая область — большинство мобильных браузеров (особенно iOS Safari) не встраивают PDF в iframe. Используйте кнопку **Скачать PDF**, чтобы открыть отчёт на устройстве.
+  **В Safari и большинстве мобильных браузеров** встроенный просмотр может не отрисоваться — эти браузеры не встраивают PDF напрямую. Используйте кнопку **Скачать PDF** (или ссылку внутри области предпросмотра), чтобы открыть отчёт на устройстве.
 </Info>
 
 ## Защита аккаунта

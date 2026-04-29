@@ -7,7 +7,7 @@ icon: "shield-halved"
 
 <CardGroup cols={1}>
   <Card title="Audited by CertiK" icon="shield-check">
-    The RWANFTFI smart contracts have been independently audited by **CertiK**. Final report published **April 21, 2026** — full PDF below, and on the public [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi).
+    The RWANFTFI smart contracts have been independently audited by **CertiK**. Final report published **April 28, 2026** — full PDF below, and on the public [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
@@ -29,14 +29,22 @@ You have three independent ways to interact with the audit. The point isn't to g
   </Card>
 </CardGroup>
 
-<iframe
-  src="/assets/audit/CertiK-RWANFTFI-Audit.pdf"
-  style={{ width: '100%', height: '900px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
-  title="CertiK Audit Report — RWANFTFI"
-></iframe>
+<object
+  data="/assets/audit/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Audit Report — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Inline PDF preview is not supported in this browser.</div>
+    <a href="/assets/audit/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Open the audit report (PDF)
+    </a>
+  </div>
+</object>
 
 <Info>
-  **On mobile** the inline preview above may render as an empty area — most mobile browsers (notably iOS Safari) do not embed PDFs in iframes. Use the **Download PDF** button to open the report on your device.
+  **On Safari and most mobile browsers** the inline preview may not render — those browsers do not embed PDFs directly. Use the **Download PDF** button (or the link inside the preview area) to open the report on your device.
 </Info>
 
 ## Account Protection
