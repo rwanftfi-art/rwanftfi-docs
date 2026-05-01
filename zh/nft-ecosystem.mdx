@@ -1,0 +1,75 @@
+---
+title: "NFT 生态系统"
+description: "10 个等级,从 28 到 24,000 USDT。"
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="基础级 · L1–L4" icon="circle">
+    28 – 275 USDT · 可访问 RWA 与 FinPro
+  </Card>
+  <Card title="高级 · L5–L8" icon="circle-half-stroke">
+    550 – 5,500 USDT · 挖矿、借贷、对等奖励
+  </Card>
+  <Card title="精英 · L9–L10" icon="circle-dot">
+    11,000 – 24,000 USDT · 最大深度,最短周期
+  </Card>
+</CardGroup>
+
+持有 NFT 是参与营销、挖矿 DA 以及使用金融工具的必要条件。每个账户仅能持有一个有效 NFT —— 升级会自动替换原有 NFT。
+
+<NftTierExplorer />
+
+## 收入上限与自动续约
+<AccordionGroup>
+  <Accordion title="收入上限的工作原理" icon="gauge-high">
+    每个 NFT 都有严格的收入上限 —— 即该 NFT 在续约前可累计产生的最大收入。收入上限会被 **两类来源** 消耗:
+
+    1. **营销奖励** —— 推荐人奖金、二叉树分配、对等奖励,以及来自您结构活动的任何分润。
+    2. **DA 销售** —— 每次手动或自动出售 DA,都会按 USDT 实付金额扣减您剩余的收入上限。
+
+    当上限归零时,您将停止获得 **全部** 营销奖励,**并且** 失去出售 DA 的能力:在手动出售时,系统无法将所得款项记入您的账户;在自动出售时,所得款项的 100% 将被路由至 DA 流动性池或销毁(具体机制由 DAO 设置决定)。为了避免这种情况,请通过 Autobuy(自动续约)、同等级手动续购,或升级至更高等级来续约您的 NFT。当剩余上限高于原值的 30% 时,手动续购会被锁定。
+  </Accordion>
+  <Accordion title="Autobuy(3/3 系统)" icon="rotate">
+    激活 Autobuy 后,当 NFT 的收入上限归零时,系统会自动续购同款 NFT。**对于 1–8 级**,3/3 计数器允许在原始手动购买之后进行最多 3 次自动续约 —— 也就是同一个 NFT 等级最多可累计激活 4 次(1 次手动 + 3 次自动)。计数器仅追踪自动续约;原始购买独立计算。3 次 Autobuy 用尽后,该功能将被锁定,您必须升级,否则将失去奖励。**对于精英级(L9–L10)**,Autobuy 不设上限 —— 顶级 NFT 可无限次续约。
+    所有 Autobuy 都需要常规余额或累积余额上有充足的 USDT(两者可组合使用)。在 L1–L8 上,购买更高等级的 NFT 后,3/3 计数器会重置为 0/3。前一个 NFT 收入上限中未使用的部分 **不会** 结转至新 NFT —— 它将被作废。
+  </Accordion>
+  <Accordion title="商业转让" icon="handshake">
+    您可通过 DAO 授权流程,将整个商业结构(合作伙伴树及下线)转让给另一位用户。该转让由智能合约的 **转让佣金** 把控,而非通过销售价格收取:**卖方支付固定的 500 USDT 费用**(DAO 可在 **0–500 USDT** 范围内调整)以执行转让。**买方无需向协议支付任何链上佣金**,转让执行后即可获得整个结构。对应的链上参数为 `businessTransferFee`(由旧名 `businessSalePrice` 重命名而来,以反映其作为佣金的真实语义)。系统不支持单独出售 NFT 而不附带其结构。
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **收入上限:** 一旦您的 NFT 达到收入上限,您将停止获得所有营销奖励。请启用 Autobuy 来避免此情况 —— 或在剩余上限低于 30% 时手动续约。
+</Warning>
+
+### 冻结余额 —— 首次个人销售的收入保护
+
+当您直接邀请的伙伴 **首次购买** 所产生的营销奖励超过您 NFT 的剩余收入上限时,超出部分不会丢失 —— 而是会冻结 72 小时,为您留出升级 NFT 并领取该笔款项的窗口期。这是保护您从更高等级 NFT 邀请收益的核心机制。
+
+<Card title="完整的冻结余额机制" icon="snowflake" href="/zh/frozen-balance">
+  详细介绍 72 小时窗口、与 Autobuy 的交互、70/30 失效分配、结构层级级联,以及为何来自同一邀请人的重复购买被区别处理。
+</Card>
+
+## 礼品 NFT 与代金券
+<CardGroup cols={2}>
+  <Card title="礼品 NFT" icon="gift">
+    不可出售的促销资产,将用户永久置入营销结构中。无法购买 —— 仅通过促销活动或职级成就获得。每个地址最多 100 个(DAO 可调整,当前值)。
+  </Card>
+  <Card title="礼品代金券" icon="ticket">
+    用户生成的优惠券,智能合约强制设置最低面额为 **5 USDT**(零面额代金券会在链上被拒绝),有效期 **365 天**。最高可覆盖 NFT 购买金额的 100%。可零佣金转让,但在到期前的 **最后 24 小时** 内,转让将被锁定。不可与累积余额组合使用。如果在 365 天有效期内未使用,**100% 的代金券价值将注入 DA 流动性池**。
+  </Card>
+</CardGroup>
+<Warning>
+  **礼品 NFT 覆盖警告:** 如果您已经持有常规 NFT 并激活礼品 NFT,礼品 NFT 将 **覆盖** 您的常规 NFT。请仅在没有常规 NFT 的账户上激活礼品 NFT。
+</Warning>
+## 大使 NFT 与 VIP 版
+<CardGroup cols={2}>
+  <Card title="大使 NFT" icon="crown">
+    限量 **100 个**(2026 Q4)。无收入上限。拥有专属奖励系统。商业转让时不被转移。
+  </Card>
+  <Card title="VIP 版 NFT" icon="gem">
+    限量 **100 个**(2026 Q4)。需达到 **领袖** 职级或以上方可获得。
+  </Card>
+</CardGroup>

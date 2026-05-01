@@ -1,0 +1,130 @@
+---
+title: "智能合约架构"
+description: "Diamond Pattern 与 7 个 Facet。"
+icon: "cubes"
+---
+
+
+RWANFTFI 平台构建在一套稳健、模块化且安全的智能合约架构之上,在没有中心化控制的情况下管理所有交互、分配与代币机制。
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/bx2.mp4"
+/>
+
+## Diamond Pattern(EIP-2535)
+
+RWANFTFI 系统的核心采用 Diamond Pattern(EIP-2535)实现。这一架构选择允许协议突破 24KB 的标准智能合约大小限制,通过将功能拆分为多个独立模块(称为"Facet",即通过单一代理合约访问的智能合约模块)。
+
+## 核心 Facet
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    系统参数、角色、商业转让以及特殊 NFT 铸造。
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    用户注册、NFT 购买与营销奖励分配。
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    NFTM 挖矿与 DA 农场周期管理。
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    充值、提现、代金券生成与累积转账。
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    22 层二叉树逻辑与用户位置安排算法。
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    过期 DA 堆栈处理、代金券销毁与冻结账户的解析。
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    用户数据、余额与树结构的只读查询。
+  </Card>
+</CardGroup>
+
+## NFT 合约与 Token ID 空间
+
+协议使用三套独立的 NFT 合约(Regular、Gift、Ambassador)。为了避免链上 `registeredTokens` 映射(用于追踪系统中每一枚被铸造的 NFT)中出现标识符冲突,**Regular NFT 与 Gift NFT 在按奇偶性划分的独立 `tokenId` 空间中铸造**:
+
+- **Regular NFT** —— 奇数 token ID(`1, 3, 5, 7, …`)。
+- **Gift NFT** —— 偶数 token ID(`2, 4, 6, 8, …`)。
+
+此划分由各 NFT 合约的铸造逻辑在铸造时强制执行。由于其中一个合约成功铸造的标识符,绝不可能与另一个合约可能发出的标识符相同,因此整类映射冲突的 bug 在类型系统层面就被消除了 —— 无需任何运行时守卫或逐次调用的去重检查。该分区对终端用户不可见:钱包与市场仍按其原生合约展示每枚 NFT。
+
+## 可升级性矩阵
+
+* **Diamond 合约(EIP-2535):** 可通过 Facet 切换升级 —— 允许在不重新部署整个系统的情况下添加、替换或移除单个模块。
+* **TokenReserve(DA):** 可通过透明代理升级 —— 在不更改合约地址的前提下更新逻辑。
+* **NFT(Regular、Gift、Ambassador)、GovToken、AdminContract:** 不可升级 —— 确保核心资产与治理规则的不可变性。
+
+## 角色管理
+
+系统采用分层角色结构(AccessControlEnumerable)以安全地管理权限:
+* `ADMIN_ROLE`:可授予/撤销其他角色,并修改关键系统参数。
+* `SERVICE_ROLE`:由后端脚本执行,用于自动化任务(例如解析过期堆栈、处理跨链充值)。
+* `SIGNER_ROLE`:用于密码学签名验证,授权代金券转让等特定操作。
+* `MINTER_ROLE`:被授权铸造特定代币或 NFT。
+
+## 余额结构与支付优先级
+
+为了管理复杂的资金流动,RWANFTFI 在智能合约内部采用多层余额结构。
+
+**用户余额:**
+1. **常规余额(`balance`):** 可用 USDT 的主要钱包。此处的资金可随时提现、用于购买 NFT,或用于生成代金券。
+2. **累积余额(`accumulativeBalance`):** 一个强制储蓄账户,每笔营销奖励的 20% 在到账时立即记入此处。
+   * **使用方式:** 仅可用于购买同等级 NFT 或更高等级 NFT。
+   * **手续费:** 用此余额购买 NFT 收取 20% 手续费,**路由至 DA 流动性池**。转给其他用户也收取 20% 手续费,**路由至 DA 流动性池**。累积余额的每一次动作都会为池子带来流入,并为新 DA 创造基础。
+   * **120 天再分配:** 如果用户在 120 天内未使用其累积余额,未使用的余额便有资格被再分配。分配比例取决于用户的 NFT 类型:
+     - **常规 NFT 持有者:** **70%** 路由至 DA 流动性池,用于铸造新 DA 代币;**30%** 转给用户的直接上级推荐人。
+     - **礼品 NFT 持有者:** **80%** 路由至 DA 流动性池;**20%** 转给直接上级推荐人(由独立的 `accumulativeClaimDistributeGift` 参数管控)。
+     - **级联规则(两类共用):** 如果上级推荐人的收入上限已耗尽(等于零),其份额将继续向上传递,直到结构中下一位合格的参与者。如果链上所有上级都没有有效收入上限,则全部金额路由至 DA 流动性池。
+
+   <Note>
+     **120 天 = 保证最低窗口,而非自动到期:** `accumulativeDecayTime` 参数 **仅在 `withdrawAccumulative()` 内部** 被检查 —— 即由管理员/服务触发的再分配路径。它在花费或转账路径上 **不会** 被评估。这在实际中意味着:
+
+     - 在记入后的前 120 天内,累积余额 **完整性受到保证** —— 任何人都无法对其进行再分配。
+     - 第 120 天之后,余额变为 **可被再分配**,但再分配并不会在计时器到期时自动触发。它只在 SERVICE_ROLE 或 ADMIN_ROLE 针对特定用户调用 `withdrawAccumulative()` 时才会发生。
+     - **在该调用落地之前**,"过期"的累积余额仍可按标准规则与手续费用于 NFT 购买、升级或转给其他用户。
+
+     团队在审计回应中表述的意图为:*"我们的目标是为用户的资金在一段时间内保证完整性,而非赋予其生命周期。"* 请将 120 天理解为 **被再分配前的最低保证窗口**,而非链上的硬性到期时间戳。
+   </Note>
+3. **上限(`limit`):** 表示一个 NFT 可生成的最大剩余收入。
+
+### 系统余额
+
+除用户余额外,智能合约还维护三个内部系统余额:
+
+- **开发余额(`devBalance`):** 累积平台费用与佣金,用于运营资金。
+- **代币储备余额(`tokenReserveBalance`):** 100% 背书 DA 代币的 USDT 流动性池。生态系统中每一项收入来源都流入此池。
+- **价格影响余额(`priceImpactBalance`):** 一个特殊储备,用于在特定生态事件期间管理 DA 代币的价格稳定性。
+
+这些余额完全由智能合约管理,任何个人用户或管理员均无法访问。
+
+### 支付优先级
+
+进行购买时,智能合约按以下顺序扣款:
+
+<Steps>
+  <Step title="代金券(手动)">
+    如果用户在结账时显式应用代金券,其面额优先消耗。代金券不会被自动应用。
+  </Step>
+  <Step title="累积余额">
+    如果用户选择使用累积余额,会以 100% 覆盖应用(若充足)或与常规余额组合使用。20% 手续费路由至 DA 流动性池。
+  </Step>
+  <Step title="常规余额">
+    剩余金额从常规余额扣除。
+  </Step>
+</Steps>
+
+<Warning>
+  礼品代金券 **不可** 与累积余额组合使用。有效组合:[代金券 + 常规]、[100% 累积]、或 [累积 + 常规]。
+</Warning>
+
+<Note>
+  币安智能链上的所有交易都需以 **BNB** 支付标准网络 gas 费。用户必须在钱包中持有少量 BNB,以便执行任何链上操作(购买、提现、转账)。这与生态系统内使用的 USDT 余额相互独立。
+</Note>
