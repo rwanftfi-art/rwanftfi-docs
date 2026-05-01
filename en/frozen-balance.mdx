@@ -4,6 +4,8 @@ description: "Marketing income protection for invitations into higher tiers."
 icon: "snowflake"
 ---
 
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
 Frozen Balance is the mechanic that protects your marketing income in one specific but very common situation: when **your direct personal invitee makes their first NFT purchase at a higher tier than your own**, and the resulting commission exceeds your NFT's remaining Income Limit.
 
 Without Frozen Balance, that excess would be lost to compression — passed up the structure. Frozen Balance freezes it for **72 hours** and gives you a window to upgrade your NFT and claim the full amount.
@@ -84,6 +86,8 @@ Frozen Balance does **not** activate in this scenario because the source is not 
 <Info>
   Takeaway for scale: at large network volumes, the key lever is **the level of your own NFT**. Higher tiers carry larger Income Limits and reduce the share lost to compression. Elite tiers (L9–L10), with unlimited Autobuy, address this systemically.
 </Info>
+
+<FrozenBalanceSimulator lang="en" />
 
 ## Frozen Balance Parameters (On-Chain)
 
