@@ -25,10 +25,12 @@ Owning an NFT is mandatory to participate in marketing, mine DA, and access fina
 ## Income Limits & Auto-Renewal
 <AccordionGroup>
   <Accordion title="How Income Limits Work" icon="gauge-high">
-    Every NFT has a strict Income Limit. Once you earn marketing rewards
-    equal to this limit, it reaches zero and you **miss all further rewards**.
-    To prevent this, renew your NFT. You cannot manually repurchase if your
-    remaining limit is above 30%.
+    Every NFT has a strict Income Limit — the maximum cumulative income that NFT can generate before renewal. The Income Limit is consumed by **two sources**:
+
+    1. **Marketing rewards** — Sponsor Bonus, Tree Distribution, Matching Bonus, any payouts from your structure's activity.
+    2. **DA sales** — every manual or auto-sell of DA reduces your remaining Income Limit by the USDT payout amount.
+
+    When the limit reaches zero, you stop receiving **all** marketing rewards **and** lose the ability to sell DA: on a manual sale, the system cannot credit you the payout; on an auto-sell, 100% of proceeds are routed to the DA Liquidity Pool or to burn (the exact mechanism is determined by DAO settings). To prevent this, renew your NFT — via Autobuy, manual same-level repurchase, or upgrade to a higher tier. Manual repurchase is locked while your remaining limit is above 30% of the original.
   </Accordion>
   <Accordion title="Autobuy (3/3 System)" icon="rotate">
     Activate Autobuy to automatically repurchase the same NFT when its
@@ -40,8 +42,10 @@ Owning an NFT is mandatory to participate in marketing, mine DA, and access fina
     locks and you must upgrade or lose rewards. **For Elite (L9–L10)**,
     autobuys are unlimited — the top-tier NFTs renew without a cap.
     All autobuys require sufficient USDT on Regular or Accumulative
-    Balance (both can be combined). On L1–L8, the counter resets to
-    0/3 on NFT upgrade.
+    Balance (both can be combined). On L1–L8, the 3/3 counter resets to
+    0/3 when a higher-tier NFT is purchased. The unused portion of the
+    previous NFT's Income Limit does **not** carry over to the new NFT —
+    it is voided.
   </Accordion>
   <Accordion title="Business Sale" icon="handshake">
     Transfer your entire business structure (partner tree and downline) to
@@ -61,58 +65,19 @@ Owning an NFT is mandatory to participate in marketing, mine DA, and access fina
   when your limit drops below 30%.
 </Warning>
 
-### Frozen Balance — 72-Hour Upgrade Window
+### Frozen Balance — Income Protection on First Personal Sales
 
-When a marketing reward is generated that exceeds your NFT's remaining Income Limit, the smart contract does not discard the excess. Instead, it splits the reward into two parts:
+When a marketing reward from a **first-time purchase** by your direct invitee exceeds your NFT's remaining Income Limit, the excess is not lost — it freezes for 72 hours, giving you a window to upgrade your NFT and claim the funds. This is the core mechanic that protects income from inviting partners into higher-tier NFTs.
 
-- **Within your remaining limit** — credited normally using the standard split: **75% Regular Balance**, **20% Accumulative Balance**, **5% DA Liquidity Pool**.
-- **Excess above your limit** — placed into a **Frozen Balance** with a **72-hour countdown timer**.
-
-You then have exactly **72 hours** to upgrade your NFT to a higher level (which carries a higher Income Limit). Upon upgrading, the frozen funds are released and credited using the same 75/20/5 split. The released amount is deducted from your **new** NFT's Income Limit.
-
-<Warning>
-  **72-Hour Deadline:** If you do not upgrade within 72 hours, the frozen funds are **permanently forfeited** and redistributed: **70%** is directed to the DA Liquidity Pool for DA generation, and **30%** is transferred to your upline sponsor in the network.
-
-  **Cascade rule (identical to the Accumulative Balance 120-day decay cascade):** If the direct upline sponsor's Income Limit is exhausted (zero), the 30% sponsor share passes further up the chain to the next participant with an active Income Limit. If **no one** in the entire upline has an active Income Limit, the 30% sponsor share is also routed to the DA Liquidity Pool — so **100% of the forfeited amount ends up in the DA Liquidity Pool**. Either way, you receive nothing — the opportunity is lost.
-</Warning>
-
-**Interaction with Autobuy:**
-If Autobuy is enabled, the smart contract evaluates the rebuy **before** any portion of the reward is moved into Frozen Balance. The sequence is strictly ordered:
-
-1. The same-level NFT is automatically repurchased (subject to the standard 3/3 cap on L1–L8 — see Autobuy above), refreshing your Income Limit. Funds for the rebuy are drawn from Regular and/or Accumulative Balance.
-2. The pending reward is re-evaluated against the refreshed Income Limit; as much as fits is credited normally with the 75/20/5 split.
-3. Only the residual that still does not fit after step 2 is placed into Frozen Balance with the 72-hour timer.
-
-You can then manually upgrade to a higher-level NFT within the 72-hour window to unlock the rest.
-
-<Info>
-  **Example:** You hold a small NFT with an Income Limit of 160 USDT. Your direct partner purchases an NFT for 2,200 USDT, generating a 30% Direct Sale commission of 660 USDT.
-</Info>
-
-<Steps>
-  <Step title="Commission is calculated">
-    Your partner buys a 2,200 USDT NFT → 30% Direct Sale commission = **660 USDT** earned.
-  </Step>
-  <Step title="Amount within your Income Limit is credited">
-    160 USDT fits within your current limit and is split: 75% Regular Balance, 20% Accumulative Balance, 5% DA Liquidity Pool.
-  </Step>
-  <Step title="Excess is frozen for 72 hours">
-    The remaining **500 USDT** exceeds your Income Limit and is placed into Frozen Balance. A 72-hour countdown begins.
-  </Step>
-  <Step title="You upgrade your NFT">
-    You upgrade to Eclipse (Income Limit: 650 USDT). The 500 USDT frozen balance is released and credited using the standard 75/20/5 split. Your new remaining limit: 650 − 500 = **150 USDT**.
-  </Step>
-</Steps>
-
-<Note>
-  **Bulk processing of expired freezes (technical):** When the protocol resolves expired Frozen Balances at scale, the smart contract walks the queue in **paginated batches with a hard cap on the number of entries handled per call**. This is a deliberate gas-exhaustion safeguard — it prevents a single transaction from being pushed into a denial-of-service condition by an unbounded freeze queue. For an individual user this is invisible during normal operation; in the rare case of an unusually large queue, full resolution may simply take more than one transaction to complete. The economic outcome for your funds — release on upgrade within 72 hours, or the 70/30 redistribution described above after the deadline — is unchanged.
-</Note>
+<Card title="Full Frozen Balance Mechanics" icon="snowflake" href="/en/frozen-balance">
+  Detailed walkthrough of the 72-hour window, interaction with Autobuy, the 70/30 forfeiture split, structure-level cascade, and why repeat purchases from the same invitee are handled differently.
+</Card>
 
 ## Gift NFTs & Vouchers
 <CardGroup cols={2}>
   <Card title="Gift NFTs" icon="gift">
-    Non-sellable promotional assets that place users permanently in the binary
-    tree. Cannot be purchased — awarded through promotions or Career Rank
+    Non-sellable promotional assets that place users permanently in the marketing
+    structure. Cannot be purchased — awarded through promotions or Career Rank
     achievements. Up to 100 per address (DAO-adjustable, current).
   </Card>
   <Card title="Gift Vouchers" icon="ticket">

@@ -32,7 +32,8 @@ icon: "book"
   <Accordion title="Auto-sell">
     Automatic forced sale of DA if the user does not sell manually. The user receives
     70% of value in USDT (5% less than manual sale). 100% of auto-sold tokens are
-    permanently burned; the remaining 30% stays as backing in the pool — this drives the price growth. DA is 100%
+    permanently burned; the remaining 30% is a protocol commission that stays as
+    backing in the pool — this drives the price growth. DA is 100%
     available from day one — auto-sell triggers progressively from the remaining
     balance: Period 1 — 25% after 120 days (~4 months), Period 2 — 40% of remaining
     after 90 days (~3 months, day 210), Period 3 — 50% of remaining after 90 days
@@ -80,8 +81,9 @@ icon: "book"
   <Accordion title="DA (Deflationary Asset)">
     The ecosystem's core economic token. Hard-capped at 21M, 100% backed by
     a USDT liquidity pool. Price = Liquidity ÷ Supply. 100% of sold tokens are
-    permanently burned on every sale. The remaining 25% (manual) / 30% (auto) stays
-    as backing in the pool, directly driving price growth.
+    permanently burned on every sale. The remaining 25% (manual) / 30% (auto)
+    is a protocol commission that stays as backing in the pool, directly driving
+    price growth.
   </Accordion>
   <Accordion title="Deflationary Cycle">
     A system-wide event triggered twice per year, lasting up to 30 days. During this
@@ -98,22 +100,26 @@ icon: "book"
     Launching Q3 2026.
   </Accordion>
   <Accordion title="Frozen Balance">
-    When a marketing reward exceeds the user's current NFT Income Limit, the excess is
-    placed into a Frozen Balance with a 72-hour countdown. The user must upgrade their NFT
-    within 72 hours to unlock the funds — upon upgrading, frozen funds are released using
-    the standard split (75% Regular Balance, 20% Accumulative Balance, 5% DA Liquidity Pool)
-    and reduce the new NFT's Income Limit. If the user does not upgrade in time, frozen
-    funds are forfeited — 70% goes to the DA Liquidity Pool for DA generation, 30% to the
-    upline sponsor (cascades up if sponsor has zero Income Limit). If Autobuy is enabled, it fires first (refreshing the
-    limit via rebuy); any remaining excess is still frozen with the same 72-hour timer.
+    A mechanic that protects marketing income from a personal invitee's first
+    purchase when the commission exceeds the inviter's NFT Income Limit. The
+    excess freezes for 72 hours; within this window, the user can upgrade their
+    NFT and claim the funds. If the deadline is missed, 70% is routed to the DA
+    Liquidity Pool and 30% to the upline sponsor, with cascade up the structure.
+    **Repeat purchases by the same invitee are not covered by Frozen Balance** —
+    they fall under the standard compression rule (Lost Income). Full mechanics
+    with examples and scenarios are documented on the dedicated
+    [Frozen Balance](/en/frozen-balance) page.
   </Accordion>
   <Accordion title="Gift NFT">
     Non-sellable promotional NFT that places a user permanently in the binary tree.
     Cannot be purchased — awarded through promotions or Career Rank achievements.
   </Accordion>
   <Accordion title="Income Limit">
-    Maximum USDT rewards a specific NFT can generate before renewal is required.
-    When limit reaches zero, all rewards are skipped (compression activates).
+    Maximum cumulative USDT income a specific NFT can generate before renewal is
+    required. Consumed by two sources: marketing rewards and DA sales. When the
+    limit reaches zero, all marketing rewards are skipped (compression activates),
+    and manual DA sale is not possible — on auto-sell, proceeds are routed to
+    the DA Liquidity Pool or to burn (determined by DAO).
   </Accordion>
   <Accordion title="Lending Default">
     If a borrower fails to repay their loan within the 30-day cutoff period, the

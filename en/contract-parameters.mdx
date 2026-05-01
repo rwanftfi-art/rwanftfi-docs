@@ -45,10 +45,6 @@ When a user purchases an NFT, the payment is automatically split across multiple
   </Tab>
 </Tabs>
 
-<Info>
-  The remaining ~43% of every NFT purchase is distributed across the binary tree as Tree Distribution rewards (levels 1–22). See the [Marketing Tree Distribution](#marketing-tree-distribution) section below for the per-level breakdown. Direct sponsor commission (Sponsor Bonus 30% / 20%) is paid separately and is not part of the tree distribution.
-</Info>
-
 ## Fees & Commissions
 
 All fees are enforced by the smart contract and adjustable within defined ranges through DAO governance.
@@ -63,7 +59,6 @@ All fees are enforced by the smart contract and adjustable within defined ranges
 | Gift Send Price | $0 | $0 – $25 |
 | Business Sale Fee | $500 | $0 – $500 |
 | Frozen Balance → Sponsor | 30% | 0% – 30% |
-| BNB Transaction Fee | 0.001 BNB | 0.00003 – 0.005 BNB |
 
 <Note>
   **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
@@ -116,8 +111,6 @@ When an Accumulative Balance expires (after the lifetime period), funds are redi
 ## Marketing Tree Distribution
 
 Each level of the 22-level binary tree has a fixed reward percentage that determines how much a user earns from NFT sales at that depth. Percentages are DAO-adjustable within defined ranges. Levels 16–22 are unlocked in Phase 2.
-
-These percentages apply to the ~43% of each NFT purchase allocated to tree distribution. Sponsor Bonus (30% First Purchase / 20% Repeat Purchase) is paid separately.
 
 <AccordionGroup>
   <Accordion title="Levels 1–6 · Entry Layers" icon="layer-group">
