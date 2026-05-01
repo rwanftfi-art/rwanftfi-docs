@@ -1,0 +1,102 @@
+---
+title: "Frozen Balance"
+description: "Schutz des Marketingeinkommens bei Einladungen in höhere Stufen."
+icon: "snowflake"
+---
+
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
+Frozen Balance ist der Mechanismus, der Ihr Marketingeinkommen in einer spezifischen, aber sehr häufigen Situation schützt: wenn **Ihr direkt persönlich eingeladener Partner seinen ersten NFT-Kauf in einer höheren Stufe als Ihrer eigenen tätigt** und die daraus resultierende Provision das verbleibende Einkommenslimit Ihres NFTs übersteigt.
+
+Ohne Frozen Balance würde dieser Überschuss durch Kompression verloren gehen – nach oben in der Struktur weitergeleitet. Frozen Balance friert ihn für **72 Stunden** ein und gibt Ihnen ein Zeitfenster, um Ihr NFT aufzuwerten und den vollen Betrag zu beanspruchen.
+
+<Info>
+  Dies ist das Marketing-Sicherheitsnetz für „aufwärts" gerichtete Einladungen: Sie können selbstbewusst Partner in jede NFT-Stufe einladen, ohne befürchten zu müssen, dass die Provision auf einen großen Kauf verloren geht, weil Ihr eigenes Einkommenslimit zu klein ist.
+</Info>
+
+## Wann Frozen Balance ausgelöst wird
+
+Frozen Balance aktiviert sich **nur, wenn alle drei Bedingungen erfüllt sind**:
+
+<Steps>
+  <Step title="Der Käufer ist Ihr direkt persönlich Eingeladener">
+    Kein Spillover, kein Downline-Partner fünf Ebenen tief – speziell eine Person, die Sie persönlich in Ihre Struktur eingeladen haben.
+  </Step>
+  <Step title="Es ist der erste NFT-Kauf dieses Eingeladenen">
+    Wiederholungskäufe desselben Eingeladenen (Rückkauf, Upgrade, neues NFT nach Autobuy) werden **nicht** durch Frozen Balance abgedeckt – siehe den Abschnitt „Verlorenes Einkommen" unten.
+  </Step>
+  <Step title="Die Provision übersteigt Ihr verbleibendes Einkommenslimit">
+    Wenn Ihr verbleibendes Einkommenslimit groß genug ist, um die volle Provision aufzunehmen, erfolgt kein Einfrieren – alles wird normal gutgeschrieben.
+  </Step>
+</Steps>
+
+## Wie sich der Betrag aufteilt
+
+Wenn Frozen Balance ausgelöst wird, teilt der Smart Contract die Provision in zwei Teile auf:
+
+- **Innerhalb Ihres verbleibenden Einkommenslimits** – sofort gutgeschrieben gemäß der Standardaufteilung: **75 % Reguläres Guthaben / 20 % Akkumulatives Guthaben / 5 % DA-Liquiditätspool**.
+- **Überschuss über Ihr Einkommenslimit hinaus** – in Frozen Balance mit einem **72-Stunden-Timer** platziert.
+
+## Was während der 72 Stunden geschieht
+
+Sie haben drei Szenarien:
+
+<Tabs>
+  <Tab title="Sie werten Ihr NFT auf">
+    Sie kaufen ein NFT einer höheren Stufe (mit einem größeren Einkommenslimit). Die eingefrorenen Mittel werden automatisch freigegeben und gemäß derselben **75/20/5**-Aufteilung gutgeschrieben. Der freigegebene Betrag wird vom Einkommenslimit des **neuen** NFTs abgezogen.
+
+    **Beispiel.** Einkommenslimit Ihres NFTs = 160 USDT. Ihr Eingeladener kauft ein NFT für 2.200 USDT; Provision = 660 USDT. 160 USDT werden sofort gutgeschrieben (75/20/5). 500 USDT gehen in Frozen Balance. Sie werten auf Eclipse auf (Einkommenslimit 650 USDT). Die 500 USDT werden freigegeben und gutgeschrieben. Neues verbleibendes Einkommenslimit: 650 − 500 = **150 USDT**.
+  </Tab>
+  <Tab title="Autobuy ist aktiviert">
+    Wenn Autobuy aktiv ist, ändert sich die Reihenfolge. Autobuy wird **zuerst** ausgelöst, kauft das NFT der gleichen Stufe zurück und erneuert Ihr Einkommenslimit. Die Provision wird dann gegen das aufgefrischte Limit neu bewertet, der Anteil innerhalb des Limits wird gutgeschrieben und **nur der Restbetrag** (sofern vorhanden) geht mit dem 72-Stunden-Timer in Frozen Balance.
+
+    Das bedeutet: Wenn Ihr eigenes NFT und das aufgefrischte Einkommenslimit nach Autobuy ausreichen, wird Frozen Balance möglicherweise gar nicht aktiviert.
+  </Tab>
+  <Tab title="Sie verpassen die Frist">
+    Wenn Sie nicht innerhalb von 72 Stunden upgraden und Autobuy den Überschuss nicht abgedeckt hat, **verfallen** die eingefrorenen Mittel **dauerhaft** und werden umverteilt:
+
+    - **70 %** werden an den DA-Liquiditätspool zur neuen DA-Prägung weitergeleitet.
+    - **30 %** werden an Ihren direkten Upline-Sponsor übertragen.
+
+    Die Kaskadenregel ist identisch mit der Kaskade für den Verfall des Akkumulativen Guthabens: Wenn das Einkommenslimit des Upline-Sponsors null ist, gehen die 30 % weiter die Kette nach oben zum ersten Teilnehmer mit aktivem Einkommenslimit. Wenn keine Upline ein aktives Limit hat, werden die vollen 100 % an den DA-Liquiditätspool weitergeleitet.
+  </Tab>
+</Tabs>
+
+## Wiederholungskäufe desselben Eingeladenen
+
+Dieses Detail wird leicht übersehen: Frozen Balance gilt **nur für den ersten Kauf** jedes persönlich Eingeladenen. Wenn Ihr Eingeladener später einen zweiten Kauf tätigt (Rückkauf, Upgrade, neues NFT) und Ihr Einkommenslimit ihn wieder nicht aufnehmen kann, geht der Überschuss **nicht** in Frozen Balance. Er wird als **Verlorenes Einkommen** markiert und gemäß der Standard-Kompressionsregel verteilt: nach oben in der Struktur an den nächsten Teilnehmer mit aktivem Einkommenslimit weitergeleitet.
+
+<Warning>
+  Wenn Sie eine lange Reihe von Wiederholungskäufen großer Eingeladener haben und **Ihr Einkommenslimit erschöpft ist**, umgeht Sie jeder solche Wiederholungskauf durch Kompression. Halten Sie Ihr Einkommenslimit aktiv – durch Autobuy oder manuelle Erneuerung – damit Sie kein Einkommen von etablierten Partnern verlieren.
+</Warning>
+
+## Hochvolumen-Szenario — Kaskade durch die Struktur
+
+Frozen Balance schützt **nur** die Provision auf den Erstkauf eines direkten Eingeladenen. Aber in einer großen Struktur stammt der Großteil Ihres Einkommens nicht aus persönlichen Verkäufen – er kommt aus der Tiefe, durch die Tree Distribution (4 % auf Ebene 9 × 500+ Positionen können Zehntausende USDT in einem einzigen Abrechnungszyklus einbringen).
+
+Wenn dieses Volumen eintrifft und Ihr Einkommenslimit 1.100 USDT beträgt, mit Autobuy, das es maximal dreimal auffrischen kann (3/3 auf den Stufen L1–L8), führt das System Folgendes aus:
+
+1. Schreibt Ihnen 1.100 USDT gemäß der Standardaufteilung gut.
+2. Löst Autobuy aus, frischt das Limit auf, schreibt weitere 1.100 USDT gut.
+3. Wiederholt bis zu dreimal.
+4. **Das gesamte verbleibende Volumen wird komprimiert** – nach oben an den nächsten Teilnehmer mit aktivem Einkommenslimit weitergeleitet.
+
+Frozen Balance wird in diesem Szenario **nicht** aktiviert, da die Quelle nicht der Erstkauf eines Eingeladenen ist, sondern Tree Distribution aus der Tiefe.
+
+<Info>
+  Erkenntnis für Skalierung: Bei großen Netzwerkvolumina ist der Schlüsselhebel **die Stufe Ihres eigenen NFTs**. Höhere Stufen tragen größere Einkommenslimits und reduzieren den durch Kompression verlorenen Anteil. Elite-Stufen (L9–L10) mit unbegrenztem Autobuy adressieren dies systematisch.
+</Info>
+
+<FrozenBalanceSimulator lang="en" />
+
+## Frozen-Balance-Parameter (On-Chain)
+
+| Parameter | Wert | Veränderbarkeit |
+|---|---|---|
+| Einfrierfenster | 72 Stunden | Unveränderlich |
+| DA-Liquiditätspool-Anteil bei Verfall | 70 % | DAO-anpassbar (50–100 %) |
+| Upline-Sponsor-Anteil bei Verfall | 30 % | DAO-anpassbar (0–30 %) |
+| Auslöser | Erstkauf durch direkt persönlich Eingeladenen | Unveränderlich |
+| Freigabeverteilung | 75/20/5 | Standardaufteilung – siehe Architektur |
+
+Siehe auch: [Einkommenslimit auf der NFT-Ökosystem-Seite](/de/nft-ecosystem), [Zahlungspriorität in der Architektur](/de/architecture).

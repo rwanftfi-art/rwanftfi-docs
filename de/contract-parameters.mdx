@@ -1,0 +1,188 @@
+---
+title: "Vertragsparameter"
+description: "On-Chain-Parameter, DAO-anpassbare Bereiche und unveränderliche Garantien."
+icon: "sliders"
+---
+
+> ***„Vertrauen ist kein Versprechen – es ist ein Parameter, fest codiert in einem auditierten Smart Contract."***
+>
+> **— RWANFTFI**
+
+Jeder Parameter im RWANFTFI-Ökosystem wird vom Smart Contract definiert und durchgesetzt. Jeder Parameter ist öffentlich On-Chain überprüfbar. Eine Teilmenge der Parameter kann durch DAO-Governance innerhalb vordefinierter Sicherheitsbereiche angepasst werden. Die übrigen Parameter sind dauerhaft fest codiert und können von niemandem – auch nicht von Entwicklern – geändert werden.
+
+<CardGroup cols={3}>
+  <Card title="DAO-anpassbar" icon="sliders">
+    Parameter, die die DAO-Governance innerhalb vordefinierter Sicherheitsbereiche ändern kann.
+  </Card>
+  <Card title="Unveränderlich" icon="shield-halved">
+    Fest codierte Parameter, die von niemandem – auch nicht von Entwicklern – jemals geändert werden können.
+  </Card>
+  <Card title="On-Chain verifiziert" icon="link">
+    Alle Werte werden in auditierten Smart Contracts gespeichert und sind öffentlich auf BscScan überprüfbar.
+  </Card>
+</CardGroup>
+
+## NFT-Kaufverteilung
+
+Wenn ein Nutzer ein NFT kauft, wird die Zahlung vom Smart Contract automatisch auf mehrere Empfänger aufgeteilt. Die Verteilung unterscheidet sich zwischen Erstkäufen und Wiederholungskäufen (Rebuys).
+
+<Tabs>
+  <Tab title="Erstkauf">
+    | Parameter | Aktuell | Bereich |
+    |---|---|---|
+    | Sponsor-Bonus | 30 % | 10 % – 35 % |
+    | Token Reserve (DA-Pool) | 0 % | 0 % – 30 % |
+    | Plattform-Betrieb | 7 % | 2 % – 10 % |
+    | Akkumulatives Guthaben | 20 % | 15 % – 30 % |
+  </Tab>
+  <Tab title="Wiederholungskauf (Rebuy)">
+    | Parameter | Aktuell | Bereich |
+    |---|---|---|
+    | Sponsor-Bonus | 20 % | 10 % – 35 % |
+    | Token Reserve (DA-Pool) | 10 % | 10 % – 30 % |
+    | Plattform-Betrieb | 7 % | 2 % – 10 % |
+    | Akkumulatives Guthaben | 20 % | 15 % – 30 % |
+  </Tab>
+</Tabs>
+
+## Gebühren & Provisionen
+
+Alle Gebühren werden vom Smart Contract durchgesetzt und können innerhalb definierter Bereiche durch DAO-Governance angepasst werden.
+
+| Parameter | Aktuell | Bereich |
+|---|---|---|
+| Marketing-Belohnungs-Steuer | 5 % | 5 % – 15 % |
+| Akkumulative Übertragungsgebühr | 20 % | 10 % – 30 % |
+| Akkumulative Nutzungsgebühr (NFT-Kauf) | 20 % | 10 % – 30 % |
+| Kreditgebühr | 5 % | 0 % – 5 % |
+| Auszahlungsgebühr | 0 % | 0 % – 5 % |
+| Versandpreis für Geschenk | 0 USD | 0 – 25 USD |
+| Geschäftsverkaufsgebühr | 500 USD | 0 – 500 USD |
+| Frozen Balance → Sponsor | 30 % | 0 % – 30 % |
+
+<Note>
+  **Geschäftsverkaufsgebühr — Semantik:** Die Zeile „Geschäftsverkaufsgebühr" ist eine **Übertragungsprovision, die der Verkäufer zahlt**, um eine Übertragung der Geschäftsstruktur auszuführen. Es ist **kein** vom Käufer eingezogener Verkaufspreis – der Käufer zahlt keine On-Chain-Provision an das Protokoll und erhält bei der Ausführung die Partnerbaum-Struktur. Der On-Chain-Parameter, der diese Provision regelt, ist `businessTransferFee` (umbenannt vom alten `businessSalePrice`, um seine tatsächliche Provisionssemantik widerzuspiegeln).
+</Note>
+
+## Timer & Zeitpläne
+
+Zeitbasierte Parameter steuern kritische Systemfenster und Fristen im gesamten Ökosystem.
+
+| Parameter | Aktuell | Bereich |
+|---|---|---|
+| Lebensdauer des Akkumulativen Guthabens | 120 Tage | 90 – 180 Tage |
+| NFTM-Beanspruchungsfenster | 72 Stunden | 24 – 96 Stunden |
+| Geschenk-NFTs pro Adresse | 100 | 1 – 400 |
+| Geschäftsverkauf | Deaktiviert | Deaktiviert – Aktiviert |
+
+### Auto-Verkaufs-Perioden
+
+Der Auto-Verkaufs-Zyklus wird progressiv aus dem verbleibenden DA-Guthaben ausgelöst, wenn der Nutzer nicht manuell verkauft. Die Gesamtzyklusdauer ist die Summe aller vier Perioden.
+
+| Periode | Aktuell | Bereich |
+|---|---|---|
+| Periode 1 | 120 Tage | 60 – 120 Tage |
+| Periode 2 | 90 Tage | 60 – 120 Tage |
+| Periode 3 | 90 Tage | 60 – 120 Tage |
+| Periode 4 | 65 Tage | 60 – 120 Tage |
+| **Gesamtzyklus** | **365 Tage** | — |
+
+## Umverteilung abgelaufener Guthaben
+
+Wenn ein Akkumulatives Guthaben (nach Ablauf der Lebensdauer) verfällt, werden die Mittel gemäß den folgenden Regeln umverteilt. Die Verteilung unterscheidet sich zwischen Inhabern von Regular NFTs und Inhabern von Gift NFTs.
+
+<Tabs>
+  <Tab title="Regular NFT">
+    | Empfänger | Aktuell | Bereich |
+    |---|---|---|
+    | Upline-Sponsor | 30 % | 0 % – 30 % |
+    | Plattform | 0 % | 0 % – 30 % |
+    | DA-Liquiditätspool | 70 % | 50 % – 100 % |
+  </Tab>
+  <Tab title="Gift NFT">
+    | Empfänger | Aktuell | Bereich |
+    |---|---|---|
+    | Upline-Sponsor | 20 % | 0 % – 30 % |
+    | Plattform | 0 % | 0 % – 30 % |
+    | DA-Liquiditätspool | 80 % | 50 % – 100 % |
+  </Tab>
+</Tabs>
+
+## Marketing-Baum-Verteilung
+
+Jede Ebene der 22-stufigen Marketing-Struktur hat einen festen Belohnungsprozentsatz, der bestimmt, wie viel ein Nutzer aus NFT-Verkäufen in dieser Tiefe verdient. Die Prozentsätze sind innerhalb definierter Bereiche DAO-anpassbar. Die Ebenen 16–22 werden in Phase 2 freigeschaltet.
+
+<AccordionGroup>
+  <Accordion title="Ebenen 1–6 · Einstiegsebenen" icon="layer-group">
+    | Ebene | Aktuell | Bereich |
+    |---|---|---|
+    | Ebene 1 | 0 % | 0 % |
+    | Ebene 2 | 1 % | 1 % – 2 % |
+    | Ebene 3 | 2 % | 2 % – 3 % |
+    | Ebene 4 | 2 % | 2 % – 3 % |
+    | Ebene 5 | 3 % | 3 % – 4 % |
+    | Ebene 6 | 3 % | 3 % – 4 % |
+  </Accordion>
+  <Accordion title="Ebenen 7–15 · Kern-Verdiensttiefe" icon="chart-simple">
+    | Ebene | Aktuell | Bereich |
+    |---|---|---|
+    | Ebene 7 | 4 % | 4 % – 5 % |
+    | Ebene 8 | 4 % | 4 % – 5 % |
+    | Ebene 9 | 4 % | 4 % – 5 % |
+    | Ebene 10 | 4 % | 3 % – 5 % |
+    | Ebene 11 | 4 % | 3 % – 5 % |
+    | Ebene 12 | 4 % | 3 % – 5 % |
+    | Ebene 13 | 4 % | 3 % – 5 % |
+    | Ebene 14 | 4 % | 3 % – 5 % |
+    | Ebene 15 | 5 % | 3 % – 5 % |
+  </Accordion>
+  <Accordion title="Ebenen 16–22 · Phase-2-Erweiterung" icon="rocket">
+    | Ebene | Aktuell | Geplant (Phase 2) | Bereich |
+    |---|---|---|---|
+    | Ebene 16 | 0 % | 2 % | 0 % – 2,5 % |
+    | Ebene 17 | 0 % | 2 % | 0 % – 2,5 % |
+    | Ebene 18 | 0 % | 1 % | 0 % – 2,5 % |
+    | Ebene 19 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Ebene 20 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Ebene 21 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Ebene 22 | 0 % | 0,5 % | 0 % – 2,5 % |
+
+    <Note>
+      **Aktuell = 0 %**, bis Phase 2 durch DAO-Abstimmung aktiviert wird (geplant **Q4 2026**). **Geplant (Phase 2)** = die Werte, die die DAO bei der Aktivierung voraussichtlich freischaltet. Alle geplanten Werte liegen innerhalb des On-Chain-`Bereichs`, sodass die Aktivierung keine Erweiterung von Parametergrenzen erfordert.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Budget der Tree Distribution vs. Obergrenzen pro Ebene.** Die Prozentsätze pro Ebene in den obigen Tabellen stellen die **maximale Auszahlung pro Ebene** dar. Das gesamte Tree-Distribution-**Budget pro NFT-Kauf beträgt etwa 43 %** (berechnet als 100 % abzüglich Sponsor-Bonus, Token Reserve / DA-Pool, Plattform-Betrieb und Akkumulatives Guthaben). Der arithmetische Unterschied zwischen der theoretischen Pro-Ebene-Summe (~48 % in Phase 1, wachsend auf ~55 %, wenn Phase 2 mit den geplanten Werten aktiviert wird) und dem tatsächlichen ~43 %-Budget wird über den **Kompressionsmechanismus** absorbiert: Wenn ein Upline-Nutzer nicht qualifiziert ist (erschöpftes Einkommenslimit oder zu niedrige NFT-Stufe für diese Tiefe), wird der nicht zugewiesene Anteil nicht weiter den Baum hinaufgedrückt – er fließt stattdessen an den Plattform-/Dev-Restposten. Mit anderen Worten: Die Pro-Ebene-Sätze sind eine Obergrenze dessen, was eine vollständig berechtigte Position in jeder Tiefe aus einem einzelnen Kauf verdienen kann, und keine Garantie, dass die volle Summe bei jedem Kauf an den Baum ausgezahlt wird.
+</Note>
+
+### Matching-Bonus-Schwellen
+
+Der Matching Bonus zahlt 5 % über drei Ebenen des direkten Partnereinkommens. Jede Ebene erfordert kumulative persönliche Verkäufe zur Freischaltung. Der Matching-Prozentsatz (5 %) ist unveränderlich.
+
+| Ebene | Erforderliche Verkäufe | Bereich |
+|---|---|---|
+| Ebene 1 (5 %) | 0 USD | Fest |
+| Ebene 2 (5 %) | 1.000 USD | 1.000 – 5.000 USD |
+| Ebene 3 (5 %) | 3.000 USD | 3.000 – 7.000 USD |
+
+## Unveränderliche Parameter
+
+<CardGroup cols={1}>
+  <Card title="Fest codiert im Smart Contract" icon="shield-check">
+    Die folgenden Parameter sind dauerhaft im Smart-Contract-Code festgelegt. Sie können weder von der DAO, den Entwicklern noch von einer anderen Partei geändert werden.
+  </Card>
+</CardGroup>
+
+| Parameter | Wert |
+|---|---|
+| Auszahlung beim manuellen Verkauf | 75 % |
+| Auszahlung beim Auto-Verkauf / Lending | 70 % |
+| Matching Bonus pro Ebene | 5 % |
+| Frozen-Balance-Fenster | 72 Stunden |
+| Lebensdauer des Gutscheins | 365 Tage |
+| Sperre der Gutscheinübertragung | letzter 1 Tag |
+| Kreditfrist | 30 Tage |
+| DAO-Inaktivitätsschwelle | 31 Tage |
+| DAO-Karenzzeit | 7 Tage |
