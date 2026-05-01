@@ -1,0 +1,107 @@
+---
+title: "NFT Ekosistemi"
+description: "28'den 24.000 USDT'ye kadar 10 seviye."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · RWA ve FinPro erişimi
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5.500 USDT · Madencilik, Borç Verme, Eşleştirme
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11.000 – 24.000 USDT · Maksimum derinlik, en kısa döngüler
+  </Card>
+</CardGroup>
+
+NFT sahibi olmak, pazarlamaya katılmak, DA madenciliği yapmak ve finansal araçlara erişmek için zorunludur. Hesap başına bir aktif NFT — yükseltme, öncekini otomatik olarak değiştirir.
+
+<NftTierExplorer />
+
+## Gelir Limitleri ve Otomatik Yenileme
+<AccordionGroup>
+  <Accordion title="Gelir Limitleri Nasıl Çalışır" icon="gauge-high">
+    Her NFT'nin sıkı bir Gelir Limiti vardır — bu NFT'nin yenileme öncesinde üretebileceği maksimum kümülatif gelir. Gelir Limiti **iki kaynak** tarafından tüketilir:
+
+    1. **Pazarlama ödülleri** — Sponsor Bonusu, Ağaç Dağılımı, Eşleştirme Bonusu, yapınızın aktivitesinden gelen herhangi bir ödeme.
+    2. **DA satışları** — her manuel veya otomatik DA satışı, kalan Gelir Limitinizi USDT ödeme tutarı kadar azaltır.
+
+    Limit sıfıra ulaştığında, **tüm** pazarlama ödüllerini almayı durdurur **ve** DA satma yeteneğini kaybedersiniz: manuel satışta sistem ödemenizi yatıramaz; otomatik satışta gelirin %100'ü DA Likidite Havuzuna veya yakıma yönlendirilir (kesin mekanizma DAO ayarları tarafından belirlenir). Bunu önlemek için NFT'nizi yenileyin — Otomatik Alım, manuel aynı seviye yeniden satın alma veya daha yüksek bir seviyeye yükseltme yoluyla. Kalan limitiniz orijinalin %30'undan fazlaysa manuel yeniden satın alma kilitlidir.
+  </Accordion>
+  <Accordion title="Otomatik Alım (3/3 Sistemi)" icon="rotate">
+    Limiti sıfıra ulaştığında aynı NFT'yi otomatik olarak yeniden
+    satın almak için Otomatik Alımı etkinleştirin. **1–8. Seviyeler için**, 3/3 sayacı,
+    orijinal manuel satın alımdan sonra 3 otomatik yenilemeye kadar izin verir — yani
+    aynı NFT seviyesi toplamda en fazla 4 kez aktif olabilir (1 manuel
+    + 3 otomatik). Sayaç yalnızca otomatik yenilemeleri takip eder; orijinal
+    satın alma ayrıdır. 3 otomatik alımın tümü kullanıldıktan sonra fonksiyon
+    kilitlenir ve yükseltme yapmanız veya ödülleri kaybetmeniz gerekir. **Elite (L9–L10) için**,
+    otomatik alımlar sınırsızdır — üst seviye NFT'ler sınır olmaksızın yenilenir.
+    Tüm otomatik alımlar Normal veya Birikim Bakiyesinde yeterli USDT gerektirir
+    (her ikisi birleştirilebilir). L1–L8'de, daha yüksek seviyeli bir NFT
+    satın alındığında 3/3 sayacı 0/3'e sıfırlanır. Önceki NFT'nin Gelir Limitinin
+    kullanılmayan kısmı yeni NFT'ye **aktarılmaz** —
+    geçersiz sayılır.
+  </Accordion>
+  <Accordion title="İş Satışı" icon="handshake">
+    DAO tarafından yetkilendirilmiş bir süreç aracılığıyla tüm iş yapınızı (partner ağacı ve alt yapı)
+    başka bir kullanıcıya devredin. Devir, bir satış fiyatıyla değil,
+    akıllı sözleşme **devir komisyonu** ile yapılır: **satıcı
+    sabit 500 USDT ücret öder** (DAO tarafından **0–500 USDT** aralığında ayarlanabilir)
+    ve devri gerçekleştirir. **Alıcı protokole zincir üzerinde komisyon
+    ödemez** ve uygulamada tüm yapıyı alır. Temel
+    zincir üzerindeki parametre `businessTransferFee`'dir (gerçek komisyon
+    semantiğini yansıtmak için eski `businessSalePrice` adı değiştirilmiştir).
+    Yapı olmadan bireysel NFT satışları desteklenmez.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Gelir Limiti:** NFT'niz gelir limitine ulaştığında,
+  TÜM pazarlama ödüllerini almayı durdurursunuz. Bunu önlemek için Otomatik Alımı etkinleştirin —
+  veya limitiniz %30'un altına düştüğünde manuel olarak yenileyin.
+</Warning>
+
+### Dondurulmuş Bakiye — İlk Kişisel Satışlarda Gelir Koruması
+
+Doğrudan davet ettiğiniz kişinin **ilk satın alımından** kaynaklanan bir pazarlama ödülü, NFT'nizin kalan Gelir Limitini aştığında, fazla miktar kaybolmaz — 72 saatliğine dondurulur ve size NFT'nizi yükseltip fonları talep etmeniz için bir pencere sunar. Bu, partnerleri daha yüksek seviyeli NFT'lere davet etmekten kaynaklanan geliri koruyan ana mekaniktir.
+
+<Card title="Tam Dondurulmuş Bakiye Mekanikleri" icon="snowflake" href="/tr/frozen-balance">
+  72 saatlik pencerenin, Otomatik Alım ile etkileşimin, 70/30 kayıp bölünmesinin, yapı düzeyindeki kademenin ve aynı davet edilen kişiden tekrarlanan satın almaların neden farklı şekilde ele alındığının ayrıntılı incelemesi.
+</Card>
+
+## Hediye NFT'ler ve Kuponlar
+<CardGroup cols={2}>
+  <Card title="Hediye NFT'ler" icon="gift">
+    Kullanıcıları pazarlama yapısına kalıcı olarak yerleştiren satılamaz tanıtım
+    varlıkları. Satın alınamaz — promosyonlar veya Kariyer Rütbesi
+    başarıları yoluyla verilir. Adres başına 100'e kadar (DAO tarafından ayarlanabilir, mevcut).
+  </Card>
+  <Card title="Hediye Kuponları" icon="ticket">
+    Akıllı sözleşme tarafından zorunlu kılınan minimum **5 USDT** ile kullanıcı tarafından oluşturulan
+    kuponlar (sıfır değerli kuponlar zincir üzerinde reddedilir), **365 gün** geçerlidir.
+    Bir NFT satın alımının %100'üne kadar karşılar. %0 komisyonla devredilebilir,
+    ancak son kullanma tarihinden önceki **son 24 saat** dışında, transferler kilitlenir.
+    Birikim Bakiyesi ile birleştirilemez. 365 günlük tam ömür boyunca kullanılmazsa,
+    **kupon değerinin %100'ü DA Likidite Havuzuna yönlendirilir**.
+  </Card>
+</CardGroup>
+<Warning>
+  **Hediye NFT Üzerine Yazma:** Zaten bir Normal NFT'ye sahipseniz ve bir Hediye NFT'yi
+  etkinleştirirseniz, Hediye NFT Normal NFT'nizin **üzerine yazacaktır**. Yalnızca
+  Normal NFT'si olmayan hesaplarda Hediye NFT'leri etkinleştirin.
+</Warning>
+## Ambassador ve VIP Edition
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    **100 birimle** sınırlıdır (Q4 2026). Gelir limiti yok. Kendi özel ödül
+    sistemi. İş Satışında devredilmez.
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    **100 birimle** sınırlıdır (Q4 2026). **Lider** Kariyer Rütbesi veya üzerini
+    elde etmek için erişim verilir.
+  </Card>
+</CardGroup>

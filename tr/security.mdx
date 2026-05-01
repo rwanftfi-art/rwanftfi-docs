@@ -1,0 +1,75 @@
+---
+title: "Güvenlik ve Denetim"
+description: "CertiK tarafından bağımsız olarak denetlendi."
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="CertiK Tarafından Denetlendi" icon="shield-check">
+    RWANFTFI akıllı sözleşmeleri **CertiK** tarafından bağımsız olarak denetlenmiştir. Nihai rapor **28 Nisan 2026** tarihinde yayınlandı — tam PDF aşağıda ve halka açık [CertiK Skynet dizininde](https://skynet.certik.com/projects/rwanftfi).
+  </Card>
+</CardGroup>
+
+CertiK, Web3'teki en köklü güvenlik firmalarından biridir ve alandaki büyük protokollerin önemli bir bölümünü denetler. Denetim, standart metodolojileri kullanılarak gerçekleştirilmiştir — Statik Analiz, Manuel İnceleme ve Biçimsel Doğrulama — ve tam rapor hem bu sayfada hem de CertiK'in kendi Skynet dizininde halka açık olarak yayınlanmıştır.
+
+## Raporu Okuyun
+
+Denetimle etkileşim kurmanın üç bağımsız yolu vardır. Amaç aynı şeyi üç kez vermek değil — bu sayfadaki sürümün CertiK'in kendisinin yayınladığı sürümle eşleştiğine dair hiçbir şüphe olmasın ve rapor cihazdan bağımsız olarak erişilebilir olsun.
+
+<CardGroup cols={3}>
+  <Card title="Satır İçi Önizleme" icon="eye">
+    Tam PDF'i doğrudan bu sayfada okuyun. Masaüstü tarayıcılarında en iyi.
+  </Card>
+  <Card title="PDF İndir" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    Orijinal raporu cihazınıza kaydedin. Mobilde önerilir.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    Raporu CertiK'in kendi halka açık dizininde doğrulayın.
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Denetim Raporu — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Satır içi PDF önizleme bu tarayıcıda desteklenmiyor.</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Denetim raporunu açın (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Safari ve çoğu mobil tarayıcıda** satır içi önizleme oluşmayabilir — bu tarayıcılar PDF'leri doğrudan gömmez. Raporu cihazınızda açmak için **PDF İndir** düğmesini (veya önizleme alanı içindeki bağlantıyı) kullanın.
+</Info>
+
+## Hesap Koruması
+
+Denetim, zincir üzerindeki akıllı sözleşme katmanını kapsar. Uygulama katmanında, kullanıcı hesapları ek olarak birkaç bağımsız mekanizma tarafından korunur:
+
+<CardGroup cols={2}>
+  <Card title="Üç Düzey Güvenlik" icon="layer-group">
+    Girişi, finansal eylemleri ve yüksek değerli işlemleri ayıran kademeli koruma.
+  </Card>
+  <Card title="TAN Kodları" icon="key">
+    Her finansal işlem için gereken tek kullanımlık İşlem Kimlik Doğrulama Numaraları.
+  </Card>
+  <Card title="Finansal Şifre" icon="fingerprint">
+    Giriş kimlik bilgilerinizden ayrı, yalnızca fonları taşırken gereken bir şifre.
+  </Card>
+  <Card title="2FA + Telegram Bot" icon="telegram">
+    Standart iki faktörlü kimlik doğrulama, ayrıca resmi Telegram botu aracılığıyla eylem doğrulaması.
+  </Card>
+</CardGroup>
+
+<Info>
+  **İşlemler bir Web3 cüzdanı gerektirir.** Verilerinizi görüntülemek için panoya e-posta ve şifre ile giriş yapabilirsiniz, ancak herhangi bir finansal eylemi yürütmek bağlı bir Web3 cüzdanı gerektirir (MetaMask, Trust Wallet veya başka bir EVM uyumlu cüzdan).
+</Info>
+
+<Warning>
+  **Taklit edenlere karşı dikkatli olun.** RWANFTFI personeli sizinle asla önce iletişime geçmeyecek, özel anahtarlarınızı veya seed cümlenizi asla istemeyecek ve resmi platform dışında ödeme talep etmeyecektir. Cüzdanınızı bağlamadan veya kimlik bilgilerini girmeden önce her zaman **rwanftfi.com** üzerinde olduğunuzu doğrulayın.
+</Warning>

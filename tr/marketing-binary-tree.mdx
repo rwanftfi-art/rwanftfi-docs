@@ -1,0 +1,106 @@
+---
+title: "Pazarlama Yapısı ve Yerleştirme"
+description: "Aşağı taşma ile 22 seviyeli yapı."
+icon: "sitemap"
+---
+
+Bir kullanıcı bir NFT'yi etkinleştirdiğinde, tamamen doldurulduğunda
+**8.388.606 pozisyona** kadar tutan, maksimum 22 seviye derinliğindeki bir
+pazarlama yapısına kalıcı olarak yerleştirilir.
+<CardGroup cols={3}>
+  <Card title="Otomatik Yerleştirme" icon="wand-magic-sparkles">
+    Akıllı sözleşme yeni kullanıcıları "en zayıf dal, soldan sağa"
+    algoritmasını kullanarak yerleştirir. Manuel konumlandırma gerekmez.
+  </Card>
+  <Card title="Kalıcı Bağlantı" icon="link">
+    Her katılımcı sponsoruna kalıcı olarak bağlıdır.
+    Değişiklikler imkansızdır — blok zinciri değişmezdir.
+  </Card>
+  <Card title="Aşağı Taşma" icon="arrow-down">
+    Yukarı sponsorların davetleri otomatik olarak SİZİN yapınıza inebilir.
+    Standart pazarlama koşulları altında aşağı taşmadan ağaç dağılım
+    ödülleri kazanırsınız — ancak Sponsor Bonusu, size değil, gerçek
+    davet edene gider.
+  </Card>
+</CardGroup>
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/banner_new_1.mp4"
+/>
+
+## Yerleştirme Nasıl Çalışır
+<Steps>
+  <Step title="Davet Edersiniz">
+    İlk 2 davetiniz Seviye 1'inizi doldurur (sol ve sağ pozisyon).
+  </Step>
+  <Step title="Ağaç Aşağıya Büyür">
+    Sonraki davetler en zayıf dal altında Seviye 2'ye gider.
+    Yapınız üstel olarak büyür: seviye başına 2 → 4 → 8 → 16 pozisyon.
+  </Step>
+  <Step title="Aşağı Taşma Boşlukları Doldurur">
+    Yukarı sponsorlarınız Seviye 1'lerinin tutabileceğinden daha fazla kişi davet ettiklerinde,
+    bu kullanıcılar SİZİN ağacınıza dökülür. Onlardan otomatik olarak kazanırsınız.
+  </Step>
+  <Step title="Derinlikten Kazanırsınız">
+    NFT seviyeniz ne kadar derin kazanacağınızı belirler.
+    GENESIS 2 seviyeden kazanır. INFINITY 22 seviyeye kadar kazanır
+    (16–22. seviyeler Phase 2'de DAO yönetişim oylamasıyla açılır).
+  </Step>
+</Steps>
+
+## Ağaç Dağılımı Genel Bakış
+
+Pazarlama yapısının her seviyesinin sabit sayıda pozisyonu ve buna karşılık gelen ödül yüzdesi vardır. NFT seviyeniz, bu yapıda ne kadar derin kazanabileceğinizi belirler.
+
+| Seviye | Katılımcı sayısı | Seviye başına dağılım |
+|:-----:|:----------------------:|:----------------------:|
+| 1     | 2                      | 0%                     |
+| 2     | 4                      | 1%                     |
+| 3     | 8                      | 2%                     |
+| 4     | 16                     | 2%                     |
+| 5     | 32                     | 3%                     |
+| 6     | 64                     | 3%                     |
+| 7     | 128                    | 4%                     |
+| 8     | 256                    | 4%                     |
+| 9     | 512                    | 4%                     |
+| 10    | 1.024                  | 4%                     |
+| 11    | 2.048                  | 4%                     |
+| 12    | 4.096                  | 4%                     |
+| 13    | 8.192                  | 4%                     |
+| 14    | 16.384                 | 4%                     |
+| 15    | 32.768                 | **5%**                 |
+| 16    | 65.536                 | 2%                     |
+| 17    | 131.072                | 2%                     |
+| 18    | 262.144                | 1%                     |
+| 19    | 524.288                | 0.5%                   |
+| 20    | 1.048.576              | 0.5%                   |
+| 21    | 2.097.152              | 0.5%                   |
+| 22    | 4.194.304              | 0.5%                   |
+
+<Tip>
+  Ödül yüzdeleri, sıkıştırma mekanikleri ve Eşleştirme Bonusu sistemi hakkında tüm ayrıntılar için bkz. [Ödüller ve Tazminat](/tr/marketing-rewards).
+</Tip>
+
+<Info>
+  **Çoklu hesap kesinlikle yasaktır.** Sistem yerleşik izleme ile
+  bir kullanıcı, bir hesap politikasını uygular.
+</Info>
+<Warning>
+  **Sponsor kalıcıdır.** Ağaca yerleştirildikten sonra sponsorunuz
+  değiştirilemez. NFT'nizi etkinleştirmeden önce akıllıca seçin.
+</Warning>
+
+<Info>
+  **Sponsor aktif bir ağaç düğümü olmalıdır.** Yeni bir kullanıcı `registerUser()` aracılığıyla kaydedildiğinde, akıllı sözleşme mevcut herhangi bir kullanıcı kimliğini sponsor olarak kabul etmez — sağlanan sponsor **pazarlama yapısında aktif bir düğüm** olmalıdır. Somut olarak, sponsor şunları yapmalıdır:
+
+  - Sistemde **aktif bir NFT'ye** sahip olmak ve
+  - Canlı bir düğüm olarak **ağaçta kayıtlı olmak** (ağaç düğümü aktif).
+
+  **Yalnızca kimlik haritalaması** — bir kullanıcı kimliği atanmış ancak şu anda aktif bir NFT'ye sahip olmayan bir cüzdan — artık yeni davetlere sponsor olamaz. Bu, yeni katılımcıların aktif olmayan sponsorlar altına yerleştirilmesini önler, yapıda ölü dalların oluşturulmasını engeller ve her alt ağacın ödül akışının bütünlüğünü korur.
+</Info>
