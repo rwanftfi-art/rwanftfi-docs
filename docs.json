@@ -222,6 +222,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "zh",
+        "groups": [
+          {
+            "group": "开始",
+            "pages": [
+              "zh/executive-summary",
+              "zh/vision"
+            ]
+          },
+          {
+            "group": "NFT 生态系统",
+            "pages": [
+              "zh/nft-ecosystem",
+              "zh/frozen-balance"
+            ]
+          },
+          {
+            "group": "通缩资产(DA)",
+            "pages": [
+              "zh/da-token-mechanics",
+              "zh/da-mining-farming",
+              "zh/da-selling-lending"
+            ]
+          },
+          {
+            "group": "收益与营销",
+            "pages": [
+              "zh/marketing-binary-tree",
+              "zh/marketing-rewards"
+            ]
+          },
+          {
+            "group": "架构",
+            "pages": [
+              "zh/architecture",
+              "zh/contract-parameters",
+              "zh/security"
+            ]
+          },
+          {
+            "group": "治理",
+            "pages": [
+              "zh/governance"
+            ]
+          },
+          {
+            "group": "路线图",
+            "pages": [
+              "zh/roadmap"
+            ]
+          },
+          {
+            "group": "资源",
+            "pages": [
+              "zh/corporate-structure",
+              "zh/support",
+              "zh/partnerships",
+              "zh/legal"
+            ]
+          }
+        ]
       }
     ]
   },

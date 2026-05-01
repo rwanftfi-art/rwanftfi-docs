@@ -1,0 +1,192 @@
+---
+title: "治理 — DAO"
+description: "1000 万代币,社区驱动的决策。"
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+为了确保生态系统始终保持去中心化、独立与安全,RWANFTFI 依托由智能合约管理的去中心化自治组织(DAO)。开发者无法单方面更改系统规则、动用用户资金或操纵余额。
+
+<GovernanceStats />
+
+## DAO 能力
+
+提案要被提交至 DAO,需要至少获得代币总供应量 30% 的支持。提案要通过并在链上执行,需要 50% 的多数票批准。
+
+<CardGroup cols={2}>
+  <Card title="30% 提交门槛" icon="file-signature">
+    提案提交需获得 GovToken 总供应量至少 30% 的支持。
+  </Card>
+  <Card title="50% 通过门槛" icon="check-double">
+    提案通过并在链上执行需获得 50% 的多数票。
+  </Card>
+</CardGroup>
+
+DAO 对生态系统的关键功能进行投票,例如:
+* 触发"累积事件"(为期 30 天的窗口期,用户可在此期间领取过期累积余额,设有 180 天冷却期)。
+* 授权将用户的整个商业结构作为资产出售。
+* 核验并批准用户更换被泄露的财务钱包的请求。
+* 投票冻结特定用户的 NFT。NFT 被冻结后,用户将失去对平台金融产品的访问权限。解冻同样仅可通过 DAO 投票执行。
+
+<Info>
+  **提案门槛在实践中 — 诚实披露:** 30% 的提交门槛是一个按供应量加权的统一门槛;它不会按角色对投票权进行划分。在 **当前** 代币分配下(RWANFTFI Corporation 30% + 20 名 Guardian 各 3.5%),只有公司单独行动,或公司与一组协同的 Guardian 联合行动,才能现实地达到该门槛。单个 Guardian 持有量远低于 30%,在当前分配下 **无法独自提交提案**。团队已在审计回应中正式承认:按设计,在当前分配下,只有公司拥有足够代币独立创建提案,且不存在外部委托机制可让小型持有者在链下汇总投票权以达到门槛(详见下方 [投票机制](#voting-mechanics))。链上门槛本身仍为 30% —— 随时间推移而变化的是能够跨越该门槛的参与者范围。[未来再分配计划](#future-redistribution-plan)(公司 30% + 20 Guardian 各 1.5% + 80 Leader 各 0.5%)将拓宽能联合达到门槛的协作组合,在不降低门槛本身的前提下,逐步使提案创建去中心化。
+</Info>
+
+## 投票机制
+
+下文机制描述提案如何从提交流转到执行,以及在合约层投票权如何被持有与轮换。
+
+<CardGroup cols={2}>
+  <Card title="投票于截止时刻关闭" icon="hourglass-end">
+    提案投票 **严格在截止时刻关闭** —— 绝不会更早。截止前达到多数支持并不会锁定结果;直到计时器到期前,新的赞成或反对票仍会被持续接受。
+  </Card>
+  <Card title="自动委托,无手动委托" icon="link-slash">
+    GovToken **在转账时自动将投票权委托** 给接收者。不存在 `delegate()` 路径将投票权指定给第三方 —— 投票权重始终跟随当前代币持有者。
+  </Card>
+</CardGroup>
+
+<Note>
+  **对已胜出提案的投票:** 即使提案按当前票数已被视为"胜出",其投票窗口在截止之前仍保持开放。每位合格持有者都保留在窗口关闭前进行赞成或反对投票的权利 —— 提前胜出的状态不会限制参与。
+</Note>
+
+<Note>
+  **没有外部委托。** 由于 GovToken 不暴露手动委托机制,小型持有者无法在链下汇总投票权以跨越提案门槛。移动投票权重的唯一方式是移动底层代币本身,而任何此类转账都会自动将投票权委托给接收者。这使代币所有权与治理权之间的关系保持直接,并可在链上追溯。
+</Note>
+
+<Info>
+  **DAO 权限同步 — 单一可信源:** 管控 GovToken 的 DAO 权限并不会作为重复值存储在 GovToken 中。当 DAO 权限通过 Diamond 合约上的 `setDAO()` 进行轮换时,GovToken **直接从 Diamond 合约中读取最新的 DAO 地址**,而非依赖单独维护的指针。这消除了在轮换过程中两个合约权限"分裂"的风险 —— 不存在某个时点 GovToken 仍执行已被 Diamond 替换掉的旧权限。
+</Info>
+
+## GovToken 概览
+
+GovToken 是 RWANFTFI 生态系统的治理与投票代币。它是一种 ERC20Votes 代币,总供应量永久固定。部署后无法增发。不存在通胀机制 —— 供应模型完全固定。
+
+<CardGroup cols={3}>
+  <Card title="固定供应量" icon="cube">
+    10,000,000 GovToken。永久封顶。无通胀。
+  </Card>
+  <Card title="增发已禁用" icon="ban">
+    部署后增发功能被永久禁用。无隐藏储备。
+  </Card>
+  <Card title="链上治理" icon="landmark">
+    所有治理动作都通过 DAO 投票执行。链上完全透明且可追溯。
+  </Card>
+</CardGroup>
+
+## 初始代币分配
+
+GovToken 的初始分配旨在平衡运营控制与去中心化治理参与。
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3,000,000 GovToken(总供应量的 30%)。技术与产品公司。持有用于生态长期发展的战略治理份额。
+  </Card>
+  <Card title="20 名 Guardian" icon="shield-check">
+    7,000,000 GovToken(总供应量的 70%)。每位 Guardian 350,000 代币(各 3.5%)。负责生态早期稳定的主要治理参与者。
+  </Card>
+</CardGroup>
+
+## 未来再分配计划
+
+DAO 治理模型包含一份结构化的去中心化路线图。随着时间推移,治理参与人数将从 21 个钱包扩展至最多 101 个钱包 —— 而无需增发新代币。
+
+再分配不会创造新代币。总供应量永久固定为 10,000,000 GovToken。Guardian 通过 DAO 批准的治理流程,逐步将其份额的一部分再分配给合格的 Leader。
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3,000,000 GovToken(30%)。保持不变。
+  </Card>
+  <Card title="20 名 Guardian" icon="shield-check">
+    3,000,000 GovToken(30%)。每位 Guardian 150,000 代币(各 1.5%)。
+  </Card>
+  <Card title="80 名 Leader" icon="users">
+    4,000,000 GovToken(40%)。每位 Leader 50,000 代币(各 0.5%)。
+  </Card>
+</CardGroup>
+
+Leader 的定义是:活跃的生态贡献者、社区建设者、战略合作伙伴,以及具有可量化生态影响力并保持活跃客户或合作伙伴网络的参与者。Leader 钱包将随着治理去中心化的推进,被分配给合格的参与者。
+
+## Guardian
+
+Guardian 是 RWANFTFI DAO 的主要治理参与者。他们负责在生态早期增长阶段维护稳定,并确保治理得到正确执行。
+
+<CardGroup cols={2}>
+  <Card title="治理参与" icon="check-to-slot">
+    对所有 DAO 提案投票。生态战略决策。协议治理执行。
+  </Card>
+  <Card title="安全与监督" icon="eye">
+    安全监督与风险管理。参与国库治理。维护生态长期稳定。
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="无单方面控制权" icon="shield-check">
+    所有治理动作 —— 包括代币再分配、参数变更与账户操作 —— 都需经过 30% 提案门槛与 50% 多数批准的标准 DAO 治理流程。
+  </Card>
+</CardGroup>
+
+## 供应量完整性与安全性
+
+<CardGroup cols={2}>
+  <Card title="不可变供应量" icon="infinity">
+    总供应量永久固定为 10,000,000。无增发、无通胀、无隐藏储备。所有代币都属于初始分配。
+  </Card>
+  <Card title="治理安全" icon="shield-halved">
+    关键操作需多重签名授权。基于角色的治理权限。所有分配变更都需 DAO 批准。
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="经审计核验的保证" icon="certificate">
+    总供应量恰为 10,000,000 代币。部署后任何增发函数均不可调用。代币再分配不会改变总供应量。所有代币流动均记录在链上。
+  </Card>
+</CardGroup>
+
+## 治理钱包
+
+所有治理代币持有者均可在链上公开核验。下方列出 RWANFTFI DAO 的指定治理钱包。
+
+<Tabs>
+  <Tab title="Corporation">
+    | # | 角色 | 钱包地址 |
+    |---|------|----------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardian(20)">
+    | # | 钱包地址 |
+    |---|----------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+所有钱包地址都可在 BscScan 上核验。治理代币余额与交易历史完全透明,可被公开审计。
+
+## 账户冻结机制
+
+DAO 可投票 **冻结** 特定用户在平台上的 NFT 功能。这是一种调控工具,而非紧急安全功能。
+
+<Warning>
+  **NFT 被冻结时:** 用户将失去所有金融操作权限 —— 提现、购买、营销奖励累积与转账。然而,NFT 本身仍作为用户的财产保留在其区块链钱包中。**解冻** 同样需要单独的 DAO 投票。
+</Warning>
+
+平台没有任何技术能力从用户钱包中扣押或没收 NFT。冻结仅会在 RWANFTFI 平台内部停用 NFT 的功能。该机制用于平台条款违规的情形 —— 基于 NFT 的欺诈、已识别的反洗钱(AML)风险、生态品牌保护,以及类似需要社区集体决议的情形。
