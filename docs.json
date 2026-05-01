@@ -47,7 +47,8 @@
           {
             "group": "NFT Ecosystem",
             "pages": [
-              "en/nft-ecosystem"
+              "en/nft-ecosystem",
+              "en/frozen-balance"
             ]
           },
           {
@@ -92,8 +93,7 @@
               "en/support",
               "en/partnerships",
               "en/legal",
-              "en/glossary",
-              "en/technical-reference"
+              "en/glossary"
             ]
           }
         ]
@@ -111,7 +111,8 @@
           {
             "group": "Экосистема NFT",
             "pages": [
-              "ru/nft-ecosystem"
+              "ru/nft-ecosystem",
+              "ru/frozen-balance"
             ]
           },
           {
@@ -156,8 +157,7 @@
               "ru/support",
               "ru/partnerships",
               "ru/legal",
-              "ru/glossary",
-              "ru/technical-reference"
+              "ru/glossary"
             ]
           }
         ]

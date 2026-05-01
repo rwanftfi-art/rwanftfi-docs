@@ -14,7 +14,7 @@ import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
     Every DA token backed by real USDT in the liquidity pool.
   </Card>
   <Card title="Burn on Every Sale" icon="fire">
-    100% of sold tokens are permanently burned. User receives 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) stays as backing in the pool — this is what drives the DA price upward.
+    100% of sold tokens are permanently burned. User receives 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) is a protocol commission that stays as backing in the pool — this is what drives the DA price upward.
   </Card>
   <Card title="No P2P Transfers" icon="ban">
     DA can only be sold, lent, or repaid — no peer-to-peer transfers.
@@ -58,9 +58,9 @@ The Liquidity Pool is the foundation of DA economics. It is funded from multiple
   <Accordion title="Fees & Commissions">
     **Marketing Rewards Tax** — 5% of all marketing rewards across the referral network are automatically directed to the Liquidity Pool. Network activity directly strengthens DA backing.
 
-    **Accumulative Balance Transfer Fee** — when transferring Accumulative Balance to another user, a 20% commission is routed to the Liquidity Pool.
+    **Accumulative Balance Transfer Fee** — when transferring Accumulative Balance to another user, 20% of the transfer amount is routed to the DA Liquidity Pool. Any movement of the Accumulative Balance — whether used in an NFT purchase or transferred between wallets — generates a 20% inflow to the Pool.
 
-    **Accumulative Balance Purchase Fee** — when purchasing an NFT using Accumulative Balance, an additional 20% of the amount goes to the Liquidity Pool. Example: balance $1,400, NFT purchase $1,100 → available after fee $1,120, $280 goes to Pool, $20 remains.
+    **Accumulative Balance Purchase Fee** — when purchasing an NFT using Accumulative Balance, 20% of the integrated amount is routed to the DA Liquidity Pool for minting new DA. Example: 898 USDT on the Accumulative Balance — when integrated into an NFT purchase, 718 USDT goes toward the NFT cost, and 180 USDT (20% of 898) flows into the DA Liquidity Pool. Every such purchase replenishes the Pool and creates the basis for new DA.
 
     **Lending Commission** — when taking a loan, the borrower pays a one-time 5% commission directed to the Liquidity Pool. Example: loan $1,000, borrower receives $950, $50 goes to Pool. The commission is collected with every new loan.
   </Accordion>
@@ -92,10 +92,10 @@ DA burning is the core deflationary mechanism — it reduces token supply and cr
 
 <CardGroup cols={3}>
   <Card title="Manual Sale" icon="fire">
-    100% of sold DA is permanently burned. User receives 75% of value in USDT. The remaining 25% stays in the pool, driving price growth.
+    100% of sold DA is permanently burned. User receives 75% of value in USDT. The remaining 25% is a protocol commission that stays in the pool as backing, driving price growth.
   </Card>
   <Card title="Auto-Sell" icon="clock">
-    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. The remaining 30% stays in the pool, driving price growth. Triggers progressively from remaining balance over 4 periods (365 days / 1 year total).
+    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. The remaining 30% is a protocol commission that stays in the pool as backing, driving price growth. Triggers progressively from remaining balance over 4 periods (365 days / 1 year total).
   </Card>
   <Card title="Lending Default" icon="ban">
     If a loan is not repaid, collateralized DA is progressively burned through the auto-sell cycle. Protects system liquidity and enforces financial discipline.
@@ -177,8 +177,8 @@ For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-le
 Twice a year the system triggers a special Deflationary Cycle lasting up to 30 days, designed to intensify token scarcity.
 
 <Steps>
-  <Step title="Pause generation">
-    NFTM mining, staking, and DA generation are temporarily paused.
+  <Step title="Pause new cycles">
+    Starting new cycles of NFTM mining, staking, and DA generation is paused for the duration of the Deflationary Cycle. **Active cycles started before the Deflationary Cycle continue running and complete on schedule** — users with mining already in progress do not lose their progress.
   </Step>
   <Step title="Activate sale mechanisms">
     Automatic or voluntary DA sale mechanisms are activated.
