@@ -1,0 +1,192 @@
+---
+title: "Yönetişim — DAO"
+description: "10M token, topluluk odaklı kararlar."
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+Ekosistemin merkeziyetsiz, bağımsız ve güvenli kalmasını sağlamak için RWANFTFI, akıllı sözleşmeler tarafından yönetilen bir Merkeziyetsiz Otonom Organizasyona (DAO) dayanır. Geliştiriciler tek taraflı olarak sistem kurallarını değiştiremez, kullanıcı fonlarına erişemez veya bakiyeleri manipüle edemez.
+
+<GovernanceStats />
+
+## DAO Yetenekleri
+
+Bir önerinin DAO'ya sunulabilmesi için, toplam token arzının en az %30'u tarafından desteklenmesi gerekir. Bir önerinin geçmesi ve zincir üzerinde yürütülmesi için %50 çoğunluk oyu gerekir.
+
+<CardGroup cols={2}>
+  <Card title="Sunmak için %30" icon="file-signature">
+    Bir öneri sunulabilmesi için toplam GovToken arzının en az %30'undan destek gerektirir.
+  </Card>
+  <Card title="Geçmek için %50" icon="check-double">
+    Bir önerinin geçmesi ve zincir üzerinde yürütülmesi için %50 çoğunluk oyu gereklidir.
+  </Card>
+</CardGroup>
+
+DAO, aşağıdaki gibi kritik ekosistem işlevlerini oylar:
+* "Birikim Olayı" tetiklemek (kullanıcıların süresi dolmuş birikim bakiyelerini talep edebileceği 30 günlük bir dönem, 180 günlük soğuma süresi ile).
+* Bir kullanıcının tüm iş yapısının bir varlık olarak satışını yetkilendirmek.
+* Bir kullanıcının tehlikeye atılmış finansal cüzdanını değiştirme talebini doğrulamak ve onaylamak.
+* Belirli bir kullanıcının NFT'sini bloke etmek için oy vermek (Dondurma). Bir NFT bloke edildiğinde, kullanıcı platformun finansal ürünlerine erişimi kaybeder. Engelin kaldırılması da yalnızca DAO oylaması yoluyla yürütülür.
+
+<Info>
+  **Pratikte Öneri Eşiği — Dürüst Açıklama:** %30 sunum eşiği tek, arz ağırlıklı bir çubuktur; oy gücünü role göre bölmez. **Mevcut** token dağıtımında (RWANFTFI Corporation %30 + 20 Guardian her biri %3.5), eşik gerçekçi olarak yalnızca Corporation'ın doğrudan hareket etmesi veya Corporation'ın koordineli bir Guardian alt kümesi ile birlikte hareket etmesiyle ulaşılabilir. Bireysel bir Guardian %30'un çok altında bir oranda bulunur ve mevcut tahsis altında **tek başına bir öneri sunamaz**. Ekip bunu denetim yanıtında resmi olarak kabul etmiştir: Tasarım gereği, mevcut tahsis altında, yalnızca Corporation kendi başına öneri oluşturmak için yeterli tokene sahiptir ve daha küçük sahiplerin eşiği karşılamak için zincir dışında oy gücünü birleştirmesine izin veren bir dış delegasyon mekanizması yoktur (aşağıdaki [Oylama Mekanikleri](#voting-mechanics) bölümüne bakın). Zincir üzerindeki çubuğun kendisi %30 olarak kalır — zamanla değişen şey, onu aşabilen katılımcıların genişliğidir. [Gelecekteki Yeniden Dağıtım Planı](#future-redistribution-plan) (Corporation %30 + 20 Guardian %1.5 + 80 Lider %0.5), eşiği düşürmeden öneri oluşturmayı kademeli olarak merkeziyetsizleştirerek, eşiği birlikte karşılayabilen koalisyonları genişletir.
+</Info>
+
+## Oylama Mekanikleri
+
+Aşağıdaki mekanikler, bir önerinin sunumdan yürütmeye nasıl geçtiğini ve oy gücünün sözleşme düzeyinde nasıl tutulduğunu ve döndürüldüğünü açıklar.
+
+<CardGroup cols={2}>
+  <Card title="Oylama Son Tarihte Kapanır" icon="hourglass-end">
+    Bir öneri üzerinde oylama **kesinlikle son tarihte** kapanır — daha erken değil. Son tarihten önce çoğunluk desteğine ulaşmak sonucu kilitlemez; ek oylar (lehte veya aleyhte) zamanlayıcı sona erene kadar kabul edilmeye devam eder.
+  </Card>
+  <Card title="Otomatik Delegasyon, Manuel Delegasyon Yok" icon="link-slash">
+    GovToken **transferde alıcıya oy gücünü otomatik olarak devreder**. Üçüncü tarafa oy gücü atamak için bir `delegate()` yolu yoktur — oy ağırlığı her zaman mevcut token sahibini izler.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Başarılı önerilerde oylama:** Bir öneri mevcut sayımında "başarılı" olarak kabul edilmek için yeterli desteği biriktirdikten sonra bile, oylama penceresi son tarihine kadar açık kalır. Her uygun sahip, pencere kapanana kadar onaylayıcı veya muhalif bir oy kaydetme yeteneğini korur — erken-başarılı durum katılımı kısıtlamaz.
+</Note>
+
+<Note>
+  **Dış delegasyon yok.** GovToken manuel bir delegasyon mekanizması açıklamadığı için, daha küçük sahipler öneri eşiğini aşmak için oy güçlerini zincir dışında birleştiremez. Oy ağırlığını taşımanın tek yolu altta yatan tokenleri taşımaktır ve bu tür herhangi bir transfer alıcıya otomatik olarak devredilir. Bu, token sahipliği ile yönetişim yetkisi arasındaki ilişkiyi doğrudan ve zincir üzerinde izlenebilir tutar.
+</Note>
+
+<Info>
+  **DAO Yetki Senkronizasyonu — tek doğru kaynak:** GovToken'i yöneten DAO yetkisi, GovToken içinde yinelenen bir değer olarak saklanmaz. DAO yetkisi Diamond sözleşmesinde `setDAO()` aracılığıyla döndürüldüğünde, GovToken **güncellenmiş DAO adresini doğrudan Diamond sözleşmesinden okur**, ayrı olarak korunan bir işaretçiye dayanmak yerine. Bu, döndürme sırasında iki sözleşmenin bölünmüş yetki durumuna sürüklenme riskini ortadan kaldırır — GovToken'in Diamond'ın zaten değiştirdiği eski bir yetkiye uymasının mümkün olduğu bir pencere yoktur.
+</Info>
+
+## GovToken Genel Bakış
+
+GovToken, RWANFTFI ekosisteminin yönetişim ve oylama tokenidir. Kalıcı olarak sabit arzı olan bir ERC20Votes tokenidir. Dağıtımdan sonra ek basım mümkün değildir. Enflasyon mekanizması yoktur — arz modeli tamamen sabittir.
+
+<CardGroup cols={3}>
+  <Card title="Sabit Arz" icon="cube">
+    10.000.000 GovToken. Kalıcı olarak sınırlandırılmıştır. Enflasyon yok.
+  </Card>
+  <Card title="Basım Devre Dışı" icon="ban">
+    Basım fonksiyonu dağıtımdan sonra kalıcı olarak devre dışı. Gizli rezervler yok.
+  </Card>
+  <Card title="Zincir Üzerinde Yönetişim" icon="landmark">
+    Tüm yönetişim eylemleri DAO oylaması aracılığıyla yürütülür. Tam zincir üzerinde şeffaflık ve izlenebilirlik.
+  </Card>
+</CardGroup>
+
+## İlk Token Dağıtımı
+
+GovToken'lerin ilk tahsisi, operasyonel kontrol ile merkeziyetsiz yönetişim katılımı arasında denge kurmak için tasarlanmıştır.
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (toplam arzın %30'u). Teknoloji ve ürün şirketi. Uzun vadeli ekosistem geliştirme için stratejik yönetişim tahsisi tutar.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    7.000.000 GovToken (toplam arzın %70'i). Guardian başına 350.000 token (her biri %3.5). Erken aşama ekosistem istikrarından sorumlu birincil yönetişim katılımcıları.
+  </Card>
+</CardGroup>
+
+## Gelecekteki Yeniden Dağıtım Planı
+
+DAO yönetişim modeli, yapılandırılmış bir merkeziyetsizleştirme yol haritası içerir. Zaman içinde, yönetişim katılımı 21 cüzdandan 101 cüzdana kadar genişleyecek — yeni token basmadan.
+
+Yeniden dağıtım yeni token oluşturmaz. Toplam arz kalıcı olarak 10.000.000 GovToken'de sabit kalır. Guardian'lar, DAO onaylı yönetişim prosedürleri yoluyla tahsisatlarının bir kısmını nitelikli Liderlere kademeli olarak yeniden dağıtır.
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (%30). Değişmedi.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    3.000.000 GovToken (%30). Guardian başına 150.000 (her biri %1.5).
+  </Card>
+  <Card title="80 Lider" icon="users">
+    4.000.000 GovToken (%40). Lider başına 50.000 (her biri %0.5).
+  </Card>
+</CardGroup>
+
+Liderler, ölçülebilir ekosistem etkisi olan ve aktif müşteri veya partner ağlarını sürdüren aktif ekosistem katkıda bulunanlar, topluluk inşaatçıları, stratejik partnerler ve katılımcılar olarak tanımlanır. Lider cüzdanları, yönetişim merkeziyetsizleştirme ilerledikçe nitelikli katılımcılara atanacaktır.
+
+## Guardian'lar
+
+Guardian'lar, RWANFTFI DAO'sunun birincil yönetişim katılımcılarıdır. Erken büyüme aşamasında ekosistem istikrarını korumak ve uygun yönetişim yürütmesini sağlamaktan sorumludurlar.
+
+<CardGroup cols={2}>
+  <Card title="Yönetişim Katılımı" icon="check-to-slot">
+    Tüm DAO önerilerinde oy verme. Stratejik ekosistem kararları. Protokol yönetişim yürütmesi.
+  </Card>
+  <Card title="Güvenlik ve Gözetim" icon="eye">
+    Güvenlik gözetimi ve risk yönetimi. Hazine yönetişim katılımı. Uzun vadeli ekosistem istikrarı.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Tek Taraflı Kontrol Yok" icon="shield-check">
+    Tüm yönetişim eylemleri — token yeniden dağıtımı, parametre değişiklikleri ve hesap operasyonları dahil — %30 öneri eşiği ve %50 çoğunluk oyu ile standart DAO yönetişim prosedürlerini gerektirir.
+  </Card>
+</CardGroup>
+
+## Arz Bütünlüğü ve Güvenlik
+
+<CardGroup cols={2}>
+  <Card title="Değiştirilemez Arz" icon="infinity">
+    Toplam arz kalıcı olarak 10.000.000'da sabit. Basım yok, enflasyon yok, gizli rezervler yok. Tüm tokenler ilk dağıtım tahsisi içinde mevcuttur.
+  </Card>
+  <Card title="Yönetişim Güvenliği" icon="shield-halved">
+    Kritik operasyonlar için çok imzalı yetkilendirme. Rol tabanlı yönetişim izinleri. Herhangi bir tahsis değişikliği için DAO tabanlı onay.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Denetimle Doğrulanmış Garantiler" icon="certificate">
+    Toplam arz tam olarak 10.000.000 tokene eşittir. Dağıtımdan sonra çağrılabilir basım fonksiyonu yoktur. Token yeniden dağıtımı toplam arzı değiştirmez. Tüm token hareketleri zincir üzerinde kaydedilir.
+  </Card>
+</CardGroup>
+
+## Yönetişim Cüzdanları
+
+Tüm yönetişim token sahipleri zincir üzerinde herkese açık olarak doğrulanabilir. Aşağıda RWANFTFI DAO için belirlenen yönetişim cüzdanları yer almaktadır.
+
+<Tabs>
+  <Tab title="Corporation">
+    | # | Rol | Cüzdan Adresi |
+    |---|------|----------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardian (20)">
+    | # | Cüzdan Adresi |
+    |---|----------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+Tüm cüzdan adresleri BscScan üzerinde doğrulanabilir. Yönetişim token bakiyeleri ve işlem geçmişi tamamen şeffaf ve halka açık olarak denetlenebilir.
+
+## Hesap Dondurma Mekanizması
+
+DAO, belirli bir kullanıcının NFT işlevselliğini platformda **dondurmak** için oy verebilir. Bu bir moderasyon aracıdır, acil bir güvenlik özelliği değildir.
+
+<Warning>
+  **Bir NFT donduğunda:** Kullanıcı tüm finansal işlemlere erişimi kaybeder — çekmeler, satın almalar, pazarlama ödülü tahakkukları ve transferler. Ancak NFT'nin kendisi kullanıcının blok zinciri cüzdanında onların mülkü olarak kalır. **Donmayı kaldırmak** da ayrı bir DAO oylaması gerektirir.
+</Warning>
+
+Platform, bir kullanıcının cüzdanından bir NFT'yi ele geçirme veya zaptetme teknik kapasitesine sahip değildir. Dondurma yalnızca NFT'nin işlevselliğini RWANFTFI platformu içinde devre dışı bırakır. Bu mekanizma, platform şartları ihlalleri vakalarında kullanılır — NFT tabanlı dolandırıcılık, tanımlanmış AML (kara para aklamaya karşı) riskleri, ekosistem marka koruması ve toplu topluluk kararı gerektiren benzer durumlar.

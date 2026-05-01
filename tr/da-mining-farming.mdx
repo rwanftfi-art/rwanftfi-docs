@@ -1,0 +1,48 @@
+---
+title: "Madencilik ve Farming"
+description: "İki adımda NFTM'den DA'ya."
+icon: "pickaxe"
+---
+import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
+
+
+DA edinmek için kullanıcılar iki aşamalı bir sürece katılmalıdır: Madencilik ve Farming. Yalnızca Premium (Seviye 5+) ve Elite NFT'ler bunu yapabilir.
+
+<Info>
+  **NFTM bir token değildir.** Akıllı sözleşme tarafından izlenen dahili bir madencilik sayacıdır (metrik). Arayüzde bir ilerleme çubuğu ve beklenen NFTM miktarını görürsünüz. NFTM'nin pazar değeri yoktur ve takas veya transfer edilemez — yalnızca Farming'e stake edilmek ve DA'ya dönüştürülmek için vardır.
+</Info>
+
+<Info>
+  **Madencilik için aktif Gelir Limiti gereklidir.** Hem Madencilik hem de Farming, uygun NFT'nin sıfır olmayan **Gelir Limitine** sahip olmasını gerektirir. Limitiniz sıfıra ulaştıysa, akıllı sözleşme yeni bir madencilik döngüsü başlatmayı reddeder. Madenciliğe devam etmek için önce Gelir Limitinizi yenileyin — Otomatik Alım 3/3 sistemi, manuel aynı seviye yenileme veya daha yüksek seviyeli bir NFT'ye yükseltme yoluyla — ve ardından bir sonraki döngüyü etkinleştirin. Gelir Limiti, kapı koşuludur; o olmadan madencilik akışı başlamaz.
+</Info>
+
+<Steps>
+  <Step title="Madenciliği Etkinleştir">
+    Uygun NFT'nizde madenciliği başlatın. Döngü süresi seviyenize bağlıdır — 45 günden (HYDRO) 40 güne (INFINITY) kadar.
+  </Step>
+  <Step title="NFTM Üret">
+    NFT'niz döngü süresi boyunca NFTM üretir. 5–7. Seviyeler (HYDRO, QUANTUM, PULSE) **1 madencilik döngüsüne** sahiptir ve NFT fiyatının **%10'unu** NFTM olarak üretir. 8–10. Seviyeler (AURORA, FLAME, INFINITY) **2 madencilik döngüsüne** sahiptir — birincisi NFT fiyatının **%10'unu** ve ikincisi **%15'ini** NFTM olarak üretir.
+  </Step>
+  <Step title="72 Saat İçinde Talep Edin">
+    Madencilik tamamlandığında, NFTM'nizi Farming'e stake etmek için tam olarak **72 saatiniz** vardır. Bu pencereyi kaçırırsanız sıfırdan başlarsınız.
+  </Step>
+  <Step title="DA Farming">
+    Stake edilen NFTM, madencilik döngüsü ile aynı süre boyunca Farming'e girer. Sonunda, NFTM mevcut fiyata göre DA'ya dönüştürülür ve TokenStack'inize yatırılır.
+  </Step>
+</Steps>
+
+<Warning>
+  **72 Saatlik Kritik Pencere:** Madencilik tamamlandıktan sonra 72 saat içinde NFTM'nizi stake etmezseniz, tüm döngü kaybolur. Madenciliği sıfırdan yeniden başlatmanız gerekir. Bir hatırlatıcı ayarlayın.
+</Warning>
+
+<Warning>
+  **Yükseltmeden Önce Talep Et — Talep Edilmeyen Farming Ödülleri Yok Edilir:** Herhangi bir NFT satın alımı veya yükseltmesi, kullanıcının madencilik/farming durumunda `terminate()` işlevini tetikler. Tasarım gereği, `terminate()` aktif oturumu durdurur ve **henüz olgunlaşmış ancak henüz talep edilmemiş ödüller dahil olmak üzere tüm talep edilmemiş farming ödüllerini yok eder**. Ekip bunun denetim yanıtında kasıtlı olduğunu doğrulamıştır: *"Bu kasıtlı, terminate() aktif oturumları durdurmalı ve talep edilmemiş ödülleri tasarım gereği yok etmelidir."*
+
+  **Operasyonel kural:** olgunlaşmış ancak talep edilmemiş bir farming ödülünüz varsa, **önce onu talep edin** ve ancak ondan sonra NFT'yi satın alın veya yükseltin. Aksi takdirde yeni NFT işlemi onaylandığı anda ödül kalıcı olarak kaybolur.
+</Warning>
+
+<Warning>
+  **Deflasyonist Döngü Duraklatma:** Yılda iki kez sistem 30 güne kadar süren bir Deflasyonist Döngü tetikler. Bu süre boyunca NFTM madenciliği, staking ve DA üretiminin **yeni döngülerinin başlatılması** askıya alınır. Deflasyonist Döngü başlamadan önce zaten çalışan döngüler **çalışmaya ve programa göre tamamlanmaya devam eder** — ilerleme kaybolmaz. Yeni döngülerin başlatılmasını bu planlanmış dönemlere göre planlayın.
+</Warning>
+
+<MiningPipeline />

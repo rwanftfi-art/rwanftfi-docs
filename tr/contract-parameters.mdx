@@ -1,0 +1,188 @@
+---
+title: "Sözleşme Parametreleri"
+description: "Zincir üzerindeki parametreler, DAO tarafından ayarlanabilir aralıklar ve değiştirilemez garantiler."
+icon: "sliders"
+---
+
+> ***"Güven bir vaat değildir — denetlenmiş bir akıllı sözleşmede sabit kodlanmış bir parametredir."***
+>
+> **— RWANFTFI**
+
+RWANFTFI ekosistemindeki her parametre akıllı sözleşme tarafından tanımlanır ve uygulanır. Her parametre zincir üzerinde herkese açık olarak doğrulanabilir. Parametrelerin bir alt kümesi, DAO yönetişimi tarafından önceden tanımlanmış güvenlik aralıkları içinde ayarlanabilir. Kalan parametreler kalıcı olarak sabit kodlanmıştır ve hiç kimse tarafından — geliştiriciler dahil — değiştirilemez.
+
+<CardGroup cols={3}>
+  <Card title="DAO Tarafından Ayarlanabilir" icon="sliders">
+    DAO yönetişiminin önceden tanımlanmış güvenlik aralıkları içinde değiştirebileceği parametreler.
+  </Card>
+  <Card title="Değiştirilemez" icon="shield-halved">
+    Hiç kimse tarafından — geliştiriciler dahil — değiştirilemeyen sabit kodlanmış parametreler.
+  </Card>
+  <Card title="Zincir Üzerinde Doğrulanmış" icon="link">
+    Tüm değerler denetlenmiş akıllı sözleşmelerde saklanır, BscScan üzerinde herkese açık olarak doğrulanabilir.
+  </Card>
+</CardGroup>
+
+## NFT Satın Alma Dağıtımı
+
+Bir kullanıcı NFT satın aldığında, ödeme akıllı sözleşme tarafından otomatik olarak birden fazla varış noktasına bölünür. Dağılım, ilk satın almalar ile tekrarlanan satın almalar (rebuy) arasında farklılık gösterir.
+
+<Tabs>
+  <Tab title="İlk Satın Alma">
+    | Parametre | Mevcut | Aralık |
+    |---|---|---|
+    | Sponsor Bonusu | %30 | %10 – %35 |
+    | Token Rezervi (DA Havuzu) | %0 | %0 – %30 |
+    | Platform Operasyonları | %7 | %2 – %10 |
+    | Birikim Bakiyesi | %20 | %15 – %30 |
+  </Tab>
+  <Tab title="Tekrar Satın Alma (Rebuy)">
+    | Parametre | Mevcut | Aralık |
+    |---|---|---|
+    | Sponsor Bonusu | %20 | %10 – %35 |
+    | Token Rezervi (DA Havuzu) | %10 | %10 – %30 |
+    | Platform Operasyonları | %7 | %2 – %10 |
+    | Birikim Bakiyesi | %20 | %15 – %30 |
+  </Tab>
+</Tabs>
+
+## Ücretler ve Komisyonlar
+
+Tüm ücretler akıllı sözleşme tarafından uygulanır ve DAO yönetişimi yoluyla tanımlanmış aralıklar içinde ayarlanabilir.
+
+| Parametre | Mevcut | Aralık |
+|---|---|---|
+| Pazarlama Ödülleri Vergisi | %5 | %5 – %15 |
+| Birikim Transfer Ücreti | %20 | %10 – %30 |
+| Birikim Kullanım Ücreti (NFT Satın Alma) | %20 | %10 – %30 |
+| Kredi Ücreti | %5 | %0 – %5 |
+| Çekim Ücreti | %0 | %0 – %5 |
+| Hediye Gönderim Fiyatı | $0 | $0 – $25 |
+| İş Satışı Ücreti | $500 | $0 – $500 |
+| Dondurulmuş Bakiye → Sponsor | %30 | %0 – %30 |
+
+<Note>
+  **İş Satışı Ücreti — semantik:** "İş Satışı Ücreti" satırı, bir iş yapısı transferini gerçekleştirmek için **satıcı tarafından ödenen bir transfer komisyonudur**. Alıcıdan toplanan bir satış fiyatı **değildir** — alıcı protokole zincir üzerinde komisyon ödemez ve uygulamada partner ağacı yapısını alır. Bu komisyonu yöneten zincir üzerindeki parametre `businessTransferFee`'dir (gerçek komisyon semantiğini yansıtmak için eski `businessSalePrice` adı değiştirilmiştir).
+</Note>
+
+## Zamanlayıcılar ve Programlar
+
+Zaman tabanlı parametreler ekosistem genelindeki kritik sistem pencerelerini ve son tarihleri kontrol eder.
+
+| Parametre | Mevcut | Aralık |
+|---|---|---|
+| Birikim Bakiyesi Ömrü | 120 gün | 90 – 180 gün |
+| NFTM Talep Penceresi | 72 saat | 24 – 96 saat |
+| Adres Başına Hediye NFT'ler | 100 | 1 – 400 |
+| İş Satışı | Devre Dışı | Devre Dışı – Etkin |
+
+### Otomatik Satış Dönemleri
+
+Otomatik satış döngüsü, kullanıcı manuel olarak satmazsa kalan DA bakiyesinden aşamalı olarak tetiklenir. Toplam döngü süresi tüm dört dönemin toplamıdır.
+
+| Dönem | Mevcut | Aralık |
+|---|---|---|
+| Dönem 1 | 120 gün | 60 – 120 gün |
+| Dönem 2 | 90 gün | 60 – 120 gün |
+| Dönem 3 | 90 gün | 60 – 120 gün |
+| Dönem 4 | 65 gün | 60 – 120 gün |
+| **Toplam Döngü** | **365 gün** | — |
+
+## Süresi Dolmuş Bakiye Yeniden Dağıtımı
+
+Bir Birikim Bakiyesinin süresi dolduğunda (ömür süresinden sonra), fonlar aşağıdaki kurallara göre yeniden dağıtılır. Dağılım, Normal NFT sahipleri ile Hediye NFT sahipleri arasında farklılık gösterir.
+
+<Tabs>
+  <Tab title="Normal NFT">
+    | Hedef | Mevcut | Aralık |
+    |---|---|---|
+    | Yukarı Sponsor | %30 | %0 – %30 |
+    | Platform | %0 | %0 – %30 |
+    | DA Likidite Havuzu | %70 | %50 – %100 |
+  </Tab>
+  <Tab title="Hediye NFT">
+    | Hedef | Mevcut | Aralık |
+    |---|---|---|
+    | Yukarı Sponsor | %20 | %0 – %30 |
+    | Platform | %0 | %0 – %30 |
+    | DA Likidite Havuzu | %80 | %50 – %100 |
+  </Tab>
+</Tabs>
+
+## Pazarlama Ağacı Dağılımı
+
+22 seviyeli pazarlama yapısının her seviyesi, bir kullanıcının o derinlikteki NFT satışlarından ne kadar kazanacağını belirleyen sabit bir ödül yüzdesine sahiptir. Yüzdeler, tanımlanmış aralıklar içinde DAO tarafından ayarlanabilir. 16–22. Seviyeler Phase 2'de açılır.
+
+<AccordionGroup>
+  <Accordion title="1–6. Seviyeler · Giriş Katmanları" icon="layer-group">
+    | Seviye | Mevcut | Aralık |
+    |---|---|---|
+    | Seviye 1 | %0 | %0 |
+    | Seviye 2 | %1 | %1 – %2 |
+    | Seviye 3 | %2 | %2 – %3 |
+    | Seviye 4 | %2 | %2 – %3 |
+    | Seviye 5 | %3 | %3 – %4 |
+    | Seviye 6 | %3 | %3 – %4 |
+  </Accordion>
+  <Accordion title="7–15. Seviyeler · Çekirdek Kazanç Derinliği" icon="chart-simple">
+    | Seviye | Mevcut | Aralık |
+    |---|---|---|
+    | Seviye 7 | %4 | %4 – %5 |
+    | Seviye 8 | %4 | %4 – %5 |
+    | Seviye 9 | %4 | %4 – %5 |
+    | Seviye 10 | %4 | %3 – %5 |
+    | Seviye 11 | %4 | %3 – %5 |
+    | Seviye 12 | %4 | %3 – %5 |
+    | Seviye 13 | %4 | %3 – %5 |
+    | Seviye 14 | %4 | %3 – %5 |
+    | Seviye 15 | %5 | %3 – %5 |
+  </Accordion>
+  <Accordion title="16–22. Seviyeler · Phase 2 Genişleme" icon="rocket">
+    | Seviye | Mevcut | Planlanan (Phase 2) | Aralık |
+    |---|---|---|---|
+    | Seviye 16 | %0 | %2 | %0 – %2.5 |
+    | Seviye 17 | %0 | %2 | %0 – %2.5 |
+    | Seviye 18 | %0 | %1 | %0 – %2.5 |
+    | Seviye 19 | %0 | %0.5 | %0 – %2.5 |
+    | Seviye 20 | %0 | %0.5 | %0 – %2.5 |
+    | Seviye 21 | %0 | %0.5 | %0 – %2.5 |
+    | Seviye 22 | %0 | %0.5 | %0 – %2.5 |
+
+    <Note>
+      **Mevcut = %0** Phase 2 DAO oylaması ile etkinleştirilene kadar (planlanan **Q4 2026**). **Planlanan (Phase 2)** = DAO'nun etkinleştirme sırasında etkinleştirmesi beklenen değerler. Tüm Planlanan değerler zincir üzerindeki `Aralık` içinde yer alır, bu nedenle etkinleştirme herhangi bir parametre sınırının genişletilmesini gerektirmez.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Ağaç dağıtım bütçesi vs seviye başına üst limitler.** Yukarıdaki tablolardaki seviye başına yüzdeler, **seviye başına maksimum ödemeyi** temsil eder. NFT satın alımı başına toplam ağaç dağıtım **bütçesi yaklaşık %43'tür** (Sponsor Bonusu, Token Rezervi / DA Havuzu, Platform Operasyonları ve Birikim Bakiyesi düşülerek %100'den hesaplanır). Teorik seviye başına toplam (~Phase 1 boyunca %48, Phase 2 Planlanan değerlerde etkinleşirse ~%55'e büyür) ile gerçek ~%43 bütçe arasındaki aritmetik fark **sıkıştırma mekanizması** aracılığıyla emilir: bir yukarı kullanıcı uygun olmadığında (tükenmiş Gelir Limiti veya o derinlik için yetersiz NFT seviyesi), tahsis edilmemiş kısım ağaçta daha yukarıya zorlanmaz — bunun yerine platform / dev kalanına akar. Başka bir deyişle, seviye başına oranlar, her derinlikteki tamamen uygun bir pozisyonun tek bir satın alımdan kazanabileceğinin tavanıdır, her satın alımda ağaca ödenen tam toplamın garantisi değil.
+</Note>
+
+### Eşleştirme Bonusu Eşikleri
+
+Eşleştirme Bonusu, doğrudan partner gelirinin üç seviyesi boyunca %5 öder. Her seviye, kilidi açmak için kümülatif kişisel satışlar gerektirir. Eşleştirme yüzdesi (%5) değişmezdir.
+
+| Seviye | Gerekli Satışlar | Aralık |
+|---|---|---|
+| Seviye 1 (%5) | $0 | Sabit |
+| Seviye 2 (%5) | $1.000 | $1.000 – $5.000 |
+| Seviye 3 (%5) | $3.000 | $3.000 – $7.000 |
+
+## Değiştirilemez Parametreler
+
+<CardGroup cols={1}>
+  <Card title="Akıllı Sözleşmede Sabit Kodlandı" icon="shield-check">
+    Aşağıdaki parametreler akıllı sözleşme kodunda kalıcı olarak sabittir. DAO, geliştiriciler veya başka bir taraf tarafından değiştirilemezler.
+  </Card>
+</CardGroup>
+
+| Parametre | Değer |
+|---|---|
+| Manuel Satış Ödemesi | %75 |
+| Otomatik Satış / Borç Verme Ödemesi | %70 |
+| Seviye Başına Eşleştirme Bonusu | %5 |
+| Dondurulmuş Bakiye Penceresi | 72 saat |
+| Kupon Ömrü | 365 gün |
+| Kupon Transfer Kilidi | Son 1 gün |
+| Kredi Kesim Süresi | 30 gün |
+| DAO Hareketsizlik Eşiği | 31 gün |
+| DAO Yumuşatma Süresi | 7 gün |

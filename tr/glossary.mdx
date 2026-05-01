@@ -1,0 +1,170 @@
+---
+title: "Sözlük"
+description: "Çekirdek ekosistem terminolojisi."
+icon: "book"
+---
+
+<AccordionGroup>
+  <Accordion title="Birikim Bakiyesi (Accumulative Balance)">
+    Kullanıcının pazarlama ödüllerinin %20'sinin saklandığı, yalnızca NFT
+    yeniden satın alımları veya yükseltmeler için kullanılabilen zorunlu bir sistem cüzdanıdır.
+    120 günlük azalma, kullanılmayan bakiyeyi NFT türüne göre farklı şekilde böler:
+    **Normal NFT sahipleri** — DA Likidite Havuzuna %70, yukarı sponsora %30;
+    **Hediye NFT sahipleri** — DA Likidite Havuzuna %80, yukarı sponsora %20.
+    Her iki durumda da, sponsorun Gelir Limiti sıfırsa sponsor payı yukarıya kademe yapar
+    ve uygun yukarı sponsor yoksa tamamen Havuza yönlendirilir.
+
+    <Note>
+      **120 gün otomatik bir sona erme değil, garantili minimum penceredir.**
+      `accumulativeDecayTime` kontrolü **yalnızca** `withdrawAccumulative()` içinde —
+      yönetici/servis tarafından tetiklenen yeniden dağıtım yolu — uygulanır
+      ve harcama veya transfer yollarında **uygulanmaz**. İlk 120 gün içinde,
+      bakiye yeniden dağıtıma karşı garanti edilir. 120. günden sonra
+      bakiye yeniden dağıtım için **uygun** hale gelir, ancak gerçek bölünme
+      yalnızca `withdrawAccumulative()` SERVICE_ROLE veya ADMIN_ROLE tarafından
+      bu kullanıcı için çağrıldığında yürütülür. O çağrı gerçekleşene kadar, "süresi dolmuş"
+      bir Birikim Bakiyesi hala NFT satın almaları/yükseltmeleri için harcanabilir
+      ve standart ücretler altında transfer edilebilir. Ekip tarafından denetim
+      yanıtında belirtildiği gibi: *"Hedefimiz kullanıcının fonlarının bütünlüğünü
+      belirli bir süre boyunca garanti etmek, onlara bir yaşam döngüsü vermek değil."*
+    </Note>
+  </Accordion>
+  <Accordion title="Otomatik satış (Auto-sell)">
+    Kullanıcı manuel olarak satmazsa DA'nın otomatik zorunlu satışı. Kullanıcı
+    değerin %70'ini USDT olarak alır (manuel satıştan %5 daha az). Otomatik satılan tokenlerin %100'ü
+    kalıcı olarak yakılır; kalan %30, havuzda destek olarak kalan bir protokol komisyonudur — bu fiyat artışını yönlendirir.
+    DA, ilk günden itibaren %100 kullanılabilir — otomatik satış, kalan bakiyeden aşamalı olarak tetiklenir:
+    Dönem 1 — 120 gün sonra %25 (~4 ay), Dönem 2 — 90 gün sonra kalanın %40'ı (~3 ay, gün 210),
+    Dönem 3 — 90 gün sonra kalanın %50'si (~3 ay, gün 300), Dönem 4 — 65 gün sonra kalanın %100'ü
+    (~2 ay, gün 365). Toplam döngü: **365 gün (1 yıl)**. Dönem süreleri zincir üzerinde
+    gün cinsinden ifade edilir (120 / 90 / 90 / 65); ay referansları okunabilirlik
+    için yaklaşık değerlerdir.
+  </Accordion>
+  <Accordion title="Otomatik Alım (Autobuy 3/3)">
+    Gelir Limiti sıfıra ulaştığında orijinal manuel satın alımdan sonra
+    bir NFT'yi 3 ek kez otomatik olarak yeniden satın alan ve kayıp pazarlama
+    ödüllerini önleyen akıllı sözleşme özelliği. 3/3 sayacı yalnızca otomatik
+    yenilemeleri izler — ilk satın alma ayrıdır — bu nedenle aynı NFT seviyesi
+    toplamda en fazla 4 kez aktif olabilir (1 manuel + 3 otomatik). Normal veya
+    Birikim Bakiyesinde yeterli USDT gerektirir (her ikisi birleştirilebilir).
+    NFT yükseltmesinde sayaç 0/3'e sıfırlanır. Elite seviye (L9–L10)
+    sınırsız otomatik alımları destekler.
+  </Accordion>
+  <Accordion title="İş Satışı (Business Sale)">
+    Bir DAO yetkilendirilmiş süreç aracılığıyla tüm bir iş yapısının
+    (partner ağacı) başka bir kullanıcıya transferi. Ücret, alıcıdan toplanan
+    bir satış fiyatı değil, **satıcı tarafından ödenen bir transfer komisyonudur**:
+    **500 USDT** olarak sabittir ve **0–500 USDT** aralığında DAO tarafından
+    ayarlanabilir. **Alıcı protokole zincir üzerinde komisyon ödemez** ve
+    yapı uygulamada alıcıya verilir. Temel zincir üzerindeki parametre,
+    gerçek komisyon semantiğini yansıtmak için eski `businessSalePrice`'tan
+    yeniden adlandırılan `businessTransferFee`'dir. Yapı olmadan bireysel NFT
+    satışları desteklenmez.
+  </Accordion>
+  <Accordion title="CeFi (Merkezi Finans)">
+    DeFi bileşenleriyle birlikte ekosisteme entegre edilen geleneksel finansal
+    hizmetler ve ürünler.
+  </Accordion>
+  <Accordion title="Sıkıştırma (Compression)">
+    Gelir Limiti sıfır olan veya gerekli NFT seviyesinden yoksun olan kullanıcıları
+    atlayan, ödülü bir sonraki uygun kullanıcıya yukarıya geçiren akıllı sözleşme algoritması.
+    "Sonsuz derinlik" kazanmayı sağlar.
+  </Accordion>
+  <Accordion title="Zincirler Arası Köprü (Cross-Chain Bridge)">
+    Kullanıcıların hesaplarını desteklenen herhangi bir blok zincirinden
+    fonlamasına izin veren yönetilen zincirler arası yatırma servisi.
+    Yatırmalar, DepositTR sözleşmesi aracılığıyla SERVICE_ROLE üzerinden zincir üzerinde işlenir.
+    Bu, güvensiz bir eşler arası köprü değil, bir servis tarafından yönetilen çözümdür.
+  </Accordion>
+  <Accordion title="DA (Deflasyonist Varlık)">
+    Ekosistemin temel ekonomik tokeni. 21M ile sınırlandırılmış, %100 USDT
+    likidite havuzu ile desteklenir. Fiyat = Likidite ÷ Arz. Satılan tokenlerin %100'ü
+    her satışta kalıcı olarak yakılır. Kalan %25 (manuel) / %30 (otomatik), havuzda
+    destek olarak kalan ve fiyat artışını doğrudan yönlendiren bir protokol komisyonudur.
+  </Accordion>
+  <Accordion title="Deflasyonist Döngü (Deflationary Cycle)">
+    Yılda iki kez tetiklenen, 30 güne kadar süren sistem genelinde bir olay. Bu süre boyunca
+    NFTM madenciliği, staking ve DA üretimi geçici olarak duraklatılır. Otomatik
+    ve gönüllü DA satış mekanizmaları etkinleştirilir, günlük token yakımları pazar
+    arzını azaltır ve varlığın değerini güçlendirmek için kıtlığı yoğunlaştırır.
+  </Accordion>
+  <Accordion title="DeFi (Merkeziyetsiz Finans)">
+    Aracılar olmadan blok zinciri teknolojisi üzerine inşa edilmiş finansal hizmetler.
+    RWANFTFI ekosisteminin üç sütunundan biri (RWA + DeFi + CeFi).
+  </Accordion>
+  <Accordion title="FinPro (Finansal Ürünler)">
+    Platform aracılığıyla erişilebilen finansal ürünler ve hizmetler paketi.
+    Q3 2026'da lansmanı yapılacak.
+  </Accordion>
+  <Accordion title="Dondurulmuş Bakiye (Frozen Balance)">
+    Komisyon davet edenin NFT Gelir Limitini aştığında kişisel davet edilen kişinin
+    ilk satın alımından gelen pazarlama gelirini koruyan bir mekanik. Fazlalık 72 saatliğine
+    dondurulur; bu pencere içinde kullanıcı NFT'sini yükseltebilir ve fonları talep edebilir.
+    Son tarih kaçırılırsa, %70 DA Likidite Havuzuna ve %30 yukarı sponsora yapı boyunca
+    kademe ile yönlendirilir. **Aynı davet edilen kişinin tekrarlanan satın alımları Dondurulmuş
+    Bakiye tarafından kapsanmaz** — standart sıkıştırma kuralı altına girerler (Kayıp Gelir).
+    Örnekler ve senaryolarla tam mekanikler özel [Dondurulmuş Bakiye](/tr/frozen-balance)
+    sayfasında belgelenmiştir.
+  </Accordion>
+  <Accordion title="Hediye NFT (Gift NFT)">
+    Pazarlama ağacında bir kullanıcıyı kalıcı olarak yerleştiren satılamaz tanıtım NFT'si.
+    Satın alınamaz — promosyonlar veya Kariyer Rütbesi başarıları yoluyla verilir.
+  </Accordion>
+  <Accordion title="Gelir Limiti (Income Limit)">
+    Yenileme gerekli olmadan önce belirli bir NFT'nin üretebileceği maksimum kümülatif USDT
+    geliri. İki kaynak tarafından tüketilir: pazarlama ödülleri ve DA satışları. Limit sıfıra
+    ulaştığında, tüm pazarlama ödülleri atlanır (sıkıştırma etkinleşir) ve manuel DA satışı
+    mümkün değildir — otomatik satışta gelir DA Likidite Havuzuna veya yakıma yönlendirilir
+    (DAO tarafından belirlenir).
+  </Accordion>
+  <Accordion title="Borç Verme Temerrüdü (Lending Default)">
+    Bir borçlu 30 günlük kesim süresi içinde kredisini geri ödemezse, teminatlandırılmış DA
+    otomatik satış döngüsüne girer. Tokenler standart 4 dönemli program aracılığıyla aşamalı
+    olarak yakılır (toplam **365 gün (1 yıl)** boyunca kalan bakiyenin %25 → %40 → %50 → %100'ü:
+    dönem başına 120 / 90 / 90 / 65 gün). Kullanıcı aldığı orijinal kredi tutarını korur ancak
+    tüm DA teminatını kaybeder; otomatik satış gelirinin %100'ü borçluya değil, DA Likidite
+    Havuzuna yönlendirilir. Bu mekanizma sistem likiditesini korur, riski azaltır ve finansal
+    disiplini sağlar.
+  </Accordion>
+  <Accordion title="Kayıp Gelir (Lost Income)">
+    Yetersiz NFT seviyesi veya tükenmiş gelir limiti nedeniyle bir kullanıcının pazarlama
+    ödülünü kaçırdığını belirten bildirim. Fonlar yukarıya bir sonraki uygun katılımcıya geçer.
+  </Accordion>
+  <Accordion title="Eşleştirme Bonusu (Matching Bonus)">
+    İkincil ödül sistemi — üç seviye boyunca doğrudan partnerler tarafından üretilen gelirden
+    %5 + %5 + %5 ödenir. L4 NFT + kişisel satış kilometre taşları (1.000 ve 3.000 USDT) ile açılır.
+  </Accordion>
+  <Accordion title="NFTM">
+    40–45 günlük Madencilik aşaması sırasında üretilen dahili madencilik sayacı (token değil).
+    DA Farming'i başlatmak için 72 saat içinde stake edilmelidir. Pazar değeri yoktur.
+  </Accordion>
+  <Accordion title="Yeniden Satın Alma (Rebuy)">
+    Gelir limitini yenilemek için aynı seviyedeki bir NFT'yi yeniden satın alma.
+    Kalan limit, ilk değerin %30'u veya daha azı olduğunda kullanılabilir.
+  </Accordion>
+  <Accordion title="RWA (Gerçek Dünya Varlıkları)">
+    Blok zincirinde tokenize edilmiş fiziksel varlıklar (gayrimenkul, altyapı, işletmeler).
+    Uzun vadeli stratejik yönü temsil eder — 2027–2028'de lansmanı yapılacak.
+  </Accordion>
+  <Accordion title="Aşağı Taşma (Spillover)">
+    Yukarı bir sponsorun davetlerinin pazarlama yapınıza otomatik olarak yerleştirilmesi.
+    Yapınızdaki konumlarına göre (Seviye 2+) aşağı taşma partnerlerinden Ağaç Dağılımı
+    ödülleri kazanırsınız, ancak Sponsor Bonusu kazanmazsınız — bu, gerçek davet edene gider.
+    Birincil değer, ağacınızın pasif büyümesi ve daha derin seviyelerden ödüllerdir.
+  </Accordion>
+  <Accordion title="VERA AI">
+    2027–2028 için planlanan AI destekli kişisel finansal asistan.
+    Kullanıcıların ekosistemin finansal araçlarını yönlendirmesine yardımcı olmak için tasarlanmıştır.
+  </Accordion>
+  <Accordion title="Kupon (Hediye Kuponu)">
+    Kullanıcı tarafından oluşturulan dijital kupon. Akıllı sözleşme **5 USDT minimum
+    oluşturma değeri** uygular — sıfır değerli kuponlar zincir üzerinde reddedilir.
+    Geçerlilik, ihraçtan itibaren **365 gündür**. Bir NFT satın alımının %100'üne kadar
+    karşılar. %0 komisyonla devredilebilir, ancak **Kupon Transfer Kilidi** süresince —
+    son kullanma tarihinden önceki son 24 saat — bir alıcının kullanmaya zamanı olmayan
+    bir kupon verilemeyeceği şekilde transferler bloke edilir. **Birikim Bakiyesi
+    ile birleştirilemez** (geçerli kombinasyonlar: Kupon + Normal, %100 Birikim veya
+    Birikim + Normal). Bir Kupon 365 günlük tam ömrü boyunca kullanılmazsa, **değerinin
+    %100'ü DA Likidite Havuzuna yönlendirilir**.
+  </Accordion>
+</AccordionGroup>

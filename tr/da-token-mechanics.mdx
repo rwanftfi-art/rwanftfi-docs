@@ -1,0 +1,200 @@
+---
+title: "DA Token Mekanikleri"
+description: "Yalnızca yukarı yönlü fiyat modeli."
+icon: "coins"
+---
+import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
+
+
+<CardGroup cols={2}>
+  <Card title="21M Maksimum Arz" icon="cube">
+    Maksimum arz sonsuza dek sabittir. Enflasyon yok, basım yok.
+  </Card>
+  <Card title="%100 USDT Destekli" icon="shield-check">
+    Her DA tokeni likidite havuzundaki gerçek USDT ile desteklenir.
+  </Card>
+  <Card title="Her Satışta Yakım" icon="fire">
+    Satılan tokenlerin %100'ü kalıcı olarak yakılır. Kullanıcı, değerin %75'ini (manuel) veya %70'ini (otomatik) USDT olarak alır. Kalan %25 (manuel) veya %30 (otomatik), havuzda destek olarak kalan bir protokol komisyonudur — DA fiyatını yukarı yönlü iten budur.
+  </Card>
+  <Card title="P2P Transferler Yok" icon="ban">
+    DA yalnızca satılabilir, ödünç verilebilir veya geri ödenebilir — eşler arası transfer yoktur.
+  </Card>
+</CardGroup>
+
+## "Yalnızca Yukarı" Fiyat Formülü
+
+Fiyat = Likidite ÷ Dolaşımdaki Arz
+
+DA her satıldığında, tokenler yakılır (arz azalır), USDT havuzda kalır (likidite kalır veya artar). Daha az token ÷ aynı veya daha fazla USDT = token başına daha yüksek fiyat.
+
+<Info>
+  **Nasıl çalışır:** Dolaşımda 200 DA, likidite havuzunda 200 USDT. Fiyat = DA başına 1.00 USDT. Bir kullanıcı 100 DA satar. Havuz 70 USDT öder (100 USDT değerinin %70'i). 100 DA'nın tümü yakılır. Sonuç: 100 DA kalır, havuzda 130 USDT. Yeni fiyat = 130 ÷ 100 = **DA başına 1.30 USDT**.
+</Info>
+
+<Tip>
+  Tüm pazarlama ödüllerinden alınan %5 komisyon doğrudan DA likidite havuzuna akar — satış yüzdelerinden ayrıdır. Ek likidite Borç Verme ücretlerinden, RWA gelirinden ve FinPro gelirinden gelir.
+</Tip>
+
+<Info>
+  **Tohum Arz Koruması:** Küçük bir kalıcı DA rezervi — **Tohum Arz** — fiyatlandırma formülü için teknik bir koruma olarak protokole lansman sırasında önceden yatırılır.
+
+  - **Kalıcı ve satılamaz.** Tohum Arz protokol düzeyinde kilitlenmiştir: **yakılamaz**, **satılamaz** (manuel veya otomatik satış yoluyla) ve **otomatik satış döngülerinden hariç tutulur**.
+  - **Dolaşımın dışında.** **Dolaşımdaki arz olarak sayılmaz** ve kullanıcı bakiyelerine, farming'e, borç vermeye veya pazarlama dağılımlarına asla katılmaz.
+  - **Sıfır olmayan paydayı garanti eder.** `Fiyat = Likidite ÷ Dolaşımdaki Arz` olduğu için, formül asla sıfıra bölünmemelidir. Tohum Arz, her zaman `totalSupply > 0`'ı garanti eder, böylece fiyat fonksiyonu her zaman tanımlıdır — dolaşımdaki diğer tüm tokenlerin yakıldığı uç durum bile dahil.
+  - **Yalnızca uç durum koruması.** Normal işlem altında Tohum Arz fiyat keşfini etkilemez. Yalnızca, likidite mevcutken dolaşımdaki arz aksi takdirde sıfıra ulaşacaksa `getPrice()`'ı iyi tanımlanmış tutmak için belirleyici bir taban olarak vardır.
+</Info>
+
+## Likidite Havuzu Kaynakları
+
+Likidite Havuzu, DA ekonomisinin temelidir. RWANFTFI ekosistemindeki birden fazla kaynaktan beslenir ve token desteğinin sürekli büyümesini sağlar. Her protokol gelir akışı tek bir havuza akar ve Fiyat = Likidite ÷ Arz formülünü güçlendirir.
+
+<AccordionGroup>
+  <Accordion title="NFT Aktivitesi">
+    **NFT Satın Alımları** — Her NFT satın alımının %20'si yeni DA basımı için otomatik olarak Likidite Havuzuna yönlendirilir.
+
+    **Yeniden Satın Alma ve Otomatik Alım** — Her tekrarlanan veya otomatik NFT satın alımından ek bir %20 Likidite Havuzuna akar. Bu, pozisyon yenilemeyi teşvik eder ve sistem büyümesini destekler.
+  </Accordion>
+
+  <Accordion title="Ücretler ve Komisyonlar">
+    **Pazarlama Ödülleri Vergisi** — Yönlendirme ağı genelindeki tüm pazarlama ödüllerinin %5'i otomatik olarak Likidite Havuzuna yönlendirilir. Ağ aktivitesi doğrudan DA desteğini güçlendirir.
+
+    **Birikim Bakiyesi Transfer Ücreti** — Birikim Bakiyesini başka bir kullanıcıya aktarırken, transfer tutarının %20'si DA Likidite Havuzuna yönlendirilir. Birikim Bakiyesinin herhangi bir hareketi — bir NFT satın alımında kullanılsa veya cüzdanlar arasında transfer edilse — Havuza %20'lik bir giriş üretir.
+
+    **Birikim Bakiyesi Satın Alma Ücreti** — Birikim Bakiyesi kullanılarak NFT satın alındığında, entegre edilen tutarın %20'si yeni DA basımı için DA Likidite Havuzuna yönlendirilir. Örnek: Birikim Bakiyesinde 898 USDT — bir NFT satın alımına entegre edildiğinde, 718 USDT NFT maliyetine, 180 USDT (898'in %20'si) DA Likidite Havuzuna akar. Bu tür her satın alım Havuzu doldurur ve yeni DA için temel oluşturur.
+
+    **Borç Verme Komisyonu** — Bir kredi alırken, borçlu Likidite Havuzuna yönlendirilen tek seferlik %5 komisyon öder. Örnek: 1.000$ kredi, borçlu 950$ alır, 50$ Havuza gider. Komisyon her yeni kredide toplanır.
+  </Accordion>
+
+  <Accordion title="Süresi Dolmuş ve Kullanılmayan Fonlar">
+    **Sıfır Gelir Limitiyle Otomatik Satış** — DA otomatik satışı tetiklenirse ve kullanıcının NFT'sinde Gelir Limiti sıfırsa, gelirin %100'ü ya Likidite Havuzuna ya da DA yakımına gider (kesin mekanizma DAO ayarları tarafından belirlenir).
+
+    **Süresi Dolmuş Kuponlar** — Kuponlar 365 gün boyunca kullanılmazsa, fonların %100'ü Likidite Havuzuna yönlendirilir. Bu, atıl fonları önler ve hareketsiz yükümlülükleri ortadan kaldırır.
+
+    **Kullanılmayan Birikim Bakiyesi** — Birikim Bakiyesi 120 gün boyunca kullanılmazsa, fonların %70'i yeni DA basımı için Likidite Havuzuna yönlendirilir.
+  </Accordion>
+
+  <Accordion title="Dış Gelir">
+    **SWAP Komisyonları** — Tüm değişim (SWAP) işlemlerinden gelen komisyonlar otomatik olarak Likidite Havuzuna yönlendirilir.
+
+    **Banka Kartı Komisyonları** — Banka Kartı programından gelen komisyonlar Likidite Havuzuna akar ve dış ekonomiden gerçek nakit akışı yaratır.
+
+    **RWA Geliri** — Gayrimenkul, kira geliri, ticari varlıklar ve diğer gerçek dünya varlıklarından elde edilen gelirin bir kısmı Likidite Havuzuna yönlendirilir ve sistemi gerçek ekonomiye sabitler.
+
+    **FinPro Geliri** — Finansal ürünlerden (Borç Verme, yatırım ürünleri, finansal hizmetler) elde edilen karın bir kısmı Likidite Havuzuna akar.
+
+    **Ekosistem Geliri** — Toplam protokol gelirinin bir kısmı Likidite Havuzuna yönlendirilebilir veya yeni DA basımı için ek likidite oluşturmak için kullanılabilir.
+  </Accordion>
+</AccordionGroup>
+
+## DA Yakım Mekanikleri
+
+DA yakımı temel deflasyonist mekanizmadır — token arzını azaltır ve varlığın değeri üzerinde sürdürülebilir yukarı yönlü baskı yaratır.
+
+<CardGroup cols={3}>
+  <Card title="Manuel Satış" icon="fire">
+    Satılan DA'nın %100'ü kalıcı olarak yakılır. Kullanıcı değerin %75'ini USDT olarak alır. Kalan %25, havuzda destek olarak kalan bir protokol komisyonudur ve fiyat artışını yönlendirir.
+  </Card>
+  <Card title="Otomatik Satış" icon="clock">
+    Otomatik satılan DA'nın %100'ü kalıcı olarak yakılır. Kullanıcı değerin %70'ini USDT olarak alır. Kalan %30, havuzda destek olarak kalan bir protokol komisyonudur ve fiyat artışını yönlendirir. 4 dönem boyunca (toplam 365 gün / 1 yıl) kalan bakiyeden aşamalı olarak tetiklenir.
+  </Card>
+  <Card title="Borç Verme Temerrüdü" icon="ban">
+    Bir kredi geri ödenmezse, teminat olarak gösterilen DA otomatik satış döngüsü aracılığıyla aşamalı olarak yakılır. Sistem likiditesini korur ve finansal disiplini sağlar.
+  </Card>
+</CardGroup>
+
+## Anlık Erişim ve Otomatik Satış Döngüsü
+
+### Anlık Erişim
+
+DA tokenleri farming yapıldığı andan itibaren kullanıcıya %100 kullanılabilir durumdadır. Kilitleme süresi yoktur. Kullanıcı hemen şunları yapabilir:
+
+- **Manuel satış** — değerin %75'ini USDT olarak alır, tokenlerin %100'ü yakılır
+- **Kredi al** — DA teminatı karşılığında %70 LTV, %5 komisyon ücreti
+- **Tut ve bekle** — tokenleri tut ve zamanla fiyat artışından yararlan
+
+### Otomatik Satış Döngüsü
+
+Kullanıcı manuel olarak satmazsa, sistem **kalan bakiyeden** toplam **365 gün (1 yıl)** süren 4 dönem boyunca otomatik satışları tetikler. Dönem süreleri zincir üzerinde gün cinsinden ifade edilir (120 / 90 / 90 / 65 gün); aşağıdaki ay referansları okunabilirlik için yaklaşık değerlerdir.
+
+**100 DA ile başlayan örnek:**
+
+<Steps>
+  <Step title="Dönem 1 — 120 gün sonra (~4 ay)">
+    Mevcut bakiyenin %25'i otomatik olarak satılır. 100'ün %25'i = **25 DA satılır** → Kalan: **75 DA**
+  </Step>
+  <Step title="Dönem 2 — 90 gün daha sonra (~3 ay, gün 210)">
+    Kalan bakiyenin %40'ı otomatik olarak satılır. 75'in %40'ı = **30 DA satılır** → Kalan: **45 DA**
+  </Step>
+  <Step title="Dönem 3 — 90 gün daha sonra (~3 ay, gün 300)">
+    Kalan bakiyenin %50'si otomatik olarak satılır. 45'in %50'si = **22.5 DA satılır** → Kalan: **22.5 DA**
+  </Step>
+  <Step title="Dönem 4 — 65 gün daha sonra (~2 ay, gün 365)">
+    Kalan bakiyenin %100'ü otomatik olarak satılır. 22.5'in %100'ü = **22.5 DA satılır** → Kalan: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Yukarıda gösterilen otomatik satış yüzdeleri (%25 / %40 / %50 / %100) mevcut protokol yapılandırmasını temsil eder. Belirli değerler protokol parametreleri olarak saklanır ve standart yönetişim prosedürlerine tabidir. En son değerler için her zaman akıllı sözleşmeyi veya mevcut protokol belgelerini kontrol edin.
+</Note>
+
+Her otomatik satış, orijinal farming fiyatında değil, o dönemin tetiklendiği andaki DA fiyatında gerçekleşir. Otomatik satılan tokenlerin %100'ü yakılır ve kullanıcı, otomatik satış tarihindeki fiyatta değerin %70'ini USDT olarak alır. Fiyat zamanla arttığı için, daha sonraki dönemler tokenleri daha yüksek fiyatla yakar ve deflasyonu hızlandırır.
+
+Kullanıcı, otomatik satış tetiklenmeden önce herhangi bir zamanda manuel olarak satabilir ve %70 yerine %75 alır.
+
+<Tip>
+  Manuel satış (%75 ödeme) token başına her zaman otomatik satıştan (%70 ödeme) daha karlıdır. Ancak otomatik satış zamanla fiyat artışından yararlanır — sonraki dönemler daha yüksek bir DA fiyatında gerçekleştirilir.
+</Tip>
+
+<Warning>
+  **Sıfır Gelir Limitiyle Otomatik Satış:** Otomatik satış tetiklenirse ve kullanıcının Gelir Limiti sıfırsa (NFT yenilenmemişse), gelirin %100'ü Likidite Havuzuna veya DA yakımına gider (DAO tarafından belirlenir). Kullanıcı hiçbir şey almaz. Aktif Gelir Limitini her zaman koruyun.
+</Warning>
+
+## Çoklu-Parti Borç Verme
+
+Her madencilik döngüsünden gelen her DA partisi bağımsız teminat olarak hizmet eder. Bu, sürekli bir mikro-kredi döngüsü sağlar:
+
+<Steps>
+  <Step title="Parti 1 Madenciliği">
+    Kullanıcı bir madencilik döngüsünü tamamlar ve DA parti 1 alır.
+  </Step>
+  <Step title="Parti 1 Karşılığında Borç Al">
+    Kullanıcı parti 1 karşılığında %70 LTV kredi alır (Likidite Havuzuna %5 komisyon).
+  </Step>
+  <Step title="Parti 2 Madenciliği">
+    Kullanıcı yeni bir madencilik döngüsü başlatır ve DA parti 2 alır.
+  </Step>
+  <Step title="Parti 2 Karşılığında Borç Al">
+    Kullanıcı parti 2 karşılığında başka bir %70 LTV kredi alır (ayrı %5 komisyon).
+  </Step>
+</Steps>
+
+Bu, her DA partisi başına bir tane olmak üzere birden fazla eş zamanlı mikro-kredi sağlar. Her kredinin kendi 30 günlük kesim süresi vardır. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı yakılır — tüm DA varlıkları değil.
+
+Ayrıntılı satış vs. borç verme karşılaştırması için bkz. [Satış ve Borç Verme](/tr/da-selling-lending).
+
+## Deflasyonist Döngü
+
+Sistem, yılda iki kez 30 güne kadar süren özel bir Deflasyonist Döngü tetikler ve token kıtlığını yoğunlaştırmak için tasarlanmıştır.
+
+<Steps>
+  <Step title="Yeni döngüleri duraklat">
+    NFTM madenciliği, staking ve DA üretiminin yeni döngülerini başlatma, Deflasyonist Döngü süresince duraklatılır. **Deflasyonist Döngüden önce başlayan aktif döngüler çalışmaya devam eder ve programa göre tamamlanır** — madenciliği zaten devam eden kullanıcılar ilerlemelerini kaybetmez.
+  </Step>
+  <Step title="Satış mekanizmalarını etkinleştir">
+    Otomatik veya gönüllü DA satış mekanizmaları etkinleştirilir.
+  </Step>
+  <Step title="Günlük yakım">
+    Tokenlerin bir kısmı günlük olarak yakılır.
+  </Step>
+  <Step title="Arz daralır">
+    Pazar arzı daralır ve yukarı yönlü fiyat baskısı güçlenir.
+  </Step>
+</Steps>
+
+<Info>
+  Deflasyonist Döngü, DA ekonomisini uzun vadede öngörülebilir, yönetilebilir ve sürdürülebilir kılar.
+</Info>
+
+Artan aktivite → artan likidite → artan DA ihracı → artan yakım → artan kıtlık → artan varlık değeri. Bu kapalı döngü sistem, ekosistem ne kadar aktif gelişirse, DA ekonomisinin o kadar güçlü olacağı anlamına gelir.
+
+<DaPriceSimulator />

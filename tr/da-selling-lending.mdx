@@ -1,0 +1,123 @@
+---
+title: "Satış ve Borç Verme"
+description: "Sat, ödünç ver veya tut — seçim sizin."
+icon: "scale-balanced"
+---
+import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
+
+
+Bir kullanıcı DA'ya sahip olduğunda, iki temel finansal seçeneği vardır: varlığı satmak veya bir kredi için teminat olarak kullanmak.
+
+<CardGroup cols={2}>
+  <Card title="DA Sat" icon="fire">
+    Satılan DA'nın %100'ü kalıcı olarak yakılır. Değerin %75'ini (manuel) veya %70'ini (otomatik) USDT olarak alırsınız. Kalan %25 (manuel) veya %30 (otomatik), havuzda destek olarak kalan ve DA fiyatını yukarı yönlü iten bir protokol komisyonudur.
+  </Card>
+  <Card title="DA Ödünç Ver" icon="building-columns">
+    DA'nız karşılığında %70 LTV'ye kadar USDT olarak borç alın. DA'nız TokenStack'inizde kalır. Tek seferlik %5 komisyon ile 30 günlük kredi süresi.
+  </Card>
+</CardGroup>
+
+## DA Satışı ve Yakım Mekanikleri
+
+DA satarken, farklı koşullara sahip iki belirgin senaryo vardır:
+
+1. **Manuel Satış (kullanıcı bağımsız olarak satar):**
+   * Kullanıcı, mevcut fiyatta DA değerinin **%75'ini** USDT olarak alır.
+   * Satılan DA tokenlerin **%100'ü** kalıcı olarak yakılır.
+   * Kalan %25, havuzda USDT desteği olarak kalan bir protokol komisyonudur — daha az tokenle ve aynı likidite ile, bu %25 doğrudan fiyat artışını yönlendirir.
+
+2. **Otomatik Satış (TokenStack süresi sona erdikten sonra tetiklenir):**
+   * Kullanıcı, otomatik satış tarihindeki fiyatta DA değerinin **%70'ini** USDT olarak alır.
+   * Otomatik satılan DA tokenlerin **%100'ü** kalıcı olarak yakılır.
+   * Kalan %30, havuzda USDT desteği olarak kalan bir protokol komisyonudur — bu %30, fiyatı yukarı yönlü iten şeydir.
+   * Kullanıcı dönemin bitiminden önce manuel olarak satmadıysa otomatik satış otomatik olarak tetiklenir.
+
+Her iki durumda da, satılan tokenlerin %100'ü yakılır — %25/%30, havuzda USDT desteği olarak kalan protokol komisyonunu temsil eder. Fiyat artışını yönlendiren mekanizma budur: daha az token + aynı likidite = DA başına daha yüksek fiyat. Otomatik satış %5 daha düşük ödeme sunar ve kullanıcıları DA pozisyonlarını aktif olarak yönetmeye teşvik eder.
+
+<Warning>
+  **DA satışı NFT'nizin Gelir Limitini tüketir.** DA'nın her manuel veya otomatik satışı, NFT'nizin kalan Gelir Limitini USDT ödeme tutarı kadar azaltır — pazarlama ödülleri ile eşit konumdadır. Gelir Limiti tükenirse, manuel DA satışı mümkün değildir (sistem ödemeyi yatıramaz) ve otomatik satışta gelirin %100'ü DA Likidite Havuzuna veya yakıma yönlendirilir (kesin mekanizma DAO ayarları tarafından belirlenir). DA satarken ödemeyi almak için Otomatik Alım veya manuel NFT yenileme yoluyla Gelir Limitinizi aktif tutun.
+</Warning>
+
+<Info>
+  **Otomatik satış**, TokenStack süresi sona ermeden manuel olarak satmazsanız otomatik olarak tetiklenir. %5 daha az ödeme yapar (%70'e karşı %75) ve aktif yönetimi teşvik eder.
+</Info>
+
+## Otomatik Satış Dönemleri
+
+DA, farming yapıldıktan hemen sonra kullanıcıya %100 kullanılabilir durumdadır — kilitleme süresi yoktur. Kullanıcı herhangi bir zamanda manuel olarak satabilir (USDT olarak %75 alır) veya DA'sı karşılığında bir kredi alabilir. Kullanıcı **harekete geçmezse**, sistem **kalan bakiyeden** toplam **365 gün (1 yıl)** süren 4 dönem boyunca aşamalı olarak otomatik zorunlu satışları tetikler. Dönem süreleri zincir üzerinde gün cinsinden ifade edilir (120 / 90 / 90 / 65 gün); aşağıdaki ay referansları okunabilirlik için yaklaşık değerlerdir.
+
+**100 DA ile başlayan örnek:**
+
+<Steps>
+  <Step title="Dönem 1 — 120 gün sonra %25 otomatik satış (~4 ay)">
+    120 gün (~4 ay) içinde manuel olarak satmadıysanız, mevcut DA bakiyenizin %25'i otomatik olarak satılır. 100 DA'nın %25'i = **25 DA otomatik satılır** → Mevcut fiyatta değerin %70'ini USDT olarak alırsınız → 25 DA'nın %100'ü yakılır → Kalan: **75 DA**
+  </Step>
+  <Step title="Dönem 2 — 90 gün daha sonra %40 otomatik satış (~3 ay, gün 210)">
+    Kalan bakiyenin %40'ı otomatik olarak satılır. 75 DA'nın %40'ı = **30 DA otomatik satılır** → Kalan: **45 DA**
+  </Step>
+  <Step title="Dönem 3 — 90 gün daha sonra %50 otomatik satış (~3 ay, gün 300)">
+    Kalan bakiyenin %50'si otomatik olarak satılır. 45 DA'nın %50'si = **22.5 DA otomatik satılır** → Kalan: **22.5 DA**
+  </Step>
+  <Step title="Dönem 4 — 65 gün daha sonra %100 otomatik satış (~2 ay, gün 365)">
+    Kalan bakiyenin %100'ü otomatik olarak satılır. Pozisyon tamamen kapatılır. 22.5 DA'nın %100'ü = **22.5 DA otomatik satılır** → Kalan: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Yukarıda gösterilen otomatik satış yüzdeleri (%25 / %40 / %50 / %100) mevcut protokol yapılandırmasını temsil eder. Belirli değerler protokol parametreleri olarak saklanır ve standart yönetişim prosedürlerine tabidir. En son değerler için her zaman akıllı sözleşmeyi veya mevcut protokol belgelerini kontrol edin.
+</Note>
+
+Her otomatik satış, orijinal farming fiyatında değil, o andaki DA fiyatında gerçekleşir. Fiyat zamanla arttığı için, daha sonraki otomatik satışlar tokenleri daha yüksek bir fiyatta yakar — deflasyonu daha da güçlendirir.
+
+<Warning>
+  **Sıfır Gelir Limitiyle Otomatik Satış:** DA otomatik satışı tetiklenirse ve kullanıcının NFT'sinde sıfır Gelir Limiti varsa (yani NFT yenilenmemişse), gelirin %100'ü ya Likidite Havuzuna ya da DA yakımına yönlendirilir. Kesin mekanizma DAO ayarları tarafından belirlenir. Kullanıcılar otomatik satış ödemelerini almak için her zaman aktif Gelir Limitini korumalıdır.
+</Warning>
+
+## Borç Verme (DA karşılığı kredi)
+
+Satmak yerine, kullanıcılar DA varlıkları karşılığında USDT olarak kredi alabilirler. Kullanıcılar DA teminatlarının mevcut USDT değerinin **%70'ine** kadar borç alabilirler (Kredi-Değer oranı). Akıllı sözleşme katı bir 30 günlük kredi kesim süresini uygular. Bir kredi gerekli parametreler dahilinde yönetilmezse, teminat olarak gösterilen TokenStack tasfiye edilebilir.
+
+Bir kredi alırken, borçlu DA Likidite Havuzuna yönlendirilen tek seferlik **%5 komisyon** öder. Borçlu kredi değerinin %95'ini alır. Örnek: 1.000$ kredi için, borçlu 950$ alır ve 50$ Likidite Havuzuna gider. Bu komisyon her yeni kredide toplanır — kullanıcılar yeni DA partileri aldıktan sonra yeni krediler alabilir, yani komisyon Havuza tekrar tekrar akar.
+
+<Info>
+  **Bağımsız Kredi Ücreti Parametresi:** %5 borç verme komisyonu, protokolün diğer ücret parametrelerinden ayrı olarak özel bir `loanFee` parametresi olarak zincir üzerinde saklanır. Bu izolasyon, DAO'nun pazarlama vergilerini, birikim ücretlerini veya diğer komisyonları etkilemeden kredi ücretini bağımsız olarak ayarlamasına olanak tanır — ve kredi ekonomisini tek, açık bir kaldıraç olarak yönetilebilir tutar.
+</Info>
+
+<Note>
+  **Minimum Kredi Tutarı:** Akıllı sözleşme sıfır değerli kredileri reddeder. Talep edilen kredi boyutu o kadar küçükse ki ücret sonrası ödeme 0 USDT'ye yuvarlanırsa, işlem geri alınır. Borçlular, borçlu ödemesinin (kredi değerinin %95'i) zincir üzerinde yuvarlandıktan sonra sıfır olmayacak kadar büyük bir miktar talep etmelidir. Bu, borçluya hiçbir ekonomik fayda sağlamadan teminatı kilitleyecek toz kredileri önler.
+</Note>
+
+### Çoklu-Parti Borç Verme
+
+Bir madencilik döngüsünden gelen her DA partisi bağımsız teminat olarak hizmet eder. Kullanıcılar her bir parti karşılığında ayrı bir %70 LTV kredi alabilir:
+
+<Steps>
+  <Step title="Parti 1 Madenciliği">
+    Bir madencilik döngüsünü tamamlayın ve DA parti 1 alın.
+  </Step>
+  <Step title="Parti 1 Karşılığında Borç Al">
+    Parti 1 karşılığında %70 LTV kredi alın (Likidite Havuzuna %5 komisyon).
+  </Step>
+  <Step title="Parti 2 Madenciliği">
+    Yeni bir madencilik döngüsü başlatın ve DA parti 2 alın.
+  </Step>
+  <Step title="Parti 2 Karşılığında Borç Al">
+    Parti 2 karşılığında başka bir %70 LTV kredi alın (ayrı %5 komisyon).
+  </Step>
+</Steps>
+
+<Tip>
+  Birden fazla eş zamanlı aktif kredi mümkündür — her DA partisi başına bir tane. Her kredinin kendi 30 günlük kesim süresi ve %5 komisyonu vardır. Daha küçük NFT'ler daha küçük krediler üretir, daha büyük NFT'ler daha büyük krediler üretir. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı otomatik satış döngüsüne girer — tüm DA varlıkları değil.
+</Tip>
+
+<Note>
+  **Geri Ödeme Penceresi — Geç Geri Ödeme Yok:** Bir kredi yalnızca aktifken `repay()` aracılığıyla geri ödenebilir. 30 günlük kesim süresi geçtikten ve pozisyon otomatik satış son tarihine geçtikten sonra, `repay()` geri alınır — borçlu tasfiye programını atlamak için krediyi geri **alamaz**. Süresi geçmiş bir pozisyon, aşağıda açıklanan aşamalı yakımı yürüten `processExpiredStacks()` aracılığıyla işlenmelidir. Bir borçlunun geç geri ödeyerek temerrüt cezalarından kaçmasına izin veren bir yol yoktur.
+</Note>
+
+<Warning>
+  **Borç Verme Temerrüdü — Aşamalı Yakım:** Bir kredi 30 günlük kesim süresi içinde geri ödenmezse, teminatlandırılmış DA otomatik satış döngüsüne girer. Tokenler aynı 4 dönemli program aracılığıyla aşamalı olarak yakılır (toplam 365 gün / 1 yıl boyunca kalan bakiyenin %25 → %40 → %50 → %100'ü: dönem başına 120 / 90 / 90 / 65 gün).
+
+  Kullanıcı bu otomatik satışlardan USDT **almaz** — **gelirin %100'ü DA Likidite Havuzuna yönlendirilir**. Kullanıcı aldığı **orijinal kredi tutarını korur**, ancak **tüm DA teminatını kaybeder**. Bu mekanizma sistem likiditesini korur, sistemik riski azaltır ve ekosistem genelinde finansal disiplini sağlar.
+</Warning>
+
+<SellVsLend />

@@ -161,6 +161,70 @@
             ]
           }
         ]
+      },
+      {
+        "language": "tr",
+        "groups": [
+          {
+            "group": "Başlangıç",
+            "pages": [
+              "tr/executive-summary",
+              "tr/vision"
+            ]
+          },
+          {
+            "group": "NFT Ekosistemi",
+            "pages": [
+              "tr/nft-ecosystem",
+              "tr/frozen-balance"
+            ]
+          },
+          {
+            "group": "Deflasyonist Varlık (DA)",
+            "pages": [
+              "tr/da-token-mechanics",
+              "tr/da-mining-farming",
+              "tr/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Kazanç ve Pazarlama",
+            "pages": [
+              "tr/marketing-binary-tree",
+              "tr/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Mimari",
+            "pages": [
+              "tr/architecture",
+              "tr/contract-parameters",
+              "tr/security"
+            ]
+          },
+          {
+            "group": "Yönetişim",
+            "pages": [
+              "tr/governance"
+            ]
+          },
+          {
+            "group": "Yol Haritası",
+            "pages": [
+              "tr/roadmap"
+            ]
+          },
+          {
+            "group": "Kaynaklar",
+            "pages": [
+              "tr/corporate-structure",
+              "tr/support",
+              "tr/partnerships",
+              "tr/legal",
+              "tr/glossary"
+            ]
+          }
+        ]
       }
     ]
   },
