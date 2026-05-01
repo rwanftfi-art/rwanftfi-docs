@@ -1,0 +1,109 @@
+---
+title: "NFT-Ökosystem"
+description: "10 Stufen von 28 bis 24.000 USDT."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · RWA- & FinPro-Zugang
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5.500 USDT · Mining, Lending, Matching
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11.000 – 24.000 USDT · Maximale Tiefe, kürzeste Zyklen
+  </Card>
+</CardGroup>
+
+Der Besitz eines NFTs ist obligatorisch, um am Marketing teilzunehmen, DA zu minen und auf Finanzwerkzeuge zuzugreifen. Ein aktives NFT pro Konto – ein Upgrade ersetzt das vorherige automatisch.
+
+<NftTierExplorer />
+
+## Einkommenslimits & Auto-Erneuerung
+<AccordionGroup>
+  <Accordion title="So funktionieren Einkommenslimits" icon="gauge-high">
+    Jedes NFT hat ein striktes Einkommenslimit – das maximale kumulative Einkommen, das dieses NFT vor der Erneuerung generieren kann. Das Einkommenslimit wird durch **zwei Quellen** verbraucht:
+
+    1. **Marketing-Belohnungen** – Sponsor-Bonus, Tree Distribution, Matching-Bonus, alle Auszahlungen aus der Aktivität Ihrer Struktur.
+    2. **DA-Verkäufe** – jeder manuelle oder automatische Verkauf von DA reduziert Ihr verbleibendes Einkommenslimit um den USDT-Auszahlungsbetrag.
+
+    Wenn das Limit null erreicht, hören Sie auf, **alle** Marketing-Belohnungen zu erhalten **und** verlieren die Möglichkeit, DA zu verkaufen: Bei einem manuellen Verkauf kann das System Ihnen die Auszahlung nicht gutschreiben; bei einem Auto-Verkauf werden 100 % der Erlöse an den DA-Liquiditätspool oder zur Verbrennung weitergeleitet (der genaue Mechanismus wird durch DAO-Einstellungen bestimmt). Um dies zu verhindern, erneuern Sie Ihr NFT – über Autobuy, manuellen Rückkauf auf gleicher Ebene oder Upgrade auf eine höhere Stufe. Manueller Rückkauf ist gesperrt, solange Ihr verbleibendes Limit über 30 % des ursprünglichen Werts liegt.
+  </Accordion>
+  <Accordion title="Autobuy (3/3-System)" icon="rotate">
+    Aktivieren Sie Autobuy, um automatisch dasselbe NFT zurückzukaufen, wenn
+    sein Limit null erreicht. **Für die Stufen 1–8** erlaubt der 3/3-Zähler bis zu
+    3 automatische Erneuerungen nach dem ursprünglichen manuellen Kauf – sodass
+    dieselbe NFT-Stufe insgesamt maximal 4 Mal aktiv sein kann (1 manuell
+    + 3 automatisch). Der Zähler erfasst nur automatische Erneuerungen; der
+    ursprüngliche Kauf wird separat behandelt. Nach Verwendung aller 3 Autobuys
+    sperrt sich die Funktion und Sie müssen upgraden oder verlieren Belohnungen.
+    **Für Elite (L9–L10)** sind Autobuys unbegrenzt – die Top-Stufen-NFTs
+    erneuern sich ohne Obergrenze. Alle Autobuys erfordern ausreichend USDT
+    auf dem Regulär- oder Akkumulativen Guthaben (beide können kombiniert
+    werden). Auf L1–L8 wird der 3/3-Zähler auf 0/3 zurückgesetzt, wenn ein
+    NFT einer höheren Stufe gekauft wird. Der nicht genutzte Teil des
+    Einkommenslimits des vorherigen NFTs wird **nicht** auf das neue NFT
+    übertragen – er verfällt.
+  </Accordion>
+  <Accordion title="Geschäftsverkauf" icon="handshake">
+    Übertragen Sie Ihre gesamte Geschäftsstruktur (Partnerbaum und Downline) auf
+    einen anderen Nutzer durch einen DAO-autorisierten Prozess. Die Übertragung wird
+    durch eine Smart-Contract-**Übertragungsprovision** geregelt, nicht durch einen
+    Verkaufspreis: **Der Verkäufer zahlt eine feste Gebühr von 500 USDT**
+    (DAO-anpassbar im Bereich **0–500 USDT**), um die Übertragung auszuführen.
+    Der **Käufer zahlt keine On-Chain-Provision an das Protokoll** und erhält
+    bei der Ausführung die gesamte Struktur. Der zugrunde liegende On-Chain-Parameter
+    ist `businessTransferFee` (umbenannt vom alten `businessSalePrice`, um seine
+    tatsächliche Provisionssemantik widerzuspiegeln). Einzelne NFT-Verkäufe ohne
+    die Struktur werden nicht unterstützt.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Einkommenslimit:** Sobald Ihr NFT sein Einkommenslimit erreicht, hören Sie auf,
+  ALLE Marketing-Belohnungen zu erhalten. Aktivieren Sie Autobuy, um dies zu verhindern – oder erneuern Sie manuell,
+  wenn Ihr Limit unter 30 % fällt.
+</Warning>
+
+### Frozen Balance — Einkommensschutz bei ersten persönlichen Verkäufen
+
+Wenn eine Marketing-Belohnung aus einem **Erstkauf** Ihres direkt eingeladenen Partners das verbleibende Einkommenslimit Ihres NFTs übersteigt, geht der Überschuss nicht verloren – er wird für 72 Stunden eingefroren und gibt Ihnen ein Zeitfenster, um Ihr NFT aufzuwerten und die Mittel zu beanspruchen. Dies ist der Kernmechanismus, der das Einkommen vor dem Einladen von Partnern in höherwertige NFTs schützt.
+
+<Card title="Vollständige Frozen-Balance-Mechanik" icon="snowflake" href="/de/frozen-balance">
+  Detaillierte Erläuterung des 72-Stunden-Fensters, der Interaktion mit Autobuy, der 70/30-Verfallaufteilung, der strukturweiten Kaskade und warum wiederholte Käufe desselben Eingeladenen anders behandelt werden.
+</Card>
+
+## Geschenk-NFTs & Gutscheine
+<CardGroup cols={2}>
+  <Card title="Geschenk-NFTs" icon="gift">
+    Nicht verkaufbare Werbeaktiva, die Nutzer dauerhaft in der Marketing-Struktur
+    platzieren. Können nicht gekauft werden – werden über Aktionen oder
+    Karriererang-Erfolge vergeben. Bis zu 100 pro Adresse (DAO-anpassbar, aktuell).
+  </Card>
+  <Card title="Geschenkgutscheine" icon="ticket">
+    Vom Nutzer generierte Gutscheine mit einem per Smart Contract durchgesetzten Mindestwert von **5 USDT**
+    (Gutscheine mit Nullwert werden On-Chain abgelehnt), gültig für **365 Tage**. Decken bis zu
+    100 % eines NFT-Kaufs ab. Übertragbar mit 0 % Provision, außer in den
+    **letzten 24 Stunden** vor Ablauf, wenn Übertragungen gesperrt sind. Können nicht
+    mit dem Akkumulativen Guthaben kombiniert werden. Bei Nichtnutzung über die volle Lebensdauer von 365 Tagen
+    werden **100 % des Gutscheinwerts an den DA-Liquiditätspool weitergeleitet**.
+  </Card>
+</CardGroup>
+<Warning>
+  **Überschreibung durch Geschenk-NFT:** Wenn Sie bereits ein reguläres NFT besitzen und
+  ein Geschenk-NFT aktivieren, wird das Geschenk-NFT Ihr reguläres NFT **überschreiben**. Aktivieren Sie
+  Geschenk-NFTs nur auf Konten ohne reguläres NFT.
+</Warning>
+## Ambassador & VIP Edition
+<CardGroup cols={2}>
+  <Card title="Ambassador-NFT" icon="crown">
+    Limitiert auf **100 Einheiten** (Q4 2026). Keine Einkommenslimits. Eigenes dediziertes
+    Belohnungssystem. Wird beim Geschäftsverkauf nicht übertragen.
+  </Card>
+  <Card title="VIP-Edition-NFT" icon="gem">
+    Limitiert auf **100 Einheiten** (Q4 2026). Zugang gewährt durch Erreichen des
+    Karriererangs **Leader** oder höher.
+  </Card>
+</CardGroup>

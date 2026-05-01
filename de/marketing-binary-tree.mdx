@@ -1,0 +1,106 @@
+---
+title: "Marketing-Struktur & Platzierung"
+description: "22-stufige Struktur mit Spillover."
+icon: "sitemap"
+---
+
+Wenn ein Nutzer ein NFT aktiviert, wird er dauerhaft in eine Marketing-Struktur
+mit einer maximalen Tiefe von 22 Ebenen platziert – die bei vollständiger Befüllung
+bis zu **8.388.606 Positionen** umfasst.
+<CardGroup cols={3}>
+  <Card title="Auto-Platzierung" icon="wand-magic-sparkles">
+    Der Smart Contract platziert neue Nutzer mit dem Algorithmus „schwächster Zweig,
+    von links nach rechts". Keine manuelle Positionierung erforderlich.
+  </Card>
+  <Card title="Permanente Verbindung" icon="link">
+    Jeder Teilnehmer ist dauerhaft mit seinem Sponsor verbunden.
+    Änderungen sind unmöglich – die Blockchain ist unveränderlich.
+  </Card>
+  <Card title="Spillover" icon="arrow-down">
+    Einladungen Ihrer Upline-Sponsoren können automatisch in IHRER Struktur landen.
+    Sie verdienen Tree-Distribution-Belohnungen aus Spillover unter den
+    standardmäßigen Marketing-Bedingungen – der Sponsor-Bonus geht jedoch
+    an den tatsächlichen Einlader, nicht an Sie.
+  </Card>
+</CardGroup>
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/banner_new_1.mp4"
+/>
+
+## So funktioniert die Platzierung
+<Steps>
+  <Step title="Sie laden ein">
+    Ihre ersten 2 Einladungen füllen Ihre Ebene 1 (linke und rechte Position).
+  </Step>
+  <Step title="Der Baum wächst nach unten">
+    Weitere Einladungen gehen in Ebene 2 unter dem schwächsten Zweig.
+    Ihre Struktur wächst exponentiell: 2 → 4 → 8 → 16 Positionen pro Ebene.
+  </Step>
+  <Step title="Spillover füllt Lücken">
+    Wenn Ihre Upline-Sponsoren mehr Personen einladen, als ihre Ebene 1 aufnehmen kann,
+    fließen diese Nutzer in IHREN Baum über. Sie verdienen automatisch von ihnen.
+  </Step>
+  <Step title="Sie verdienen aus der Tiefe">
+    Ihre NFT-Stufe bestimmt, wie tief Sie verdienen.
+    GENESIS verdient von 2 Ebenen. INFINITY verdient bis zu 22 Ebenen
+    (Ebenen 16–22 werden in Phase 2 per DAO-Governance-Abstimmung freigeschaltet).
+  </Step>
+</Steps>
+
+## Übersicht der Tree Distribution
+
+Jede Ebene der Marketing-Struktur hat eine feste Anzahl an Positionen und einen entsprechenden Belohnungsprozentsatz. Ihre NFT-Stufe bestimmt, wie tief Sie in dieser Struktur verdienen können.
+
+| Ebene | Anzahl Teilnehmer | Verteilung pro Ebene |
+|:-----:|:-----------------:|:--------------------:|
+| 1     | 2                 | 0 %                  |
+| 2     | 4                 | 1 %                  |
+| 3     | 8                 | 2 %                  |
+| 4     | 16                | 2 %                  |
+| 5     | 32                | 3 %                  |
+| 6     | 64                | 3 %                  |
+| 7     | 128               | 4 %                  |
+| 8     | 256               | 4 %                  |
+| 9     | 512               | 4 %                  |
+| 10    | 1.024             | 4 %                  |
+| 11    | 2.048             | 4 %                  |
+| 12    | 4.096             | 4 %                  |
+| 13    | 8.192             | 4 %                  |
+| 14    | 16.384            | 4 %                  |
+| 15    | 32.768            | **5 %**              |
+| 16    | 65.536            | 2 %                  |
+| 17    | 131.072           | 2 %                  |
+| 18    | 262.144           | 1 %                  |
+| 19    | 524.288           | 0,5 %                |
+| 20    | 1.048.576         | 0,5 %                |
+| 21    | 2.097.152         | 0,5 %                |
+| 22    | 4.194.304         | 0,5 %                |
+
+<Tip>
+  Vollständige Details zu Belohnungsprozentsätzen, Kompressionsmechanik und dem Matching-Bonus-System finden Sie unter [Belohnungen & Vergütung](/de/marketing-rewards).
+</Tip>
+
+<Info>
+  **Multi-Accounting ist strikt verboten.** Das System setzt eine Ein-Nutzer-Ein-Konto-Richtlinie
+  mit eingebautem Tracking durch.
+</Info>
+<Warning>
+  **Der Sponsor ist permanent.** Einmal im Baum platziert, kann Ihr Sponsor
+  nicht geändert werden. Wählen Sie weise, bevor Sie Ihr NFT aktivieren.
+</Warning>
+
+<Info>
+  **Der Sponsor muss ein aktiver Baumknoten sein.** Wenn ein neuer Nutzer über `registerUser()` registriert wird, akzeptiert der Smart Contract keine bestehende Nutzer-ID als Sponsor – der angegebene Sponsor muss ein **aktiver Knoten in der Marketing-Struktur** sein. Konkret muss der Sponsor:
+
+  - Ein **aktives NFT** im System halten und
+  - Im Baum als lebendiger Knoten **registriert** sein (Tree-Knoten aktiv).
+
+  Eine **reine Identitätszuordnung** – eine Wallet, der eine Nutzer-ID zugewiesen wurde, die aber derzeit kein aktives NFT hält – kann keine neuen Einladungen mehr sponsern. Dies verhindert, dass neue Teilnehmer unter inaktiven Sponsoren platziert werden, blockiert die Entstehung toter Zweige in der Struktur und bewahrt die Integrität des Belohnungsflusses jedes Teilbaums.
+</Info>
