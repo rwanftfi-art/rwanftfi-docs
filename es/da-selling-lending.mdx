@@ -1,0 +1,123 @@
+---
+title: "Venta y Lending"
+description: "Vender, prestar o mantener — tú eliges."
+icon: "scale-balanced"
+---
+import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
+
+
+Una vez que un usuario tiene DA, dispone de dos opciones financieras principales: vender el activo o usarlo como colateral para un préstamo.
+
+<CardGroup cols={2}>
+  <Card title="Vender DA" icon="fire">
+    El 100% del DA vendido se quema permanentemente. Recibes el 75% (manual) o el 70% (automático) del valor en USDT. El 25% (manual) o 30% (automático) restante es una comisión del protocolo que permanece en el pool como respaldo e impulsa al alza el precio del DA.
+  </Card>
+  <Card title="Lending de DA" icon="building-columns">
+    Pide prestado hasta el 70% LTV en USDT contra tu DA. Tu DA permanece en tu TokenStack. Período de préstamo de 30 días con una comisión única del 5%.
+  </Card>
+</CardGroup>
+
+## Venta de DA y Mecánica de Quema
+
+Al vender DA, hay dos escenarios distintos con diferentes condiciones:
+
+1. **Venta Manual (el usuario vende por iniciativa propia):**
+   * El usuario recibe el **75%** del valor del DA en USDT al precio actual.
+   * El **100%** de los tokens DA vendidos se queman permanentemente.
+   * El 25% restante es una comisión del protocolo que permanece en el pool como respaldo en USDT — con menos tokens y la misma liquidez, este 25% impulsa directamente el crecimiento del precio.
+
+2. **Auto-Venta (se activa cuando expira el período del TokenStack):**
+   * El usuario recibe el **70%** del valor del DA en USDT al precio en la fecha de la auto-venta.
+   * El **100%** de los tokens DA auto-vendidos se queman permanentemente.
+   * El 30% restante es una comisión del protocolo que permanece en el pool como respaldo en USDT — este 30% es lo que impulsa el precio al alza.
+   * La auto-venta se activa automáticamente si el usuario no ha vendido manualmente antes de que expire el período.
+
+En ambos casos, el 100% de los tokens vendidos se quema — el 25%/30% representa la comisión del protocolo que permanece en el pool como respaldo en USDT. Este es el mecanismo que impulsa el crecimiento del precio: menos tokens + misma liquidez = mayor precio por DA. La auto-venta ofrece un pago un 5% inferior, incentivando a los usuarios a gestionar activamente sus posiciones de DA.
+
+<Warning>
+  **La venta de DA consume el Límite de Ingresos de tu NFT.** Cada venta manual o auto-venta de DA reduce el Límite de Ingresos restante de tu NFT por el monto del pago en USDT — en igualdad de condiciones con las recompensas de marketing. Si el Límite de Ingresos está agotado, la venta manual de DA no es posible (el sistema no puede acreditar el pago), y en una auto-venta el 100% de los ingresos se enruta al Pool de Liquidez del DA o a la quema (el mecanismo exacto lo determina la configuración del DAO). Mantén tu Límite de Ingresos activo — mediante Autobuy o renovación manual del NFT — para recibir el pago al vender DA.
+</Warning>
+
+<Info>
+  La **auto-venta** se activa automáticamente si no vendes manualmente antes de que expire el período del TokenStack. Paga un 5% menos (70% frente al 75%), incentivando la gestión activa.
+</Info>
+
+## Períodos de Auto-Venta
+
+El DA está 100% disponible para el usuario inmediatamente al hacer farming — no hay período de bloqueo. El usuario puede vender manualmente en cualquier momento (recibiendo el 75% en USDT) o tomar un préstamo contra su DA. Si el usuario **no** actúa, el sistema activa ventas forzadas automáticas desde el **saldo restante** progresivamente a lo largo de 4 períodos que abarcan **365 días (1 año)** en total. Las duraciones de los períodos están denominadas en días on-chain (120 / 90 / 90 / 65 días); las referencias a meses a continuación son aproximaciones para facilitar la lectura.
+
+**Ejemplo comenzando con 100 DA:**
+
+<Steps>
+  <Step title="Período 1 — 25% auto-venta tras 120 días (~4 meses)">
+    Si no has vendido manualmente en 120 días (~4 meses), se auto-vende el 25% de tu saldo actual de DA. 25% de 100 DA = **25 DA auto-vendidos** → Recibes el 70% del valor en USDT al precio actual → 100% de los 25 DA quemados → Restante: **75 DA**
+  </Step>
+  <Step title="Período 2 — 40% auto-venta tras 90 días más (~3 meses, día 210)">
+    Se auto-vende el 40% del saldo restante. 40% de 75 DA = **30 DA auto-vendidos** → Restante: **45 DA**
+  </Step>
+  <Step title="Período 3 — 50% auto-venta tras 90 días más (~3 meses, día 300)">
+    Se auto-vende el 50% del saldo restante. 50% de 45 DA = **22,5 DA auto-vendidos** → Restante: **22,5 DA**
+  </Step>
+  <Step title="Período 4 — 100% auto-venta tras 65 días más (~2 meses, día 365)">
+    Se auto-vende el 100% del saldo restante. Posición totalmente cerrada. 100% de 22,5 DA = **22,5 DA auto-vendidos** → Restante: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Los porcentajes de auto-venta (25% / 40% / 50% / 100%) mostrados arriba representan la configuración actual del protocolo. Los valores específicos se almacenan como parámetros del protocolo y están sujetos a procedimientos de gobernanza estándar. Consulta siempre el smart contract o la documentación actual del protocolo para los valores más recientes.
+</Note>
+
+Cada auto-venta se ejecuta al precio del DA en ese momento, no al precio original de farming. Como el precio crece con el tiempo, las auto-ventas posteriores queman tokens a un precio más alto — fortaleciendo aún más la deflación.
+
+<Warning>
+  **Auto-Venta con Límite de Ingresos en Cero:** Si se activa la auto-venta de DA y el usuario tiene Límite de Ingresos cero en su NFT (es decir, el NFT no se ha renovado), el 100% de los ingresos se dirige al Pool de Liquidez o a la quema de DA. El mecanismo exacto lo determina la configuración del DAO. Los usuarios deben mantener siempre un Límite de Ingresos activo para recibir su pago de auto-venta.
+</Warning>
+
+## Lending (Crédito contra DA)
+
+En lugar de vender, los usuarios pueden tomar un préstamo en USDT contra sus tenencias de DA. Los usuarios pueden pedir prestado hasta el **70%** del valor actual en USDT de su colateral de DA (Loan-to-Value). El smart contract aplica un período de corte estricto de 30 días para el préstamo. Si un préstamo no se gestiona dentro de los parámetros requeridos, el TokenStack colateralizado puede ser liquidado.
+
+Al tomar un préstamo, el prestatario paga una **comisión única del 5%** que se dirige al Pool de Liquidez del DA. El prestatario recibe el 95% del valor del préstamo. Ejemplo: para un préstamo de $1.000, el prestatario recibe $950 y $50 van al Pool de Liquidez. Esta comisión se cobra con cada nuevo préstamo — los usuarios pueden tomar nuevos préstamos tras recibir nuevos lotes de DA, lo que significa que la comisión fluye repetidamente al Pool.
+
+<Info>
+  **Parámetro Independiente para la Tarifa del Préstamo:** La comisión de lending del 5% se almacena on-chain como un parámetro `loanFee` dedicado, separado de los demás parámetros de tarifa del protocolo. Este aislamiento permite a la DAO ajustar la tarifa del préstamo de forma independiente — sin afectar a las tasas de marketing, las tarifas acumulativas u otras comisiones — y mantiene la economía del préstamo gobernable como una palanca única y explícita.
+</Info>
+
+<Note>
+  **Monto Mínimo del Préstamo:** El smart contract rechaza préstamos de valor cero. Si el tamaño del préstamo solicitado es tan pequeño que el pago tras la comisión se redondearía a 0 USDT, la transacción se revierte. Los prestatarios deben solicitar un monto lo suficientemente grande para que el pago al prestatario (95% del valor del préstamo) sea distinto de cero tras el redondeo on-chain. Esto evita préstamos de polvo que bloquearían colateral sin beneficio económico para el prestatario.
+</Note>
+
+### Lending Multi-Lote
+
+Cada lote de DA de un ciclo de minería sirve como colateral independiente. Los usuarios pueden tomar un préstamo separado del 70% LTV contra cada lote individualmente:
+
+<Steps>
+  <Step title="Mina el Lote 1">
+    Completa un ciclo de minería y recibe el lote 1 de DA.
+  </Step>
+  <Step title="Pide prestado contra el Lote 1">
+    Toma un préstamo del 70% LTV contra el lote 1 (5% de comisión al Pool de Liquidez).
+  </Step>
+  <Step title="Mina el Lote 2">
+    Inicia un nuevo ciclo de minería y recibe el lote 2 de DA.
+  </Step>
+  <Step title="Pide prestado contra el Lote 2">
+    Toma otro préstamo del 70% LTV contra el lote 2 (comisión separada del 5%).
+  </Step>
+</Steps>
+
+<Tip>
+  Son posibles múltiples préstamos activos simultáneos — uno por cada lote de DA. Cada préstamo tiene su propio corte de 30 días y comisión del 5%. Los NFT más pequeños producen préstamos más pequeños, los NFT más grandes producen préstamos más grandes. Si algún préstamo individual entra en default, solo el colateral de ese lote entra al ciclo de auto-venta — no todas las tenencias de DA.
+</Tip>
+
+<Note>
+  **Ventana de Reembolso — Sin Pagos Tardíos:** Un préstamo solo puede reembolsarse vía `repay()` mientras siga activo. Una vez que ha pasado el corte de 30 días y la posición ha cruzado al plazo de auto-venta, `repay()` se revierte — el prestatario **no puede** deshacer el préstamo para eludir el calendario de liquidación. Una posición vencida debe procesarse a través de `processExpiredStacks()`, que ejecuta la quema progresiva descrita a continuación. No hay ningún camino que permita a un prestatario escapar de las penalizaciones por default reembolsando tarde.
+</Note>
+
+<Warning>
+  **Default en Lending — Quema Progresiva:** Si un préstamo no se reembolsa dentro del período de corte de 30 días, el DA colateralizado entra en el ciclo de auto-venta. Los tokens se queman progresivamente mediante el mismo calendario de 4 períodos (25% → 40% → 50% → 100% del saldo restante a lo largo de 365 días / 1 año en total: 120 / 90 / 90 / 65 días por período).
+
+  El usuario **NO** recibe USDT de estas auto-ventas — **el 100% de los ingresos se dirige al Pool de Liquidez del DA**. El usuario **conserva el monto original del préstamo** que recibió, pero **pierde todo el colateral en DA**. Este mecanismo protege la liquidez del sistema, reduce el riesgo sistémico y refuerza la disciplina financiera en todo el ecosistema.
+</Warning>
+
+<SellVsLend />

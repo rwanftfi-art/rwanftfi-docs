@@ -1,0 +1,200 @@
+---
+title: "Mecánica del Token DA"
+description: "El modelo de precio solo al alza."
+icon: "coins"
+---
+import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
+
+
+<CardGroup cols={2}>
+  <Card title="Hard Cap de 21M" icon="cube">
+    Suministro máximo fijado para siempre. Sin inflación, sin acuñación.
+  </Card>
+  <Card title="Respaldo 100% USDT" icon="shield-check">
+    Cada token DA respaldado por USDT real en el pool de liquidez.
+  </Card>
+  <Card title="Quema en Cada Venta" icon="fire">
+    El 100% de los tokens vendidos se quema permanentemente. El usuario recibe el 75% (manual) o el 70% (automático) del valor en USDT. El 25% (manual) o 30% (automático) restante es una comisión del protocolo que permanece como respaldo en el pool — esto es lo que impulsa al alza el precio del DA.
+  </Card>
+  <Card title="Sin Transferencias P2P" icon="ban">
+    El DA solo puede venderse, prestarse o reembolsarse — no hay transferencias entre pares.
+  </Card>
+</CardGroup>
+
+## Fórmula del Precio "Solo al Alza"
+
+Precio = Liquidez ÷ Suministro Circulante
+
+Cada vez que se vende DA, se queman tokens (el suministro baja) mientras el USDT permanece en el pool (la liquidez se mantiene o crece). Menos tokens ÷ el mismo o más USDT = mayor precio por token.
+
+<Info>
+  **Cómo funciona:** 200 DA en circulación, 200 USDT en el pool de liquidez. Precio = 1,00 USDT por DA. Un usuario vende 100 DA. El pool paga 70 USDT (70% del valor de 100 USDT). Los 100 DA se queman en su totalidad. Resultado: quedan 100 DA, 130 USDT en el pool. Nuevo precio = 130 ÷ 100 = **1,30 USDT por DA**.
+</Info>
+
+<Tip>
+  La comisión del 5% sobre todas las recompensas de marketing fluye directamente al pool de liquidez del DA — independiente de los porcentajes de venta. Liquidez adicional procede de las comisiones de Lending, los ingresos de RWA y los ingresos de FinPro.
+</Tip>
+
+<Info>
+  **Protección del Suministro Semilla:** Una pequeña reserva permanente de DA — el **Suministro Semilla** — se predeposita en el protocolo en el lanzamiento como salvaguarda técnica para la fórmula de precios.
+
+  - **Permanente y no vendible.** El Suministro Semilla está bloqueado a nivel del protocolo: **no puede quemarse**, **no puede venderse** (ni manualmente ni mediante auto-venta) y queda **excluido de los ciclos de auto-venta**.
+  - **Fuera de circulación.** **No se cuenta como suministro circulante** y nunca participa en los saldos de los usuarios, en farming, lending o distribuciones de marketing.
+  - **Garantiza un denominador distinto de cero.** Como `Precio = Liquidez ÷ Suministro Circulante`, la fórmula nunca debe dividir entre cero. El Suministro Semilla garantiza `totalSupply > 0` en todo momento, por lo que la función de precio siempre está definida — incluso en el caso extremo en que cada otro token en circulación haya sido quemado.
+  - **Protección solo para casos límite.** En operación normal el Suministro Semilla no influye en el descubrimiento de precios. Existe puramente como un suelo determinista que mantiene `getPrice()` bien definido cuando hay liquidez presente pero el suministro circulante alcanzaría cero de otro modo.
+</Info>
+
+## Fuentes del Pool de Liquidez
+
+El Pool de Liquidez es el cimiento de la economía del DA. Se nutre de múltiples fuentes en todo el ecosistema RWANFTFI, asegurando un crecimiento continuo del respaldo del token. Cada flujo de ingresos del protocolo desemboca en un único pool, reforzando la fórmula Precio = Liquidez ÷ Suministro.
+
+<AccordionGroup>
+  <Accordion title="Actividad de NFT">
+    **Compras de NFT** — el 20% de cada compra de NFT se enruta automáticamente al Pool de Liquidez para acuñar nuevo DA.
+
+    **Rebuy y Autobuy** — un 20% adicional de cada compra repetida o automática de NFT fluye al Pool de Liquidez. Esto incentiva la renovación de posiciones y respalda el crecimiento del sistema.
+  </Accordion>
+
+  <Accordion title="Tarifas y Comisiones">
+    **Tasa de Recompensas de Marketing** — el 5% de todas las recompensas de marketing en la red de referidos se dirige automáticamente al Pool de Liquidez. La actividad de la red fortalece directamente el respaldo del DA.
+
+    **Comisión de Transferencia del Saldo Acumulativo** — al transferir Saldo Acumulativo a otro usuario, el 20% del monto transferido se enruta al Pool de Liquidez del DA. Cualquier movimiento del Saldo Acumulativo — ya sea usado en una compra de NFT o transferido entre wallets — genera una entrada del 20% al Pool.
+
+    **Comisión de Compra con Saldo Acumulativo** — al comprar un NFT usando el Saldo Acumulativo, el 20% del monto integrado se enruta al Pool de Liquidez del DA para acuñar nuevo DA. Ejemplo: 898 USDT en el Saldo Acumulativo — al integrarse en la compra de un NFT, 718 USDT van al coste del NFT y 180 USDT (20% de 898) fluyen al Pool de Liquidez del DA. Cada una de estas compras repone el Pool y crea la base para nuevo DA.
+
+    **Comisión de Lending** — al solicitar un préstamo, el prestatario paga una comisión única del 5% dirigida al Pool de Liquidez. Ejemplo: préstamo de $1.000, el prestatario recibe $950, $50 van al Pool. La comisión se cobra con cada nuevo préstamo.
+  </Accordion>
+
+  <Accordion title="Fondos Expirados y No Utilizados">
+    **Auto-Venta con Límite de Ingresos en Cero** — si se activa la auto-venta de DA y el usuario tiene un Límite de Ingresos cero en su NFT, el 100% de los ingresos va al Pool de Liquidez o a la quema de DA (el mecanismo exacto lo determina la configuración del DAO).
+
+    **Vouchers Expirados** — si los Vouchers permanecen sin usar durante 365 días, el 100% de los fondos se dirige al Pool de Liquidez. Esto evita fondos inactivos y elimina pasivos inactivos.
+
+    **Saldo Acumulativo No Utilizado** — si el Saldo Acumulativo permanece sin usarse durante 120 días, el 70% de los fondos se dirige al Pool de Liquidez para acuñar nuevo DA.
+  </Accordion>
+
+  <Accordion title="Ingresos Externos">
+    **Comisiones SWAP** — las comisiones de todas las operaciones de intercambio (SWAP) se enrutan automáticamente al Pool de Liquidez.
+
+    **Comisiones de Tarjetas Débito** — las comisiones del programa de Tarjeta Débito fluyen al Pool de Liquidez, creando flujo de caja real desde la economía externa.
+
+    **Ingresos de RWA** — una parte de los ingresos procedentes de bienes raíces, alquileres, activos comerciales y otros activos del mundo real se dirige al Pool de Liquidez, anclando el sistema a la economía real.
+
+    **Ingresos de FinPro** — una parte de los beneficios de los productos financieros (Lending, productos de inversión, servicios financieros) fluye al Pool de Liquidez.
+
+    **Ingresos del Ecosistema** — una parte de los ingresos totales del protocolo puede dirigirse al Pool de Liquidez o utilizarse para crear liquidez adicional para acuñar nuevo DA.
+  </Accordion>
+</AccordionGroup>
+
+## Mecánica de Quema del DA
+
+La quema del DA es el mecanismo deflacionario central — reduce el suministro de tokens y genera presión sostenida al alza sobre el valor del activo.
+
+<CardGroup cols={3}>
+  <Card title="Venta Manual" icon="fire">
+    El 100% del DA vendido se quema permanentemente. El usuario recibe el 75% del valor en USDT. El 25% restante es una comisión del protocolo que permanece en el pool como respaldo, impulsando el crecimiento del precio.
+  </Card>
+  <Card title="Auto-Venta" icon="clock">
+    El 100% del DA auto-vendido se quema permanentemente. El usuario recibe el 70% del valor en USDT. El 30% restante es una comisión del protocolo que permanece en el pool como respaldo, impulsando el crecimiento del precio. Se activa progresivamente desde el saldo restante a lo largo de 4 períodos (365 días / 1 año en total).
+  </Card>
+  <Card title="Default de Préstamo" icon="ban">
+    Si un préstamo no se reembolsa, el DA colateralizado se quema progresivamente a través del ciclo de auto-venta. Protege la liquidez del sistema y refuerza la disciplina financiera.
+  </Card>
+</CardGroup>
+
+## Acceso Instantáneo y Ciclo de Auto-Venta
+
+### Acceso Instantáneo
+
+Los tokens DA están 100% disponibles para el usuario desde el momento en que se hace farming. No hay período de bloqueo. El usuario puede inmediatamente:
+
+- **Vender manualmente** — recibir el 75% del valor en USDT, el 100% de los tokens se quema
+- **Tomar un préstamo** — 70% LTV contra el colateral DA, comisión del 5%
+- **Mantener y esperar** — guardar los tokens y beneficiarse del crecimiento del precio con el tiempo
+
+### Ciclo de Auto-Venta
+
+Si el usuario no vende manualmente, el sistema activa ventas automáticas desde el **saldo restante** a lo largo de 4 períodos que abarcan **365 días (1 año)** en total. Las duraciones de los períodos están denominadas en días on-chain (120 / 90 / 90 / 65 días); las referencias a meses a continuación son aproximaciones para facilitar la lectura.
+
+**Ejemplo comenzando con 100 DA:**
+
+<Steps>
+  <Step title="Período 1 — Después de 120 días (~4 meses)">
+    Se auto-vende el 25% del saldo actual. 25% de 100 = **25 DA vendidos** → Restante: **75 DA**
+  </Step>
+  <Step title="Período 2 — Después de 90 días más (~3 meses, día 210)">
+    Se auto-vende el 40% del saldo restante. 40% de 75 = **30 DA vendidos** → Restante: **45 DA**
+  </Step>
+  <Step title="Período 3 — Después de 90 días más (~3 meses, día 300)">
+    Se auto-vende el 50% del saldo restante. 50% de 45 = **22,5 DA vendidos** → Restante: **22,5 DA**
+  </Step>
+  <Step title="Período 4 — Después de 65 días más (~2 meses, día 365)">
+    Se auto-vende el 100% del saldo restante. 100% de 22,5 = **22,5 DA vendidos** → Restante: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Los porcentajes de auto-venta (25% / 40% / 50% / 100%) mostrados arriba representan la configuración actual del protocolo. Los valores específicos se almacenan como parámetros del protocolo y están sujetos a procedimientos de gobernanza estándar. Consulta siempre el smart contract o la documentación actual del protocolo para los valores más recientes.
+</Note>
+
+Cada auto-venta se ejecuta al precio del DA en el momento del disparo de ese período — no al precio original de farming. El 100% de los tokens auto-vendidos se queman, y el usuario recibe el 70% del valor en USDT al precio en la fecha de la auto-venta. Como el precio crece con el tiempo, los períodos posteriores queman tokens a un precio más alto, acelerando la deflación.
+
+El usuario puede vender manualmente en cualquier momento antes de que se active la auto-venta, recibiendo el 75% en lugar del 70%.
+
+<Tip>
+  La venta manual (pago del 75%) es siempre más rentable por token que la auto-venta (pago del 70%). Sin embargo, la auto-venta se beneficia del crecimiento del precio en el tiempo — los períodos posteriores se ejecutan a un precio más alto del DA.
+</Tip>
+
+<Warning>
+  **Auto-Venta con Límite de Ingresos en Cero:** Si se activa la auto-venta y el usuario tiene Límite de Ingresos cero (NFT no renovado), el 100% de los ingresos va al Pool de Liquidez o a la quema de DA (lo determina la DAO). El usuario no recibe nada. Mantén siempre un Límite de Ingresos activo.
+</Warning>
+
+## Lending Multi-Lote
+
+Cada lote de DA de cada ciclo de minería sirve como colateral independiente. Esto permite un ciclo continuo de micro-préstamos:
+
+<Steps>
+  <Step title="Mina el Lote 1">
+    El usuario completa un ciclo de minería y recibe el lote 1 de DA.
+  </Step>
+  <Step title="Pide prestado contra el Lote 1">
+    El usuario toma un préstamo del 70% LTV contra el lote 1 (5% de comisión al Pool de Liquidez).
+  </Step>
+  <Step title="Mina el Lote 2">
+    El usuario inicia un nuevo ciclo de minería y recibe el lote 2 de DA.
+  </Step>
+  <Step title="Pide prestado contra el Lote 2">
+    El usuario toma otro préstamo del 70% LTV contra el lote 2 (comisión separada del 5%).
+  </Step>
+</Steps>
+
+Esto permite múltiples micro-préstamos simultáneos, uno por cada lote de DA. Cada préstamo tiene su propio período de corte de 30 días. Si algún préstamo individual entra en default, solo se quema el colateral de ese lote — no todas las tenencias de DA.
+
+Para una comparación detallada entre vender y prestar, consulta [Venta y Lending](/es/da-selling-lending).
+
+## Ciclo Deflacionario
+
+Dos veces al año el sistema activa un Ciclo Deflacionario especial que dura hasta 30 días, diseñado para intensificar la escasez del token.
+
+<Steps>
+  <Step title="Pausa de nuevos ciclos">
+    Se pausa el inicio de nuevos ciclos de minería de NFTM, staking y generación de DA durante el Ciclo Deflacionario. **Los ciclos activos iniciados antes del Ciclo Deflacionario continúan en marcha y se completan según lo programado** — los usuarios con minería ya en curso no pierden su progreso.
+  </Step>
+  <Step title="Activación de mecanismos de venta">
+    Se activan los mecanismos automáticos o voluntarios de venta de DA.
+  </Step>
+  <Step title="Quema diaria">
+    Una porción de los tokens se quema a diario.
+  </Step>
+  <Step title="El suministro se reduce">
+    El suministro en el mercado se reduce, fortaleciendo la presión al alza del precio.
+  </Step>
+</Steps>
+
+<Info>
+  El Ciclo Deflacionario hace que la economía del DA sea predecible, manejable y sostenible a largo plazo.
+</Info>
+
+Mayor actividad → mayor liquidez → mayor emisión de DA → mayor quema → mayor escasez → mayor valor del activo. Este sistema en bucle cerrado significa que cuanto más activamente se desarrolla el ecosistema, más fuerte se vuelve la economía del DA.
+
+<DaPriceSimulator />

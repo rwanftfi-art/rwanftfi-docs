@@ -1,0 +1,91 @@
+---
+title: "Recompensas y Compensación"
+description: "Cómo ganas con tu red."
+icon: "money-bill-trend-up"
+---
+
+import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+
+<CardGroup cols={2}>
+  <Card title="Fase 1 — Nueva Venta" icon="user-plus">
+    El patrocinador directo gana el 30% del precio de venta del NFT. Compra repetida (rebuy): 20%.
+  </Card>
+  <Card title="Fase 2 — Ajustada" icon="arrows-rotate">
+    La nueva venta se ajusta al 20%. La rebuy permanece en 20%. Niveles 16–22 totalmente desbloqueados.
+  </Card>
+</CardGroup>
+
+<Note>
+  La transición de la Fase 1 a la Fase 2 (incluido el ajuste del Bono de Patrocinador del 30% al 20% y el desbloqueo de los niveles 16–22 del árbol) se ejecuta mediante gobernanza DAO, no automáticamente por fecha. La votación de la DAO requiere el umbral estándar de propuesta del 30% y la aprobación por mayoría del 50% para promulgar los cambios de parámetros.
+</Note>
+
+Las recompensas de marketing en RWANFTFI consisten en tres flujos independientes que se combinan para formar tu ingreso total:
+
+1. **Bono de Patrocinador** — Comisión directa por invitar a un socio (30% en Fase 1 / 20% en Fase 2 del precio de venta del NFT).
+2. **Distribución del Árbol** — Recompensas por nivel de tu estructura downline (niveles 2–22, los porcentajes varían según la profundidad).
+3. **Bono de Igualación** — 5% + 5% + 5% secundario sobre los ingresos de tus socios directos a lo largo de 3 niveles.
+
+Cada flujo se calcula y se paga de forma independiente por el smart contract en cada compra de NFT que califique.
+
+## Distribución del Árbol
+
+Gana un porcentaje de cada venta de NFT en tu downline, hasta 22 niveles de profundidad:
+
+<AccordionGroup>
+  <Accordion title="Niveles 1–6 · Capas de Entrada" icon="layer-group">
+    - Nivel 1: 0%
+    - Nivel 2: 1%
+    - Niveles 3–4: 2% cada uno
+    - Niveles 5–6: 3% cada uno
+  </Accordion>
+  <Accordion title="Niveles 7–15 · Profundidad Principal de Ingresos" icon="chart-simple">
+    - Niveles 7–14: 4% cada uno (8 niveles × 4% = principal motor de ingresos)
+    - Nivel 15: 5% (el porcentaje más alto en un solo nivel)
+  </Accordion>
+  <Accordion title="Niveles 16–22 · Expansión de Fase 2" icon="unlock">
+    - Niveles 16–17: 2% cada uno
+    - Nivel 18: 1%
+    - Niveles 19–22: 0,5% cada uno
+
+    *Desbloqueados en Fase 2 mediante votación de gobernanza DAO (planificado para Q4 2026). Requiere NFT INFINITY para profundidad completa.*
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  **¿Por qué Nivel 1 = 0%?** La Distribución del Árbol y el Bono de Patrocinador son dos flujos de recompensa separados. Tus invitaciones directas se sitúan en el Nivel 1 de tu estructura de marketing, y ya ganas un Bono de Patrocinador (30% en Fase 1, 20% en Fase 2) por su compra de NFT. El Nivel 1 de la Distribución del Árbol está fijado en 0% para evitar la doble compensación. Las recompensas de Distribución del Árbol comienzan a partir del Nivel 2 (1%) en adelante — cubriendo la actividad más profunda en tu estructura, más allá de tus invitaciones personales.
+</Info>
+
+<Note>
+  **El spillover en el Nivel 1 no genera nada directamente.** Cuando un socio se coloca en tu Nivel 1 mediante spillover (la invitación de tu upline cae en tu árbol), ganas 0% de Bono de Patrocinador (va a su invitador real) y 0% de Distribución del Árbol (Nivel 1 = 0%). El valor del spillover se realiza desde el Nivel 2 y más profundo — cuando esos socios de spillover construyan sus propios equipos, sus reclutamientos generarán recompensas de distribución del árbol para ti.
+</Note>
+
+## Compresión
+
+<Tip>
+  **La compresión trabaja a tu favor.** Si alguien por encima de ti tiene su límite de ingresos agotado o un nivel de NFT insuficiente, sus recompensas se comprimen hacia arriba — potencialmente hasta ti. Cuanto más profundo sea el acceso de marketing de tu NFT, más recompensas comprimidas podrás capturar.
+</Tip>
+
+Cuando un usuario en tu downline es saltado (Límite de Ingresos = 0 o nivel de NFT demasiado bajo), la recompensa pasa hacia arriba al siguiente participante calificado. Esto se marca como **Ingresos Perdidos** para el usuario saltado.
+
+
+## Bono de Igualación (5% + 5% + 5%)
+
+Gana un porcentaje de los **ingresos por venta de NFT** generados por tus socios directos a lo largo de 3 niveles. El Bono de Igualación se calcula únicamente a partir de los pagos de marketing que tu socio directo recibe por las ventas de NFT dentro de su estructura — no de otros flujos de ingresos (liberaciones de Saldo Congelado, ventas manuales de DA, etc.):
+
+<Steps>
+  <Step title="Nivel 1 — 5%">
+    Requiere al menos un NFT de Nivel 4 (ECLIPSE, 275 USDT).
+  </Step>
+  <Step title="Nivel 2 — 5%">
+    Requiere ventas personales acumuladas de 1.000 USDT.
+  </Step>
+  <Step title="Nivel 3 — 5%">
+    Requiere ventas personales acumuladas de 3.000 USDT.
+  </Step>
+</Steps>
+
+<Info>
+  **Qué significa "ventas personales acumuladas":** Es el total de por vida en curso de todas las compras de NFT realizadas por tus invitaciones directas. Las compras repetidas (rebuys, upgrades) por el mismo socio cuentan para el total, y las ventas a diferentes socios se acumulan juntas. Por ejemplo, si un socio compra tres NFT de 1.000 USDT cada uno, tu total acumulado es 3.000 USDT — desbloqueando el Nivel 3 del Bono de Igualación. Una vez alcanzado un umbral, ese nivel de Bono de Igualación queda **permanentemente activo** y no se reinicia.
+</Info>
+
+<IncomeCalculator />

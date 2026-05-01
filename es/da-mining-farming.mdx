@@ -1,0 +1,48 @@
+---
+title: "Mining y Farming"
+description: "De NFTM a DA en dos pasos."
+icon: "pickaxe"
+---
+import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
+
+
+Para adquirir DA, los usuarios deben participar en un proceso de dos pasos: Mining y Farming. Solo los NFT Premium (Nivel 5+) y Elite son capaces de hacerlo.
+
+<Info>
+  **NFTM no es un token.** Es un contador interno de minería (métrica) registrado por el smart contract. En la interfaz, ves una barra de progreso y la cantidad esperada de NFTM. NFTM no tiene valor de mercado y no puede negociarse ni transferirse — existe únicamente para hacer staking en el Farming y convertirse en DA.
+</Info>
+
+<Info>
+  **Se requiere un Límite de Ingresos activo para minar.** Tanto el Mining como el Farming requieren que el NFT elegible tenga un **Límite de Ingresos** distinto de cero. Si tu límite ha llegado a cero, el smart contract rechazará iniciar un nuevo ciclo de minería. Para reanudar la minería, primero refresca tu Límite de Ingresos — mediante el sistema Autobuy 3/3, una renovación manual del mismo nivel o una actualización a un NFT de nivel superior — y luego activa el siguiente ciclo. El Límite de Ingresos es la condición habilitadora; sin él, el flujo de minería no comienza.
+</Info>
+
+<Steps>
+  <Step title="Activa el Mining">
+    Inicia la minería en tu NFT elegible. La duración del ciclo depende de tu nivel — desde 45 días (HYDRO) hasta 40 días (INFINITY).
+  </Step>
+  <Step title="Genera NFTM">
+    Tu NFT genera NFTM durante el período del ciclo. Los niveles 5–7 (HYDRO, QUANTUM, PULSE) tienen **1 ciclo de minería** que produce el **10%** del precio del NFT en NFTM. Los niveles 8–10 (AURORA, FLAME, INFINITY) tienen **2 ciclos de minería** — el primero produce el **10%** y el segundo produce el **15%** del precio del NFT en NFTM.
+  </Step>
+  <Step title="Reclama en 72 Horas">
+    Una vez completada la minería, tienes exactamente **72 horas** para hacer staking de tu NFTM en Farming. Si pierdes esta ventana, vuelves a empezar desde cero.
+  </Step>
+  <Step title="Hacer Farming de DA">
+    El NFTM staking entra en Farming durante la misma duración que el ciclo de minería. Al final, el NFTM se convierte en DA según el precio actual y se acredita en tu TokenStack.
+  </Step>
+</Steps>
+
+<Warning>
+  **Ventana Crítica de 72 Horas:** Si no haces staking de tu NFTM en las 72 horas posteriores a completar la minería, se pierde todo el ciclo. Debes reiniciar la minería desde cero. Pon un recordatorio.
+</Warning>
+
+<Warning>
+  **Reclama Antes de Actualizar — Las Recompensas de Farming No Reclamadas se Destruyen:** Cualquier compra o actualización de NFT activa `terminate()` sobre el estado de mining/farming del usuario. Por diseño, `terminate()` detiene la sesión activa y **destruye todas las recompensas de farming no reclamadas**, incluidas las recompensas que ya han madurado pero aún no se han reclamado. El equipo ha confirmado que esto es intencional en la respuesta a la auditoría: *"Es intencional, terminate() debe detener las sesiones activas y destruir las recompensas no reclamadas por diseño."*
+
+  **Regla operativa:** si tienes una recompensa de farming madura pero no reclamada, **reclámala primero**, y solo después compra o actualiza el NFT. De lo contrario, la recompensa se pierde permanentemente en el momento en que se confirma la nueva transacción del NFT.
+</Warning>
+
+<Warning>
+  **Pausa por Ciclo Deflacionario:** Dos veces al año, el sistema activa un Ciclo Deflacionario que dura hasta 30 días. Durante este período, el **lanzamiento de nuevos ciclos** de minería de NFTM, staking y generación de DA queda suspendido. Los ciclos ya en marcha antes de que comience el Ciclo Deflacionario **continúan y se completan según lo programado** — el progreso no se pierde. Planifica el lanzamiento de nuevos ciclos teniendo en cuenta estos períodos programados.
+</Warning>
+
+<MiningPipeline />
