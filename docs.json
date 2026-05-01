@@ -285,6 +285,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "es",
+        "groups": [
+          {
+            "group": "Comenzar",
+            "pages": [
+              "es/executive-summary",
+              "es/vision"
+            ]
+          },
+          {
+            "group": "Ecosistema NFT",
+            "pages": [
+              "es/nft-ecosystem",
+              "es/frozen-balance"
+            ]
+          },
+          {
+            "group": "Activo Deflacionario (DA)",
+            "pages": [
+              "es/da-token-mechanics",
+              "es/da-mining-farming",
+              "es/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Ganancias y Marketing",
+            "pages": [
+              "es/marketing-binary-tree",
+              "es/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Arquitectura",
+            "pages": [
+              "es/architecture",
+              "es/contract-parameters",
+              "es/security"
+            ]
+          },
+          {
+            "group": "Gobernanza",
+            "pages": [
+              "es/governance"
+            ]
+          },
+          {
+            "group": "Hoja de Ruta",
+            "pages": [
+              "es/roadmap"
+            ]
+          },
+          {
+            "group": "Recursos",
+            "pages": [
+              "es/corporate-structure",
+              "es/support",
+              "es/partnerships",
+              "es/legal"
+            ]
+          }
+        ]
       }
     ]
   },
