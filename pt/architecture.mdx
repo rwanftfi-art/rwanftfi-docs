@@ -1,0 +1,130 @@
+---
+title: "Arquitetura do Smart Contract"
+description: "Diamond Pattern e 7 Facets."
+icon: "cubes"
+---
+
+
+A plataforma RWANFTFI é construída sobre uma arquitetura de smart contracts robusta, modular e segura que governa todas as interações, distribuições e mecânicas de tokens sem controle central.
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/bx2.mp4"
+/>
+
+## Diamond Pattern (EIP-2535)
+
+O núcleo do sistema RWANFTFI é implementado utilizando o Diamond Pattern (EIP-2535). Essa escolha arquitetural permite ao protocolo contornar o limite padrão de tamanho de smart contracts (24KB), dividindo a funcionalidade entre múltiplos módulos independentes chamados "Facets" (módulos de smart contract acessados através de um único contrato proxy).
+
+## Facets Principais
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    Parâmetros do sistema, papéis, vendas de negócios e cunhagem especial de NFTs.
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    Registro de usuários, compras de NFT e distribuição de recompensas de marketing.
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    Gerenciamento dos ciclos de mineração de NFTM e farming de DA.
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    Depósitos, retiradas, criação de Vouchers e transferências acumulativas.
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    Lógica da árvore binária de 22 níveis e algoritmos de posicionamento de usuários.
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    Processamento de stacks de DA expirados, queima de Vouchers e resolução de contas congeladas.
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    Consultas somente leitura para dados de usuários, saldos e estruturas de árvore.
+  </Card>
+</CardGroup>
+
+## Contratos NFT e Espaços de Token ID
+
+O protocolo utiliza três contratos de NFT distintos (Regular, Gift, Ambassador). Para evitar colisões de identificadores no mapeamento on-chain `registeredTokens` que rastreia cada NFT cunhado em todo o sistema, **NFTs Regulares e Gift NFTs cunham em espaços de `tokenId` separados, particionados por paridade**:
+
+- **NFT Regular** — IDs de token ímpares (`1, 3, 5, 7, …`).
+- **Gift NFT** — IDs de token pares (`2, 4, 6, 8, …`).
+
+A divisão é imposta dentro da lógica do minter de cada contrato NFT no momento da cunhagem. Como uma cunhagem bem-sucedida em um contrato nunca poderá produzir um identificador que o outro contrato pudesse emitir, toda uma classe de bugs de colisão de mapeamento é eliminada no nível do sistema de tipos — nenhuma proteção em tempo de execução ou verificação de deduplicação por chamada é necessária. O particionamento é invisível para os usuários finais: carteiras e marketplaces continuam exibindo cada NFT sob seu contrato nativo.
+
+## Matriz de Atualização
+
+* **Diamond Contract (EIP-2535):** Atualizável via Facet cuts — permite adicionar, substituir ou remover módulos individuais sem reimplantar todo o sistema.
+* **TokenReserve (DA):** Atualizável via Transparent Proxy — atualizações de lógica são possíveis sem alterar o endereço do contrato.
+* **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Não atualizáveis — garantindo a imutabilidade dos ativos centrais e das regras de governança.
+
+## Gerenciamento de Papéis
+
+O sistema utiliza uma estrutura hierárquica de papéis (AccessControlEnumerable) para gerenciar permissões com segurança:
+* `ADMIN_ROLE`: Pode conceder/revogar outros papéis e alterar parâmetros críticos do sistema.
+* `SERVICE_ROLE`: Executado por scripts de backend para tarefas automatizadas (ex.: resolver stacks expirados, processar depósitos cross-chain).
+* `SIGNER_ROLE`: Usado para verificação criptográfica de assinaturas para autorizar ações específicas, como transferências de Voucher.
+* `MINTER_ROLE`: Autorizado a cunhar tokens ou NFTs específicos.
+
+## Esquema de Saldos e Prioridade de Pagamento
+
+Para gerenciar o fluxo complexo de fundos, a RWANFTFI emprega um esquema multinível de saldos dentro do smart contract.
+
+**Saldos do Usuário:**
+1. **Saldo Regular (`balance`):** A carteira principal para USDT disponível. Os fundos aqui podem ser retirados a qualquer momento, usados para comprar NFTs ou para gerar Vouchers.
+2. **Saldo Acumulativo (`accumulativeBalance`):** Uma conta de poupança obrigatória onde 20% de cada recompensa de marketing são creditados imediatamente após o acúmulo.
+   * **Uso:** Só pode ser usado para comprar um NFT do mesmo nível ou um NFT de nível superior.
+   * **Taxas:** O uso desse saldo para compras de NFT incorre em uma taxa de 20% **roteada para o Pool de Liquidez do DA**. Transferi-lo para outro usuário também incorre em uma taxa de 20% **roteada para o Pool de Liquidez do DA**. Cada movimentação do Saldo Acumulativo gera um aporte ao Pool e cria a base para novo DA.
+   * **Redistribuição em 120 dias:** Se o usuário não utilizar seu Saldo Acumulativo dentro de 120 dias, o saldo não utilizado torna-se elegível para redistribuição. A divisão depende do tipo de NFT do usuário:
+     - **Detentores de NFT Regular:** **70%** são direcionados ao Pool de Liquidez do DA para a cunhagem de novos tokens DA; **30%** são transferidos para o patrocinador upline direto do usuário.
+     - **Detentores de Gift NFT:** **80%** são direcionados ao Pool de Liquidez do DA; **20%** são transferidos para o patrocinador upline direto (governado pelo parâmetro separado `accumulativeClaimDistributeGift`).
+     - **Regra de cascata (ambos os tipos):** Se o Limite de Rendimento do patrocinador upline estiver esgotado (igual a zero), a parcela do patrocinador sobe para o próximo participante elegível na estrutura. Se nenhum participante na cadeia tiver um Limite de Rendimento ativo, o valor inteiro é roteado para o Pool de Liquidez do DA.
+
+   <Note>
+     **120 Dias = Janela Mínima Garantida, Não Uma Expiração Automática:** O parâmetro `accumulativeDecayTime` é verificado **apenas dentro de `withdrawAccumulative()`** — o caminho de redistribuição acionado por admin/serviço. Ele **não** é avaliado nos caminhos de gasto ou de transferência. Na prática, isso significa:
+
+     - Pelos primeiros 120 dias após um crédito, o Saldo Acumulativo tem **integridade garantida** — não pode ser redistribuído por ninguém.
+     - Após o dia 120, o saldo torna-se **elegível** para redistribuição, mas a redistribuição não dispara automaticamente quando o temporizador expira. Ela acontece apenas quando `withdrawAccumulative()` é invocado para aquele usuário específico pelo SERVICE_ROLE ou ADMIN_ROLE.
+     - **Até essa chamada ocorrer**, um Saldo Acumulativo "expirado" permanece utilizável em compras e upgrades de NFT e transferível para outros usuários sob as regras e taxas padrão.
+
+     A intenção declarada da equipe, registrada na resposta da auditoria: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Trate os 120 dias como a **janela mínima garantida antes de uma possível redistribuição**, não como um carimbo de hora rígido de expiração on-chain.
+   </Note>
+3. **Limite (`limit`):** Representa a renda restante máxima que um NFT pode gerar.
+
+### Saldos do Sistema
+
+Além dos saldos de usuários, o smart contract mantém três saldos internos do sistema:
+
+- **Dev Balance (`devBalance`):** Acumula taxas e comissões da plataforma para o financiamento operacional.
+- **Token Reserve Balance (`tokenReserveBalance`):** O pool de liquidez em USDT que lastreia 100% o token DA. Cada fonte de renda no ecossistema flui para esse pool.
+- **Price Impact Balance (`priceImpactBalance`):** Uma reserva especial usada para gerenciar a estabilidade do preço do token DA durante eventos específicos do ecossistema.
+
+Esses saldos são gerenciados inteiramente pelo smart contract e não são acessíveis a nenhum usuário individual ou administrador.
+
+### Prioridade de Pagamento
+
+Ao realizar uma compra, o smart contract deduz fundos nesta ordem:
+
+<Steps>
+  <Step title="Vouchers (manual)">
+    Se o usuário aplicar explicitamente um voucher no checkout, seu valor é consumido primeiro. Vouchers não são aplicados automaticamente.
+  </Step>
+  <Step title="Saldo Acumulativo">
+    Se o usuário escolher usar o Saldo Acumulativo, ele é aplicado em cobertura de 100% (quando suficiente) ou combinado com o Saldo Regular. A taxa de 20% é roteada para o Pool de Liquidez do DA.
+  </Step>
+  <Step title="Saldo Regular">
+    Qualquer valor restante é deduzido do Saldo Regular.
+  </Step>
+</Steps>
+
+<Warning>
+  Gift Vouchers **não podem** ser combinados com o Saldo Acumulativo. Combinações válidas: [Voucher + Regular], [100% Acumulativo] ou [Acumulativo + Regular].
+</Warning>
+
+<Note>
+  Todas as transações na Binance Smart Chain exigem taxas de gas de rede padrão pagas em **BNB**. Os usuários devem manter uma pequena quantidade de BNB em sua carteira para executar quaisquer operações on-chain (compras, retiradas, transferências). Isso é separado dos saldos em USDT usados dentro do ecossistema.
+</Note>
