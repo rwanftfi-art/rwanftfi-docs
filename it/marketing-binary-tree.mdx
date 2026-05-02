@@ -1,0 +1,106 @@
+---
+title: "Struttura di Marketing e Posizionamento"
+description: "Struttura a 22 livelli con spillover."
+icon: "sitemap"
+---
+
+Quando un utente attiva un NFT, viene posizionato in modo permanente in una struttura
+di marketing con una profondità massima di 22 livelli — contenente fino a
+**8.388.606 posizioni** quando completamente riempita.
+<CardGroup cols={3}>
+  <Card title="Auto-Posizionamento" icon="wand-magic-sparkles">
+    Lo smart contract posiziona i nuovi utenti utilizzando l'algoritmo
+    "ramo più debole, da sinistra a destra". Nessun posizionamento manuale necessario.
+  </Card>
+  <Card title="Collegamento Permanente" icon="link">
+    Ogni partecipante è collegato in modo permanente al proprio sponsor.
+    Le modifiche sono impossibili — la blockchain è immutabile.
+  </Card>
+  <Card title="Spillover" icon="arrow-down">
+    Gli inviti dei tuoi sponsor in upline possono atterrare automaticamente nella TUA struttura.
+    Guadagni le ricompense di tree distribution dallo spillover secondo i termini standard
+    di marketing — lo Sponsor Bonus, tuttavia, va all'invitante effettivo,
+    non a te.
+  </Card>
+</CardGroup>
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/banner_new_1.mp4"
+/>
+
+## Come Funziona il Posizionamento
+<Steps>
+  <Step title="Tu Inviti">
+    I tuoi primi 2 inviti riempiono il tuo Livello 1 (posizione sinistra e destra).
+  </Step>
+  <Step title="L'Albero Cresce in Profondità">
+    Gli inviti successivi vanno al Livello 2 sotto il ramo più debole.
+    La tua struttura cresce in modo esponenziale: 2 → 4 → 8 → 16 posizioni per livello.
+  </Step>
+  <Step title="Lo Spillover Riempie i Vuoti">
+    Quando i tuoi sponsor in upline invitano più persone di quante il loro Livello 1 possa contenere,
+    quegli utenti finiscono nel TUO albero. Guadagni da loro automaticamente.
+  </Step>
+  <Step title="Guadagni dalla Profondità">
+    Il livello del tuo NFT determina quanto in profondità guadagni.
+    GENESIS guadagna da 2 livelli. INFINITY guadagna fino a 22 livelli
+    (i livelli 16–22 si sbloccano nella Fase 2 tramite voto di governance DAO).
+  </Step>
+</Steps>
+
+## Panoramica della Tree Distribution
+
+Ogni livello della struttura di marketing ha un numero fisso di posizioni e una percentuale di ricompensa corrispondente. Il livello del tuo NFT determina quanto in profondità in questa struttura puoi guadagnare.
+
+| Livello | Numero di partecipanti | Distribuzione per livello |
+|:-------:|:----------------------:|:-------------------------:|
+| 1       | 2                      | 0%                        |
+| 2       | 4                      | 1%                        |
+| 3       | 8                      | 2%                        |
+| 4       | 16                     | 2%                        |
+| 5       | 32                     | 3%                        |
+| 6       | 64                     | 3%                        |
+| 7       | 128                    | 4%                        |
+| 8       | 256                    | 4%                        |
+| 9       | 512                    | 4%                        |
+| 10      | 1.024                  | 4%                        |
+| 11      | 2.048                  | 4%                        |
+| 12      | 4.096                  | 4%                        |
+| 13      | 8.192                  | 4%                        |
+| 14      | 16.384                 | 4%                        |
+| 15      | 32.768                 | **5%**                    |
+| 16      | 65.536                 | 2%                        |
+| 17      | 131.072                | 2%                        |
+| 18      | 262.144                | 1%                        |
+| 19      | 524.288                | 0,5%                      |
+| 20      | 1.048.576              | 0,5%                      |
+| 21      | 2.097.152              | 0,5%                      |
+| 22      | 4.194.304              | 0,5%                      |
+
+<Tip>
+  Per i dettagli completi sulle percentuali di ricompensa, la meccanica della compressione e il sistema Matching Bonus, vedi [Ricompense e Compensazione](/it/marketing-rewards).
+</Tip>
+
+<Info>
+  **Il multi-accounting è severamente vietato.** Il sistema impone
+  una politica un-utente-un-account con tracciamento integrato.
+</Info>
+<Warning>
+  **Lo sponsor è permanente.** Una volta posizionato nell'albero, il tuo sponsor
+  non può essere cambiato. Scegli con saggezza prima di attivare il tuo NFT.
+</Warning>
+
+<Info>
+  **Lo sponsor deve essere un nodo attivo dell'albero.** Quando un nuovo utente viene registrato tramite `registerUser()`, lo smart contract non accetta alcun ID utente esistente come sponsor — lo sponsor fornito deve essere un **nodo attivo nella struttura di marketing**. In concreto, lo sponsor deve:
+
+  - Detenere un **NFT attivo** nel sistema, e
+  - Essere **registrato nell'albero** come nodo vivo (tree node active).
+
+  Una **mappatura solo-identità** — un wallet a cui è stato assegnato un ID utente ma che attualmente non detiene un NFT attivo — non può più sponsorizzare nuovi inviti. Questo previene che i nuovi partecipanti vengano posizionati sotto sponsor inattivi, blocca la creazione di rami morti nella struttura e preserva l'integrità del flusso di ricompense di ogni sotto-albero.
+</Info>

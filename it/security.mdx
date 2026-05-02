@@ -1,0 +1,75 @@
+---
+title: "Sicurezza e Audit"
+description: "Auditato in modo indipendente da CertiK."
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="Auditato da CertiK" icon="shield-check">
+    Gli smart contract di RWANFTFI sono stati auditati in modo indipendente da **CertiK**. Rapporto finale pubblicato il **28 aprile 2026** — PDF completo qui sotto, e nella directory pubblica [CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  </Card>
+</CardGroup>
+
+CertiK è una delle aziende di sicurezza più affermate da più tempo nel Web3 e audita una quota significativa dei principali protocolli del settore. L'audit è stato condotto utilizzando la loro metodologia standard — Analisi Statica, Revisione Manuale e Verifica Formale — e il rapporto completo è pubblicato pubblicamente, sia su questa pagina che sulla directory Skynet di CertiK.
+
+## Leggi il Rapporto
+
+Hai tre modi indipendenti per interagire con l'audit. L'obiettivo non è fornire la stessa cosa tre volte — è per assicurare che non ci sia alcun dubbio che la versione su questa pagina corrisponda alla versione che CertiK stessa pubblica, e affinché il rapporto sia accessibile indipendentemente dal dispositivo.
+
+<CardGroup cols={3}>
+  <Card title="Anteprima Inline" icon="eye">
+    Leggi il PDF completo direttamente su questa pagina. Migliore nei browser desktop.
+  </Card>
+  <Card title="Scarica PDF" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    Salva il rapporto originale sul tuo dispositivo. Consigliato su mobile.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    Verifica il rapporto sulla directory pubblica di CertiK.
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="Rapporto Audit CertiK — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>L'anteprima PDF inline non è supportata in questo browser.</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Apri il rapporto di audit (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Su Safari e sulla maggior parte dei browser mobili** l'anteprima inline potrebbe non essere visualizzata — quei browser non incorporano i PDF direttamente. Utilizza il pulsante **Scarica PDF** (o il link all'interno dell'area di anteprima) per aprire il rapporto sul tuo dispositivo.
+</Info>
+
+## Protezione dell'Account
+
+L'audit copre il livello on-chain dello smart contract. A livello applicativo, gli account utente sono inoltre protetti da diversi meccanismi indipendenti:
+
+<CardGroup cols={2}>
+  <Card title="Sicurezza a Tre Livelli" icon="layer-group">
+    Protezione a livelli che separa il login, le azioni finanziarie e le operazioni ad alto valore.
+  </Card>
+  <Card title="Codici TAN" icon="key">
+    Numeri di Autenticazione delle Transazioni monouso richiesti per ogni transazione finanziaria.
+  </Card>
+  <Card title="Password Finanziaria" icon="fingerprint">
+    Una password separata dalle credenziali di login, richiesta solo per movimentare fondi.
+  </Card>
+  <Card title="2FA + Bot Telegram" icon="telegram">
+    Autenticazione standard a due fattori, oltre alla verifica delle azioni tramite il bot Telegram ufficiale.
+  </Card>
+</CardGroup>
+
+<Info>
+  **Le transazioni richiedono un wallet Web3.** Puoi accedere alla dashboard con email e password per visualizzare i tuoi dati, ma l'esecuzione di qualsiasi azione finanziaria richiede un wallet Web3 connesso (MetaMask, Trust Wallet o un altro wallet compatibile con EVM).
+</Info>
+
+<Warning>
+  **Attenzione agli impostori.** Lo staff di RWANFTFI non ti contatterà mai per primo, non chiederà mai le tue chiavi private o seed phrase, e non richiederà mai pagamenti al di fuori della piattaforma ufficiale. Verifica sempre di essere su **rwanftfi.com** prima di connettere il tuo wallet o inserire credenziali.
+</Warning>
