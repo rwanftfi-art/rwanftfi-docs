@@ -1,0 +1,106 @@
+---
+title: "Istraktura ng Marketing at Placement"
+description: "22-antas na istraktura na may spillover."
+icon: "sitemap"
+---
+
+Kapag inaaktibo ng user ang isang NFT, sila ay permanenteng nilalagay sa marketing
+structure na may maximum depth na 22 antas — humahawak ng hanggang
+**8,388,606 posisyon** kapag ganap na napuno.
+<CardGroup cols={3}>
+  <Card title="Auto-Placement" icon="wand-magic-sparkles">
+    Inilalagay ng smart contract ang mga bagong user gamit ang "weakest branch, left to right"
+    algorithm. Walang manu-manong positioning na kailangan.
+  </Card>
+  <Card title="Permanenteng Link" icon="link">
+    Bawat kalahok ay permanenteng naka-link sa kanilang sponsor.
+    Ang mga pagbabago ay imposible — ang blockchain ay hindi mababago.
+  </Card>
+  <Card title="Spillover" icon="arrow-down">
+    Ang mga imbitasyon ng iyong upline sponsors ay maaaring mapunta sa IYONG istraktura nang awtomatiko.
+    Kumikita ka ng tree distribution rewards mula sa spillover sa ilalim ng standard
+    marketing terms — ang Sponsor Bonus, gayunpaman, ay napupunta sa aktwal na
+    nag-imbita, hindi sa iyo.
+  </Card>
+</CardGroup>
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/banner_new_1.mp4"
+/>
+
+## Paano Gumagana ang Placement
+<Steps>
+  <Step title="Ikaw ay Mag-imbita">
+    Ang iyong unang 2 imbitasyon ay pumupuno sa iyong Level 1 (kaliwa at kanang posisyon).
+  </Step>
+  <Step title="Lumalaki ang Tree Pababa">
+    Ang susunod na mga imbitasyon ay napupunta sa Level 2 sa ilalim ng pinakamahinang sangay.
+    Ang iyong istraktura ay lumalago nang exponential: 2 → 4 → 8 → 16 posisyon bawat antas.
+  </Step>
+  <Step title="Ang Spillover ay Nagpupuno ng mga Puwang">
+    Kapag ang iyong upline sponsors ay nag-imbita ng mas maraming tao kaysa sa kayang hawakan ng kanilang Level 1,
+    ang mga user na iyon ay napupunta sa IYONG tree. Kumikita ka mula sa kanila nang awtomatiko.
+  </Step>
+  <Step title="Kumikita Ka mula sa Lalim">
+    Ang iyong NFT level ang tumutukoy kung gaano kalalim kang kumikita.
+    Ang GENESIS ay kumikita mula sa 2 antas. Ang INFINITY ay kumikita ng hanggang 22 antas
+    (ang mga antas 16–22 ay na-unlock sa Phase 2 sa pamamagitan ng DAO governance vote).
+  </Step>
+</Steps>
+
+## Pangkalahatang-ideya ng Tree Distribution
+
+Bawat antas ng marketing structure ay may nakapirming bilang ng mga posisyon at kaukulang reward percentage. Ang iyong NFT level ang tumutukoy kung gaano kalalim sa istrakturang ito ka maaaring kumita.
+
+| Antas | Bilang ng mga kalahok | Distribution bawat antas |
+|:-----:|:---------------------:|:------------------------:|
+| 1     | 2                     | 0%                       |
+| 2     | 4                     | 1%                       |
+| 3     | 8                     | 2%                       |
+| 4     | 16                    | 2%                       |
+| 5     | 32                    | 3%                       |
+| 6     | 64                    | 3%                       |
+| 7     | 128                   | 4%                       |
+| 8     | 256                   | 4%                       |
+| 9     | 512                   | 4%                       |
+| 10    | 1,024                 | 4%                       |
+| 11    | 2,048                 | 4%                       |
+| 12    | 4,096                 | 4%                       |
+| 13    | 8,192                 | 4%                       |
+| 14    | 16,384                | 4%                       |
+| 15    | 32,768                | **5%**                   |
+| 16    | 65,536                | 2%                       |
+| 17    | 131,072               | 2%                       |
+| 18    | 262,144               | 1%                       |
+| 19    | 524,288               | 0.5%                     |
+| 20    | 1,048,576             | 0.5%                     |
+| 21    | 2,097,152             | 0.5%                     |
+| 22    | 4,194,304             | 0.5%                     |
+
+<Tip>
+  Para sa kumpletong detalye ng reward percentages, compression mechanics, at ang Matching Bonus system, tingnan ang [Rewards at Compensation](/fil/marketing-rewards).
+</Tip>
+
+<Info>
+  **Mahigpit na ipinagbabawal ang multi-accounting.** Ipinatutupad ng system
+  ang isang one-user, one-account policy na may built-in tracking.
+</Info>
+<Warning>
+  **Permanenteng ang sponsor.** Sa sandaling nailagay sa tree, ang iyong sponsor
+  ay hindi maaaring baguhin. Pumili nang matalino bago i-activate ang iyong NFT.
+</Warning>
+
+<Info>
+  **Ang sponsor ay dapat na isang aktibong tree node.** Kapag ang isang bagong user ay nakarehistro sa pamamagitan ng `registerUser()`, ang smart contract ay hindi tumatanggap ng anumang umiiral na user ID bilang sponsor — ang ipinakitang sponsor ay dapat na isang **aktibong node sa marketing structure**. Sa konkreto, ang sponsor ay dapat:
+
+  - May hawak na **aktibong NFT** sa system, at
+  - **Naka-rehistro sa tree** bilang isang buhay na node (aktibong tree node).
+
+  Ang isang **identity-only mapping** — isang wallet na binigyan ng user ID ngunit kasalukuyang walang aktibong NFT — ay hindi na maaaring mag-sponsor ng mga bagong imbitasyon. Pinipigilan nito ang mga bagong kalahok na mailagay sa ilalim ng inactive sponsors, hinaharangan ang paglikha ng patay na mga sangay sa istraktura, at pinapanatili ang integridad ng reward flow ng bawat sub-tree.
+</Info>

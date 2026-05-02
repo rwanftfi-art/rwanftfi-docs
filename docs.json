@@ -663,6 +663,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "fil",
+        "groups": [
+          {
+            "group": "Magsimula Dito",
+            "pages": [
+              "fil/executive-summary",
+              "fil/vision"
+            ]
+          },
+          {
+            "group": "Ekosistema ng NFT",
+            "pages": [
+              "fil/nft-ecosystem",
+              "fil/frozen-balance"
+            ]
+          },
+          {
+            "group": "Deflationary Asset (DA)",
+            "pages": [
+              "fil/da-token-mechanics",
+              "fil/da-mining-farming",
+              "fil/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Kita at Marketing",
+            "pages": [
+              "fil/marketing-binary-tree",
+              "fil/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Arkitektura",
+            "pages": [
+              "fil/architecture",
+              "fil/contract-parameters",
+              "fil/security"
+            ]
+          },
+          {
+            "group": "Pamamahala",
+            "pages": [
+              "fil/governance"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "fil/roadmap"
+            ]
+          },
+          {
+            "group": "Mga Mapagkukunan",
+            "pages": [
+              "fil/corporate-structure",
+              "fil/support",
+              "fil/partnerships",
+              "fil/legal"
+            ]
+          }
+        ]
       }
     ]
   },

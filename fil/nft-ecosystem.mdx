@@ -1,0 +1,109 @@
+---
+title: "Ekosistema ng NFT"
+description: "10 antas mula 28 hanggang 24,000 USDT."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · Access sa RWA at FinPro
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5,500 USDT · Mining, Lending, Matching
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11,000 – 24,000 USDT · Pinakamalalim na lalim, pinakamaikling cycles
+  </Card>
+</CardGroup>
+
+Ang pagmamay-ari ng NFT ay sapilitan upang lumahok sa marketing, mag-mine ng DA, at mag-access ng mga tool sa pananalapi. Isang aktibong NFT bawat account — ang pag-upgrade ay awtomatikong pumapalit sa nauna.
+
+<NftTierExplorer />
+
+## Income Limits at Auto-Renewal
+<AccordionGroup>
+  <Accordion title="Paano Gumagana ang Income Limits" icon="gauge-high">
+    Bawat NFT ay may mahigpit na Income Limit — ang maximum na pinagsama-samang kita na maaaring mabuo ng NFT bago ang renewal. Ang Income Limit ay kinakain ng **dalawang pinagmumulan**:
+
+    1. **Marketing rewards** — Sponsor Bonus, Tree Distribution, Matching Bonus, anumang bayad mula sa aktibidad ng iyong istraktura.
+    2. **Mga benta ng DA** — bawat manual o auto-sell ng DA ay nagpapababa sa iyong natitirang Income Limit ng halaga ng USDT payout.
+
+    Kapag umabot na sa zero ang limit, hihinto kang tumanggap ng **lahat** ng marketing rewards **at** mawawalan ka ng kakayahang magbenta ng DA: sa manual sale, hindi maaaring i-credit sa iyo ng system ang payout; sa auto-sell, 100% ng kita ay iniruruta sa DA Liquidity Pool o sa burn (ang eksaktong mekanismo ay tinutukoy ng DAO settings). Upang maiwasan ito, i-renew ang iyong NFT — sa pamamagitan ng Autobuy, manual same-level repurchase, o pag-upgrade sa mas mataas na antas. Ang manual repurchase ay naka-lock habang ang iyong natitirang limit ay higit sa 30% ng orihinal.
+  </Accordion>
+  <Accordion title="Autobuy (3/3 System)" icon="rotate">
+    I-activate ang Autobuy upang awtomatikong bilhing muli ang parehong NFT
+    kapag umabot na sa zero ang limit nito. **Para sa Levels 1–8**, ang
+    3/3 counter ay nagpapahintulot ng hanggang 3 awtomatikong renewal pagkatapos
+    ng orihinal na manual purchase — kaya ang parehong NFT level ay maaaring
+    aktibo nang maximum na 4 na beses sa kabuuan (1 manual + 3 auto). Ang
+    counter ay sumusubaybay lamang sa awtomatikong renewals; ang orihinal
+    na pagbili ay hiwalay. Pagkatapos magamit ang lahat ng 3 autobuys,
+    nag-lo-lock ang function at kailangan mong mag-upgrade o mawawalan ng rewards.
+    **Para sa Elite (L9–L10)**, ang autobuys ay walang limitasyon — ang mga
+    top-tier NFT ay nag-re-renew nang walang cap. Lahat ng autobuys ay
+    nangangailangan ng sapat na USDT sa Regular o Accumulative Balance
+    (pwedeng pagsamahin ang dalawa). Sa L1–L8, ang 3/3 counter ay nagre-reset
+    sa 0/3 kapag bumili ng mas mataas na antas ng NFT. Ang hindi nagamit na
+    bahagi ng Income Limit ng nakaraang NFT ay **hindi** dadalhin sa bagong
+    NFT — ito ay mawawala.
+  </Accordion>
+  <Accordion title="Business Sale" icon="handshake">
+    Ilipat ang iyong buong istraktura ng negosyo (partner tree at downline) sa
+    ibang user sa pamamagitan ng DAO-authorized na proseso. Ang paglipat ay kontrolado ng isang
+    smart-contract **transfer commission**, hindi isang sale price: **ang nagbebenta
+    ay nagbabayad ng nakapirming 500 USDT na bayad** (DAO-adjustable sa range na **0–500 USDT**)
+    upang isakatuparan ang paglipat. Ang **bumibili ay walang on-chain commission
+    na binabayaran sa protocol** at tatanggap ng buong istraktura sa pagsasakatuparan. Ang
+    underlying na on-chain parameter ay `businessTransferFee` (pinalitan ang pangalan mula sa
+    legacy na `businessSalePrice` upang ipakita ang totoong commission semantics nito).
+    Ang indibidwal na NFT sales nang walang istraktura ay hindi sinusuportahan.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Income Limit:** Sa sandaling umabot ang iyong NFT sa income limit nito, hihinto ka sa pagtanggap
+  ng LAHAT ng marketing rewards. I-enable ang Autobuy upang maiwasan ito — o manu-manong i-renew
+  kapag bumaba ang iyong limit sa ilalim ng 30%.
+</Warning>
+
+### Frozen Balance — Proteksyon ng Kita sa Unang Personal na Benta
+
+Kapag ang isang marketing reward mula sa **first-time purchase** ng iyong direktang invitee ay lumampas sa natitirang Income Limit ng iyong NFT, ang labis ay hindi mawawala — ito ay nag-fa-freeze sa loob ng 72 oras, na nagbibigay sa iyo ng oras upang i-upgrade ang iyong NFT at angkinin ang mga pondo. Ito ang pangunahing mekanika na nagpoprotekta sa kita mula sa pag-imbita ng mga partner sa mas mataas na antas ng NFT.
+
+<Card title="Buong Mekanika ng Frozen Balance" icon="snowflake" href="/fil/frozen-balance">
+  Detalyadong paliwanag ng 72-oras na window, interaksyon sa Autobuy, ang 70/30 forfeiture split, structure-level cascade, at kung bakit ang mga paulit-ulit na pagbili mula sa parehong invitee ay hinahawakan nang iba.
+</Card>
+
+## Gift NFTs at Vouchers
+<CardGroup cols={2}>
+  <Card title="Gift NFTs" icon="gift">
+    Hindi maibebentang promotional assets na permanenteng naglalagay sa mga gumagamit sa marketing
+    structure. Hindi maaaring bilhin — iginagawad sa pamamagitan ng promotions o pagkamit
+    ng Career Rank. Hanggang 100 bawat address (DAO-adjustable, kasalukuyan).
+  </Card>
+  <Card title="Gift Vouchers" icon="ticket">
+    Mga coupon na nilikha ng user na may smart-contract-enforced minimum na **5 USDT**
+    (zero-value vouchers ay tinatanggihan on-chain), wasto sa loob ng **365 araw**. Sumasaklaw hanggang
+    100% ng isang NFT purchase. Maaaring ilipat sa 0% commission, maliban sa
+    **huling 24 oras** bago mag-expire, kapag ang transfers ay naka-lock. Hindi maaaring isama
+    sa Accumulative Balance. Kung hindi nagamit sa loob ng buong 365-araw na buhay,
+    **100% ng halaga ng voucher ay ididirekta sa DA Liquidity Pool**.
+  </Card>
+</CardGroup>
+<Warning>
+  **Gift NFT Overwrite:** Kung mayroon ka nang Regular NFT at i-activate
+  ang isang Gift NFT, ang Gift NFT ay **mag-o-overwrite** sa iyong Regular NFT. I-activate lamang
+  ang Gift NFTs sa mga account na walang Regular NFT.
+</Warning>
+## Ambassador at VIP Edition
+<CardGroup cols={2}>
+  <Card title="Ambassador NFT" icon="crown">
+    Limitado sa **100 yunit** (Q4 2026). Walang income limits. Sariling dedikadong reward
+    system. Hindi inililipat sa Business Sale.
+  </Card>
+  <Card title="VIP Edition NFT" icon="gem">
+    Limitado sa **100 yunit** (Q4 2026). Ang access ay ipinagkakaloob para sa pagkamit ng
+    **Leader** Career Rank o mas mataas.
+  </Card>
+</CardGroup>

@@ -1,0 +1,48 @@
+---
+title: "Mining at Farming"
+description: "Mula NFTM hanggang DA sa dalawang hakbang."
+icon: "pickaxe"
+---
+import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
+
+
+Upang makakuha ng DA, ang mga user ay dapat lumahok sa isang two-step na proseso: Mining at Farming. Tanging ang Premium (Level 5+) at Elite NFTs ang may kakayahan dito.
+
+<Info>
+  **Ang NFTM ay hindi isang token.** Ito ay isang internal mining counter (metric) na sinusubaybayan ng smart contract. Sa interface, makikita mo ang isang progress bar at ang inaasahang halaga ng NFTM. Ang NFTM ay walang market value at hindi maaaring i-trade o ilipat — umiiral lamang ito upang ma-stake sa Farming at ma-convert sa DA.
+</Info>
+
+<Info>
+  **Aktibong Income Limit ay kinakailangan upang mag-mine.** Ang Mining at Farming ay parehong nangangailangan na ang eligible NFT ay may non-zero **Income Limit**. Kung umabot na sa zero ang iyong limit, tatanggihan ng smart contract ang pagsisimula ng bagong mining cycle. Upang ipagpatuloy ang mining, una munang i-refresh ang iyong Income Limit — sa pamamagitan ng Autobuy 3/3 system, manual same-level renewal, o pag-upgrade sa mas mataas na antas ng NFT — at pagkatapos ay i-activate ang susunod na cycle. Ang Income Limit ang gating condition; kung wala ito, ang mining flow ay hindi magsisimula.
+</Info>
+
+<Steps>
+  <Step title="I-activate ang Mining">
+    Simulan ang mining sa iyong eligible NFT. Ang tagal ng cycle ay depende sa iyong antas — mula 45 araw (HYDRO) hanggang 40 araw (INFINITY).
+  </Step>
+  <Step title="Bumuo ng NFTM">
+    Ang iyong NFT ay bumubuo ng NFTM sa loob ng cycle period. Ang Levels 5–7 (HYDRO, QUANTUM, PULSE) ay may **1 mining cycle** na bumubuo ng **10%** ng NFT price sa NFTM. Ang Levels 8–10 (AURORA, FLAME, INFINITY) ay may **2 mining cycles** — ang una ay bumubuo ng **10%** at ang pangalawa ay bumubuo ng **15%** ng NFT price sa NFTM.
+  </Step>
+  <Step title="I-claim Sa Loob ng 72 Oras">
+    Sa sandaling matapos ang mining, mayroon kang eksaktong **72 oras** upang i-stake ang iyong NFTM sa Farming. Mawala ang window na ito at magsisimula kang muli mula sa simula.
+  </Step>
+  <Step title="Mag-farm ng DA">
+    Ang naka-stake na NFTM ay pumapasok sa Farming sa parehong tagal ng mining cycle. Sa katapusan, ang NFTM ay nag-co-convert sa DA batay sa kasalukuyang presyo at na-credit sa iyong TokenStack.
+  </Step>
+</Steps>
+
+<Warning>
+  **72-Oras na Kritikal na Window:** Kung nabigo kang i-stake ang iyong NFTM sa loob ng 72 oras pagkatapos matapos ang mining, ang buong cycle ay nawawala. Dapat kang magsimula muli sa mining mula sa simula. Magtakda ng paalala.
+</Warning>
+
+<Warning>
+  **Mag-claim Bago Mag-upgrade — Ang Hindi Naangkin na Farming Rewards ay Sinisira:** Anumang NFT purchase o upgrade ay nag-tri-trigger ng `terminate()` sa mining/farming state ng user. Sa disenyo, ang `terminate()` ay humihinto sa active session at **sinisira ang lahat ng hindi naangkin na farming rewards**, kabilang ang mga rewards na nakahinog na ngunit hindi pa naangkin. Ang team ay nagkumpirma na ito ay sinasadya sa audit response: *"It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
+
+  **Operational rule:** kung mayroon kang matured-but-unclaimed na farming reward, **i-claim ito muna**, at pagkatapos lamang ay bumili o mag-upgrade ng NFT. Kung hindi, ang reward ay permanenteng mawawala sa sandaling makumpirma ang bagong NFT transaction.
+</Warning>
+
+<Warning>
+  **Pause sa Deflationary Cycle:** Dalawang beses sa isang taon, ang system ay nag-tri-trigger ng Deflationary Cycle na tumatagal ng hanggang 30 araw. Sa loob ng panahong ito, ang **paglulunsad ng mga bagong cycle** ng NFTM mining, staking, at DA generation ay nasususpinde. Ang mga cycle na nakatakbo na bago magsimula ang Deflationary Cycle ay **magpapatuloy at matatapos sa iskedyul** — hindi nawawala ang progreso. Planuhin ang paglulunsad ng mga bagong cycle sa paligid ng mga naka-iskedyul na panahon na ito.
+</Warning>
+
+<MiningPipeline />
