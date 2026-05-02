@@ -1,0 +1,192 @@
+---
+title: "Governance — DAO"
+description: "10M token, decisioni guidate dalla community."
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+Per garantire che l'ecosistema rimanga decentralizzato, indipendente e sicuro, RWANFTFI si affida a un'Organizzazione Autonoma Decentralizzata (DAO) governata da smart contract. Gli sviluppatori non possono modificare unilateralmente le regole del sistema, accedere ai fondi degli utenti o manipolare i saldi.
+
+<GovernanceStats />
+
+## Capacità della DAO
+
+Affinché una proposta sia presentata alla DAO, deve essere supportata da almeno il 30% dell'offerta totale di token. Affinché una proposta passi e venga eseguita on-chain, richiede un voto a maggioranza del 50%.
+
+<CardGroup cols={2}>
+  <Card title="30% per Presentare" icon="file-signature">
+    Una proposta richiede il supporto di almeno il 30% dell'offerta totale di GovToken per essere presentata.
+  </Card>
+  <Card title="50% per Passare" icon="check-double">
+    Un voto a maggioranza del 50% è richiesto affinché una proposta passi e venga eseguita on-chain.
+  </Card>
+</CardGroup>
+
+La DAO vota su funzioni critiche dell'ecosistema, come:
+* Attivare un "Accumulative Event" (un periodo di 30 giorni durante il quale gli utenti possono reclamare saldi cumulativi scaduti, con un cooldown di 180 giorni).
+* Autorizzare la vendita dell'intera struttura business di un utente come asset.
+* Verificare e approvare la richiesta di un utente di cambiare il proprio wallet finanziario compromesso.
+* Votare per bloccare l'NFT di uno specifico utente (Freeze). Quando un NFT viene bloccato, l'utente perde l'accesso ai prodotti finanziari della piattaforma. Lo sblocco viene anch'esso eseguito esclusivamente tramite voto della DAO.
+
+<Info>
+  **Soglia di Proposta in Pratica — Trasparenza Onesta:** La soglia di presentazione del 30% è un'unica barriera ponderata sull'offerta; non suddivide il potere di voto per ruolo. Nell'**attuale** distribuzione dei token (RWANFTFI Corporation 30% + 20 Guardiani al 3,5% ciascuno), la soglia è realisticamente raggiungibile solo dalla Corporation che agisce direttamente, o dalla Corporation insieme a un sottoinsieme coordinato di Guardiani. Un singolo Guardiano detiene ben al di sotto del 30% e **non può presentare unilateralmente una proposta** sotto l'allocazione attuale. Il team ha formalmente riconosciuto questo nella risposta all'audit: per progettazione, sotto l'allocazione attuale, solo la Corporation ha abbastanza token per creare proposte da sola, e non c'è alcun meccanismo di delega esterno che permetta ai detentori più piccoli di mettere in comune il potere di voto off-chain per raggiungere la soglia (vedi [Meccaniche di Voto](#meccaniche-di-voto) qui sotto). La barriera on-chain stessa rimane al 30% — ciò che cambia nel tempo è l'ampiezza dei partecipanti in grado di superarla. Il [Piano di Ridistribuzione Futura](#piano-di-ridistribuzione-futura) (Corporation 30% + 20 Guardiani al 1,5% + 80 Leader al 0,5%) amplia le coalizioni che possono insieme raggiungere la soglia, decentralizzando progressivamente la creazione di proposte senza abbassare la soglia stessa.
+</Info>
+
+## Meccaniche di Voto
+
+Le meccaniche qui sotto descrivono come una proposta si sposta dalla presentazione all'esecuzione, e come il potere di voto è detenuto e ruotato a livello di contratto.
+
+<CardGroup cols={2}>
+  <Card title="Il Voto si Chiude alla Scadenza" icon="hourglass-end">
+    Il voto su una proposta si chiude **rigorosamente alla scadenza** — mai prima. Raggiungere il supporto della maggioranza prima della scadenza non blocca l'esito; voti aggiuntivi (a favore o contrari) continuano ad essere accettati fino allo scadere del timer.
+  </Card>
+  <Card title="Auto-Delega, Nessuna Delega Manuale" icon="link-slash">
+    GovToken **auto-delega il potere di voto al destinatario in caso di trasferimento**. Non esiste un percorso `delegate()` per assegnare il potere di voto a una terza parte — il peso del voto traccia sempre l'attuale detentore del token.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Voto sulle proposte Riuscite:** Anche dopo che una proposta ha accumulato abbastanza supporto da essere considerata "succeeded" sul suo conteggio attuale, la finestra di voto rimane aperta fino alla sua scadenza. Ogni detentore idoneo mantiene la capacità di registrare un voto di conferma o opposizione fino al momento in cui la finestra si chiude — lo stato di early-succeeded non limita la partecipazione.
+</Note>
+
+<Note>
+  **Nessuna delega esterna.** Poiché GovToken non espone un meccanismo di delega manuale, i detentori più piccoli non possono mettere in comune il proprio potere di voto off-chain per superare la soglia di proposta. L'unico modo per spostare il peso del voto è spostare i token sottostanti, e qualsiasi tale trasferimento auto-delega al destinatario. Questo mantiene la relazione tra la proprietà del token e l'autorità di governance diretta e tracciabile on-chain.
+</Note>
+
+<Info>
+  **Sincronizzazione dell'Autorità DAO — singola fonte di verità:** L'autorità DAO che governa GovToken non è memorizzata come valore duplicato all'interno di GovToken. Quando l'autorità DAO viene ruotata tramite `setDAO()` sul contratto Diamond, GovToken **legge l'indirizzo DAO aggiornato direttamente dal contratto Diamond** invece di affidarsi a un puntatore mantenuto separatamente. Questo elimina il rischio che i due contratti vadano alla deriva in uno stato di autorità divisa durante una rotazione — non c'è alcuna finestra in cui GovToken potrebbe onorare un'autorità obsoleta che il Diamond ha già sostituito.
+</Info>
+
+## Panoramica di GovToken
+
+GovToken è il token di governance e voto dell'ecosistema RWANFTFI. È un token ERC20Votes con un'offerta permanentemente fissata. Non è possibile alcun minting aggiuntivo dopo il deployment. Non esiste alcun meccanismo di inflazione — il modello di offerta è completamente fisso.
+
+<CardGroup cols={3}>
+  <Card title="Offerta Fissa" icon="cube">
+    10.000.000 di GovToken. Cap permanente. Nessuna inflazione.
+  </Card>
+  <Card title="Mint Disabilitato" icon="ban">
+    La funzione di minting è permanentemente disabilitata dopo il deployment. Nessuna riserva nascosta.
+  </Card>
+  <Card title="Governance On-Chain" icon="landmark">
+    Tutte le azioni di governance sono eseguite tramite voto DAO. Piena trasparenza e tracciabilità on-chain.
+  </Card>
+</CardGroup>
+
+## Distribuzione Iniziale dei Token
+
+L'allocazione iniziale dei GovToken è stata progettata per bilanciare il controllo operativo con la partecipazione di governance decentralizzata.
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 di GovToken (30% dell'offerta totale). Azienda di tecnologia e prodotto. Detiene un'allocazione strategica di governance per lo sviluppo a lungo termine dell'ecosistema.
+  </Card>
+  <Card title="20 Guardiani" icon="shield-check">
+    7.000.000 di GovToken (70% dell'offerta totale). 350.000 token per Guardiano (3,5% ciascuno). Partecipanti primari di governance responsabili della stabilità dell'ecosistema in fase iniziale.
+  </Card>
+</CardGroup>
+
+## Piano di Ridistribuzione Futura
+
+Il modello di governance DAO include una roadmap strutturata di decentralizzazione. Nel tempo, la partecipazione di governance si espanderà da 21 wallet fino a 101 wallet — senza mintare nuovi token.
+
+La ridistribuzione non crea nuovi token. L'offerta totale rimane permanentemente fissata a 10.000.000 di GovToken. I Guardiani ridistribuiscono gradualmente una porzione della loro allocazione a Leader qualificati attraverso procedure di governance approvate dalla DAO.
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 di GovToken (30%). Invariato.
+  </Card>
+  <Card title="20 Guardiani" icon="shield-check">
+    3.000.000 di GovToken (30%). 150.000 per Guardiano (1,5% ciascuno).
+  </Card>
+  <Card title="80 Leader" icon="users">
+    4.000.000 di GovToken (40%). 50.000 per Leader (0,5% ciascuno).
+  </Card>
+</CardGroup>
+
+I Leader sono definiti come contributori attivi dell'ecosistema, costruttori di community, partner strategici e partecipanti con un impatto misurabile sull'ecosistema che mantengono reti attive di clienti o partner. I wallet dei Leader saranno assegnati a partecipanti qualificati man mano che la decentralizzazione della governance progredisce.
+
+## Guardiani
+
+I Guardiani sono i partecipanti primari di governance della DAO RWANFTFI. Sono responsabili del mantenimento della stabilità dell'ecosistema durante la fase di crescita iniziale e della corretta esecuzione della governance.
+
+<CardGroup cols={2}>
+  <Card title="Partecipazione di Governance" icon="check-to-slot">
+    Voto su tutte le proposte DAO. Decisioni strategiche dell'ecosistema. Esecuzione della governance del protocollo.
+  </Card>
+  <Card title="Sicurezza e Supervisione" icon="eye">
+    Supervisione della sicurezza e gestione del rischio. Partecipazione alla governance del tesoro. Stabilità a lungo termine dell'ecosistema.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Nessun Controllo Unilaterale" icon="shield-check">
+    Tutte le azioni di governance — incluse la ridistribuzione dei token, le modifiche dei parametri e le operazioni sugli account — richiedono procedure standard di governance DAO con la soglia di proposta del 30% e il voto a maggioranza del 50%.
+  </Card>
+</CardGroup>
+
+## Integrità dell'Offerta e Sicurezza
+
+<CardGroup cols={2}>
+  <Card title="Offerta Immutabile" icon="infinity">
+    Offerta totale permanentemente fissata a 10.000.000. Nessun minting, nessuna inflazione, nessuna riserva nascosta. Tutti i token esistono all'interno dell'allocazione di distribuzione iniziale.
+  </Card>
+  <Card title="Sicurezza della Governance" icon="shield-halved">
+    Autorizzazione multi-firma per operazioni critiche. Permessi di governance basati sui ruoli. Approvazione basata sulla DAO per qualsiasi modifica di allocazione.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Garanzie Verificate dall'Audit" icon="certificate">
+    L'offerta totale è esattamente 10.000.000 di token. Nessuna funzione di mint è invocabile dopo il deployment. La ridistribuzione dei token non altera l'offerta totale. Tutti i movimenti dei token sono registrati on-chain.
+  </Card>
+</CardGroup>
+
+## Wallet di Governance
+
+Tutti i detentori di token di governance sono verificabili pubblicamente on-chain. Di seguito i wallet di governance designati per la DAO RWANFTFI.
+
+<Tabs>
+  <Tab title="Corporation">
+    | # | Ruolo | Indirizzo Wallet |
+    |---|-------|------------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardiani (20)">
+    | # | Indirizzo Wallet |
+    |---|------------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+Tutti gli indirizzi dei wallet sono verificabili su BscScan. I saldi di token di governance e la cronologia delle transazioni sono completamente trasparenti e verificabili pubblicamente.
+
+## Meccanismo di Freeze dell'Account
+
+La DAO può votare per **congelare** la funzionalità NFT di uno specifico utente sulla piattaforma. Questo è uno strumento di moderazione, non una funzione di sicurezza di emergenza.
+
+<Warning>
+  **Quando un NFT è congelato:** L'utente perde l'accesso a tutte le operazioni finanziarie — prelievi, acquisti, accumuli di ricompense di marketing e trasferimenti. Tuttavia, l'NFT stesso rimane nel wallet blockchain dell'utente come sua proprietà. Lo **scongelamento** richiede anch'esso un voto separato della DAO.
+</Warning>
+
+La piattaforma non ha la capacità tecnica di sequestrare o confiscare un NFT dal wallet di un utente. Il congelamento disabilita solo la funzionalità dell'NFT all'interno della piattaforma RWANFTFI. Questo meccanismo viene utilizzato in casi di violazioni dei termini della piattaforma — frode basata su NFT, rischi AML (anti-riciclaggio) identificati, protezione del brand dell'ecosistema e situazioni simili che richiedono una decisione collettiva della community.

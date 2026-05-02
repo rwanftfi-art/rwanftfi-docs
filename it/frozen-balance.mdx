@@ -1,0 +1,102 @@
+---
+title: "Saldo Congelato"
+description: "Protezione del reddito di marketing per inviti in livelli superiori."
+icon: "snowflake"
+---
+
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
+Il Saldo Congelato è la meccanica che protegge il tuo reddito di marketing in una situazione specifica ma molto comune: quando **il tuo invitato personale diretto effettua il suo primo acquisto NFT a un livello superiore al tuo**, e la commissione risultante supera l'Income Limit residuo del tuo NFT.
+
+Senza il Saldo Congelato, quell'eccedenza andrebbe persa per compressione — passata verso l'alto della struttura. Il Saldo Congelato la congela per **72 ore** e ti offre una finestra per fare upgrade del tuo NFT e reclamare l'intero importo.
+
+<Info>
+  Questa è la rete di sicurezza del marketing per gli inviti "verso l'alto": puoi invitare con fiducia partner in qualsiasi livello NFT senza temere che la commissione su un grande acquisto venga persa perché il tuo Income Limit è troppo piccolo.
+</Info>
+
+## Quando si Attiva il Saldo Congelato
+
+Il Saldo Congelato si attiva **solo quando sono soddisfatte tutte e tre le condizioni**:
+
+<Steps>
+  <Step title="L'acquirente è il tuo invitato personale diretto">
+    Non uno spillover, non un partner della downline a cinque livelli di profondità — specificamente una persona che hai invitato personalmente nella tua struttura.
+  </Step>
+  <Step title="È il primo acquisto NFT di quell'invitato">
+    Gli acquisti ripetuti dello stesso invitato (rebuy, upgrade, nuovo NFT dopo Autobuy) **non** sono coperti dal Saldo Congelato — vedi la sezione Reddito Perso qui sotto.
+  </Step>
+  <Step title="La commissione supera il tuo Income Limit residuo">
+    Se il tuo Income Limit residuo è abbastanza grande da assorbire l'intera commissione, non si verifica alcun congelamento — tutto viene accreditato normalmente.
+  </Step>
+</Steps>
+
+## Come si Suddivide l'Importo
+
+Quando si attiva il Saldo Congelato, lo smart contract divide la commissione in due parti:
+
+- **Entro il tuo Income Limit residuo** — accreditato immediatamente secondo la suddivisione standard: **75% Saldo Regolare / 20% Saldo Cumulativo / 5% Pool di Liquidità DA**.
+- **Eccedenza oltre il tuo Income Limit** — collocata nel Saldo Congelato con un **timer di 72 ore**.
+
+## Cosa Succede Durante le 72 Ore
+
+Hai tre scenari:
+
+<Tabs>
+  <Tab title="Effettui l'upgrade del tuo NFT">
+    Acquisti un NFT di livello superiore (con un Income Limit più grande). I fondi congelati vengono automaticamente rilasciati e accreditati secondo la stessa suddivisione **75/20/5**. L'importo rilasciato viene detratto dall'Income Limit del **nuovo** NFT.
+
+    **Esempio.** Income Limit del tuo NFT = 160 USDT. Il tuo invitato acquista un NFT per 2.200 USDT; commissione = 660 USDT. 160 USDT vengono accreditati immediatamente (75/20/5). 500 USDT vanno nel Saldo Congelato. Effettui l'upgrade a Eclipse (Income Limit 650 USDT). I 500 USDT vengono rilasciati e accreditati. Nuovo Income Limit residuo: 650 − 500 = **150 USDT**.
+  </Tab>
+  <Tab title="Autobuy è abilitato">
+    Se Autobuy è attivo, l'ordine cambia. Autobuy si attiva **per primo**, riacquistando l'NFT dello stesso livello e rinnovando il tuo Income Limit. La commissione viene quindi rivalutata rispetto al limite rinnovato, la porzione entro il limite viene accreditata, e **solo il resto** (se presente) va nel Saldo Congelato con il timer di 72 ore.
+
+    Ciò significa: se il tuo NFT e l'Income Limit rinnovato sono sufficienti dopo Autobuy, il Saldo Congelato potrebbe non attivarsi affatto.
+  </Tab>
+  <Tab title="Manchi la scadenza">
+    Se non fai l'upgrade entro 72 ore e Autobuy non ha coperto l'eccedenza, i fondi congelati vengono **definitivamente persi** e ridistribuiti:
+
+    - **70%** viene indirizzato al Pool di Liquidità DA per il minting di nuovo DA.
+    - **30%** viene trasferito al tuo sponsor diretto in upline.
+
+    La regola della cascata è identica alla cascata di decadimento del Saldo Cumulativo: se l'Income Limit dello sponsor in upline è zero, il 30% passa più in alto nella catena al primo partecipante con un Income Limit attivo. Se nessun upline ha un limite attivo, il 100% completo viene indirizzato al Pool di Liquidità DA.
+  </Tab>
+</Tabs>
+
+## Acquisti Ripetuti dallo Stesso Invitato
+
+Questo dettaglio è facile da trascurare: il Saldo Congelato si applica **solo al primo acquisto** di ciascun invitato personale. Se il tuo invitato successivamente effettua un secondo acquisto (rebuy, upgrade, nuovo NFT), e il tuo Income Limit nuovamente non riesce ad assorbirlo, l'eccedenza **non** va nel Saldo Congelato. Viene contrassegnata come **Reddito Perso** e distribuita secondo la regola standard di compressione: passata verso l'alto della struttura al successivo partecipante con un Income Limit attivo.
+
+<Warning>
+  Se hai una lunga sequenza di acquisti ripetuti da grandi invitati e **il tuo Income Limit è esaurito**, ogni tale acquisto ripetuto ti scavalca tramite compressione. Mantieni il tuo Income Limit attivo — tramite Autobuy o rinnovo manuale — per non perdere reddito da partner consolidati.
+</Warning>
+
+## Scenario ad Alto Volume — Cascata Attraverso la Struttura
+
+Il Saldo Congelato protegge **solo** la commissione su un acquisto di un invitato diretto di prima volta. Ma in una grande struttura, la maggior parte del tuo reddito non proviene dalle vendite personali — proviene dalla profondità, attraverso la tree distribution (4% al livello 9 × 500+ posizioni può generare decine di migliaia di USDT in un singolo ciclo di accumulo).
+
+Quando quel volume colpisce e il tuo Income Limit è di 1.100 USDT con Autobuy in grado di rinnovarlo al massimo tre volte (3/3 sui livelli L1–L8), il sistema:
+
+1. Ti accredita 1.100 USDT secondo la suddivisione standard.
+2. Attiva Autobuy, rinnova il Limit, accredita altri 1.100 USDT.
+3. Ripete fino a 3 volte.
+4. **Tutto il volume residuo viene compresso** — passato verso l'alto al successivo partecipante con un Income Limit attivo.
+
+Il Saldo Congelato **non** si attiva in questo scenario perché la fonte non è un acquisto di un invitato di prima volta ma la tree distribution dalla profondità.
+
+<Info>
+  Conclusione per la scala: a grandi volumi di rete, la leva chiave è **il livello del tuo NFT**. I livelli superiori portano Income Limit più grandi e riducono la quota persa per compressione. I livelli Elite (L9–L10), con Autobuy illimitato, affrontano questo problema in modo sistemico.
+</Info>
+
+<FrozenBalanceSimulator lang="it" />
+
+## Parametri del Saldo Congelato (On-Chain)
+
+| Parametro | Valore | Mutabilità |
+|---|---|---|
+| Finestra di congelamento | 72 ore | Immutabile |
+| Quota Pool Liquidità DA in caso di decadenza | 70% | Regolabile dalla DAO (50–100%) |
+| Quota sponsor upline in caso di decadenza | 30% | Regolabile dalla DAO (0–30%) |
+| Trigger | Primo acquisto da parte di invitato personale diretto | Immutabile |
+| Distribuzione di rilascio | 75/20/5 | Suddivisione standard — vedi Architettura |
+
+Vedi anche: [Income Limit nella pagina Ecosistema NFT](/it/nft-ecosystem), [Priorità di Pagamento nell'Architettura](/it/architecture).

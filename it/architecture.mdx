@@ -1,0 +1,130 @@
+---
+title: "Architettura degli Smart Contract"
+description: "Diamond Pattern e 7 Faceti."
+icon: "cubes"
+---
+
+
+La piattaforma RWANFTFI è costruita su un'architettura di smart contract robusta, modulare e sicura che governa tutte le interazioni, distribuzioni e meccaniche dei token senza controllo centrale.
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/bx2.mp4"
+/>
+
+## Diamond Pattern (EIP-2535)
+
+Il nucleo del sistema RWANFTFI è implementato utilizzando il Diamond Pattern (EIP-2535). Questa scelta architetturale consente al protocollo di superare il limite standard di dimensione dello smart contract (24KB) suddividendo le funzionalità in più moduli indipendenti chiamati "Faceti" (moduli di smart contract accessibili attraverso un singolo contratto proxy).
+
+## Faceti Principali
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    Parametri di sistema, ruoli, vendite di business e minting di NFT speciali.
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    Registrazione utenti, acquisti di NFT e distribuzione delle ricompense di marketing.
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    Gestione dei cicli di mining NFTM e farming DA.
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    Depositi, prelievi, creazione di Voucher e trasferimenti cumulativi.
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    Logica dell'albero binario a 22 livelli e algoritmi di posizionamento utenti.
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    Elaborazione degli stack DA scaduti, burn dei Voucher e risoluzione degli account congelati.
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    Query di sola lettura per dati utente, saldi e strutture dell'albero.
+  </Card>
+</CardGroup>
+
+## Contratti NFT e Spazi degli ID Token
+
+Il protocollo utilizza tre distinti contratti NFT (Regular, Gift, Ambassador). Per prevenire collisioni di identificatori nella mappatura on-chain `registeredTokens` che traccia ogni NFT mintato nel sistema, **gli NFT Regular e gli NFT Gift mintano in spazi `tokenId` separati partizionati per parità**:
+
+- **NFT Regular** — ID token dispari (`1, 3, 5, 7, …`).
+- **NFT Gift** — ID token pari (`2, 4, 6, 8, …`).
+
+La separazione viene applicata all'interno della logica del minter di ciascun contratto NFT al momento del minting. Poiché un minting riuscito su un contratto non può mai produrre un identificatore che l'altro contratto potrebbe emettere, un'intera classe di bug di collisione di mappatura viene eliminata a livello di sistema di tipi — non è richiesta alcuna guardia a runtime o controllo di deduplicazione per chiamata. La partizione è invisibile agli utenti finali: i wallet e i marketplace continuano a visualizzare ogni NFT sotto il proprio contratto nativo.
+
+## Matrice di Aggiornabilità
+
+* **Diamond Contract (EIP-2535):** Aggiornabile tramite Facet cuts — consente di aggiungere, sostituire o rimuovere singoli moduli senza ridistribuire l'intero sistema.
+* **TokenReserve (DA):** Aggiornabile tramite Transparent Proxy — gli aggiornamenti della logica sono possibili senza cambiare l'indirizzo del contratto.
+* **NFT (Regular, Gift, Ambassador), GovToken, AdminContract:** Non aggiornabili — garantendo l'immutabilità degli asset principali e delle regole di governance.
+
+## Gestione dei Ruoli
+
+Il sistema utilizza una struttura gerarchica dei ruoli (AccessControlEnumerable) per gestire i permessi in modo sicuro:
+* `ADMIN_ROLE`: Può concedere/revocare altri ruoli e modificare parametri critici di sistema.
+* `SERVICE_ROLE`: Eseguito da script di backend per attività automatizzate (ad es., risoluzione di stack scaduti, elaborazione di depositi cross-chain).
+* `SIGNER_ROLE`: Utilizzato per la verifica di firme crittografiche per autorizzare azioni specifiche come i trasferimenti di Voucher.
+* `MINTER_ROLE`: Autorizzato a mintare token o NFT specifici.
+
+## Schema dei Saldi e Priorità di Pagamento
+
+Per gestire il flusso complesso dei fondi, RWANFTFI impiega uno schema di saldi multi-livello all'interno dello smart contract.
+
+**Saldi Utente:**
+1. **Saldo Regolare (`balance`):** Il wallet principale per l'USDT disponibile. I fondi qui possono essere prelevati in qualsiasi momento, utilizzati per acquistare NFT o utilizzati per generare Voucher.
+2. **Saldo Cumulativo (`accumulativeBalance`):** Un conto di risparmio obbligatorio in cui il 20% di ciascuna ricompensa di marketing viene accreditato immediatamente al maturare.
+   * **Utilizzo:** Può essere utilizzato solo per acquistare un NFT dello stesso livello o per acquistare un NFT di livello superiore.
+   * **Commissioni:** Utilizzare questo saldo per acquisti NFT comporta una commissione del 20% **indirizzata al Pool di Liquidità DA**. Anche trasferirlo a un altro utente comporta una commissione del 20% **indirizzata al Pool di Liquidità DA**. Ogni movimento del Saldo Cumulativo genera un flusso nel Pool e crea la base per nuovo DA.
+   * **Ridistribuzione a 120 Giorni:** Se l'utente non utilizza il proprio Saldo Cumulativo entro 120 giorni, il saldo non utilizzato diventa idoneo per la ridistribuzione. La suddivisione dipende dal tipo di NFT dell'utente:
+     - **Detentori di NFT Regular:** Il **70%** viene indirizzato al Pool di Liquidità DA per il minting di nuovi token DA; il **30%** viene trasferito allo sponsor diretto in upline dell'utente.
+     - **Detentori di NFT Gift:** L'**80%** viene indirizzato al Pool di Liquidità DA; il **20%** viene trasferito allo sponsor diretto in upline (governato dal parametro separato `accumulativeClaimDistributeGift`).
+     - **Regola della cascata (entrambi i tipi):** Se l'Income Limit dello sponsor in upline è esaurito (uguale a zero), la quota dello sponsor passa più in alto al successivo partecipante idoneo nella struttura. Se nessun partecipante nella catena ha un Income Limit attivo, l'intero importo viene indirizzato al Pool di Liquidità DA.
+
+   <Note>
+     **120 Giorni = Finestra Minima Garantita, Non una Scadenza Automatica:** Il parametro `accumulativeDecayTime` viene controllato **solo all'interno di `withdrawAccumulative()`** — il percorso di ridistribuzione attivato da admin/service. **Non** viene valutato nei percorsi di spesa o trasferimento. In pratica questo significa:
+
+     - Per i primi 120 giorni dopo un accredito, il Saldo Cumulativo ha **integrità garantita** — non può essere ridistribuito da nessuno.
+     - Dopo il giorno 120, il saldo diventa **idoneo** per la ridistribuzione, ma la ridistribuzione non si attiva automaticamente quando il timer scade. Avviene solo quando `withdrawAccumulative()` viene invocato per quello specifico utente da SERVICE_ROLE o ADMIN_ROLE.
+     - **Fino a quando quella chiamata non avviene**, un Saldo Cumulativo "scaduto" rimane spendibile per acquisti e upgrade NFT e trasferibile ad altri utenti secondo le regole e commissioni standard.
+
+     L'intento dichiarato del team, registrato nella risposta all'audit: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Considera 120 giorni come la **finestra minima garantita prima di una potenziale ridistribuzione**, non come un timestamp di scadenza on-chain rigido.
+   </Note>
+3. **Limit (`limit`):** Rappresenta il reddito massimo residuo che un NFT può generare.
+
+### Saldi di Sistema
+
+Oltre ai saldi utente, lo smart contract mantiene tre saldi di sistema interni:
+
+- **Dev Balance (`devBalance`):** Accumula commissioni della piattaforma e tasse per il finanziamento operativo.
+- **Token Reserve Balance (`tokenReserveBalance`):** Il pool di liquidità in USDT che garantisce al 100% il token DA. Ogni fonte di reddito nell'ecosistema confluisce in questo pool.
+- **Price Impact Balance (`priceImpactBalance`):** Una riserva speciale utilizzata per gestire la stabilità del prezzo del token DA durante eventi specifici dell'ecosistema.
+
+Questi saldi sono gestiti interamente dallo smart contract e non sono accessibili a nessun singolo utente o amministratore.
+
+### Priorità di Pagamento
+
+Quando si effettua un acquisto, lo smart contract detrae i fondi in questo ordine:
+
+<Steps>
+  <Step title="Voucher (manuale)">
+    Se l'utente applica esplicitamente un voucher al checkout, il suo valore viene consumato per primo. I voucher non vengono applicati automaticamente.
+  </Step>
+  <Step title="Saldo Cumulativo">
+    Se l'utente sceglie di utilizzare il Saldo Cumulativo, viene applicato al 100% di copertura (quando sufficiente) o combinato con il Saldo Regolare. La commissione del 20% viene indirizzata al Pool di Liquidità DA.
+  </Step>
+  <Step title="Saldo Regolare">
+    Qualsiasi importo residuo viene detratto dal Saldo Regolare.
+  </Step>
+</Steps>
+
+<Warning>
+  I Voucher Regalo **non possono** essere combinati con il Saldo Cumulativo. Combinazioni valide: [Voucher + Regolare], [100% Cumulativo], o [Cumulativo + Regolare].
+</Warning>
+
+<Note>
+  Tutte le transazioni sulla Binance Smart Chain richiedono le commissioni di gas standard della rete pagate in **BNB**. Gli utenti devono detenere una piccola quantità di BNB nel proprio wallet per eseguire qualsiasi operazione on-chain (acquisti, prelievi, trasferimenti). Questo è separato dai saldi USDT utilizzati all'interno dell'ecosistema.
+</Note>
