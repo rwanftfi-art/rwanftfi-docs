@@ -663,6 +663,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "ar",
+        "groups": [
+          {
+            "group": "ابدأ من هنا",
+            "pages": [
+              "ar/executive-summary",
+              "ar/vision"
+            ]
+          },
+          {
+            "group": "نظام NFT البيئي",
+            "pages": [
+              "ar/nft-ecosystem",
+              "ar/frozen-balance"
+            ]
+          },
+          {
+            "group": "الأصل الانكماشي (DA)",
+            "pages": [
+              "ar/da-token-mechanics",
+              "ar/da-mining-farming",
+              "ar/da-selling-lending"
+            ]
+          },
+          {
+            "group": "الأرباح والتسويق",
+            "pages": [
+              "ar/marketing-binary-tree",
+              "ar/marketing-rewards"
+            ]
+          },
+          {
+            "group": "البنية",
+            "pages": [
+              "ar/architecture",
+              "ar/contract-parameters",
+              "ar/security"
+            ]
+          },
+          {
+            "group": "الحوكمة",
+            "pages": [
+              "ar/governance"
+            ]
+          },
+          {
+            "group": "خارطة الطريق",
+            "pages": [
+              "ar/roadmap"
+            ]
+          },
+          {
+            "group": "الموارد",
+            "pages": [
+              "ar/corporate-structure",
+              "ar/support",
+              "ar/partnerships",
+              "ar/legal"
+            ]
+          }
+        ]
       }
     ]
   },
