@@ -1,0 +1,200 @@
+---
+title: "Mekanika Token DA"
+description: "Model harga yang hanya bergerak naik."
+icon: "coins"
+---
+import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
+
+
+<CardGroup cols={2}>
+  <Card title="Hard Cap 21M" icon="cube">
+    Pasokan maksimum yang ditetapkan selamanya. Tanpa inflasi, tanpa pencetakan.
+  </Card>
+  <Card title="Didukung 100% USDT" icon="shield-check">
+    Setiap token DA didukung oleh USDT nyata di kumpulan likuiditas.
+  </Card>
+  <Card title="Bakar di Setiap Penjualan" icon="fire">
+    100% token yang terjual dibakar secara permanen. Pengguna menerima 75% (manual) atau 70% (otomatis) dari nilai dalam USDT. Sisa 25% (manual) atau 30% (otomatis) adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung — inilah yang mendorong harga DA naik.
+  </Card>
+  <Card title="Tanpa Transfer P2P" icon="ban">
+    DA hanya dapat dijual, dipinjamkan, atau dilunasi — tanpa transfer peer-to-peer.
+  </Card>
+</CardGroup>
+
+## Formula Harga "Hanya Naik"
+
+Harga = Likuiditas ÷ Pasokan Beredar
+
+Setiap kali DA dijual, token-token dibakar (pasokan turun) sementara USDT tetap di kumpulan (likuiditas tetap atau bertambah). Token yang lebih sedikit ÷ USDT yang sama atau lebih banyak = harga per token yang lebih tinggi.
+
+<Info>
+  **Cara kerjanya:** 200 DA beredar, 200 USDT di kumpulan likuiditas. Harga = 1,00 USDT per DA. Seorang pengguna menjual 100 DA. Kumpulan membayar 70 USDT (70% dari nilai 100 USDT). Seluruh 100 DA dibakar. Hasil: 100 DA tersisa, 130 USDT di kumpulan. Harga baru = 130 ÷ 100 = **1,30 USDT per DA**.
+</Info>
+
+<Tip>
+  Komisi 5% atas seluruh imbalan marketing mengalir langsung ke kumpulan likuiditas DA — terpisah dari persentase penjualan. Likuiditas tambahan datang dari biaya Pinjaman, pendapatan RWA, dan pendapatan FinPro.
+</Tip>
+
+<Info>
+  **Perlindungan Seed Supply:** Cadangan permanen DA yang kecil — **Seed Supply** — di-deposit di awal ke dalam protokol pada peluncuran sebagai pengaman teknis untuk formula harga.
+
+  - **Permanen dan tidak dapat dijual.** Seed Supply terkunci pada tingkat protokol: **tidak dapat dibakar**, **tidak dapat dijual** (secara manual atau melalui auto-sell), dan **dikecualikan dari siklus auto-sell**.
+  - **Di luar peredaran.** Seed Supply **tidak dihitung sebagai pasokan beredar** dan tidak pernah berpartisipasi dalam saldo pengguna, farming, lending, atau distribusi marketing.
+  - **Menjamin penyebut yang tidak nol.** Karena `Harga = Likuiditas ÷ Pasokan Beredar`, formula tidak boleh membagi dengan nol. Seed Supply menjamin `totalSupply > 0` setiap saat, sehingga fungsi harga selalu terdefinisi — bahkan dalam kasus ekstrem ketika setiap token lain yang beredar telah dibakar.
+  - **Perlindungan hanya untuk kasus ekstrem.** Dalam operasi normal, Seed Supply tidak berpengaruh pada penemuan harga. Ini ada murni sebagai lantai deterministik yang menjaga `getPrice()` tetap terdefinisi dengan baik ketika likuiditas hadir tetapi pasokan beredar yang sebenarnya akan mencapai nol.
+</Info>
+
+## Sumber Liquidity Pool
+
+Liquidity Pool adalah fondasi ekonomi DA. Pool ini didanai dari berbagai sumber di seluruh ekosistem RWANFTFI, memastikan pertumbuhan pendukung token secara berkelanjutan. Setiap aliran pendapatan protokol mengalir ke satu pool tunggal, memperkuat formula Harga = Likuiditas ÷ Pasokan.
+
+<AccordionGroup>
+  <Accordion title="Aktivitas NFT">
+    **Pembelian NFT** — 20% dari setiap pembelian NFT secara otomatis dialihkan ke Liquidity Pool untuk pencetakan DA baru.
+
+    **Rebuy & Autobuy** — tambahan 20% dari setiap pembelian NFT berulang atau otomatis mengalir ke Liquidity Pool. Ini memberikan insentif untuk pembaruan posisi dan mendukung pertumbuhan sistem.
+  </Accordion>
+
+  <Accordion title="Biaya & Komisi">
+    **Pajak Imbalan Marketing** — 5% dari seluruh imbalan marketing di seluruh jaringan referral secara otomatis dialihkan ke Liquidity Pool. Aktivitas jaringan secara langsung memperkuat pendukung DA.
+
+    **Biaya Transfer Saldo Akumulatif** — saat mentransfer Saldo Akumulatif ke pengguna lain, 20% dari jumlah transfer dialihkan ke DA Liquidity Pool. Setiap pergerakan Saldo Akumulatif — baik digunakan dalam pembelian NFT atau ditransfer antar dompet — menghasilkan aliran masuk 20% ke Pool.
+
+    **Biaya Penggunaan Saldo Akumulatif untuk Pembelian** — saat membeli NFT menggunakan Saldo Akumulatif, 20% dari jumlah yang terintegrasi dialihkan ke DA Liquidity Pool untuk pencetakan DA baru. Contoh: 898 USDT pada Saldo Akumulatif — saat terintegrasi ke pembelian NFT, 718 USDT menuju biaya NFT, dan 180 USDT (20% dari 898) mengalir ke DA Liquidity Pool. Setiap pembelian semacam itu mengisi ulang Pool dan menciptakan basis untuk DA baru.
+
+    **Komisi Lending** — saat mengambil pinjaman, peminjam membayar komisi sekali bayar 5% yang dialihkan ke Liquidity Pool. Contoh: pinjaman $1.000, peminjam menerima $950, $50 menuju Pool. Komisi dipungut pada setiap pinjaman baru.
+  </Accordion>
+
+  <Accordion title="Dana Kedaluwarsa & Tidak Terpakai">
+    **Auto-Sell dengan Batas Pendapatan Nol** — jika auto-sell DA dipicu dan pengguna memiliki Batas Pendapatan nol pada NFT-nya, 100% hasil masuk ke Liquidity Pool atau ke pembakaran DA (mekanisme tepatnya ditentukan oleh pengaturan DAO).
+
+    **Voucher Kedaluwarsa** — jika Voucher tidak digunakan selama 365 hari, 100% dana dialihkan ke Liquidity Pool. Ini mencegah dana menganggur dan menghilangkan kewajiban yang tidak aktif.
+
+    **Saldo Akumulatif yang Tidak Terpakai** — jika Saldo Akumulatif tidak terpakai selama 120 hari, 70% dana dialihkan ke Liquidity Pool untuk pencetakan DA baru.
+  </Accordion>
+
+  <Accordion title="Pendapatan Eksternal">
+    **Komisi SWAP** — komisi dari seluruh operasi pertukaran (SWAP) secara otomatis dialihkan ke Liquidity Pool.
+
+    **Komisi Kartu Debit** — komisi dari program Kartu Debit mengalir ke Liquidity Pool, menciptakan arus kas riil dari ekonomi eksternal.
+
+    **Pendapatan RWA** — sebagian pendapatan dari real estate, sewa, aset komersial, dan aset dunia nyata lainnya dialihkan ke Liquidity Pool, menambatkan sistem ke ekonomi nyata.
+
+    **Pendapatan FinPro** — sebagian keuntungan dari produk finansial (Lending, produk investasi, layanan finansial) mengalir ke Liquidity Pool.
+
+    **Pendapatan Ekosistem** — sebagian dari total pendapatan protokol dapat dialihkan ke Liquidity Pool atau digunakan untuk menciptakan likuiditas tambahan untuk pencetakan DA baru.
+  </Accordion>
+</AccordionGroup>
+
+## Mekanika Pembakaran DA
+
+Pembakaran DA adalah mekanisme deflasi inti — mengurangi pasokan token dan menciptakan tekanan kenaikan yang berkelanjutan pada nilai aset.
+
+<CardGroup cols={3}>
+  <Card title="Penjualan Manual" icon="fire">
+    100% DA yang terjual dibakar secara permanen. Pengguna menerima 75% nilai dalam USDT. Sisa 25% adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung, mendorong pertumbuhan harga.
+  </Card>
+  <Card title="Auto-Sell" icon="clock">
+    100% DA auto-sell dibakar secara permanen. Pengguna menerima 70% nilai dalam USDT. Sisa 30% adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung, mendorong pertumbuhan harga. Aktif secara progresif dari saldo tersisa selama 4 periode (total 365 hari / 1 tahun).
+  </Card>
+  <Card title="Gagal Bayar Pinjaman" icon="ban">
+    Jika pinjaman tidak dilunasi, DA yang dijaminkan dibakar secara progresif melalui siklus auto-sell. Melindungi likuiditas sistem dan menegakkan disiplin finansial.
+  </Card>
+</CardGroup>
+
+## Akses Instan & Siklus Auto-Sell
+
+### Akses Instan
+
+Token DA tersedia 100% bagi pengguna sejak saat di-farming. Tidak ada periode lock-up. Pengguna dapat segera:
+
+- **Menjual secara manual** — menerima 75% nilai dalam USDT, 100% token dibakar
+- **Mengambil pinjaman** — 70% LTV terhadap jaminan DA, biaya komisi 5%
+- **Menyimpan dan menunggu** — menyimpan token dan mendapatkan manfaat dari pertumbuhan harga seiring waktu
+
+### Siklus Auto-Sell
+
+Jika pengguna tidak menjual secara manual, sistem memicu penjualan otomatis dari **saldo tersisa** selama 4 periode dengan total **365 hari (1 tahun)**. Durasi periode dihitung dalam hari pada on-chain (120 / 90 / 90 / 65 hari); referensi bulan di bawah ini adalah perkiraan untuk keterbacaan.
+
+**Contoh dimulai dengan 100 DA:**
+
+<Steps>
+  <Step title="Periode 1 — Setelah 120 hari (~4 bulan)">
+    25% dari saldo saat ini di-auto-sell. 25% dari 100 = **25 DA terjual** → Tersisa: **75 DA**
+  </Step>
+  <Step title="Periode 2 — Setelah 90 hari berikutnya (~3 bulan, hari ke-210)">
+    40% dari saldo tersisa di-auto-sell. 40% dari 75 = **30 DA terjual** → Tersisa: **45 DA**
+  </Step>
+  <Step title="Periode 3 — Setelah 90 hari berikutnya (~3 bulan, hari ke-300)">
+    50% dari saldo tersisa di-auto-sell. 50% dari 45 = **22,5 DA terjual** → Tersisa: **22,5 DA**
+  </Step>
+  <Step title="Periode 4 — Setelah 65 hari berikutnya (~2 bulan, hari ke-365)">
+    100% dari saldo tersisa di-auto-sell. 100% dari 22,5 = **22,5 DA terjual** → Tersisa: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Persentase auto-sell (25% / 40% / 50% / 100%) yang ditampilkan di atas mewakili konfigurasi protokol saat ini. Nilai-nilai spesifik disimpan sebagai parameter protokol dan tunduk pada prosedur tata kelola standar. Selalu periksa smart contract atau dokumentasi protokol terbaru untuk nilai-nilai terbaru.
+</Note>
+
+Setiap auto-sell dieksekusi pada harga DA saat pemicu periode tersebut — bukan pada harga farming awal. 100% token yang di-auto-sell dibakar, dan pengguna menerima 70% nilai dalam USDT pada harga tanggal auto-sell. Karena harga tumbuh seiring waktu, periode-periode kemudian membakar token pada harga yang lebih tinggi, mempercepat deflasi.
+
+Pengguna dapat menjual secara manual kapan saja sebelum auto-sell terpicu, menerima 75% alih-alih 70%.
+
+<Tip>
+  Penjualan manual (pembayaran 75%) selalu lebih menguntungkan per token daripada auto-sell (pembayaran 70%). Namun, auto-sell mendapatkan manfaat dari pertumbuhan harga seiring waktu — periode-periode kemudian dieksekusi pada harga DA yang lebih tinggi.
+</Tip>
+
+<Warning>
+  **Auto-Sell dengan Batas Pendapatan Nol:** Jika auto-sell dipicu dan pengguna memiliki Batas Pendapatan nol (NFT belum diperbarui), 100% hasil masuk ke Liquidity Pool atau pembakaran DA (ditentukan oleh DAO). Pengguna tidak menerima apa pun. Selalu pertahankan Batas Pendapatan yang aktif.
+</Warning>
+
+## Multi-Batch Lending
+
+Setiap batch DA dari setiap siklus mining berfungsi sebagai jaminan independen. Ini memungkinkan siklus mikro-pinjaman yang berkelanjutan:
+
+<Steps>
+  <Step title="Mining Batch 1">
+    Pengguna menyelesaikan siklus mining dan menerima batch DA 1.
+  </Step>
+  <Step title="Pinjam dengan jaminan Batch 1">
+    Pengguna mengambil pinjaman 70% LTV terhadap batch 1 (komisi 5% ke Liquidity Pool).
+  </Step>
+  <Step title="Mining Batch 2">
+    Pengguna memulai siklus mining baru dan menerima batch DA 2.
+  </Step>
+  <Step title="Pinjam dengan jaminan Batch 2">
+    Pengguna mengambil pinjaman 70% LTV lain terhadap batch 2 (komisi 5% terpisah).
+  </Step>
+</Steps>
+
+Ini memungkinkan beberapa mikro-pinjaman simultan, satu per batch DA. Setiap pinjaman memiliki periode batas waktu 30 harinya sendiri. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang dibakar — bukan seluruh kepemilikan DA.
+
+Untuk perbandingan menjual vs meminjamkan secara mendetail, lihat [Penjualan & Pinjaman](/id/da-selling-lending).
+
+## Siklus Deflasi
+
+Dua kali setahun sistem memicu Siklus Deflasi khusus yang berlangsung hingga 30 hari, dirancang untuk mengintensifkan kelangkaan token.
+
+<Steps>
+  <Step title="Jeda siklus baru">
+    Memulai siklus baru NFTM mining, staking, dan pembentukan DA dijeda selama Siklus Deflasi. **Siklus aktif yang dimulai sebelum Siklus Deflasi tetap berjalan dan selesai sesuai jadwal** — pengguna dengan mining yang sudah berlangsung tidak kehilangan kemajuannya.
+  </Step>
+  <Step title="Aktifkan mekanisme penjualan">
+    Mekanisme penjualan DA otomatis atau sukarela diaktifkan.
+  </Step>
+  <Step title="Pembakaran harian">
+    Sebagian token dibakar setiap hari.
+  </Step>
+  <Step title="Pasokan menyusut">
+    Pasokan pasar menyusut, memperkuat tekanan kenaikan harga.
+  </Step>
+</Steps>
+
+<Info>
+  Siklus Deflasi membuat ekonomi DA dapat diprediksi, dapat dikelola, dan berkelanjutan dalam jangka panjang.
+</Info>
+
+Aktivitas meningkat → likuiditas meningkat → penerbitan DA meningkat → pembakaran meningkat → kelangkaan meningkat → nilai aset meningkat. Sistem siklus tertutup ini berarti semakin aktif ekosistem berkembang, semakin kuat ekonomi DA.
+
+<DaPriceSimulator />

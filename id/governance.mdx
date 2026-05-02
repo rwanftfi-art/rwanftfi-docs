@@ -1,0 +1,192 @@
+---
+title: "Tata Kelola — DAO"
+description: "10M token, keputusan berbasis komunitas."
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+Untuk memastikan ekosistem tetap terdesentralisasi, independen, dan aman, RWANFTFI bergantung pada Decentralized Autonomous Organization (DAO) yang diatur oleh smart contract. Para pengembang tidak dapat secara sepihak mengubah aturan sistem, mengakses dana pengguna, atau memanipulasi saldo.
+
+<GovernanceStats />
+
+## Kemampuan DAO
+
+Untuk dapat mengajukan suatu proposal ke DAO, proposal tersebut harus didukung oleh setidaknya 30% dari total pasokan token. Untuk dapat lolos dan dieksekusi on-chain, proposal memerlukan suara mayoritas 50%.
+
+<CardGroup cols={2}>
+  <Card title="30% untuk Mengajukan" icon="file-signature">
+    Sebuah proposal memerlukan dukungan dari setidaknya 30% dari total pasokan GovToken untuk dapat diajukan.
+  </Card>
+  <Card title="50% untuk Lolos" icon="check-double">
+    Suara mayoritas 50% diperlukan agar proposal lolos dan dieksekusi on-chain.
+  </Card>
+</CardGroup>
+
+DAO memberikan suara pada fungsi-fungsi kritis ekosistem, seperti:
+* Memicu "Accumulative Event" (periode 30 hari ketika pengguna dapat mengklaim saldo akumulatif yang kedaluwarsa, dengan masa tunggu 180 hari).
+* Mengotorisasi penjualan seluruh struktur bisnis pengguna sebagai aset.
+* Memverifikasi dan menyetujui permintaan pengguna untuk mengubah dompet finansial yang terkompromi.
+* Memberikan suara untuk memblokir NFT pengguna tertentu (Freeze). Ketika NFT diblokir, pengguna kehilangan akses ke produk finansial platform. Pembukaan blokir juga dilakukan secara eksklusif melalui pemungutan suara DAO.
+
+<Info>
+  **Ambang Batas Proposal dalam Praktik — Pengungkapan Jujur:** Ambang batas pengajuan 30% adalah satu batas tunggal yang berbobot pasokan; ambang ini tidak membagi kekuatan suara berdasarkan peran. Dalam **distribusi token saat ini** (RWANFTFI Corporation 30% + 20 Guardian dengan 3,5% masing-masing), ambang batas secara realistis hanya dapat dicapai oleh Korporasi yang bertindak langsung, atau oleh Korporasi bersama subset Guardian yang terkoordinasi. Seorang Guardian individu memegang jauh di bawah 30% dan **tidak dapat mengajukan proposal sendirian** di bawah alokasi saat ini. Tim secara formal mengakui hal ini dalam respons audit: berdasarkan desain, di bawah alokasi saat ini, hanya Korporasi yang memiliki cukup token untuk membuat proposal sendiri, dan tidak ada mekanisme delegasi eksternal yang memungkinkan pemegang yang lebih kecil mengumpulkan kekuatan suara off-chain untuk memenuhi ambang batas (lihat [Mekanika Pemungutan Suara](#mekanika-pemungutan-suara) di bawah). Batas on-chain itu sendiri tetap 30% — yang berubah seiring waktu adalah keluasan peserta yang mampu melewatinya. [Rencana Redistribusi di Masa Depan](#rencana-redistribusi-di-masa-depan) (Korporasi 30% + 20 Guardian dengan 1,5% + 80 Leader dengan 0,5%) memperluas koalisi yang dapat bersama-sama memenuhi ambang batas, secara progresif mendesentralisasikan pembuatan proposal tanpa menurunkan ambang batas itu sendiri.
+</Info>
+
+## Mekanika Pemungutan Suara
+
+Mekanika di bawah ini menjelaskan bagaimana sebuah proposal bergerak dari pengajuan ke eksekusi, dan bagaimana kekuatan suara dipegang serta dirotasi pada tingkat kontrak.
+
+<CardGroup cols={2}>
+  <Card title="Pemungutan Suara Tutup pada Tenggat Waktu" icon="hourglass-end">
+    Pemungutan suara pada sebuah proposal ditutup **tepat pada tenggat waktu** — tidak pernah lebih awal. Mencapai dukungan mayoritas sebelum tenggat waktu tidak mengunci hasilnya; suara tambahan (mendukung atau menentang) terus diterima sampai timer berakhir.
+  </Card>
+  <Card title="Auto-Delegasi, Tanpa Delegasi Manual" icon="link-slash">
+    GovToken **secara otomatis mendelegasikan kekuatan suara saat transfer** kepada penerima. Tidak ada jalur `delegate()` untuk menugaskan kekuatan suara kepada pihak ketiga — bobot suara selalu mengikuti pemegang token saat ini.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Pemungutan Suara pada Proposal yang Telah Berhasil:** Bahkan setelah sebuah proposal mengakumulasi cukup dukungan untuk dianggap "succeeded" pada penghitungan saat ini, jendela pemungutan suara tetap terbuka sampai tenggat waktunya. Setiap pemegang yang memenuhi syarat tetap memiliki kemampuan untuk mendaftarkan suara konfirmasi atau penentangan sampai jendela ditutup — status berhasil di awal tidak mengurangi partisipasi.
+</Note>
+
+<Note>
+  **Tanpa delegasi eksternal.** Karena GovToken tidak menyediakan mekanisme delegasi manual, pemegang yang lebih kecil tidak dapat mengumpulkan kekuatan suara mereka off-chain untuk melewati ambang batas proposal. Satu-satunya cara untuk memindahkan bobot suara adalah memindahkan token yang mendasarinya, dan setiap transfer semacam itu secara otomatis mendelegasikan kepada penerima. Ini menjaga hubungan antara kepemilikan token dan otoritas tata kelola tetap langsung dan dapat ditelusuri on-chain.
+</Note>
+
+<Info>
+  **Sinkronisasi Otoritas DAO — sumber kebenaran tunggal:** Otoritas DAO yang mengatur GovToken tidak disimpan sebagai nilai duplikat di dalam GovToken. Ketika otoritas DAO dirotasi melalui `setDAO()` pada kontrak Diamond, GovToken **membaca alamat DAO yang diperbarui langsung dari kontrak Diamond** alih-alih mengandalkan pointer yang dipelihara secara terpisah. Ini menghilangkan risiko kedua kontrak menyimpang ke status otoritas-terpisah selama rotasi — tidak ada jendela di mana GovToken dapat menghormati otoritas usang yang sudah digantikan oleh Diamond.
+</Info>
+
+## Gambaran GovToken
+
+GovToken adalah token tata kelola dan pemungutan suara dalam ekosistem RWANFTFI. Ini adalah token ERC20Votes dengan pasokan tetap secara permanen. Tidak ada pencetakan tambahan yang dimungkinkan setelah penerapan. Tidak ada mekanisme inflasi — model pasokan sepenuhnya tetap.
+
+<CardGroup cols={3}>
+  <Card title="Pasokan Tetap" icon="cube">
+    10.000.000 GovToken. Dibatasi secara permanen. Tanpa inflasi.
+  </Card>
+  <Card title="Pencetakan Dinonaktifkan" icon="ban">
+    Fungsi pencetakan dinonaktifkan secara permanen setelah penerapan. Tanpa cadangan tersembunyi.
+  </Card>
+  <Card title="Tata Kelola On-Chain" icon="landmark">
+    Semua tindakan tata kelola dieksekusi melalui pemungutan suara DAO. Transparansi dan keterlacakan on-chain penuh.
+  </Card>
+</CardGroup>
+
+## Distribusi Token Awal
+
+Alokasi awal GovToken dirancang untuk menyeimbangkan kontrol operasional dengan partisipasi tata kelola yang terdesentralisasi.
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (30% dari total pasokan). Perusahaan teknologi & produk. Memegang alokasi tata kelola strategis untuk pengembangan ekosistem jangka panjang.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    7.000.000 GovToken (70% dari total pasokan). 350.000 token per Guardian (3,5% masing-masing). Peserta tata kelola utama yang bertanggung jawab atas stabilitas ekosistem tahap awal.
+  </Card>
+</CardGroup>
+
+## Rencana Redistribusi di Masa Depan
+
+Model tata kelola DAO mencakup roadmap desentralisasi yang terstruktur. Seiring waktu, partisipasi tata kelola akan berkembang dari 21 dompet menjadi hingga 101 dompet — tanpa mencetak token baru.
+
+Redistribusi tidak menciptakan token baru. Total pasokan tetap permanen pada 10.000.000 GovToken. Guardian secara bertahap mendistribusikan kembali sebagian alokasi mereka kepada Leader yang memenuhi syarat melalui prosedur tata kelola yang disetujui DAO.
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (30%). Tidak berubah.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    3.000.000 GovToken (30%). 150.000 per Guardian (1,5% masing-masing).
+  </Card>
+  <Card title="80 Leader" icon="users">
+    4.000.000 GovToken (40%). 50.000 per Leader (0,5% masing-masing).
+  </Card>
+</CardGroup>
+
+Leader didefinisikan sebagai kontributor ekosistem aktif, pembangun komunitas, mitra strategis, dan peserta dengan dampak ekosistem yang terukur yang memelihara jaringan klien atau mitra aktif. Dompet Leader akan ditugaskan kepada peserta yang memenuhi syarat seiring kemajuan desentralisasi tata kelola.
+
+## Guardian
+
+Guardian adalah peserta tata kelola utama dari RWANFTFI DAO. Mereka bertanggung jawab atas pemeliharaan stabilitas ekosistem selama fase pertumbuhan awal dan memastikan eksekusi tata kelola yang tepat.
+
+<CardGroup cols={2}>
+  <Card title="Partisipasi Tata Kelola" icon="check-to-slot">
+    Pemungutan suara pada semua proposal DAO. Keputusan ekosistem strategis. Eksekusi tata kelola protokol.
+  </Card>
+  <Card title="Keamanan & Pengawasan" icon="eye">
+    Pengawasan keamanan dan manajemen risiko. Partisipasi tata kelola treasury. Stabilitas ekosistem jangka panjang.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Tanpa Kontrol Sepihak" icon="shield-check">
+    Semua tindakan tata kelola — termasuk redistribusi token, perubahan parameter, dan operasi akun — memerlukan prosedur tata kelola DAO standar dengan ambang batas proposal 30% dan suara mayoritas 50%.
+  </Card>
+</CardGroup>
+
+## Integritas Pasokan & Keamanan
+
+<CardGroup cols={2}>
+  <Card title="Pasokan Tidak Dapat Diubah" icon="infinity">
+    Total pasokan tetap permanen pada 10.000.000. Tanpa pencetakan, tanpa inflasi, tanpa cadangan tersembunyi. Semua token ada dalam alokasi distribusi awal.
+  </Card>
+  <Card title="Keamanan Tata Kelola" icon="shield-halved">
+    Otorisasi multi-signature untuk operasi kritis. Izin tata kelola berbasis peran. Persetujuan berbasis DAO untuk setiap perubahan alokasi.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Jaminan yang Diverifikasi Audit" icon="certificate">
+    Total pasokan sama persis dengan 10.000.000 token. Tidak ada fungsi pencetakan yang dapat dipanggil setelah penerapan. Redistribusi token tidak mengubah total pasokan. Semua pergerakan token tercatat on-chain.
+  </Card>
+</CardGroup>
+
+## Dompet Tata Kelola
+
+Semua pemegang token tata kelola dapat diverifikasi secara publik on-chain. Berikut adalah dompet tata kelola yang ditunjuk untuk RWANFTFI DAO.
+
+<Tabs>
+  <Tab title="Korporasi">
+    | # | Peran | Alamat Dompet |
+    |---|------|----------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardian (20)">
+    | # | Alamat Dompet |
+    |---|----------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+Semua alamat dompet dapat diverifikasi di BscScan. Saldo token tata kelola dan riwayat transaksi sepenuhnya transparan dan dapat diaudit secara publik.
+
+## Mekanisme Pembekuan Akun
+
+DAO dapat memberikan suara untuk **membekukan** fungsionalitas NFT pengguna tertentu di platform. Ini adalah alat moderasi, bukan fitur keamanan darurat.
+
+<Warning>
+  **Ketika NFT dibekukan:** Pengguna kehilangan akses ke semua operasi finansial — penarikan, pembelian, akrual imbalan marketing, dan transfer. Namun, NFT itu sendiri tetap berada di dompet blockchain pengguna sebagai milik mereka. **Pencabutan pembekuan** juga memerlukan pemungutan suara DAO yang terpisah.
+</Warning>
+
+Platform tidak memiliki kemampuan teknis untuk merampas atau menyita NFT dari dompet pengguna. Pembekuan hanya menonaktifkan fungsionalitas NFT dalam platform RWANFTFI. Mekanisme ini digunakan dalam kasus pelanggaran ketentuan platform — penipuan berbasis NFT, risiko AML (anti pencucian uang) yang teridentifikasi, perlindungan merek ekosistem, dan situasi serupa yang memerlukan keputusan komunitas kolektif.

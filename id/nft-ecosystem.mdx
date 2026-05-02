@@ -1,0 +1,109 @@
+---
+title: "Ekosistem NFT"
+description: "10 tingkatan dari 28 hingga 24.000 USDT."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Basic · L1–L4" icon="circle">
+    28 – 275 USDT · Akses RWA & FinPro
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5.500 USDT · Mining, Lending, Matching
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11.000 – 24.000 USDT · Kedalaman maksimum, siklus terpendek
+  </Card>
+</CardGroup>
+
+Memiliki NFT adalah wajib untuk berpartisipasi dalam marketing, melakukan mining DA, dan mengakses alat-alat finansial. Satu NFT aktif per akun — meningkatkan tingkatan secara otomatis menggantikan NFT sebelumnya.
+
+<NftTierExplorer />
+
+## Batas Pendapatan & Auto-Renewal
+<AccordionGroup>
+  <Accordion title="Cara Kerja Batas Pendapatan" icon="gauge-high">
+    Setiap NFT memiliki Batas Pendapatan (Income Limit) yang ketat — penghasilan kumulatif maksimum yang dapat dihasilkan NFT tersebut sebelum diperbarui. Batas Pendapatan dikonsumsi oleh **dua sumber**:
+
+    1. **Imbalan marketing** — Sponsor Bonus, Tree Distribution, Matching Bonus, dan setiap pembayaran dari aktivitas struktur Anda.
+    2. **Penjualan DA** — setiap penjualan manual atau auto-sell DA mengurangi sisa Batas Pendapatan Anda sebesar jumlah pembayaran USDT.
+
+    Ketika batas mencapai nol, Anda berhenti menerima **seluruh** imbalan marketing **dan** kehilangan kemampuan untuk menjual DA: pada penjualan manual, sistem tidak dapat mengkredit pembayaran kepada Anda; pada auto-sell, 100% hasil dialihkan ke DA Liquidity Pool atau dibakar (mekanisme tepatnya ditentukan oleh pengaturan DAO). Untuk mencegah hal ini, perbarui NFT Anda — melalui Autobuy, pembelian ulang manual pada level yang sama, atau peningkatan ke tingkatan yang lebih tinggi. Pembelian ulang manual terkunci selama sisa batas Anda berada di atas 30% dari nilai aslinya.
+  </Accordion>
+  <Accordion title="Autobuy (Sistem 3/3)" icon="rotate">
+    Aktifkan Autobuy untuk secara otomatis membeli kembali NFT yang sama
+    ketika batasnya mencapai nol. **Untuk Level 1–8**, penghitung 3/3
+    memungkinkan hingga 3 pembaruan otomatis setelah pembelian manual
+    awal — sehingga level NFT yang sama dapat aktif maksimum 4 kali secara
+    total (1 manual + 3 otomatis). Penghitung hanya melacak pembaruan
+    otomatis; pembelian asli terhitung terpisah. Setelah ketiga autobuy
+    digunakan, fungsi terkunci dan Anda harus meningkatkan atau kehilangan
+    imbalan. **Untuk Elite (L9–L10)**, autobuy tidak terbatas — NFT
+    tingkatan teratas diperbarui tanpa batas. Semua autobuy memerlukan USDT
+    yang cukup pada Saldo Reguler atau Akumulatif (keduanya dapat
+    dikombinasikan). Pada L1–L8, penghitung 3/3 di-reset ke 0/3 ketika
+    NFT tingkatan yang lebih tinggi dibeli. Bagian yang tidak terpakai
+    dari Batas Pendapatan NFT sebelumnya **tidak** terbawa ke NFT baru —
+    bagian tersebut dibatalkan.
+  </Accordion>
+  <Accordion title="Penjualan Bisnis" icon="handshake">
+    Pindahkan seluruh struktur bisnis Anda (pohon mitra dan downline) kepada
+    pengguna lain melalui proses yang diotorisasi DAO. Pemindahan dikenakan
+    **komisi transfer** yang diatur oleh smart contract, bukan harga
+    penjualan: **penjual membayar biaya tetap 500 USDT** (dapat disesuaikan
+    DAO dalam rentang **0–500 USDT**) untuk mengeksekusi pemindahan.
+    **Pembeli tidak membayar komisi on-chain apa pun kepada protokol** dan
+    menerima seluruh struktur saat eksekusi. Parameter on-chain yang
+    mendasarinya adalah `businessTransferFee` (diganti namanya dari
+    `businessSalePrice` lama untuk mencerminkan semantik komisinya yang
+    sebenarnya). Penjualan NFT individu tanpa struktur tidak didukung.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Batas Pendapatan:** Setelah NFT Anda mencapai batas pendapatannya, Anda
+  berhenti menerima SELURUH imbalan marketing. Aktifkan Autobuy untuk
+  mencegahnya — atau perbarui secara manual ketika batas Anda turun di bawah 30%.
+</Warning>
+
+### Frozen Balance — Perlindungan Pendapatan pada Penjualan Pribadi Pertama
+
+Ketika imbalan marketing dari **pembelian pertama kali** oleh undangan langsung Anda melebihi sisa Batas Pendapatan NFT Anda, kelebihannya tidak hilang — kelebihan tersebut dibekukan selama 72 jam, memberi Anda waktu untuk meningkatkan NFT dan mengklaim dananya. Ini adalah mekanika inti yang melindungi pendapatan Anda saat mengundang mitra ke NFT tingkatan yang lebih tinggi.
+
+<Card title="Mekanika Frozen Balance Lengkap" icon="snowflake" href="/id/frozen-balance">
+  Penjelasan mendetail tentang jendela waktu 72 jam, interaksi dengan Autobuy, pembagian penghapusan 70/30, kaskade tingkat struktur, dan mengapa pembelian berulang dari undangan yang sama ditangani secara berbeda.
+</Card>
+
+## NFT Hadiah & Voucher
+<CardGroup cols={2}>
+  <Card title="NFT Hadiah" icon="gift">
+    Aset promosi yang tidak dapat dijual dan menempatkan pengguna secara permanen
+    dalam struktur marketing. Tidak dapat dibeli — diberikan melalui promosi atau
+    pencapaian Career Rank. Hingga 100 per alamat (dapat disesuaikan DAO, saat ini).
+  </Card>
+  <Card title="Voucher Hadiah" icon="ticket">
+    Kupon yang dibuat pengguna dengan minimum yang ditegakkan smart contract sebesar **5 USDT**
+    (voucher bernilai nol ditolak on-chain), berlaku selama **365 hari**. Menutupi hingga
+    100% dari pembelian NFT. Dapat dipindahtangankan dengan komisi 0%, kecuali selama
+    **24 jam terakhir** sebelum kedaluwarsa, ketika pemindahan dikunci. Tidak dapat dikombinasikan
+    dengan Saldo Akumulatif. Jika tidak digunakan selama masa berlaku 365 hari penuh,
+    **100% nilai voucher dialihkan ke DA Liquidity Pool**.
+  </Card>
+</CardGroup>
+<Warning>
+  **Penimpaan NFT Hadiah:** Jika Anda sudah memiliki NFT Reguler dan mengaktifkan
+  NFT Hadiah, NFT Hadiah akan **menimpa** NFT Reguler Anda. Hanya aktifkan
+  NFT Hadiah pada akun yang belum memiliki NFT Reguler.
+</Warning>
+## Edisi Ambassador & VIP
+<CardGroup cols={2}>
+  <Card title="NFT Ambassador" icon="crown">
+    Terbatas hanya **100 unit** (Q4 2026). Tanpa batas pendapatan. Sistem imbalan
+    khusus tersendiri. Tidak dialihkan saat Penjualan Bisnis.
+  </Card>
+  <Card title="NFT Edisi VIP" icon="gem">
+    Terbatas hanya **100 unit** (Q4 2026). Akses diberikan untuk pencapaian
+    Career Rank **Leader** atau lebih tinggi.
+  </Card>
+</CardGroup>

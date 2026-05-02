@@ -1,0 +1,102 @@
+---
+title: "Frozen Balance"
+description: "Perlindungan pendapatan marketing untuk undangan ke tingkatan yang lebih tinggi."
+icon: "snowflake"
+---
+
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
+Frozen Balance adalah mekanika yang melindungi pendapatan marketing Anda dalam satu situasi yang sangat spesifik namun sangat umum: ketika **undangan langsung pribadi Anda melakukan pembelian NFT pertama mereka pada tingkatan yang lebih tinggi dari milik Anda sendiri**, dan komisi yang dihasilkan melebihi sisa Batas Pendapatan NFT Anda.
+
+Tanpa Frozen Balance, kelebihan tersebut akan hilang akibat kompresi — diteruskan ke atas struktur. Frozen Balance membekukannya selama **72 jam** dan memberi Anda waktu untuk meningkatkan NFT dan mengklaim seluruh jumlahnya.
+
+<Info>
+  Ini adalah jaring pengaman marketing untuk undangan "ke atas": Anda dapat dengan percaya diri mengundang mitra ke tingkatan NFT mana pun tanpa khawatir komisi atas pembelian besar akan hilang karena Batas Pendapatan Anda sendiri terlalu kecil.
+</Info>
+
+## Kapan Frozen Balance Aktif
+
+Frozen Balance aktif **hanya ketika ketiga kondisi terpenuhi**:
+
+<Steps>
+  <Step title="Pembeli adalah undangan langsung pribadi Anda">
+    Bukan spillover, bukan mitra downline lima level di bawah — secara spesifik adalah orang yang Anda undang secara pribadi ke struktur Anda.
+  </Step>
+  <Step title="Itu adalah pembelian NFT pertama undangan tersebut">
+    Pembelian berulang oleh undangan yang sama (rebuy, upgrade, NFT baru setelah Autobuy) **tidak** dilindungi oleh Frozen Balance — lihat bagian Lost Income di bawah.
+  </Step>
+  <Step title="Komisi melebihi sisa Batas Pendapatan Anda">
+    Jika sisa Batas Pendapatan Anda cukup besar untuk menyerap seluruh komisi, tidak terjadi pembekuan — semuanya dikreditkan secara normal.
+  </Step>
+</Steps>
+
+## Bagaimana Jumlahnya Dipisah
+
+Ketika Frozen Balance aktif, smart contract membagi komisi menjadi dua bagian:
+
+- **Dalam batas sisa Batas Pendapatan Anda** — dikreditkan segera dengan pembagian standar: **75% Saldo Reguler / 20% Saldo Akumulatif / 5% DA Liquidity Pool**.
+- **Kelebihan di atas Batas Pendapatan Anda** — ditempatkan ke Frozen Balance dengan **timer 72 jam**.
+
+## Apa yang Terjadi Selama 72 Jam
+
+Anda memiliki tiga skenario:
+
+<Tabs>
+  <Tab title="Anda meningkatkan NFT">
+    Anda membeli NFT tingkatan yang lebih tinggi (dengan Batas Pendapatan yang lebih besar). Dana yang dibekukan secara otomatis dilepaskan dan dikreditkan dengan pembagian **75/20/5** yang sama. Jumlah yang dilepaskan dipotong dari Batas Pendapatan NFT yang **baru**.
+
+    **Contoh.** Batas Pendapatan NFT Anda = 160 USDT. Undangan Anda membeli NFT seharga 2.200 USDT; komisi = 660 USDT. 160 USDT dikreditkan segera (75/20/5). 500 USDT masuk ke Frozen Balance. Anda meningkatkan ke Eclipse (Batas Pendapatan 650 USDT). 500 USDT dilepaskan dan dikreditkan. Sisa Batas Pendapatan baru: 650 − 500 = **150 USDT**.
+  </Tab>
+  <Tab title="Autobuy aktif">
+    Jika Autobuy aktif, urutannya berubah. Autobuy menyala **terlebih dahulu**, membeli kembali NFT level yang sama dan menyegarkan Batas Pendapatan Anda. Komisi kemudian dievaluasi ulang terhadap batas yang telah disegarkan, bagian dalam-batas dikreditkan, dan **hanya sisanya** (jika ada) yang masuk ke Frozen Balance dengan timer 72 jam.
+
+    Artinya: jika NFT Anda sendiri dan Batas Pendapatan yang disegarkan sudah cukup setelah Autobuy, Frozen Balance mungkin tidak aktif sama sekali.
+  </Tab>
+  <Tab title="Anda melewatkan tenggat waktu">
+    Jika Anda tidak meningkatkan dalam 72 jam dan Autobuy tidak menutupi kelebihan, dana yang dibekukan **dihanguskan secara permanen** dan didistribusikan ulang:
+
+    - **70%** dialihkan ke DA Liquidity Pool untuk pencetakan DA baru.
+    - **30%** dipindahkan ke sponsor upline langsung Anda.
+
+    Aturan kaskade identik dengan kaskade peluruhan Saldo Akumulatif: jika Batas Pendapatan sponsor upline adalah nol, 30% diteruskan lebih jauh ke atas rantai ke peserta pertama yang memiliki Batas Pendapatan aktif. Jika tidak ada upline yang memiliki batas aktif, 100% penuh dialihkan ke DA Liquidity Pool.
+  </Tab>
+</Tabs>
+
+## Pembelian Berulang dari Undangan yang Sama
+
+Detail ini mudah terlewatkan: Frozen Balance berlaku **hanya untuk pembelian pertama** dari setiap undangan pribadi. Jika undangan Anda kemudian melakukan pembelian kedua (rebuy, upgrade, NFT baru), dan Batas Pendapatan Anda lagi-lagi tidak dapat menyerapnya, kelebihan tersebut **tidak** masuk ke Frozen Balance. Kelebihan ditandai sebagai **Lost Income** dan didistribusikan dengan aturan kompresi standar: diteruskan ke atas struktur ke peserta berikutnya yang memiliki Batas Pendapatan aktif.
+
+<Warning>
+  Jika Anda memiliki rangkaian panjang pembelian berulang dari undangan besar dan **Batas Pendapatan Anda habis**, setiap pembelian berulang seperti itu akan melewati Anda melalui kompresi. Pertahankan Batas Pendapatan Anda tetap aktif — melalui Autobuy atau pembaruan manual — agar Anda tidak kehilangan pendapatan dari mitra mapan.
+</Warning>
+
+## Skenario Volume Tinggi — Kaskade Melalui Struktur
+
+Frozen Balance melindungi **hanya** komisi atas pembelian pertama dari undangan langsung. Namun dalam struktur yang besar, sebagian besar pendapatan Anda tidak berasal dari penjualan pribadi — pendapatan tersebut berasal dari kedalaman, melalui distribusi pohon (4% pada level 9 × 500+ posisi dapat menghasilkan puluhan ribu USDT dalam satu siklus akrual).
+
+Ketika volume tersebut masuk dan Batas Pendapatan Anda adalah 1.100 USDT dengan Autobuy yang mampu menyegarkannya maksimal tiga kali (3/3 pada tingkatan L1–L8), sistem:
+
+1. Mengkredit Anda 1.100 USDT dengan pembagian standar.
+2. Memicu Autobuy, menyegarkan Batas, mengkredit 1.100 USDT lagi.
+3. Mengulang hingga 3 kali.
+4. **Seluruh sisa volume dikompresi** — diteruskan ke atas ke peserta berikutnya yang memiliki Batas Pendapatan aktif.
+
+Frozen Balance **tidak** aktif dalam skenario ini karena sumbernya bukan pembelian pertama dari undangan, melainkan distribusi pohon dari kedalaman.
+
+<Info>
+  Pelajaran untuk skala: pada volume jaringan yang besar, tuas kuncinya adalah **level NFT Anda sendiri**. Tingkatan yang lebih tinggi membawa Batas Pendapatan yang lebih besar dan mengurangi bagian yang hilang akibat kompresi. Tingkatan Elite (L9–L10), dengan Autobuy tak terbatas, mengatasi hal ini secara sistemik.
+</Info>
+
+<FrozenBalanceSimulator lang="en" />
+
+## Parameter Frozen Balance (On-Chain)
+
+| Parameter | Nilai | Mutabilitas |
+|---|---|---|
+| Jendela pembekuan | 72 jam | Tidak dapat diubah |
+| Bagian DA Liquidity Pool saat dihanguskan | 70% | Dapat disesuaikan DAO (50–100%) |
+| Bagian sponsor upline saat dihanguskan | 30% | Dapat disesuaikan DAO (0–30%) |
+| Pemicu | Pembelian pertama oleh undangan langsung pribadi | Tidak dapat diubah |
+| Distribusi pelepasan | 75/20/5 | Pembagian standar — lihat Arsitektur |
+
+Lihat juga: [Batas Pendapatan pada halaman Ekosistem NFT](/id/nft-ecosystem), [Prioritas Pembayaran di Arsitektur](/id/architecture).
