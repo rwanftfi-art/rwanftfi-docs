@@ -1,0 +1,192 @@
+---
+title: "Pamamahala — DAO"
+description: "10M tokens, mga desisyong pinapatakbo ng komunidad."
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+Upang matiyak na ang ekosistema ay nananatiling desentralisado, independent, at secure, ang RWANFTFI ay umaasa sa isang Decentralized Autonomous Organization (DAO) na pinamamahalaan ng smart contracts. Ang mga developer ay hindi maaaring unilateral na magbago ng mga panuntunan ng system, mag-access ng user funds, o manipulahin ang mga balance.
+
+<GovernanceStats />
+
+## Mga Kakayahan ng DAO
+
+Para mai-submit ang isang proposal sa DAO, dapat itong suportado ng kahit 30% ng kabuuang token supply. Para makapasa at maisakatuparan on-chain ang isang proposal, kinakailangan ang majority vote na 50%.
+
+<CardGroup cols={2}>
+  <Card title="30% upang Mag-submit" icon="file-signature">
+    Ang isang proposal ay nangangailangan ng suporta mula sa kahit 30% ng kabuuang GovToken supply upang ma-submit.
+  </Card>
+  <Card title="50% upang Makapasa" icon="check-double">
+    Ang majority vote na 50% ay kinakailangan upang ang isang proposal ay makapasa at maisakatuparan on-chain.
+  </Card>
+</CardGroup>
+
+Ang DAO ay bumoboto sa mga kritikal na ecosystem function, tulad ng:
+* Pag-trigger ng "Accumulative Event" (isang 30-araw na panahon kung saan maaaring i-claim ng mga user ang expired accumulative balances, na may 180-araw na cooldown).
+* Pagpapahintulot sa pagbebenta ng buong istraktura ng negosyo ng user bilang isang asset.
+* Pag-verify at pag-aapruba sa kahilingan ng user na baguhin ang kanilang nakompromisong financial wallet.
+* Pagboto upang i-block ang NFT ng partikular na user (Freeze). Kapag ang isang NFT ay na-block, mawawalan ng access ang user sa mga financial product ng platform. Ang pag-unblock ay isinasagawa rin nang eksklusibo sa pamamagitan ng DAO vote.
+
+<Info>
+  **Proposal Threshold sa Pagsasagawa — Honest Disclosure:** Ang 30% submission threshold ay isang solo at supply-weighted bar; hindi nito hinahati ang voting power ayon sa role. Sa **kasalukuyang** token distribution (RWANFTFI Corporation 30% + 20 Guardians sa 3.5% bawat isa), ang threshold ay realistically maaabot lamang ng Corporation na kumikilos nang direkta, o ng Corporation kasama ang isang coordinated subset ng Guardians. Ang isang indibidwal na Guardian ay may hawak na higit na mas mababa sa 30% at **hindi maaaring mag-isang mag-submit ng proposal** sa ilalim ng kasalukuyang allocation. Pormal na kinilala ito ng team sa audit response: sa disenyo, sa ilalim ng kasalukuyang allocation, tanging ang Corporation ang may sapat na tokens upang lumikha ng proposals nang nag-iisa, at walang external delegation mechanism na magpapahintulot sa mas maliliit na holders na magsama-sama ng voting power off-chain upang matugunan ang threshold (tingnan ang [Voting Mechanics](#voting-mechanics) sa ibaba). Ang on-chain bar mismo ay nananatiling 30% — ang nagbabago sa paglipas ng panahon ay ang lawak ng mga kalahok na kayang lampasan ito. Ang [Future Redistribution Plan](#future-redistribution-plan) (Corporation 30% + 20 Guardians sa 1.5% + 80 Leaders sa 0.5%) ay nagpapalawak ng mga koalisyon na magkasamang makakatugon sa threshold, progresibong nag-de-decentralize ng paglikha ng proposal nang hindi binabaan ang threshold mismo.
+</Info>
+
+## Voting Mechanics
+
+Ang mga mekanika sa ibaba ay naglalarawan kung paano gumagalaw ang isang proposal mula sa pag-submit hanggang sa pagsasagawa, at kung paano hawak at iniikot ang voting power sa antas ng contract.
+
+<CardGroup cols={2}>
+  <Card title="Nagsasara ang Voting sa Deadline" icon="hourglass-end">
+    Ang voting sa isang proposal ay nagsasara **mahigpit sa deadline** — hindi kailanman mas maaga. Ang pag-abot sa majority support bago ang deadline ay hindi nag-lo-lock sa kalalabasan; ang karagdagang boto (pabor o laban) ay patuloy na tinatanggap hanggang mag-expire ang timer.
+  </Card>
+  <Card title="Auto-Delegation, Walang Manual Delegation" icon="link-slash">
+    Ang GovToken **ay awtomatikong nag-de-delegate ng voting power sa transfer** sa tagatanggap. Walang `delegate()` path upang i-assign ang voting power sa third party — ang voting weight ay palaging sumusubaybay sa kasalukuyang token holder.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Pagboto sa Succeeded proposals:** Kahit pagkatapos na ang isang proposal ay nakaipon ng sapat na suporta upang ituring na "succeeded" sa kasalukuyang tally nito, ang voting window ay nananatiling bukas hanggang sa deadline nito. Bawat eligible holder ay nananatili ang kakayahang mag-rehistro ng nagpapatibay o sumasalungat na boto hanggang sa sandali na magsara ang window — ang early-succeeded status ay hindi naghihigpit sa partisipasyon.
+</Note>
+
+<Note>
+  **Walang external delegation.** Dahil ang GovToken ay hindi nag-eexpose ng manual delegation mechanism, ang mga mas maliliit na holders ay hindi maaaring magsama-sama ng kanilang voting power off-chain upang malampasan ang proposal threshold. Ang tanging paraan upang magalaw ang voting weight ay ilipat ang mga underlying token, at anumang ganoong transfer ay awtomatikong nag-de-delegate sa tagatanggap. Pinapanatili nito ang relasyon sa pagitan ng token ownership at governance authority na direkta at on-chain traceable.
+</Note>
+
+<Info>
+  **DAO Authority Sync — single source of truth:** Ang DAO authority na namamahala sa GovToken ay hindi nakaimbak bilang duplicate value sa loob ng GovToken. Kapag ang DAO authority ay iniikot sa pamamagitan ng `setDAO()` sa Diamond contract, ang GovToken **ay direktang nagbabasa ng updated DAO address mula sa Diamond contract** sa halip na umasa sa hiwalay na pinananatiling pointer. Inaalis nito ang panganib ng dalawang contract na magkakahiwalay sa split-authority state sa panahon ng rotation — walang window kung saan maaaring igalang ng GovToken ang lumang authority na pinalitan na ng Diamond.
+</Info>
+
+## Pangkalahatang-ideya ng GovToken
+
+Ang GovToken ay ang governance at voting token ng RWANFTFI ecosystem. Ito ay isang ERC20Votes token na may permanenteng nakapirming supply. Walang karagdagang minting na posible pagkatapos ng deployment. Walang inflation mechanism — ang supply model ay ganap na nakapirmi.
+
+<CardGroup cols={3}>
+  <Card title="Nakapirming Supply" icon="cube">
+    10,000,000 GovTokens. Permanenteng naka-cap. Walang inflation.
+  </Card>
+  <Card title="Disabled ang Mint" icon="ban">
+    Ang minting function ay permanenteng disabled pagkatapos ng deployment. Walang mga nakatagong reserve.
+  </Card>
+  <Card title="On-Chain Governance" icon="landmark">
+    Lahat ng governance actions ay isinasagawa sa pamamagitan ng DAO voting. Buong on-chain transparency at traceability.
+  </Card>
+</CardGroup>
+
+## Initial Token Distribution
+
+Ang inisyal na allocation ng GovTokens ay dinisenyo upang balansehin ang operational control sa decentralized governance participation.
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3,000,000 GovTokens (30% ng kabuuang supply). Technology at product company. Humahawak ng strategic governance allocation para sa long-term ecosystem development.
+  </Card>
+  <Card title="20 Guardians" icon="shield-check">
+    7,000,000 GovTokens (70% ng kabuuang supply). 350,000 tokens bawat Guardian (3.5% bawat isa). Pangunahing governance participants na responsable para sa early-stage ecosystem stability.
+  </Card>
+</CardGroup>
+
+## Future Redistribution Plan
+
+Ang DAO governance model ay may kasamang nakaayos na decentralization roadmap. Sa paglipas ng panahon, ang governance participation ay lalawak mula 21 wallets hanggang 101 wallets — nang walang minting ng mga bagong token.
+
+Ang redistribution ay hindi gumagawa ng mga bagong token. Ang kabuuang supply ay nananatiling permanenteng nakapirmi sa 10,000,000 GovTokens. Ang Guardians ay unti-unting nagre-redistribute ng bahagi ng kanilang allocation sa mga qualified Leaders sa pamamagitan ng DAO-approved governance procedures.
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3,000,000 GovTokens (30%). Hindi nagbago.
+  </Card>
+  <Card title="20 Guardians" icon="shield-check">
+    3,000,000 GovTokens (30%). 150,000 bawat Guardian (1.5% bawat isa).
+  </Card>
+  <Card title="80 Leaders" icon="users">
+    4,000,000 GovTokens (40%). 50,000 bawat Leader (0.5% bawat isa).
+  </Card>
+</CardGroup>
+
+Ang mga Leaders ay tinukoy bilang mga aktibong ecosystem contributors, community builders, strategic partners, at mga kalahok na may nasusukat na ecosystem impact na nagpapanatili ng aktibong client o partner networks. Ang Leader wallets ay i-aassign sa mga qualified participants habang sumusulong ang governance decentralization.
+
+## Mga Guardian
+
+Ang Guardians ay ang pangunahing governance participants ng RWANFTFI DAO. Sila ang responsable sa pagpapanatili ng ecosystem stability sa early growth phase at pagtitiyak ng tamang governance execution.
+
+<CardGroup cols={2}>
+  <Card title="Governance Participation" icon="check-to-slot">
+    Pagboto sa lahat ng DAO proposals. Mga estratehikong desisyon sa ekosistema. Pagsasagawa ng protocol governance.
+  </Card>
+  <Card title="Seguridad at Pangangasiwa" icon="eye">
+    Pangangasiwa sa seguridad at pamamahala sa risk. Partisipasyon sa treasury governance. Pangmatagalang ecosystem stability.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Walang Unilateral Control" icon="shield-check">
+    Lahat ng governance actions — kabilang ang token redistribution, mga pagbabago sa parameter, at mga operasyon sa account — ay nangangailangan ng standard DAO governance procedures na may 30% proposal threshold at 50% majority vote.
+  </Card>
+</CardGroup>
+
+## Supply Integrity at Seguridad
+
+<CardGroup cols={2}>
+  <Card title="Hindi Mababagong Supply" icon="infinity">
+    Ang kabuuang supply ay permanenteng nakapirmi sa 10,000,000. Walang minting, walang inflation, walang nakatagong reserve. Lahat ng tokens ay umiiral sa loob ng inisyal na distribution allocation.
+  </Card>
+  <Card title="Governance Security" icon="shield-halved">
+    Multi-signature authorization para sa kritikal na operasyon. Role-based governance permissions. DAO-based approval para sa anumang allocation changes.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Audit-Verified Guarantees" icon="certificate">
+    Ang kabuuang supply ay eksaktong 10,000,000 tokens. Walang mint function na maaaring tawagin pagkatapos ng deployment. Ang token redistribution ay hindi nagbabago ng kabuuang supply. Lahat ng token movements ay naitala on-chain.
+  </Card>
+</CardGroup>
+
+## Mga Governance Wallet
+
+Ang lahat ng governance token holders ay publikong maaaring i-verify on-chain. Sa ibaba ay ang mga itinalagang governance wallets para sa RWANFTFI DAO.
+
+<Tabs>
+  <Tab title="Corporation">
+    | # | Role | Wallet Address |
+    |---|------|----------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardians (20)">
+    | # | Wallet Address |
+    |---|----------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+Lahat ng wallet address ay maaaring i-verify sa BscScan. Ang mga governance token balances at transaction history ay ganap na transparent at publikong maaaring i-audit.
+
+## Mekanismo ng Pag-freeze ng Account
+
+Maaaring bumoto ang DAO upang **i-freeze** ang functionality ng NFT ng partikular na user sa platform. Ito ay isang moderation tool, hindi isang emergency security feature.
+
+<Warning>
+  **Kapag ang NFT ay frozen:** Mawawalan ang user ng access sa lahat ng financial operations — withdrawals, purchases, marketing reward accruals, at transfers. Gayunpaman, ang NFT mismo ay nananatili sa blockchain wallet ng user bilang kanilang ari-arian. Ang **pag-unfreeze** ay nangangailangan din ng hiwalay na DAO vote.
+</Warning>
+
+Ang platform ay walang teknikal na kakayahan na agawin o kumpiskahin ang NFT mula sa wallet ng user. Ang pag-freeze ay nag-di-disable lamang ng functionality ng NFT sa loob ng RWANFTFI platform. Ang mekanismong ito ay ginagamit sa mga kaso ng paglabag sa terms ng platform — NFT-based fraud, natukoy na AML (anti-money-laundering) risks, ecosystem brand protection, at mga katulad na sitwasyon na nangangailangan ng kolektibong desisyon ng komunidad.

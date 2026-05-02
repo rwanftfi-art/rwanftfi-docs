@@ -1,0 +1,200 @@
+---
+title: "Mekanika ng DA Token"
+description: "Ang only-upward na price model."
+icon: "coins"
+---
+import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
+
+
+<CardGroup cols={2}>
+  <Card title="21M Hard Cap" icon="cube">
+    Maximum supply na nakapirmi magpakailanman. Walang inflation, walang minting.
+  </Card>
+  <Card title="100% Suportado ng USDT" icon="shield-check">
+    Bawat DA token ay suportado ng tunay na USDT sa liquidity pool.
+  </Card>
+  <Card title="Burn sa Bawat Benta" icon="fire">
+    100% ng mga ipinagbibiling token ay permanenteng sinusunog. Tatanggap ang user ng 75% (manual) o 70% (auto) ng halaga sa USDT. Ang natitirang 25% (manual) o 30% (auto) ay isang protocol commission na nananatili bilang backing sa pool — ito ang nagpapaakyat sa presyo ng DA.
+  </Card>
+  <Card title="Walang P2P Transfers" icon="ban">
+    Ang DA ay maaari lamang ipagbili, ipahiram, o bayaran — walang peer-to-peer transfers.
+  </Card>
+</CardGroup>
+
+## Ang "Only Upward" na Pormula ng Presyo
+
+Presyo = Liquidity ÷ Circulating Supply
+
+Tuwing ipagbibili ang DA, ang mga token ay sinusunog (bumababa ang supply) habang ang USDT ay nananatili sa pool (nananatili o lumalago ang liquidity). Mas kakaunting tokens ÷ pareho o mas maraming USDT = mas mataas na presyo bawat token.
+
+<Info>
+  **Paano ito gumagana:** 200 DA sa circulation, 200 USDT sa liquidity pool. Presyo = 1.00 USDT bawat DA. Ang isang user ay nagbenta ng 100 DA. Nagbabayad ang pool ng 70 USDT (70% ng 100 USDT na halaga). Lahat ng 100 DA ay sinusunog. Resulta: 100 DA ang natitira, 130 USDT sa pool. Bagong presyo = 130 ÷ 100 = **1.30 USDT bawat DA**.
+</Info>
+
+<Tip>
+  Ang 5% commission sa lahat ng marketing rewards ay direktang dumadaloy sa DA liquidity pool — hiwalay sa sell percentages. Ang karagdagang liquidity ay nanggagaling sa Lending fees, RWA income, at FinPro revenue.
+</Tip>
+
+<Info>
+  **Seed Supply Protection:** Isang maliit na permanenteng DA reserve — ang **Seed Supply** — ay pre-deposited sa protocol sa launch bilang isang teknikal na pananggalang para sa pricing formula.
+
+  - **Permanent at hindi maibebenta.** Ang Seed Supply ay naka-lock sa antas ng protocol: **hindi ito maaaring sunugin**, **hindi maaaring ipagbili** (manu-mano o sa pamamagitan ng auto-sell), at **hindi kasama sa auto-sell cycles**.
+  - **Labas sa circulation.** Ito ay **hindi binibilang bilang circulating supply** at hindi kailanman lumalahok sa user balances, farming, lending, o marketing distributions.
+  - **Ginagarantiyahan ang non-zero denominator.** Dahil `Price = Liquidity ÷ Circulating Supply`, ang formula ay hindi dapat kailanman maghati sa zero. Ginagarantiyahan ng Seed Supply ang `totalSupply > 0` sa lahat ng oras, kaya ang price function ay palaging tinukoy — kahit sa extreme edge case kung saan bawat iba pang token sa circulation ay sinunog na.
+  - **Edge-case-only protection.** Sa ilalim ng normal na operasyon ang Seed Supply ay walang epekto sa price discovery. Ito ay umiiral lamang bilang isang deterministic na floor na nagpapanatili sa `getPrice()` na well-defined kapag mayroong liquidity ngunit ang circulating supply ay aabot sana sa zero.
+</Info>
+
+## Mga Pinagmumulan ng Liquidity Pool
+
+Ang Liquidity Pool ay ang pundasyon ng DA economics. Ito ay pinopondohan mula sa maraming pinagmumulan sa buong RWANFTFI ecosystem, tinitiyak ang tuloy-tuloy na paglago ng backing ng token. Bawat pinagmumulan ng kita ng protocol ay dumadaloy sa isang pool, na nagpapatibay sa Price = Liquidity ÷ Supply formula.
+
+<AccordionGroup>
+  <Accordion title="Aktibidad ng NFT">
+    **NFT Purchases** — 20% ng bawat NFT purchase ay awtomatikong iniruruta sa Liquidity Pool para sa minting ng bagong DA.
+
+    **Rebuy at Autobuy** — karagdagang 20% mula sa bawat paulit-ulit o automatic NFT purchase ay dumadaloy sa Liquidity Pool. Ito ay nag-uudyok sa pag-renew ng posisyon at sumusuporta sa paglago ng system.
+  </Accordion>
+
+  <Accordion title="Mga Bayad at Komisyon">
+    **Marketing Rewards Tax** — 5% ng lahat ng marketing rewards sa buong referral network ay awtomatikong idinidirekta sa Liquidity Pool. Ang network activity ay direktang nagpapatibay sa DA backing.
+
+    **Accumulative Balance Transfer Fee** — kapag inililipat ang Accumulative Balance sa ibang user, 20% ng halaga ng paglilipat ay iniruruta sa DA Liquidity Pool. Anumang paggalaw ng Accumulative Balance — ginamit man sa NFT purchase o inilipat sa pagitan ng wallets — ay bumubuo ng 20% inflow sa Pool.
+
+    **Accumulative Balance Purchase Fee** — kapag bumibili ng NFT gamit ang Accumulative Balance, 20% ng integrated amount ay iniruruta sa DA Liquidity Pool para sa minting ng bagong DA. Halimbawa: 898 USDT sa Accumulative Balance — kapag isinama sa NFT purchase, 718 USDT ay napupunta sa NFT cost, at 180 USDT (20% ng 898) ay dumadaloy sa DA Liquidity Pool. Bawat ganoong purchase ay nagpupuno sa Pool at lumilikha ng batayan para sa bagong DA.
+
+    **Lending Commission** — kapag kumukuha ng loan, ang nanghihiram ay nagbabayad ng one-time 5% commission na idinirekta sa Liquidity Pool. Halimbawa: loan $1,000, ang nanghihiram ay tumatanggap ng $950, $50 ay napupunta sa Pool. Ang commission ay kinokolekta sa bawat bagong loan.
+  </Accordion>
+
+  <Accordion title="Mga Expired at Hindi Nagamit na Pondo">
+    **Auto-Sell na may Zero Income Limit** — kung nag-trigger ang DA auto-sell at ang user ay may zero Income Limit sa kanilang NFT, 100% ng kita ay napupunta sa Liquidity Pool o sa DA burn (eksaktong mekanismo ay tinutukoy ng DAO settings).
+
+    **Mga Expired Voucher** — kung ang Vouchers ay nananatiling hindi ginagamit sa loob ng 365 araw, 100% ng pondo ay idinidirekta sa Liquidity Pool. Pinipigilan nito ang idle funds at inaalis ang inactive liabilities.
+
+    **Hindi Nagamit na Accumulative Balance** — kung ang Accumulative Balance ay nananatiling hindi ginagamit sa loob ng 120 araw, 70% ng pondo ay idinidirekta sa Liquidity Pool para sa minting ng bagong DA.
+  </Accordion>
+
+  <Accordion title="Panlabas na Kita">
+    **SWAP Commissions** — ang mga komisyon mula sa lahat ng exchange (SWAP) operations ay awtomatikong iniruruta sa Liquidity Pool.
+
+    **Debit Card Commissions** — ang mga komisyon mula sa Debit Card program ay dumadaloy sa Liquidity Pool, lumilikha ng tunay na cash flow mula sa panlabas na ekonomiya.
+
+    **RWA Income** — bahagi ng kita mula sa real estate, rental income, commercial assets, at iba pang real-world assets ay idinirekta sa Liquidity Pool, ina-anggkla ang system sa tunay na ekonomiya.
+
+    **FinPro Revenue** — bahagi ng kita mula sa financial products (Lending, investment products, financial services) ay dumadaloy sa Liquidity Pool.
+
+    **Ecosystem Revenue** — bahagi ng kabuuang kita ng protocol ay maaaring idirekta sa Liquidity Pool o gamitin upang lumikha ng karagdagang liquidity para sa minting ng bagong DA.
+  </Accordion>
+</AccordionGroup>
+
+## Mga Mekanika ng DA Burn
+
+Ang DA burning ay ang pangunahing deflationary mechanism — pinapababa nito ang token supply at lumilikha ng napapanatiling pataas na presyon sa halaga ng asset.
+
+<CardGroup cols={3}>
+  <Card title="Manual Sale" icon="fire">
+    100% ng ipinagbibiling DA ay permanenteng sinusunog. Tumatanggap ang user ng 75% ng halaga sa USDT. Ang natitirang 25% ay protocol commission na nananatili sa pool bilang backing, nagpapaakyat sa presyo.
+  </Card>
+  <Card title="Auto-Sell" icon="clock">
+    100% ng auto-sold na DA ay permanenteng sinusunog. Tumatanggap ang user ng 70% ng halaga sa USDT. Ang natitirang 30% ay protocol commission na nananatili sa pool bilang backing, nagpapaakyat sa presyo. Nag-tri-trigger nang progresibo mula sa natitirang balance sa 4 na panahon (365 araw / 1 taon sa kabuuan).
+  </Card>
+  <Card title="Lending Default" icon="ban">
+    Kung ang loan ay hindi binayaran, ang collateralized DA ay progresibong sinusunog sa pamamagitan ng auto-sell cycle. Pinoprotektahan ang system liquidity at ipinatutupad ang financial discipline.
+  </Card>
+</CardGroup>
+
+## Instant Access at Auto-Sell Cycle
+
+### Instant Access
+
+Ang DA tokens ay 100% magagamit ng user mula sa sandaling ma-farm ang mga ito. Walang lock-up period. Ang user ay maaaring agad:
+
+- **Magbenta nang manu-mano** — tumanggap ng 75% ng halaga sa USDT, 100% ng tokens ay sinusunog
+- **Kumuha ng loan** — 70% LTV laban sa DA collateral, 5% commission fee
+- **Hawakan at maghintay** — itago ang tokens at samantalahin ang paglago ng presyo sa paglipas ng panahon
+
+### Auto-Sell Cycle
+
+Kung hindi nagbenta ang user nang manu-mano, ang system ay nag-tri-trigger ng automatic sales mula sa **natitirang balance** sa 4 na panahon na sumasaklaw sa **365 araw (1 taon)** sa kabuuan. Ang tagal ng panahon ay ipinapahayag sa araw on-chain (120 / 90 / 90 / 65 araw); ang mga reference sa buwan sa ibaba ay mga aproksimasyon para sa pagiging madaling basahin.
+
+**Halimbawa simula sa 100 DA:**
+
+<Steps>
+  <Step title="Period 1 — Pagkatapos ng 120 araw (~4 buwan)">
+    25% ng kasalukuyang balance ay auto-sold. 25% ng 100 = **25 DA na ipinagbili** → Natitira: **75 DA**
+  </Step>
+  <Step title="Period 2 — Pagkatapos ng 90 pang araw (~3 buwan, araw 210)">
+    40% ng natitirang balance ay auto-sold. 40% ng 75 = **30 DA na ipinagbili** → Natitira: **45 DA**
+  </Step>
+  <Step title="Period 3 — Pagkatapos ng 90 pang araw (~3 buwan, araw 300)">
+    50% ng natitirang balance ay auto-sold. 50% ng 45 = **22.5 DA na ipinagbili** → Natitira: **22.5 DA**
+  </Step>
+  <Step title="Period 4 — Pagkatapos ng 65 pang araw (~2 buwan, araw 365)">
+    100% ng natitirang balance ay auto-sold. 100% ng 22.5 = **22.5 DA na ipinagbili** → Natitira: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Ang auto-sell percentages (25% / 40% / 50% / 100%) na ipinapakita sa itaas ay kumakatawan sa kasalukuyang protocol configuration. Ang mga partikular na halaga ay nakaimbak bilang protocol parameters at napapailalim sa standard governance procedures. Palaging i-check ang smart contract o kasalukuyang protocol documentation para sa pinakabagong mga halaga.
+</Note>
+
+Bawat auto-sell ay isinasagawa sa DA price sa oras ng trigger ng panahong iyon — hindi sa orihinal na farming price. 100% ng auto-sold na tokens ay sinusunog, at ang user ay tumatanggap ng 70% ng halaga sa USDT sa presyo sa petsa ng auto-sell. Dahil lumalaki ang presyo sa paglipas ng panahon, ang mas huling panahon ay nagsusunog ng tokens sa mas mataas na presyo, na nagpapabilis sa deflation.
+
+Maaaring magbenta ang user nang manu-mano anumang oras bago mag-trigger ang auto-sell, na tumatanggap ng 75% sa halip na 70%.
+
+<Tip>
+  Ang manual sell (75% payout) ay palaging mas kumikita bawat token kaysa sa auto-sell (70% payout). Gayunpaman, ang auto-sell ay nakikinabang mula sa paglago ng presyo sa paglipas ng panahon — ang mas huling panahon ay isinasagawa sa mas mataas na DA price.
+</Tip>
+
+<Warning>
+  **Auto-Sell na may Zero Income Limit:** Kung mag-trigger ang auto-sell at ang user ay may zero Income Limit (hindi na-renew ang NFT), 100% ng kita ay napupunta sa Liquidity Pool o DA burn (tinutukoy ng DAO). Walang matatanggap ang user. Palaging panatilihing aktibo ang Income Limit.
+</Warning>
+
+## Multi-Batch Lending
+
+Ang bawat DA batch mula sa bawat mining cycle ay nagsisilbing independent collateral. Ito ay nagbibigay-daan sa tuloy-tuloy na micro-loan cycle:
+
+<Steps>
+  <Step title="Mag-mine ng Batch 1">
+    Ang user ay nakatapos ng mining cycle at tatanggap ng DA batch 1.
+  </Step>
+  <Step title="Manghiram laban sa Batch 1">
+    Ang user ay kumukuha ng 70% LTV loan laban sa batch 1 (5% commission sa Liquidity Pool).
+  </Step>
+  <Step title="Mag-mine ng Batch 2">
+    Ang user ay magsisimula ng bagong mining cycle at tatanggap ng DA batch 2.
+  </Step>
+  <Step title="Manghiram laban sa Batch 2">
+    Ang user ay kumukuha ng isa pang 70% LTV loan laban sa batch 2 (hiwalay na 5% commission).
+  </Step>
+</Steps>
+
+Ito ay nagpapahintulot ng maraming sabay-sabay na micro-loans, isa bawat DA batch. Ang bawat loan ay may sariling 30-araw na cutoff period. Kung ang anumang indibidwal na loan ay nag-default, tanging ang collateral ng batch na iyon ang sinusunog — hindi lahat ng DA holdings.
+
+Para sa detalyadong sell vs. lend comparison, tingnan ang [Selling at Lending](/fil/da-selling-lending).
+
+## Deflationary Cycle
+
+Dalawang beses sa isang taon, nagti-trigger ang system ng espesyal na Deflationary Cycle na tumatagal ng hanggang 30 araw, dinisenyo upang patindihin ang token scarcity.
+
+<Steps>
+  <Step title="I-pause ang mga bagong cycle">
+    Ang pagsisimula ng mga bagong cycle ng NFTM mining, staking, at DA generation ay naka-pause sa tagal ng Deflationary Cycle. **Ang mga aktibong cycle na sinimulan bago ang Deflationary Cycle ay magpapatuloy sa pagtakbo at matatapos sa iskedyul** — ang mga user na may mining na may patuloy ay hindi nawawalan ng kanilang progreso.
+  </Step>
+  <Step title="I-activate ang sale mechanisms">
+    Ang automatic o voluntary DA sale mechanisms ay na-a-activate.
+  </Step>
+  <Step title="Pang-araw-araw na burn">
+    Bahagi ng tokens ay sinusunog araw-araw.
+  </Step>
+  <Step title="Lumiit ang supply">
+    Ang market supply ay lumiit, nagpapatibay sa pataas na presyon sa presyo.
+  </Step>
+</Steps>
+
+<Info>
+  Ang Deflationary Cycle ay ginagawang predictable, manageable, at napapanatili ang DA economy sa pangmatagalan.
+</Info>
+
+Tumaas na aktibidad → tumaas na liquidity → tumaas na DA issuance → tumaas na pagsunog → tumaas na kakapusan → tumaas na halaga ng asset. Ang closed-loop system na ito ay nangangahulugan na sa lalong aktibong pag-unlad ng ekosistema, mas lumalakas ang DA economy.
+
+<DaPriceSimulator />

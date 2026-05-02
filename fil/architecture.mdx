@@ -1,0 +1,130 @@
+---
+title: "Arkitektura ng Smart Contract"
+description: "Diamond Pattern at 7 Facets."
+icon: "cubes"
+---
+
+
+Ang RWANFTFI platform ay itinayo sa isang matibay, modular, at secure na smart contract architecture na namamahala sa lahat ng interaksyon, distribusyon, at token mechanics nang walang central control.
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/bx2.mp4"
+/>
+
+## Diamond Pattern (EIP-2535)
+
+Ang core ng RWANFTFI system ay ipinatupad gamit ang Diamond Pattern (EIP-2535). Ang arkitektonikong pagpiling ito ay nagpapahintulot sa protocol na mailampasan ang standard smart contract size limit (24KB) sa pamamagitan ng paghahati ng functionality sa maraming independent modules na tinatawag na "Facets" (smart contract modules na ina-access sa pamamagitan ng isang proxy contract).
+
+## Mga Pangunahing Facet
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    Mga system parameter, role, business sales, at espesyal na NFT minting.
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    User registration, NFT purchases, at marketing reward distribution.
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    Pamamahala ng NFTM mining at DA farming cycle.
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    Mga deposito, withdrawal, paglikha ng Voucher, at accumulative transfers.
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    22-antas na binary tree logic at user placement algorithms.
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    Pagproseso ng expired DA stack, Voucher burns, at frozen account resolution.
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    Read-only queries para sa user data, balances, at tree structures.
+  </Card>
+</CardGroup>
+
+## Mga NFT Contract at Token ID Spaces
+
+Ang protocol ay gumagamit ng tatlong magkakaibang NFT contracts (Regular, Gift, Ambassador). Upang maiwasan ang identifier collisions sa on-chain `registeredTokens` mapping na sumusubaybay sa bawat minted NFT sa system, **ang Regular NFTs at Gift NFTs ay nagmi-mint sa magkahiwalay na `tokenId` spaces na hinati ayon sa parity**:
+
+- **Regular NFT** — odd token IDs (`1, 3, 5, 7, …`).
+- **Gift NFT** — even token IDs (`2, 4, 6, 8, …`).
+
+Ang split ay ipinatutupad sa loob ng minter logic ng bawat NFT contract sa oras ng mint. Dahil ang isang matagumpay na mint sa isang contract ay hindi kailanman makakabuo ng identifier na maaaring i-issue ng kabilang contract, isang buong klase ng mapping-collision bugs ay inaalis sa antas ng type-system — walang runtime guard o per-call deduplication check ang kinakailangan. Ang partitioning ay invisible sa mga end user: ang mga wallet at marketplace ay patuloy na nagpapakita ng bawat NFT sa ilalim ng kanyang native contract.
+
+## Upgradability Matrix
+
+* **Diamond Contract (EIP-2535):** Maaaring i-upgrade sa pamamagitan ng Facet cuts — nagpapahintulot ng pagdaragdag, pagpapalit, o pag-aalis ng mga indibidwal na module nang hindi muling ide-deploy ang buong system.
+* **TokenReserve (DA):** Maaaring i-upgrade sa pamamagitan ng Transparent Proxy — ang logic updates ay posible nang hindi binabago ang contract address.
+* **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Hindi maaaring i-upgrade — tinitiyak ang immutability ng mga pangunahing asset at governance rules.
+
+## Pamamahala ng Role
+
+Ang system ay gumagamit ng hierarchical role structure (AccessControlEnumerable) upang ligtas na pamahalaan ang mga pahintulot:
+* `ADMIN_ROLE`: Maaaring magbigay/magbawi ng iba pang role at baguhin ang mga kritikal na system parameter.
+* `SERVICE_ROLE`: Isinasagawa ng backend scripts para sa mga automated task (hal., paglutas ng expired stacks, pagproseso ng cross-chain deposits).
+* `SIGNER_ROLE`: Ginagamit para sa cryptographic signature verification upang pahintulutan ang mga partikular na aksyon tulad ng Voucher transfers.
+* `MINTER_ROLE`: Pinahihintulutang mag-mint ng mga partikular na token o NFT.
+
+## Balance Schema at Payment Priority
+
+Upang pamahalaan ang kumplikadong daloy ng mga pondo, ginagamit ng RWANFTFI ang isang multi-tiered balance schema sa loob ng smart contract.
+
+**User Balances:**
+1. **Regular Balance (`balance`):** Ang pangunahing wallet para sa magagamit na USDT. Ang mga pondo dito ay maaaring i-withdraw anumang oras, gamitin para bumili ng NFTs, o gamitin para gumawa ng Vouchers.
+2. **Accumulative Balance (`accumulativeBalance`):** Isang sapilitang savings account kung saan ang 20% ng bawat marketing reward ay agad na na-credit pagkatapos ng accrual.
+   * **Paggamit:** Maaari lamang gamitin upang bumili ng same level NFT o upang bumili ng higher-level NFT.
+   * **Mga Bayarin:** Ang paggamit ng balanseng ito para sa NFT purchases ay nagdudulot ng 20% fee na **iniruruta sa DA Liquidity Pool**. Ang paglilipat nito sa ibang user ay nagdudulot din ng 20% fee na **iniruruta sa DA Liquidity Pool**. Bawat paggalaw ng Accumulative Balance ay bumubuo ng inflow sa Pool at lumilikha ng batayan para sa bagong DA.
+   * **120-Araw na Redistribution:** Kung hindi ginagamit ng user ang kanilang Accumulative Balance sa loob ng 120 araw, ang hindi nagamit na balance ay nagiging eligible para sa redistribution. Ang split ay depende sa uri ng NFT ng user:
+     - **Regular NFT holders:** **70%** ay idinidirekta sa DA Liquidity Pool para sa minting ng bagong DA tokens; **30%** ay inililipat sa direct upline sponsor ng user.
+     - **Gift NFT holders:** **80%** ay idinidirekta sa DA Liquidity Pool; **20%** ay inililipat sa direct upline sponsor (pinamamahalaan ng hiwalay na `accumulativeClaimDistributeGift` parameter).
+     - **Cascade rule (parehong types):** Kung naubos ang Income Limit ng upline sponsor (katumbas ng zero), ang sponsor share ay dumadaan pa pataas sa susunod na eligible na kalahok sa istraktura. Kung walang kalahok sa chain ang may aktibong Income Limit, ang buong halaga ay iniruruta sa DA Liquidity Pool.
+
+   <Note>
+     **120 Araw = Garantisadong Minimum Window, Hindi Awtomatikong Pag-expire:** Ang `accumulativeDecayTime` parameter ay sinusuri **lamang sa loob ng `withdrawAccumulative()`** — ang admin/service-triggered redistribution path. **Hindi** ito sinusuri sa spend o transfer paths. Sa pagsasagawa, ito ay nangangahulugan:
+
+     - Para sa unang 120 araw pagkatapos ng credit, ang Accumulative Balance ay **garantisadong integrity** — hindi ito maaaring i-redistribute ng sinuman.
+     - Pagkatapos ng araw 120, ang balance ay nagiging **eligible** para sa redistribution, ngunit hindi awtomatikong nagpapaputok ang redistribution kapag lumipas ang timer. Nangyayari lamang ito kapag ang `withdrawAccumulative()` ay tinawag para sa partikular na user na iyon ng SERVICE_ROLE o ADMIN_ROLE.
+     - **Hanggang dumating ang tawag na iyon**, ang isang "expired" Accumulative Balance ay nananatiling magagastos sa NFT purchases at upgrades at maaaring ilipat sa ibang users sa ilalim ng standard rules at fees.
+
+     Ang nakasulat na intensiyon ng team, naitala sa audit response: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Ituring ang 120 araw bilang **minimum garantisadong window bago ang potensyal na redistribution**, hindi bilang isang mahigpit na on-chain expiry timestamp.
+   </Note>
+3. **Limit (`limit`):** Kumakatawan sa maximum na natitirang kita na maaaring mabuo ng isang NFT.
+
+### Mga System Balance
+
+Bilang karagdagan sa user balances, ang smart contract ay nagpapanatili ng tatlong panloob na system balances:
+
+- **Dev Balance (`devBalance`):** Nag-iipon ng platform fees at commissions para sa operational funding.
+- **Token Reserve Balance (`tokenReserveBalance`):** Ang USDT liquidity pool na 100% sumusuporta sa DA token. Bawat pinagmumulan ng kita sa ekosistema ay dumadaloy sa pool na ito.
+- **Price Impact Balance (`priceImpactBalance`):** Isang espesyal na reserve na ginagamit upang pamahalaan ang DA token price stability sa panahon ng mga partikular na ecosystem events.
+
+Ang mga balanseng ito ay ganap na pinamamahalaan ng smart contract at hindi naa-access ng anumang indibidwal na user o administrator.
+
+### Payment Priority
+
+Kapag bumibili, ang smart contract ay nagbabawas ng mga pondo sa ganitong pagkakasunud-sunod:
+
+<Steps>
+  <Step title="Vouchers (manual)">
+    Kung tahasang inaaplay ng user ang isang voucher sa checkout, ang halaga nito ay kinakain muna. Ang mga voucher ay hindi awtomatikong inaaplay.
+  </Step>
+  <Step title="Accumulative Balance">
+    Kung pinili ng user na gamitin ang Accumulative Balance, ito ay inaaplay sa 100% coverage (kapag sapat) o pinagsama sa Regular Balance. Ang 20% fee ay iniruruta sa DA Liquidity Pool.
+  </Step>
+  <Step title="Regular Balance">
+    Anumang natitirang halaga ay ibinabawas mula sa Regular Balance.
+  </Step>
+</Steps>
+
+<Warning>
+  Ang Gift Vouchers ay **hindi** maaaring isama sa Accumulative Balance. Mga wastong kombinasyon: [Voucher + Regular], [100% Accumulative], o [Accumulative + Regular].
+</Warning>
+
+<Note>
+  Ang lahat ng transaksyon sa Binance Smart Chain ay nangangailangan ng standard network gas fees na binabayaran sa **BNB**. Ang mga user ay dapat humawak ng kaunting halaga ng BNB sa kanilang wallet upang maisagawa ang anumang on-chain operations (mga pagbili, withdrawals, transfers). Ito ay hiwalay sa USDT balances na ginagamit sa loob ng ekosistema.
+</Note>

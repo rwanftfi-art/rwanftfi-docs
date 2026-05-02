@@ -1,0 +1,188 @@
+---
+title: "Mga Parameter ng Contract"
+description: "On-chain parameters, DAO-adjustable ranges, at hindi mababagong garantiya."
+icon: "sliders"
+---
+
+> ***"Ang tiwala ay hindi isang pangako — ito ay isang parameter, hardcoded sa isang inaudit na smart contract."***
+>
+> **— RWANFTFI**
+
+Bawat parameter sa RWANFTFI ecosystem ay tinukoy at ipinatutupad ng smart contract. Bawat parameter ay maaaring publikong i-verify on-chain. Ang isang subset ng mga parameter ay maaaring i-adjust ng DAO governance sa loob ng predefined safety ranges. Ang natitirang mga parameter ay permanenteng hardcoded at hindi maaaring baguhin ng sinuman — kabilang ang mga developer.
+
+<CardGroup cols={3}>
+  <Card title="DAO-Adjustable" icon="sliders">
+    Mga parameter na maaaring baguhin ng DAO governance sa loob ng predefined safety ranges.
+  </Card>
+  <Card title="Hindi Mababago" icon="shield-halved">
+    Hardcoded parameters na hindi kailanman maaaring baguhin ng sinuman — kabilang ang mga developer.
+  </Card>
+  <Card title="On-Chain Verified" icon="link">
+    Ang lahat ng halaga ay nakaimbak sa inaudit na smart contracts, publikong maaaring i-verify sa BscScan.
+  </Card>
+</CardGroup>
+
+## Distribusyon ng NFT Purchase
+
+Kapag bumili ang isang user ng NFT, ang bayad ay awtomatikong hinati sa maraming destinasyon ng smart contract. Ang distribusyon ay naiiba sa pagitan ng first-time purchases at repeat purchases (rebuys).
+
+<Tabs>
+  <Tab title="First Purchase">
+    | Parameter | Kasalukuyan | Range |
+    |---|---|---|
+    | Sponsor Bonus | 30% | 10% – 35% |
+    | Token Reserve (DA Pool) | 0% | 0% – 30% |
+    | Platform Operations | 7% | 2% – 10% |
+    | Accumulative Balance | 20% | 15% – 30% |
+  </Tab>
+  <Tab title="Repeat Purchase (Rebuy)">
+    | Parameter | Kasalukuyan | Range |
+    |---|---|---|
+    | Sponsor Bonus | 20% | 10% – 35% |
+    | Token Reserve (DA Pool) | 10% | 10% – 30% |
+    | Platform Operations | 7% | 2% – 10% |
+    | Accumulative Balance | 20% | 15% – 30% |
+  </Tab>
+</Tabs>
+
+## Mga Bayad at Komisyon
+
+Ang lahat ng bayad ay ipinatutupad ng smart contract at maaaring i-adjust sa loob ng tinukoy na ranges sa pamamagitan ng DAO governance.
+
+| Parameter | Kasalukuyan | Range |
+|---|---|---|
+| Marketing Rewards Tax | 5% | 5% – 15% |
+| Accumulative Transfer Fee | 20% | 10% – 30% |
+| Accumulative Use Fee (NFT Purchase) | 20% | 10% – 30% |
+| Loan Fee | 5% | 0% – 5% |
+| Withdrawal Fee | 0% | 0% – 5% |
+| Gift Send Price | $0 | $0 – $25 |
+| Business Sale Fee | $500 | $0 – $500 |
+| Frozen Balance → Sponsor | 30% | 0% – 30% |
+
+<Note>
+  **Business Sale Fee — semantics:** Ang "Business Sale Fee" row ay isang **transfer commission na binabayaran ng nagbebenta** upang isakatuparan ang business structure transfer. Ito ay **hindi** isang sale price na kinokolekta mula sa bumibili — ang bumibili ay walang on-chain commission na binabayaran sa protocol at tatanggap ng partner-tree structure sa pagsasakatuparan. Ang on-chain parameter na namamahala sa commission na ito ay `businessTransferFee` (pinalitan ng pangalan mula sa legacy `businessSalePrice` upang ipakita ang totoong commission semantics nito).
+</Note>
+
+## Mga Timer at Schedule
+
+Mga time-based parameter na kumokontrol sa mga kritikal na system window at deadline sa buong ekosistema.
+
+| Parameter | Kasalukuyan | Range |
+|---|---|---|
+| Accumulative Balance Lifetime | 120 araw | 90 – 180 araw |
+| NFTM Claim Window | 72 oras | 24 – 96 oras |
+| Gift NFTs bawat Address | 100 | 1 – 400 |
+| Business Sale | Disabled | Disabled – Enabled |
+
+### Mga Auto-Sell Period
+
+Ang auto-sell cycle ay nag-tri-trigger nang progresibo mula sa natitirang DA balance kung hindi nagbenta ang user nang manu-mano. Ang kabuuang tagal ng cycle ay ang kabuuan ng lahat ng apat na panahon.
+
+| Period | Kasalukuyan | Range |
+|---|---|---|
+| Period 1 | 120 araw | 60 – 120 araw |
+| Period 2 | 90 araw | 60 – 120 araw |
+| Period 3 | 90 araw | 60 – 120 araw |
+| Period 4 | 65 araw | 60 – 120 araw |
+| **Kabuuang Cycle** | **365 araw** | — |
+
+## Redistribution ng Expired Balance
+
+Kapag mag-expire ang Accumulative Balance (pagkatapos ng lifetime period), ang mga pondo ay ipinamamahagi ayon sa mga sumusunod na patakaran. Ang distribusyon ay naiiba sa pagitan ng Regular NFT holders at Gift NFT holders.
+
+<Tabs>
+  <Tab title="Regular NFT">
+    | Destinasyon | Kasalukuyan | Range |
+    |---|---|---|
+    | Upline Sponsor | 30% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 70% | 50% – 100% |
+  </Tab>
+  <Tab title="Gift NFT">
+    | Destinasyon | Kasalukuyan | Range |
+    |---|---|---|
+    | Upline Sponsor | 20% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 80% | 50% – 100% |
+  </Tab>
+</Tabs>
+
+## Marketing Tree Distribution
+
+Bawat antas ng 22-antas na marketing structure ay may nakapirming reward percentage na tumutukoy kung magkano ang kinikita ng user mula sa NFT sales sa lalim na iyon. Ang mga porsyento ay DAO-adjustable sa loob ng tinukoy na ranges. Ang Levels 16–22 ay na-unlock sa Phase 2.
+
+<AccordionGroup>
+  <Accordion title="Levels 1–6 · Mga Entry Layer" icon="layer-group">
+    | Level | Kasalukuyan | Range |
+    |---|---|---|
+    | Level 1 | 0% | 0% |
+    | Level 2 | 1% | 1% – 2% |
+    | Level 3 | 2% | 2% – 3% |
+    | Level 4 | 2% | 2% – 3% |
+    | Level 5 | 3% | 3% – 4% |
+    | Level 6 | 3% | 3% – 4% |
+  </Accordion>
+  <Accordion title="Levels 7–15 · Pangunahing Earning Depth" icon="chart-simple">
+    | Level | Kasalukuyan | Range |
+    |---|---|---|
+    | Level 7 | 4% | 4% – 5% |
+    | Level 8 | 4% | 4% – 5% |
+    | Level 9 | 4% | 4% – 5% |
+    | Level 10 | 4% | 3% – 5% |
+    | Level 11 | 4% | 3% – 5% |
+    | Level 12 | 4% | 3% – 5% |
+    | Level 13 | 4% | 3% – 5% |
+    | Level 14 | 4% | 3% – 5% |
+    | Level 15 | 5% | 3% – 5% |
+  </Accordion>
+  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="rocket">
+    | Level | Kasalukuyan | Planado (Phase 2) | Range |
+    |---|---|---|---|
+    | Level 16 | 0% | 2% | 0% – 2.5% |
+    | Level 17 | 0% | 2% | 0% – 2.5% |
+    | Level 18 | 0% | 1% | 0% – 2.5% |
+    | Level 19 | 0% | 0.5% | 0% – 2.5% |
+    | Level 20 | 0% | 0.5% | 0% – 2.5% |
+    | Level 21 | 0% | 0.5% | 0% – 2.5% |
+    | Level 22 | 0% | 0.5% | 0% – 2.5% |
+
+    <Note>
+      **Kasalukuyan = 0%** hanggang ang Phase 2 ay i-activate sa pamamagitan ng DAO vote (planado **Q4 2026**). **Planado (Phase 2)** = ang mga halaga na inaasahang i-enable ng DAO sa activation. Ang lahat ng Planado na halaga ay bumabagsak sa loob ng on-chain `Range`, kaya ang activation ay hindi nangangailangan ng pagpapalawak ng anumang parameter bound.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Tree distribution budget vs per-level caps.** Ang per-level percentages sa mga talahanayan sa itaas ay kumakatawan sa **maximum payout per level**. Ang kabuuang tree distribution **budget per NFT purchase ay humigit-kumulang 43%** (kinakalkula bilang 100% minus ang Sponsor Bonus, Token Reserve / DA Pool, Platform Operations, at Accumulative Balance). Ang arithmetic difference sa pagitan ng theoretical per-level sum (~48% sa buong Phase 1, lumalago hanggang ~55% kung ang Phase 2 ay mag-activate sa Planado na halaga) at ang aktwal na ~43% budget ay sinasakop sa pamamagitan ng **compression mechanism**: kapag ang isang upline user ay hindi qualified (naubos na Income Limit o hindi sapat na NFT level para sa lalim na iyon), ang hindi naka-allocate na bahagi ay hindi pinipilit pa sa tree — ito ay dumadaloy sa platform / dev residual sa halip. Sa madaling salita, ang per-level rates ay isang kisame sa kung ano ang maaaring kitain ng isang fully eligible position sa bawat lalim mula sa isang purchase, hindi isang garantiya na ang buong kabuuan ay binabayaran sa tree sa bawat purchase.
+</Note>
+
+### Matching Bonus Thresholds
+
+Ang Matching Bonus ay nagbabayad ng 5% sa tatlong antas ng direct partner income. Ang bawat antas ay nangangailangan ng pinagsama-samang personal sales upang ma-unlock. Ang matching percentage (5%) ay hindi mababago.
+
+| Level | Kinakailangang Sales | Range |
+|---|---|---|
+| Level 1 (5%) | $0 | Nakapirmi |
+| Level 2 (5%) | $1,000 | $1,000 – $5,000 |
+| Level 3 (5%) | $3,000 | $3,000 – $7,000 |
+
+## Hindi Mababagong Parameters
+
+<CardGroup cols={1}>
+  <Card title="Hardcoded sa Smart Contract" icon="shield-check">
+    Ang mga sumusunod na parameter ay permanenteng nakapirmi sa smart contract code. Hindi sila maaaring baguhin ng DAO, mga developer, o anumang ibang partido.
+  </Card>
+</CardGroup>
+
+| Parameter | Halaga |
+|---|---|
+| Manual Sell Payout | 75% |
+| Auto-Sell / Lending Payout | 70% |
+| Matching Bonus bawat Level | 5% |
+| Frozen Balance Window | 72 oras |
+| Voucher Lifetime | 365 araw |
+| Voucher Transfer Lock | Huling 1 araw |
+| Loan Cutoff Period | 30 araw |
+| DAO Inactivity Threshold | 31 araw |
+| DAO Grace Period | 7 araw |

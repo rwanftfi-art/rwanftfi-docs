@@ -1,0 +1,91 @@
+---
+title: "Rewards at Kompensasyon"
+description: "Paano ka kumikita mula sa iyong network."
+icon: "money-bill-trend-up"
+---
+
+import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+
+<CardGroup cols={2}>
+  <Card title="Phase 1 — Bagong Benta" icon="user-plus">
+    Ang direct sponsor ay kumikita ng 30% ng presyo ng NFT. Paulit-ulit na pagbili (rebuy): 20%.
+  </Card>
+  <Card title="Phase 2 — Inadjust" icon="arrows-rotate">
+    Ang bagong benta ay nag-a-adjust sa 20%. Ang rebuy ay nananatili sa 20%. Ang levels 16–22 ay ganap na na-unlock.
+  </Card>
+</CardGroup>
+
+<Note>
+  Ang transition mula Phase 1 hanggang Phase 2 (kabilang ang Sponsor Bonus adjustment mula 30% hanggang 20% at pag-unlock ng tree levels 16–22) ay isinasagawa sa pamamagitan ng DAO governance, hindi awtomatikong sa pamamagitan ng petsa. Ang DAO vote ay nangangailangan ng standard 30% proposal threshold at 50% majority approval upang ipatupad ang mga pagbabago sa parameter.
+</Note>
+
+Ang marketing rewards sa RWANFTFI ay binubuo ng tatlong independent streams na pinagsasama upang bumuo ng iyong kabuuang kita:
+
+1. **Sponsor Bonus** — Direktang komisyon para sa pag-imbita ng partner (30% Phase 1 / 20% Phase 2 ng presyo ng NFT sale).
+2. **Tree Distribution** — Per-level rewards mula sa iyong downline structure (levels 2–22, ang mga porsyento ay nag-iiba sa lalim).
+3. **Matching Bonus** — Pangalawang 5% + 5% + 5% mula sa kita ng iyong direct partners sa 3 antas.
+
+Bawat stream ay kinakalkula at binabayaran nang independent ng smart contract sa bawat qualifying NFT purchase.
+
+## Tree Distribution
+
+Kumita ng porsyento mula sa bawat NFT sale sa iyong downline, sa hanggang 22 antas ng lalim:
+
+<AccordionGroup>
+  <Accordion title="Levels 1–6 · Mga Entry Layer" icon="layer-group">
+    - Level 1: 0%
+    - Level 2: 1%
+    - Levels 3–4: 2% bawat isa
+    - Levels 5–6: 3% bawat isa
+  </Accordion>
+  <Accordion title="Levels 7–15 · Pangunahing Earning Depth" icon="chart-simple">
+    - Levels 7–14: 4% bawat isa (8 antas × 4% = pangunahing income driver)
+    - Level 15: 5% (pinakamataas na single-level percentage)
+  </Accordion>
+  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="unlock">
+    - Levels 16–17: 2% bawat isa
+    - Level 18: 1%
+    - Levels 19–22: 0.5% bawat isa
+
+    *Naka-unlock sa Phase 2 sa pamamagitan ng DAO governance vote (planado para sa Q4 2026). Nangangailangan ng INFINITY NFT para sa buong lalim.*
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  **Bakit Level 1 = 0%?** Ang Tree Distribution at Sponsor Bonus ay dalawang magkahiwalay na reward streams. Ang iyong direct invites ay nakaupo sa Level 1 ng iyong marketing structure, at kumikita ka na ng Sponsor Bonus (30% sa Phase 1, 20% sa Phase 2) mula sa kanilang NFT purchase. Ang Level 1 ng Tree Distribution ay nakatakda sa 0% upang maiwasan ang double-compensation. Ang Tree Distribution rewards ay nagsisimula mula Level 2 (1%) pataas — sumasaklaw sa aktibidad na mas malalim sa iyong istraktura na higit sa iyong personal invites.
+</Info>
+
+<Note>
+  **Ang Spillover sa Level 1 ay walang kinikitang direkta.** Kapag ang isang partner ay nailagay sa iyong Level 1 sa pamamagitan ng spillover (ang invite ng iyong upline ay napupunta sa iyong tree), kumikita ka ng 0% Sponsor Bonus (napupunta ito sa kanilang aktwal na nag-imbita) at 0% Tree Distribution (Level 1 = 0%). Ang halaga ng spillover ay natutupad mula sa Level 2 at mas malalim — kapag ang mga spillover partners na iyon ay nagtayo ng sarili nilang teams, ang kanilang mga recruits ay bumubuo ng tree distribution rewards para sa iyo.
+</Note>
+
+## Compression
+
+<Tip>
+  **Ang compression ay gumagana sa iyong pabor.** Kung may isang tao sa itaas mo na may naubos na income limit o hindi sapat na NFT level, ang kanilang rewards ay nagco-compress pataas — posibleng sa iyo. Habang mas malalim ang marketing access ng iyong NFT, mas maraming compressed rewards ang maaari mong makuha.
+</Tip>
+
+Kapag ang isang user sa iyong downline ay nilampasan (Income Limit = 0 o NFT level masyadong mababa), ang reward ay dumadaan pataas sa susunod na qualified na kalahok. Ito ay minamarkahan bilang **Lost Income** para sa nilampasang user.
+
+
+## Matching Bonus (5% + 5% + 5%)
+
+Kumita ng porsyento ng **NFT-sales income** na nabuo ng iyong direct partners sa 3 antas. Ang Matching Bonus ay kinakalkula lamang mula sa marketing payouts na natanggap ng iyong direct partner mula sa NFT sales sa loob ng kanilang istraktura — hindi mula sa ibang income streams (Frozen Balance releases, manual DA sales, atbp.):
+
+<Steps>
+  <Step title="Level 1 — 5%">
+    Nangangailangan ng kahit Level 4 (ECLIPSE, 275 USDT) NFT.
+  </Step>
+  <Step title="Level 2 — 5%">
+    Nangangailangan ng pinagsama-samang personal sales na 1,000 USDT.
+  </Step>
+  <Step title="Level 3 — 5%">
+    Nangangailangan ng pinagsama-samang personal sales na 3,000 USDT.
+  </Step>
+</Steps>
+
+<Info>
+  **Ano ang ibig sabihin ng "pinagsama-samang personal sales":** Ito ang tumatakbong lifetime na kabuuan ng lahat ng NFT purchases na ginawa ng iyong direct invites. Ang mga paulit-ulit na pagbili (rebuys, upgrades) ng parehong partner ay binibilang sa kabuuan, at ang sales sa iba't ibang partners ay nag-aakumula nang magkasama. Halimbawa, kung ang isang partner ay bumili ng tatlong NFTs sa 1,000 USDT bawat isa, ang iyong pinagsama-samang kabuuan ay 3,000 USDT — nag-u-unlock ng Matching Bonus Level 3. Sa sandaling maabot ang threshold, ang Matching Bonus level na iyon ay **permanenteng aktibo** at hindi nagre-reset.
+</Info>
+
+<IncomeCalculator />

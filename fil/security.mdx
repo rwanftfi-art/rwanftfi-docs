@@ -1,0 +1,75 @@
+---
+title: "Seguridad at Audit"
+description: "Independent na inaudit ng CertiK."
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="Inaudit ng CertiK" icon="shield-check">
+    Ang RWANFTFI smart contracts ay independent na inaudit ng **CertiK**. Ang final report ay nai-publish noong **Abril 28, 2026** — buong PDF sa ibaba, at sa pampublikong [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi).
+  </Card>
+</CardGroup>
+
+Ang CertiK ay isa sa mga pinakatatag na security firms sa Web3 at nag-aaudit ng makabuluhang bahagi ng mga pangunahing protocol sa espasyo. Ang audit ay isinagawa gamit ang kanilang standard methodology — Static Analysis, Manual Review, at Formal Verification — at ang buong report ay nai-publish nang publiko, parehong sa pahinang ito at sa sariling Skynet directory ng CertiK.
+
+## Basahin ang Report
+
+Mayroon kang tatlong independent na paraan upang makipag-ugnayan sa audit. Ang punto ay hindi para magbigay ng parehong bagay nang tatlong beses — ito ay upang walang duda na ang bersyon sa pahinang ito ay tumutugma sa bersyon na nai-publish mismo ng CertiK, at upang ang report ay accessible anuman ang device.
+
+<CardGroup cols={3}>
+  <Card title="Inline Preview" icon="eye">
+    Basahin ang buong PDF nang direkta sa pahinang ito. Pinakamahusay sa desktop browsers.
+  </Card>
+  <Card title="I-download ang PDF" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    I-save ang orihinal na report sa iyong device. Inirerekomenda sa mobile.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    I-verify ang report sa sariling pampublikong directory ng CertiK.
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Audit Report — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Ang inline PDF preview ay hindi sinusuportahan sa browser na ito.</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Buksan ang audit report (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Sa Safari at karamihan ng mobile browsers** ang inline preview ay maaaring hindi mag-render — hindi nag-eembed ang mga browser na iyon ng PDFs nang direkta. Gamitin ang **Download PDF** button (o ang link sa loob ng preview area) upang buksan ang report sa iyong device.
+</Info>
+
+## Proteksyon ng Account
+
+Ang audit ay sumasaklaw sa on-chain smart contract layer. Sa application layer, ang mga user account ay karagdagang pinoprotektahan ng ilang independent na mekanismo:
+
+<CardGroup cols={2}>
+  <Card title="Three-Level Security" icon="layer-group">
+    Tiered protection na naghihiwalay sa login, financial actions, at high-value operations.
+  </Card>
+  <Card title="TAN Codes" icon="key">
+    Single-use Transaction Authentication Numbers na kinakailangan para sa bawat financial transaction.
+  </Card>
+  <Card title="Financial Password" icon="fingerprint">
+    Isang password na hiwalay sa iyong login credentials, kinakailangan lamang para sa paggalaw ng pondo.
+  </Card>
+  <Card title="2FA + Telegram Bot" icon="telegram">
+    Standard two-factor authentication, kasama ang action verification sa pamamagitan ng official Telegram bot.
+  </Card>
+</CardGroup>
+
+<Info>
+  **Ang mga transaksyon ay nangangailangan ng Web3 wallet.** Maaari kang mag-sign in sa dashboard gamit ang email at password upang tingnan ang iyong data, ngunit ang pagsasagawa ng anumang financial action ay nangangailangan ng nakakonektang Web3 wallet (MetaMask, Trust Wallet, o iba pang EVM-compatible wallet).
+</Info>
+
+<Warning>
+  **Mag-ingat sa mga impostor.** Ang RWANFTFI staff ay hindi kailanman makikipag-ugnay sa iyo muna, hindi kailanman hihingin ang iyong private keys o seed phrase, at hindi kailanman hihingi ng bayad sa labas ng official platform. Palaging i-verify na nasa **rwanftfi.com** ka bago ikonekta ang iyong wallet o ipasok ang mga credentials.
+</Warning>

@@ -1,0 +1,123 @@
+---
+title: "Pagbebenta at Pagpapahiram"
+description: "Ibenta, ipahiram, o hawakan — pinipili mo."
+icon: "scale-balanced"
+---
+import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
+
+
+Sa sandaling may hawak na DA ang user, mayroon silang dalawang pangunahing financial options: pagbebenta ng asset o paggamit nito bilang collateral para sa loan.
+
+<CardGroup cols={2}>
+  <Card title="Magbenta ng DA" icon="fire">
+    100% ng ipinagbibiling DA ay permanenteng sinusunog. Tatanggap ka ng 75% (manual) o 70% (auto) ng halaga sa USDT. Ang natitirang 25% (manual) o 30% (auto) ay protocol commission na nananatili sa pool bilang backing at nagpapaakyat sa presyo ng DA.
+  </Card>
+  <Card title="Magpahiram ng DA" icon="building-columns">
+    Manghiram ng hanggang 70% LTV sa USDT laban sa iyong DA. Ang iyong DA ay nananatili sa iyong TokenStack. 30-araw na loan period na may one-time 5% commission.
+  </Card>
+</CardGroup>
+
+## Pagbebenta ng DA at mga Mekanika ng Burn
+
+Kapag nagbebenta ng DA, mayroong dalawang magkaibang sitwasyon na may iba't ibang kondisyon:
+
+1. **Manual Sale (ang user ay nagbebenta nang nakapag-iisa):**
+   * Ang user ay tumatanggap ng **75%** ng halaga ng DA sa USDT sa kasalukuyang presyo.
+   * **100%** ng ipinagbibiling DA tokens ay permanenteng sinusunog.
+   * Ang natitirang 25% ay protocol commission na nananatili sa pool bilang USDT backing — sa mas kakaunting tokens at parehong liquidity, ang 25% na ito ay direktang nagpapaakyat ng presyo.
+
+2. **Auto-Sell (nag-tri-trigger pagkatapos mag-expire ang TokenStack period):**
+   * Ang user ay tumatanggap ng **70%** ng halaga ng DA sa USDT sa presyo sa petsa ng auto-sell.
+   * **100%** ng auto-sold na DA tokens ay permanenteng sinusunog.
+   * Ang natitirang 30% ay protocol commission na nananatili sa pool bilang USDT backing — ang 30% na ito ang nagpapaakyat sa presyo.
+   * Ang Auto-sell ay awtomatikong nag-tri-trigger kung ang user ay hindi nagbenta nang manu-mano bago mag-expire ang panahon.
+
+Sa parehong kaso, 100% ng ipinagbibiling tokens ay sinusunog — ang 25%/30% ay kumakatawan sa protocol commission na nananatili sa pool bilang USDT backing. Ito ang mekanismo na nagpapaakyat sa presyo: mas kakaunting tokens + parehong liquidity = mas mataas na presyo bawat DA. Ang Auto-sell ay nag-aalok ng 5% mas mababang payout, nag-uudyok sa mga user na aktibong mamahala ng kanilang mga DA positions.
+
+<Warning>
+  **Ang pagbebenta ng DA ay kumakain sa Income Limit ng iyong NFT.** Bawat manual o auto-sell ng DA ay nagpapababa sa natitirang Income Limit ng iyong NFT ng halaga ng USDT payout — sa pantay na batayan sa marketing rewards. Kung naubos na ang Income Limit, ang manual DA sale ay hindi posible (hindi ma-credit ng system ang payout), at sa auto-sell 100% ng kita ay iniruruta sa DA Liquidity Pool o sa burn (eksaktong mekanismo ay tinutukoy ng DAO settings). Panatilihing aktibo ang iyong Income Limit — sa pamamagitan ng Autobuy o manual NFT renewal — upang matanggap ang payout kapag nagbebenta ng DA.
+</Warning>
+
+<Info>
+  Ang **auto-sell** ay awtomatikong nag-tri-trigger kung hindi ka magbebenta nang manu-mano bago mag-expire ang TokenStack period. Nagbabayad ito ng 5% mas mababa (70% vs 75%), nag-uudyok sa aktibong pamamahala.
+</Info>
+
+## Mga Auto-Sell Period
+
+Ang DA ay 100% magagamit ng user kaagad pagkatapos ng farming — walang lock-up period. Maaaring magbenta ang user nang manu-mano anumang oras (tumatanggap ng 75% sa USDT) o kumuha ng loan laban sa kanilang DA. Kung **hindi** kumikilos ang user, ang system ay nag-tri-trigger ng automatic forced sales mula sa **natitirang balance** nang progresibo sa 4 na panahon na sumasaklaw sa **365 araw (1 taon)** sa kabuuan. Ang tagal ng panahon ay ipinapahayag sa araw on-chain (120 / 90 / 90 / 65 araw); ang mga reference sa buwan sa ibaba ay mga aproksimasyon para sa pagiging madaling basahin.
+
+**Halimbawa simula sa 100 DA:**
+
+<Steps>
+  <Step title="Period 1 — 25% auto-sell pagkatapos ng 120 araw (~4 buwan)">
+    Kung hindi ka nagbebenta nang manu-mano sa loob ng 120 araw (~4 buwan), 25% ng iyong kasalukuyang DA balance ay auto-sold. 25% ng 100 DA = **25 DA na auto-sold** → Tatanggap ka ng 70% ng halaga sa USDT sa kasalukuyang presyo → 100% ng 25 DA ay sinusunog → Natitira: **75 DA**
+  </Step>
+  <Step title="Period 2 — 40% auto-sell pagkatapos ng 90 pang araw (~3 buwan, araw 210)">
+    40% ng natitirang balance ay auto-sold. 40% ng 75 DA = **30 DA na auto-sold** → Natitira: **45 DA**
+  </Step>
+  <Step title="Period 3 — 50% auto-sell pagkatapos ng 90 pang araw (~3 buwan, araw 300)">
+    50% ng natitirang balance ay auto-sold. 50% ng 45 DA = **22.5 DA na auto-sold** → Natitira: **22.5 DA**
+  </Step>
+  <Step title="Period 4 — 100% auto-sell pagkatapos ng 65 pang araw (~2 buwan, araw 365)">
+    100% ng natitirang balance ay auto-sold. Ganap na sarado ang posisyon. 100% ng 22.5 DA = **22.5 DA na auto-sold** → Natitira: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Ang auto-sell percentages (25% / 40% / 50% / 100%) na ipinapakita sa itaas ay kumakatawan sa kasalukuyang protocol configuration. Ang mga partikular na halaga ay nakaimbak bilang protocol parameters at napapailalim sa standard governance procedures. Palaging i-check ang smart contract o kasalukuyang protocol documentation para sa pinakabagong mga halaga.
+</Note>
+
+Bawat auto-sell ay isinasagawa sa DA price sa sandaling iyon, hindi sa orihinal na farming price. Dahil lumalago ang presyo sa paglipas ng panahon, ang mas huling auto-sells ay nagsusunog ng tokens sa mas mataas na presyo — pinapatibay pa ang deflation.
+
+<Warning>
+  **Auto-Sell na may Zero Income Limit:** Kung mag-trigger ang DA auto-sell at ang user ay may zero Income Limit sa kanilang NFT (ibig sabihin ay hindi na-renew ang NFT), 100% ng kita ay idinidirekta sa Liquidity Pool o sa DA burn. Eksaktong mekanismo ay tinutukoy ng DAO settings. Ang mga user ay dapat palaging magpanatili ng aktibong Income Limit upang matanggap ang kanilang auto-sell payout.
+</Warning>
+
+## Lending (Credit laban sa DA)
+
+Sa halip na magbenta, ang mga user ay maaaring kumuha ng loan sa USDT laban sa kanilang DA holdings. Ang mga user ay maaaring manghiram ng hanggang **70%** ng kasalukuyang USDT value ng kanilang DA collateral (Loan-to-Value). Ipinatutupad ng smart contract ang mahigpit na 30-araw na loan cutoff period. Kung ang loan ay hindi pinamamahalaan sa loob ng kinakailangang mga parameter, ang collateralized TokenStack ay maaaring i-liquidate.
+
+Kapag kumukuha ng loan, ang nanghihiram ay nagbabayad ng one-time **5% commission** na idinirekta sa DA Liquidity Pool. Ang nanghihiram ay tumatanggap ng 95% ng halaga ng loan. Halimbawa: para sa $1,000 na loan, ang nanghihiram ay tumatanggap ng $950 at $50 ay napupunta sa Liquidity Pool. Ang commission na ito ay kinokolekta sa bawat bagong loan — ang mga user ay maaaring kumuha ng mga bagong loan pagkatapos tumanggap ng mga bagong DA batches, ibig sabihin ang commission ay paulit-ulit na dumadaloy sa Pool.
+
+<Info>
+  **Independent Loan Fee Parameter:** Ang 5% lending commission ay nakaimbak on-chain bilang isang dedikadong `loanFee` parameter, hiwalay sa iba pang fee parameters ng protocol. Ang isolation na ito ay nagbibigay-daan sa DAO na i-tune ang loan fee nang nakapag-iisa — nang hindi naaapektuhan ang marketing taxes, accumulative fees, o anumang iba pang commission — at pinapanatili ang loan economics na pamamahalaan bilang isang solo at malinaw na lever.
+</Info>
+
+<Note>
+  **Minimum Loan Amount:** Tinatanggihan ng smart contract ang zero-value loans. Kung ang hiniling na laki ng loan ay napakaliit kaya ang post-fee payout ay babagsak sa 0 USDT, ang transaction ay magre-revert. Ang mga nanghihiram ay dapat humiling ng halaga na sapat na ang borrower payout (95% ng halaga ng loan) ay non-zero pagkatapos ng on-chain rounding. Pinipigilan nito ang dust loans na mag-lo-lock ng collateral nang walang ekonomikong benepisyo sa nanghihiram.
+</Note>
+
+### Multi-Batch Lending
+
+Ang bawat DA batch mula sa mining cycle ay nagsisilbing independent collateral. Maaaring kumuha ang mga user ng hiwalay na 70% LTV loan laban sa bawat batch nang isa-isa:
+
+<Steps>
+  <Step title="Mag-mine ng Batch 1">
+    Tapusin ang isang mining cycle at tatanggap ng DA batch 1.
+  </Step>
+  <Step title="Manghiram laban sa Batch 1">
+    Kumuha ng 70% LTV loan laban sa batch 1 (5% commission sa Liquidity Pool).
+  </Step>
+  <Step title="Mag-mine ng Batch 2">
+    Magsimula ng bagong mining cycle at tatanggap ng DA batch 2.
+  </Step>
+  <Step title="Manghiram laban sa Batch 2">
+    Kumuha ng isa pang 70% LTV loan laban sa batch 2 (hiwalay na 5% commission).
+  </Step>
+</Steps>
+
+<Tip>
+  Maraming sabay-sabay na aktibong loans ay posible — isa bawat DA batch. Ang bawat loan ay may sariling 30-araw na cutoff at 5% commission. Ang mas maliit na NFTs ay nagbubunga ng mas maliit na loans, ang mas malalaking NFTs ay nagbubunga ng mas malalaking loans. Kung ang anumang indibidwal na loan ay nag-default, tanging ang collateral ng batch na iyon ang pumapasok sa auto-sell cycle — hindi lahat ng DA holdings.
+</Tip>
+
+<Note>
+  **Repay Window — Walang Late Repayments:** Ang loan ay maaari lamang bayaran sa pamamagitan ng `repay()` habang ito ay aktibo pa. Sa sandaling lumipas na ang 30-araw na cutoff at ang posisyon ay tumawid na sa auto-sell deadline, ang `repay()` ay nag-re-revert — ang nanghihiram ay **hindi maaaring** i-unwind ang loan upang lampasan ang liquidation schedule. Ang isang overdue na posisyon ay dapat na i-process sa pamamagitan ng `processExpiredStacks()`, na nagsasagawa ng progresibong burn na inilarawan sa ibaba. Walang landas na nagpapahintulot sa nanghihiram na makatakas sa default penalties sa pamamagitan ng late repayment.
+</Note>
+
+<Warning>
+  **Lending Default — Progresibong Burn:** Kung ang loan ay hindi binayaran sa loob ng 30-araw na cutoff period, ang collateralized DA ay pumapasok sa auto-sell cycle. Ang tokens ay progresibong sinusunog sa pamamagitan ng parehong 4-period schedule (25% → 40% → 50% → 100% ng natitirang balance sa 365 araw / 1 taon sa kabuuan: 120 / 90 / 90 / 65 araw bawat panahon).
+
+  Ang user ay **HINDI** tumatanggap ng USDT mula sa mga auto-sells na ito — **100% ng kita ay idinidirekta sa DA Liquidity Pool**. Pinapanatili ng user ang **orihinal na halaga ng loan** na natanggap niya, ngunit **nawawala ang buong DA collateral**. Ang mekanismong ito ay nagpoprotekta sa system liquidity, nagpapababa ng systemic risk, at nagpapatupad ng financial discipline sa buong ekosistema.
+</Warning>
+
+<SellVsLend />
