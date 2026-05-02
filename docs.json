@@ -537,6 +537,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "kk",
+        "groups": [
+          {
+            "group": "Бастау",
+            "pages": [
+              "kk/executive-summary",
+              "kk/vision"
+            ]
+          },
+          {
+            "group": "NFT экожүйесі",
+            "pages": [
+              "kk/nft-ecosystem",
+              "kk/frozen-balance"
+            ]
+          },
+          {
+            "group": "Дефляциялық Актив (DA)",
+            "pages": [
+              "kk/da-token-mechanics",
+              "kk/da-mining-farming",
+              "kk/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Табыс және Маркетинг",
+            "pages": [
+              "kk/marketing-binary-tree",
+              "kk/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Архитектура",
+            "pages": [
+              "kk/architecture",
+              "kk/contract-parameters",
+              "kk/security"
+            ]
+          },
+          {
+            "group": "Басқару",
+            "pages": [
+              "kk/governance"
+            ]
+          },
+          {
+            "group": "Жол картасы",
+            "pages": [
+              "kk/roadmap"
+            ]
+          },
+          {
+            "group": "Ресурстар",
+            "pages": [
+              "kk/corporate-structure",
+              "kk/support",
+              "kk/partnerships",
+              "kk/legal"
+            ]
+          }
+        ]
       }
     ]
   },
