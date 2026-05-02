@@ -1,0 +1,188 @@
+---
+title: "Paramètres du Contrat"
+description: "Paramètres on-chain, plages ajustables par le DAO et garanties immuables."
+icon: "sliders"
+---
+
+> ***« La confiance n'est pas une promesse — c'est un paramètre, codé en dur dans un smart contract audité. »***
+>
+> **— RWANFTFI**
+
+Chaque paramètre de l'écosystème RWANFTFI est défini et appliqué par le smart contract. Chaque paramètre est publiquement vérifiable on-chain. Un sous-ensemble de paramètres peut être ajusté par la gouvernance DAO à l'intérieur de plages de sécurité prédéfinies. Les paramètres restants sont définitivement codés en dur et ne peuvent être modifiés par personne — y compris les développeurs.
+
+<CardGroup cols={3}>
+  <Card title="Ajustables par le DAO" icon="sliders">
+    Paramètres que la gouvernance DAO peut modifier à l'intérieur de plages de sécurité prédéfinies.
+  </Card>
+  <Card title="Immuables" icon="shield-halved">
+    Paramètres codés en dur qui ne peuvent jamais être modifiés par qui que ce soit — y compris les développeurs.
+  </Card>
+  <Card title="Vérifiés On-Chain" icon="link">
+    Toutes les valeurs sont stockées dans des smart contracts audités, publiquement vérifiables sur BscScan.
+  </Card>
+</CardGroup>
+
+## Distribution lors de l'Achat de NFT
+
+Lorsqu'un utilisateur achète un NFT, le paiement est automatiquement réparti entre plusieurs destinations par le smart contract. La distribution diffère entre les premiers achats et les achats répétés (rebuys).
+
+<Tabs>
+  <Tab title="Premier Achat">
+    | Paramètre | Actuel | Plage |
+    |---|---|---|
+    | Bonus de Sponsor | 30 % | 10 % – 35 % |
+    | Token Reserve (Pool DA) | 0 % | 0 % – 30 % |
+    | Opérations Plateforme | 7 % | 2 % – 10 % |
+    | Solde Cumulatif | 20 % | 15 % – 30 % |
+  </Tab>
+  <Tab title="Achat Répété (Rebuy)">
+    | Paramètre | Actuel | Plage |
+    |---|---|---|
+    | Bonus de Sponsor | 20 % | 10 % – 35 % |
+    | Token Reserve (Pool DA) | 10 % | 10 % – 30 % |
+    | Opérations Plateforme | 7 % | 2 % – 10 % |
+    | Solde Cumulatif | 20 % | 15 % – 30 % |
+  </Tab>
+</Tabs>
+
+## Frais & Commissions
+
+Tous les frais sont appliqués par le smart contract et ajustables à l'intérieur de plages définies via la gouvernance DAO.
+
+| Paramètre | Actuel | Plage |
+|---|---|---|
+| Taxe sur les Récompenses Marketing | 5 % | 5 % – 15 % |
+| Frais de Transfert Cumulatif | 20 % | 10 % – 30 % |
+| Frais d'Utilisation Cumulatif (Achat NFT) | 20 % | 10 % – 30 % |
+| Frais de Prêt | 5 % | 0 % – 5 % |
+| Frais de Retrait | 0 % | 0 % – 5 % |
+| Prix d'Envoi de Cadeau | 0 $ | 0 $ – 25 $ |
+| Frais de Vente de Business | 500 $ | 0 $ – 500 $ |
+| Solde Gelé → Sponsor | 30 % | 0 % – 30 % |
+
+<Note>
+  **Frais de Vente de Business — sémantique :** La ligne « Frais de Vente de Business » est une **commission de transfert payée par le vendeur** afin d'exécuter un transfert de structure commerciale. Ce **n'est pas** un prix de vente perçu auprès de l'acheteur — l'acheteur ne paie aucune commission on-chain au protocole et reçoit la structure de l'arbre des partenaires à l'exécution. Le paramètre on-chain régissant cette commission est `businessTransferFee` (renommé depuis l'ancien `businessSalePrice` afin de refléter sa véritable sémantique de commission).
+</Note>
+
+## Minuteurs & Calendriers
+
+Les paramètres temporels contrôlent les fenêtres et délais critiques du système à travers l'écosystème.
+
+| Paramètre | Actuel | Plage |
+|---|---|---|
+| Durée de Vie du Solde Cumulatif | 120 jours | 90 – 180 jours |
+| Fenêtre de Réclamation NFTM | 72 heures | 24 – 96 heures |
+| NFT Cadeaux par Adresse | 100 | 1 – 400 |
+| Vente de Business | Désactivée | Désactivée – Activée |
+
+### Périodes d'Auto-Vente
+
+Le cycle d'auto-vente se déclenche progressivement à partir du solde de DA restant si l'utilisateur ne vend pas manuellement. La durée totale du cycle est la somme des quatre périodes.
+
+| Période | Actuelle | Plage |
+|---|---|---|
+| Période 1 | 120 jours | 60 – 120 jours |
+| Période 2 | 90 jours | 60 – 120 jours |
+| Période 3 | 90 jours | 60 – 120 jours |
+| Période 4 | 65 jours | 60 – 120 jours |
+| **Cycle Total** | **365 jours** | — |
+
+## Redistribution des Soldes Expirés
+
+Lorsqu'un Solde Cumulatif expire (après la période de durée de vie), les fonds sont redistribués selon les règles suivantes. La distribution diffère entre les détenteurs de NFT Régulier et de NFT Cadeau.
+
+<Tabs>
+  <Tab title="NFT Régulier">
+    | Destination | Actuel | Plage |
+    |---|---|---|
+    | Sponsor Amont | 30 % | 0 % – 30 % |
+    | Plateforme | 0 % | 0 % – 30 % |
+    | Pool de Liquidité du DA | 70 % | 50 % – 100 % |
+  </Tab>
+  <Tab title="NFT Cadeau">
+    | Destination | Actuel | Plage |
+    |---|---|---|
+    | Sponsor Amont | 20 % | 0 % – 30 % |
+    | Plateforme | 0 % | 0 % – 30 % |
+    | Pool de Liquidité du DA | 80 % | 50 % – 100 % |
+  </Tab>
+</Tabs>
+
+## Distribution dans l'Arbre Marketing
+
+Chaque niveau de la structure marketing à 22 niveaux dispose d'un pourcentage de récompense fixe qui détermine combien un utilisateur gagne sur les ventes de NFT à cette profondeur. Les pourcentages sont ajustables par le DAO à l'intérieur de plages définies. Les niveaux 16–22 sont débloqués en Phase 2.
+
+<AccordionGroup>
+  <Accordion title="Niveaux 1–6 · Couches d'Entrée" icon="layer-group">
+    | Niveau | Actuel | Plage |
+    |---|---|---|
+    | Niveau 1 | 0 % | 0 % |
+    | Niveau 2 | 1 % | 1 % – 2 % |
+    | Niveau 3 | 2 % | 2 % – 3 % |
+    | Niveau 4 | 2 % | 2 % – 3 % |
+    | Niveau 5 | 3 % | 3 % – 4 % |
+    | Niveau 6 | 3 % | 3 % – 4 % |
+  </Accordion>
+  <Accordion title="Niveaux 7–15 · Profondeur Principale de Gain" icon="chart-simple">
+    | Niveau | Actuel | Plage |
+    |---|---|---|
+    | Niveau 7 | 4 % | 4 % – 5 % |
+    | Niveau 8 | 4 % | 4 % – 5 % |
+    | Niveau 9 | 4 % | 4 % – 5 % |
+    | Niveau 10 | 4 % | 3 % – 5 % |
+    | Niveau 11 | 4 % | 3 % – 5 % |
+    | Niveau 12 | 4 % | 3 % – 5 % |
+    | Niveau 13 | 4 % | 3 % – 5 % |
+    | Niveau 14 | 4 % | 3 % – 5 % |
+    | Niveau 15 | 5 % | 3 % – 5 % |
+  </Accordion>
+  <Accordion title="Niveaux 16–22 · Expansion Phase 2" icon="rocket">
+    | Niveau | Actuel | Prévu (Phase 2) | Plage |
+    |---|---|---|---|
+    | Niveau 16 | 0 % | 2 % | 0 % – 2,5 % |
+    | Niveau 17 | 0 % | 2 % | 0 % – 2,5 % |
+    | Niveau 18 | 0 % | 1 % | 0 % – 2,5 % |
+    | Niveau 19 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Niveau 20 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Niveau 21 | 0 % | 0,5 % | 0 % – 2,5 % |
+    | Niveau 22 | 0 % | 0,5 % | 0 % – 2,5 % |
+
+    <Note>
+      **Actuel = 0 %** jusqu'à l'activation de la Phase 2 par vote DAO (prévu pour le **T4 2026**). **Prévu (Phase 2)** = les valeurs que le DAO devrait activer lors de la mise en service. Toutes les valeurs Prévues entrent dans la `Plage` on-chain, l'activation ne nécessite donc d'élargir aucune limite de paramètre.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Budget de distribution dans l'arbre vs plafonds par niveau.** Les pourcentages par niveau dans les tableaux ci-dessus représentent le **paiement maximum par niveau**. Le **budget total de distribution dans l'arbre par achat de NFT est d'environ 43 %** (calculé comme 100 % moins le Bonus de Sponsor, le Token Reserve / Pool DA, les Opérations Plateforme et le Solde Cumulatif). La différence arithmétique entre la somme théorique par niveau (~48 % en Phase 1, croissant à ~55 % si la Phase 2 s'active aux valeurs Prévues) et le budget réel d'environ 43 % est absorbée via le **mécanisme de compression** : lorsqu'un utilisateur amont ne se qualifie pas (Limite de Revenus épuisée ou niveau de NFT insuffisant pour cette profondeur), la portion non allouée n'est pas forcée plus haut dans l'arbre — elle est dirigée vers le résiduel plateforme / dev. En d'autres termes, les taux par niveau sont un plafond sur ce qu'une position pleinement éligible à chaque profondeur peut gagner sur un seul achat, et non une garantie que la somme complète sera versée à l'arbre à chaque achat.
+</Note>
+
+### Seuils du Bonus de Matching
+
+Le Bonus de Matching paie 5 % sur trois niveaux des revenus des partenaires directs. Chaque niveau requiert des ventes personnelles cumulées pour être débloqué. Le pourcentage de matching (5 %) est immuable.
+
+| Niveau | Ventes Requises | Plage |
+|---|---|---|
+| Niveau 1 (5 %) | 0 $ | Fixe |
+| Niveau 2 (5 %) | 1 000 $ | 1 000 $ – 5 000 $ |
+| Niveau 3 (5 %) | 3 000 $ | 3 000 $ – 7 000 $ |
+
+## Paramètres Immuables
+
+<CardGroup cols={1}>
+  <Card title="Codés en Dur dans le Smart Contract" icon="shield-check">
+    Les paramètres suivants sont définitivement fixés dans le code du smart contract. Ils ne peuvent être modifiés par le DAO, les développeurs ou toute autre partie.
+  </Card>
+</CardGroup>
+
+| Paramètre | Valeur |
+|---|---|
+| Paiement de Vente Manuelle | 75 % |
+| Paiement Auto-Vente / Lending | 70 % |
+| Bonus de Matching par Niveau | 5 % |
+| Fenêtre du Solde Gelé | 72 heures |
+| Durée de Vie du Voucher | 365 jours |
+| Verrouillage de Transfert du Voucher | Dernier 1 jour |
+| Période Butoir de Prêt | 30 jours |
+| Seuil d'Inactivité du DAO | 31 jours |
+| Période de Grâce du DAO | 7 jours |

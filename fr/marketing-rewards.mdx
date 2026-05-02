@@ -1,0 +1,91 @@
+---
+title: "Récompenses & Compensation"
+description: "Comment vous gagnez grâce à votre réseau."
+icon: "money-bill-trend-up"
+---
+
+import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+
+<CardGroup cols={2}>
+  <Card title="Phase 1 — Nouvelle Vente" icon="user-plus">
+    Le sponsor direct gagne 30 % du prix de vente du NFT. Achat répété (rebuy) : 20 %.
+  </Card>
+  <Card title="Phase 2 — Ajustée" icon="arrows-rotate">
+    La nouvelle vente s'ajuste à 20 %. Le rebuy reste à 20 %. Les niveaux 16–22 sont entièrement débloqués.
+  </Card>
+</CardGroup>
+
+<Note>
+  La transition de la Phase 1 à la Phase 2 (incluant l'ajustement du Bonus de Sponsor de 30 % à 20 % et le déblocage des niveaux 16–22 de l'arbre) est exécutée via la gouvernance DAO, et non automatiquement par date. Le vote DAO requiert le seuil standard de 30 % de proposition et 50 % de majorité d'approbation pour mettre en œuvre les changements de paramètres.
+</Note>
+
+Les récompenses marketing dans RWANFTFI se composent de trois flux indépendants qui se combinent pour former votre revenu total :
+
+1. **Bonus de Sponsor** — Commission directe pour avoir invité un partenaire (30 % en Phase 1 / 20 % en Phase 2 du prix de vente du NFT).
+2. **Distribution dans l'Arbre** — Récompenses par niveau issues de votre downline (niveaux 2–22, pourcentages variables selon la profondeur).
+3. **Bonus de Matching** — Secondaire 5 % + 5 % + 5 % issu des revenus de vos partenaires directs sur 3 niveaux.
+
+Chaque flux est calculé et payé indépendamment par le smart contract à chaque achat de NFT éligible.
+
+## Distribution dans l'Arbre
+
+Gagnez un pourcentage sur chaque vente de NFT dans votre downline, jusqu'à 22 niveaux de profondeur :
+
+<AccordionGroup>
+  <Accordion title="Niveaux 1–6 · Couches d'Entrée" icon="layer-group">
+    - Niveau 1 : 0 %
+    - Niveau 2 : 1 %
+    - Niveaux 3–4 : 2 % chacun
+    - Niveaux 5–6 : 3 % chacun
+  </Accordion>
+  <Accordion title="Niveaux 7–15 · Profondeur Principale de Gain" icon="chart-simple">
+    - Niveaux 7–14 : 4 % chacun (8 niveaux × 4 % = principal moteur de revenu)
+    - Niveau 15 : 5 % (le plus haut pourcentage par niveau)
+  </Accordion>
+  <Accordion title="Niveaux 16–22 · Expansion Phase 2" icon="unlock">
+    - Niveaux 16–17 : 2 % chacun
+    - Niveau 18 : 1 %
+    - Niveaux 19–22 : 0,5 % chacun
+
+    *Débloqués en Phase 2 via un vote de gouvernance DAO (prévu pour le T4 2026). Nécessite un NFT INFINITY pour la profondeur complète.*
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  **Pourquoi le Niveau 1 = 0 % ?** La Distribution dans l'Arbre et le Bonus de Sponsor sont deux flux de récompenses distincts. Vos invitations directes se trouvent au Niveau 1 de votre structure marketing, et vous gagnez déjà un Bonus de Sponsor (30 % en Phase 1, 20 % en Phase 2) sur leur achat de NFT. Le Niveau 1 de la Distribution dans l'Arbre est fixé à 0 % pour éviter une double rémunération. Les récompenses de Distribution dans l'Arbre commencent au Niveau 2 (1 %) — couvrant l'activité plus profondément dans votre structure, au-delà de vos invitations personnelles.
+</Info>
+
+<Note>
+  **Le spillover au Niveau 1 ne rapporte rien directement.** Lorsqu'un partenaire est placé à votre Niveau 1 via spillover (l'invitation de votre amont atterrit dans votre arbre), vous gagnez 0 % de Bonus de Sponsor (il revient à son inviteur réel) et 0 % de Distribution dans l'Arbre (Niveau 1 = 0 %). La valeur du spillover se concrétise à partir du Niveau 2 et plus profond — lorsque ces partenaires en spillover bâtissent leur propre équipe, leurs recrues génèrent des récompenses de distribution dans l'arbre pour vous.
+</Note>
+
+## Compression
+
+<Tip>
+  **La compression joue en votre faveur.** Si quelqu'un au-dessus de vous a une limite de revenus épuisée ou un niveau de NFT insuffisant, ses récompenses sont compressées vers le haut — potentiellement vers vous. Plus l'accès marketing de votre NFT est profond, plus vous pouvez capturer de récompenses compressées.
+</Tip>
+
+Lorsqu'un utilisateur de votre downline est sauté (Limite de Revenus = 0 ou niveau de NFT trop bas), la récompense remonte vers le prochain participant qualifié. Cela est marqué comme **Revenu Perdu** pour l'utilisateur sauté.
+
+
+## Bonus de Matching (5 % + 5 % + 5 %)
+
+Gagnez un pourcentage des **revenus de ventes de NFT** générés par vos partenaires directs sur 3 niveaux. Le Bonus de Matching est calculé uniquement à partir des paiements marketing que votre partenaire direct reçoit suite aux ventes de NFT au sein de sa structure — pas à partir d'autres flux de revenus (libérations du Solde Gelé, ventes manuelles de DA, etc.) :
+
+<Steps>
+  <Step title="Niveau 1 — 5 %">
+    Nécessite au minimum un NFT de Niveau 4 (ECLIPSE, 275 USDT).
+  </Step>
+  <Step title="Niveau 2 — 5 %">
+    Nécessite des ventes personnelles cumulées de 1 000 USDT.
+  </Step>
+  <Step title="Niveau 3 — 5 %">
+    Nécessite des ventes personnelles cumulées de 3 000 USDT.
+  </Step>
+</Steps>
+
+<Info>
+  **Que signifie « ventes personnelles cumulées » :** Il s'agit du total cumulé à vie de tous les achats de NFT effectués par vos invitations directes. Les achats répétés (rebuys, mises à niveau) par le même partenaire comptent dans le total, et les ventes à différents partenaires s'additionnent. Par exemple, si un partenaire achète trois NFT à 1 000 USDT chacun, votre total cumulé est de 3 000 USDT — débloquant le Bonus de Matching de Niveau 3. Une fois un seuil atteint, ce niveau de Bonus de Matching est **activé de manière permanente** et ne se réinitialise pas.
+</Info>
+
+<IncomeCalculator />

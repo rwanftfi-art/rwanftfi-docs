@@ -1,0 +1,102 @@
+---
+title: "Solde Gelé"
+description: "Protection des revenus marketing pour les invitations vers des niveaux supérieurs."
+icon: "snowflake"
+---
+
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
+Le Solde Gelé est le mécanisme qui protège vos revenus marketing dans une situation spécifique mais très courante : lorsque **votre invité personnel direct effectue son premier achat de NFT à un niveau supérieur au vôtre**, et que la commission qui en résulte dépasse la Limite de Revenus restante de votre NFT.
+
+Sans le Solde Gelé, cet excédent serait perdu par compression — transmis vers le haut de la structure. Le Solde Gelé le gèle pendant **72 heures** et vous laisse une fenêtre pour mettre à niveau votre NFT et réclamer la totalité du montant.
+
+<Info>
+  C'est le filet de sécurité marketing pour les invitations « vers le haut » : vous pouvez inviter en toute confiance des partenaires vers n'importe quel niveau de NFT sans craindre que la commission d'un gros achat soit perdue parce que votre propre Limite de Revenus est trop faible.
+</Info>
+
+## Quand le Solde Gelé se Déclenche
+
+Le Solde Gelé s'active **uniquement lorsque les trois conditions sont réunies** :
+
+<Steps>
+  <Step title="L'acheteur est votre invité personnel direct">
+    Pas un spillover, pas un partenaire de downline cinq niveaux plus bas — précisément une personne que vous avez personnellement invitée dans votre structure.
+  </Step>
+  <Step title="Il s'agit du premier achat de NFT de cet invité">
+    Les achats répétés du même invité (rachat, mise à niveau, nouveau NFT après Autobuy) ne sont **pas** couverts par le Solde Gelé — voir la section Revenu Perdu ci-dessous.
+  </Step>
+  <Step title="La commission dépasse votre Limite de Revenus restante">
+    Si votre Limite de Revenus restante est suffisante pour absorber la totalité de la commission, aucun gel ne se produit — tout est crédité normalement.
+  </Step>
+</Steps>
+
+## Comment le Montant est Réparti
+
+Lorsque le Solde Gelé se déclenche, le smart contract divise la commission en deux parties :
+
+- **Dans la limite de votre Limite de Revenus restante** — crédité immédiatement selon la répartition standard : **75 % Solde Régulier / 20 % Solde Cumulatif / 5 % Pool de Liquidité du DA**.
+- **Excédent au-delà de votre Limite de Revenus** — placé dans le Solde Gelé avec un **minuteur de 72 heures**.
+
+## Ce qui se Passe Pendant les 72 Heures
+
+Vous avez trois scénarios :
+
+<Tabs>
+  <Tab title="Vous mettez à niveau votre NFT">
+    Vous achetez un NFT de niveau supérieur (avec une Limite de Revenus plus large). Les fonds gelés sont automatiquement libérés et crédités selon la même répartition **75/20/5**. Le montant libéré est déduit de la Limite de Revenus du **nouveau** NFT.
+
+    **Exemple.** Limite de Revenus de votre NFT = 160 USDT. Votre invité achète un NFT à 2 200 USDT ; commission = 660 USDT. 160 USDT sont crédités immédiatement (75/20/5). 500 USDT vont dans le Solde Gelé. Vous montez à Eclipse (Limite de Revenus 650 USDT). Les 500 USDT sont libérés et crédités. Nouvelle Limite de Revenus restante : 650 − 500 = **150 USDT**.
+  </Tab>
+  <Tab title="Autobuy est activé">
+    Si Autobuy est actif, l'ordre change. Autobuy se déclenche **en premier**, rachetant le NFT du même niveau et rafraîchissant votre Limite de Revenus. La commission est ensuite réévaluée par rapport à la limite rafraîchie, la portion dans la limite est créditée, et **seul le reliquat** (s'il y en a un) va dans le Solde Gelé avec le minuteur de 72 heures.
+
+    Cela signifie : si votre propre NFT et la Limite de Revenus rafraîchie sont suffisants après Autobuy, le Solde Gelé peut ne pas s'activer du tout.
+  </Tab>
+  <Tab title="Vous manquez le délai">
+    Si vous ne mettez pas à niveau dans les 72 heures et qu'Autobuy n'a pas couvert l'excédent, les fonds gelés sont **définitivement perdus** et redistribués :
+
+    - **70 %** sont dirigés vers le Pool de Liquidité du DA pour le minage de nouveaux DA.
+    - **30 %** sont transférés à votre sponsor direct.
+
+    La règle de cascade est identique à celle de la cascade de péremption du Solde Cumulatif : si la Limite de Revenus du sponsor amont est nulle, les 30 % remontent dans la chaîne jusqu'au premier participant ayant une Limite de Revenus active. Si aucun amont n'a de limite active, l'intégralité des 100 % est dirigée vers le Pool de Liquidité du DA.
+  </Tab>
+</Tabs>
+
+## Achats Répétés du Même Invité
+
+Ce détail est facile à manquer : le Solde Gelé s'applique **uniquement au premier achat** de chaque invité personnel. Si votre invité effectue ensuite un second achat (rachat, mise à niveau, nouveau NFT), et que votre Limite de Revenus ne peut pas l'absorber à nouveau, l'excédent **ne** va **pas** dans le Solde Gelé. Il est qualifié de **Revenu Perdu** et distribué selon la règle standard de compression : remonté dans la structure jusqu'au prochain participant disposant d'une Limite de Revenus active.
+
+<Warning>
+  Si vous avez une longue série d'achats répétés de la part d'invités importants et que **votre Limite de Revenus est épuisée**, chacun de ces achats répétés vous contourne par compression. Maintenez votre Limite de Revenus active — via Autobuy ou un renouvellement manuel — afin de ne pas perdre de revenus issus de partenaires établis.
+</Warning>
+
+## Scénario à Volume Élevé — Cascade à Travers la Structure
+
+Le Solde Gelé protège **uniquement** la commission d'un achat de premier achat d'un invité direct. Mais dans une grande structure, l'essentiel de vos revenus ne provient pas des ventes personnelles — il vient de la profondeur, via la distribution dans l'arbre (4 % au niveau 9 × 500+ positions peut générer des dizaines de milliers d'USDT en un seul cycle d'accumulation).
+
+Lorsque ce volume arrive et que votre Limite de Revenus est de 1 100 USDT avec Autobuy capable de la rafraîchir trois fois au maximum (3/3 sur les niveaux L1–L8), le système :
+
+1. Vous crédite 1 100 USDT selon la répartition standard.
+2. Déclenche Autobuy, rafraîchit la Limite, crédite 1 100 USDT supplémentaires.
+3. Répète jusqu'à 3 fois.
+4. **Tout volume restant est compressé** — remonté vers le prochain participant disposant d'une Limite de Revenus active.
+
+Le Solde Gelé **ne** s'active **pas** dans ce scénario car la source n'est pas un premier achat d'un invité, mais une distribution dans l'arbre depuis la profondeur.
+
+<Info>
+  À retenir pour la mise à l'échelle : à grande échelle de réseau, le levier clé est **le niveau de votre propre NFT**. Les niveaux supérieurs ont des Limites de Revenus plus larges et réduisent la part perdue par compression. Les niveaux Elite (L9–L10), avec Autobuy illimité, traitent ce problème de manière systémique.
+</Info>
+
+<FrozenBalanceSimulator lang="en" />
+
+## Paramètres du Solde Gelé (On-Chain)
+
+| Paramètre | Valeur | Mutabilité |
+|---|---|---|
+| Fenêtre de gel | 72 heures | Immuable |
+| Part du Pool de Liquidité du DA en cas de perte | 70 % | Ajustable par le DAO (50–100 %) |
+| Part du sponsor amont en cas de perte | 30 % | Ajustable par le DAO (0–30 %) |
+| Déclencheur | Premier achat par un invité personnel direct | Immuable |
+| Distribution à la libération | 75/20/5 | Répartition standard — voir Architecture |
+
+Voir aussi : [Limite de Revenus sur la page Écosystème NFT](/fr/nft-ecosystem), [Priorité des Paiements dans Architecture](/fr/architecture).

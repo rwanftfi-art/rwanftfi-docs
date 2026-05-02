@@ -1,0 +1,200 @@
+---
+title: "Mécanique du Jeton DA"
+description: "Le modèle de prix uniquement haussier."
+icon: "coins"
+---
+import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
+
+
+<CardGroup cols={2}>
+  <Card title="Plafond Strict de 21M" icon="cube">
+    Offre maximale fixée à jamais. Aucune inflation, aucun nouveau minage.
+  </Card>
+  <Card title="Adossé à 100 % en USDT" icon="shield-check">
+    Chaque jeton DA est adossé à de l'USDT réel dans le pool de liquidité.
+  </Card>
+  <Card title="Brûlage à Chaque Vente" icon="fire">
+    100 % des jetons vendus sont définitivement brûlés. L'utilisateur reçoit 75 % (manuel) ou 70 % (auto) de la valeur en USDT. Les 25 % restants (manuel) ou 30 % (auto) constituent une commission protocolaire qui demeure dans le pool en tant qu'adossement — c'est ce qui propulse le prix du DA à la hausse.
+  </Card>
+  <Card title="Aucun Transfert P2P" icon="ban">
+    Le DA peut uniquement être vendu, prêté ou remboursé — aucun transfert peer-to-peer.
+  </Card>
+</CardGroup>
+
+## La Formule de Prix « Uniquement à la Hausse »
+
+Prix = Liquidité ÷ Offre en Circulation
+
+À chaque vente de DA, des jetons sont brûlés (l'offre diminue) tandis que l'USDT reste dans le pool (la liquidité reste stable ou augmente). Moins de jetons ÷ même quantité ou plus d'USDT = prix par jeton plus élevé.
+
+<Info>
+  **Comment ça marche :** 200 DA en circulation, 200 USDT dans le pool de liquidité. Prix = 1,00 USDT par DA. Un utilisateur vend 100 DA. Le pool verse 70 USDT (70 % de 100 USDT de valeur). Les 100 DA sont entièrement brûlés. Résultat : il reste 100 DA, 130 USDT dans le pool. Nouveau prix = 130 ÷ 100 = **1,30 USDT par DA**.
+</Info>
+
+<Tip>
+  La commission de 5 % sur toutes les récompenses marketing alimente directement le pool de liquidité du DA — séparément des pourcentages de vente. Une liquidité supplémentaire provient des frais de prêt, des revenus RWA et des recettes FinPro.
+</Tip>
+
+<Info>
+  **Protection de l'Offre Initiale (Seed Supply) :** Une petite réserve permanente de DA — la **Seed Supply** — est pré-déposée dans le protocole au lancement comme garde-fou technique pour la formule de prix.
+
+  - **Permanente et non vendable.** La Seed Supply est verrouillée au niveau du protocole : elle **ne peut pas être brûlée**, **ne peut pas être vendue** (manuellement ou via auto-vente), et est **exclue des cycles d'auto-vente**.
+  - **Hors circulation.** Elle **n'est pas comptabilisée comme offre en circulation** et ne participe jamais aux soldes utilisateur, au farming, au lending ou aux distributions marketing.
+  - **Garantit un dénominateur non nul.** Étant donné que `Prix = Liquidité ÷ Offre en Circulation`, la formule ne doit jamais diviser par zéro. La Seed Supply garantit que `totalSupply > 0` à tout moment, de sorte que la fonction de prix soit toujours définie — même dans le cas extrême où chaque autre jeton en circulation a été brûlé.
+  - **Protection uniquement pour cas limite.** En fonctionnement normal, la Seed Supply n'a aucun effet sur la découverte des prix. Elle existe uniquement comme un plancher déterministe qui maintient `getPrice()` bien défini lorsque la liquidité est présente mais que l'offre en circulation atteindrait sinon zéro.
+</Info>
+
+## Sources du Pool de Liquidité
+
+Le Pool de Liquidité est le fondement de l'économie du DA. Il est alimenté par de multiples sources à travers l'écosystème RWANFTFI, garantissant la croissance continue de l'adossement du jeton. Chaque source de revenus du protocole afflue dans un pool unique, renforçant la formule Prix = Liquidité ÷ Offre.
+
+<AccordionGroup>
+  <Accordion title="Activité NFT">
+    **Achats de NFT** — 20 % de chaque achat de NFT est automatiquement dirigé vers le Pool de Liquidité pour le minage de nouveau DA.
+
+    **Rebuy & Autobuy** — un 20 % supplémentaire de chaque rachat ou achat automatique de NFT afflue dans le Pool de Liquidité. Cela incite au renouvellement des positions et soutient la croissance du système.
+  </Accordion>
+
+  <Accordion title="Frais & Commissions">
+    **Taxe sur les Récompenses Marketing** — 5 % de toutes les récompenses marketing à travers le réseau de parrainage sont automatiquement dirigés vers le Pool de Liquidité. L'activité du réseau renforce directement l'adossement du DA.
+
+    **Frais de Transfert du Solde Cumulatif** — lors du transfert du Solde Cumulatif vers un autre utilisateur, 20 % du montant transféré sont dirigés vers le Pool de Liquidité du DA. Tout mouvement du Solde Cumulatif — qu'il soit utilisé dans un achat de NFT ou transféré entre wallets — génère un afflux de 20 % vers le Pool.
+
+    **Frais d'Utilisation du Solde Cumulatif** — lors de l'achat d'un NFT en utilisant le Solde Cumulatif, 20 % du montant intégré sont dirigés vers le Pool de Liquidité du DA pour le minage de nouveau DA. Exemple : 898 USDT sur le Solde Cumulatif — lorsqu'ils sont intégrés dans un achat de NFT, 718 USDT vont vers le coût du NFT, et 180 USDT (20 % de 898) affluent dans le Pool de Liquidité du DA. Chaque achat de ce type réapprovisionne le Pool et crée la base pour de nouveaux DA.
+
+    **Commission de Lending** — lors d'un emprunt, l'emprunteur paie une commission ponctuelle de 5 % dirigée vers le Pool de Liquidité. Exemple : prêt de 1 000 $, l'emprunteur reçoit 950 $, 50 $ vont au Pool. La commission est perçue à chaque nouveau prêt.
+  </Accordion>
+
+  <Accordion title="Fonds Expirés & Inutilisés">
+    **Auto-Vente avec Limite de Revenus à Zéro** — si l'auto-vente de DA se déclenche et que l'utilisateur a une Limite de Revenus nulle sur son NFT, 100 % du produit vont soit vers le Pool de Liquidité soit vers le brûlage de DA (le mécanisme exact est déterminé par les paramètres du DAO).
+
+    **Vouchers Expirés** — si des Vouchers restent inutilisés pendant 365 jours, 100 % des fonds sont dirigés vers le Pool de Liquidité. Cela évite l'accumulation de fonds inactifs et élimine les passifs dormants.
+
+    **Solde Cumulatif Inutilisé** — si le Solde Cumulatif reste inutilisé pendant 120 jours, 70 % des fonds sont dirigés vers le Pool de Liquidité pour le minage de nouveau DA.
+  </Accordion>
+
+  <Accordion title="Revenus Externes">
+    **Commissions SWAP** — les commissions de toutes les opérations d'échange (SWAP) sont automatiquement dirigées vers le Pool de Liquidité.
+
+    **Commissions sur Carte de Débit** — les commissions du programme de Carte de Débit affluent dans le Pool de Liquidité, créant un véritable flux de trésorerie en provenance de l'économie externe.
+
+    **Revenus RWA** — une part des revenus issus de l'immobilier, des loyers, des actifs commerciaux et autres actifs du monde réel est dirigée vers le Pool de Liquidité, ancrant le système à l'économie réelle.
+
+    **Recettes FinPro** — une part des bénéfices issus des produits financiers (Lending, produits d'investissement, services financiers) afflue dans le Pool de Liquidité.
+
+    **Recettes de l'Écosystème** — une part du chiffre d'affaires total du protocole peut être dirigée vers le Pool de Liquidité ou utilisée pour créer une liquidité supplémentaire pour le minage de nouveau DA.
+  </Accordion>
+</AccordionGroup>
+
+## Mécanique de Brûlage du DA
+
+Le brûlage du DA est le mécanisme déflationniste central — il réduit l'offre de jetons et crée une pression haussière soutenue sur la valeur de l'actif.
+
+<CardGroup cols={3}>
+  <Card title="Vente Manuelle" icon="fire">
+    100 % du DA vendu est définitivement brûlé. L'utilisateur reçoit 75 % de la valeur en USDT. Les 25 % restants constituent une commission protocolaire qui reste dans le pool en tant qu'adossement, propulsant la croissance du prix.
+  </Card>
+  <Card title="Auto-Vente" icon="clock">
+    100 % du DA auto-vendu est définitivement brûlé. L'utilisateur reçoit 70 % de la valeur en USDT. Les 30 % restants constituent une commission protocolaire qui reste dans le pool en tant qu'adossement, propulsant la croissance du prix. Se déclenche progressivement à partir du solde restant sur 4 périodes (365 jours / 1 an au total).
+  </Card>
+  <Card title="Défaut de Lending" icon="ban">
+    Si un prêt n'est pas remboursé, le DA mis en collatéral est progressivement brûlé via le cycle d'auto-vente. Protège la liquidité du système et fait respecter la discipline financière.
+  </Card>
+</CardGroup>
+
+## Accès Instantané & Cycle d'Auto-Vente
+
+### Accès Instantané
+
+Les jetons DA sont disponibles à 100 % pour l'utilisateur dès leur farming. Aucune période de blocage. L'utilisateur peut immédiatement :
+
+- **Vendre manuellement** — recevoir 75 % de la valeur en USDT, 100 % des jetons sont brûlés
+- **Contracter un prêt** — 70 % LTV adossé à des DA en collatéral, 5 % de frais de commission
+- **Détenir et attendre** — conserver les jetons et profiter de la croissance du prix dans le temps
+
+### Cycle d'Auto-Vente
+
+Si l'utilisateur ne vend pas manuellement, le système déclenche des ventes automatiques à partir du **solde restant** sur 4 périodes s'étalant sur **365 jours (1 an)** au total. Les durées de période sont exprimées en jours on-chain (120 / 90 / 90 / 65 jours) ; les références en mois ci-dessous sont des approximations pour faciliter la lecture.
+
+**Exemple en partant de 100 DA :**
+
+<Steps>
+  <Step title="Période 1 — Après 120 jours (~4 mois)">
+    25 % du solde courant est auto-vendu. 25 % de 100 = **25 DA vendus** → Reste : **75 DA**
+  </Step>
+  <Step title="Période 2 — Après 90 jours supplémentaires (~3 mois, jour 210)">
+    40 % du solde restant est auto-vendu. 40 % de 75 = **30 DA vendus** → Reste : **45 DA**
+  </Step>
+  <Step title="Période 3 — Après 90 jours supplémentaires (~3 mois, jour 300)">
+    50 % du solde restant est auto-vendu. 50 % de 45 = **22,5 DA vendus** → Reste : **22,5 DA**
+  </Step>
+  <Step title="Période 4 — Après 65 jours supplémentaires (~2 mois, jour 365)">
+    100 % du solde restant est auto-vendu. 100 % de 22,5 = **22,5 DA vendus** → Reste : **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Les pourcentages d'auto-vente (25 % / 40 % / 50 % / 100 %) indiqués ci-dessus représentent la configuration actuelle du protocole. Les valeurs spécifiques sont stockées en tant que paramètres du protocole et soumises aux procédures standard de gouvernance. Vérifiez toujours le smart contract ou la documentation actuelle du protocole pour les dernières valeurs.
+</Note>
+
+Chaque auto-vente s'exécute au prix du DA au moment du déclenchement de cette période — non pas au prix initial du farming. 100 % des jetons auto-vendus sont brûlés, et l'utilisateur reçoit 70 % de la valeur en USDT au prix du jour de l'auto-vente. Comme le prix croît avec le temps, les périodes ultérieures brûlent les jetons à un prix plus élevé, accélérant la déflation.
+
+L'utilisateur peut vendre manuellement à tout moment avant le déclenchement de l'auto-vente, en recevant 75 % au lieu de 70 %.
+
+<Tip>
+  La vente manuelle (paiement de 75 %) est toujours plus rentable par jeton que l'auto-vente (paiement de 70 %). Cependant, l'auto-vente bénéficie de la croissance du prix dans le temps — les périodes ultérieures s'exécutent à un prix de DA plus élevé.
+</Tip>
+
+<Warning>
+  **Auto-Vente avec Limite de Revenus à Zéro :** Si l'auto-vente se déclenche et que l'utilisateur a une Limite de Revenus nulle (NFT non renouvelé), 100 % du produit vont vers le Pool de Liquidité ou vers le brûlage de DA (déterminé par le DAO). L'utilisateur ne reçoit rien. Maintenez toujours une Limite de Revenus active.
+</Warning>
+
+## Lending Multi-Lots
+
+Chaque lot de DA issu de chaque cycle de minage sert de collatéral indépendant. Cela permet un cycle continu de micro-prêts :
+
+<Steps>
+  <Step title="Miner le Lot 1">
+    L'utilisateur termine un cycle de minage et reçoit le lot 1 de DA.
+  </Step>
+  <Step title="Emprunter contre le Lot 1">
+    L'utilisateur contracte un prêt à 70 % LTV adossé au lot 1 (5 % de commission au Pool de Liquidité).
+  </Step>
+  <Step title="Miner le Lot 2">
+    L'utilisateur démarre un nouveau cycle de minage et reçoit le lot 2 de DA.
+  </Step>
+  <Step title="Emprunter contre le Lot 2">
+    L'utilisateur contracte un autre prêt à 70 % LTV adossé au lot 2 (5 % de commission distincte).
+  </Step>
+</Steps>
+
+Cela permet plusieurs micro-prêts simultanés, un par lot de DA. Chaque prêt a sa propre période butoir de 30 jours. Si un prêt particulier fait défaut, seul le collatéral de ce lot est brûlé — pas l'ensemble des avoirs en DA.
+
+Pour une comparaison détaillée vente vs prêt, voir [Vente & Prêt](/fr/da-selling-lending).
+
+## Cycle Déflationniste
+
+Deux fois par an, le système déclenche un Cycle Déflationniste spécial d'une durée maximale de 30 jours, conçu pour intensifier la rareté du jeton.
+
+<Steps>
+  <Step title="Mise en pause des nouveaux cycles">
+    Le démarrage de nouveaux cycles de minage NFTM, de staking et de génération de DA est suspendu pendant la durée du Cycle Déflationniste. **Les cycles actifs lancés avant le Cycle Déflationniste continuent et s'achèvent selon leur calendrier** — les utilisateurs dont le minage est déjà en cours ne perdent pas leur progression.
+  </Step>
+  <Step title="Activation des mécanismes de vente">
+    Les mécanismes de vente automatique ou volontaire de DA sont activés.
+  </Step>
+  <Step title="Brûlage quotidien">
+    Une portion de jetons est brûlée chaque jour.
+  </Step>
+  <Step title="Réduction de l'offre">
+    L'offre sur le marché diminue, renforçant la pression haussière sur le prix.
+  </Step>
+</Steps>
+
+<Info>
+  Le Cycle Déflationniste rend l'économie du DA prévisible, gérable et durable sur le long terme.
+</Info>
+
+Activité accrue → liquidité accrue → émission accrue de DA → brûlage accru → rareté accrue → valeur de l'actif accrue. Ce système en boucle fermée signifie que plus l'écosystème se développe activement, plus l'économie du DA se renforce.
+
+<DaPriceSimulator />
