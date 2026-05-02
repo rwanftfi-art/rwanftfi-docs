@@ -411,6 +411,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "hi",
+        "groups": [
+          {
+            "group": "यहाँ से शुरू करें",
+            "pages": [
+              "hi/executive-summary",
+              "hi/vision"
+            ]
+          },
+          {
+            "group": "NFT इकोसिस्टम",
+            "pages": [
+              "hi/nft-ecosystem",
+              "hi/frozen-balance"
+            ]
+          },
+          {
+            "group": "Deflationary Asset (DA)",
+            "pages": [
+              "hi/da-token-mechanics",
+              "hi/da-mining-farming",
+              "hi/da-selling-lending"
+            ]
+          },
+          {
+            "group": "कमाई और मार्केटिंग",
+            "pages": [
+              "hi/marketing-binary-tree",
+              "hi/marketing-rewards"
+            ]
+          },
+          {
+            "group": "आर्किटेक्चर",
+            "pages": [
+              "hi/architecture",
+              "hi/contract-parameters",
+              "hi/security"
+            ]
+          },
+          {
+            "group": "गवर्नेंस",
+            "pages": [
+              "hi/governance"
+            ]
+          },
+          {
+            "group": "रोडमैप",
+            "pages": [
+              "hi/roadmap"
+            ]
+          },
+          {
+            "group": "संसाधन",
+            "pages": [
+              "hi/corporate-structure",
+              "hi/support",
+              "hi/partnerships",
+              "hi/legal"
+            ]
+          }
+        ]
       }
     ]
   },

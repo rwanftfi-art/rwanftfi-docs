@@ -1,0 +1,75 @@
+---
+title: "सुरक्षा और ऑडिट"
+description: "स्वतंत्र रूप से CertiK द्वारा ऑडिटेड।"
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="CertiK द्वारा ऑडिटेड" icon="shield-check">
+    RWANFTFI स्मार्ट कॉन्ट्रैक्ट्स को **CertiK** द्वारा स्वतंत्र रूप से ऑडिट किया गया है। अंतिम रिपोर्ट **28 अप्रैल, 2026** को प्रकाशित — पूरा PDF नीचे, और सार्वजनिक [CertiK Skynet डायरेक्टरी](https://skynet.certik.com/projects/rwanftfi) पर।
+  </Card>
+</CardGroup>
+
+CertiK Web3 में सबसे लंबे समय से स्थापित सुरक्षा फ़र्मों में से एक है और इस क्षेत्र में प्रमुख प्रोटोकॉल के एक महत्वपूर्ण हिस्से का ऑडिट करता है। ऑडिट उनकी मानक पद्धति का उपयोग करके आयोजित किया गया था — Static Analysis, Manual Review, और Formal Verification — और पूरी रिपोर्ट सार्वजनिक रूप से प्रकाशित है, इस पेज पर और CertiK की अपनी Skynet डायरेक्टरी पर दोनों जगह।
+
+## रिपोर्ट पढ़ें
+
+ऑडिट के साथ बातचीत करने के लिए आपके पास तीन स्वतंत्र तरीके हैं। उद्देश्य एक ही चीज़ को तीन बार देना नहीं है — यह सुनिश्चित करना है कि इस पेज पर मौजूद संस्करण CertiK द्वारा प्रकाशित संस्करण से मेल खाता है, और रिपोर्ट डिवाइस की परवाह किए बिना सुलभ है।
+
+<CardGroup cols={3}>
+  <Card title="इनलाइन प्रीव्यू" icon="eye">
+    इस पेज पर सीधे पूरा PDF पढ़ें। डेस्कटॉप ब्राउज़र में सबसे अच्छा।
+  </Card>
+  <Card title="PDF डाउनलोड करें" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    मूल रिपोर्ट को अपने डिवाइस पर सहेजें। मोबाइल पर अनुशंसित।
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    CertiK की अपनी सार्वजनिक डायरेक्टरी पर रिपोर्ट सत्यापित करें।
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Audit Report — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>इस ब्राउज़र में इनलाइन PDF प्रीव्यू समर्थित नहीं है।</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      ऑडिट रिपोर्ट खोलें (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Safari और अधिकांश मोबाइल ब्राउज़रों पर** इनलाइन प्रीव्यू रेंडर नहीं हो सकता — वे ब्राउज़र PDF को सीधे एम्बेड नहीं करते। अपने डिवाइस पर रिपोर्ट खोलने के लिए **PDF डाउनलोड करें** बटन (या प्रीव्यू एरिया के अंदर लिंक) का उपयोग करें।
+</Info>
+
+## अकाउंट सुरक्षा
+
+ऑडिट ऑन-चेन स्मार्ट कॉन्ट्रैक्ट परत को कवर करता है। एप्लिकेशन परत पर, उपयोगकर्ता अकाउंट कई स्वतंत्र तंत्रों द्वारा अतिरिक्त रूप से सुरक्षित हैं:
+
+<CardGroup cols={2}>
+  <Card title="त्रि-स्तरीय सुरक्षा" icon="layer-group">
+    लॉगिन, वित्तीय क्रियाओं, और उच्च-मूल्य संचालन को अलग करने वाली स्तरीय सुरक्षा।
+  </Card>
+  <Card title="TAN कोड" icon="key">
+    प्रत्येक वित्तीय लेनदेन के लिए आवश्यक एकल-उपयोग Transaction Authentication Numbers।
+  </Card>
+  <Card title="वित्तीय पासवर्ड" icon="fingerprint">
+    आपके लॉगिन क्रेडेंशियल से अलग पासवर्ड, केवल फंड स्थानांतरित करने के लिए आवश्यक।
+  </Card>
+  <Card title="2FA + Telegram बॉट" icon="telegram">
+    मानक टू-फ़ैक्टर ऑथेंटिकेशन, साथ ही आधिकारिक Telegram बॉट के माध्यम से क्रिया सत्यापन।
+  </Card>
+</CardGroup>
+
+<Info>
+  **लेनदेन के लिए Web3 वॉलेट आवश्यक है।** आप अपना डेटा देखने के लिए ईमेल और पासवर्ड के साथ डैशबोर्ड में साइन इन कर सकते हैं, लेकिन कोई भी वित्तीय क्रिया निष्पादित करने के लिए एक कनेक्टेड Web3 वॉलेट (MetaMask, Trust Wallet, या अन्य EVM-संगत वॉलेट) की आवश्यकता होती है।
+</Info>
+
+<Warning>
+  **इम्पर्सोनेटर्स से सावधान रहें।** RWANFTFI स्टाफ़ कभी पहले संपर्क नहीं करेगा, कभी आपकी निजी कुंजियाँ या सीड फ्रेज़ नहीं माँगेगा, और कभी आधिकारिक प्लेटफ़ॉर्म के बाहर भुगतान का अनुरोध नहीं करेगा। अपना वॉलेट कनेक्ट करने या क्रेडेंशियल दर्ज करने से पहले हमेशा सत्यापित करें कि आप **rwanftfi.com** पर हैं।
+</Warning>
