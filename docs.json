@@ -726,6 +726,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "id",
+        "groups": [
+          {
+            "group": "Mulai di Sini",
+            "pages": [
+              "id/executive-summary",
+              "id/vision"
+            ]
+          },
+          {
+            "group": "Ekosistem NFT",
+            "pages": [
+              "id/nft-ecosystem",
+              "id/frozen-balance"
+            ]
+          },
+          {
+            "group": "Aset Deflasi (DA)",
+            "pages": [
+              "id/da-token-mechanics",
+              "id/da-mining-farming",
+              "id/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Penghasilan & Marketing",
+            "pages": [
+              "id/marketing-binary-tree",
+              "id/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Arsitektur",
+            "pages": [
+              "id/architecture",
+              "id/contract-parameters",
+              "id/security"
+            ]
+          },
+          {
+            "group": "Tata Kelola",
+            "pages": [
+              "id/governance"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "id/roadmap"
+            ]
+          },
+          {
+            "group": "Sumber Daya",
+            "pages": [
+              "id/corporate-structure",
+              "id/support",
+              "id/partnerships",
+              "id/legal"
+            ]
+          }
+        ]
       }
     ]
   },

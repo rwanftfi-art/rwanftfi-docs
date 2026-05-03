@@ -1,0 +1,75 @@
+---
+title: "Keamanan & Audit"
+description: "Diaudit secara independen oleh CertiK."
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="Diaudit oleh CertiK" icon="shield-check">
+    Smart contract RWANFTFI telah diaudit secara independen oleh **CertiK**. Laporan akhir diterbitkan **28 April 2026** — PDF lengkap di bawah, dan di [direktori publik CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  </Card>
+</CardGroup>
+
+CertiK adalah salah satu firma keamanan terlama dan paling mapan di Web3 dan mengaudit sebagian besar protokol utama di ruang ini. Audit dilakukan menggunakan metodologi standar mereka — Static Analysis, Manual Review, dan Formal Verification — dan laporan lengkap diterbitkan secara publik, baik di halaman ini maupun di direktori Skynet milik CertiK sendiri.
+
+## Baca Laporannya
+
+Anda memiliki tiga cara independen untuk berinteraksi dengan audit. Tujuannya bukan untuk memberikan hal yang sama tiga kali — melainkan agar tidak ada keraguan bahwa versi pada halaman ini sesuai dengan versi yang diterbitkan CertiK sendiri, dan agar laporan dapat diakses terlepas dari perangkatnya.
+
+<CardGroup cols={3}>
+  <Card title="Pratinjau Inline" icon="eye">
+    Baca PDF lengkap langsung di halaman ini. Terbaik di browser desktop.
+  </Card>
+  <Card title="Unduh PDF" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    Simpan laporan asli ke perangkat Anda. Direkomendasikan di seluler.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    Verifikasi laporan di direktori publik CertiK sendiri.
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Audit Report — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Pratinjau PDF inline tidak didukung di browser ini.</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Buka laporan audit (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Pada Safari dan sebagian besar browser seluler**, pratinjau inline mungkin tidak dirender — browser tersebut tidak menanamkan PDF secara langsung. Gunakan tombol **Unduh PDF** (atau tautan di dalam area pratinjau) untuk membuka laporan di perangkat Anda.
+</Info>
+
+## Perlindungan Akun
+
+Audit mencakup lapisan smart contract on-chain. Pada lapisan aplikasi, akun pengguna juga dilindungi oleh beberapa mekanisme independen:
+
+<CardGroup cols={2}>
+  <Card title="Keamanan Tiga Tingkat" icon="layer-group">
+    Perlindungan berjenjang yang memisahkan login, tindakan finansial, dan operasi bernilai tinggi.
+  </Card>
+  <Card title="Kode TAN" icon="key">
+    Nomor Otentikasi Transaksi (Transaction Authentication Numbers) sekali pakai yang diperlukan untuk setiap transaksi finansial.
+  </Card>
+  <Card title="Kata Sandi Finansial" icon="fingerprint">
+    Kata sandi yang terpisah dari kredensial login Anda, hanya diperlukan untuk memindahkan dana.
+  </Card>
+  <Card title="2FA + Bot Telegram" icon="telegram">
+    Otentikasi dua faktor standar, ditambah verifikasi tindakan melalui bot Telegram resmi.
+  </Card>
+</CardGroup>
+
+<Info>
+  **Transaksi memerlukan dompet Web3.** Anda dapat masuk ke dasbor dengan email dan kata sandi untuk melihat data Anda, tetapi mengeksekusi setiap tindakan finansial memerlukan dompet Web3 yang terhubung (MetaMask, Trust Wallet, atau dompet kompatibel EVM lainnya).
+</Info>
+
+<Warning>
+  **Waspadai penipu yang menyamar.** Staf RWANFTFI tidak akan pernah menghubungi Anda terlebih dahulu, tidak akan pernah meminta kunci pribadi atau seed phrase Anda, dan tidak akan pernah meminta pembayaran di luar platform resmi. Selalu verifikasi bahwa Anda berada di **rwanftfi.com** sebelum menghubungkan dompet atau memasukkan kredensial.
+</Warning>

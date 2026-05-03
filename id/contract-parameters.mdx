@@ -1,0 +1,188 @@
+---
+title: "Parameter Kontrak"
+description: "Parameter on-chain, rentang yang dapat disesuaikan DAO, dan jaminan yang tidak dapat diubah."
+icon: "sliders"
+---
+
+> ***"Kepercayaan bukanlah sebuah janji — melainkan sebuah parameter, yang dikodekan langsung dalam smart contract yang telah diaudit."***
+>
+> **— RWANFTFI**
+
+Setiap parameter dalam ekosistem RWANFTFI didefinisikan dan ditegakkan oleh smart contract. Setiap parameter dapat diverifikasi secara publik on-chain. Sebagian parameter dapat disesuaikan oleh tata kelola DAO dalam rentang keamanan yang telah ditentukan. Parameter lainnya dikodekan secara permanen dan tidak dapat dimodifikasi oleh siapa pun — termasuk pengembang.
+
+<CardGroup cols={3}>
+  <Card title="Dapat Disesuaikan DAO" icon="sliders">
+    Parameter yang dapat dimodifikasi tata kelola DAO dalam rentang keamanan yang telah ditentukan.
+  </Card>
+  <Card title="Tidak Dapat Diubah" icon="shield-halved">
+    Parameter yang dikodekan langsung dan tidak akan pernah dapat diubah oleh siapa pun — termasuk pengembang.
+  </Card>
+  <Card title="Terverifikasi On-Chain" icon="link">
+    Semua nilai disimpan dalam smart contract yang telah diaudit, dapat diverifikasi secara publik di BscScan.
+  </Card>
+</CardGroup>
+
+## Distribusi Pembelian NFT
+
+Ketika pengguna membeli NFT, pembayaran secara otomatis dibagi ke beberapa tujuan oleh smart contract. Distribusinya berbeda antara pembelian pertama kali dan pembelian berulang (rebuy).
+
+<Tabs>
+  <Tab title="Pembelian Pertama">
+    | Parameter | Saat Ini | Rentang |
+    |---|---|---|
+    | Sponsor Bonus | 30% | 10% – 35% |
+    | Token Reserve (DA Pool) | 0% | 0% – 30% |
+    | Operasi Platform | 7% | 2% – 10% |
+    | Saldo Akumulatif | 20% | 15% – 30% |
+  </Tab>
+  <Tab title="Pembelian Berulang (Rebuy)">
+    | Parameter | Saat Ini | Rentang |
+    |---|---|---|
+    | Sponsor Bonus | 20% | 10% – 35% |
+    | Token Reserve (DA Pool) | 10% | 10% – 30% |
+    | Operasi Platform | 7% | 2% – 10% |
+    | Saldo Akumulatif | 20% | 15% – 30% |
+  </Tab>
+</Tabs>
+
+## Biaya & Komisi
+
+Semua biaya ditegakkan oleh smart contract dan dapat disesuaikan dalam rentang yang ditentukan melalui tata kelola DAO.
+
+| Parameter | Saat Ini | Rentang |
+|---|---|---|
+| Pajak Imbalan Marketing | 5% | 5% – 15% |
+| Biaya Transfer Akumulatif | 20% | 10% – 30% |
+| Biaya Penggunaan Akumulatif (Pembelian NFT) | 20% | 10% – 30% |
+| Biaya Pinjaman | 5% | 0% – 5% |
+| Biaya Penarikan | 0% | 0% – 5% |
+| Harga Pengiriman Hadiah | $0 | $0 – $25 |
+| Biaya Penjualan Bisnis | $500 | $0 – $500 |
+| Frozen Balance → Sponsor | 30% | 0% – 30% |
+
+<Note>
+  **Biaya Penjualan Bisnis — semantik:** Baris "Biaya Penjualan Bisnis" adalah **komisi transfer yang dibayar oleh penjual** untuk mengeksekusi pemindahan struktur bisnis. Ini **bukan** harga jual yang dipungut dari pembeli — pembeli tidak membayar komisi on-chain apa pun kepada protokol dan menerima struktur pohon mitra saat eksekusi. Parameter on-chain yang mengatur komisi ini adalah `businessTransferFee` (diganti namanya dari `businessSalePrice` lama untuk mencerminkan semantik komisinya yang sebenarnya).
+</Note>
+
+## Timer & Jadwal
+
+Parameter berbasis waktu mengontrol jendela dan tenggat waktu sistem kritis di seluruh ekosistem.
+
+| Parameter | Saat Ini | Rentang |
+|---|---|---|
+| Masa Hidup Saldo Akumulatif | 120 hari | 90 – 180 hari |
+| Jendela Klaim NFTM | 72 jam | 24 – 96 jam |
+| NFT Hadiah per Alamat | 100 | 1 – 400 |
+| Penjualan Bisnis | Dinonaktifkan | Dinonaktifkan – Diaktifkan |
+
+### Periode Auto-Sell
+
+Siklus auto-sell dipicu secara progresif dari saldo DA tersisa jika pengguna tidak menjual secara manual. Total durasi siklus adalah jumlah dari keempat periode.
+
+| Periode | Saat Ini | Rentang |
+|---|---|---|
+| Periode 1 | 120 hari | 60 – 120 hari |
+| Periode 2 | 90 hari | 60 – 120 hari |
+| Periode 3 | 90 hari | 60 – 120 hari |
+| Periode 4 | 65 hari | 60 – 120 hari |
+| **Total Siklus** | **365 hari** | — |
+
+## Redistribusi Saldo Kedaluwarsa
+
+Ketika Saldo Akumulatif kedaluwarsa (setelah periode masa hidup), dana didistribusikan ulang menurut aturan berikut. Distribusi berbeda antara pemegang NFT Reguler dan pemegang NFT Hadiah.
+
+<Tabs>
+  <Tab title="NFT Reguler">
+    | Tujuan | Saat Ini | Rentang |
+    |---|---|---|
+    | Sponsor Upline | 30% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 70% | 50% – 100% |
+  </Tab>
+  <Tab title="NFT Hadiah">
+    | Tujuan | Saat Ini | Rentang |
+    |---|---|---|
+    | Sponsor Upline | 20% | 0% – 30% |
+    | Platform | 0% | 0% – 30% |
+    | DA Liquidity Pool | 80% | 50% – 100% |
+  </Tab>
+</Tabs>
+
+## Distribusi Pohon Marketing
+
+Setiap level dari struktur marketing 22-level memiliki persentase imbalan tetap yang menentukan berapa banyak yang diperoleh pengguna dari penjualan NFT pada kedalaman tersebut. Persentase dapat disesuaikan DAO dalam rentang yang ditentukan. Level 16–22 terbuka di Fase 2.
+
+<AccordionGroup>
+  <Accordion title="Level 1–6 · Lapisan Awal" icon="layer-group">
+    | Level | Saat Ini | Rentang |
+    |---|---|---|
+    | Level 1 | 0% | 0% |
+    | Level 2 | 1% | 1% – 2% |
+    | Level 3 | 2% | 2% – 3% |
+    | Level 4 | 2% | 2% – 3% |
+    | Level 5 | 3% | 3% – 4% |
+    | Level 6 | 3% | 3% – 4% |
+  </Accordion>
+  <Accordion title="Level 7–15 · Kedalaman Pendapatan Inti" icon="chart-simple">
+    | Level | Saat Ini | Rentang |
+    |---|---|---|
+    | Level 7 | 4% | 4% – 5% |
+    | Level 8 | 4% | 4% – 5% |
+    | Level 9 | 4% | 4% – 5% |
+    | Level 10 | 4% | 3% – 5% |
+    | Level 11 | 4% | 3% – 5% |
+    | Level 12 | 4% | 3% – 5% |
+    | Level 13 | 4% | 3% – 5% |
+    | Level 14 | 4% | 3% – 5% |
+    | Level 15 | 5% | 3% – 5% |
+  </Accordion>
+  <Accordion title="Level 16–22 · Perluasan Fase 2" icon="rocket">
+    | Level | Saat Ini | Direncanakan (Fase 2) | Rentang |
+    |---|---|---|---|
+    | Level 16 | 0% | 2% | 0% – 2,5% |
+    | Level 17 | 0% | 2% | 0% – 2,5% |
+    | Level 18 | 0% | 1% | 0% – 2,5% |
+    | Level 19 | 0% | 0,5% | 0% – 2,5% |
+    | Level 20 | 0% | 0,5% | 0% – 2,5% |
+    | Level 21 | 0% | 0,5% | 0% – 2,5% |
+    | Level 22 | 0% | 0,5% | 0% – 2,5% |
+
+    <Note>
+      **Saat Ini = 0%** sampai Fase 2 diaktifkan oleh pemungutan suara DAO (direncanakan **Q4 2026**). **Direncanakan (Fase 2)** = nilai-nilai yang diharapkan akan diaktifkan DAO saat aktivasi. Semua nilai Direncanakan berada di dalam `Rentang` on-chain, sehingga aktivasi tidak memerlukan perluasan batasan parameter apa pun.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Anggaran distribusi pohon vs batas per level.** Persentase per level dalam tabel di atas mewakili **pembayaran maksimum per level**. Total **anggaran distribusi pohon per pembelian NFT adalah sekitar 43%** (dihitung sebagai 100% dikurangi Sponsor Bonus, Token Reserve / DA Pool, Operasi Platform, dan Saldo Akumulatif). Selisih aritmatika antara jumlah teoretis per level (~48% di Fase 1, tumbuh menjadi ~55% jika Fase 2 aktif pada nilai Direncanakan) dan anggaran ~43% yang sebenarnya diserap melalui **mekanisme kompresi**: ketika seorang pengguna upline tidak memenuhi syarat (Batas Pendapatan habis atau level NFT tidak memadai untuk kedalaman tersebut), bagian yang tidak dialokasikan tidak dipaksakan lebih jauh ke atas pohon — bagian itu mengalir ke residu platform / dev sebagai gantinya. Dengan kata lain, tarif per level adalah batas atas atas apa yang dapat diperoleh posisi yang sepenuhnya memenuhi syarat pada setiap kedalaman dari satu pembelian, bukan jaminan jumlah penuh yang dibayarkan ke pohon pada setiap pembelian.
+</Note>
+
+### Ambang Batas Matching Bonus
+
+Matching Bonus membayar 5% di tiga level pendapatan mitra langsung. Setiap level memerlukan akumulasi penjualan pribadi untuk dibuka. Persentase matching (5%) tidak dapat diubah.
+
+| Level | Penjualan yang Dibutuhkan | Rentang |
+|---|---|---|
+| Level 1 (5%) | $0 | Tetap |
+| Level 2 (5%) | $1.000 | $1.000 – $5.000 |
+| Level 3 (5%) | $3.000 | $3.000 – $7.000 |
+
+## Parameter yang Tidak Dapat Diubah
+
+<CardGroup cols={1}>
+  <Card title="Dikodekan Langsung dalam Smart Contract" icon="shield-check">
+    Parameter berikut tetap permanen dalam kode smart contract. Mereka tidak dapat dimodifikasi oleh DAO, pengembang, atau pihak mana pun lainnya.
+  </Card>
+</CardGroup>
+
+| Parameter | Nilai |
+|---|---|
+| Pembayaran Penjualan Manual | 75% |
+| Pembayaran Auto-Sell / Lending | 70% |
+| Matching Bonus per Level | 5% |
+| Jendela Frozen Balance | 72 jam |
+| Masa Hidup Voucher | 365 hari |
+| Penguncian Transfer Voucher | 1 hari terakhir |
+| Periode Batas Pinjaman | 30 hari |
+| Ambang Batas Inaktivitas DAO | 31 hari |
+| Periode Tenggang DAO | 7 hari |

@@ -1,0 +1,91 @@
+---
+title: "Imbalan & Kompensasi"
+description: "Bagaimana Anda mendapatkan penghasilan dari jaringan Anda."
+icon: "money-bill-trend-up"
+---
+
+import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+
+<CardGroup cols={2}>
+  <Card title="Fase 1 — Penjualan Baru" icon="user-plus">
+    Sponsor langsung mendapat 30% dari harga jual NFT. Pembelian berulang (rebuy): 20%.
+  </Card>
+  <Card title="Fase 2 — Disesuaikan" icon="arrows-rotate">
+    Penjualan baru disesuaikan menjadi 20%. Rebuy tetap 20%. Level 16–22 sepenuhnya terbuka.
+  </Card>
+</CardGroup>
+
+<Note>
+  Transisi dari Fase 1 ke Fase 2 (termasuk penyesuaian Sponsor Bonus dari 30% ke 20% dan terbukanya level pohon 16–22) dieksekusi melalui tata kelola DAO, bukan secara otomatis berdasarkan tanggal. Pemungutan suara DAO memerlukan ambang batas usulan standar 30% dan persetujuan mayoritas 50% untuk memberlakukan perubahan parameter.
+</Note>
+
+Imbalan marketing di RWANFTFI terdiri dari tiga aliran independen yang berkombinasi membentuk total pendapatan Anda:
+
+1. **Sponsor Bonus** — Komisi langsung untuk mengundang mitra (30% Fase 1 / 20% Fase 2 dari harga jual NFT).
+2. **Tree Distribution** — Imbalan per level dari struktur downline Anda (level 2–22, persentase bervariasi berdasarkan kedalaman).
+3. **Matching Bonus** — Sekunder 5% + 5% + 5% dari pendapatan mitra langsung Anda di 3 level.
+
+Setiap aliran dihitung dan dibayarkan secara independen oleh smart contract pada setiap pembelian NFT yang memenuhi syarat.
+
+## Tree Distribution
+
+Dapatkan persentase dari setiap penjualan NFT di downline Anda, hingga kedalaman 22 level:
+
+<AccordionGroup>
+  <Accordion title="Level 1–6 · Lapisan Awal" icon="layer-group">
+    - Level 1: 0%
+    - Level 2: 1%
+    - Level 3–4: 2% per level
+    - Level 5–6: 3% per level
+  </Accordion>
+  <Accordion title="Level 7–15 · Kedalaman Pendapatan Inti" icon="chart-simple">
+    - Level 7–14: 4% per level (8 level × 4% = pendorong pendapatan utama)
+    - Level 15: 5% (persentase tertinggi pada satu level)
+  </Accordion>
+  <Accordion title="Level 16–22 · Perluasan Fase 2" icon="unlock">
+    - Level 16–17: 2% per level
+    - Level 18: 1%
+    - Level 19–22: 0,5% per level
+
+    *Terbuka di Fase 2 melalui pemungutan suara tata kelola DAO (direncanakan Q4 2026). Memerlukan NFT INFINITY untuk kedalaman penuh.*
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+  **Mengapa Level 1 = 0%?** Tree Distribution dan Sponsor Bonus adalah dua aliran imbalan yang terpisah. Undangan langsung Anda berada di Level 1 struktur marketing Anda, dan Anda sudah mendapat Sponsor Bonus (30% di Fase 1, 20% di Fase 2) dari pembelian NFT mereka. Level 1 dari Tree Distribution diatur ke 0% untuk mencegah kompensasi ganda. Imbalan Tree Distribution dimulai dari Level 2 (1%) dan seterusnya — mencakup aktivitas yang lebih dalam dalam struktur Anda di luar undangan pribadi Anda.
+</Info>
+
+<Note>
+  **Spillover di Level 1 tidak menghasilkan apa-apa secara langsung.** Ketika seorang mitra ditempatkan di Level 1 Anda melalui spillover (undangan upline Anda mendarat di pohon Anda), Anda mendapat 0% Sponsor Bonus (diberikan kepada pengundang sebenarnya) dan 0% Tree Distribution (Level 1 = 0%). Nilai spillover terealisasi dari Level 2 dan lebih dalam — ketika mitra spillover tersebut membangun tim mereka sendiri, rekrutan mereka menghasilkan imbalan tree distribution untuk Anda.
+</Note>
+
+## Kompresi
+
+<Tip>
+  **Kompresi bekerja menguntungkan Anda.** Jika seseorang di atas Anda telah menghabiskan batas pendapatannya atau memiliki level NFT yang tidak memadai, imbalan mereka terkompres ke atas — kemungkinan ke Anda. Semakin dalam akses marketing NFT Anda, semakin banyak imbalan terkompres yang dapat Anda tangkap.
+</Tip>
+
+Ketika seorang pengguna di downline Anda dilewati (Batas Pendapatan = 0 atau level NFT terlalu rendah), imbalan diteruskan ke atas ke peserta berkualifikasi berikutnya. Ini ditandai sebagai **Lost Income** untuk pengguna yang dilewati.
+
+
+## Matching Bonus (5% + 5% + 5%)
+
+Dapatkan persentase dari **pendapatan penjualan NFT** yang dihasilkan oleh mitra langsung Anda di 3 level. Matching Bonus dihitung hanya dari pembayaran marketing yang diterima mitra langsung Anda dari penjualan NFT dalam struktur mereka — bukan dari aliran pendapatan lain (pelepasan Frozen Balance, penjualan DA manual, dll.):
+
+<Steps>
+  <Step title="Level 1 — 5%">
+    Memerlukan setidaknya NFT Level 4 (ECLIPSE, 275 USDT).
+  </Step>
+  <Step title="Level 2 — 5%">
+    Memerlukan akumulasi penjualan pribadi sebesar 1.000 USDT.
+  </Step>
+  <Step title="Level 3 — 5%">
+    Memerlukan akumulasi penjualan pribadi sebesar 3.000 USDT.
+  </Step>
+</Steps>
+
+<Info>
+  **Apa arti "akumulasi penjualan pribadi":** Ini adalah total seumur hidup yang berjalan dari semua pembelian NFT yang dilakukan oleh undangan langsung Anda. Pembelian berulang (rebuy, upgrade) oleh mitra yang sama dihitung dalam total, dan penjualan ke mitra yang berbeda terakumulasi bersama. Sebagai contoh, jika satu mitra membeli tiga NFT seharga 1.000 USDT masing-masing, akumulasi total Anda adalah 3.000 USDT — membuka Matching Bonus Level 3. Setelah ambang batas tercapai, level Matching Bonus tersebut **aktif secara permanen** dan tidak di-reset.
+</Info>
+
+<IncomeCalculator />
