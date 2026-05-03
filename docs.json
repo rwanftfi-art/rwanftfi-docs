@@ -789,6 +789,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "ja",
+        "groups": [
+          {
+            "group": "はじめに",
+            "pages": [
+              "ja/executive-summary",
+              "ja/vision"
+            ]
+          },
+          {
+            "group": "NFTエコシステム",
+            "pages": [
+              "ja/nft-ecosystem",
+              "ja/frozen-balance"
+            ]
+          },
+          {
+            "group": "デフレ資産(DA)",
+            "pages": [
+              "ja/da-token-mechanics",
+              "ja/da-mining-farming",
+              "ja/da-selling-lending"
+            ]
+          },
+          {
+            "group": "収益とマーケティング",
+            "pages": [
+              "ja/marketing-binary-tree",
+              "ja/marketing-rewards"
+            ]
+          },
+          {
+            "group": "アーキテクチャ",
+            "pages": [
+              "ja/architecture",
+              "ja/contract-parameters",
+              "ja/security"
+            ]
+          },
+          {
+            "group": "ガバナンス",
+            "pages": [
+              "ja/governance"
+            ]
+          },
+          {
+            "group": "ロードマップ",
+            "pages": [
+              "ja/roadmap"
+            ]
+          },
+          {
+            "group": "リソース",
+            "pages": [
+              "ja/corporate-structure",
+              "ja/support",
+              "ja/partnerships",
+              "ja/legal"
+            ]
+          }
+        ]
       }
     ]
   },

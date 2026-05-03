@@ -1,0 +1,75 @@
+---
+title: "セキュリティと監査"
+description: "CertiKによる独立監査済み。"
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="CertiKによる監査済み" icon="shield-check">
+    RWANFTFIのスマートコントラクトは、**CertiK**によって独立に監査されました。最終レポートは**2026年4月28日**に公開 — 完全PDFは下記、および公式[CertiK Skynetディレクトリ](https://skynet.certik.com/projects/rwanftfi)に掲載されています。
+  </Card>
+</CardGroup>
+
+CertiKはWeb3における最も長く確立されたセキュリティ会社の1つであり、この分野の主要プロトコルの相当な割合を監査しています。監査は彼らの標準的な手法 — 静的解析、手動レビュー、形式検証 — を使用して実施され、完全なレポートは本ページとCertiK自身のSkynetディレクトリの両方で公開されています。
+
+## レポートを読む
+
+監査と対話するための独立した3つの方法があります。同じものを3回提供することが目的ではありません — 本ページのバージョンがCertiK自身が公開するバージョンと一致することに疑いの余地がないようにするためであり、また、デバイスに関係なくレポートにアクセスできるようにするためです。
+
+<CardGroup cols={3}>
+  <Card title="インラインプレビュー" icon="eye">
+    完全PDFを本ページで直接閲覧。デスクトップブラウザで最適。
+  </Card>
+  <Card title="PDFをダウンロード" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    元のレポートをデバイスに保存。モバイルで推奨。
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    CertiK自身の公開ディレクトリでレポートを検証。
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK監査レポート — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>このブラウザではインラインPDFプレビューがサポートされていません。</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      監査レポートを開く(PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **Safariおよびほとんどのモバイルブラウザでは**、インラインプレビューがレンダリングされない場合があります — これらのブラウザはPDFを直接埋め込みません。**PDFをダウンロード**ボタン(またはプレビューエリア内のリンク)を使用して、デバイス上でレポートを開いてください。
+</Info>
+
+## アカウント保護
+
+監査はオンチェーンスマートコントラクトレイヤーをカバーしています。アプリケーションレイヤーでは、ユーザーアカウントはさらに複数の独立したメカニズムによって保護されています。
+
+<CardGroup cols={2}>
+  <Card title="3レベルセキュリティ" icon="layer-group">
+    ログイン、財務アクション、高価値操作を分離する階層型保護。
+  </Card>
+  <Card title="TANコード" icon="key">
+    すべての金融取引に必要な単回使用のトランザクション認証番号。
+  </Card>
+  <Card title="財務パスワード" icon="fingerprint">
+    ログイン認証情報とは別のパスワードで、資金を移動する場合のみ必要。
+  </Card>
+  <Card title="2FA + Telegramボット" icon="telegram">
+    標準的な二要素認証に加え、公式Telegramボットを通じたアクション検証。
+  </Card>
+</CardGroup>
+
+<Info>
+  **取引にはWeb3ウォレットが必要です。** メールとパスワードでダッシュボードにサインインしてデータを表示することはできますが、任意の金融アクションを実行するには接続されたWeb3ウォレット(MetaMask、Trust Wallet、または他のEVM互換ウォレット)が必要です。
+</Info>
+
+<Warning>
+  **なりすましに注意してください。** RWANFTFIスタッフが先にあなたに連絡することは決してなく、あなたの秘密鍵やシードフレーズを尋ねることは決してなく、公式プラットフォーム外で支払いを要求することは決してありません。ウォレットを接続したり認証情報を入力する前に、必ず**rwanftfi.com**にいることを確認してください。
+</Warning>
