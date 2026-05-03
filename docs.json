@@ -915,6 +915,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "uk",
+        "groups": [
+          {
+            "group": "Початок",
+            "pages": [
+              "uk/executive-summary",
+              "uk/vision"
+            ]
+          },
+          {
+            "group": "Екосистема NFT",
+            "pages": [
+              "uk/nft-ecosystem",
+              "uk/frozen-balance"
+            ]
+          },
+          {
+            "group": "Дефляційний Актив (DA)",
+            "pages": [
+              "uk/da-token-mechanics",
+              "uk/da-mining-farming",
+              "uk/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Заробіток і Маркетинг",
+            "pages": [
+              "uk/marketing-binary-tree",
+              "uk/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Архітектура",
+            "pages": [
+              "uk/architecture",
+              "uk/contract-parameters",
+              "uk/security"
+            ]
+          },
+          {
+            "group": "Управління",
+            "pages": [
+              "uk/governance"
+            ]
+          },
+          {
+            "group": "Дорожня карта",
+            "pages": [
+              "uk/roadmap"
+            ]
+          },
+          {
+            "group": "Ресурси",
+            "pages": [
+              "uk/corporate-structure",
+              "uk/support",
+              "uk/partnerships",
+              "uk/legal"
+            ]
+          }
+        ]
       }
     ]
   },

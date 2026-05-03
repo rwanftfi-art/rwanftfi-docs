@@ -1,0 +1,75 @@
+---
+title: "Безпека та аудит"
+description: "Незалежний аудит від CertiK."
+icon: "shield-halved"
+---
+
+
+<CardGroup cols={1}>
+  <Card title="Аудитовано CertiK" icon="shield-check">
+    Смартконтракти RWANFTFI пройшли незалежний аудит від **CertiK**. Підсумковий звіт опубліковано **28 квітня 2026 року** — повний PDF нижче, а також у публічному [каталозі CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  </Card>
+</CardGroup>
+
+CertiK — одна з найдовше існуючих безпекових компаній у Web3, що аудитує значну частку основних протоколів у цій сфері. Аудит проводився за їхньою стандартною методологією — Static Analysis, Manual Review та Formal Verification — і повний звіт опубліковано публічно як на цій сторінці, так і в каталозі CertiK Skynet.
+
+## Прочитайте звіт
+
+У вас є три незалежні способи взаємодіяти з аудитом. Сенс не в тому, щоб подати те ж саме тричі — а в тому, щоб не залишилося сумнівів, що версія на цій сторінці відповідає тій, яку публікує сама CertiK, і щоб звіт був доступний незалежно від пристрою.
+
+<CardGroup cols={3}>
+  <Card title="Інлайн-перегляд" icon="eye">
+    Прочитайте повний PDF прямо на цій сторінці. Найкраще у настільних браузерах.
+  </Card>
+  <Card title="Завантажити PDF" icon="download" href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf">
+    Збережіть оригінальний звіт на ваш пристрій. Рекомендовано для мобільних.
+  </Card>
+  <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
+    Перевірте звіт у публічному каталозі CertiK.
+  </Card>
+</CardGroup>
+
+<object
+  data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
+  type="application/pdf"
+  aria-label="CertiK Audit Report — RWANFTFI"
+  style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
+>
+  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
+    <div>Інлайн-перегляд PDF не підтримується у цьому браузері.</div>
+    <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
+      Відкрити звіт аудиту (PDF)
+    </a>
+  </div>
+</object>
+
+<Info>
+  **У Safari та більшості мобільних браузерів** інлайн-перегляд може не відтворюватися — ці браузери не вбудовують PDF напряму. Скористайтеся кнопкою **Завантажити PDF** (або посиланням усередині області перегляду), щоб відкрити звіт на вашому пристрої.
+</Info>
+
+## Захист акаунту
+
+Аудит покриває он-чейн рівень смартконтрактів. На рівні застосунку акаунти користувачів додатково захищені кількома незалежними механізмами:
+
+<CardGroup cols={2}>
+  <Card title="Триступенева безпека" icon="layer-group">
+    Багаторівневий захист, що розділяє вхід, фінансові дії та операції з високими сумами.
+  </Card>
+  <Card title="TAN-коди" icon="key">
+    Одноразові Transaction Authentication Number, обов'язкові для кожної фінансової транзакції.
+  </Card>
+  <Card title="Фінансовий пароль" icon="fingerprint">
+    Пароль, окремий від ваших облікових даних для входу, потрібен лише для руху коштів.
+  </Card>
+  <Card title="2FA + Telegram-бот" icon="telegram">
+    Стандартна двофакторна автентифікація плюс верифікація дій через офіційного Telegram-бота.
+  </Card>
+</CardGroup>
+
+<Info>
+  **Транзакції потребують Web3-гаманця.** Ви можете увійти в дешборд за email і паролем, щоб переглядати свої дані, але виконання будь-якої фінансової дії потребує підключеного Web3-гаманця (MetaMask, Trust Wallet або іншого EVM-сумісного гаманця).
+</Info>
+
+<Warning>
+  **Стережіться шахраїв.** Співробітники RWANFTFI ніколи не зв'яжуться з вами першими, ніколи не запитають ваші приватні ключі чи seed-фразу та ніколи не вимагатимуть платежі поза офіційною платформою. Завжди перевіряйте, що ви на **rwanftfi.com**, перш ніж підключати гаманець або вводити дані.
+</Warning>
