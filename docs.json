@@ -852,6 +852,69 @@
             ]
           }
         ]
+      },
+      {
+        "language": "vi",
+        "groups": [
+          {
+            "group": "Bắt Đầu",
+            "pages": [
+              "vi/executive-summary",
+              "vi/vision"
+            ]
+          },
+          {
+            "group": "Hệ Sinh Thái NFT",
+            "pages": [
+              "vi/nft-ecosystem",
+              "vi/frozen-balance"
+            ]
+          },
+          {
+            "group": "Tài Sản Giảm Phát (DA)",
+            "pages": [
+              "vi/da-token-mechanics",
+              "vi/da-mining-farming",
+              "vi/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Thu Nhập & Marketing",
+            "pages": [
+              "vi/marketing-binary-tree",
+              "vi/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Kiến Trúc",
+            "pages": [
+              "vi/architecture",
+              "vi/contract-parameters",
+              "vi/security"
+            ]
+          },
+          {
+            "group": "Quản Trị",
+            "pages": [
+              "vi/governance"
+            ]
+          },
+          {
+            "group": "Lộ Trình",
+            "pages": [
+              "vi/roadmap"
+            ]
+          },
+          {
+            "group": "Tài Nguyên",
+            "pages": [
+              "vi/corporate-structure",
+              "vi/support",
+              "vi/partnerships",
+              "vi/legal"
+            ]
+          }
+        ]
       }
     ]
   },

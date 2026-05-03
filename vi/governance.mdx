@@ -1,0 +1,192 @@
+---
+title: "Quản Trị — DAO"
+description: "10M token, các quyết định do cộng đồng định hướng."
+icon: "landmark"
+---
+
+import { GovernanceStats } from '/snippets/governance-stats.jsx'
+
+Để đảm bảo hệ sinh thái vẫn phi tập trung, độc lập và an toàn, RWANFTFI dựa vào một Tổ Chức Tự Trị Phi Tập Trung (DAO) được quản lý bởi các hợp đồng thông minh. Các nhà phát triển không thể đơn phương thay đổi các quy tắc hệ thống, truy cập tiền của người dùng, hoặc thao túng số dư.
+
+<GovernanceStats />
+
+## Khả Năng DAO
+
+Để một đề xuất được gửi tới DAO, nó phải được hỗ trợ bởi ít nhất 30% tổng nguồn cung token. Để một đề xuất được thông qua và thực thi on-chain, nó yêu cầu phiếu bầu đa số 50%.
+
+<CardGroup cols={2}>
+  <Card title="30% Để Gửi" icon="file-signature">
+    Một đề xuất yêu cầu sự hỗ trợ từ ít nhất 30% tổng nguồn cung GovToken để được gửi.
+  </Card>
+  <Card title="50% Để Thông Qua" icon="check-double">
+    Yêu cầu phiếu bầu đa số 50% để một đề xuất được thông qua và thực thi on-chain.
+  </Card>
+</CardGroup>
+
+DAO bỏ phiếu cho các chức năng hệ sinh thái quan trọng, chẳng hạn như:
+* Kích hoạt một "Sự Kiện Tích Lũy" (giai đoạn 30 ngày nơi người dùng có thể nhận số dư tích lũy hết hạn, với thời gian chờ 180 ngày).
+* Ủy quyền việc bán toàn bộ cấu trúc kinh doanh của một người dùng dưới dạng một tài sản.
+* Xác minh và phê duyệt yêu cầu của người dùng để thay đổi ví tài chính bị xâm phạm của họ.
+* Bỏ phiếu để chặn NFT của một người dùng cụ thể (Đóng Băng). Khi một NFT bị chặn, người dùng mất quyền truy cập vào các sản phẩm tài chính của nền tảng. Việc gỡ chặn cũng được thực hiện độc quyền thông qua một cuộc bỏ phiếu DAO.
+
+<Info>
+  **Ngưỡng Đề Xuất Trong Thực Tế — Tiết Lộ Trung Thực:** Ngưỡng gửi 30% là một thanh ngang đơn lẻ, có trọng số theo nguồn cung; nó không phân chia quyền bỏ phiếu theo vai trò. Trong phân phối token **hiện tại** (RWANFTFI Corporation 30% + 20 Guardian ở mức 3,5% mỗi người), ngưỡng này thực tế chỉ có thể đạt được bởi Corporation hành động trực tiếp, hoặc bởi Corporation cùng với một tập hợp con phối hợp của các Guardian. Một Guardian cá nhân nắm giữ thấp hơn nhiều so với 30% và **không thể đơn phương gửi đề xuất** dưới phân phối hiện tại. Nhóm đã chính thức thừa nhận điều này trong phản hồi kiểm toán: theo thiết kế, dưới phân phối hiện tại, chỉ Corporation có đủ token để tạo đề xuất một mình, và không có cơ chế ủy quyền bên ngoài nào sẽ cho phép những người nắm giữ nhỏ hơn gộp quyền bỏ phiếu off-chain để đạt ngưỡng (xem [Cơ Chế Bỏ Phiếu](#voting-mechanics) bên dưới). Thanh ngang on-chain vẫn là 30% — điều thay đổi theo thời gian là chiều rộng của những người tham gia có thể vượt qua nó. [Kế Hoạch Phân Phối Lại Trong Tương Lai](#future-redistribution-plan) (Corporation 30% + 20 Guardian ở mức 1,5% + 80 Leader ở mức 0,5%) mở rộng các liên minh có thể cùng đạt ngưỡng, dần dần phân cấp việc tạo đề xuất mà không hạ ngưỡng.
+</Info>
+
+## Cơ Chế Bỏ Phiếu
+
+Các cơ chế dưới đây mô tả cách một đề xuất di chuyển từ gửi đến thực thi, và cách quyền bỏ phiếu được giữ và xoay vòng ở cấp hợp đồng.
+
+<CardGroup cols={2}>
+  <Card title="Bỏ Phiếu Đóng Tại Hạn Chót" icon="hourglass-end">
+    Bỏ phiếu cho một đề xuất đóng **nghiêm ngặt tại hạn chót** — không bao giờ sớm hơn. Đạt được sự ủng hộ đa số trước hạn chót không khóa kết quả; các phiếu bổ sung (ủng hộ hoặc phản đối) tiếp tục được chấp nhận cho đến khi bộ đếm thời gian hết hạn.
+  </Card>
+  <Card title="Tự Động Ủy Quyền, Không Có Ủy Quyền Thủ Công" icon="link-slash">
+    GovToken **tự động ủy quyền quyền bỏ phiếu khi chuyển nhượng** cho người nhận. Không có đường dẫn `delegate()` để gán quyền bỏ phiếu cho bên thứ ba — trọng số bỏ phiếu luôn theo người nắm giữ token hiện tại.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Bỏ phiếu cho các đề xuất Đã Thành Công:** Ngay cả sau khi một đề xuất đã tích lũy đủ ủng hộ để được coi là "đã thành công" trên kết quả hiện tại của nó, cửa sổ bỏ phiếu vẫn mở cho đến hạn chót. Mỗi người nắm giữ đủ điều kiện vẫn giữ khả năng đăng ký một phiếu bầu xác nhận hoặc phản đối cho đến khoảnh khắc cửa sổ đóng — trạng thái thành công sớm không cắt giảm sự tham gia.
+</Note>
+
+<Note>
+  **Không có ủy quyền bên ngoài.** Bởi vì GovToken không cung cấp cơ chế ủy quyền thủ công, những người nắm giữ nhỏ hơn không thể gộp quyền bỏ phiếu của họ off-chain để vượt qua ngưỡng đề xuất. Cách duy nhất để di chuyển trọng số bỏ phiếu là di chuyển các token cơ bản, và bất kỳ chuyển nhượng nào như vậy đều tự động ủy quyền cho người nhận. Điều này giữ mối quan hệ giữa quyền sở hữu token và quyền quản trị trực tiếp và có thể truy nguyên on-chain.
+</Note>
+
+<Info>
+  **Đồng Bộ Quyền DAO — nguồn duy nhất của sự thật:** Quyền DAO quản lý GovToken không được lưu trữ dưới dạng giá trị trùng lặp bên trong GovToken. Khi quyền DAO được xoay qua `setDAO()` trên hợp đồng Diamond, GovToken **đọc địa chỉ DAO đã cập nhật trực tiếp từ hợp đồng Diamond** thay vì dựa vào một con trỏ được duy trì riêng. Điều này loại bỏ rủi ro hai hợp đồng trôi vào trạng thái quyền tách rời trong quá trình xoay — không có cửa sổ nào trong đó GovToken có thể tôn trọng một quyền cũ mà Diamond đã thay thế.
+</Info>
+
+## Tổng Quan GovToken
+
+GovToken là token quản trị và bỏ phiếu của hệ sinh thái RWANFTFI. Đó là một token ERC20Votes với nguồn cung được cố định vĩnh viễn. Không thể đúc thêm sau khi triển khai. Không có cơ chế lạm phát — mô hình nguồn cung hoàn toàn cố định.
+
+<CardGroup cols={3}>
+  <Card title="Nguồn Cung Cố Định" icon="cube">
+    10.000.000 GovToken. Giới hạn vĩnh viễn. Không lạm phát.
+  </Card>
+  <Card title="Đúc Vô Hiệu Hóa" icon="ban">
+    Chức năng đúc vĩnh viễn vô hiệu hóa sau khi triển khai. Không có dự trữ ẩn.
+  </Card>
+  <Card title="Quản Trị On-Chain" icon="landmark">
+    Tất cả các hành động quản trị được thực hiện thông qua bỏ phiếu DAO. Minh bạch và truy nguyên đầy đủ on-chain.
+  </Card>
+</CardGroup>
+
+## Phân Phối Token Ban Đầu
+
+Phân bổ ban đầu của GovToken được thiết kế để cân bằng giữa kiểm soát vận hành với sự tham gia quản trị phi tập trung.
+
+<CardGroup cols={2}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (30% tổng nguồn cung). Công ty công nghệ & sản phẩm. Nắm giữ phân bổ quản trị chiến lược cho phát triển hệ sinh thái dài hạn.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    7.000.000 GovToken (70% tổng nguồn cung). 350.000 token mỗi Guardian (3,5% mỗi người). Người tham gia quản trị chính chịu trách nhiệm cho sự ổn định hệ sinh thái giai đoạn đầu.
+  </Card>
+</CardGroup>
+
+## Kế Hoạch Phân Phối Lại Trong Tương Lai
+
+Mô hình quản trị DAO bao gồm một lộ trình phân cấp có cấu trúc. Theo thời gian, sự tham gia quản trị sẽ mở rộng từ 21 ví đến tối đa 101 ví — mà không cần đúc token mới.
+
+Phân phối lại không tạo ra token mới. Tổng nguồn cung vẫn cố định vĩnh viễn ở mức 10.000.000 GovToken. Các Guardian dần dần phân phối lại một phần phân bổ của họ cho các Leader đủ điều kiện thông qua các quy trình quản trị được DAO phê duyệt.
+
+<CardGroup cols={3}>
+  <Card title="RWANFTFI Corporation" icon="building">
+    3.000.000 GovToken (30%). Không thay đổi.
+  </Card>
+  <Card title="20 Guardian" icon="shield-check">
+    3.000.000 GovToken (30%). 150.000 mỗi Guardian (1,5% mỗi người).
+  </Card>
+  <Card title="80 Leader" icon="users">
+    4.000.000 GovToken (40%). 50.000 mỗi Leader (0,5% mỗi người).
+  </Card>
+</CardGroup>
+
+Leader được định nghĩa là những người đóng góp tích cực cho hệ sinh thái, người xây dựng cộng đồng, đối tác chiến lược, và những người tham gia có tác động hệ sinh thái có thể đo lường được, những người duy trì mạng lưới khách hàng hoặc đối tác đang hoạt động. Các ví Leader sẽ được gán cho các người tham gia đủ điều kiện khi việc phân cấp quản trị tiến triển.
+
+## Guardian
+
+Guardian là những người tham gia quản trị chính của RWANFTFI DAO. Họ chịu trách nhiệm duy trì sự ổn định hệ sinh thái trong giai đoạn tăng trưởng đầu và đảm bảo việc thực thi quản trị đúng cách.
+
+<CardGroup cols={2}>
+  <Card title="Tham Gia Quản Trị" icon="check-to-slot">
+    Bỏ phiếu cho tất cả các đề xuất DAO. Quyết định hệ sinh thái chiến lược. Thực thi quản trị giao thức.
+  </Card>
+  <Card title="Bảo Mật & Giám Sát" icon="eye">
+    Giám sát bảo mật và quản lý rủi ro. Tham gia quản trị kho bạc. Ổn định hệ sinh thái dài hạn.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Không Có Kiểm Soát Đơn Phương" icon="shield-check">
+    Tất cả các hành động quản trị — bao gồm phân phối lại token, thay đổi tham số, và các thao tác tài khoản — đều yêu cầu các quy trình quản trị DAO tiêu chuẩn với ngưỡng đề xuất 30% và phiếu bầu đa số 50%.
+  </Card>
+</CardGroup>
+
+## Tính Toàn Vẹn Nguồn Cung & Bảo Mật
+
+<CardGroup cols={2}>
+  <Card title="Nguồn Cung Bất Biến" icon="infinity">
+    Tổng nguồn cung cố định vĩnh viễn ở mức 10.000.000. Không đúc, không lạm phát, không có dự trữ ẩn. Tất cả các token tồn tại trong phân bổ phân phối ban đầu.
+  </Card>
+  <Card title="Bảo Mật Quản Trị" icon="shield-halved">
+    Ủy quyền nhiều chữ ký cho các thao tác quan trọng. Quyền quản trị dựa trên vai trò. Phê duyệt dựa trên DAO cho bất kỳ thay đổi phân bổ nào.
+  </Card>
+</CardGroup>
+
+<CardGroup cols={1}>
+  <Card title="Đảm Bảo Đã Xác Minh Kiểm Toán" icon="certificate">
+    Tổng nguồn cung bằng chính xác 10.000.000 token. Không có chức năng đúc nào có thể gọi sau khi triển khai. Phân phối lại token không thay đổi tổng nguồn cung. Tất cả các chuyển động token được ghi lại on-chain.
+  </Card>
+</CardGroup>
+
+## Ví Quản Trị
+
+Tất cả những người nắm giữ token quản trị có thể được xác minh công khai on-chain. Dưới đây là các ví quản trị được chỉ định cho RWANFTFI DAO.
+
+<Tabs>
+  <Tab title="Corporation">
+    | # | Vai trò | Địa chỉ Ví |
+    |---|------|----------------|
+    | 1 | RWANFTFI Corporation | `0x92abE89ba4FDD712C72a0e24907674B598b546f7` |
+  </Tab>
+  <Tab title="Guardian (20)">
+    | # | Địa chỉ Ví |
+    |---|----------------|
+    | 1 | `0x48BAef9aDc43db16eAcB8aAa1bFfbdF4E584EB42` |
+    | 2 | `0x3D89C937Fff07d5460667cfa20a9C58b774243c3` |
+    | 3 | `0x9De43F22208F59c319Dc034420F642Aa43E8cf8b` |
+    | 4 | `0xF00b23EeC749C8b2d16279a4B6a30723702d0d19` |
+    | 5 | `0xb418e7CD32127b443763C5955fE4925141caBCAf` |
+    | 6 | `0x17b42Ed2F92c48Fd4913979005E05b186dd114ef` |
+    | 7 | `0xF0E87F3FA4eDCE4eA3adbfaD7FF44A246F5AECfc` |
+    | 8 | `0xF7eE3DB1182e30750bCFe3eB840E67A4C4905b3e` |
+    | 9 | `0x96f4E5c5Bc4E33275917cf7e2993fF862256FC0E` |
+    | 10 | `0xb31e0984fe800F36c6235C55e337d98684B30BBe` |
+    | 11 | `0x4F04e39B16c75827574d5240db31684c3af8F9f7` |
+    | 12 | `0x526D6F486088388483D918Bb58f8e4EF0c22747c` |
+    | 13 | `0x233a6b265B5740878d55012D93A878F780c8d3Ff` |
+    | 14 | `0xc42A4Cd82AAc7015e97A8EF3a5916e8191e477F6` |
+    | 15 | `0x7eDa2Fde0F430f7C15b453c1465b2fD9D682a1d2` |
+    | 16 | `0x39e76D21Be8E8aE5eA78A612fD3e22ab7a057aa8` |
+    | 17 | `0x42C46D4A26818715678fD92D877Baff80326EfFa` |
+    | 18 | `0xBAf2DD9f12E67300BD7a1407F9dD2D24416BE9cC` |
+    | 19 | `0x1Ce4e0EEDBafA4C3065c631b30A4C0889FeF2F36` |
+    | 20 | `0xdb4E04a4a956Bc444D851e6aaE7A9e9e366B7e87` |
+  </Tab>
+</Tabs>
+
+Tất cả các địa chỉ ví đều có thể xác minh trên BscScan. Số dư token quản trị và lịch sử giao dịch hoàn toàn minh bạch và có thể kiểm toán công khai.
+
+## Cơ Chế Đóng Băng Tài Khoản
+
+DAO có thể bỏ phiếu để **đóng băng** chức năng NFT của một người dùng cụ thể trên nền tảng. Đây là một công cụ kiểm duyệt, không phải tính năng bảo mật khẩn cấp.
+
+<Warning>
+  **Khi một NFT bị đóng băng:** Người dùng mất quyền truy cập vào tất cả các thao tác tài chính — rút tiền, mua, tích lũy phần thưởng marketing, và chuyển nhượng. Tuy nhiên, NFT vẫn ở trong ví blockchain của người dùng dưới dạng tài sản của họ. **Việc gỡ đóng băng** cũng yêu cầu một cuộc bỏ phiếu DAO riêng biệt.
+</Warning>
+
+Nền tảng không có khả năng kỹ thuật để thu hồi hoặc tịch thu một NFT từ ví của người dùng. Việc đóng băng chỉ vô hiệu hóa chức năng của NFT trong nền tảng RWANFTFI. Cơ chế này được sử dụng trong các trường hợp vi phạm điều khoản nền tảng — gian lận dựa trên NFT, các rủi ro AML (chống rửa tiền) đã xác định, bảo vệ thương hiệu hệ sinh thái, và các tình huống tương tự yêu cầu quyết định cộng đồng tập thể.

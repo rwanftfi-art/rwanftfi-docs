@@ -1,0 +1,188 @@
+---
+title: "Tham Số Hợp Đồng"
+description: "Tham số on-chain, phạm vi DAO có thể điều chỉnh, và đảm bảo bất biến."
+icon: "sliders"
+---
+
+> ***"Sự tin cậy không phải là lời hứa — đó là một tham số, được mã hóa cứng trong một hợp đồng thông minh đã được kiểm toán."***
+>
+> **— RWANFTFI**
+
+Mỗi tham số trong hệ sinh thái RWANFTFI được xác định và thực thi bởi hợp đồng thông minh. Mỗi tham số có thể được xác minh công khai on-chain. Một tập hợp con của các tham số có thể được điều chỉnh bởi quản trị DAO trong các phạm vi an toàn được xác định trước. Các tham số còn lại được mã hóa cứng vĩnh viễn và không thể được sửa đổi bởi bất kỳ ai — bao gồm cả các nhà phát triển.
+
+<CardGroup cols={3}>
+  <Card title="DAO Có Thể Điều Chỉnh" icon="sliders">
+    Tham số mà quản trị DAO có thể sửa đổi trong các phạm vi an toàn được xác định trước.
+  </Card>
+  <Card title="Bất Biến" icon="shield-halved">
+    Tham số mã hóa cứng không bao giờ có thể được thay đổi bởi bất kỳ ai — bao gồm các nhà phát triển.
+  </Card>
+  <Card title="Đã Xác Minh On-Chain" icon="link">
+    Tất cả các giá trị được lưu trữ trong hợp đồng thông minh đã kiểm toán, có thể xác minh công khai trên BscScan.
+  </Card>
+</CardGroup>
+
+## Phân Phối Mua NFT
+
+Khi người dùng mua một NFT, khoản thanh toán được tự động chia qua nhiều đích đến bởi hợp đồng thông minh. Sự phân phối khác nhau giữa giao dịch mua lần đầu và mua lại (rebuy).
+
+<Tabs>
+  <Tab title="Mua Lần Đầu">
+    | Tham số | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Sponsor Bonus | 30% | 10% – 35% |
+    | Token Reserve (Pool DA) | 0% | 0% – 30% |
+    | Hoạt động Nền tảng | 7% | 2% – 10% |
+    | Số Dư Tích Lũy | 20% | 15% – 30% |
+  </Tab>
+  <Tab title="Mua Lại (Rebuy)">
+    | Tham số | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Sponsor Bonus | 20% | 10% – 35% |
+    | Token Reserve (Pool DA) | 10% | 10% – 30% |
+    | Hoạt động Nền tảng | 7% | 2% – 10% |
+    | Số Dư Tích Lũy | 20% | 15% – 30% |
+  </Tab>
+</Tabs>
+
+## Phí & Hoa Hồng
+
+Tất cả các phí được thực thi bởi hợp đồng thông minh và có thể điều chỉnh trong các phạm vi xác định thông qua quản trị DAO.
+
+| Tham số | Hiện tại | Phạm vi |
+|---|---|---|
+| Thuế Phần Thưởng Marketing | 5% | 5% – 15% |
+| Phí Chuyển Tích Lũy | 20% | 10% – 30% |
+| Phí Sử Dụng Tích Lũy (Mua NFT) | 20% | 10% – 30% |
+| Phí Vay | 5% | 0% – 5% |
+| Phí Rút Tiền | 0% | 0% – 5% |
+| Giá Gửi Quà Tặng | $0 | $0 – $25 |
+| Phí Bán Doanh Nghiệp | $500 | $0 – $500 |
+| Số Dư Đóng Băng → Người Tài Trợ | 30% | 0% – 30% |
+
+<Note>
+  **Phí Bán Doanh Nghiệp — ngữ nghĩa:** Hàng "Phí Bán Doanh Nghiệp" là **hoa hồng chuyển nhượng do người bán trả** để thực hiện việc chuyển nhượng cấu trúc kinh doanh. Đó **không phải** là giá bán thu từ người mua — người mua không trả hoa hồng on-chain cho giao thức và nhận cấu trúc cây đối tác khi thực hiện. Tham số on-chain quản lý hoa hồng này là `businessTransferFee` (đổi tên từ `businessSalePrice` cũ để phản ánh đúng ngữ nghĩa hoa hồng thực sự của nó).
+</Note>
+
+## Bộ Đếm Thời Gian & Lịch Trình
+
+Các tham số dựa trên thời gian kiểm soát các cửa sổ và hạn chót hệ thống quan trọng trên hệ sinh thái.
+
+| Tham số | Hiện tại | Phạm vi |
+|---|---|---|
+| Vòng Đời Số Dư Tích Lũy | 120 ngày | 90 – 180 ngày |
+| Cửa Sổ Nhận NFTM | 72 giờ | 24 – 96 giờ |
+| NFT Quà Tặng Mỗi Địa Chỉ | 100 | 1 – 400 |
+| Bán Doanh Nghiệp | Vô hiệu hóa | Vô hiệu hóa – Kích hoạt |
+
+### Giai Đoạn Tự Động Bán
+
+Chu kỳ tự động bán kích hoạt lũy tiến từ số dư DA còn lại nếu người dùng không bán thủ công. Tổng thời lượng chu kỳ là tổng của tất cả bốn giai đoạn.
+
+| Giai đoạn | Hiện tại | Phạm vi |
+|---|---|---|
+| Giai đoạn 1 | 120 ngày | 60 – 120 ngày |
+| Giai đoạn 2 | 90 ngày | 60 – 120 ngày |
+| Giai đoạn 3 | 90 ngày | 60 – 120 ngày |
+| Giai đoạn 4 | 65 ngày | 60 – 120 ngày |
+| **Tổng Chu Kỳ** | **365 ngày** | — |
+
+## Phân Phối Lại Số Dư Hết Hạn
+
+Khi Số Dư Tích Lũy hết hạn (sau giai đoạn vòng đời), tiền được phân phối lại theo các quy tắc sau. Phân phối khác nhau giữa người sở hữu NFT Thông Thường và người sở hữu NFT Quà Tặng.
+
+<Tabs>
+  <Tab title="NFT Thông Thường">
+    | Đích đến | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Người Tài Trợ Tuyến Trên | 30% | 0% – 30% |
+    | Nền Tảng | 0% | 0% – 30% |
+    | Pool Thanh Khoản DA | 70% | 50% – 100% |
+  </Tab>
+  <Tab title="NFT Quà Tặng">
+    | Đích đến | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Người Tài Trợ Tuyến Trên | 20% | 0% – 30% |
+    | Nền Tảng | 0% | 0% – 30% |
+    | Pool Thanh Khoản DA | 80% | 50% – 100% |
+  </Tab>
+</Tabs>
+
+## Phân Phối Theo Cây Marketing
+
+Mỗi cấp của cấu trúc marketing 22 cấp có một tỷ lệ phần thưởng cố định xác định người dùng kiếm được bao nhiêu từ giao dịch bán NFT ở độ sâu đó. Tỷ lệ phần trăm có thể được DAO điều chỉnh trong các phạm vi đã xác định. Cấp 16–22 được mở khóa trong Phase 2.
+
+<AccordionGroup>
+  <Accordion title="Cấp 1–6 · Lớp Đầu Vào" icon="layer-group">
+    | Cấp | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Cấp 1 | 0% | 0% |
+    | Cấp 2 | 1% | 1% – 2% |
+    | Cấp 3 | 2% | 2% – 3% |
+    | Cấp 4 | 2% | 2% – 3% |
+    | Cấp 5 | 3% | 3% – 4% |
+    | Cấp 6 | 3% | 3% – 4% |
+  </Accordion>
+  <Accordion title="Cấp 7–15 · Độ Sâu Kiếm Tiền Cốt Lõi" icon="chart-simple">
+    | Cấp | Hiện tại | Phạm vi |
+    |---|---|---|
+    | Cấp 7 | 4% | 4% – 5% |
+    | Cấp 8 | 4% | 4% – 5% |
+    | Cấp 9 | 4% | 4% – 5% |
+    | Cấp 10 | 4% | 3% – 5% |
+    | Cấp 11 | 4% | 3% – 5% |
+    | Cấp 12 | 4% | 3% – 5% |
+    | Cấp 13 | 4% | 3% – 5% |
+    | Cấp 14 | 4% | 3% – 5% |
+    | Cấp 15 | 5% | 3% – 5% |
+  </Accordion>
+  <Accordion title="Cấp 16–22 · Mở Rộng Phase 2" icon="rocket">
+    | Cấp | Hiện tại | Dự kiến (Phase 2) | Phạm vi |
+    |---|---|---|---|
+    | Cấp 16 | 0% | 2% | 0% – 2,5% |
+    | Cấp 17 | 0% | 2% | 0% – 2,5% |
+    | Cấp 18 | 0% | 1% | 0% – 2,5% |
+    | Cấp 19 | 0% | 0,5% | 0% – 2,5% |
+    | Cấp 20 | 0% | 0,5% | 0% – 2,5% |
+    | Cấp 21 | 0% | 0,5% | 0% – 2,5% |
+    | Cấp 22 | 0% | 0,5% | 0% – 2,5% |
+
+    <Note>
+      **Hiện tại = 0%** cho đến khi Phase 2 được kích hoạt bởi bỏ phiếu DAO (dự kiến **Q4 2026**). **Dự kiến (Phase 2)** = các giá trị mà DAO dự kiến sẽ kích hoạt khi kích hoạt. Tất cả các giá trị Dự kiến đều nằm trong `Phạm vi` on-chain, do đó kích hoạt không yêu cầu mở rộng bất kỳ ranh giới tham số nào.
+    </Note>
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  **Ngân sách phân phối theo cây so với giới hạn mỗi cấp.** Tỷ lệ phần trăm mỗi cấp trong các bảng trên đại diện cho **mức thanh toán tối đa mỗi cấp**. **Ngân sách phân phối theo cây tổng cộng cho mỗi giao dịch mua NFT là khoảng 43%** (tính bằng 100% trừ Sponsor Bonus, Token Reserve / Pool DA, Hoạt động Nền tảng, và Số Dư Tích Lũy). Sự khác biệt số học giữa tổng theo cấp lý thuyết (~48% trên Phase 1, tăng lên ~55% nếu Phase 2 kích hoạt ở các giá trị Dự kiến) và ngân sách ~43% thực tế được hấp thụ qua **cơ chế nén**: khi một người dùng tuyến trên không đủ điều kiện (Giới Hạn Thu Nhập đã cạn kiệt hoặc cấp NFT không đủ cho độ sâu đó), phần không được phân bổ không bị buộc lên cao hơn trong cây — nó chuyển thay vào đó cho phần dư của nền tảng / dev. Nói cách khác, tỷ lệ mỗi cấp là một trần cho những gì một vị trí đủ điều kiện hoàn toàn ở mỗi độ sâu có thể kiếm được từ một giao dịch mua duy nhất, không phải là một đảm bảo về toàn bộ tổng được trả cho cây trên mỗi giao dịch mua.
+</Note>
+
+### Ngưỡng Matching Bonus
+
+Matching Bonus trả 5% qua ba cấp thu nhập đối tác trực tiếp. Mỗi cấp yêu cầu doanh số cá nhân tích lũy để mở khóa. Tỷ lệ phần trăm matching (5%) là bất biến.
+
+| Cấp | Doanh Số Yêu Cầu | Phạm vi |
+|---|---|---|
+| Cấp 1 (5%) | $0 | Cố định |
+| Cấp 2 (5%) | $1.000 | $1.000 – $5.000 |
+| Cấp 3 (5%) | $3.000 | $3.000 – $7.000 |
+
+## Tham Số Bất Biến
+
+<CardGroup cols={1}>
+  <Card title="Mã Hóa Cứng Trong Hợp Đồng Thông Minh" icon="shield-check">
+    Các tham số sau được cố định vĩnh viễn trong mã hợp đồng thông minh. Chúng không thể được sửa đổi bởi DAO, các nhà phát triển, hoặc bất kỳ bên nào khác.
+  </Card>
+</CardGroup>
+
+| Tham số | Giá trị |
+|---|---|
+| Thanh Toán Bán Thủ Công | 75% |
+| Thanh Toán Tự Động Bán / Cho Vay | 70% |
+| Matching Bonus Mỗi Cấp | 5% |
+| Cửa Sổ Số Dư Đóng Băng | 72 giờ |
+| Vòng Đời Voucher | 365 ngày |
+| Khóa Chuyển Voucher | 1 ngày cuối |
+| Thời Hạn Vay | 30 ngày |
+| Ngưỡng Không Hoạt Động DAO | 31 ngày |
+| Thời Gian Ân Hạn DAO | 7 ngày |

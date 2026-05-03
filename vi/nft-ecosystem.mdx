@@ -1,0 +1,107 @@
+---
+title: "Hệ Sinh Thái NFT"
+description: "10 cấp từ 28 đến 24.000 USDT."
+icon: "id-card"
+---
+
+import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
+
+<CardGroup cols={3}>
+  <Card title="Cơ bản · L1–L4" icon="circle">
+    28 – 275 USDT · Truy cập RWA & FinPro
+  </Card>
+  <Card title="Premium · L5–L8" icon="circle-half-stroke">
+    550 – 5.500 USDT · Mining, Lending, Matching
+  </Card>
+  <Card title="Elite · L9–L10" icon="circle-dot">
+    11.000 – 24.000 USDT · Độ sâu tối đa, chu kỳ ngắn nhất
+  </Card>
+</CardGroup>
+
+Việc sở hữu NFT là bắt buộc để tham gia marketing, khai thác DA, và truy cập các công cụ tài chính. Mỗi tài khoản chỉ có một NFT đang hoạt động — việc nâng cấp sẽ tự động thay thế NFT trước đó.
+
+<NftTierExplorer />
+
+## Giới Hạn Thu Nhập & Tự Động Gia Hạn
+<AccordionGroup>
+  <Accordion title="Cách Hoạt Động Của Giới Hạn Thu Nhập" icon="gauge-high">
+    Mỗi NFT có một Giới Hạn Thu Nhập nghiêm ngặt — thu nhập tích lũy tối đa mà NFT đó có thể tạo ra trước khi được gia hạn. Giới Hạn Thu Nhập được tiêu thụ bởi **hai nguồn**:
+
+    1. **Phần thưởng marketing** — Sponsor Bonus, Tree Distribution, Matching Bonus, mọi khoản thanh toán từ hoạt động cấu trúc của bạn.
+    2. **Bán DA** — mỗi giao dịch bán DA thủ công hoặc tự động đều giảm Giới Hạn Thu Nhập còn lại của bạn theo số tiền USDT thanh toán.
+
+    Khi giới hạn về 0, bạn ngừng nhận **tất cả** phần thưởng marketing **và** mất khả năng bán DA: trong giao dịch bán thủ công, hệ thống không thể ghi có khoản thanh toán cho bạn; trong giao dịch bán tự động, 100% tiền thu được sẽ được chuyển vào Pool Thanh khoản DA hoặc đốt (cơ chế chính xác do cài đặt DAO quyết định). Để ngăn chặn điều này, hãy gia hạn NFT của bạn — qua Autobuy, mua lại thủ công cùng cấp, hoặc nâng cấp lên cấp cao hơn. Việc mua lại thủ công bị khóa khi giới hạn còn lại của bạn cao hơn 30% so với ban đầu.
+  </Accordion>
+  <Accordion title="Autobuy (Hệ thống 3/3)" icon="rotate">
+    Kích hoạt Autobuy để tự động mua lại cùng một NFT khi giới
+    hạn của nó đạt đến 0. **Đối với Cấp 1–8**, bộ đếm 3/3 cho phép tối đa
+    3 lần gia hạn tự động sau giao dịch mua thủ công ban đầu — vì vậy
+    cùng một cấp NFT có thể hoạt động tổng cộng tối đa 4 lần (1 thủ công
+    + 3 tự động). Bộ đếm chỉ theo dõi các lần gia hạn tự động; giao dịch mua
+    ban đầu là riêng biệt. Sau khi cả 3 lần autobuy được sử dụng, chức năng
+    bị khóa và bạn phải nâng cấp hoặc mất phần thưởng. **Đối với Elite (L9–L10)**,
+    autobuy là không giới hạn — các NFT cấp cao nhất gia hạn không giới hạn.
+    Tất cả các giao dịch autobuy đều yêu cầu đủ USDT trên Số Dư Thông Thường hoặc
+    Số Dư Tích Lũy (cả hai có thể kết hợp). Trên L1–L8, bộ đếm 3/3 sẽ đặt lại về
+    0/3 khi mua một NFT cấp cao hơn. Phần Giới Hạn Thu Nhập chưa sử dụng của
+    NFT trước đó sẽ **không** được chuyển sang NFT mới —
+    nó sẽ bị hủy bỏ.
+  </Accordion>
+  <Accordion title="Bán Doanh Nghiệp" icon="handshake">
+    Chuyển toàn bộ cấu trúc kinh doanh của bạn (cây đối tác và tuyến dưới) cho
+    người dùng khác thông qua quy trình được DAO ủy quyền. Việc chuyển nhượng được kiểm soát bởi
+    **phí chuyển nhượng** trên hợp đồng thông minh, không phải giá bán: **người bán
+    trả phí cố định 500 USDT** (DAO có thể điều chỉnh trong khoảng **0–500 USDT**)
+    để thực hiện việc chuyển nhượng. **Người mua không trả hoa hồng on-chain
+    cho giao thức** và nhận toàn bộ cấu trúc khi thực hiện. Tham số
+    on-chain cơ bản là `businessTransferFee` (đổi tên từ
+    `businessSalePrice` cũ để phản ánh đúng ngữ nghĩa hoa hồng thực sự của nó).
+    Việc bán NFT riêng lẻ mà không có cấu trúc không được hỗ trợ.
+  </Accordion>
+</AccordionGroup>
+<Warning>
+  **Giới Hạn Thu Nhập:** Khi NFT của bạn đạt đến giới hạn thu nhập, bạn sẽ ngừng nhận
+  TẤT CẢ phần thưởng marketing. Bật Autobuy để ngăn chặn điều này — hoặc gia hạn thủ công
+  khi giới hạn của bạn giảm xuống dưới 30%.
+</Warning>
+
+### Số Dư Đóng Băng — Bảo Vệ Thu Nhập Trên Các Lần Bán Cá Nhân Đầu Tiên
+
+Khi phần thưởng marketing từ giao dịch **mua lần đầu** của người bạn trực tiếp mời vượt quá Giới Hạn Thu Nhập còn lại của NFT của bạn, phần vượt quá không bị mất — nó được đóng băng trong 72 giờ, cho bạn một khoảng thời gian để nâng cấp NFT và nhận khoản tiền đó. Đây là cơ chế cốt lõi bảo vệ thu nhập từ việc mời đối tác vào các NFT cấp cao hơn.
+
+<Card title="Cơ Chế Số Dư Đóng Băng Đầy Đủ" icon="snowflake" href="/vi/frozen-balance">
+  Hướng dẫn chi tiết về cửa sổ 72 giờ, tương tác với Autobuy, tỷ lệ tịch thu 70/30, hiệu ứng cascade theo cấu trúc, và lý do tại sao các giao dịch mua lặp lại từ cùng một người mời được xử lý khác.
+</Card>
+
+## NFT Quà Tặng & Voucher
+<CardGroup cols={2}>
+  <Card title="NFT Quà Tặng" icon="gift">
+    Tài sản khuyến mại không thể bán đặt người dùng vĩnh viễn vào cấu trúc
+    marketing. Không thể mua — được trao thông qua các chương trình khuyến mại hoặc
+    thành tích Cấp Bậc Sự Nghiệp. Tối đa 100 mỗi địa chỉ (DAO có thể điều chỉnh, hiện tại).
+  </Card>
+  <Card title="Voucher Quà Tặng" icon="ticket">
+    Phiếu giảm giá do người dùng tạo với mức tối thiểu được hợp đồng thông minh thực thi là **5 USDT**
+    (voucher giá trị bằng 0 bị từ chối on-chain), có hiệu lực trong **365 ngày**. Bao phủ tới
+    100% giao dịch mua NFT. Có thể chuyển nhượng với hoa hồng 0%, ngoại trừ trong
+    **24 giờ cuối** trước khi hết hạn, khi việc chuyển nhượng bị khóa. Không thể kết hợp
+    với Số Dư Tích Lũy. Nếu không sử dụng trong toàn bộ vòng đời 365 ngày,
+    **100% giá trị voucher sẽ được chuyển vào Pool Thanh khoản DA**.
+  </Card>
+</CardGroup>
+<Warning>
+  **Ghi đè NFT Quà Tặng:** Nếu bạn đã sở hữu một NFT Thông Thường và kích hoạt
+  một NFT Quà Tặng, NFT Quà Tặng sẽ **ghi đè** lên NFT Thông Thường của bạn. Chỉ kích hoạt
+  NFT Quà Tặng trên các tài khoản không có NFT Thông Thường.
+</Warning>
+## Phiên Bản Ambassador & VIP
+<CardGroup cols={2}>
+  <Card title="NFT Ambassador" icon="crown">
+    Giới hạn **100 đơn vị** (Q4 2026). Không có giới hạn thu nhập. Có hệ thống phần thưởng
+    riêng. Không được chuyển nhượng khi Bán Doanh Nghiệp.
+  </Card>
+  <Card title="NFT VIP Edition" icon="gem">
+    Giới hạn **100 đơn vị** (Q4 2026). Quyền truy cập được cấp khi đạt
+    Cấp Bậc Sự Nghiệp **Leader** trở lên.
+  </Card>
+</CardGroup>

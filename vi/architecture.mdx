@@ -1,0 +1,130 @@
+---
+title: "Kiến Trúc Hợp Đồng Thông Minh"
+description: "Diamond Pattern và 7 Facets."
+icon: "cubes"
+---
+
+
+Nền tảng RWANFTFI được xây dựng trên một kiến trúc hợp đồng thông minh mạnh mẽ, mô-đun và an toàn quản lý tất cả các tương tác, phân phối và cơ chế token mà không cần kiểm soát tập trung.
+
+<video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="metadata"
+  style={{ width: '100%', borderRadius: '12px', marginTop: '24px', marginBottom: '24px' }}
+  src="/bx2.mp4"
+/>
+
+## Diamond Pattern (EIP-2535)
+
+Cốt lõi của hệ thống RWANFTFI được triển khai sử dụng Diamond Pattern (EIP-2535). Lựa chọn kiến trúc này cho phép giao thức vượt qua giới hạn kích thước hợp đồng thông minh tiêu chuẩn (24KB) bằng cách chia chức năng qua nhiều mô-đun độc lập gọi là "Facets" (mô-đun hợp đồng thông minh được truy cập thông qua một hợp đồng proxy duy nhất).
+
+## Các Facets Cốt Lõi
+
+<CardGroup cols={2}>
+  <Card title="AdminFacet" icon="gear">
+    Tham số hệ thống, vai trò, bán doanh nghiệp, và đúc NFT đặc biệt.
+  </Card>
+  <Card title="MarketingFacet" icon="bullhorn">
+    Đăng ký người dùng, mua NFT, và phân phối phần thưởng marketing.
+  </Card>
+  <Card title="FarmingFacet" icon="seedling">
+    Quản lý chu kỳ khai thác NFTM và farming DA.
+  </Card>
+  <Card title="PaymentFacet" icon="wallet">
+    Nạp tiền, rút tiền, tạo Voucher, và chuyển tích lũy.
+  </Card>
+  <Card title="TreeFacet" icon="sitemap">
+    Logic cây nhị phân 22 cấp và các thuật toán đặt vị trí người dùng.
+  </Card>
+  <Card title="ResolverFacet" icon="rotate">
+    Xử lý DA stack hết hạn, đốt Voucher, và giải quyết tài khoản đóng băng.
+  </Card>
+  <Card title="ViewFacet" icon="eye">
+    Truy vấn chỉ đọc cho dữ liệu người dùng, số dư, và cấu trúc cây.
+  </Card>
+</CardGroup>
+
+## Hợp Đồng NFT & Không Gian Token ID
+
+Giao thức sử dụng ba hợp đồng NFT riêng biệt (Regular, Gift, Ambassador). Để ngăn xung đột định danh trong ánh xạ on-chain `registeredTokens` theo dõi mọi NFT được đúc trên hệ thống, **NFT Thông Thường và NFT Quà Tặng đúc vào các không gian `tokenId` được phân vùng theo chẵn lẻ**:
+
+- **NFT Thông Thường** — token ID lẻ (`1, 3, 5, 7, …`).
+- **NFT Quà Tặng** — token ID chẵn (`2, 4, 6, 8, …`).
+
+Sự phân chia được thực thi bên trong logic minter của mỗi hợp đồng NFT tại thời điểm đúc. Bởi vì một lần đúc thành công trên một hợp đồng không bao giờ có thể tạo ra một định danh mà hợp đồng kia có thể từng phát hành, toàn bộ một lớp lỗi xung đột ánh xạ được loại bỏ ở cấp hệ thống loại — không cần bảo vệ thời gian chạy hoặc kiểm tra trùng lặp mỗi cuộc gọi. Việc phân vùng là vô hình đối với người dùng cuối: ví và marketplace tiếp tục hiển thị mỗi NFT dưới hợp đồng gốc của nó.
+
+## Ma Trận Khả Năng Nâng Cấp
+
+* **Hợp Đồng Diamond (EIP-2535):** Có thể nâng cấp qua Facet cuts — cho phép thêm, thay thế, hoặc xóa các mô-đun riêng lẻ mà không cần triển khai lại toàn bộ hệ thống.
+* **TokenReserve (DA):** Có thể nâng cấp qua Transparent Proxy — có thể cập nhật logic mà không thay đổi địa chỉ hợp đồng.
+* **NFT (Regular, Gift, Ambassador), GovToken, AdminContract:** Không thể nâng cấp — đảm bảo tính bất biến của các tài sản cốt lõi và quy tắc quản trị.
+
+## Quản Lý Vai Trò
+
+Hệ thống sử dụng cấu trúc vai trò phân cấp (AccessControlEnumerable) để quản lý quyền một cách an toàn:
+* `ADMIN_ROLE`: Có thể cấp/thu hồi các vai trò khác và thay đổi các tham số hệ thống quan trọng.
+* `SERVICE_ROLE`: Được thực thi bởi các script backend cho các tác vụ tự động (ví dụ: giải quyết các stack hết hạn, xử lý các giao dịch nạp liên chuỗi).
+* `SIGNER_ROLE`: Được sử dụng để xác minh chữ ký mật mã để ủy quyền các hành động cụ thể như chuyển Voucher.
+* `MINTER_ROLE`: Được ủy quyền đúc các token hoặc NFT cụ thể.
+
+## Lược Đồ Số Dư & Ưu Tiên Thanh Toán
+
+Để quản lý dòng tiền phức tạp, RWANFTFI sử dụng một lược đồ số dư đa cấp trong hợp đồng thông minh.
+
+**Số Dư Người Dùng:**
+1. **Số Dư Thông Thường (`balance`):** Ví chính cho USDT có sẵn. Tiền ở đây có thể được rút bất cứ lúc nào, được sử dụng để mua NFT, hoặc được sử dụng để tạo Voucher.
+2. **Số Dư Tích Lũy (`accumulativeBalance`):** Một tài khoản tiết kiệm bắt buộc nơi 20% của mỗi phần thưởng marketing được ghi có ngay khi tích lũy.
+   * **Sử dụng:** Chỉ có thể được sử dụng để mua cùng cấp NFT hoặc mua NFT cấp cao hơn.
+   * **Phí:** Sử dụng số dư này cho các giao dịch mua NFT phát sinh phí 20% **được chuyển vào Pool Thanh khoản DA**. Chuyển nó cho người dùng khác cũng phát sinh phí 20% **được chuyển vào Pool Thanh khoản DA**. Mỗi chuyển động của Số Dư Tích Lũy tạo ra dòng vào cho Pool và tạo cơ sở cho DA mới.
+   * **Phân Phối Lại Sau 120 Ngày:** Nếu người dùng không sử dụng Số Dư Tích Lũy của họ trong vòng 120 ngày, số dư không sử dụng trở nên đủ điều kiện để phân phối lại. Sự phân chia phụ thuộc vào loại NFT của người dùng:
+     - **Người sở hữu NFT Thông Thường:** **70%** được chuyển vào Pool Thanh khoản DA để đúc token DA mới; **30%** được chuyển cho người tài trợ tuyến trên trực tiếp của người dùng.
+     - **Người sở hữu NFT Quà Tặng:** **80%** được chuyển vào Pool Thanh khoản DA; **20%** được chuyển cho người tài trợ tuyến trên trực tiếp (do tham số `accumulativeClaimDistributeGift` riêng biệt quản lý).
+     - **Quy tắc cascade (cả hai loại):** Nếu Giới Hạn Thu Nhập của người tài trợ tuyến trên đã cạn kiệt (bằng 0), phần của người tài trợ chuyển tiếp lên người tham gia đủ điều kiện tiếp theo trong cấu trúc. Nếu không có người tham gia nào trong chuỗi có Giới Hạn Thu Nhập đang hoạt động, toàn bộ số tiền được chuyển vào Pool Thanh khoản DA.
+
+   <Note>
+     **120 Ngày = Cửa Sổ Tối Thiểu Đảm Bảo, Không Phải Hết Hạn Tự Động:** Tham số `accumulativeDecayTime` được kiểm tra **chỉ bên trong `withdrawAccumulative()`** — đường dẫn phân phối lại do quản trị viên/dịch vụ kích hoạt. Nó **không** được đánh giá trên các đường dẫn chi tiêu hoặc chuyển nhượng. Trên thực tế điều này có nghĩa:
+
+     - Trong 120 ngày đầu tiên sau khi ghi có, Số Dư Tích Lũy được **đảm bảo tính toàn vẹn** — nó không thể bị phân phối lại bởi bất kỳ ai.
+     - Sau ngày 120, số dư trở nên **đủ điều kiện** để phân phối lại, nhưng phân phối lại không tự động kích hoạt khi bộ đếm thời gian trôi qua. Nó chỉ xảy ra khi `withdrawAccumulative()` được gọi cho người dùng cụ thể đó bởi SERVICE_ROLE hoặc ADMIN_ROLE.
+     - **Cho đến khi cuộc gọi đó được thực hiện**, Số Dư Tích Lũy "hết hạn" vẫn có thể chi tiêu cho các giao dịch mua và nâng cấp NFT và có thể chuyển cho người dùng khác theo các quy tắc và phí tiêu chuẩn.
+
+     Ý định đã nêu của nhóm, được ghi lại trong phản hồi kiểm toán: *"Mục tiêu của chúng tôi là đảm bảo tính toàn vẹn của tiền của người dùng trong một khoảng thời gian nhất định, không phải để cung cấp cho họ một vòng đời."* Hãy coi 120 ngày là **cửa sổ đảm bảo tối thiểu trước khi có khả năng phân phối lại**, không phải là dấu thời gian hết hạn on-chain cứng.
+   </Note>
+3. **Giới Hạn (`limit`):** Đại diện cho thu nhập còn lại tối đa mà NFT có thể tạo ra.
+
+### Số Dư Hệ Thống
+
+Ngoài số dư người dùng, hợp đồng thông minh duy trì ba số dư hệ thống nội bộ:
+
+- **Dev Balance (`devBalance`):** Tích lũy phí và hoa hồng nền tảng cho tài trợ vận hành.
+- **Token Reserve Balance (`tokenReserveBalance`):** Pool thanh khoản USDT bảo chứng 100% cho token DA. Mỗi nguồn thu nhập trong hệ sinh thái đều cấp vào pool này.
+- **Price Impact Balance (`priceImpactBalance`):** Một dự trữ đặc biệt được sử dụng để quản lý tính ổn định giá token DA trong các sự kiện hệ sinh thái cụ thể.
+
+Các số dư này được quản lý hoàn toàn bởi hợp đồng thông minh và không thể truy cập bởi bất kỳ người dùng cá nhân hoặc quản trị viên nào.
+
+### Ưu Tiên Thanh Toán
+
+Khi thực hiện giao dịch mua, hợp đồng thông minh khấu trừ tiền theo thứ tự này:
+
+<Steps>
+  <Step title="Voucher (thủ công)">
+    Nếu người dùng áp dụng voucher một cách rõ ràng tại thanh toán, giá trị của nó được tiêu thụ trước. Voucher không được tự động áp dụng.
+  </Step>
+  <Step title="Số Dư Tích Lũy">
+    Nếu người dùng chọn sử dụng Số Dư Tích Lũy, nó được áp dụng ở mức bao phủ 100% (khi đủ) hoặc kết hợp với Số Dư Thông Thường. Phí 20% được chuyển vào Pool Thanh khoản DA.
+  </Step>
+  <Step title="Số Dư Thông Thường">
+    Bất kỳ số tiền còn lại nào được khấu trừ từ Số Dư Thông Thường.
+  </Step>
+</Steps>
+
+<Warning>
+  Voucher Quà Tặng **không thể** được kết hợp với Số Dư Tích Lũy. Các kết hợp hợp lệ: [Voucher + Thông Thường], [100% Tích Lũy], hoặc [Tích Lũy + Thông Thường].
+</Warning>
+
+<Note>
+  Tất cả các giao dịch trên Binance Smart Chain yêu cầu phí gas mạng tiêu chuẩn được trả bằng **BNB**. Người dùng phải giữ một lượng nhỏ BNB trong ví của họ để thực hiện bất kỳ thao tác on-chain nào (mua, rút tiền, chuyển nhượng). Điều này tách biệt với số dư USDT được sử dụng trong hệ sinh thái.
+</Note>
