@@ -1,0 +1,102 @@
+---
+title: "Số Dư Đóng Băng"
+description: "Bảo vệ thu nhập marketing cho các lời mời vào cấp cao hơn."
+icon: "snowflake"
+---
+
+import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
+
+Số Dư Đóng Băng là cơ chế bảo vệ thu nhập marketing của bạn trong một tình huống cụ thể nhưng rất phổ biến: khi **người bạn trực tiếp mời cá nhân thực hiện giao dịch mua NFT đầu tiên của họ ở cấp cao hơn cấp của bạn**, và hoa hồng phát sinh vượt quá Giới Hạn Thu Nhập còn lại của NFT của bạn.
+
+Nếu không có Số Dư Đóng Băng, phần vượt quá đó sẽ bị mất do nén — chuyển lên cấu trúc trên. Số Dư Đóng Băng đóng băng phần đó trong **72 giờ** và cho bạn một khoảng thời gian để nâng cấp NFT và nhận toàn bộ số tiền.
+
+<Info>
+  Đây là mạng lưới an toàn marketing cho các lời mời "lên cấp": bạn có thể tự tin mời đối tác vào bất kỳ cấp NFT nào mà không lo hoa hồng từ giao dịch mua lớn sẽ bị mất vì Giới Hạn Thu Nhập của bạn quá nhỏ.
+</Info>
+
+## Khi Nào Số Dư Đóng Băng Kích Hoạt
+
+Số Dư Đóng Băng kích hoạt **chỉ khi tất cả ba điều kiện được đáp ứng**:
+
+<Steps>
+  <Step title="Người mua là người bạn trực tiếp mời cá nhân">
+    Không phải người được spillover, không phải đối tác tuyến dưới ở năm cấp sâu — cụ thể là người mà bạn đã mời cá nhân vào cấu trúc của mình.
+  </Step>
+  <Step title="Đó là giao dịch mua NFT đầu tiên của người được mời đó">
+    Các giao dịch mua lặp lại của cùng một người được mời (rebuy, nâng cấp, NFT mới sau Autobuy) **không** được Số Dư Đóng Băng bảo vệ — xem phần Thu Nhập Bị Mất bên dưới.
+  </Step>
+  <Step title="Hoa hồng vượt quá Giới Hạn Thu Nhập còn lại của bạn">
+    Nếu Giới Hạn Thu Nhập còn lại của bạn đủ lớn để hấp thụ toàn bộ hoa hồng, không có sự đóng băng nào xảy ra — mọi thứ được ghi có bình thường.
+  </Step>
+</Steps>
+
+## Cách Phân Chia Số Tiền
+
+Khi Số Dư Đóng Băng kích hoạt, hợp đồng thông minh chia hoa hồng thành hai phần:
+
+- **Trong phạm vi Giới Hạn Thu Nhập còn lại của bạn** — được ghi có ngay lập tức theo phân chia tiêu chuẩn: **75% Số Dư Thông Thường / 20% Số Dư Tích Lũy / 5% Pool Thanh Khoản DA**.
+- **Phần vượt quá Giới Hạn Thu Nhập của bạn** — được đặt vào Số Dư Đóng Băng với **bộ đếm thời gian 72 giờ**.
+
+## Điều Gì Xảy Ra Trong 72 Giờ
+
+Bạn có ba kịch bản:
+
+<Tabs>
+  <Tab title="Bạn nâng cấp NFT của mình">
+    Bạn mua một NFT cấp cao hơn (với Giới Hạn Thu Nhập lớn hơn). Tiền đóng băng sẽ tự động được giải phóng và ghi có theo cùng phân chia **75/20/5**. Số tiền được giải phóng được khấu trừ từ Giới Hạn Thu Nhập của NFT **mới**.
+
+    **Ví dụ.** Giới Hạn Thu Nhập của NFT của bạn = 160 USDT. Người được bạn mời mua một NFT giá 2.200 USDT; hoa hồng = 660 USDT. 160 USDT được ghi có ngay lập tức (75/20/5). 500 USDT đi vào Số Dư Đóng Băng. Bạn nâng cấp lên Eclipse (Giới Hạn Thu Nhập 650 USDT). 500 USDT được giải phóng và ghi có. Giới Hạn Thu Nhập còn lại mới: 650 − 500 = **150 USDT**.
+  </Tab>
+  <Tab title="Autobuy đã được kích hoạt">
+    Nếu Autobuy đang hoạt động, thứ tự thay đổi. Autobuy kích hoạt **trước**, mua lại NFT cùng cấp và làm mới Giới Hạn Thu Nhập của bạn. Hoa hồng sau đó được đánh giá lại so với giới hạn đã làm mới, phần trong giới hạn được ghi có, và **chỉ phần còn lại** (nếu có) đi vào Số Dư Đóng Băng với bộ đếm thời gian 72 giờ.
+
+    Điều này có nghĩa: nếu NFT của riêng bạn và Giới Hạn Thu Nhập đã làm mới đủ sau khi Autobuy, Số Dư Đóng Băng có thể không kích hoạt.
+  </Tab>
+  <Tab title="Bạn lỡ hạn chót">
+    Nếu bạn không nâng cấp trong vòng 72 giờ và Autobuy không bao phủ phần vượt quá, tiền đóng băng sẽ **bị tịch thu vĩnh viễn** và phân phối lại:
+
+    - **70%** được chuyển vào Pool Thanh khoản DA để đúc DA mới.
+    - **30%** được chuyển cho người tài trợ tuyến trên trực tiếp của bạn.
+
+    Quy tắc cascade giống với cascade phân rã Số Dư Tích Lũy: nếu Giới Hạn Thu Nhập của người tài trợ tuyến trên bằng 0, 30% sẽ chuyển tiếp lên chuỗi đến người tham gia đầu tiên có Giới Hạn Thu Nhập đang hoạt động. Nếu không có tuyến trên nào có giới hạn đang hoạt động, toàn bộ 100% sẽ được chuyển vào Pool Thanh khoản DA.
+  </Tab>
+</Tabs>
+
+## Mua Lặp Lại Từ Cùng Một Người Được Mời
+
+Chi tiết này dễ bị bỏ qua: Số Dư Đóng Băng chỉ áp dụng **cho giao dịch mua đầu tiên** của mỗi người được mời cá nhân. Nếu người được mời sau đó thực hiện giao dịch mua thứ hai (rebuy, nâng cấp, NFT mới) và Giới Hạn Thu Nhập của bạn lại không thể hấp thụ nó, phần vượt quá sẽ **không** đi vào Số Dư Đóng Băng. Nó sẽ được đánh dấu là **Thu Nhập Bị Mất** và phân phối theo quy tắc nén tiêu chuẩn: chuyển lên cấu trúc trên đến người tham gia tiếp theo có Giới Hạn Thu Nhập đang hoạt động.
+
+<Warning>
+  Nếu bạn có một chuỗi dài các giao dịch mua lặp lại từ những người được mời lớn và **Giới Hạn Thu Nhập của bạn đã cạn kiệt**, mỗi giao dịch mua lặp lại như vậy sẽ bỏ qua bạn thông qua nén. Hãy giữ Giới Hạn Thu Nhập của bạn hoạt động — thông qua Autobuy hoặc gia hạn thủ công — để bạn không bị mất thu nhập từ các đối tác đã thiết lập.
+</Warning>
+
+## Kịch Bản Khối Lượng Cao — Cascade Qua Cấu Trúc
+
+Số Dư Đóng Băng **chỉ** bảo vệ hoa hồng từ giao dịch mua lần đầu của người được mời trực tiếp. Nhưng trong một cấu trúc lớn, hầu hết thu nhập của bạn không đến từ doanh số cá nhân — nó đến từ độ sâu, thông qua phân phối theo cây (4% ở cấp 9 × hơn 500 vị trí có thể mang lại hàng chục nghìn USDT trong một chu kỳ tích lũy).
+
+Khi khối lượng đó đến và Giới Hạn Thu Nhập của bạn là 1.100 USDT với Autobuy có khả năng làm mới tối đa ba lần (3/3 trên các cấp L1–L8), hệ thống:
+
+1. Ghi có cho bạn 1.100 USDT theo phân chia tiêu chuẩn.
+2. Kích hoạt Autobuy, làm mới Giới Hạn, ghi có thêm 1.100 USDT.
+3. Lặp lại tối đa 3 lần.
+4. **Tất cả khối lượng còn lại bị nén** — chuyển lên trên đến người tham gia tiếp theo có Giới Hạn Thu Nhập đang hoạt động.
+
+Số Dư Đóng Băng **không** kích hoạt trong kịch bản này vì nguồn không phải là giao dịch mua lần đầu của người được mời mà là phân phối theo cây từ độ sâu.
+
+<Info>
+  Bài học cho quy mô: ở khối lượng mạng lưới lớn, đòn bẩy chính là **cấp NFT của chính bạn**. Các cấp cao hơn mang Giới Hạn Thu Nhập lớn hơn và giảm tỷ lệ bị mất do nén. Các cấp Elite (L9–L10), với Autobuy không giới hạn, giải quyết điều này một cách hệ thống.
+</Info>
+
+<FrozenBalanceSimulator lang="vi" />
+
+## Tham Số Số Dư Đóng Băng (On-Chain)
+
+| Tham số | Giá trị | Khả năng thay đổi |
+|---|---|---|
+| Cửa sổ đóng băng | 72 giờ | Bất biến |
+| Tỷ lệ Pool Thanh khoản DA khi tịch thu | 70% | DAO có thể điều chỉnh (50–100%) |
+| Tỷ lệ tài trợ tuyến trên khi tịch thu | 30% | DAO có thể điều chỉnh (0–30%) |
+| Kích hoạt | Giao dịch mua đầu tiên của người được mời cá nhân trực tiếp | Bất biến |
+| Phân phối khi giải phóng | 75/20/5 | Phân chia tiêu chuẩn — xem Kiến trúc |
+
+Xem thêm: [Giới Hạn Thu Nhập trên trang Hệ Sinh Thái NFT](/vi/nft-ecosystem), [Ưu Tiên Thanh Toán trong Kiến Trúc](/vi/architecture).

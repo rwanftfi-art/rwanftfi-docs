@@ -1,0 +1,123 @@
+---
+title: "Bán & Cho Vay"
+description: "Bán, cho vay, hoặc giữ — lựa chọn của bạn."
+icon: "scale-balanced"
+---
+import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
+
+
+Khi người dùng nắm giữ DA, họ có hai lựa chọn tài chính chính: bán tài sản hoặc sử dụng nó làm tài sản thế chấp cho khoản vay.
+
+<CardGroup cols={2}>
+  <Card title="Bán DA" icon="fire">
+    100% DA bán ra bị đốt vĩnh viễn. Bạn nhận 75% (thủ công) hoặc 70% (tự động) giá trị bằng USDT. 25% (thủ công) hoặc 30% (tự động) còn lại là hoa hồng giao thức ở lại trong pool làm tài sản bảo chứng và đẩy giá DA tăng lên.
+  </Card>
+  <Card title="Cho Vay DA" icon="building-columns">
+    Vay đến 70% LTV bằng USDT dựa trên DA của bạn. DA của bạn vẫn ở lại trong TokenStack của bạn. Thời hạn vay 30 ngày với hoa hồng một lần 5%.
+  </Card>
+</CardGroup>
+
+## Bán DA & Cơ Chế Đốt
+
+Khi bán DA, có hai kịch bản riêng biệt với các điều kiện khác nhau:
+
+1. **Bán Thủ Công (người dùng tự bán):**
+   * Người dùng nhận **75%** giá trị DA bằng USDT ở giá hiện tại.
+   * **100%** token DA bán ra bị đốt vĩnh viễn.
+   * 25% còn lại là hoa hồng giao thức ở lại trong pool dưới dạng tài sản bảo chứng USDT — với ít token hơn và cùng lượng thanh khoản, 25% này trực tiếp thúc đẩy tăng giá.
+
+2. **Tự Động Bán (kích hoạt sau khi giai đoạn TokenStack hết hạn):**
+   * Người dùng nhận **70%** giá trị DA bằng USDT ở giá vào ngày tự động bán.
+   * **100%** token DA tự động bán bị đốt vĩnh viễn.
+   * 30% còn lại là hoa hồng giao thức ở lại trong pool dưới dạng tài sản bảo chứng USDT — 30% này là yếu tố đẩy giá tăng lên.
+   * Tự động bán kích hoạt tự động nếu người dùng không bán thủ công trước khi hết hạn giai đoạn.
+
+Trong cả hai trường hợp, 100% token bán ra bị đốt — 25%/30% đại diện cho hoa hồng giao thức ở lại trong pool dưới dạng tài sản bảo chứng USDT. Đây là cơ chế đẩy giá tăng: ít token hơn + cùng lượng thanh khoản = giá cao hơn cho mỗi DA. Tự động bán cung cấp khoản thanh toán thấp hơn 5%, khuyến khích người dùng tích cực quản lý vị thế DA của mình.
+
+<Warning>
+  **Bán DA tiêu thụ Giới Hạn Thu Nhập của NFT của bạn.** Mỗi giao dịch bán DA thủ công hoặc tự động giảm Giới Hạn Thu Nhập còn lại của NFT của bạn theo số tiền USDT thanh toán — ngang hàng với phần thưởng marketing. Nếu Giới Hạn Thu Nhập cạn kiệt, bán DA thủ công không thể thực hiện (hệ thống không thể ghi có khoản thanh toán), và khi tự động bán 100% tiền thu được sẽ được chuyển vào Pool Thanh khoản DA hoặc đốt (cơ chế chính xác do cài đặt DAO quyết định). Hãy giữ Giới Hạn Thu Nhập của bạn hoạt động — qua Autobuy hoặc gia hạn NFT thủ công — để nhận khoản thanh toán khi bán DA.
+</Warning>
+
+<Info>
+  **Tự động bán** kích hoạt tự động nếu bạn không bán thủ công trước khi giai đoạn TokenStack hết hạn. Nó trả ít hơn 5% (70% so với 75%), khuyến khích quản lý tích cực.
+</Info>
+
+## Giai Đoạn Tự Động Bán
+
+DA có sẵn 100% cho người dùng ngay lập tức khi farming — không có thời gian khóa. Người dùng có thể bán thủ công bất kỳ lúc nào (nhận 75% bằng USDT) hoặc vay dựa trên DA của họ. Nếu người dùng **không** hành động, hệ thống kích hoạt bán bắt buộc tự động từ **số dư còn lại** một cách lũy tiến trong 4 giai đoạn kéo dài tổng cộng **365 ngày (1 năm)**. Thời lượng giai đoạn được biểu thị bằng ngày on-chain (120 / 90 / 90 / 65 ngày); các tham chiếu tháng dưới đây là xấp xỉ để dễ đọc.
+
+**Ví dụ bắt đầu với 100 DA:**
+
+<Steps>
+  <Step title="Giai đoạn 1 — Tự động bán 25% sau 120 ngày (~4 tháng)">
+    Nếu bạn không bán thủ công trong 120 ngày (~4 tháng), 25% số dư DA hiện tại của bạn được tự động bán. 25% của 100 DA = **25 DA tự động bán** → Bạn nhận 70% giá trị bằng USDT ở giá hiện tại → 100% của 25 DA bị đốt → Còn lại: **75 DA**
+  </Step>
+  <Step title="Giai đoạn 2 — Tự động bán 40% sau 90 ngày nữa (~3 tháng, ngày 210)">
+    40% số dư còn lại được tự động bán. 40% của 75 DA = **30 DA tự động bán** → Còn lại: **45 DA**
+  </Step>
+  <Step title="Giai đoạn 3 — Tự động bán 50% sau 90 ngày nữa (~3 tháng, ngày 300)">
+    50% số dư còn lại được tự động bán. 50% của 45 DA = **22,5 DA tự động bán** → Còn lại: **22,5 DA**
+  </Step>
+  <Step title="Giai đoạn 4 — Tự động bán 100% sau 65 ngày nữa (~2 tháng, ngày 365)">
+    100% số dư còn lại được tự động bán. Vị thế đóng hoàn toàn. 100% của 22,5 DA = **22,5 DA tự động bán** → Còn lại: **0 DA**
+  </Step>
+</Steps>
+
+<Note>
+  Tỷ lệ phần trăm tự động bán (25% / 40% / 50% / 100%) hiển thị ở trên đại diện cho cấu hình giao thức hiện tại. Các giá trị cụ thể được lưu trữ dưới dạng tham số giao thức và phải tuân theo các quy trình quản trị tiêu chuẩn. Luôn kiểm tra hợp đồng thông minh hoặc tài liệu giao thức hiện tại để có giá trị mới nhất.
+</Note>
+
+Mỗi lần tự động bán được thực hiện ở giá DA tại thời điểm đó, không phải giá farming ban đầu. Vì giá tăng theo thời gian, các lần tự động bán sau đốt token ở giá cao hơn — củng cố thêm giảm phát.
+
+<Warning>
+  **Tự Động Bán Với Giới Hạn Thu Nhập Bằng 0:** Nếu tự động bán DA kích hoạt và người dùng có Giới Hạn Thu Nhập bằng 0 trên NFT của họ (nghĩa là NFT chưa được gia hạn), 100% tiền thu được sẽ được chuyển vào Pool Thanh khoản hoặc đốt DA. Cơ chế chính xác do cài đặt DAO quyết định. Người dùng nên luôn duy trì Giới Hạn Thu Nhập đang hoạt động để nhận khoản thanh toán tự động bán.
+</Warning>
+
+## Cho Vay (Tín Dụng Dựa Trên DA)
+
+Thay vì bán, người dùng có thể vay bằng USDT dựa trên DA mà họ nắm giữ. Người dùng có thể vay đến **70%** giá trị USDT hiện tại của tài sản thế chấp DA (Loan-to-Value). Hợp đồng thông minh thực thi nghiêm ngặt thời hạn vay 30 ngày. Nếu khoản vay không được quản lý trong các tham số yêu cầu, TokenStack thế chấp có thể bị thanh lý.
+
+Khi vay, người vay trả hoa hồng một lần **5%** được chuyển vào Pool Thanh khoản DA. Người vay nhận 95% giá trị khoản vay. Ví dụ: cho khoản vay $1.000, người vay nhận $950 và $50 vào Pool Thanh khoản. Hoa hồng này được thu với mỗi khoản vay mới — người dùng có thể vay mới sau khi nhận các lô DA mới, có nghĩa là hoa hồng chảy vào Pool nhiều lần.
+
+<Info>
+  **Tham Số Phí Vay Độc Lập:** Hoa hồng cho vay 5% được lưu trữ on-chain dưới dạng tham số `loanFee` chuyên dụng, tách biệt với các tham số phí khác của giao thức. Sự cô lập này cho phép DAO điều chỉnh phí vay một cách độc lập — không ảnh hưởng đến thuế marketing, phí tích lũy, hoặc bất kỳ hoa hồng nào khác — và giữ kinh tế cho vay có thể quản lý như một đòn bẩy đơn lẻ, rõ ràng.
+</Info>
+
+<Note>
+  **Số Tiền Vay Tối Thiểu:** Hợp đồng thông minh từ chối các khoản vay giá trị bằng 0. Nếu kích thước khoản vay được yêu cầu nhỏ đến mức khoản thanh toán sau phí sẽ làm tròn xuống thành 0 USDT, giao dịch sẽ bị hoàn nguyên. Người vay phải yêu cầu một số tiền đủ lớn để khoản thanh toán cho người vay (95% giá trị khoản vay) khác 0 sau khi làm tròn on-chain. Điều này ngăn các khoản vay vụn sẽ khóa tài sản thế chấp mà không có lợi ích kinh tế cho người vay.
+</Note>
+
+### Cho Vay Đa Lô
+
+Mỗi lô DA từ một chu kỳ khai thác đóng vai trò là tài sản thế chấp độc lập. Người dùng có thể vay riêng 70% LTV dựa trên mỗi lô:
+
+<Steps>
+  <Step title="Khai Thác Lô 1">
+    Hoàn thành chu kỳ khai thác và nhận lô DA 1.
+  </Step>
+  <Step title="Vay dựa trên Lô 1">
+    Vay 70% LTV dựa trên lô 1 (5% hoa hồng cho Pool Thanh khoản).
+  </Step>
+  <Step title="Khai Thác Lô 2">
+    Bắt đầu chu kỳ khai thác mới và nhận lô DA 2.
+  </Step>
+  <Step title="Vay dựa trên Lô 2">
+    Vay thêm 70% LTV dựa trên lô 2 (5% hoa hồng riêng biệt).
+  </Step>
+</Steps>
+
+<Tip>
+  Có thể có nhiều khoản vay đồng thời đang hoạt động — một khoản cho mỗi lô DA. Mỗi khoản vay có thời hạn 30 ngày riêng và 5% hoa hồng. NFT nhỏ hơn tạo ra khoản vay nhỏ hơn, NFT lớn hơn tạo ra khoản vay lớn hơn. Nếu bất kỳ khoản vay nào vỡ nợ, chỉ tài sản thế chấp của lô đó vào chu kỳ tự động bán — không phải tất cả các DA nắm giữ.
+</Tip>
+
+<Note>
+  **Cửa Sổ Trả Nợ — Không Có Trả Nợ Muộn:** Khoản vay chỉ có thể được trả qua `repay()` khi nó vẫn còn hoạt động. Sau khi thời hạn 30 ngày trôi qua và vị thế đã vượt qua hạn chót tự động bán, `repay()` sẽ bị hoàn nguyên — người vay **không thể** thanh toán khoản vay để bỏ qua lịch thanh lý. Một vị thế quá hạn phải được xử lý qua `processExpiredStacks()`, thực hiện việc đốt lũy tiến mô tả bên dưới. Không có con đường nào cho phép người vay thoát khỏi các hình phạt vỡ nợ bằng cách trả nợ muộn.
+</Note>
+
+<Warning>
+  **Vỡ Nợ Cho Vay — Đốt Lũy Tiến:** Nếu khoản vay không được trả trong thời hạn 30 ngày, DA thế chấp sẽ vào chu kỳ tự động bán. Token bị đốt lũy tiến qua cùng lịch trình 4 giai đoạn (25% → 40% → 50% → 100% số dư còn lại trong tổng cộng 365 ngày / 1 năm: 120 / 90 / 90 / 65 ngày mỗi giai đoạn).
+
+  Người dùng **KHÔNG** nhận USDT từ các giao dịch tự động bán này — **100% tiền thu được sẽ được chuyển vào Pool Thanh khoản DA**. Người dùng **giữ số tiền vay ban đầu** mà họ đã nhận, nhưng **mất toàn bộ tài sản thế chấp DA**. Cơ chế này bảo vệ thanh khoản hệ thống, giảm rủi ro hệ thống, và thực thi kỷ luật tài chính trên toàn hệ sinh thái.
+</Warning>
+
+<SellVsLend />
