@@ -6,12 +6,12 @@ icon: "snowflake"
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-El Saldo Congelado es la mecánica que protege tus ingresos de marketing en una situación específica pero muy frecuente: cuando **tu invitado personal directo realiza su primera compra de NFT en un nivel superior al tuyo**, y la comisión resultante supera el Límite de Ingresos restante de tu NFT.
+El Saldo Congelado es la mecánica que protege tus ingresos de marketing en dos situaciones relacionadas: cuando **tu invitado personal directo realiza su primera compra de NFT**, o cuando **se dispara el Autobuy de tu invitado** (renovación automática de su NFT, que te genera el 20% de Sponsor Bonus de rebuy), y la comisión resultante supera el Límite de Ingresos restante de tu NFT.
 
 Sin el Saldo Congelado, ese excedente se perdería por compresión — pasando hacia arriba en la estructura. El Saldo Congelado lo congela durante **72 horas** y te da una ventana para actualizar tu NFT y reclamar el monto completo.
 
 <Info>
-  Esta es la red de seguridad de marketing para las invitaciones "hacia arriba": puedes invitar con confianza a socios a cualquier nivel de NFT sin temer que la comisión de una compra grande se pierda porque tu propio Límite de Ingresos sea demasiado pequeño.
+  Esta es la red de seguridad de marketing tanto para las invitaciones "hacia arriba" como para los ingresos recurrentes de invitados consolidados: puedes invitar con confianza a socios a cualquier nivel de NFT y contar con sus renovaciones de Autobuy, sin temer que la comisión se pierda porque tu propio Límite de Ingresos sea demasiado pequeño.
 </Info>
 
 ## Cuándo se Activa el Saldo Congelado
@@ -22,8 +22,8 @@ El Saldo Congelado se activa **solo cuando se cumplen las tres condiciones**:
   <Step title="El comprador es tu invitado personal directo">
     No es un spillover, no es un socio cinco niveles más profundo en la downline — es específicamente una persona a la que tú invitaste personalmente a tu estructura.
   </Step>
-  <Step title="Es la primera compra de NFT de ese invitado">
-    Las compras repetidas del mismo invitado (rebuy, upgrade, nuevo NFT tras Autobuy) **no** están cubiertas por el Saldo Congelado — consulta la sección de Ingresos Perdidos más abajo.
+  <Step title="Es la primera compra de NFT de ese invitado o su Autobuy">
+    El Saldo Congelado cubre dos eventos de tu invitado: su **primera compra de NFT** y su **Autobuy** (renovación automática del NFT del mismo invitado, que te paga el 20% de Sponsor Bonus de rebuy). Las compras repetidas y los upgrades manuales del mismo invitado **no** están cubiertos — consulta la sección de Ingresos Perdidos más abajo.
   </Step>
   <Step title="La comisión supera tu Límite de Ingresos restante">
     Si tu Límite de Ingresos restante es lo bastante grande para absorber la comisión completa, no se produce congelación — todo se acredita con normalidad.
@@ -64,15 +64,15 @@ Tienes tres escenarios:
 
 ## Compras Repetidas del Mismo Invitado
 
-Este detalle es fácil de pasar por alto: el Saldo Congelado se aplica **solo a la primera compra** de cada invitado personal. Si tu invitado realiza posteriormente una segunda compra (rebuy, upgrade, nuevo NFT), y tu Límite de Ingresos vuelve a no poder absorberla, el excedente **no** va al Saldo Congelado. Se marca como **Ingresos Perdidos** y se distribuye bajo la regla estándar de compresión: pasa hacia arriba en la estructura al siguiente participante con un Límite de Ingresos activo.
+El Saldo Congelado protege dos eventos de cada invitado personal: su **primera compra de NFT** y su **Autobuy** (renovación automática del NFT del mismo invitado — 20% de Sponsor Bonus de rebuy). Las compras repetidas y los upgrades **manuales** del mismo invitado **no** están cubiertos: si tu Límite de Ingresos no puede absorber la comisión, el excedente se marca como **Ingresos Perdidos** y se distribuye bajo la regla estándar de compresión — pasa hacia arriba en la estructura al siguiente participante con un Límite de Ingresos activo.
 
 <Warning>
-  Si tienes una larga secuencia de compras repetidas de invitados grandes y **tu Límite de Ingresos está agotado**, cada una de esas compras repetidas te elude por compresión. Mantén tu Límite de Ingresos activo — mediante Autobuy o renovación manual — para no sangrar ingresos de socios consolidados.
+  Si tu invitado hace muchos rebuys/upgrades manuales mientras **tu Límite de Ingresos está agotado**, cada una de esas compras manuales te elude por compresión. Mantén tu Límite de Ingresos activo — mediante tu propio Autobuy o renovación manual — para no sangrar ingresos de socios consolidados.
 </Warning>
 
 ## Escenario de Alto Volumen — Cascada a Través de la Estructura
 
-El Saldo Congelado protege **únicamente** la comisión de una compra primera de un invitado directo. Pero en una estructura grande, la mayor parte de tus ingresos no proviene de ventas personales — proviene de la profundidad, mediante la distribución del árbol (4% en el nivel 9 × 500+ posiciones puede generar decenas de miles de USDT en un solo ciclo de acreditación).
+El Saldo Congelado protege **únicamente** la comisión de la primera compra o el Autobuy de un invitado directo. Pero en una estructura grande, la mayor parte de tus ingresos no proviene de ventas personales — proviene de la profundidad, mediante la distribución del árbol (4% en el nivel 9 × 500+ posiciones puede generar decenas de miles de USDT en un solo ciclo de acreditación).
 
 Cuando llega ese volumen y tu Límite de Ingresos es de 1.100 USDT con Autobuy capaz de refrescarlo un máximo de tres veces (3/3 en niveles L1–L8), el sistema:
 
@@ -81,7 +81,7 @@ Cuando llega ese volumen y tu Límite de Ingresos es de 1.100 USDT con Autobuy c
 3. Repite hasta 3 veces.
 4. **Todo el volumen restante se comprime** — pasa hacia arriba al siguiente participante con un Límite de Ingresos activo.
 
-El Saldo Congelado **no** se activa en este escenario porque la fuente no es una primera compra de invitado, sino la distribución del árbol desde la profundidad.
+El Saldo Congelado **no** se activa en este escenario porque la fuente no es la primera compra ni el Autobuy de un invitado directo, sino la distribución del árbol desde la profundidad.
 
 <Info>
   Conclusión para escala: en grandes volúmenes de red, la palanca clave es **el nivel de tu propio NFT**. Los niveles superiores tienen mayores Límites de Ingresos y reducen la porción perdida por compresión. Los niveles Elite (L9–L10), con Autobuy ilimitado, abordan esto de forma sistémica.
@@ -96,7 +96,7 @@ El Saldo Congelado **no** se activa en este escenario porque la fuente no es una
 | Ventana de congelación | 72 horas | Inmutable |
 | Cuota del Pool de Liquidez del DA al perderse | 70% | Ajustable por DAO (50–100%) |
 | Cuota del patrocinador upline al perderse | 30% | Ajustable por DAO (0–30%) |
-| Activador | Primera compra del invitado personal directo | Inmutable |
+| Activador | Primera compra o Autobuy del invitado personal directo | Inmutable |
 | Distribución al liberar | 75/20/5 | División estándar — ver Arquitectura |
 
 Ver también: [Límite de Ingresos en la página del Ecosistema NFT](/es/nft-ecosystem), [Prioridad de Pagos en Arquitectura](/es/architecture).

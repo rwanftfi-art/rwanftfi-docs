@@ -6,12 +6,12 @@ icon: "snowflake"
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-Ang Frozen Balance ay ang mekanika na nagpoprotekta sa iyong marketing income sa isang partikular ngunit napaka-karaniwang sitwasyon: kapag ang **iyong direktang personal na invitee ay gumawa ng kanilang first NFT purchase sa mas mataas na antas kaysa sa iyong sarili**, at ang resultang commission ay lumampas sa natitirang Income Limit ng iyong NFT.
+Ang Frozen Balance ay ang mekanika na nagpoprotekta sa iyong marketing income sa dalawang magkaugnay na sitwasyon: kapag ang **iyong direktang personal na invitee ay gumawa ng kanilang first NFT purchase**, o kapag **nagti-trigger ang Autobuy ng iyong invitee** (awtomatikong pag-renew ng kanilang NFT, na nagbibigay sa iyo ng 20% rebuy Sponsor Bonus), at ang resultang commission ay lumampas sa natitirang Income Limit ng iyong NFT.
 
 Kung walang Frozen Balance, ang labis na iyon ay mawawala sa compression — ipapasa pataas sa istraktura. Ang Frozen Balance ay nag-fa-freeze nito sa loob ng **72 oras** at nagbibigay sa iyo ng oras upang i-upgrade ang iyong NFT at angkinin ang buong halaga.
 
 <Info>
-  Ito ang marketing safety net para sa "pataas" na mga imbitasyon: maaari kang magtiwala na mag-imbita ng mga partner sa anumang antas ng NFT nang hindi nag-aalala na mawawala ang commission sa malaking pagbili dahil masyadong maliit ang iyong Income Limit.
+  Ito ang marketing safety net para sa parehong "pataas" na mga imbitasyon at sa recurring revenue mula sa mga itinatag na invitee: maaari kang magtiwala na mag-imbita ng mga partner sa anumang antas ng NFT at umasa sa kanilang Autobuy renewals, nang hindi nag-aalala na mawawala ang commission dahil masyadong maliit ang iyong Income Limit.
 </Info>
 
 ## Kailan Nagti-trigger ang Frozen Balance
@@ -22,8 +22,8 @@ Ang Frozen Balance ay nag-a-activate **lamang kapag ang lahat ng tatlong kondisy
   <Step title="Ang bumibili ay iyong direktang personal na invitee">
     Hindi spillover, hindi downline partner na limang antas ang lalim — partikular na isang taong personal mong inimbitahan sa iyong istraktura.
   </Step>
-  <Step title="Ito ay first NFT purchase ng invitee na iyon">
-    Ang mga paulit-ulit na pagbili ng parehong invitee (rebuy, upgrade, bagong NFT pagkatapos ng Autobuy) ay **hindi** sakop ng Frozen Balance — tingnan ang seksyon ng Lost Income sa ibaba.
+  <Step title="Ito ay first NFT purchase ng invitee na iyon o ang kanilang Autobuy">
+    Sinasakop ng Frozen Balance ang dalawang event mula sa iyong invitee: ang kanilang **first NFT purchase** at ang kanilang **Autobuy** (awtomatikong pag-renew ng NFT ng parehong invitee, na nagbabayad sa iyo ng 20% rebuy Sponsor Bonus). Ang manual na paulit-ulit na pagbili at upgrades ng parehong invitee ay **hindi** sakop — tingnan ang seksyon ng Lost Income sa ibaba.
   </Step>
   <Step title="Ang commission ay lumampas sa iyong natitirang Income Limit">
     Kung sapat ang iyong natitirang Income Limit upang sakupin ang buong commission, walang freeze na nangyayari — lahat ay na-credit nang normal.
@@ -64,15 +64,15 @@ May tatlo kang sitwasyon:
 
 ## Mga Paulit-ulit na Pagbili mula sa Parehong Invitee
 
-Madaling palampasin ang detalyeng ito: Ang Frozen Balance ay umaaplay **lamang sa unang pagbili** ng bawat personal na invitee. Kung ang iyong invitee ay gagawa ng pangalawang pagbili (rebuy, upgrade, bagong NFT), at ang iyong Income Limit ay muling hindi makakasakop, ang labis ay **hindi** napupunta sa Frozen Balance. Ito ay minamarkahan bilang **Lost Income** at ipinamamahagi sa ilalim ng standard compression rule: ipinapasa pataas sa istraktura sa susunod na kalahok na may aktibong Income Limit.
+Pinoprotektahan ng Frozen Balance ang dalawang event mula sa bawat personal na invitee: ang kanilang **first NFT purchase** at ang kanilang **Autobuy** (awtomatikong pag-renew ng NFT ng parehong invitee — 20% rebuy Sponsor Bonus). Ang **manual** na paulit-ulit na pagbili at upgrades ng parehong invitee ay **hindi** sakop: kung hindi makakasakop ang iyong Income Limit ng commission, ang labis ay minamarkahan bilang **Lost Income** at ipinamamahagi sa ilalim ng standard compression rule — ipinapasa pataas sa istraktura sa susunod na kalahok na may aktibong Income Limit.
 
 <Warning>
-  Kung mayroon kang mahabang sequence ng paulit-ulit na pagbili mula sa malalaking invitees at **naubos na ang iyong Income Limit**, bawat ganoong paulit-ulit na pagbili ay nilalampasan ka sa pamamagitan ng compression. Panatilihing aktibo ang iyong Income Limit — sa pamamagitan ng Autobuy o manual renewal — upang hindi ka magdugo ng kita mula sa mga itinatag na partner.
+  Kung gumagawa ang iyong invitee ng maraming manual na rebuys/upgrades habang **naubos na ang iyong Income Limit**, bawat ganoong manual na pagbili ay nilalampasan ka sa pamamagitan ng compression. Panatilihing aktibo ang iyong Income Limit — sa pamamagitan ng iyong sariling Autobuy o manual renewal — upang hindi ka magdugo ng kita mula sa mga itinatag na partner.
 </Warning>
 
 ## High-Volume Scenario — Cascade sa Pamamagitan ng Istraktura
 
-Ang Frozen Balance ay nagpoprotekta **lamang** sa commission sa direktang first-time invitee purchase. Ngunit sa malaking istraktura, karamihan ng iyong kita ay hindi nagmumula sa personal sales — nagmumula ito sa lalim, sa pamamagitan ng tree distribution (4% sa level 9 × 500+ posisyon ay maaaring magbunga ng sampu-sampung libo ng USDT sa isang accrual cycle).
+Ang Frozen Balance ay nagpoprotekta **lamang** sa commission sa first-time purchase o Autobuy ng direktang invitee. Ngunit sa malaking istraktura, karamihan ng iyong kita ay hindi nagmumula sa personal sales — nagmumula ito sa lalim, sa pamamagitan ng tree distribution (4% sa level 9 × 500+ posisyon ay maaaring magbunga ng sampu-sampung libo ng USDT sa isang accrual cycle).
 
 Kapag tumama ang volume na iyon at ang iyong Income Limit ay 1,100 USDT na may Autobuy na may kapasidad na ma-refresh ito tatlong beses lamang (3/3 sa tiers L1–L8), ang system:
 
@@ -81,7 +81,7 @@ Kapag tumama ang volume na iyon at ang iyong Income Limit ay 1,100 USDT na may A
 3. Inuulit hanggang 3 beses.
 4. **Lahat ng natitirang volume ay na-compress** — ipinapasa pataas sa susunod na kalahok na may aktibong Income Limit.
 
-Ang Frozen Balance ay **hindi** nag-a-activate sa sitwasyong ito dahil ang pinagmumulan ay hindi first-time invitee purchase kundi tree distribution mula sa lalim.
+Ang Frozen Balance ay **hindi** nag-a-activate sa sitwasyong ito dahil ang pinagmumulan ay hindi first-time purchase o Autobuy ng direktang invitee kundi tree distribution mula sa lalim.
 
 <Info>
   Aral para sa scale: sa malalaking network volumes, ang pangunahing lever ay **ang antas ng iyong sariling NFT**. Ang mas mataas na tiers ay may mas malaking Income Limits at nagpapababa sa share na nawawala sa compression. Ang Elite tiers (L9–L10), na may walang limitasyong Autobuy, ay sistemikong tumutugon dito.
@@ -96,7 +96,7 @@ Ang Frozen Balance ay **hindi** nag-a-activate sa sitwasyong ito dahil ang pinag
 | Freeze window | 72 oras | Hindi mababago |
 | DA Liquidity Pool share sa forfeit | 70% | DAO-adjustable (50–100%) |
 | Upline sponsor share sa forfeit | 30% | DAO-adjustable (0–30%) |
-| Trigger | Unang pagbili ng direktang personal na invitee | Hindi mababago |
+| Trigger | Unang pagbili o Autobuy ng direktang personal na invitee | Hindi mababago |
 | Release distribution | 75/20/5 | Standard split — tingnan ang Architecture |
 
 Tingnan din: [Income Limit sa NFT Ecosystem page](/fil/nft-ecosystem), [Payment Priority sa Architecture](/fil/architecture).
