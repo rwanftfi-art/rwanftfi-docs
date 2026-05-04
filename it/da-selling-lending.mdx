@@ -110,10 +110,6 @@ Ogni batch di DA da un ciclo di mining serve come collaterale indipendente. Gli 
   Sono possibili più prestiti attivi simultanei — uno per batch di DA. Ogni prestito ha il proprio cutoff di 30 giorni e una commissione del 5%. Gli NFT più piccoli producono prestiti più piccoli, gli NFT più grandi producono prestiti più grandi. Se un singolo prestito va in default, solo il collaterale di quel batch entra nel ciclo di auto-vendita — non tutte le posizioni in DA.
 </Tip>
 
-<Note>
-  **Finestra di Rimborso — Nessun Rimborso in Ritardo:** Un prestito può essere rimborsato tramite `repay()` solo mentre è ancora attivo. Una volta superato il cutoff di 30 giorni e la posizione è entrata nella deadline di auto-vendita, `repay()` viene revocata — il mutuatario **non può** sciogliere il prestito per aggirare il programma di liquidazione. Una posizione in arretrato deve invece essere processata tramite `processExpiredStacks()`, che esegue il burn progressivo descritto qui sotto. Non esiste alcun percorso che permetta a un mutuatario di evitare le penalità di default rimborsando in ritardo.
-</Note>
-
 <Warning>
   **Default sul Lending — Burn Progressivo:** Se un prestito non viene rimborsato entro il periodo di cutoff di 30 giorni, il DA dato in collaterale entra nel ciclo di auto-vendita. I token vengono progressivamente bruciati attraverso lo stesso programma a 4 periodi (25% → 40% → 50% → 100% del saldo residuo in 365 giorni / 1 anno totale: 120 / 90 / 90 / 65 giorni per periodo).
 

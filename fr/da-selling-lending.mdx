@@ -110,10 +110,6 @@ Chaque lot de DA issu d'un cycle de minage sert de collatéral indépendant. Les
   Plusieurs prêts actifs simultanés sont possibles — un par lot de DA. Chaque prêt a sa propre période butoir de 30 jours et une commission de 5 %. Les NFT plus petits produisent des prêts plus petits, les NFT plus grands produisent des prêts plus grands. Si un prêt particulier fait défaut, seul le collatéral de ce lot entre dans le cycle d'auto-vente — pas l'ensemble des avoirs en DA.
 </Tip>
 
-<Note>
-  **Fenêtre de Remboursement — Aucun Remboursement Tardif :** Un prêt peut uniquement être remboursé via `repay()` tant qu'il est encore actif. Une fois la période butoir de 30 jours dépassée et la position entrée dans le délai d'auto-vente, `repay()` est annulé — l'emprunteur **ne peut pas** dénouer le prêt pour contourner le calendrier de liquidation. Une position en retard doit alors être traitée via `processExpiredStacks()`, qui exécute le brûlage progressif décrit ci-dessous. Aucun chemin ne permet à un emprunteur d'échapper aux pénalités de défaut en remboursant tardivement.
-</Note>
-
 <Warning>
   **Défaut de Lending — Brûlage Progressif :** Si un prêt n'est pas remboursé dans la période butoir de 30 jours, le DA mis en collatéral entre dans le cycle d'auto-vente. Les jetons sont progressivement brûlés selon le même calendrier en 4 périodes (25 % → 40 % → 50 % → 100 % du solde restant sur 365 jours / 1 an au total : 120 / 90 / 90 / 65 jours par période).
 

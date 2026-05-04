@@ -110,10 +110,6 @@ Setiap batch DA dari siklus mining berfungsi sebagai jaminan independen. Penggun
   Beberapa pinjaman aktif simultan dimungkinkan — satu per batch DA. Setiap pinjaman memiliki batas waktu 30 hari dan komisi 5% sendiri. NFT yang lebih kecil menghasilkan pinjaman yang lebih kecil, NFT yang lebih besar menghasilkan pinjaman yang lebih besar. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang masuk ke siklus auto-sell — bukan seluruh kepemilikan DA.
 </Tip>
 
-<Note>
-  **Jendela Pelunasan — Tanpa Pelunasan Terlambat:** Pinjaman hanya dapat dilunasi melalui `repay()` selama masih aktif. Setelah batas waktu 30 hari berlalu dan posisi telah memasuki tenggat auto-sell, `repay()` dibatalkan — peminjam **tidak dapat** melepaskan pinjaman untuk mengelak dari jadwal likuidasi. Posisi yang sudah terlambat harus diproses melalui `processExpiredStacks()`, yang mengeksekusi pembakaran progresif yang dijelaskan di bawah. Tidak ada jalur yang memungkinkan peminjam lolos dari penalti gagal bayar dengan melunasi terlambat.
-</Note>
-
 <Warning>
   **Gagal Bayar Pinjaman — Pembakaran Progresif:** Jika pinjaman tidak dilunasi dalam periode batas waktu 30 hari, DA yang dijaminkan masuk ke siklus auto-sell. Token dibakar secara progresif melalui jadwal 4 periode yang sama (25% → 40% → 50% → 100% dari saldo tersisa selama total 365 hari / 1 tahun: 120 / 90 / 90 / 65 hari per periode).
 

@@ -110,10 +110,6 @@ Cada batch de DA de um ciclo de mineração serve como garantia independente. Os
   Múltiplos empréstimos ativos simultaneamente são possíveis — um por batch de DA. Cada empréstimo tem seu próprio prazo final de 30 dias e comissão de 5%. NFTs menores produzem empréstimos menores; NFTs maiores produzem empréstimos maiores. Se algum empréstimo individual entrar em inadimplência, somente a garantia daquele batch entra no ciclo de auto-venda — não todas as posições em DA.
 </Tip>
 
-<Note>
-  **Janela de Pagamento — Sem Pagamentos Atrasados:** Um empréstimo só pode ser pago via `repay()` enquanto ainda estiver ativo. Uma vez que o prazo final de 30 dias tenha passado e a posição tenha cruzado para o prazo de auto-venda, `repay()` é revertido — o tomador **não pode** desfazer o empréstimo para contornar o cronograma de liquidação. Uma posição vencida deve, em vez disso, ser processada via `processExpiredStacks()`, que executa a queima progressiva descrita abaixo. Não há caminho que permita a um tomador escapar das penalidades de inadimplência pagando atrasado.
-</Note>
-
 <Warning>
   **Inadimplência de Lending — Queima Progressiva:** Se um empréstimo não for pago dentro do prazo final de 30 dias, o DA dado em garantia entra no ciclo de auto-venda. Os tokens são progressivamente queimados pelo mesmo cronograma de 4 períodos (25% → 40% → 50% → 100% do saldo restante ao longo de 365 dias / 1 ano no total: 120 / 90 / 90 / 65 dias por período).
 

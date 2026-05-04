@@ -110,10 +110,6 @@ Jede DA-Charge aus einem Mining-Zyklus dient als unabhängige Sicherheit. Nutzer
   Mehrere gleichzeitig aktive Kredite sind möglich – einer pro DA-Charge. Jeder Kredit hat seine eigene 30-Tage-Frist und 5 %-Provision. Kleinere NFTs produzieren kleinere Kredite, größere NFTs produzieren größere Kredite. Wenn ein einzelner Kredit ausfällt, tritt nur die Sicherheit dieser Charge in den Auto-Verkaufs-Zyklus ein – nicht alle DA-Bestände.
 </Tip>
 
-<Note>
-  **Rückzahlungsfenster — keine verspäteten Rückzahlungen:** Ein Kredit kann nur über `repay()` zurückgezahlt werden, solange er noch aktiv ist. Sobald die 30-Tage-Frist abgelaufen ist und die Position den Auto-Verkaufs-Stichtag überschritten hat, wird `repay()` zurückgesetzt – der Kreditnehmer **kann** den Kredit nicht abwickeln, um den Liquidationsplan zu umgehen. Eine überfällige Position muss stattdessen über `processExpiredStacks()` verarbeitet werden, das den unten beschriebenen progressiven Burn ausführt. Es gibt keinen Weg, der es einem Kreditnehmer erlaubt, durch verspätete Rückzahlung den Strafen für Zahlungsausfall zu entgehen.
-</Note>
-
 <Warning>
   **Lending-Ausfall — Progressiver Burn:** Wenn ein Kredit nicht innerhalb der 30-Tage-Frist zurückgezahlt wird, tritt das besicherte DA in den Auto-Verkaufs-Zyklus ein. Tokens werden progressiv durch denselben 4-Perioden-Plan verbrannt (25 % → 40 % → 50 % → 100 % des verbleibenden Guthabens über insgesamt 365 Tage / 1 Jahr: 120 / 90 / 90 / 65 Tage pro Periode).
 

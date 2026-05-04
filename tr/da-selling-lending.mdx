@@ -110,10 +110,6 @@ Bir madencilik döngüsünden gelen her DA partisi bağımsız teminat olarak hi
   Birden fazla eş zamanlı aktif kredi mümkündür — her DA partisi başına bir tane. Her kredinin kendi 30 günlük kesim süresi ve %5 komisyonu vardır. Daha küçük NFT'ler daha küçük krediler üretir, daha büyük NFT'ler daha büyük krediler üretir. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı otomatik satış döngüsüne girer — tüm DA varlıkları değil.
 </Tip>
 
-<Note>
-  **Geri Ödeme Penceresi — Geç Geri Ödeme Yok:** Bir kredi yalnızca aktifken `repay()` aracılığıyla geri ödenebilir. 30 günlük kesim süresi geçtikten ve pozisyon otomatik satış son tarihine geçtikten sonra, `repay()` geri alınır — borçlu tasfiye programını atlamak için krediyi geri **alamaz**. Süresi geçmiş bir pozisyon, aşağıda açıklanan aşamalı yakımı yürüten `processExpiredStacks()` aracılığıyla işlenmelidir. Bir borçlunun geç geri ödeyerek temerrüt cezalarından kaçmasına izin veren bir yol yoktur.
-</Note>
-
 <Warning>
   **Borç Verme Temerrüdü — Aşamalı Yakım:** Bir kredi 30 günlük kesim süresi içinde geri ödenmezse, teminatlandırılmış DA otomatik satış döngüsüne girer. Tokenler aynı 4 dönemli program aracılığıyla aşamalı olarak yakılır (toplam 365 gün / 1 yıl boyunca kalan bakiyenin %25 → %40 → %50 → %100'ü: dönem başına 120 / 90 / 90 / 65 gün).
 

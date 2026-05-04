@@ -110,10 +110,6 @@ Mỗi lô DA từ một chu kỳ khai thác đóng vai trò là tài sản thế
   Có thể có nhiều khoản vay đồng thời đang hoạt động — một khoản cho mỗi lô DA. Mỗi khoản vay có thời hạn 30 ngày riêng và 5% hoa hồng. NFT nhỏ hơn tạo ra khoản vay nhỏ hơn, NFT lớn hơn tạo ra khoản vay lớn hơn. Nếu bất kỳ khoản vay nào vỡ nợ, chỉ tài sản thế chấp của lô đó vào chu kỳ tự động bán — không phải tất cả các DA nắm giữ.
 </Tip>
 
-<Note>
-  **Cửa Sổ Trả Nợ — Không Có Trả Nợ Muộn:** Khoản vay chỉ có thể được trả qua `repay()` khi nó vẫn còn hoạt động. Sau khi thời hạn 30 ngày trôi qua và vị thế đã vượt qua hạn chót tự động bán, `repay()` sẽ bị hoàn nguyên — người vay **không thể** thanh toán khoản vay để bỏ qua lịch thanh lý. Một vị thế quá hạn phải được xử lý qua `processExpiredStacks()`, thực hiện việc đốt lũy tiến mô tả bên dưới. Không có con đường nào cho phép người vay thoát khỏi các hình phạt vỡ nợ bằng cách trả nợ muộn.
-</Note>
-
 <Warning>
   **Vỡ Nợ Cho Vay — Đốt Lũy Tiến:** Nếu khoản vay không được trả trong thời hạn 30 ngày, DA thế chấp sẽ vào chu kỳ tự động bán. Token bị đốt lũy tiến qua cùng lịch trình 4 giai đoạn (25% → 40% → 50% → 100% số dư còn lại trong tổng cộng 365 ngày / 1 năm: 120 / 90 / 90 / 65 ngày mỗi giai đoạn).
 

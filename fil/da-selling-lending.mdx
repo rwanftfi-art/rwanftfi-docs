@@ -110,10 +110,6 @@ Ang bawat DA batch mula sa mining cycle ay nagsisilbing independent collateral. 
   Maraming sabay-sabay na aktibong loans ay posible — isa bawat DA batch. Ang bawat loan ay may sariling 30-araw na cutoff at 5% commission. Ang mas maliit na NFTs ay nagbubunga ng mas maliit na loans, ang mas malalaking NFTs ay nagbubunga ng mas malalaking loans. Kung ang anumang indibidwal na loan ay nag-default, tanging ang collateral ng batch na iyon ang pumapasok sa auto-sell cycle — hindi lahat ng DA holdings.
 </Tip>
 
-<Note>
-  **Repay Window — Walang Late Repayments:** Ang loan ay maaari lamang bayaran sa pamamagitan ng `repay()` habang ito ay aktibo pa. Sa sandaling lumipas na ang 30-araw na cutoff at ang posisyon ay tumawid na sa auto-sell deadline, ang `repay()` ay nag-re-revert — ang nanghihiram ay **hindi maaaring** i-unwind ang loan upang lampasan ang liquidation schedule. Ang isang overdue na posisyon ay dapat na i-process sa pamamagitan ng `processExpiredStacks()`, na nagsasagawa ng progresibong burn na inilarawan sa ibaba. Walang landas na nagpapahintulot sa nanghihiram na makatakas sa default penalties sa pamamagitan ng late repayment.
-</Note>
-
 <Warning>
   **Lending Default — Progresibong Burn:** Kung ang loan ay hindi binayaran sa loob ng 30-araw na cutoff period, ang collateralized DA ay pumapasok sa auto-sell cycle. Ang tokens ay progresibong sinusunog sa pamamagitan ng parehong 4-period schedule (25% → 40% → 50% → 100% ng natitirang balance sa 365 araw / 1 taon sa kabuuan: 120 / 90 / 90 / 65 araw bawat panahon).
 
