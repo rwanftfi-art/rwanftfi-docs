@@ -6,12 +6,12 @@ icon: "snowflake"
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-O Saldo Congelado é a mecânica que protege sua renda de marketing em uma situação específica, mas muito comum: quando **seu convidado pessoal direto realiza sua primeira compra de NFT em um nível superior ao seu**, e a comissão resultante excede o Limite de Rendimento restante do seu NFT.
+O Saldo Congelado é a mecânica que protege sua renda de marketing em duas situações relacionadas: quando **seu convidado pessoal direto realiza sua primeira compra de NFT**, ou quando **o Autobuy do seu convidado é acionado** (renovação automática do NFT dele, gerando o Sponsor Bonus de rebuy de 20%), e a comissão resultante excede o Limite de Rendimento restante do seu NFT.
 
 Sem o Saldo Congelado, esse excesso seria perdido pela compressão — repassado para cima na estrutura. O Saldo Congelado o congela por **72 horas** e dá a você uma janela para fazer upgrade do seu NFT e reivindicar o valor total.
 
 <Info>
-  Esta é a rede de segurança de marketing para convites "para cima": você pode convidar parceiros com confiança para qualquer nível de NFT sem temer que a comissão de uma grande compra seja perdida porque seu próprio Limite de Rendimento é muito pequeno.
+  Esta é a rede de segurança de marketing tanto para convites "para cima" quanto para a receita recorrente de convidados estabelecidos: você pode convidar parceiros com confiança para qualquer nível de NFT e contar com as renovações Autobuy deles, sem temer que a comissão seja perdida porque seu próprio Limite de Rendimento é muito pequeno.
 </Info>
 
 ## Quando o Saldo Congelado é Acionado
@@ -22,8 +22,8 @@ O Saldo Congelado é ativado **somente quando todas as três condições são at
   <Step title="O comprador é seu convidado pessoal direto">
     Não um spillover, não um parceiro de downline com cinco níveis de profundidade — especificamente uma pessoa que você convidou pessoalmente para sua estrutura.
   </Step>
-  <Step title="É a primeira compra de NFT desse convidado">
-    Compras repetidas do mesmo convidado (rebuy, upgrade, novo NFT após Autobuy) **não** são cobertas pelo Saldo Congelado — veja a seção Renda Perdida abaixo.
+  <Step title="É a primeira compra de NFT desse convidado ou o Autobuy dele">
+    O Saldo Congelado cobre dois eventos do seu convidado: a **primeira compra de NFT** dele e o **Autobuy** dele (renovação automática do NFT do mesmo convidado, que paga a você o Sponsor Bonus de rebuy de 20%). Compras repetidas e upgrades manuais do mesmo convidado **não** são cobertos — veja a seção Renda Perdida abaixo.
   </Step>
   <Step title="A comissão excede seu Limite de Rendimento restante">
     Se seu Limite de Rendimento restante for grande o suficiente para absorver a comissão completa, nenhum congelamento ocorre — tudo é creditado normalmente.
@@ -64,15 +64,15 @@ Você tem três cenários:
 
 ## Compras Repetidas do Mesmo Convidado
 
-Este detalhe é fácil de passar despercebido: o Saldo Congelado se aplica **apenas à primeira compra** de cada convidado pessoal. Se seu convidado posteriormente fizer uma segunda compra (rebuy, upgrade, novo NFT) e seu Limite de Rendimento novamente não puder absorvê-la, o excesso **não** vai para o Saldo Congelado. Ele é sinalizado como **Renda Perdida** e distribuído sob a regra padrão de compressão: repassado para cima na estrutura para o próximo participante com um Limite de Rendimento ativo.
+O Saldo Congelado protege dois eventos de cada convidado pessoal: a **primeira compra de NFT** dele e o **Autobuy** dele (renovação automática do NFT do mesmo convidado — Sponsor Bonus de rebuy de 20%). Compras repetidas e upgrades **manuais** do mesmo convidado **não** são cobertos: se o seu Limite de Rendimento não conseguir absorver a comissão, o excesso é sinalizado como **Renda Perdida** e distribuído sob a regra padrão de compressão — repassado para cima na estrutura para o próximo participante com um Limite de Rendimento ativo.
 
 <Warning>
-  Se você tem uma longa sequência de compras repetidas de convidados grandes e **seu Limite de Rendimento está esgotado**, cada uma dessas compras repetidas o ignora via compressão. Mantenha seu Limite de Rendimento ativo — através do Autobuy ou renovação manual — para não sangrar renda de parceiros já estabelecidos.
+  Se seu convidado faz muitos rebuys/upgrades manuais enquanto **seu Limite de Rendimento está esgotado**, cada uma dessas compras manuais o ignora via compressão. Mantenha seu Limite de Rendimento ativo — através do seu próprio Autobuy ou renovação manual — para não perder renda de parceiros já estabelecidos.
 </Warning>
 
 ## Cenário de Alto Volume — Cascata Através da Estrutura
 
-O Saldo Congelado protege **somente** a comissão sobre uma compra direta de primeira vez de um convidado. Mas em uma estrutura grande, a maior parte da sua renda não vem de vendas pessoais — ela vem da profundidade, através da distribuição em árvore (4% no nível 9 × 500+ posições pode render dezenas de milhares de USDT em um único ciclo de acumulação).
+O Saldo Congelado protege **somente** a comissão sobre a primeira compra de um convidado direto ou sobre o Autobuy dele. Mas em uma estrutura grande, a maior parte da sua renda não vem de vendas pessoais — ela vem da profundidade, através da distribuição em árvore (4% no nível 9 × 500+ posições pode render dezenas de milhares de USDT em um único ciclo de acumulação).
 
 Quando esse volume chega e seu Limite de Rendimento é de 1.100 USDT com Autobuy capaz de renová-lo no máximo três vezes (3/3 nos níveis L1–L8), o sistema:
 
@@ -81,7 +81,7 @@ Quando esse volume chega e seu Limite de Rendimento é de 1.100 USDT com Autobuy
 3. Repete até 3 vezes.
 4. **Todo o volume restante é comprimido** — repassado para cima ao próximo participante com um Limite de Rendimento ativo.
 
-O Saldo Congelado **não** é ativado neste cenário porque a fonte não é uma compra de primeira vez de um convidado, mas sim distribuição em árvore vinda da profundidade.
+O Saldo Congelado **não** é ativado neste cenário porque a fonte não é a primeira compra ou Autobuy de um convidado direto, mas sim distribuição em árvore vinda da profundidade.
 
 <Info>
   Conclusão para escala: em grandes volumes de rede, a alavanca-chave é **o nível do seu próprio NFT**. Níveis mais altos têm Limites de Rendimento maiores e reduzem a parcela perdida para a compressão. Os níveis Elite (L9–L10), com Autobuy ilimitado, abordam isso sistematicamente.
@@ -96,7 +96,7 @@ O Saldo Congelado **não** é ativado neste cenário porque a fonte não é uma 
 | Janela de congelamento | 72 horas | Imutável |
 | Parcela do Pool de Liquidez do DA em caso de perda | 70% | Ajustável pela DAO (50–100%) |
 | Parcela do patrocinador upline em caso de perda | 30% | Ajustável pela DAO (0–30%) |
-| Acionador | Primeira compra do convidado pessoal direto | Imutável |
+| Acionador | Primeira compra ou Autobuy do convidado pessoal direto | Imutável |
 | Distribuição na liberação | 75/20/5 | Divisão padrão — veja Arquitetura |
 
 Veja também: [Limite de Rendimento na página do Ecossistema NFT](/pt/nft-ecosystem), [Prioridade de Pagamento na Arquitetura](/pt/architecture).
