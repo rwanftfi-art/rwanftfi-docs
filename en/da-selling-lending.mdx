@@ -77,7 +77,7 @@ Each auto-sell executes at the DA price at that moment, not the original farming
 
 Instead of selling, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
 
-When taking a loan, the borrower pays a one-time **5% commission** that is directed to the DA Liquidity Pool. The borrower receives 95% of the loan value. Example: for a $1,000 loan, the borrower receives $950 and $50 goes to the Liquidity Pool. This commission is collected with every new loan — users can take new loans after receiving new DA batches, meaning the commission flows into the Pool repeatedly.
+When taking a loan, the borrower pays a one-time **5% commission** that is directed to the DA Liquidity Pool. The borrower receives 95% of the loan value. Example: for a \$1,000 loan, the borrower receives \$950 and \$50 goes to the Liquidity Pool. This commission is collected with every new loan — users can take new loans after receiving new DA batches, meaning the commission flows into the Pool repeatedly.
 
 <Info>
   **Independent Loan Fee Parameter:** The 5% lending commission is stored on-chain as a dedicated `loanFee` parameter, separate from the protocol's other fee parameters. This isolation lets the DAO tune the loan fee independently — without affecting marketing taxes, accumulative fees, or any other commission — and keeps the loan economics governable as a single, explicit lever.
