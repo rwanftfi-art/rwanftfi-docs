@@ -24,7 +24,9 @@ import { GovernanceStats } from '/snippets/governance-stats.jsx'
 </CardGroup>
 
 DAO bỏ phiếu cho các chức năng hệ sinh thái quan trọng, chẳng hạn như:
-* Kích hoạt một "Sự Kiện Tích Lũy" (giai đoạn 30 ngày nơi người dùng có thể nhận số dư tích lũy hết hạn, với thời gian chờ 180 ngày).
+* Chấm dứt sớm một "Sự Kiện Tích Lũy". Bản thân sự kiện (giai đoạn 30 ngày nơi người dùng có thể nhận số dư tích lũy hết hạn, với thời gian chờ 180 ngày) **được kích hoạt từ bảng quản trị — DAO không thể khởi tạo nó**, nhưng có thể chấm dứt sớm thông qua biểu quyết.
+* Kích hoạt một sự kiện **Price Impact**, trong đó thu nhập của người dùng được chuyển đến Pool Thanh Khoản DA để tăng cường sự hỗ trợ và ổn định giá của token DA.
+* Thay đổi các tham số hợp đồng thông minh trong các phạm vi đã được cố định khi triển khai (xem [Tham Số Hợp Đồng](/vi/contract-parameters)).
 * Ủy quyền việc bán toàn bộ cấu trúc kinh doanh của một người dùng dưới dạng một tài sản.
 * Xác minh và phê duyệt yêu cầu của người dùng để thay đổi ví tài chính bị xâm phạm của họ.
 * Bỏ phiếu để chặn NFT của một người dùng cụ thể (Đóng Băng). Khi một NFT bị chặn, người dùng mất quyền truy cập vào các sản phẩm tài chính của nền tảng. Việc gỡ chặn cũng được thực hiện độc quyền thông qua một cuộc bỏ phiếu DAO.

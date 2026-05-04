@@ -24,7 +24,9 @@ Para mai-submit ang isang proposal sa DAO, dapat itong suportado ng kahit 30% ng
 </CardGroup>
 
 Ang DAO ay bumoboto sa mga kritikal na ecosystem function, tulad ng:
-* Pag-trigger ng "Accumulative Event" (isang 30-araw na panahon kung saan maaaring i-claim ng mga user ang expired accumulative balances, na may 180-araw na cooldown).
+* Maagang pagtatapos ng "Accumulative Event". Ang event mismo (isang 30-araw na panahon kung saan maaaring i-claim ng mga user ang expired accumulative balances, na may 180-araw na cooldown) **ay tini-trigger mula sa admin panel — hindi maaaring simulan ito ng DAO**, ngunit maaaring tapusin ito nang maaga sa pamamagitan ng botohan.
+* Pag-trigger ng **Price Impact** event, kung saan ang kita ng mga user ay ipinapadala sa DA Liquidity Pool upang palakasin ang backing at katatagan ng presyo ng DA token.
+* Pagbabago ng mga parameter ng smart contract sa loob ng mga hanay na itinakda sa deployment (tingnan ang [Mga Parameter ng Kontrata](/fil/contract-parameters)).
 * Pagpapahintulot sa pagbebenta ng buong istraktura ng negosyo ng user bilang isang asset.
 * Pag-verify at pag-aapruba sa kahilingan ng user na baguhin ang kanilang nakompromisong financial wallet.
 * Pagboto upang i-block ang NFT ng partikular na user (Freeze). Kapag ang isang NFT ay na-block, mawawalan ng access ang user sa mga financial product ng platform. Ang pag-unblock ay isinasagawa rin nang eksklusibo sa pamamagitan ng DAO vote.
