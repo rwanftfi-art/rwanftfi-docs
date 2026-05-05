@@ -6,6 +6,30 @@ icon: "snowflake"
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to claim Frozen Balance within the 72-hour window",
+      "description": "When a direct invitee's first NFT purchase or Autobuy generates a marketing commission exceeding your remaining Income Limit, the excess is held for 72 hours. Upgrading your NFT releases it; missing the window forfeits 70% to the DA Liquidity Pool and 30% to your upline sponsor.",
+      "totalTime": "PT72H",
+      "tool": [
+        { "@type": "HowToTool", "name": "Active RWANFTFI NFT (sponsor)" },
+        { "@type": "HowToTool", "name": "Sufficient USDT to upgrade to a higher-tier NFT" }
+      ],
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Verify trigger conditions", "text": "Frozen Balance activates only when the buyer is your direct personal invitee, it is their first NFT purchase or their Autobuy, and the resulting commission exceeds your remaining Income Limit." },
+        { "@type": "HowToStep", "position": 2, "name": "Note the 72-hour timer", "text": "From the moment the freeze is created, you have 72 hours to act. The portion within your Income Limit is credited immediately under the standard 75/20/5 split; only the excess sits in Frozen Balance." },
+        { "@type": "HowToStep", "position": 3, "name": "Upgrade your NFT to release the funds", "text": "Purchase a higher-tier NFT before the 72 hours elapse. The frozen amount is released and credited under the same 75/20/5 split, deducted from the new NFT's Income Limit." },
+        { "@type": "HowToStep", "position": 4, "name": "Or rely on Autobuy", "text": "If Autobuy is enabled, it fires first, repurchasing the same-level NFT and refreshing your Income Limit. The commission is re-evaluated; only the residual remainder enters Frozen Balance." },
+        { "@type": "HowToStep", "position": 5, "name": "If you miss the window", "text": "70% of the frozen amount is routed to the DA Liquidity Pool for new DA minting, and 30% is transferred to your direct upline sponsor (with cascading if their Income Limit is exhausted)." }
+      ]
+    })
+  }}
+/>
+
 Frozen Balance is the mechanic that protects your marketing income in two related situations: when **your direct personal invitee makes their first NFT purchase**, or when **your invitee's Autobuy fires** (automatic renewal of their NFT, generating the 20% rebuy Sponsor Bonus), and the resulting commission exceeds your NFT's remaining Income Limit.
 
 Without Frozen Balance, that excess would be lost to compression — passed up the structure. Frozen Balance freezes it for **72 hours** and gives you a window to upgrade your NFT and claim the full amount.

@@ -980,6 +980,132 @@
             ]
           }
         ]
+      },
+      {
+        "language": "kk",
+        "groups": [
+          {
+            "group": "Бастау",
+            "pages": [
+              "kk/executive-summary",
+              "kk/vision"
+            ]
+          },
+          {
+            "group": "NFT Экожүйесі",
+            "pages": [
+              "kk/nft-ecosystem",
+              "kk/frozen-balance"
+            ]
+          },
+          {
+            "group": "Дефляциялық Актив (DA)",
+            "pages": [
+              "kk/da-token-mechanics",
+              "kk/da-mining-farming",
+              "kk/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Табыс және Маркетинг",
+            "pages": [
+              "kk/marketing-binary-tree",
+              "kk/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Архитектура",
+            "pages": [
+              "kk/architecture",
+              "kk/contract-parameters",
+              "kk/security"
+            ]
+          },
+          {
+            "group": "Басқару",
+            "pages": [
+              "kk/governance"
+            ]
+          },
+          {
+            "group": "Жол картасы",
+            "pages": [
+              "kk/roadmap"
+            ]
+          },
+          {
+            "group": "Ресурстар",
+            "pages": [
+              "kk/corporate-structure",
+              "kk/support",
+              "kk/partnerships",
+              "kk/legal"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "fil",
+        "groups": [
+          {
+            "group": "Magsimula Dito",
+            "pages": [
+              "fil/executive-summary",
+              "fil/vision"
+            ]
+          },
+          {
+            "group": "NFT Ecosystem",
+            "pages": [
+              "fil/nft-ecosystem",
+              "fil/frozen-balance"
+            ]
+          },
+          {
+            "group": "Deflationary Asset (DA)",
+            "pages": [
+              "fil/da-token-mechanics",
+              "fil/da-mining-farming",
+              "fil/da-selling-lending"
+            ]
+          },
+          {
+            "group": "Kita at Marketing",
+            "pages": [
+              "fil/marketing-binary-tree",
+              "fil/marketing-rewards"
+            ]
+          },
+          {
+            "group": "Arkitektura",
+            "pages": [
+              "fil/architecture",
+              "fil/contract-parameters",
+              "fil/security"
+            ]
+          },
+          {
+            "group": "Pamamahala",
+            "pages": [
+              "fil/governance"
+            ]
+          },
+          {
+            "group": "Roadmap",
+            "pages": [
+              "fil/roadmap"
+            ]
+          },
+          {
+            "group": "Mga Mapagkukunan",
+            "pages": [
+              "fil/corporate-structure",
+              "fil/support",
+              "fil/partnerships",
+              "fil/legal"
+            ]
+          }
+        ]
       }
     ]
   },

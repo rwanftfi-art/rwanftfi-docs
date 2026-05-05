@@ -17,7 +17,7 @@ Once a user holds DA, they have two primary financial options: selling the asset
   </Card>
 </CardGroup>
 
-## Selling DA & Burn Mechanics
+## How does selling DA and the burn work?
 
 When selling DA, there are two distinct scenarios with different conditions:
 
@@ -42,7 +42,7 @@ In both cases, 100% of sold tokens are burned — the 25%/30% represents the pro
   **Auto-sell** triggers automatically if you don't sell manually before the TokenStack period expires. It pays 5% less (70% vs 75%), incentivizing active management.
 </Info>
 
-## Auto-Sell Periods
+## How do the four Auto-Sell Periods work?
 
 DA is 100% available to the user immediately upon farming — there is no lock-up period. The user can sell manually at any time (receiving 75% in USDT) or take a loan against their DA. If the user does **not** act, the system triggers automatic forced sales from the **remaining balance** progressively over 4 periods spanning **365 days (1 year)** total. Period durations are denominated in days on-chain (120 / 90 / 90 / 65 days); the month references below are approximations for readability.
 
@@ -73,7 +73,7 @@ Each auto-sell executes at the DA price at that moment, not the original farming
   **Auto-Sell with Zero Income Limit:** If DA auto-sell triggers and the user has zero Income Limit on their NFT (meaning the NFT has not been renewed), 100% of proceeds are directed either to the Liquidity Pool or to DA burn. The exact mechanism is determined by DAO settings. Users should always maintain an active Income Limit to receive their auto-sell payout.
 </Warning>
 
-## Lending (Credit against DA)
+## How does lending against DA work?
 
 Instead of selling, users can take a loan in USDT against their DA holdings. Users can borrow up to **70%** of the current USDT value of their DA collateral (Loan-to-Value). The smart contract enforces a strict 30-day loan cutoff period. If a loan is not managed within the required parameters, the collateralized TokenStack can be liquidated.
 

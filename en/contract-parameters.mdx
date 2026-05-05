@@ -22,7 +22,7 @@ Every parameter in the RWANFTFI ecosystem is defined and enforced by the smart c
   </Card>
 </CardGroup>
 
-## NFT Purchase Distribution
+## How is NFT purchase revenue distributed?
 
 When a user purchases an NFT, the payment is automatically split across multiple destinations by the smart contract. The distribution differs between first-time purchases and repeat purchases (rebuys).
 
@@ -45,7 +45,7 @@ When a user purchases an NFT, the payment is automatically split across multiple
   </Tab>
 </Tabs>
 
-## Fees & Commissions
+## What fees and commissions does the protocol charge?
 
 All fees are enforced by the smart contract and adjustable within defined ranges through DAO governance.
 
@@ -64,7 +64,7 @@ All fees are enforced by the smart contract and adjustable within defined ranges
   **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
 </Note>
 
-## Timers & Schedules
+## What timers and schedules govern the protocol?
 
 Time-based parameters control critical system windows and deadlines across the ecosystem.
 
@@ -87,7 +87,7 @@ The auto-sell cycle triggers progressively from the remaining DA balance if the 
 | Period 4 | 65 days | 60 – 120 days |
 | **Total Cycle** | **365 days** | — |
 
-## Expired Balance Redistribution
+## How is an expired Accumulative Balance redistributed?
 
 When an Accumulative Balance expires (after the lifetime period), funds are redistributed according to the following rules. Distribution differs between Regular NFT holders and Gift NFT holders.
 
@@ -108,7 +108,7 @@ When an Accumulative Balance expires (after the lifetime period), funds are redi
   </Tab>
 </Tabs>
 
-## Marketing Tree Distribution
+## How is the per-level Tree Distribution configured?
 
 Each level of the 22-level marketing structure has a fixed reward percentage that determines how much a user earns from NFT sales at that depth. Percentages are DAO-adjustable within defined ranges. Levels 16–22 are unlocked in Phase 2.
 
@@ -167,7 +167,7 @@ Matching Bonus pays 5% across three levels of direct partner income. Each level 
 | Level 2 (5%) | $1,000 | $1,000 – $5,000 |
 | Level 3 (5%) | $3,000 | $3,000 – $7,000 |
 
-## Immutable Parameters
+## Which parameters are permanently immutable?
 
 <CardGroup cols={1}>
   <Card title="Hardcoded in Smart Contract" icon="shield-check">

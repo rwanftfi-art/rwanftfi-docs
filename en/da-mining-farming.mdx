@@ -5,6 +5,29 @@ icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to mine NFTM and farm DA in RWANFTFI",
+      "description": "Two-step process to acquire DA: mining generates NFTM over 40–45 days; staking NFTM in farming for the same duration converts it to DA at the current price.",
+      "totalTime": "P90D",
+      "tool": [
+        { "@type": "HowToTool", "name": "Active RWANFTFI NFT, level 5 (Hydro) or higher" },
+        { "@type": "HowToTool", "name": "Non-zero Income Limit on the NFT" }
+      ],
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Activate Mining", "text": "Start mining on your eligible NFT. Cycle duration is 45 days at Hydro (L5), shrinking to 40 days at Infinity (L10)." },
+        { "@type": "HowToStep", "position": 2, "name": "Generate NFTM", "text": "Your NFT generates NFTM over the cycle. L5–L7 produce 10% of NFT price in NFTM in a single cycle. L8–L10 run two cycles producing 10% and then 15%." },
+        { "@type": "HowToStep", "position": 3, "name": "Claim within 72 hours", "text": "Once mining completes you have exactly 72 hours to stake your NFTM into Farming. Missing this window forces you to restart mining from scratch." },
+        { "@type": "HowToStep", "position": 4, "name": "Farm DA", "text": "Staked NFTM enters Farming for the same duration as the mining cycle. At completion, NFTM converts to DA at the current price and is credited to your TokenStack." }
+      ]
+    })
+  }}
+/>
+
 
 ## How do you acquire DA through Mining and Farming?
 
