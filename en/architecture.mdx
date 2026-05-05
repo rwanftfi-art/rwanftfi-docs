@@ -1,6 +1,6 @@
 ---
 title: "Smart Contract Architecture"
-description: "Diamond Pattern and 7 Facets."
+description: "RWANFTFI smart contracts are built on the Diamond Pattern (EIP-2535) with 7 Facets, parity-partitioned NFT token IDs, role-based access (ADMIN/SERVICE/SIGNER/MINTER), and a multi-tiered balance schema."
 icon: "cubes"
 ---
 
@@ -19,9 +19,9 @@ The RWANFTFI platform is built on a robust, modular, and secure smart contract a
 
 ## Diamond Pattern (EIP-2535)
 
-The core of the RWANFTFI system is implemented using the Diamond Pattern (EIP-2535). This architectural choice allows the protocol to bypass the standard smart contract size limit (24KB) by splitting functionality across multiple independent modules called "Facets" (smart contract modules accessed through a single proxy contract).
+The core of the RWANFTFI system is implemented using the Diamond Pattern, formally specified as [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) on the Ethereum Improvement Proposals registry. This architectural choice allows the protocol to bypass the standard smart contract size limit (24KB) by splitting functionality across multiple independent modules called "Facets" (smart contract modules accessed through a single proxy contract).
 
-## Core Facets
+## What are the 7 core Facets?
 
 <CardGroup cols={2}>
   <Card title="AdminFacet" icon="gear">
@@ -47,7 +47,7 @@ The core of the RWANFTFI system is implemented using the Diamond Pattern (EIP-25
   </Card>
 </CardGroup>
 
-## NFT Contracts & Token ID Spaces
+## How are NFT contract token IDs partitioned?
 
 The protocol uses three distinct NFT contracts (Regular, Gift, Ambassador). To prevent identifier collisions in the on-chain `registeredTokens` mapping that tracks every minted NFT across the system, **Regular NFTs and Gift NFTs mint into separated `tokenId` spaces partitioned by parity**:
 
@@ -62,7 +62,7 @@ The split is enforced inside each NFT contract's minter logic at mint time. Beca
 * **TokenReserve (DA):** Upgradeable via Transparent Proxy — logic updates are possible without changing the contract address.
 * **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Non-upgradeable — ensuring immutability of core assets and governance rules.
 
-## Role Management
+## How are smart contract roles managed?
 
 The system utilizes a hierarchical role structure (AccessControlEnumerable) to manage permissions securely:
 * `ADMIN_ROLE`: Can grant/revoke other roles and change critical system parameters.
@@ -126,5 +126,5 @@ When making a purchase, the smart contract deducts funds in this order:
 </Warning>
 
 <Note>
-  All transactions on the Binance Smart Chain require standard network gas fees paid in **BNB**. Users must hold a small amount of BNB in their wallet to execute any on-chain operations (purchases, withdrawals, transfers). This is separate from USDT balances used within the ecosystem.
+  All transactions on the [Binance Smart Chain (BSC)](https://www.bnbchain.org/en/bnb-smart-chain) require standard network gas fees paid in **BNB**. Users must hold a small amount of BNB in their wallet to execute any on-chain operations (purchases, withdrawals, transfers). This is separate from [USDT (Tether)](https://tether.to/) balances used within the ecosystem. Contract deployments and balances are publicly verifiable on [BscScan](https://bscscan.com/).
 </Note>

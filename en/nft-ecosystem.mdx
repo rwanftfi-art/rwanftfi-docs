@@ -1,6 +1,6 @@
 ---
 title: "NFT Ecosystem"
-description: "10 tiers from 28 to 24,000 USDT."
+description: "All 10 RWANFTFI NFT tiers from Genesis (28 USDT) to Infinity (24,000 USDT) — with Income Limits, marketing tree depth, NFTM mining and lending eligibility, Autobuy 3/3, Gift NFTs, Vouchers, and Ambassador/VIP editions."
 icon: "id-card"
 ---
 
@@ -19,6 +19,27 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 </CardGroup>
 
 Owning an NFT is mandatory to participate in marketing, mine DA, and access financial tools. One active NFT per account — upgrading replaces the previous one automatically.
+
+## All 10 Tiers at a Glance
+
+The complete tier specification. Income Limit is the maximum cumulative income an NFT can generate before it must be renewed. Depth is the maximum marketing tree depth from which the holder earns Tree Distribution rewards. Mining cycle duration shrinks as tier grows.
+
+| L | Name | Group | Price (USDT) | Income Limit (USDT) | Tree Depth | Mining Cycle | Mining Cycles | NFTM (Cycle 1 / 2) | Matching Bonus | DA Mining | Lending | Autobuy |
+|---:|------|-------|---:|---:|---:|---:|---:|---|---|---|---|---|
+| 1 | Genesis | Basic | 28 | 75 | 2 | — | 0 | — | — | — | — | 3/3 |
+| 2 | Advance | Basic | 55 | 160 | 3 | — | 0 | — | — | — | — | 3/3 |
+| 3 | Ascend | Basic | 140 | 375 | 4 | — | 0 | — | — | — | — | 3/3 |
+| 4 | Eclipse | Basic | 275 | 650 | 6 | — | 0 | — | ✓ | — | — | 3/3 |
+| 5 | Hydro | Premium | 550 | 1,400 | 9 | 45 days | 1 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
+| 6 | Quantum | Premium | 1,100 | 2,700 | 11 | 44 days | 1 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
+| 7 | Pulse | Premium | 2,200 | 5,800 | 12 | 43 days | 1 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
+| 8 | Aurora | Premium | 5,500 | 12,800 | 13 | 42 days | 2 | 10% / 15% | ✓ | ✓ | ✓ | 3/3 |
+| 9 | Flame | Elite | 11,000 | 28,000 | 15 | 41 days | 2 | 10% / 15% | ✓ | ✓ | ✓ | Unlimited |
+| 10 | Infinity | Elite | 24,000 | 70,000 | 19 | 40 days | 2 | 10% / 15% | ✓ | ✓ | ✓ | Unlimited |
+
+<Note>
+  **Tree Depth values reflect Phase 1 (current).** When **Phase 2** is activated by DAO vote (planned Q4 2026), Levels 16–22 of the marketing structure unlock and Infinity (L10) earns up to the full 22 levels deep. Other tiers expand proportionally. **Matching Bonus** column indicates Level 1 eligibility (Eclipse / L4+); Levels 2 and 3 require cumulative personal sales of 1,000 and 3,000 USDT respectively. **NFTM (Cycle 1 / 2)** is expressed as a percentage of the NFT price.
+</Note>
 
 <NftTierExplorer />
 

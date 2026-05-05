@@ -1,0 +1,54 @@
+# RWANFTFI
+
+> RWANFTFI is a Web3 protocol on Binance Smart Chain (BSC) that bridges NFTs, Real World Assets (RWA), DeFi and CeFi into a unified financial ecosystem. Holders of one of 10 NFT tiers gain access to the Deflationary Asset (DA) — a 21,000,000 hard-capped, 100% USDT-backed BEP20 token — plus a 22-level marketing structure, NFTM mining, DA farming, and lending up to 70% LTV. Smart contracts are independently audited by CertiK and built on the Diamond Pattern (EIP-2535).
+
+Canonical site: https://rwanftfi.com
+Documentation: https://docs.rwanftfi.com
+Application: https://app.rwanftfi.com
+Audit (public): https://skynet.certik.com/projects/rwanftfi
+
+## Core concepts
+
+- [Executive Summary](https://docs.rwanftfi.com/en/executive-summary): One-page overview of the RWANFTFI protocol, NFT tiers, DA token, marketing structure, and audit status.
+- [Vision & Problem Statement](https://docs.rwanftfi.com/en/vision): Why RWANFTFI exists — turning NFTs from speculative collectibles into membership-based access keys to a unified RWA + DeFi + CeFi ecosystem.
+- [FAQ](https://docs.rwanftfi.com/en/faq): Direct answers to the most common questions about RWANFTFI, NFT tiers, DA token, marketing rewards, lending, and governance.
+- [Glossary](https://docs.rwanftfi.com/en/glossary): Definitions of every protocol-specific term — DA, NFTM, Income Limit, Sponsor Bonus, Frozen Balance, Accumulative Balance, Compression, and others.
+
+## NFT ecosystem
+
+- [NFT Ecosystem](https://docs.rwanftfi.com/en/nft-ecosystem): All 10 NFT tiers (Genesis through Infinity) with prices from 28 to 24,000 USDT, Income Limits, mining and lending eligibility, Autobuy 3/3 system, Gift NFTs, Vouchers, and Ambassador/VIP editions.
+- [Frozen Balance](https://docs.rwanftfi.com/en/frozen-balance): The 72-hour income protection mechanic that activates when a direct invitee's first purchase or Autobuy commission exceeds the holder's remaining Income Limit.
+
+## Deflationary Asset (DA)
+
+- [DA Token Mechanics](https://docs.rwanftfi.com/en/da-token-mechanics): The "only-upward" price formula (Price = Liquidity ÷ Circulating Supply), 14+ liquidity sources, three burn mechanisms, biannual deflationary cycle, and Seed Supply protection.
+- [Mining & Farming](https://docs.rwanftfi.com/en/da-mining-farming): Two-step process (Mining produces NFTM, Farming converts NFTM to DA), cycle durations by tier (45–40 days), 72-hour claim window, and the terminate() rule.
+- [Selling, Lending & Holding](https://docs.rwanftfi.com/en/da-selling-lending): Manual sell at 75% payout vs auto-sell at 70%, the four-period auto-sell cycle (120/90/90/65 days), 70% LTV multi-batch lending with 5% commission, and progressive collateral burn on default.
+
+## Marketing & rewards
+
+- [Marketing Structure & Placement](https://docs.rwanftfi.com/en/marketing-binary-tree): The 22-level binary tree (currently 19 levels active until Phase 2 unlock), weakest-branch placement algorithm, spillover, and per-level participant counts up to 8,388,606.
+- [Rewards & Compensation](https://docs.rwanftfi.com/en/marketing-rewards): Three reward streams (Sponsor Bonus 30%/20%, Tree Distribution by depth, Matching Bonus 5%+5%+5%), compression, and the 75/20/5 standard split.
+
+## Architecture & security
+
+- [Smart Contract Architecture](https://docs.rwanftfi.com/en/architecture): Diamond Pattern (EIP-2535) with 7 facets, three NFT contracts with parity-partitioned token IDs, upgradability matrix, role management (ADMIN/SERVICE/SIGNER/MINTER), and the multi-tiered balance schema.
+- [Contract Parameters](https://docs.rwanftfi.com/en/contract-parameters): Every on-chain parameter with current value, DAO-adjustable range, and immutable hardcoded constants.
+- [Security & Audit](https://docs.rwanftfi.com/en/security): Independent CertiK audit (final report April 28, 2026), three-level security, TAN codes, financial password, and 2FA.
+
+## Governance
+
+- [Governance — DAO](https://docs.rwanftfi.com/en/governance): 10,000,000 GovToken supply, ERC20Votes, 30% proposal threshold, 50% pass threshold, current allocation (Corporation 30% + 20 Guardians at 3.5%), and the future redistribution plan to up to 101 wallets.
+
+## Roadmap & resources
+
+- [Roadmap](https://docs.rwanftfi.com/en/roadmap): Phase 1 (Q2–Q3 2026), Phase 2 (Q4 2026), Phase 3 (2027–2028).
+- [Corporate Structure](https://docs.rwanftfi.com/en/corporate-structure): RWANFTFI Corporation (Panama, technology) and NFT FI Corporation (BVI, marketing); LCIA arbitration; AML and GDPR compliance.
+- [Legal & Compliance](https://docs.rwanftfi.com/en/legal): NFT Purchase Agreement, eligibility, dispute resolution, license grant, limitation of liability.
+- [Partnerships](https://docs.rwanftfi.com/en/partnerships): Categories — technology, RWA, financial, community.
+- [Support](https://docs.rwanftfi.com/en/support): Telegram, X, Facebook, Instagram; security guidance.
+
+## Other languages
+
+The same documentation is available in 16 languages. Replace `/en/` with the locale prefix:
+`ru` (Russian), `zh` (Chinese), `es` (Spanish), `de` (German), `pt` (Portuguese), `hi` (Hindi), `it` (Italian), `fr` (French), `ar` (Arabic), `id` (Indonesian), `ja` (Japanese), `vi` (Vietnamese), `uk` (Ukrainian), `tr` (Turkish), `kk` (Kazakh), `fil` (Filipino).
