@@ -1,6 +1,6 @@
 ---
 title: "DA Token Mechanics"
-description: "The only-upward price model."
+description: "The Deflationary Asset (DA) is a 21M hard-capped, 100% USDT-backed BEP20 token whose price grows via the Liquidity ÷ Supply formula, three burn mechanisms, and a biannual deflationary cycle."
 icon: "coins"
 ---
 import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
@@ -11,7 +11,7 @@ import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
     Maximum supply fixed forever. No inflation, no minting.
   </Card>
   <Card title="100% USDT Backed" icon="shield-check">
-    Every DA token backed by real USDT in the liquidity pool.
+    Every DA token backed by real [USDT](https://tether.to/) in the liquidity pool, held on the [Binance Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain).
   </Card>
   <Card title="Burn on Every Sale" icon="fire">
     100% of sold tokens are permanently burned. User receives 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) is a protocol commission that stays as backing in the pool — this is what drives the DA price upward.
@@ -21,7 +21,7 @@ import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
   </Card>
 </CardGroup>
 
-## The "Only Upward" Price Formula
+## How does the "only upward" price formula work?
 
 Price = Liquidity ÷ Circulating Supply
 
@@ -44,7 +44,7 @@ Every time DA is sold, tokens are burned (supply goes down) while USDT stays in 
   - **Edge-case-only protection.** Under normal operation the Seed Supply has no effect on price discovery. It exists purely as a deterministic floor that keeps `getPrice()` well-defined when liquidity is present but circulating supply would otherwise reach zero.
 </Info>
 
-## Liquidity Pool Sources
+## How is the DA Liquidity Pool funded?
 
 The Liquidity Pool is the foundation of DA economics. It is funded from multiple sources across the RWANFTFI ecosystem, ensuring continuous growth of the token's backing. Every protocol revenue stream flows into a single pool, reinforcing the Price = Liquidity ÷ Supply formula.
 
@@ -86,7 +86,7 @@ The Liquidity Pool is the foundation of DA economics. It is funded from multiple
   </Accordion>
 </AccordionGroup>
 
-## DA Burn Mechanics
+## How is DA burned?
 
 DA burning is the core deflationary mechanism — it reduces token supply and creates sustained upward pressure on the asset's value.
 
@@ -149,7 +149,7 @@ The user can sell manually at any time before auto-sell triggers, receiving 75% 
   **Auto-Sell with Zero Income Limit:** If auto-sell triggers and the user has zero Income Limit (NFT not renewed), 100% of proceeds go to the Liquidity Pool or DA burn (determined by DAO). The user receives nothing. Always maintain an active Income Limit.
 </Warning>
 
-## Multi-Batch Lending
+## How does multi-batch lending against DA work?
 
 Each DA batch from each mining cycle serves as independent collateral. This enables a continuous micro-loan cycle:
 
@@ -172,7 +172,7 @@ This allows multiple simultaneous micro-loans, one per DA batch. Each loan has i
 
 For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-lending).
 
-## Deflationary Cycle
+## What is the biannual Deflationary Cycle?
 
 Twice a year the system triggers a special Deflationary Cycle lasting up to 30 days, designed to intensify token scarcity.
 

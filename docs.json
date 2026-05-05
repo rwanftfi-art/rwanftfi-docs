@@ -89,6 +89,8 @@
           {
             "group": "Resources",
             "pages": [
+              "en/faq",
+              "en/glossary",
               "en/corporate-structure",
               "en/support",
               "en/partnerships",
