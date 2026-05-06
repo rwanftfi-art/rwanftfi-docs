@@ -980,69 +980,6 @@
             ]
           }
         ]
-      },
-      {
-        "language": "ka",
-        "groups": [
-          {
-            "group": "დაიწყე აქ",
-            "pages": [
-              "ka/executive-summary",
-              "ka/vision"
-            ]
-          },
-          {
-            "group": "NFT ეკოსისტემა",
-            "pages": [
-              "ka/nft-ecosystem",
-              "ka/frozen-balance"
-            ]
-          },
-          {
-            "group": "დეფლაციური აქტივი (DA)",
-            "pages": [
-              "ka/da-token-mechanics",
-              "ka/da-mining-farming",
-              "ka/da-selling-lending"
-            ]
-          },
-          {
-            "group": "შემოსავალი და მარკეტინგი",
-            "pages": [
-              "ka/marketing-binary-tree",
-              "ka/marketing-rewards"
-            ]
-          },
-          {
-            "group": "არქიტექტურა",
-            "pages": [
-              "ka/architecture",
-              "ka/contract-parameters",
-              "ka/security"
-            ]
-          },
-          {
-            "group": "მართვა",
-            "pages": [
-              "ka/governance"
-            ]
-          },
-          {
-            "group": "გზამკვლევი",
-            "pages": [
-              "ka/roadmap"
-            ]
-          },
-          {
-            "group": "რესურსები",
-            "pages": [
-              "ka/corporate-structure",
-              "ka/support",
-              "ka/partnerships",
-              "ka/legal"
-            ]
-          }
-        ]
       }
     ]
   },
