@@ -324,7 +324,7 @@ export const SellVsLend = () => {
             marginTop: '12px',
           }} className="rounded-xl p-4 text-center">
             <div style={{ color: '#f87171', fontSize: '11px' }}>
-              Each loan has a 30-day cutoff. If not repaid, collateralized DA enters the auto-sell cycle and is progressively burned.
+              Each loan stays open until its collateralized stack enters the auto-sell cycle. If not repaid before then, the DA collateral is progressively burned.
             </div>
           </div>
         </>

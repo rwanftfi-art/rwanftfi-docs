@@ -13,7 +13,7 @@ Dès qu'un utilisateur détient du DA, il dispose de deux options financières p
     100 % du DA vendu est définitivement brûlé. Vous recevez 75 % (manuel) ou 70 % (auto) de la valeur en USDT. Les 25 % restants (manuel) ou 30 % (auto) constituent une commission protocolaire qui reste dans le pool en tant qu'adossement et propulse le prix du DA à la hausse.
   </Card>
   <Card title="Prêter du DA" icon="building-columns">
-    Empruntez jusqu'à 70 % LTV en USDT adossé à votre DA. Votre DA reste dans votre TokenStack. Période de prêt de 30 jours avec une commission ponctuelle de 5 %.
+    Empruntez jusqu'à 70 % LTV en USDT adossé à votre DA. Votre DA reste dans votre TokenStack. Le prêt reste ouvert tant que le stack mis en collatéral n'est pas entré dans son cycle d'auto-vente ; commission ponctuelle de 5 %.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Chaque auto-vente s'exécute au prix du DA à ce moment précis, et non au prix 
 
 ## Lending (Crédit adossé au DA)
 
-Au lieu de vendre, les utilisateurs peuvent contracter un prêt en USDT adossé à leurs avoirs en DA. Les utilisateurs peuvent emprunter jusqu'à **70 %** de la valeur USDT actuelle de leur collatéral en DA (Loan-to-Value). Le smart contract impose une période butoir de prêt stricte de 30 jours. Si un prêt n'est pas géré dans les paramètres requis, le TokenStack mis en collatéral peut être liquidé.
+Au lieu de vendre, les utilisateurs peuvent contracter un prêt en USDT adossé à leurs avoirs en DA. Les utilisateurs peuvent emprunter jusqu'à **70 %** de la valeur USDT actuelle de leur collatéral en DA (Loan-to-Value).
+
+**Condition d'octroi (et non durée du prêt).** Un prêt ne peut être ouvert sur un stack de DA que s'il reste au moins **30 jours** avant la prochaine auto-vente programmée de ce stack. Il s'agit d'une vérification on-chain d'éligibilité (`_getTimeToNextAutosale >= 30 days`), et non d'une durée fixe du prêt — une fois le prêt ouvert, aucune échéance de 30 jours ne court contre l'emprunteur.
+
+**Remboursement.** Il n'y a pas de durée fixe pour le prêt. L'emprunteur peut appeler `repay()` à tout moment tant que le stack est encore actif — c'est-à-dire avant qu'il ne soit entré dans le cycle d'auto-vente. Une fois que le stack passe en auto-vente, `repay()` est annulé et le prêt ne peut plus être soldé.
 
 Lors de la souscription d'un prêt, l'emprunteur paie une **commission ponctuelle de 5 %** dirigée vers le Pool de Liquidité du DA. L'emprunteur reçoit 95 % de la valeur du prêt. Exemple : pour un prêt de 1 000 \$, l'emprunteur reçoit 950 \$ et 50 \$ vont au Pool de Liquidité. Cette commission est perçue à chaque nouveau prêt — les utilisateurs peuvent contracter de nouveaux prêts après réception de nouveaux lots de DA, ce qui signifie que la commission afflue à plusieurs reprises dans le Pool.
 
@@ -107,15 +111,15 @@ Chaque lot de DA issu d'un cycle de minage sert de collatéral indépendant. Les
 </Steps>
 
 <Tip>
-  Plusieurs prêts actifs simultanés sont possibles — un par lot de DA. Chaque prêt a sa propre période butoir de 30 jours et une commission de 5 %. Les NFT plus petits produisent des prêts plus petits, les NFT plus grands produisent des prêts plus grands. Si un prêt particulier fait défaut, seul le collatéral de ce lot entre dans le cycle d'auto-vente — pas l'ensemble des avoirs en DA.
+  Plusieurs prêts actifs simultanés sont possibles — un par lot de DA. Chaque prêt est indépendant : il est rattaché à son propre lot et porte sa propre commission de 5 %. Les NFT plus petits produisent des prêts plus petits, les NFT plus grands produisent des prêts plus grands. Si un prêt particulier fait défaut, seul le collatéral de ce lot entre dans le cycle d'auto-vente — pas l'ensemble des avoirs en DA.
 </Tip>
 
 <Note>
-  **Fenêtre de Remboursement — Aucun Remboursement Tardif :** Un prêt peut uniquement être remboursé via `repay()` tant qu'il est encore actif. Une fois la période butoir de 30 jours dépassée et la position entrée dans le délai d'auto-vente, `repay()` est annulé — l'emprunteur **ne peut pas** dénouer le prêt pour contourner le calendrier de liquidation. Une position en retard doit alors être traitée via `processExpiredStacks()`, qui exécute le brûlage progressif décrit ci-dessous. Aucun chemin ne permet à un emprunteur d'échapper aux pénalités de défaut en remboursant tardivement.
+  **Fenêtre de Remboursement — Aucun Remboursement Tardif :** Un prêt peut uniquement être remboursé via `repay()` tant que le stack mis en collatéral est encore actif — c'est-à-dire avant qu'il ne soit entré dans son cycle d'auto-vente. Une fois que le stack passe en auto-vente, `repay()` est annulé — l'emprunteur **ne peut pas** dénouer le prêt pour contourner le calendrier de liquidation. Une position en retard doit alors être traitée via `processExpiredStacks()`, qui exécute le brûlage progressif décrit ci-dessous. Aucun chemin ne permet à un emprunteur d'échapper aux pénalités de défaut en remboursant tardivement.
 </Note>
 
 <Warning>
-  **Défaut de Lending — Brûlage Progressif :** Si un prêt n'est pas remboursé dans la période butoir de 30 jours, le DA mis en collatéral entre dans le cycle d'auto-vente. Les jetons sont progressivement brûlés selon le même calendrier en 4 périodes (25 % → 40 % → 50 % → 100 % du solde restant sur 365 jours / 1 an au total : 120 / 90 / 90 / 65 jours par période).
+  **Défaut de Lending — Brûlage Progressif :** Si le prêt n'est pas remboursé avant que le stack mis en collatéral n'entre dans le cycle d'auto-vente, le collatéral en DA traverse ce cycle. Les jetons sont progressivement brûlés selon le calendrier standard en 4 périodes (25 % → 40 % → 50 % → 100 % du solde restant sur 365 jours / 1 an au total : 120 / 90 / 90 / 65 jours par période).
 
   L'utilisateur **NE** reçoit **PAS** d'USDT de ces auto-ventes — **100 % du produit sont dirigés vers le Pool de Liquidité du DA**. L'utilisateur **conserve le montant initial du prêt** qu'il a reçu, mais **perd la totalité du collatéral en DA**. Ce mécanisme protège la liquidité du système, réduit le risque systémique et fait respecter la discipline financière à travers l'écosystème.
 </Warning>

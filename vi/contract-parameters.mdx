@@ -183,6 +183,10 @@ Matching Bonus trả 5% qua ba cấp thu nhập đối tác trực tiếp. Mỗi
 | Cửa Sổ Số Dư Đóng Băng | 72 giờ |
 | Vòng Đời Voucher | 365 ngày |
 | Khóa Chuyển Voucher | 1 ngày cuối |
-| Thời Hạn Vay | 30 ngày |
+| Ngưỡng Đủ Điều Kiện Vay | 30 ngày |
 | Ngưỡng Không Hoạt Động DAO | 31 ngày |
 | Thời Gian Ân Hạn DAO | 7 ngày |
+
+<Note>
+  **Ngưỡng Đủ Điều Kiện Vay — ý nghĩa:** Đây **không phải** là kỳ hạn vay. Đây là thời gian tối thiểu còn lại đến lần tự động bán tiếp theo mà một stack DA phải còn để có thể được dùng làm tài sản thế chấp cho một khoản vay **mới** (kiểm tra on-chain: `_getTimeToNextAutosale >= 30 days`). Sau khi mở khoản vay, không có kỳ hạn cố định — người vay có thể gọi `repay()` bất kỳ lúc nào khi stack vẫn còn hoạt động; `repay()` chỉ bị hoàn nguyên sau khi stack đã đi vào chu kỳ tự động bán.
+</Note>

@@ -183,6 +183,10 @@ Eşleştirme Bonusu, doğrudan partner gelirinin üç seviyesi boyunca %5 öder.
 | Dondurulmuş Bakiye Penceresi | 72 saat |
 | Kupon Ömrü | 365 gün |
 | Kupon Transfer Kilidi | Son 1 gün |
-| Kredi Kesim Süresi | 30 gün |
+| Kredi Uygunluk Eşiği | 30 gün |
 | DAO Hareketsizlik Eşiği | 31 gün |
 | DAO Yumuşatma Süresi | 7 gün |
+
+<Note>
+  **Kredi Uygunluk Eşiği — anlamı:** Bu bir kredi vadesi **değildir**. Bir DA stack'inin **yeni** bir krediye teminat olabilmesi için, bir sonraki otomatik satışa kadar hâlâ kalması gereken minimum süredir (on-chain kontrol: `_getTimeToNextAutosale >= 30 days`). Kredi açıldıktan sonra sabit bir vade yoktur — borçlu, stack aktif olduğu sürece istediği zaman `repay()` çağrısını yapabilir; `repay()` ancak stack otomatik satış döngüsüne girdikten sonra geri alınır.
+</Note>

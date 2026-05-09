@@ -183,6 +183,10 @@ El Bono de Igualación paga un 5% en tres niveles de ingresos de socios directos
 | Ventana de Saldo Congelado | 72 horas |
 | Vida del Voucher | 365 días |
 | Bloqueo de Transferencia de Voucher | Último 1 día |
-| Período de Corte del Préstamo | 30 días |
+| Umbral de Elegibilidad de Préstamo | 30 días |
 | Umbral de Inactividad DAO | 31 días |
 | Período de Gracia DAO | 7 días |
+
+<Note>
+  **Umbral de Elegibilidad de Préstamo — semántica:** **No** es un plazo del préstamo. Es el tiempo mínimo restante hasta la próxima auto-venta que debe quedar en un stack de DA para poder usarlo como colateral de un **nuevo** préstamo (verificación on-chain: `_getTimeToNextAutosale >= 30 days`). Una vez abierto el préstamo, no hay un plazo fijo — el prestatario puede llamar a `repay()` en cualquier momento mientras el stack siga activo; `repay()` solo se revierte después de que el stack haya entrado en su ciclo de auto-venta.
+</Note>

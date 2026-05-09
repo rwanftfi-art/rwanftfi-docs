@@ -183,6 +183,10 @@ Le Bonus de Matching paie 5 % sur trois niveaux des revenus des partenaires dire
 | Fenêtre du Solde Gelé | 72 heures |
 | Durée de Vie du Voucher | 365 jours |
 | Verrouillage de Transfert du Voucher | Dernier 1 jour |
-| Période Butoir de Prêt | 30 jours |
+| Seuil d'Éligibilité du Prêt | 30 jours |
 | Seuil d'Inactivité du DAO | 31 jours |
 | Période de Grâce du DAO | 7 jours |
+
+<Note>
+  **Seuil d'Éligibilité du Prêt — sémantique :** Ce **n'est pas** une durée de prêt. Il s'agit du temps minimum restant avant la prochaine auto-vente qu'un stack de DA doit encore conserver pour pouvoir être utilisé comme collatéral d'un **nouveau** prêt (vérification on-chain : `_getTimeToNextAutosale >= 30 days`). Une fois le prêt ouvert, il n'a pas de durée fixe — l'emprunteur peut appeler `repay()` à tout moment tant que le stack est encore actif ; `repay()` n'est annulé qu'après l'entrée du stack dans son cycle d'auto-vente.
+</Note>

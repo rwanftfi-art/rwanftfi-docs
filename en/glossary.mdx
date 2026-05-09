@@ -74,9 +74,11 @@ A single source of truth for every term used across the RWANFTFI documentation. 
 
 **Manual Sell.** A user-initiated DA sale. 100% of sold tokens are burned; the user receives **75%** of value in USDT (vs 70% on auto-sell). The remaining 25% is a protocol commission that stays in the pool as backing.
 
-**Multi-Batch Lending.** Each DA batch from each mining cycle serves as **independent collateral**. Allows multiple simultaneous loans, one per batch, each with its own 30-day cutoff. If any single loan defaults, only that batch's collateral is progressively burned through the auto-sell cycle.
+**Multi-Batch Lending.** Each DA batch from each mining cycle serves as **independent collateral**. Allows multiple simultaneous loans, one per batch — each loan is bound to its own batch and remains active until that batch's stack enters the auto-sell cycle. If any single loan defaults, only that batch's collateral is progressively burned through the auto-sell cycle.
 
-**Lending Default.** Failure to repay a loan within the 30-day cutoff. The collateralized DA is progressively burned through the auto-sell cycle. Other DA batches and balances are untouched.
+**Lending Default.** Failure to repay before the collateralized stack enters the auto-sell cycle. The collateralized DA is then progressively burned through that cycle, with 100% of proceeds routed to the DA Liquidity Pool. Other DA batches and balances are untouched.
+
+**Loan Eligibility Threshold.** The minimum time-to-next-auto-sell (currently **30 days**) that a DA stack must still have remaining in order to be used as collateral for a **new** loan. This is an on-chain eligibility gate (`_getTimeToNextAutosale >= 30 days`) — not a fixed loan duration. Once the loan is open, the borrower can repay at any time before the stack enters its auto-sell cycle.
 
 **Deflationary Cycle.** A scheduled event triggered twice per year, lasting up to 30 days, that pauses the **launch of new** NFTM mining, staking, and DA generation cycles. Cycles already running before the Deflationary Cycle starts continue and complete on schedule. During the Cycle, daily DA burns intensify scarcity.
 
