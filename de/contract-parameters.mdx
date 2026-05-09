@@ -183,6 +183,10 @@ Der Matching Bonus zahlt 5 % über drei Ebenen des direkten Partnereinkommens. J
 | Frozen-Balance-Fenster | 72 Stunden |
 | Lebensdauer des Gutscheins | 365 Tage |
 | Sperre der Gutscheinübertragung | letzter 1 Tag |
-| Kreditfrist | 30 Tage |
+| Kredit-Eligibility-Schwelle | 30 Tage |
 | DAO-Inaktivitätsschwelle | 31 Tage |
 | DAO-Karenzzeit | 7 Tage |
+
+<Note>
+  **Kredit-Eligibility-Schwelle — Bedeutung:** Dies ist **keine** Kreditlaufzeit. Es ist die Mindestrestzeit bis zum nächsten Auto-Verkauf, die ein DA-Stack noch haben muss, um als Sicherheit für einen **neuen** Kredit verwendet werden zu können (On-Chain-Check: `_getTimeToNextAutosale >= 30 days`). Sobald ein Kredit eröffnet ist, gibt es keine fixe Laufzeit – der Kreditnehmer kann `repay()` jederzeit aufrufen, solange der Stack aktiv ist; `repay()` wird erst zurückgesetzt, nachdem der Stack in seinen Auto-Verkaufs-Zyklus eingetreten ist.
+</Note>

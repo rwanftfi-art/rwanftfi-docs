@@ -13,7 +13,7 @@ Una volta che un utente detiene DA, ha due opzioni finanziarie principali: vende
     Il 100% del DA venduto viene bruciato in modo permanente. Ricevi il 75% (manuale) o il 70% (auto) del valore in USDT. Il restante 25% (manuale) o 30% (auto) è una commissione di protocollo che resta nel pool come backing e fa salire il prezzo del DA.
   </Card>
   <Card title="Presta DA" icon="building-columns">
-    Prendi in prestito fino al 70% LTV in USDT contro il tuo DA. Il tuo DA resta nel tuo TokenStack. Periodo di prestito di 30 giorni con una commissione una tantum del 5%.
+    Prendi in prestito fino al 70% LTV in USDT contro il tuo DA. Il tuo DA resta nel tuo TokenStack. Il prestito resta aperto finché lo stack dato in collaterale non entra nel suo ciclo di auto-vendita; commissione una tantum del 5%.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Ogni auto-vendita viene eseguita al prezzo del DA in quel momento, non al prezzo
 
 ## Lending (Credito contro DA)
 
-Invece di vendere, gli utenti possono stipulare un prestito in USDT contro le proprie posizioni in DA. Gli utenti possono prendere in prestito fino al **70%** del valore in USDT corrente del proprio collaterale DA (Loan-to-Value). Lo smart contract impone un rigoroso periodo di cutoff del prestito di 30 giorni. Se un prestito non viene gestito entro i parametri richiesti, il TokenStack dato in collaterale può essere liquidato.
+Invece di vendere, gli utenti possono stipulare un prestito in USDT contro le proprie posizioni in DA. Gli utenti possono prendere in prestito fino al **70%** del valore in USDT corrente del proprio collaterale DA (Loan-to-Value).
+
+**Condizione di erogazione (non durata del prestito).** Un prestito può essere aperto su uno stack di DA solo se mancano almeno **30 giorni** alla prossima auto-vendita programmata di quello stack. Si tratta di un controllo di idoneità on-chain (`_getTimeToNextAutosale >= 30 days`), non di una durata fissa del prestito — una volta aperto il prestito, non c'è alcuna scadenza di 30 giorni che scorra contro il mutuatario.
+
+**Rimborso.** Non esiste una durata fissa del prestito. Il mutuatario può chiamare `repay()` in qualsiasi momento mentre lo stack è ancora attivo — cioè prima che sia entrato nel ciclo di auto-vendita. Una volta che lo stack passa in auto-vendita, `repay()` viene revocata e il prestito non può più essere chiuso.
 
 Quando si stipula un prestito, il mutuatario paga una commissione una tantum del **5%** che viene indirizzata al Pool di Liquidità DA. Il mutuatario riceve il 95% del valore del prestito. Esempio: per un prestito di \$1.000, il mutuatario riceve \$950 e \$50 vanno al Pool di Liquidità. Questa commissione viene riscossa con ogni nuovo prestito — gli utenti possono stipulare nuovi prestiti dopo aver ricevuto nuovi batch di DA, il che significa che la commissione fluisce ripetutamente nel Pool.
 
@@ -107,15 +111,15 @@ Ogni batch di DA da un ciclo di mining serve come collaterale indipendente. Gli 
 </Steps>
 
 <Tip>
-  Sono possibili più prestiti attivi simultanei — uno per batch di DA. Ogni prestito ha il proprio cutoff di 30 giorni e una commissione del 5%. Gli NFT più piccoli producono prestiti più piccoli, gli NFT più grandi producono prestiti più grandi. Se un singolo prestito va in default, solo il collaterale di quel batch entra nel ciclo di auto-vendita — non tutte le posizioni in DA.
+  Sono possibili più prestiti attivi simultanei — uno per batch di DA. Ogni prestito è indipendente: è legato al proprio batch e ha la propria commissione del 5%. Gli NFT più piccoli producono prestiti più piccoli, gli NFT più grandi producono prestiti più grandi. Se un singolo prestito va in default, solo il collaterale di quel batch entra nel ciclo di auto-vendita — non tutte le posizioni in DA.
 </Tip>
 
 <Note>
-  **Finestra di Rimborso — Nessun Rimborso in Ritardo:** Un prestito può essere rimborsato tramite `repay()` solo mentre è ancora attivo. Una volta superato il cutoff di 30 giorni e la posizione è entrata nella deadline di auto-vendita, `repay()` viene revocata — il mutuatario **non può** sciogliere il prestito per aggirare il programma di liquidazione. Una posizione in arretrato deve invece essere processata tramite `processExpiredStacks()`, che esegue il burn progressivo descritto qui sotto. Non esiste alcun percorso che permetta a un mutuatario di evitare le penalità di default rimborsando in ritardo.
+  **Finestra di Rimborso — Nessun Rimborso in Ritardo:** Un prestito può essere rimborsato tramite `repay()` solo mentre lo stack dato in collaterale è ancora attivo — cioè prima che sia entrato nel suo ciclo di auto-vendita. Una volta che lo stack passa in auto-vendita, `repay()` viene revocata — il mutuatario **non può** sciogliere il prestito per aggirare il programma di liquidazione. Una posizione in arretrato deve invece essere processata tramite `processExpiredStacks()`, che esegue il burn progressivo descritto qui sotto. Non esiste alcun percorso che permetta a un mutuatario di evitare le penalità di default rimborsando in ritardo.
 </Note>
 
 <Warning>
-  **Default sul Lending — Burn Progressivo:** Se un prestito non viene rimborsato entro il periodo di cutoff di 30 giorni, il DA dato in collaterale entra nel ciclo di auto-vendita. I token vengono progressivamente bruciati attraverso lo stesso programma a 4 periodi (25% → 40% → 50% → 100% del saldo residuo in 365 giorni / 1 anno totale: 120 / 90 / 90 / 65 giorni per periodo).
+  **Default sul Lending — Burn Progressivo:** Se il prestito non viene rimborsato prima che lo stack dato in collaterale entri nel ciclo di auto-vendita, il collaterale DA attraversa quel ciclo. I token vengono progressivamente bruciati attraverso il programma standard a 4 periodi (25% → 40% → 50% → 100% del saldo residuo in 365 giorni / 1 anno totale: 120 / 90 / 90 / 65 giorni per periodo).
 
   L'utente **NON** riceve USDT da queste auto-vendite — **il 100% dei proventi viene indirizzato al Pool di Liquidità DA**. L'utente **mantiene l'importo originale del prestito** che ha ricevuto, ma **perde l'intero collaterale DA**. Questo meccanismo protegge la liquidità del sistema, riduce il rischio sistemico e rinforza la disciplina finanziaria nell'ecosistema.
 </Warning>

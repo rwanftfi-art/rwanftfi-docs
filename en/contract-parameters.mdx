@@ -183,6 +183,10 @@ Matching Bonus pays 5% across three levels of direct partner income. Each level 
 | Frozen Balance Window | 72 hours |
 | Voucher Lifetime | 365 days |
 | Voucher Transfer Lock | Last 1 day |
-| Loan Cutoff Period | 30 days |
+| Loan Eligibility Threshold | 30 days |
 | DAO Inactivity Threshold | 31 days |
 | DAO Grace Period | 7 days |
+
+<Note>
+  **Loan Eligibility Threshold — semantics:** This is **not** a loan duration. It is the minimum time-to-next-auto-sell that a DA stack must still have remaining in order to be used as collateral for a **new** loan (on-chain check: `_getTimeToNextAutosale >= 30 days`). Once a loan is open, there is no fixed term — the borrower can call `repay()` at any time while the stack is still active, and `repay()` only reverts after the stack has entered its auto-sell cycle.
+</Note>

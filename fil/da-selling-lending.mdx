@@ -13,7 +13,7 @@ Sa sandaling may hawak na DA ang user, mayroon silang dalawang pangunahing finan
     100% ng ipinagbibiling DA ay permanenteng sinusunog. Tatanggap ka ng 75% (manual) o 70% (auto) ng halaga sa USDT. Ang natitirang 25% (manual) o 30% (auto) ay protocol commission na nananatili sa pool bilang backing at nagpapaakyat sa presyo ng DA.
   </Card>
   <Card title="Magpahiram ng DA" icon="building-columns">
-    Manghiram ng hanggang 70% LTV sa USDT laban sa iyong DA. Ang iyong DA ay nananatili sa iyong TokenStack. 30-araw na loan period na may one-time 5% commission.
+    Manghiram ng hanggang 70% LTV sa USDT laban sa iyong DA. Ang iyong DA ay nananatili sa iyong TokenStack. Mananatiling bukas ang loan hangga't hindi pa pumapasok ang collateralized stack sa auto-sell cycle nito; one-time 5% commission.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Bawat auto-sell ay isinasagawa sa DA price sa sandaling iyon, hindi sa orihinal 
 
 ## Lending (Credit laban sa DA)
 
-Sa halip na magbenta, ang mga user ay maaaring kumuha ng loan sa USDT laban sa kanilang DA holdings. Ang mga user ay maaaring manghiram ng hanggang **70%** ng kasalukuyang USDT value ng kanilang DA collateral (Loan-to-Value). Ipinatutupad ng smart contract ang mahigpit na 30-araw na loan cutoff period. Kung ang loan ay hindi pinamamahalaan sa loob ng kinakailangang mga parameter, ang collateralized TokenStack ay maaaring i-liquidate.
+Sa halip na magbenta, ang mga user ay maaaring kumuha ng loan sa USDT laban sa kanilang DA holdings. Ang mga user ay maaaring manghiram ng hanggang **70%** ng kasalukuyang USDT value ng kanilang DA collateral (Loan-to-Value).
+
+**Kondisyon sa pagbibigay (hindi loan term).** Maaari lamang magbukas ng loan laban sa isang DA stack kung may natitirang hindi bababa sa **30 araw** bago ang susunod na nakaiskedyul na auto-sell ng stack na iyon. Ito ay on-chain eligibility check (`_getTimeToNextAutosale >= 30 days`), hindi nakapirming loan term — kapag bukas na ang loan, walang 30-araw na deadline na umaandar laban sa nanghihiram.
+
+**Pagbabayad.** Walang nakapirming loan duration. Maaaring tumawag ng `repay()` ang nanghihiram anumang oras habang aktibo pa ang stack — ibig sabihin, bago ito pumasok sa auto-sell cycle. Sa sandaling tumawid ang stack sa auto-sell, nag-revert ang `repay()` at hindi na maaaring sarado ang loan.
 
 Kapag kumukuha ng loan, ang nanghihiram ay nagbabayad ng one-time **5% commission** na idinirekta sa DA Liquidity Pool. Ang nanghihiram ay tumatanggap ng 95% ng halaga ng loan. Halimbawa: para sa \$1,000 na loan, ang nanghihiram ay tumatanggap ng \$950 at \$50 ay napupunta sa Liquidity Pool. Ang commission na ito ay kinokolekta sa bawat bagong loan — ang mga user ay maaaring kumuha ng mga bagong loan pagkatapos tumanggap ng mga bagong DA batches, ibig sabihin ang commission ay paulit-ulit na dumadaloy sa Pool.
 
@@ -107,15 +111,15 @@ Ang bawat DA batch mula sa mining cycle ay nagsisilbing independent collateral. 
 </Steps>
 
 <Tip>
-  Maraming sabay-sabay na aktibong loans ay posible — isa bawat DA batch. Ang bawat loan ay may sariling 30-araw na cutoff at 5% commission. Ang mas maliit na NFTs ay nagbubunga ng mas maliit na loans, ang mas malalaking NFTs ay nagbubunga ng mas malalaking loans. Kung ang anumang indibidwal na loan ay nag-default, tanging ang collateral ng batch na iyon ang pumapasok sa auto-sell cycle — hindi lahat ng DA holdings.
+  Maraming sabay-sabay na aktibong loans ay posible — isa bawat DA batch. Ang bawat loan ay independyente: nakatali sa sarili nitong batch at may sariling 5% commission. Ang mas maliit na NFTs ay nagbubunga ng mas maliit na loans, ang mas malalaking NFTs ay nagbubunga ng mas malalaking loans. Kung ang anumang indibidwal na loan ay nag-default, tanging ang collateral ng batch na iyon ang pumapasok sa auto-sell cycle — hindi lahat ng DA holdings.
 </Tip>
 
 <Note>
-  **Repay Window — Walang Late Repayments:** Ang loan ay maaari lamang bayaran sa pamamagitan ng `repay()` habang ito ay aktibo pa. Sa sandaling lumipas na ang 30-araw na cutoff at ang posisyon ay tumawid na sa auto-sell deadline, ang `repay()` ay nag-re-revert — ang nanghihiram ay **hindi maaaring** i-unwind ang loan upang lampasan ang liquidation schedule. Ang isang overdue na posisyon ay dapat na i-process sa pamamagitan ng `processExpiredStacks()`, na nagsasagawa ng progresibong burn na inilarawan sa ibaba. Walang landas na nagpapahintulot sa nanghihiram na makatakas sa default penalties sa pamamagitan ng late repayment.
+  **Repay Window — Walang Late Repayments:** Ang loan ay maaari lamang bayaran sa pamamagitan ng `repay()` habang aktibo pa ang collateralized stack — ibig sabihin, bago ito pumasok sa auto-sell cycle nito. Sa sandaling tumawid ang stack sa auto-sell, ang `repay()` ay nag-re-revert — ang nanghihiram ay **hindi maaaring** i-unwind ang loan upang lampasan ang liquidation schedule. Ang isang overdue na posisyon ay dapat na i-process sa pamamagitan ng `processExpiredStacks()`, na nagsasagawa ng progresibong burn na inilarawan sa ibaba. Walang landas na nagpapahintulot sa nanghihiram na makatakas sa default penalties sa pamamagitan ng late repayment.
 </Note>
 
 <Warning>
-  **Lending Default — Progresibong Burn:** Kung ang loan ay hindi binayaran sa loob ng 30-araw na cutoff period, ang collateralized DA ay pumapasok sa auto-sell cycle. Ang tokens ay progresibong sinusunog sa pamamagitan ng parehong 4-period schedule (25% → 40% → 50% → 100% ng natitirang balance sa 365 araw / 1 taon sa kabuuan: 120 / 90 / 90 / 65 araw bawat panahon).
+  **Lending Default — Progresibong Burn:** Kung ang loan ay hindi nabayaran bago pumasok ang collateralized stack sa auto-sell cycle, ang DA collateral ay dumadaan sa cycle na iyon. Ang tokens ay progresibong sinusunog sa pamamagitan ng standard na 4-period schedule (25% → 40% → 50% → 100% ng natitirang balance sa 365 araw / 1 taon sa kabuuan: 120 / 90 / 90 / 65 araw bawat panahon).
 
   Ang user ay **HINDI** tumatanggap ng USDT mula sa mga auto-sells na ito — **100% ng kita ay idinidirekta sa DA Liquidity Pool**. Pinapanatili ng user ang **orihinal na halaga ng loan** na natanggap niya, ngunit **nawawala ang buong DA collateral**. Ang mekanismong ito ay nagpoprotekta sa system liquidity, nagpapababa ng systemic risk, at nagpapatupad ng financial discipline sa buong ekosistema.
 </Warning>

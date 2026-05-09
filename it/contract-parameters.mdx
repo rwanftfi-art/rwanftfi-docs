@@ -183,6 +183,10 @@ Il Matching Bonus paga il 5% su tre livelli di reddito dei partner diretti. Ogni
 | Finestra Saldo Congelato | 72 ore |
 | Durata Voucher | 365 giorni |
 | Blocco Trasferimento Voucher | Ultimo 1 giorno |
-| Periodo di Cutoff Prestito | 30 giorni |
+| Soglia di Idoneità del Prestito | 30 giorni |
 | Soglia di Inattività DAO | 31 giorni |
 | Periodo di Grazia DAO | 7 giorni |
+
+<Note>
+  **Soglia di Idoneità del Prestito — semantica:** Non è una durata del prestito. È il tempo minimo residuo fino alla prossima auto-vendita che uno stack di DA deve ancora avere per poter essere usato come collaterale di un **nuovo** prestito (controllo on-chain: `_getTimeToNextAutosale >= 30 days`). Una volta aperto il prestito, non c'è una durata fissa — il mutuatario può chiamare `repay()` in qualsiasi momento finché lo stack è attivo; `repay()` viene revocata solo dopo che lo stack è entrato nel suo ciclo di auto-vendita.
+</Note>

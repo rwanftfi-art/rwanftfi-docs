@@ -44,7 +44,7 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "Can I take a loan against my DA?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA. Each DA batch is independent collateral, allowing multiple simultaneous loans. Each loan carries a 5% commission to the DA Liquidity Pool, has a 30-day cutoff, and only the defaulted batch's collateral is burned." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA. Each DA batch is independent collateral, allowing multiple simultaneous loans. Each loan carries a 5% commission to the DA Liquidity Pool. A loan can be opened only if at least 30 days remain until that stack's next scheduled auto-sell — this is an on-chain eligibility gate, not a fixed loan term. The borrower can repay at any time before the stack enters its auto-sell cycle. If defaulted, only that batch's collateral is burned." }
         },
         {
           "@type": "Question",
@@ -121,7 +121,7 @@ Depth depends on your NFT level. Currently, Genesis (L1) earns from 2 levels dee
 
 ## Can I take a loan against my DA?
 
-Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA holdings. Each DA batch from each mining cycle serves as independent collateral, allowing multiple simultaneous micro-loans. Each loan carries a one-time 5% commission routed to the DA Liquidity Pool, has a 30-day cutoff period, and if defaulted, only that batch's collateral is progressively burned through the auto-sell cycle — not all DA holdings. See [Selling & Lending](/en/da-selling-lending).
+Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA holdings. Each DA batch from each mining cycle serves as independent collateral, allowing multiple simultaneous micro-loans. Each loan carries a one-time 5% commission routed to the DA Liquidity Pool. A loan can be opened against a stack only if at least 30 days remain until that stack's next scheduled auto-sell — this is the on-chain eligibility gate, not a fixed loan term. The borrower can repay at any time before the stack enters its auto-sell cycle; once auto-sell starts, `repay()` reverts. If defaulted, only that batch's collateral is progressively burned through the auto-sell cycle — not all DA holdings. See [Selling & Lending](/en/da-selling-lending).
 
 ## What is the Auto-Sell cycle?
 

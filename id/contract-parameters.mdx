@@ -183,6 +183,10 @@ Matching Bonus membayar 5% di tiga level pendapatan mitra langsung. Setiap level
 | Jendela Frozen Balance | 72 jam |
 | Masa Hidup Voucher | 365 hari |
 | Penguncian Transfer Voucher | 1 hari terakhir |
-| Periode Batas Pinjaman | 30 hari |
+| Ambang Kelayakan Pinjaman | 30 hari |
 | Ambang Batas Inaktivitas DAO | 31 hari |
 | Periode Tenggang DAO | 7 hari |
+
+<Note>
+  **Ambang Kelayakan Pinjaman — semantik:** Ini **bukan** jangka waktu pinjaman. Ini adalah waktu minimum tersisa hingga auto-sell berikutnya yang harus masih ada pada stack DA agar dapat digunakan sebagai jaminan untuk pinjaman **baru** (pemeriksaan on-chain: `_getTimeToNextAutosale >= 30 days`). Setelah pinjaman dibuka, tidak ada jangka waktu tetap — peminjam dapat memanggil `repay()` kapan saja selama stack masih aktif; `repay()` baru dibatalkan setelah stack memasuki siklus auto-sell-nya.
+</Note>

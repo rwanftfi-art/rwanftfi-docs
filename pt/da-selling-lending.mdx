@@ -13,7 +13,7 @@ Uma vez que o usuário possui DA, ele tem duas opções financeiras principais: 
     100% do DA vendido é permanentemente queimado. Você recebe 75% (manual) ou 70% (auto) do valor em USDT. Os 25% (manual) ou 30% (auto) restantes são uma comissão do protocolo que permanece no pool como lastro e impulsiona o preço do DA para cima.
   </Card>
   <Card title="Emprestar DA" icon="building-columns">
-    Tome emprestado até 70% LTV em USDT contra seu DA. Seu DA permanece no seu TokenStack. Período de empréstimo de 30 dias com comissão única de 5%.
+    Tome emprestado até 70% LTV em USDT contra seu DA. Seu DA permanece no seu TokenStack. O empréstimo permanece aberto até que o stack dado em garantia entre em seu ciclo de auto-venda; comissão única de 5%.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Cada auto-venda é executada ao preço do DA naquele momento, não ao preço ori
 
 ## Lending (Crédito contra DA)
 
-Em vez de vender, os usuários podem tomar um empréstimo em USDT contra suas posições em DA. Os usuários podem tomar emprestado até **70%** do valor atual em USDT do DA dado em garantia (Loan-to-Value). O smart contract impõe um prazo final de empréstimo estrito de 30 dias. Se um empréstimo não for gerenciado dentro dos parâmetros exigidos, o TokenStack dado em garantia pode ser liquidado.
+Em vez de vender, os usuários podem tomar um empréstimo em USDT contra suas posições em DA. Os usuários podem tomar emprestado até **70%** do valor atual em USDT do DA dado em garantia (Loan-to-Value).
+
+**Condição de concessão (não é prazo do empréstimo).** Um empréstimo só pode ser aberto sobre um stack de DA se faltarem ao menos **30 dias** até a próxima auto-venda agendada desse stack. Trata-se de uma verificação on-chain de elegibilidade (`_getTimeToNextAutosale >= 30 days`), não de um prazo fixo do empréstimo — uma vez aberto, não há prazo de 30 dias correndo contra o tomador.
+
+**Pagamento.** Não há prazo fixo para o empréstimo. O tomador pode chamar `repay()` a qualquer momento enquanto o stack ainda estiver ativo — ou seja, antes de entrar no ciclo de auto-venda. Uma vez que o stack passe para auto-venda, `repay()` é revertido e o empréstimo não pode mais ser quitado.
 
 Ao tomar um empréstimo, o tomador paga uma **comissão única de 5%** que é direcionada ao Pool de Liquidez do DA. O tomador recebe 95% do valor do empréstimo. Exemplo: para um empréstimo de \$1.000, o tomador recebe \$950 e \$50 vão para o Pool de Liquidez. Esta comissão é coletada a cada novo empréstimo — os usuários podem tomar novos empréstimos após receber novos batches de DA, o que significa que a comissão flui para o Pool repetidamente.
 
@@ -107,15 +111,15 @@ Cada batch de DA de um ciclo de mineração serve como garantia independente. Os
 </Steps>
 
 <Tip>
-  Múltiplos empréstimos ativos simultaneamente são possíveis — um por batch de DA. Cada empréstimo tem seu próprio prazo final de 30 dias e comissão de 5%. NFTs menores produzem empréstimos menores; NFTs maiores produzem empréstimos maiores. Se algum empréstimo individual entrar em inadimplência, somente a garantia daquele batch entra no ciclo de auto-venda — não todas as posições em DA.
+  Múltiplos empréstimos ativos simultaneamente são possíveis — um por batch de DA. Cada empréstimo é independente: está vinculado ao seu próprio batch e tem sua própria comissão de 5%. NFTs menores produzem empréstimos menores; NFTs maiores produzem empréstimos maiores. Se algum empréstimo individual entrar em inadimplência, somente a garantia daquele batch entra no ciclo de auto-venda — não todas as posições em DA.
 </Tip>
 
 <Note>
-  **Janela de Pagamento — Sem Pagamentos Atrasados:** Um empréstimo só pode ser pago via `repay()` enquanto ainda estiver ativo. Uma vez que o prazo final de 30 dias tenha passado e a posição tenha cruzado para o prazo de auto-venda, `repay()` é revertido — o tomador **não pode** desfazer o empréstimo para contornar o cronograma de liquidação. Uma posição vencida deve, em vez disso, ser processada via `processExpiredStacks()`, que executa a queima progressiva descrita abaixo. Não há caminho que permita a um tomador escapar das penalidades de inadimplência pagando atrasado.
+  **Janela de Pagamento — Sem Pagamentos Atrasados:** Um empréstimo só pode ser pago via `repay()` enquanto o stack dado em garantia ainda estiver ativo — ou seja, antes de ter entrado em seu ciclo de auto-venda. Uma vez que o stack passe para auto-venda, `repay()` é revertido — o tomador **não pode** desfazer o empréstimo para contornar o cronograma de liquidação. Uma posição vencida deve, em vez disso, ser processada via `processExpiredStacks()`, que executa a queima progressiva descrita abaixo. Não há caminho que permita a um tomador escapar das penalidades de inadimplência pagando atrasado.
 </Note>
 
 <Warning>
-  **Inadimplência de Lending — Queima Progressiva:** Se um empréstimo não for pago dentro do prazo final de 30 dias, o DA dado em garantia entra no ciclo de auto-venda. Os tokens são progressivamente queimados pelo mesmo cronograma de 4 períodos (25% → 40% → 50% → 100% do saldo restante ao longo de 365 dias / 1 ano no total: 120 / 90 / 90 / 65 dias por período).
+  **Inadimplência de Lending — Queima Progressiva:** Se o empréstimo não for pago antes que o stack dado em garantia entre no ciclo de auto-venda, a garantia em DA atravessa esse ciclo. Os tokens são progressivamente queimados pelo cronograma padrão de 4 períodos (25% → 40% → 50% → 100% do saldo restante ao longo de 365 dias / 1 ano no total: 120 / 90 / 90 / 65 dias por período).
 
   O usuário **NÃO** recebe USDT dessas auto-vendas — **100% dos resultados são direcionados ao Pool de Liquidez do DA**. O usuário **mantém o valor original do empréstimo** que recebeu, mas **perde toda a garantia em DA**. Esse mecanismo protege a liquidez do sistema, reduz o risco sistêmico e impõe disciplina financeira em todo o ecossistema.
 </Warning>

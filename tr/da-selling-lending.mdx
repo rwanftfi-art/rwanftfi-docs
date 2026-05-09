@@ -13,7 +13,7 @@ Bir kullanıcı DA'ya sahip olduğunda, iki temel finansal seçeneği vardır: v
     Satılan DA'nın %100'ü kalıcı olarak yakılır. Değerin %75'ini (manuel) veya %70'ini (otomatik) USDT olarak alırsınız. Kalan %25 (manuel) veya %30 (otomatik), havuzda destek olarak kalan ve DA fiyatını yukarı yönlü iten bir protokol komisyonudur.
   </Card>
   <Card title="DA Ödünç Ver" icon="building-columns">
-    DA'nız karşılığında %70 LTV'ye kadar USDT olarak borç alın. DA'nız TokenStack'inizde kalır. Tek seferlik %5 komisyon ile 30 günlük kredi süresi.
+    DA'nız karşılığında %70 LTV'ye kadar USDT olarak borç alın. DA'nız TokenStack'inizde kalır. Teminatlandırılmış stack otomatik satış döngüsüne girene kadar kredi açık kalır; tek seferlik %5 komisyon.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Her otomatik satış, orijinal farming fiyatında değil, o andaki DA fiyatında
 
 ## Borç Verme (DA karşılığı kredi)
 
-Satmak yerine, kullanıcılar DA varlıkları karşılığında USDT olarak kredi alabilirler. Kullanıcılar DA teminatlarının mevcut USDT değerinin **%70'ine** kadar borç alabilirler (Kredi-Değer oranı). Akıllı sözleşme katı bir 30 günlük kredi kesim süresini uygular. Bir kredi gerekli parametreler dahilinde yönetilmezse, teminat olarak gösterilen TokenStack tasfiye edilebilir.
+Satmak yerine, kullanıcılar DA varlıkları karşılığında USDT olarak kredi alabilirler. Kullanıcılar DA teminatlarının mevcut USDT değerinin **%70'ine** kadar borç alabilirler (Kredi-Değer oranı).
+
+**Verilme koşulu (kredi vadesi değil).** Bir DA stack'ine karşı kredi yalnızca o stack'in bir sonraki planlanmış otomatik satışına kadar en az **30 gün** kalmışsa açılabilir. Bu, on-chain bir uygunluk kontrolüdür (`_getTimeToNextAutosale >= 30 days`), kredinin sabit bir vadesi değil — kredi açıldıktan sonra borçluya karşı işleyen 30 günlük bir süre yoktur.
+
+**Geri ödeme.** Krediye ait sabit bir vade yoktur. Borçlu, stack hâlâ aktifken — yani otomatik satış döngüsüne girmeden önce — istediği zaman `repay()` çağrısını yapabilir. Stack otomatik satışa geçtiğinde `repay()` geri alınır ve kredi artık kapatılamaz.
 
 Bir kredi alırken, borçlu DA Likidite Havuzuna yönlendirilen tek seferlik **%5 komisyon** öder. Borçlu kredi değerinin %95'ini alır. Örnek: 1.000\$ kredi için, borçlu 950\$ alır ve 50\$ Likidite Havuzuna gider. Bu komisyon her yeni kredide toplanır — kullanıcılar yeni DA partileri aldıktan sonra yeni krediler alabilir, yani komisyon Havuza tekrar tekrar akar.
 
@@ -107,15 +111,15 @@ Bir madencilik döngüsünden gelen her DA partisi bağımsız teminat olarak hi
 </Steps>
 
 <Tip>
-  Birden fazla eş zamanlı aktif kredi mümkündür — her DA partisi başına bir tane. Her kredinin kendi 30 günlük kesim süresi ve %5 komisyonu vardır. Daha küçük NFT'ler daha küçük krediler üretir, daha büyük NFT'ler daha büyük krediler üretir. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı otomatik satış döngüsüne girer — tüm DA varlıkları değil.
+  Birden fazla eş zamanlı aktif kredi mümkündür — her DA partisi başına bir tane. Her kredi bağımsızdır: kendi partisine bağlıdır ve kendi %5 komisyonuna sahiptir. Daha küçük NFT'ler daha küçük krediler üretir, daha büyük NFT'ler daha büyük krediler üretir. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı otomatik satış döngüsüne girer — tüm DA varlıkları değil.
 </Tip>
 
 <Note>
-  **Geri Ödeme Penceresi — Geç Geri Ödeme Yok:** Bir kredi yalnızca aktifken `repay()` aracılığıyla geri ödenebilir. 30 günlük kesim süresi geçtikten ve pozisyon otomatik satış son tarihine geçtikten sonra, `repay()` geri alınır — borçlu tasfiye programını atlamak için krediyi geri **alamaz**. Süresi geçmiş bir pozisyon, aşağıda açıklanan aşamalı yakımı yürüten `processExpiredStacks()` aracılığıyla işlenmelidir. Bir borçlunun geç geri ödeyerek temerrüt cezalarından kaçmasına izin veren bir yol yoktur.
+  **Geri Ödeme Penceresi — Geç Geri Ödeme Yok:** Bir kredi yalnızca teminatlandırılmış stack hâlâ aktifken — yani otomatik satış döngüsüne girmeden önce — `repay()` aracılığıyla geri ödenebilir. Stack otomatik satışa geçtiğinde, `repay()` geri alınır — borçlu tasfiye programını atlamak için krediyi geri **alamaz**. Süresi geçmiş bir pozisyon, aşağıda açıklanan aşamalı yakımı yürüten `processExpiredStacks()` aracılığıyla işlenmelidir. Bir borçlunun geç geri ödeyerek temerrüt cezalarından kaçmasına izin veren bir yol yoktur.
 </Note>
 
 <Warning>
-  **Borç Verme Temerrüdü — Aşamalı Yakım:** Bir kredi 30 günlük kesim süresi içinde geri ödenmezse, teminatlandırılmış DA otomatik satış döngüsüne girer. Tokenler aynı 4 dönemli program aracılığıyla aşamalı olarak yakılır (toplam 365 gün / 1 yıl boyunca kalan bakiyenin %25 → %40 → %50 → %100'ü: dönem başına 120 / 90 / 90 / 65 gün).
+  **Borç Verme Temerrüdü — Aşamalı Yakım:** Teminatlandırılmış stack otomatik satış döngüsüne girmeden önce kredi geri ödenmezse, DA teminatı bu döngüden geçer. Tokenler standart 4 dönemli program aracılığıyla aşamalı olarak yakılır (toplam 365 gün / 1 yıl boyunca kalan bakiyenin %25 → %40 → %50 → %100'ü: dönem başına 120 / 90 / 90 / 65 gün).
 
   Kullanıcı bu otomatik satışlardan USDT **almaz** — **gelirin %100'ü DA Likidite Havuzuna yönlendirilir**. Kullanıcı aldığı **orijinal kredi tutarını korur**, ancak **tüm DA teminatını kaybeder**. Bu mekanizma sistem likiditesini korur, sistemik riski azaltır ve ekosistem genelinde finansal disiplini sağlar.
 </Warning>

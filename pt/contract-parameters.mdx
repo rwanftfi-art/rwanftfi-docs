@@ -183,6 +183,10 @@ O Bônus de Matching paga 5% em três níveis de renda direta de parceiros. Cada
 | Janela do Saldo Congelado | 72 horas |
 | Vida Útil do Voucher | 365 dias |
 | Bloqueio de Transferência do Voucher | Último 1 dia |
-| Período de Prazo do Empréstimo | 30 dias |
+| Limiar de Elegibilidade do Empréstimo | 30 dias |
 | Limiar de Inatividade da DAO | 31 dias |
 | Período de Carência da DAO | 7 dias |
+
+<Note>
+  **Limiar de Elegibilidade do Empréstimo — semântica:** Não é um prazo de empréstimo. É o tempo mínimo restante até a próxima auto-venda que um stack de DA deve ainda ter para poder ser usado como garantia de um **novo** empréstimo (verificação on-chain: `_getTimeToNextAutosale >= 30 days`). Uma vez aberto, o empréstimo não tem prazo fixo — o tomador pode chamar `repay()` a qualquer momento enquanto o stack estiver ativo; `repay()` só é revertido após o stack entrar no seu ciclo de auto-venda.
+</Note>

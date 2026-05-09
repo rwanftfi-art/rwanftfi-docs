@@ -13,7 +13,7 @@ Setelah pengguna memegang DA, mereka memiliki dua opsi finansial utama: menjual 
     100% DA yang terjual dibakar secara permanen. Anda menerima 75% (manual) atau 70% (otomatis) dari nilai dalam USDT. Sisa 25% (manual) atau 30% (otomatis) adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung dan mendorong harga DA naik.
   </Card>
   <Card title="Pinjamkan DA" icon="building-columns">
-    Pinjam hingga 70% LTV dalam USDT terhadap DA Anda. DA Anda tetap di TokenStack Anda. Periode pinjaman 30 hari dengan komisi sekali bayar 5%.
+    Pinjam hingga 70% LTV dalam USDT terhadap DA Anda. DA Anda tetap di TokenStack Anda. Pinjaman tetap terbuka sampai stack yang dijaminkan memasuki siklus auto-sell-nya; komisi sekali bayar 5%.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Setiap auto-sell dieksekusi pada harga DA saat itu juga, bukan pada harga farmin
 
 ## Lending (Kredit terhadap DA)
 
-Alih-alih menjual, pengguna dapat mengambil pinjaman dalam USDT terhadap kepemilikan DA mereka. Pengguna dapat meminjam hingga **70%** dari nilai USDT saat ini dari jaminan DA mereka (Loan-to-Value). Smart contract menegakkan periode batas waktu pinjaman ketat 30 hari. Jika pinjaman tidak dikelola sesuai dengan parameter yang diperlukan, TokenStack yang dijaminkan dapat dilikuidasi.
+Alih-alih menjual, pengguna dapat mengambil pinjaman dalam USDT terhadap kepemilikan DA mereka. Pengguna dapat meminjam hingga **70%** dari nilai USDT saat ini dari jaminan DA mereka (Loan-to-Value).
+
+**Syarat penerbitan (bukan jangka waktu pinjaman).** Pinjaman hanya dapat dibuka terhadap stack DA jika sisa waktu hingga auto-sell terjadwal berikutnya untuk stack tersebut tidak kurang dari **30 hari**. Ini adalah pemeriksaan kelayakan on-chain (`_getTimeToNextAutosale >= 30 days`), bukan jangka waktu pinjaman tetap — setelah pinjaman dibuka, tidak ada tenggat 30 hari yang berjalan terhadap peminjam.
+
+**Pelunasan.** Tidak ada jangka waktu tetap untuk pinjaman. Peminjam dapat memanggil `repay()` kapan saja selama stack masih aktif — yaitu sebelum memasuki siklus auto-sell. Setelah stack masuk ke auto-sell, `repay()` dibatalkan dan pinjaman tidak dapat dilunasi lagi.
 
 Saat mengambil pinjaman, peminjam membayar **komisi 5%** sekali bayar yang dialihkan ke DA Liquidity Pool. Peminjam menerima 95% dari nilai pinjaman. Contoh: untuk pinjaman \$1.000, peminjam menerima \$950 dan \$50 menuju Liquidity Pool. Komisi ini dipungut pada setiap pinjaman baru — pengguna dapat mengambil pinjaman baru setelah menerima batch DA baru, yang berarti komisi mengalir ke Pool secara berulang.
 
@@ -107,15 +111,15 @@ Setiap batch DA dari siklus mining berfungsi sebagai jaminan independen. Penggun
 </Steps>
 
 <Tip>
-  Beberapa pinjaman aktif simultan dimungkinkan — satu per batch DA. Setiap pinjaman memiliki batas waktu 30 hari dan komisi 5% sendiri. NFT yang lebih kecil menghasilkan pinjaman yang lebih kecil, NFT yang lebih besar menghasilkan pinjaman yang lebih besar. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang masuk ke siklus auto-sell — bukan seluruh kepemilikan DA.
+  Beberapa pinjaman aktif simultan dimungkinkan — satu per batch DA. Setiap pinjaman bersifat independen: terikat pada batch-nya sendiri dan memiliki komisi 5%-nya sendiri. NFT yang lebih kecil menghasilkan pinjaman yang lebih kecil, NFT yang lebih besar menghasilkan pinjaman yang lebih besar. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang masuk ke siklus auto-sell — bukan seluruh kepemilikan DA.
 </Tip>
 
 <Note>
-  **Jendela Pelunasan — Tanpa Pelunasan Terlambat:** Pinjaman hanya dapat dilunasi melalui `repay()` selama masih aktif. Setelah batas waktu 30 hari berlalu dan posisi telah memasuki tenggat auto-sell, `repay()` dibatalkan — peminjam **tidak dapat** melepaskan pinjaman untuk mengelak dari jadwal likuidasi. Posisi yang sudah terlambat harus diproses melalui `processExpiredStacks()`, yang mengeksekusi pembakaran progresif yang dijelaskan di bawah. Tidak ada jalur yang memungkinkan peminjam lolos dari penalti gagal bayar dengan melunasi terlambat.
+  **Jendela Pelunasan — Tanpa Pelunasan Terlambat:** Pinjaman hanya dapat dilunasi melalui `repay()` selama stack yang dijaminkan masih aktif — yaitu sebelum memasuki siklus auto-sell-nya. Setelah stack masuk ke auto-sell, `repay()` dibatalkan — peminjam **tidak dapat** melepaskan pinjaman untuk mengelak dari jadwal likuidasi. Posisi yang sudah terlambat harus diproses melalui `processExpiredStacks()`, yang mengeksekusi pembakaran progresif yang dijelaskan di bawah. Tidak ada jalur yang memungkinkan peminjam lolos dari penalti gagal bayar dengan melunasi terlambat.
 </Note>
 
 <Warning>
-  **Gagal Bayar Pinjaman — Pembakaran Progresif:** Jika pinjaman tidak dilunasi dalam periode batas waktu 30 hari, DA yang dijaminkan masuk ke siklus auto-sell. Token dibakar secara progresif melalui jadwal 4 periode yang sama (25% → 40% → 50% → 100% dari saldo tersisa selama total 365 hari / 1 tahun: 120 / 90 / 90 / 65 hari per periode).
+  **Gagal Bayar Pinjaman — Pembakaran Progresif:** Jika pinjaman tidak dilunasi sebelum stack yang dijaminkan memasuki siklus auto-sell, jaminan DA melewati siklus tersebut. Token dibakar secara progresif melalui jadwal 4 periode standar (25% → 40% → 50% → 100% dari saldo tersisa selama total 365 hari / 1 tahun: 120 / 90 / 90 / 65 hari per periode).
 
   Pengguna **TIDAK** menerima USDT dari auto-sell ini — **100% hasil dialihkan ke DA Liquidity Pool**. Pengguna **menyimpan jumlah pinjaman awal** yang mereka terima, tetapi **kehilangan seluruh jaminan DA**. Mekanisme ini melindungi likuiditas sistem, mengurangi risiko sistemik, dan menegakkan disiplin finansial di seluruh ekosistem.
 </Warning>

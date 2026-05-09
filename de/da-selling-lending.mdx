@@ -13,7 +13,7 @@ Sobald ein Nutzer DA hält, hat er zwei primäre finanzielle Optionen: den Verka
     100 % des verkauften DA werden dauerhaft verbrannt. Sie erhalten 75 % (manuell) bzw. 70 % (automatisch) des Werts in USDT. Die verbleibenden 25 % (manuell) bzw. 30 % (automatisch) sind eine Protokollprovision, die als Deckung im Pool verbleibt und den DA-Preis nach oben treibt.
   </Card>
   <Card title="DA verleihen" icon="building-columns">
-    Leihen Sie sich bis zu 70 % LTV in USDT gegen Ihr DA. Ihr DA verbleibt in Ihrem TokenStack. 30-tägige Kreditlaufzeit mit einer einmaligen Provision von 5 %.
+    Leihen Sie sich bis zu 70 % LTV in USDT gegen Ihr DA. Ihr DA verbleibt in Ihrem TokenStack. Der Kredit bleibt offen, bis der besicherte Stack in seinen Auto-Verkaufs-Zyklus eintritt; einmalige Provision von 5 %.
   </Card>
 </CardGroup>
 
@@ -75,7 +75,11 @@ Jeder Auto-Verkauf wird zum DA-Preis im jeweiligen Moment ausgeführt, nicht zum
 
 ## Lending (Kredit gegen DA)
 
-Anstatt zu verkaufen, können Nutzer einen Kredit in USDT gegen ihre DA-Bestände aufnehmen. Nutzer können bis zu **70 %** des aktuellen USDT-Werts ihrer DA-Sicherheit (Loan-to-Value) leihen. Der Smart Contract setzt eine strikte 30-tägige Kreditfrist durch. Wenn ein Kredit nicht innerhalb der erforderlichen Parameter verwaltet wird, kann der besicherte TokenStack liquidiert werden.
+Anstatt zu verkaufen, können Nutzer einen Kredit in USDT gegen ihre DA-Bestände aufnehmen. Nutzer können bis zu **70 %** des aktuellen USDT-Werts ihrer DA-Sicherheit (Loan-to-Value) leihen.
+
+**Vergabevoraussetzung (keine Kreditlaufzeit).** Ein Kredit kann gegen einen DA-Stack nur dann eröffnet werden, wenn bis zum nächsten geplanten Auto-Verkauf dieses Stacks noch mindestens **30 Tage** verbleiben. Dies ist ein On-Chain-Eligibility-Check (`_getTimeToNextAutosale >= 30 days`) und keine fixe Kreditlaufzeit – nach Eröffnung des Kredits läuft keine 30-Tage-Frist gegen den Kreditnehmer.
+
+**Rückzahlung.** Es gibt keine fixe Kreditlaufzeit. Der Kreditnehmer kann `repay()` jederzeit aufrufen, solange der Stack noch aktiv ist – also bevor er in den Auto-Verkaufs-Zyklus eingetreten ist. Sobald der Stack in den Auto-Verkauf übergeht, wird `repay()` zurückgesetzt und der Kredit kann nicht mehr abgewickelt werden.
 
 Beim Aufnehmen eines Kredits zahlt der Kreditnehmer eine einmalige **5 %-Provision**, die an den DA-Liquiditätspool weitergeleitet wird. Der Kreditnehmer erhält 95 % des Kreditwerts. Beispiel: Bei einem Kredit von 1.000 USD erhält der Kreditnehmer 950 USD, und 50 USD gehen an den Liquiditätspool. Diese Provision wird bei jedem neuen Kredit erhoben – Nutzer können nach Erhalt neuer DA-Chargen neue Kredite aufnehmen, sodass die Provision wiederholt in den Pool fließt.
 
@@ -107,15 +111,15 @@ Jede DA-Charge aus einem Mining-Zyklus dient als unabhängige Sicherheit. Nutzer
 </Steps>
 
 <Tip>
-  Mehrere gleichzeitig aktive Kredite sind möglich – einer pro DA-Charge. Jeder Kredit hat seine eigene 30-Tage-Frist und 5 %-Provision. Kleinere NFTs produzieren kleinere Kredite, größere NFTs produzieren größere Kredite. Wenn ein einzelner Kredit ausfällt, tritt nur die Sicherheit dieser Charge in den Auto-Verkaufs-Zyklus ein – nicht alle DA-Bestände.
+  Mehrere gleichzeitig aktive Kredite sind möglich – einer pro DA-Charge. Jeder Kredit ist unabhängig: er ist an seine eigene Charge gebunden und trägt eine eigene 5 %-Provision. Kleinere NFTs produzieren kleinere Kredite, größere NFTs produzieren größere Kredite. Wenn ein einzelner Kredit ausfällt, tritt nur die Sicherheit dieser Charge in den Auto-Verkaufs-Zyklus ein – nicht alle DA-Bestände.
 </Tip>
 
 <Note>
-  **Rückzahlungsfenster — keine verspäteten Rückzahlungen:** Ein Kredit kann nur über `repay()` zurückgezahlt werden, solange er noch aktiv ist. Sobald die 30-Tage-Frist abgelaufen ist und die Position den Auto-Verkaufs-Stichtag überschritten hat, wird `repay()` zurückgesetzt – der Kreditnehmer **kann** den Kredit nicht abwickeln, um den Liquidationsplan zu umgehen. Eine überfällige Position muss stattdessen über `processExpiredStacks()` verarbeitet werden, das den unten beschriebenen progressiven Burn ausführt. Es gibt keinen Weg, der es einem Kreditnehmer erlaubt, durch verspätete Rückzahlung den Strafen für Zahlungsausfall zu entgehen.
+  **Rückzahlungsfenster — keine verspäteten Rückzahlungen:** Ein Kredit kann nur über `repay()` zurückgezahlt werden, solange der besicherte Stack noch aktiv ist – also bevor er in seinen Auto-Verkaufs-Zyklus eingetreten ist. Sobald der Stack in den Auto-Verkauf übergeht, wird `repay()` zurückgesetzt – der Kreditnehmer **kann** den Kredit nicht abwickeln, um den Liquidationsplan zu umgehen. Eine überfällige Position muss stattdessen über `processExpiredStacks()` verarbeitet werden, das den unten beschriebenen progressiven Burn ausführt. Es gibt keinen Weg, der es einem Kreditnehmer erlaubt, durch verspätete Rückzahlung den Strafen für Zahlungsausfall zu entgehen.
 </Note>
 
 <Warning>
-  **Lending-Ausfall — Progressiver Burn:** Wenn ein Kredit nicht innerhalb der 30-Tage-Frist zurückgezahlt wird, tritt das besicherte DA in den Auto-Verkaufs-Zyklus ein. Tokens werden progressiv durch denselben 4-Perioden-Plan verbrannt (25 % → 40 % → 50 % → 100 % des verbleibenden Guthabens über insgesamt 365 Tage / 1 Jahr: 120 / 90 / 90 / 65 Tage pro Periode).
+  **Lending-Ausfall — Progressiver Burn:** Wenn der Kredit nicht zurückgezahlt wird, bevor der besicherte Stack in den Auto-Verkaufs-Zyklus eintritt, durchläuft die DA-Sicherheit diesen Zyklus. Tokens werden progressiv durch den standardmäßigen 4-Perioden-Plan verbrannt (25 % → 40 % → 50 % → 100 % des verbleibenden Guthabens über insgesamt 365 Tage / 1 Jahr: 120 / 90 / 90 / 65 Tage pro Periode).
 
   Der Nutzer erhält **KEIN** USDT aus diesen Auto-Verkäufen – **100 % der Erlöse werden an den DA-Liquiditätspool weitergeleitet**. Der Nutzer **behält den ursprünglich erhaltenen Kreditbetrag**, **verliert jedoch die gesamte DA-Sicherheit**. Dieser Mechanismus schützt die Systemliquidität, reduziert systemische Risiken und setzt finanzielle Disziplin im gesamten Ökosystem durch.
 </Warning>
