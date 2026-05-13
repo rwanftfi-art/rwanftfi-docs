@@ -1,6 +1,6 @@
 ---
 title: "Venta y Lending"
-description: "Vender, prestar o mantener — tú eliges."
+description: "Venta manual al 75% del pago en USDT, auto-venta al 70% en un ciclo de cuatro períodos de 365 días y préstamo al 70% LTV fijo contra colateral de DA con una comisión única del 5%."
 icon: "scale-balanced"
 ---
 import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
@@ -13,7 +13,7 @@ Una vez que un usuario tiene DA, dispone de dos opciones financieras principales
     El 100% del DA vendido se quema permanentemente. Recibes el 75% (manual) o el 70% (automático) del valor en USDT. El 25% (manual) o 30% (automático) restante es una comisión del protocolo que permanece en el pool como respaldo e impulsa al alza el precio del DA.
   </Card>
   <Card title="Lending de DA" icon="building-columns">
-    Pide prestado hasta el 70% LTV en USDT contra tu DA. Tu DA permanece en tu TokenStack. El préstamo permanece abierto hasta que el stack colateralizado entra en su ciclo de auto-venta; comisión única del 5%.
+    Pide prestado al 70% LTV fijo en USDT contra tu DA. Se paga una comisión única del 5% al emitirse y nunca se vuelve a cobrar en el reembolso. Tu DA permanece en tu TokenStack hasta que reembolses (total o parcialmente) o el lote entre en su ciclo de auto-venta.
   </Card>
 </CardGroup>
 
@@ -75,53 +75,28 @@ Cada auto-venta se ejecuta al precio del DA en ese momento, no al precio origina
 
 ## Lending (Crédito contra DA)
 
-En lugar de vender, los usuarios pueden tomar un préstamo en USDT contra sus tenencias de DA. Los usuarios pueden pedir prestado hasta el **70%** del valor actual en USDT de su colateral de DA (Loan-to-Value).
+Los titulares de NFT Premium y Elite (Nivel 5 y superior) pueden tomar un préstamo en USDT contra su colateral de DA en lugar de venderlo. El préstamo está colateralizado por un lote específico de DA de un único ciclo de minería y farming completado - el lote completo a la vez, no una fracción. Los niveles inferiores no ejecutan minería y no tienen colateral de DA contra el que pedir prestado.
 
-**Condición de emisión (no es un plazo del préstamo).** Solo puede abrirse un préstamo contra un stack de DA si quedan al menos **30 días** hasta su próxima auto-venta programada. Esta es una verificación on-chain de elegibilidad (`_getTimeToNextAutosale >= 30 days`), no un plazo fijo del préstamo — una vez abierto, no hay un plazo de 30 días corriendo contra el prestatario.
+Cada préstamo se emite al **70% LTV fijo** con una **comisión única del 5%** enrutada al Pool de Liquidez del DA al emitirse. No se cobra nada en el reembolso. El prestatario recibe el 95% del importe bruto del préstamo en su Saldo Regular. Ejemplo: para un lote de 100 DA a un precio del DA de 1,00 USDT, el préstamo bruto es 70 USDT, la comisión es 3,50 USDT y el pago neto al prestatario es 66,50 USDT.
 
-**Reembolso.** No hay un plazo fijo del préstamo. El prestatario puede llamar a `repay()` en cualquier momento mientras el stack siga activo, es decir, antes de que entre en el ciclo de auto-venta. Una vez que el stack pasa a auto-venta, `repay()` se revierte y el préstamo ya no puede saldarse.
+La propiedad estructural definitoria es que el precio del DA queda capturado en `loan.price` al emitirse y nunca se reprecia después. El crecimiento posterior del precio del DA no incrementa la deuda - por lo que el prestatario extrae liquidez en USDT al precio actual mientras conserva el potencial de apreciación futura. El préstamo no tiene vencimiento fijo, puede reembolsarse total o parcialmente en cualquier momento antes de que el lote entre en su ciclo de auto-venta, y un lote determinado solo puede pigñorarse una vez a lo largo de toda su vida.
 
-Al tomar un préstamo, el prestatario paga una **comisión única del 5%** que se dirige al Pool de Liquidez del DA. El prestatario recibe el 95% del valor del préstamo. Ejemplo: para un préstamo de \$1.000, el prestatario recibe \$950 y \$50 van al Pool de Liquidez. Esta comisión se cobra con cada nuevo préstamo — los usuarios pueden tomar nuevos préstamos tras recibir nuevos lotes de DA, lo que significa que la comisión fluye repetidamente al Pool.
-
-<Info>
-  **Parámetro Independiente para la Tarifa del Préstamo:** La comisión de lending del 5% se almacena on-chain como un parámetro `loanFee` dedicado, separado de los demás parámetros de tarifa del protocolo. Este aislamiento permite a la DAO ajustar la tarifa del préstamo de forma independiente — sin afectar a las tasas de marketing, las tarifas acumulativas u otras comisiones — y mantiene la economía del préstamo gobernable como una palanca única y explícita.
-</Info>
-
-<Note>
-  **Monto Mínimo del Préstamo:** El smart contract rechaza préstamos de valor cero. Si el tamaño del préstamo solicitado es tan pequeño que el pago tras la comisión se redondearía a 0 USDT, la transacción se revierte. Los prestatarios deben solicitar un monto lo suficientemente grande para que el pago al prestatario (95% del valor del préstamo) sea distinto de cero tras el redondeo on-chain. Esto evita préstamos de polvo que bloquearían colateral sin beneficio económico para el prestatario.
-</Note>
-
-### Lending Multi-Lote
-
-Cada lote de DA de un ciclo de minería sirve como colateral independiente. Los usuarios pueden tomar un préstamo separado del 70% LTV contra cada lote individualmente:
-
-<Steps>
-  <Step title="Mina el Lote 1">
-    Completa un ciclo de minería y recibe el lote 1 de DA.
-  </Step>
-  <Step title="Pide prestado contra el Lote 1">
-    Toma un préstamo del 70% LTV contra el lote 1 (5% de comisión al Pool de Liquidez).
-  </Step>
-  <Step title="Mina el Lote 2">
-    Inicia un nuevo ciclo de minería y recibe el lote 2 de DA.
-  </Step>
-  <Step title="Pide prestado contra el Lote 2">
-    Toma otro préstamo del 70% LTV contra el lote 2 (comisión separada del 5%).
-  </Step>
-</Steps>
-
-<Tip>
-  Son posibles múltiples préstamos activos simultáneos — uno por cada lote de DA. Cada préstamo es independiente: está vinculado a su propio lote y tiene su propia comisión del 5%. Los NFT más pequeños producen préstamos más pequeños, los NFT más grandes producen préstamos más grandes. Si algún préstamo individual entra en default, solo el colateral de ese lote entra al ciclo de auto-venta — no todas las tenencias de DA.
-</Tip>
-
-<Note>
-  **Ventana de Reembolso — Sin Pagos Tardíos:** Un préstamo solo puede reembolsarse vía `repay()` mientras el stack colateralizado siga activo, es decir, antes de que haya entrado en su ciclo de auto-venta. Una vez que el stack pasa a auto-venta, `repay()` se revierte — el prestatario **no puede** deshacer el préstamo para eludir el calendario de liquidación. Una posición vencida debe procesarse a través de `processExpiredStacks()`, que ejecuta la quema progresiva descrita a continuación. No hay ningún camino que permita a un prestatario escapar de las penalizaciones por default reembolsando tarde.
-</Note>
+Si el préstamo no se reembolsa antes de que el lote entre en su ciclo de auto-venta, el DA pigñorado se quema progresivamente mediante el calendario estándar de cuatro períodos. El prestatario conserva el USDT recibido al emitirse; el valor en USDT de cada porción quemada fluye al Pool de Liquidez del DA. Entre los períodos de auto-venta, el prestatario aún puede intervenir y llamar a `repay()` para recuperar el DA que siga pigñorado.
 
 <Warning>
-  **Default en Lending — Quema Progresiva:** Si el préstamo no se reembolsa antes de que el stack colateralizado entre en el ciclo de auto-venta, el colateral de DA atraviesa ese ciclo. Los tokens se queman progresivamente mediante el calendario estándar de 4 períodos (25% → 40% → 50% → 100% del saldo restante a lo largo de 365 días / 1 año en total: 120 / 90 / 90 / 65 días por período).
+  **Default en Lending - Quema Progresiva:** Si el préstamo no se reembolsa antes de que el lote colateralizado entre en su ciclo de auto-venta, el colateral sigue el calendario estándar de cuatro períodos (25% / 40% / 50% / 100% del DA pigñorado **restante** quemado a lo largo de 120 / 90 / 90 / 65 días, 365 días en total). El 100% del DA quemado se destruye permanentemente; el valor en USDT correspondiente a `loan.price` se enruta al Pool de Liquidez del DA. El prestatario **no** recibe USDT por la porción quemada - la única recuperación económica de un lote en default es el USDT recibido al emitirse.
 
-  El usuario **NO** recibe USDT de estas auto-ventas — **el 100% de los ingresos se dirige al Pool de Liquidez del DA**. El usuario **conserva el monto original del préstamo** que recibió, pero **pierde todo el colateral en DA**. Este mecanismo protege la liquidez del sistema, reduce el riesgo sistémico y refuerza la disciplina financiera en todo el ecosistema.
+  **La recuperación parcial siempre está disponible.** El prestatario puede llamar a `repay()` entre cualquier par de períodos de auto-venta y recuperar el DA pigñorado **restante** pagando únicamente por lo que sigue pigñorado. El DA ya quemado en períodos anteriores no puede recuperarse, pero cada quema futura aún puede detenerse reembolsando antes de su límite de período.
 </Warning>
+
+<Note>
+  **`repay()` tras el inicio de la auto-venta - comportamiento corregido post-CertiK (RWA-58):** Las versiones anteriores del contrato revertían `repay()` una vez que el lote cruzaba al ciclo de auto-venta. Tras la auditoría de CertiK, esto fue corregido: `repay()` ahora puede llamarse en cualquier etapa de la vida del préstamo. Cuando el lote ya ha cruzado un disparador de auto-venta, el contrato primero ejecuta `_processExpiredStacks()` para liquidar todos los períodos cuyo límite ya ha pasado - quemando la parte correspondiente del colateral - y luego continúa contra el resto post-quema.
+
+  Consecuencia práctica: un `repay()` tardío no puede "adelantarse" a una quema que ya se ha activado. Para preservar el colateral **íntegro**, el prestatario debe reembolsar antes de cruzar el primer disparador de auto-venta (Período 1, actualmente el día 120 de la vida del lote).
+</Note>
+
+<Card title="Mecánica Completa del Lending ->" icon="hand-holding-dollar" href="/es/da-lending">
+  Elegibilidad, la ventana de emisión de 30 días, fórmulas, reembolso parcial con ejemplos resueltos, matemáticas completas del default y la tabla de parámetros - todo en una página dedicada.
+</Card>
 
 <SellVsLend />
