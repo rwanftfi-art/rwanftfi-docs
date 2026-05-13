@@ -1,6 +1,6 @@
 ---
 title: "Frequently Asked Questions"
-description: "Direct answers about RWANFTFI: 10 NFT tiers, the 21M-capped DA token, the 22-level marketing structure, lending up to 70% LTV, governance, and the CertiK audit."
+description: "Direct answers about RWANFTFI: 10 NFT tiers, the 21M-capped DA token, the 22-level marketing structure, lending at a fixed 70% LTV, governance, and the CertiK audit."
 icon: "circle-question"
 ---
 
@@ -14,7 +14,7 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "What is RWANFTFI?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI is a Web3 protocol on the Binance Smart Chain that bridges NFTs, Real World Assets (RWA), DeFi and CeFi. Holders of one of 10 NFT tiers (28 to 24,000 USDT) gain access to a 22-level marketing structure, NFTM mining, DA farming, and lending up to 70% LTV. The Deflationary Asset (DA) is hard-capped at 21,000,000 units and 100% USDT-backed. Smart contracts are audited by CertiK and use the Diamond Pattern (EIP-2535)." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI is a Web3 protocol on the Binance Smart Chain that bridges NFTs, Real World Assets (RWA), DeFi and CeFi. Holders of one of 10 NFT tiers (28 to 24,000 USDT) gain access to a 22-level marketing structure, NFTM mining, DA farming, and lending at a fixed 70% LTV. The Deflationary Asset (DA) is hard-capped at 21,000,000 units and 100% USDT-backed. Smart contracts are audited by CertiK and use the Diamond Pattern (EIP-2535)." }
         },
         {
           "@type": "Question",
@@ -44,7 +44,12 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "Can I take a loan against my DA?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA. Each DA batch is independent collateral, allowing multiple simultaneous loans. Each loan carries a 5% commission to the DA Liquidity Pool. A loan can be opened only if at least 30 days remain until that stack's next scheduled auto-sell — this is an on-chain eligibility gate, not a fixed loan term. The borrower can repay at any time before the stack enters its auto-sell cycle. If defaulted, only that batch's collateral is burned." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Premium and Elite NFT holders (L5+) can borrow against their DA at a fixed 70% LTV. The full DA batch is pledged at once - fractional borrowing is not supported, and a given batch can serve as collateral only once over its lifetime (it cannot be pledged again, even after full repayment). A one-time 5% commission is paid at issuance and routed to the DA Liquidity Pool; repayment, full or partial, does not trigger the fee again. The debt is denominated in USDT at the loan.price captured at issuance and does not increase if DA appreciates. A loan can be opened only if at least 30 days remain until that batch's next scheduled auto-sell - this is an on-chain eligibility gate, not a fixed loan term. The borrower can repay in full or in part at any time before the batch enters its auto-sell cycle." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if I don't repay my loan in time?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The pledged DA proceeds through the standard four-period auto-sell schedule (120 / 90 / 90 / 65 days), burning 25%, then 40%, then 50%, then 100% of the remaining pledged DA in successive periods. 100% of burned DA is destroyed and the corresponding USDT value at loan.price flows to the DA Liquidity Pool. The borrower keeps the USDT received at issuance. Default is not all-or-nothing: between any two periods the borrower can still call repay() and reclaim the remaining pledged DA by paying only for what is still pledged." }
         },
         {
           "@type": "Question",
@@ -121,7 +126,13 @@ Depth depends on your NFT level. Currently, Genesis (L1) earns from 2 levels dee
 
 ## Can I take a loan against my DA?
 
-Yes. Premium and Elite NFT holders (L5+) can borrow up to 70% LTV against their DA holdings. Each DA batch from each mining cycle serves as independent collateral, allowing multiple simultaneous micro-loans. Each loan carries a one-time 5% commission routed to the DA Liquidity Pool. A loan can be opened against a stack only if at least 30 days remain until that stack's next scheduled auto-sell — this is the on-chain eligibility gate, not a fixed loan term. The borrower can repay at any time before the stack enters its auto-sell cycle; once auto-sell starts, `repay()` reverts. If defaulted, only that batch's collateral is progressively burned through the auto-sell cycle — not all DA holdings. See [Selling & Lending](/en/da-selling-lending).
+Yes. Premium and Elite NFT holders (L5+) can borrow against their DA at a **fixed 70% LTV** - the rate is hardcoded, the user cannot choose a smaller percentage, and the entire DA batch is pledged at once (no fractional borrowing against part of a batch). Each DA batch from each mining cycle is independent collateral, so multiple simultaneous loans are possible - one per batch. A given batch can be pledged **only once over its entire lifetime**: after a loan is opened, that batch cannot be used as collateral again, even after the loan is fully repaid. A one-time **5% commission** is paid at issuance and routed to the DA Liquidity Pool; repayment, full or partial, does not trigger the fee again. The borrower receives 95% of the gross loan amount in their Regular Balance.
+
+The debt is denominated in USDT at the `loan.price` captured at issuance and **does not increase if DA appreciates** - the loan lets you extract liquidity at today's price while keeping upside on future DA appreciation. The borrower can also **partially repay** at any time, releasing a portion of the collateral and reducing the debt proportionally. A loan can be opened only if at least 30 days remain until the batch's next scheduled auto-sell - this is an on-chain eligibility gate, not a fixed loan term. Once open, the loan has no maturity and can be repaid in full or in part at any time before the batch enters its auto-sell cycle. See [Full lending mechanics →](/en/da-lending).
+
+## What happens if I don't repay my loan in time?
+
+If the borrower does not repay before the collateralized batch enters its auto-sell cycle, the pledged DA is progressively burned through the standard four-period schedule (120 / 90 / 90 / 65 days, 365 days total). Each period burns a fraction of the **remaining** pledged DA: 25%, then 40%, then 50%, then 100%. All burned DA is permanently destroyed and the USDT value at `loan.price` for each burned portion flows to the DA Liquidity Pool. The borrower keeps the USDT received at issuance and loses only the burned portion of the collateral. Default is **not all-or-nothing** - between any two auto-sell periods the borrower can still call `repay()` and reclaim the **remaining** pledged DA by paying only for what is still pledged, stopping every future burn. See [Full lending mechanics →](/en/da-lending).
 
 ## What is the Auto-Sell cycle?
 
