@@ -61,6 +61,10 @@ Alle Gebühren werden vom Smart Contract durchgesetzt und können innerhalb defi
 | Frozen Balance → Sponsor | 30 % | 0 % – 30 % |
 
 <Note>
+  **Kreditgebühr - Semantik:** Die 5 % werden **einmalig bei der Kreditausgabe** erhoben und direkt an den DA-Liquiditätspool weitergeleitet. Eine Rückzahlung - vollständig oder teilweise - löst die Gebühr nicht erneut aus. Der Parameter wird On-Chain als dedizierter `loanFee` gespeichert, getrennt von den anderen Gebührenparametern des Protokolls, sodass die DAO die Kreditwirtschaft unabhängig von Marketing-Steuern, akkumulativen Gebühren oder anderen Provisionen anpassen kann.
+</Note>
+
+<Note>
   **Geschäftsverkaufsgebühr — Semantik:** Die Zeile „Geschäftsverkaufsgebühr" ist eine **Übertragungsprovision, die der Verkäufer zahlt**, um eine Übertragung der Geschäftsstruktur auszuführen. Es ist **kein** vom Käufer eingezogener Verkaufspreis – der Käufer zahlt keine On-Chain-Provision an das Protokoll und erhält bei der Ausführung die Partnerbaum-Struktur. Der On-Chain-Parameter, der diese Provision regelt, ist `businessTransferFee` (umbenannt vom alten `businessSalePrice`, um seine tatsächliche Provisionssemantik widerzuspiegeln).
 </Note>
 
@@ -179,6 +183,7 @@ Der Matching Bonus zahlt 5 % über drei Ebenen des direkten Partnereinkommens. J
 |---|---|
 | Auszahlung beim manuellen Verkauf | 75 % |
 | Auszahlung beim Auto-Verkauf / Lending | 70 % |
+| LTV-Verhältnis | 70 % (fest) |
 | Matching Bonus pro Ebene | 5 % |
 | Frozen-Balance-Fenster | 72 Stunden |
 | Lebensdauer des Gutscheins | 365 Tage |
@@ -188,5 +193,7 @@ Der Matching Bonus zahlt 5 % über drei Ebenen des direkten Partnereinkommens. J
 | DAO-Karenzzeit | 7 Tage |
 
 <Note>
-  **Kredit-Eligibility-Schwelle — Bedeutung:** Dies ist **keine** Kreditlaufzeit. Es ist die Mindestrestzeit bis zum nächsten Auto-Verkauf, die ein DA-Stack noch haben muss, um als Sicherheit für einen **neuen** Kredit verwendet werden zu können (On-Chain-Check: `_getTimeToNextAutosale >= 30 days`). Sobald ein Kredit eröffnet ist, gibt es keine fixe Laufzeit – der Kreditnehmer kann `repay()` jederzeit aufrufen, solange der Stack aktiv ist; `repay()` wird erst zurückgesetzt, nachdem der Stack in seinen Auto-Verkaufs-Zyklus eingetreten ist.
+  **Kredit-Eligibility-Schwelle - Bedeutung:** Dies ist **keine** Kreditlaufzeit. Es ist eine **rollierende On-Chain-Prüfung, die vor jedem neuen `loan()`-Aufruf ausgeführt wird** (`_getTimeToNextAutosale(stack) >= 30 days`): Die verpfändete DA-Charge muss noch mindestens 30 Tage bis zu ihrem nächsten geplanten Auto-Verkaufs-Auslöser haben, oder der Aufruf wird zurückgesetzt. Eine Charge mit 29 Tagen oder weniger bis zu ihrem nächsten Auslöser kann nicht als Sicherheit für einen neuen Kredit verwendet werden.
+
+  Dies ist ein **Eligibility-Gate**, das den Zugang zum Produkt kontrolliert, keine **Kreditlaufzeit**, die das Leben eines offenen Kredits kontrolliert. Sobald ein Kredit eröffnet ist, kann der Kreditnehmer `repay()` jederzeit aufrufen - vollständig oder teilweise - solange die Charge ihren ersten Auto-Verkaufs-Auslöser nicht überschritten hat. `repay()` bleibt auch danach aufrufbar, aber der Contract führt zuerst `_processExpiredStacks()` aus, um jede Periode zu verrechnen, deren Grenze bereits vergangen ist, bevor die Rückzahlung gegen den Rest nach dem Burn fortgesetzt wird.
 </Note>

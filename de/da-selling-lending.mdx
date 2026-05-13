@@ -1,6 +1,6 @@
 ---
 title: "Verkauf & Lending"
-description: "Verkaufen, leihen oder halten – Ihre Wahl."
+description: "Manueller Verkauf zu 75 % USDT-Auszahlung, Auto-Verkauf zu 70 % über einen 365-Tage-Vier-Perioden-Zyklus und eine feste 70 % LTV Lending-Einrichtung gegen DA-Sicherheit mit einer einmaligen 5 %-Provision."
 icon: "scale-balanced"
 ---
 import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
@@ -13,7 +13,7 @@ Sobald ein Nutzer DA hält, hat er zwei primäre finanzielle Optionen: den Verka
     100 % des verkauften DA werden dauerhaft verbrannt. Sie erhalten 75 % (manuell) bzw. 70 % (automatisch) des Werts in USDT. Die verbleibenden 25 % (manuell) bzw. 30 % (automatisch) sind eine Protokollprovision, die als Deckung im Pool verbleibt und den DA-Preis nach oben treibt.
   </Card>
   <Card title="DA verleihen" icon="building-columns">
-    Leihen Sie sich bis zu 70 % LTV in USDT gegen Ihr DA. Ihr DA verbleibt in Ihrem TokenStack. Der Kredit bleibt offen, bis der besicherte Stack in seinen Auto-Verkaufs-Zyklus eintritt; einmalige Provision von 5 %.
+    Leihen Sie sich USDT zu festem 70 % LTV gegen Ihr DA. Eine einmalige 5 %-Provision wird bei der Ausgabe gezahlt und bei der Rückzahlung nie erneut berechnet. Ihr DA verbleibt in Ihrem TokenStack, bis Sie (vollständig oder teilweise) zurückzahlen oder die Charge in ihren Auto-Verkaufs-Zyklus eintritt.
   </Card>
 </CardGroup>
 
@@ -75,53 +75,28 @@ Jeder Auto-Verkauf wird zum DA-Preis im jeweiligen Moment ausgeführt, nicht zum
 
 ## Lending (Kredit gegen DA)
 
-Anstatt zu verkaufen, können Nutzer einen Kredit in USDT gegen ihre DA-Bestände aufnehmen. Nutzer können bis zu **70 %** des aktuellen USDT-Werts ihrer DA-Sicherheit (Loan-to-Value) leihen.
+Premium- und Elite-NFT-Inhaber (Level 5 und höher) können anstatt zu verkaufen einen USDT-Kredit gegen ihre DA-Sicherheit aufnehmen. Der Kredit wird durch eine bestimmte DA-Charge aus einem einzigen abgeschlossenen Mining- und Farming-Zyklus besichert - die gesamte Charge auf einmal, nicht ein Bruchteil davon. Niedrigere Stufen führen kein Mining durch und haben keine DA-Sicherheit, gegen die sie leihen könnten.
 
-**Vergabevoraussetzung (keine Kreditlaufzeit).** Ein Kredit kann gegen einen DA-Stack nur dann eröffnet werden, wenn bis zum nächsten geplanten Auto-Verkauf dieses Stacks noch mindestens **30 Tage** verbleiben. Dies ist ein On-Chain-Eligibility-Check (`_getTimeToNextAutosale >= 30 days`) und keine fixe Kreditlaufzeit – nach Eröffnung des Kredits läuft keine 30-Tage-Frist gegen den Kreditnehmer.
+Jeder Kredit wird zu festem **70 % LTV** mit einer einmaligen **5 %-Provision** vergeben, die bei der Ausgabe an den DA-Liquiditätspool weitergeleitet wird. Bei der Rückzahlung wird nichts berechnet. Der Kreditnehmer erhält 95 % des Bruttokreditbetrags in seinem Regular Balance. Beispiel: Bei einer 100-DA-Charge zu einem DA-Preis von 1,00 USDT beträgt der Bruttokredit 70 USDT, die Gebühr 3,50 USDT und die Nettoauszahlung des Kreditnehmers 66,50 USDT.
 
-**Rückzahlung.** Es gibt keine fixe Kreditlaufzeit. Der Kreditnehmer kann `repay()` jederzeit aufrufen, solange der Stack noch aktiv ist – also bevor er in den Auto-Verkaufs-Zyklus eingetreten ist. Sobald der Stack in den Auto-Verkauf übergeht, wird `repay()` zurückgesetzt und der Kredit kann nicht mehr abgewickelt werden.
+Die entscheidende strukturelle Eigenschaft ist, dass der DA-Preis in `loan.price` bei der Ausgabe erfasst wird und danach nie neu bewertet wird. Nachfolgendes DA-Preiswachstum erhöht die Schuld nicht - der Kreditnehmer extrahiert also USDT-Liquidität zum heutigen Preis und behält gleichzeitig das Aufwärtspotenzial bei künftiger Wertsteigerung. Der Kredit hat keine feste Laufzeit, kann jederzeit vollständig oder teilweise zurückgezahlt werden, bevor die Charge in ihren Auto-Verkaufs-Zyklus eintritt, und eine bestimmte Charge kann über ihre gesamte Lebensdauer nur einmal verpfändet werden.
 
-Beim Aufnehmen eines Kredits zahlt der Kreditnehmer eine einmalige **5 %-Provision**, die an den DA-Liquiditätspool weitergeleitet wird. Der Kreditnehmer erhält 95 % des Kreditwerts. Beispiel: Bei einem Kredit von 1.000 USD erhält der Kreditnehmer 950 USD, und 50 USD gehen an den Liquiditätspool. Diese Provision wird bei jedem neuen Kredit erhoben – Nutzer können nach Erhalt neuer DA-Chargen neue Kredite aufnehmen, sodass die Provision wiederholt in den Pool fließt.
-
-<Info>
-  **Unabhängiger Kreditgebühr-Parameter:** Die 5 %-Lending-Provision wird On-Chain als dedizierter `loanFee`-Parameter gespeichert, getrennt von den anderen Gebührenparametern des Protokolls. Diese Isolation erlaubt es der DAO, die Kreditgebühr unabhängig anzupassen – ohne Marketing-Steuern, akkumulative Gebühren oder andere Provisionen zu beeinflussen – und hält die Kreditökonomie als einzelnen, expliziten Hebel steuerbar.
-</Info>
-
-<Note>
-  **Mindestkreditbetrag:** Der Smart Contract lehnt Kredite mit Nullwert ab. Wenn die angeforderte Kreditgröße so klein ist, dass die Auszahlung nach Gebühren auf 0 USDT abgerundet würde, wird die Transaktion zurückgesetzt. Kreditnehmer müssen einen Betrag anfordern, der groß genug ist, dass die Kreditnehmer-Auszahlung (95 % des Kreditwerts) nach On-Chain-Rundung nicht null beträgt. Dies verhindert Staubkredite, die Sicherheiten ohne wirtschaftlichen Nutzen für den Kreditnehmer binden würden.
-</Note>
-
-### Multi-Batch-Lending
-
-Jede DA-Charge aus einem Mining-Zyklus dient als unabhängige Sicherheit. Nutzer können einen separaten Kredit mit 70 % LTV gegen jede Charge einzeln aufnehmen:
-
-<Steps>
-  <Step title="Charge 1 minen">
-    Schließen Sie einen Mining-Zyklus ab und erhalten Sie DA-Charge 1.
-  </Step>
-  <Step title="Gegen Charge 1 leihen">
-    Nehmen Sie einen Kredit mit 70 % LTV gegen Charge 1 auf (5 % Provision an den Liquiditätspool).
-  </Step>
-  <Step title="Charge 2 minen">
-    Starten Sie einen neuen Mining-Zyklus und erhalten Sie DA-Charge 2.
-  </Step>
-  <Step title="Gegen Charge 2 leihen">
-    Nehmen Sie einen weiteren Kredit mit 70 % LTV gegen Charge 2 auf (separate 5 %-Provision).
-  </Step>
-</Steps>
-
-<Tip>
-  Mehrere gleichzeitig aktive Kredite sind möglich – einer pro DA-Charge. Jeder Kredit ist unabhängig: er ist an seine eigene Charge gebunden und trägt eine eigene 5 %-Provision. Kleinere NFTs produzieren kleinere Kredite, größere NFTs produzieren größere Kredite. Wenn ein einzelner Kredit ausfällt, tritt nur die Sicherheit dieser Charge in den Auto-Verkaufs-Zyklus ein – nicht alle DA-Bestände.
-</Tip>
-
-<Note>
-  **Rückzahlungsfenster — keine verspäteten Rückzahlungen:** Ein Kredit kann nur über `repay()` zurückgezahlt werden, solange der besicherte Stack noch aktiv ist – also bevor er in seinen Auto-Verkaufs-Zyklus eingetreten ist. Sobald der Stack in den Auto-Verkauf übergeht, wird `repay()` zurückgesetzt – der Kreditnehmer **kann** den Kredit nicht abwickeln, um den Liquidationsplan zu umgehen. Eine überfällige Position muss stattdessen über `processExpiredStacks()` verarbeitet werden, das den unten beschriebenen progressiven Burn ausführt. Es gibt keinen Weg, der es einem Kreditnehmer erlaubt, durch verspätete Rückzahlung den Strafen für Zahlungsausfall zu entgehen.
-</Note>
+Wenn der Kredit nicht zurückgezahlt wird, bevor die Charge in ihren Auto-Verkaufs-Zyklus eintritt, wird das verpfändete DA progressiv durch den standardmäßigen Vier-Perioden-Zeitplan verbrannt. Der Kreditnehmer behält das bei Ausgabe erhaltene USDT; der USDT-Wert jedes verbrannten Anteils fließt an den DA-Liquiditätspool. Zwischen den Auto-Verkaufs-Perioden kann der Kreditnehmer noch eingreifen und `repay()` aufrufen, um das noch verpfändete DA zurückzufordern.
 
 <Warning>
-  **Lending-Ausfall — Progressiver Burn:** Wenn der Kredit nicht zurückgezahlt wird, bevor der besicherte Stack in den Auto-Verkaufs-Zyklus eintritt, durchläuft die DA-Sicherheit diesen Zyklus. Tokens werden progressiv durch den standardmäßigen 4-Perioden-Plan verbrannt (25 % → 40 % → 50 % → 100 % des verbleibenden Guthabens über insgesamt 365 Tage / 1 Jahr: 120 / 90 / 90 / 65 Tage pro Periode).
+  **Lending-Ausfall - Progressiver Burn:** Wenn der Kredit nicht zurückgezahlt wird, bevor die besicherte Charge in ihren Auto-Verkaufs-Zyklus eintritt, durchläuft die Sicherheit den standardmäßigen Vier-Perioden-Zeitplan (25 % / 40 % / 50 % / 100 % des **verbleibenden** verpfändeten DA werden über 120 / 90 / 90 / 65 Tage verbrannt, insgesamt 365 Tage). 100 % des verbrannten DA wird dauerhaft vernichtet; der entsprechende USDT-Wert bei `loan.price` wird an den DA-Liquiditätspool weitergeleitet. Der Kreditnehmer erhält **kein** USDT für den verbrannten Anteil - die einzige wirtschaftliche Rückgewinnung aus einer ausgefallenen Charge ist das bei Ausgabe erhaltene USDT.
 
-  Der Nutzer erhält **KEIN** USDT aus diesen Auto-Verkäufen – **100 % der Erlöse werden an den DA-Liquiditätspool weitergeleitet**. Der Nutzer **behält den ursprünglich erhaltenen Kreditbetrag**, **verliert jedoch die gesamte DA-Sicherheit**. Dieser Mechanismus schützt die Systemliquidität, reduziert systemische Risiken und setzt finanzielle Disziplin im gesamten Ökosystem durch.
+  **Teilweise Rückgewinnung ist jederzeit verfügbar.** Der Kreditnehmer kann `repay()` zwischen zwei Auto-Verkaufs-Perioden aufrufen und das **verbleibende** verpfändete DA zurückfordern, indem er nur für das noch Verpfändete zahlt. Bereits in früheren Perioden verbranntes DA kann nicht zurückgewonnen werden, aber jeder künftige Burn kann noch gestoppt werden, indem vor seiner Periodengrenze zurückgezahlt wird.
 </Warning>
+
+<Note>
+  **`repay()` nach dem Start des Auto-Verkaufs - Verhalten korrigiert nach CertiK (RWA-58):** Frühere Contract-Versionen haben `repay()` zurückgesetzt, sobald die Charge in den Auto-Verkaufs-Zyklus eingetreten ist. Nach dem CertiK-Audit wurde dies korrigiert: `repay()` ist nun in jedem Stadium der Kreditlaufzeit aufrufbar. Wenn die Charge bereits einen Auto-Verkaufs-Auslöser überschritten hat, führt der Contract zuerst `_processExpiredStacks()` aus, um jede Periode zu verrechnen, deren Grenze bereits vergangen ist - dabei wird der entsprechende Anteil der Sicherheit verbrannt - und fährt dann gegen den Rest nach dem Burn fort.
+
+  Praktische Konsequenz: Ein später `repay()`-Aufruf kann einem bereits ausgelösten Burn nicht „zuvorkommen". Um die **gesamte** Sicherheit zu erhalten, muss der Kreditnehmer vor dem ersten Auto-Verkaufs-Auslöser zurückzahlen (Periode 1, derzeit Tag 120 der Chargenlebensdauer).
+</Note>
+
+<Card title="Vollständige Lending-Mechanik ->" icon="hand-holding-dollar" href="/de/da-lending">
+  Berechtigung, das 30-Tage-Ausgabe-Gate, Formeln, Teilrückzahlung mit bearbeiteten Beispielen, vollständige Ausfall-Mathematik und die Parametertabelle - alles auf einer eigenen Seite.
+</Card>
 
 <SellVsLend />
