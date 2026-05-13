@@ -1,6 +1,6 @@
 ---
 title: "Vender e Emprestar"
-description: "Vender, emprestar ou manter — sua escolha."
+description: "Venda manual com pagamento de 75% em USDT, auto-venda a 70% ao longo de um ciclo de quatro períodos de 365 dias, e uma facilidade de lending com LTV fixo de 70% contra garantia em DA com uma comissão única de 5%."
 icon: "scale-balanced"
 ---
 import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
@@ -13,7 +13,7 @@ Uma vez que o usuário possui DA, ele tem duas opções financeiras principais: 
     100% do DA vendido é permanentemente queimado. Você recebe 75% (manual) ou 70% (auto) do valor em USDT. Os 25% (manual) ou 30% (auto) restantes são uma comissão do protocolo que permanece no pool como lastro e impulsiona o preço do DA para cima.
   </Card>
   <Card title="Emprestar DA" icon="building-columns">
-    Tome emprestado até 70% LTV em USDT contra seu DA. Seu DA permanece no seu TokenStack. O empréstimo permanece aberto até que o stack dado em garantia entre em seu ciclo de auto-venda; comissão única de 5%.
+    Tome emprestado a um LTV fixo de 70% em USDT contra seu DA. Uma comissão única de 5% é paga na emissão e nunca é cobrada novamente no reembolso. Seu DA permanece no seu TokenStack até que você quite (total ou parcialmente) ou o batch entre no seu ciclo de auto-venda.
   </Card>
 </CardGroup>
 
@@ -75,53 +75,28 @@ Cada auto-venda é executada ao preço do DA naquele momento, não ao preço ori
 
 ## Lending (Crédito contra DA)
 
-Em vez de vender, os usuários podem tomar um empréstimo em USDT contra suas posições em DA. Os usuários podem tomar emprestado até **70%** do valor atual em USDT do DA dado em garantia (Loan-to-Value).
+Detentores de NFT Premium e Elite (Nível 5 e acima) podem tomar um empréstimo em USDT contra sua garantia em DA em vez de vender. O empréstimo é colateralizado por um batch específico de DA de um único ciclo de mineração e farming concluído - o batch inteiro de uma vez, não uma fração dele. Níveis inferiores não executam mineração e não possuem garantia em DA para tomar emprestado.
 
-**Condição de concessão (não é prazo do empréstimo).** Um empréstimo só pode ser aberto sobre um stack de DA se faltarem ao menos **30 dias** até a próxima auto-venda agendada desse stack. Trata-se de uma verificação on-chain de elegibilidade (`_getTimeToNextAutosale >= 30 days`), não de um prazo fixo do empréstimo — uma vez aberto, não há prazo de 30 dias correndo contra o tomador.
+Todo empréstimo é emitido a um **LTV fixo de 70%** com uma **comissão única de 5%** direcionada ao Pool de Liquidez do DA na emissão. Nada é cobrado no reembolso. O tomador recebe 95% do valor bruto do empréstimo no seu Saldo Regular. Exemplo: para um batch de 100 DA a um preço de 1,00 USDT por DA, o empréstimo bruto é 70 USDT, a comissão é 3,50 USDT e o pagamento líquido ao tomador é 66,50 USDT.
 
-**Pagamento.** Não há prazo fixo para o empréstimo. O tomador pode chamar `repay()` a qualquer momento enquanto o stack ainda estiver ativo — ou seja, antes de entrar no ciclo de auto-venda. Uma vez que o stack passe para auto-venda, `repay()` é revertido e o empréstimo não pode mais ser quitado.
+A propriedade estrutural determinante é que o preço do DA é capturado em `loan.price` na emissão e nunca é reprecificado depois. O crescimento subsequente do preço do DA não aumenta a dívida - assim, o tomador extrai liquidez em USDT ao preço de hoje enquanto retém o potencial de valorização futura. O empréstimo não tem vencimento fixo, pode ser quitado total ou parcialmente a qualquer momento antes de o batch entrar no ciclo de auto-venda, e um dado batch só pode ser dado em garantia uma vez ao longo de toda a sua vida útil.
 
-Ao tomar um empréstimo, o tomador paga uma **comissão única de 5%** que é direcionada ao Pool de Liquidez do DA. O tomador recebe 95% do valor do empréstimo. Exemplo: para um empréstimo de \$1.000, o tomador recebe \$950 e \$50 vão para o Pool de Liquidez. Esta comissão é coletada a cada novo empréstimo — os usuários podem tomar novos empréstimos após receber novos batches de DA, o que significa que a comissão flui para o Pool repetidamente.
-
-<Info>
-  **Parâmetro Independente de Taxa de Empréstimo:** A comissão de lending de 5% é armazenada on-chain como um parâmetro `loanFee` dedicado, separado dos outros parâmetros de taxa do protocolo. Esse isolamento permite à DAO ajustar a taxa de empréstimo independentemente — sem afetar impostos de marketing, taxas de acumulação ou qualquer outra comissão — e mantém a economia do empréstimo governável como uma alavanca única e explícita.
-</Info>
-
-<Note>
-  **Valor Mínimo de Empréstimo:** O smart contract rejeita empréstimos de valor zero. Se o tamanho do empréstimo solicitado for tão pequeno que o pagamento após a taxa seria arredondado para 0 USDT, a transação é revertida. Os tomadores devem solicitar um valor grande o suficiente para que o pagamento ao tomador (95% do valor do empréstimo) seja diferente de zero após o arredondamento on-chain. Isso evita empréstimos-poeira que travariam a garantia sem benefício econômico para o tomador.
-</Note>
-
-### Lending Multi-Batch
-
-Cada batch de DA de um ciclo de mineração serve como garantia independente. Os usuários podem tomar um empréstimo separado de 70% LTV contra cada batch individualmente:
-
-<Steps>
-  <Step title="Mine o Batch 1">
-    Complete um ciclo de mineração e receba o batch 1 de DA.
-  </Step>
-  <Step title="Tome empréstimo contra o Batch 1">
-    Tome um empréstimo de 70% LTV contra o batch 1 (5% de comissão para o Pool de Liquidez).
-  </Step>
-  <Step title="Mine o Batch 2">
-    Inicie um novo ciclo de mineração e receba o batch 2 de DA.
-  </Step>
-  <Step title="Tome empréstimo contra o Batch 2">
-    Tome outro empréstimo de 70% LTV contra o batch 2 (comissão separada de 5%).
-  </Step>
-</Steps>
-
-<Tip>
-  Múltiplos empréstimos ativos simultaneamente são possíveis — um por batch de DA. Cada empréstimo é independente: está vinculado ao seu próprio batch e tem sua própria comissão de 5%. NFTs menores produzem empréstimos menores; NFTs maiores produzem empréstimos maiores. Se algum empréstimo individual entrar em inadimplência, somente a garantia daquele batch entra no ciclo de auto-venda — não todas as posições em DA.
-</Tip>
-
-<Note>
-  **Janela de Pagamento — Sem Pagamentos Atrasados:** Um empréstimo só pode ser pago via `repay()` enquanto o stack dado em garantia ainda estiver ativo — ou seja, antes de ter entrado em seu ciclo de auto-venda. Uma vez que o stack passe para auto-venda, `repay()` é revertido — o tomador **não pode** desfazer o empréstimo para contornar o cronograma de liquidação. Uma posição vencida deve, em vez disso, ser processada via `processExpiredStacks()`, que executa a queima progressiva descrita abaixo. Não há caminho que permita a um tomador escapar das penalidades de inadimplência pagando atrasado.
-</Note>
+Se o empréstimo não for quitado antes de o batch entrar no ciclo de auto-venda, o DA dado em garantia é progressivamente queimado pelo cronograma padrão de quatro períodos. O tomador mantém o USDT recebido na emissão; o valor em USDT de cada porção queimada flui para o Pool de Liquidez do DA. Entre os períodos de auto-venda, o tomador ainda pode intervir e chamar `repay()` para resgatar o DA ainda dado em garantia.
 
 <Warning>
-  **Inadimplência de Lending — Queima Progressiva:** Se o empréstimo não for pago antes que o stack dado em garantia entre no ciclo de auto-venda, a garantia em DA atravessa esse ciclo. Os tokens são progressivamente queimados pelo cronograma padrão de 4 períodos (25% → 40% → 50% → 100% do saldo restante ao longo de 365 dias / 1 ano no total: 120 / 90 / 90 / 65 dias por período).
+  **Inadimplência de Lending - Queima Progressiva:** Se o empréstimo não for quitado antes de o batch colateralizado entrar no ciclo de auto-venda, a garantia percorre o cronograma padrão de quatro períodos (25% / 40% / 50% / 100% do DA dado em garantia **restante** queimado ao longo de 120 / 90 / 90 / 65 dias, 365 dias no total). 100% do DA queimado é destruído permanentemente; o valor correspondente em USDT ao `loan.price` é direcionado ao Pool de Liquidez do DA. O tomador **não** recebe USDT pela porção queimada - a única recuperação econômica de um batch inadimplido é o USDT recebido na emissão.
 
-  O usuário **NÃO** recebe USDT dessas auto-vendas — **100% dos resultados são direcionados ao Pool de Liquidez do DA**. O usuário **mantém o valor original do empréstimo** que recebeu, mas **perde toda a garantia em DA**. Esse mecanismo protege a liquidez do sistema, reduz o risco sistêmico e impõe disciplina financeira em todo o ecossistema.
+  **A recuperação parcial está sempre disponível.** O tomador pode chamar `repay()` entre quaisquer dois períodos de auto-venda e resgatar o DA dado em garantia **restante**, pagando apenas pelo que ainda está dado em garantia. O DA já queimado em períodos anteriores não pode ser recuperado, mas toda queima futura ainda pode ser interrompida reembolsando antes do limite do seu período.
 </Warning>
+
+<Note>
+  **`repay()` após o início da auto-venda - comportamento corrigido pós-CertiK (RWA-58):** Versões anteriores do contrato revertiam `repay()` assim que o batch cruzava para o ciclo de auto-venda. Após a auditoria da CertiK, isso foi corrigido: `repay()` agora pode ser chamado em qualquer estágio da vida do empréstimo. Quando o batch já cruzou um gatilho de auto-venda, o contrato primeiro executa `_processExpiredStacks()` para liquidar cada período cujo limite já passou - o que queima a parte correspondente da garantia - e então prossegue contra o restante pós-queima.
+
+  Consequência prática: um `repay()` tardio não pode "superar" uma queima que já foi acionada. Para preservar a garantia **inteira**, o tomador deve reembolsar antes de cruzar o primeiro gatilho de auto-venda (Período 1, atualmente dia 120 da vida do batch).
+</Note>
+
+<Card title="Mecânica Completa de Lending ->" icon="hand-holding-dollar" href="/pt/da-lending">
+  Elegibilidade, a barreira de emissão de 30 dias, fórmulas, reembolso parcial com exemplos práticos, matemática completa de inadimplência e a tabela de parâmetros - tudo em uma página dedicada.
+</Card>
 
 <SellVsLend />
