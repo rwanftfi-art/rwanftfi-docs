@@ -61,6 +61,10 @@ Tutte le commissioni sono applicate dallo smart contract e regolabili entro inte
 | Saldo Congelato → Sponsor | 30% | 0% – 30% |
 
 <Note>
+  **Commissione di Prestito - semantica:** Il 5% viene addebitato **una volta, all'emissione del prestito**, e indirizzato direttamente al Pool di Liquidità DA. Il rimborso - totale o parziale - non attiva nuovamente la commissione. Il parametro è memorizzato on-chain come `loanFee` dedicato, separato dagli altri parametri di commissione del protocollo, affinché la DAO possa regolare l'economia del lending indipendentemente dalle tasse di marketing, dalle commissioni cumulative o da qualsiasi altra commissione.
+</Note>
+
+<Note>
   **Commissione di Vendita Business — semantica:** La riga "Commissione di Vendita Business" è una **commissione di trasferimento pagata dal venditore** per eseguire un trasferimento di struttura business. **Non** è un prezzo di vendita riscosso dall'acquirente — l'acquirente non paga alcuna commissione on-chain al protocollo e riceve la struttura ad albero dei partner all'esecuzione. Il parametro on-chain che governa questa commissione è `businessTransferFee` (rinominato dal legacy `businessSalePrice` per riflettere la sua vera semantica di commissione).
 </Note>
 
@@ -179,6 +183,7 @@ Il Matching Bonus paga il 5% su tre livelli di reddito dei partner diretti. Ogni
 |---|---|
 | Payout Vendita Manuale | 75% |
 | Payout Auto-Vendita / Lending | 70% |
+| Rapporto LTV | 70% (fisso) |
 | Matching Bonus per Livello | 5% |
 | Finestra Saldo Congelato | 72 ore |
 | Durata Voucher | 365 giorni |
@@ -188,5 +193,7 @@ Il Matching Bonus paga il 5% su tre livelli di reddito dei partner diretti. Ogni
 | Periodo di Grazia DAO | 7 giorni |
 
 <Note>
-  **Soglia di Idoneità del Prestito — semantica:** Non è una durata del prestito. È il tempo minimo residuo fino alla prossima auto-vendita che uno stack di DA deve ancora avere per poter essere usato come collaterale di un **nuovo** prestito (controllo on-chain: `_getTimeToNextAutosale >= 30 days`). Una volta aperto il prestito, non c'è una durata fissa — il mutuatario può chiamare `repay()` in qualsiasi momento finché lo stack è attivo; `repay()` viene revocata solo dopo che lo stack è entrato nel suo ciclo di auto-vendita.
+  **Soglia di Idoneità del Prestito — semantica:** Non è una durata del prestito. È un **controllo on-chain periodico eseguito prima di ogni nuova chiamata `loan()`** (`_getTimeToNextAutosale(stack) >= 30 days`): il batch DA dato in pegno deve avere ancora almeno 30 giorni rimanenti fino al prossimo trigger di auto-vendita programmato, altrimenti la chiamata viene revocata. Un batch con 29 o meno giorni al prossimo trigger non può essere utilizzato come collaterale per un nuovo prestito.
+
+  Questa è una **finestra di idoneità** che controlla l'accesso al prodotto, non una **durata del prestito** che controlla la vita di un prestito aperto. Una volta aperto un prestito, il mutuatario può chiamare `repay()` in qualsiasi momento - in tutto o in parte - finché il batch non ha attraversato il primo trigger di auto-vendita. `repay()` rimane richiamabile anche dopo quel trigger, ma il contratto esegue prima `_processExpiredStacks()` per liquidare ogni periodo il cui confine è passato prima che il rimborso proceda contro il resto post-burn.
 </Note>

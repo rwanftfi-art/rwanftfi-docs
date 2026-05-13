@@ -61,6 +61,10 @@ Tüm ücretler akıllı sözleşme tarafından uygulanır ve DAO yönetişimi yo
 | Dondurulmuş Bakiye → Sponsor | %30 | %0 – %30 |
 
 <Note>
+  **Kredi Ücreti - semantik:** %5, **kredi ihracında bir kez tahsil edilir** ve doğrudan DA Likidite Havuzuna yönlendirilir. Tam veya kısmi geri ödeme, ücreti tekrar tetiklemez. Parametre, protokolün diğer ücret parametrelerinden ayrı olarak zincir üzerinde özel bir `loanFee` olarak saklanır; böylece DAO, pazarlama vergilerini, birikim ücretlerini veya diğer herhangi bir komisyonu etkilemeden borç verme ekonomisini bağımsız olarak ayarlayabilir.
+</Note>
+
+<Note>
   **İş Satışı Ücreti — semantik:** "İş Satışı Ücreti" satırı, bir iş yapısı transferini gerçekleştirmek için **satıcı tarafından ödenen bir transfer komisyonudur**. Alıcıdan toplanan bir satış fiyatı **değildir** — alıcı protokole zincir üzerinde komisyon ödemez ve uygulamada partner ağacı yapısını alır. Bu komisyonu yöneten zincir üzerindeki parametre `businessTransferFee`'dir (gerçek komisyon semantiğini yansıtmak için eski `businessSalePrice` adı değiştirilmiştir).
 </Note>
 
@@ -179,6 +183,7 @@ Eşleştirme Bonusu, doğrudan partner gelirinin üç seviyesi boyunca %5 öder.
 |---|---|
 | Manuel Satış Ödemesi | %75 |
 | Otomatik Satış / Borç Verme Ödemesi | %70 |
+| LTV Oranı | %70 (sabit) |
 | Seviye Başına Eşleştirme Bonusu | %5 |
 | Dondurulmuş Bakiye Penceresi | 72 saat |
 | Kupon Ömrü | 365 gün |
@@ -188,5 +193,7 @@ Eşleştirme Bonusu, doğrudan partner gelirinin üç seviyesi boyunca %5 öder.
 | DAO Yumuşatma Süresi | 7 gün |
 
 <Note>
-  **Kredi Uygunluk Eşiği — anlamı:** Bu bir kredi vadesi **değildir**. Bir DA stack'inin **yeni** bir krediye teminat olabilmesi için, bir sonraki otomatik satışa kadar hâlâ kalması gereken minimum süredir (on-chain kontrol: `_getTimeToNextAutosale >= 30 days`). Kredi açıldıktan sonra sabit bir vade yoktur — borçlu, stack aktif olduğu sürece istediği zaman `repay()` çağrısını yapabilir; `repay()` ancak stack otomatik satış döngüsüne girdikten sonra geri alınır.
+  **Kredi Uygunluk Eşiği - anlamı:** Bu bir kredi süresi **değildir**. Her yeni `loan()` çağrısından önce **çalışan süregelen bir zincir üstü kontroldür** (`_getTimeToNextAutosale(stack) >= 30 days`): taahhüt edilen DA partisi, bir sonraki planlanmış otomatik satış tetikleyicisine kadar en az 30 gün kalmış olmalıdır, aksi takdirde çağrı geri alınır. Bir sonraki tetikleyicisine 29 gün veya daha az kalan bir parti yeni bir kredi için teminat olarak kullanılamaz.
+
+  Bu, ürüne erişimi kontrol eden bir **uygunluk kapısıdır**, açık bir kredinin ömrünü kontrol eden bir **kredi vadesi** değildir. Bir kredi açıldıktan sonra, borçlu herhangi bir zamanda - tam veya kısmi olarak - `repay()` çağrısı yapabilir; ta ki parti ilk otomatik satış tetikleyicisini geçene kadar. `repay()` bu tetikleyiciden sonra da çağrılabilir; ancak sözleşme önce `_processExpiredStacks()` işlevini çalıştırarak sınırı geçmiş her dönemi kapatır ve ardından geri ödeme yakım sonrası kalanla ilerler.
 </Note>

@@ -61,6 +61,10 @@ Todas las tarifas son aplicadas por el smart contract y ajustables dentro de los
 | Saldo Congelado → Patrocinador | 30% | 0% – 30% |
 
 <Note>
+  **Comisión de Préstamo - semántica:** El 5% se cobra **una vez, al emitirse el préstamo**, y se enruta directamente al Pool de Liquidez del DA. El reembolso - total o parcial - no activa la comisión de nuevo. El parámetro se almacena on-chain como un `loanFee` dedicado, separado de los demás parámetros de tarifa del protocolo, de modo que la DAO puede ajustar la economía del lending de forma independiente de los impuestos de marketing, las tarifas acumulativas o cualquier otra comisión.
+</Note>
+
+<Note>
   **Comisión de Venta de Negocio — semántica:** La fila "Comisión de Venta de Negocio" es una **comisión de transferencia pagada por el vendedor** para ejecutar una transferencia de estructura empresarial. **No** es un precio de venta cobrado al comprador — el comprador no paga ninguna comisión on-chain al protocolo y recibe la estructura del árbol de socios al ejecutarse. El parámetro on-chain que rige esta comisión es `businessTransferFee` (renombrado desde el antiguo `businessSalePrice` para reflejar su verdadera semántica de comisión).
 </Note>
 
@@ -179,6 +183,7 @@ El Bono de Igualación paga un 5% en tres niveles de ingresos de socios directos
 |---|---|
 | Pago por Venta Manual | 75% |
 | Pago por Auto-Venta / Lending | 70% |
+| Ratio LTV | 70% (fijo) |
 | Bono de Igualación por Nivel | 5% |
 | Ventana de Saldo Congelado | 72 horas |
 | Vida del Voucher | 365 días |
@@ -188,5 +193,7 @@ El Bono de Igualación paga un 5% en tres niveles de ingresos de socios directos
 | Período de Gracia DAO | 7 días |
 
 <Note>
-  **Umbral de Elegibilidad de Préstamo — semántica:** **No** es un plazo del préstamo. Es el tiempo mínimo restante hasta la próxima auto-venta que debe quedar en un stack de DA para poder usarlo como colateral de un **nuevo** préstamo (verificación on-chain: `_getTimeToNextAutosale >= 30 days`). Una vez abierto el préstamo, no hay un plazo fijo — el prestatario puede llamar a `repay()` en cualquier momento mientras el stack siga activo; `repay()` solo se revierte después de que el stack haya entrado en su ciclo de auto-venta.
+  **Umbral de Elegibilidad de Préstamo - semántica:** **No** es una duración del préstamo. Es una **verificación on-chain continua ejecutada antes de cada nueva llamada a `loan()`** (`_getTimeToNextAutosale(stack) >= 30 days`): el lote de DA que se va a pigñorar debe tener aún al menos 30 días restantes hasta su próximo disparador de auto-venta programado, o la llamada se revierte. Un lote con 29 días o menos hasta su próximo disparador no puede usarse como colateral para un nuevo préstamo.
+
+  Esta es una **ventana de elegibilidad** que controla el acceso al producto, no un **plazo del préstamo** que controla la vida de un préstamo abierto. Una vez abierto el préstamo, el prestatario puede llamar a `repay()` en cualquier momento - total o parcialmente - siempre que el lote no haya cruzado su primer disparador de auto-venta. `repay()` sigue siendo invocable tras ese disparador también, pero el contrato primero ejecuta `_processExpiredStacks()` para liquidar todos los períodos cuyo límite ha pasado antes de que el reembolso continúe contra el resto post-quema.
 </Note>

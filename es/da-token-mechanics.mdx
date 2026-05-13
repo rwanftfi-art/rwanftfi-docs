@@ -158,19 +158,19 @@ Cada lote de DA de cada ciclo de minería sirve como colateral independiente. Es
     El usuario completa un ciclo de minería y recibe el lote 1 de DA.
   </Step>
   <Step title="Pide prestado contra el Lote 1">
-    El usuario toma un préstamo del 70% LTV contra el lote 1 (5% de comisión al Pool de Liquidez).
+    El usuario toma un préstamo al 70% LTV fijo contra el lote 1 (comisión única del 5% al emitirse, enrutada al Pool de Liquidez).
   </Step>
   <Step title="Mina el Lote 2">
     El usuario inicia un nuevo ciclo de minería y recibe el lote 2 de DA.
   </Step>
   <Step title="Pide prestado contra el Lote 2">
-    El usuario toma otro préstamo del 70% LTV contra el lote 2 (comisión separada del 5%).
+    El usuario toma otro préstamo al 70% LTV fijo contra el lote 2 (comisión única del 5% al emitirse, separada de la del Lote 1).
   </Step>
 </Steps>
 
-Esto permite múltiples micro-préstamos simultáneos, uno por cada lote de DA. Cada préstamo es independiente — vinculado a su propio lote — y permanece activo hasta que el stack de ese lote entra en el ciclo de auto-venta. Si algún préstamo individual entra en default, solo se quema el colateral de ese lote — no todas las tenencias de DA.
+Esto permite múltiples micro-préstamos simultáneos, uno por cada lote de DA. Cada préstamo es independiente - vinculado a su propio lote - y permanece activo hasta que el stack de ese lote entra en el ciclo de auto-venta. Si algún préstamo individual entra en default, solo se quema el colateral de ese lote - no todas las tenencias de DA.
 
-Para una comparación detallada entre vender y prestar, consulta [Venta y Lending](/es/da-selling-lending).
+Para una comparación detallada entre vender y prestar, consulta [Venta y Lending](/es/da-selling-lending). El Lending también admite reembolsos parciales y recuperación proporcional en caso de default. Consulta [Mecánica del Lending](/es/da-lending) para el desglose completo.
 
 ## Ciclo Deflacionario
 

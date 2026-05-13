@@ -1,0 +1,294 @@
+---
+title: "Lending Against DA"
+description: "Take a fixed 70% LTV USDT loan against any DA batch in your TokenStack. Pay a one-time 5% commission, lock today's DA price, and repay in full or partially at any moment before the stack enters its auto-sell cycle."
+icon: "hand-holding-dollar"
+---
+
+
+Lending lets a DA holder access immediate USDT liquidity without selling the asset and without giving up exposure to future DA price growth. The loan is collateralized by a specific DA batch, priced at issuance, and repayable in full or partially at any time before the collateralized stack enters its auto-sell cycle.
+
+<CardGroup cols={2}>
+  <Card title="70% LTV - Fixed" icon="percent">
+    Every loan is issued at exactly 70% of the collateral's USDT value at the moment of issuance. There is no slider and no "up to" range - 70% is the only setting.
+  </Card>
+  <Card title="One-Time 5% Commission" icon="receipt">
+    A single 5% fee is charged when the loan is opened and routed to the DA Liquidity Pool. Nothing is charged at repayment, full or partial.
+  </Card>
+  <Card title="Price Locked at Issuance" icon="lock">
+    The DA price used for all loan math is fixed in `loan.price` at the moment of issuance. Even if DA appreciates 2x or 10x afterward, your USDT debt does not.
+  </Card>
+  <Card title="No Fixed Term" icon="clock-rotate-left">
+    The loan has no maturity date. It stays open until the borrower repays it, or until the collateralized batch enters its auto-sell cycle.
+  </Card>
+</CardGroup>
+
+## Who can take a loan?
+
+Lending is available only to holders of Premium and Elite NFT tiers (Level 5 and above). Lower tiers do not run NFTM mining and therefore have no DA collateral to borrow against.
+
+<CardGroup cols={3}>
+  <Card title="Premium Tier (L5-L8)" icon="gem">
+    Hydro, Quantum, Pulse, Aurora. Each completed mining cycle produces a DA batch eligible for one loan.
+  </Card>
+  <Card title="Elite Tier (L9-L10)" icon="crown">
+    Flame, Infinity. Two mining cycles per NFT - each cycle produces its own independent batch with its own independent loan slot.
+  </Card>
+  <Card title="Active Income Limit" icon="signal-bars">
+    The borrowing NFT must have a non-zero remaining Income Limit. Lending is gated by the same eligibility model as marketing rewards.
+  </Card>
+</CardGroup>
+
+## What is the collateral?
+
+A loan is collateralized by **a specific DA batch** - the DA credited to a TokenStack from a single completed mining and farming cycle. The whole batch is the unit of collateral: partial-amount borrowing against a fraction of a batch is not supported. If a batch contains 100 DA, the loan is issued against all 100 DA at once.
+
+<Info>
+  **One loan per batch, ever.** A given DA batch can serve as collateral for at most one loan over its entire lifetime. Once that loan is opened - regardless of whether it is later repaid in full, repaid partially, or defaulted - the batch cannot be pledged again. To open another loan, the borrower must mine and farm a new batch.
+</Info>
+
+## How is the loan amount calculated?
+
+The smart contract uses a single deterministic formula at issuance:
+
+```
+usdAmount       = collateral_DA × loan.price × 0.70
+fee             = usdAmount × 0.05
+borrowerPayout  = usdAmount - fee
+```
+
+`loan.price` is the DA price at the moment of issuance. It is stored on the loan struct and never changes for the life of the loan.
+
+<Steps>
+  <Step title="Batch is created">
+    Mining cycle completes. The user stakes NFTM into Farming. After the farming period ends, 100 DA is credited to a new TokenStack at the user's address.
+  </Step>
+  <Step title="User calls loan() against the batch">
+    Assume the current DA price at this moment is 1.00 USDT. The contract records `loan.price = 1.00` on the loan struct. `usdAmount = 100 × 1.00 × 0.70 = 70 USDT`.
+  </Step>
+  <Step title="5% commission is split off">
+    `fee = 70 × 0.05 = 3.50 USDT`. The 3.50 USDT is routed immediately to the DA Liquidity Pool.
+  </Step>
+  <Step title="Borrower receives the net amount">
+    `borrowerPayout = 70 - 3.50 = 66.50 USDT` is credited to the borrower's Regular Balance. The 100 DA batch is now locked as collateral. The loan is open.
+  </Step>
+</Steps>
+
+<Note>
+  **Dust protection.** The smart contract rejects loans where `borrowerPayout` would round down to 0 USDT after the 5% fee. A batch too small to produce a non-zero net payout cannot be pledged.
+</Note>
+
+## Loan debt is fixed in USDT
+
+This is the most important property of the lending product and the main reason DA holders choose lending instead of selling.
+
+**The amount owed at repayment is calculated against `loan.price`, not against the current market price of DA.** Once a loan is opened, the borrower's debt is denominated in USDT at the price snapshot taken at issuance. DA price appreciation does not increase the debt.
+
+<Info>
+  **Worked example - DA price doubles during the loan.**
+
+  - Day 0: DA price is 1.00 USDT. Borrower opens a loan against 100 DA. `loan.price = 1.00`. Borrower receives 66.50 USDT after the 5% fee.
+  - Day 90: DA market price has grown to 2.00 USDT. The same 100 DA is now worth 200 USDT at market.
+  - Day 90: Borrower calls `repay()` for the full balance. The contract uses `loan.price = 1.00`, not the market price. Amount owed: `100 × 1.00 × 0.70 = 70 USDT`. Borrower returns 70 USDT and reclaims all 100 DA. Those 100 DA are worth 200 USDT at the current market price.
+</Info>
+
+In effect, the loan lets the holder extract USDT liquidity at today's price while retaining the upside on future DA appreciation. The protocol does not reprice the debt as DA grows.
+
+## The 30-day eligibility gate
+
+A loan can only be opened against a DA batch that still has at least **30 days remaining until that batch's next scheduled auto-sell event**. The check is enforced on-chain inside the loan-issuance path:
+
+```
+require(_getTimeToNextAutosale(stack) >= 30 days)
+```
+
+<Warning>
+  **Eligibility gate, not a loan term.** The 30-day window is checked **only at issuance**. Once the loan is open, the borrower is not on a 30-day deadline - the loan stays open until repayment or until the batch's auto-sell cycle begins. A batch with 29 or fewer days remaining to its next auto-sell trigger cannot be used as collateral for a new loan, and the transaction reverts.
+</Warning>
+
+The rule prevents the borrower from opening a loan against a batch that is about to auto-sell within days, which would be economically indistinguishable from a sale and would offer no meaningful liquidity window.
+
+## Full repayment
+
+The borrower can close the loan at any time **while the collateralized stack is still active** - that is, before the batch has entered its progressive auto-sell cycle. Full repayment returns the original `usdAmount` (the gross principal at issuance) and releases the full DA batch back to the borrower's TokenStack.
+
+**The 5% commission is not charged again.** It was taken once, at issuance, and is not part of the repayment math.
+
+<Info>
+  **Worked example - full repayment.**
+
+  - Loan was opened against 100 DA at `loan.price = 1.00`. `usdAmount = 70 USDT`. Fee already paid at issuance.
+  - Borrower calls `repay()` for the full balance and returns 70 USDT.
+  - Contract releases all 100 DA back to the borrower's TokenStack. Loan closes.
+</Info>
+
+## Partial repayment
+
+The borrower can also redeem **a portion of the collateral** at any time before auto-sell, paying only for the amount of DA they choose to release:
+
+```
+toPay = released_DA × loan.price × 0.70
+```
+
+The released DA returns to the original TokenStack. The remaining DA stays locked as collateral against a proportionally reduced debt. **The auto-sell timer for the batch does not reset** - the stack continues on its existing schedule.
+
+<Info>
+  **Worked example - half the collateral redeemed.**
+
+  - Loan was opened against 100 DA at `loan.price = 1.00`. Initial debt: 70 USDT against 100 DA collateral.
+  - 60 days later, the borrower wants to redeem half the collateral. They call `repay()` releasing 50 DA.
+  - `toPay = 50 × 1.00 × 0.70 = 35 USDT`. Borrower returns 35 USDT.
+  - 50 DA is released back to the original TokenStack. The remaining 50 DA stays as collateral against the remaining debt of 35 USDT.
+  - The auto-sell timer for the batch continues from its original start: 60 days have already elapsed against the existing period schedule.
+</Info>
+
+<Note>
+  **Released DA stays in the same batch.** Tokens redeemed via partial repayment return to the original TokenStack and remain subject to that stack's existing auto-sell schedule. The borrower can sell them manually for the standard 75% payout or let them auto-sell at 70% when the batch's period triggers. They cannot be used as collateral for a new loan - the "one loan per batch" rule applies to the entire batch, not only to the currently pledged portion.
+</Note>
+
+## Multi-batch independence
+
+Every mining cycle produces a new DA batch, and every batch is an independent unit of collateral. A holder can simultaneously carry multiple loans, each against a different batch, with each loan carrying its own:
+
+- `loan.price` snapshot, taken at its own issuance time
+- 5% one-time commission, paid at its own issuance
+- Auto-sell timer, running on its own batch
+- Eligibility for repayment, partial repayment, or default
+
+<CardGroup cols={3}>
+  <Card title="Batch A" icon="layer-group">
+    Active loan against the full batch. Borrower received USDT at issuance and is holding the debt.
+  </Card>
+  <Card title="Batch B" icon="layer-group">
+    Partially repaid. Some DA was redeemed; the remainder is still pledged against a reduced debt.
+  </Card>
+  <Card title="Batch C" icon="layer-group">
+    No loan opened. The DA is fully owned by the user and behaves as a normal DA stack, subject only to its own auto-sell schedule.
+  </Card>
+</CardGroup>
+
+A default on Batch A has no effect on Batch B or Batch C. The progressive burn described below applies only to the collateral of the defaulted batch.
+
+## Default - progressive collateral burn
+
+If the borrower does not repay the loan before the collateralized stack enters its auto-sell cycle, the standard four-period schedule (120 / 90 / 90 / 65 days, 365 days total) proceeds against the pledged DA. Each period burns a percentage of the **remaining pledged DA**:
+
+<Steps>
+  <Step title="Period 1 - day 120: 25% of pledged DA is burned">
+    25% of currently pledged DA is permanently burned. The corresponding USDT value at `loan.price` is routed to the DA Liquidity Pool. The borrower receives nothing for this portion. The remaining debt is reduced proportionally to the remaining pledged DA.
+  </Step>
+  <Step title="Period 2 - day 210 (+90 days): 40% of the remainder is burned">
+    40% of the DA still pledged is burned. USDT value at `loan.price` flows to the DA Liquidity Pool. Remaining debt is reduced again.
+  </Step>
+  <Step title="Period 3 - day 300 (+90 days): 50% of the remainder is burned">
+    50% of the DA still pledged is burned. USDT value at `loan.price` flows to the DA Liquidity Pool.
+  </Step>
+  <Step title="Period 4 - day 365 (+65 days): 100% of the remainder is burned">
+    All DA still pledged at this point is burned. Loan position fully closed. The borrower keeps the USDT received at issuance.
+  </Step>
+</Steps>
+
+<Info>
+  **Worked example - full default on a 100 DA / 70 USDT loan at `loan.price = 1.00`.**
+
+  | Event | Pledged DA before | DA burned | USDT to Pool | Pledged DA after | Remaining debt |
+  |---|---|---|---|---|---|
+  | Issuance (day 0) | - | - | - | 100 | 70.00 |
+  | Period 1 (day 120) | 100 | 25 | 17.50 | 75 | 52.50 |
+  | Period 2 (day 210) | 75 | 30 | 21.00 | 45 | 31.50 |
+  | Period 3 (day 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
+  | Period 4 (day 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
+
+  If the borrower takes no recovery action across all four periods, they keep the original 66.50 USDT received at issuance and the full 100 DA collateral is burned over the 365-day cycle. All burned DA is permanently removed from supply; all USDT routed to the Pool strengthens DA backing for the rest of the ecosystem.
+</Info>
+
+<Warning>
+  **The borrower does not receive USDT from a defaulted batch.** During default, 100% of the proceeds attributable to burned collateral are routed to the DA Liquidity Pool, not to the borrower's Regular Balance. The borrower's only economic recovery from a defaulted batch is the USDT received at issuance.
+</Warning>
+
+## Partial recovery during default
+
+Default is progressive, not all-or-nothing. **At any moment between auto-sell periods, the borrower can still call `repay()` and reclaim the remaining pledged DA** by paying only for what is still pledged.
+
+<Info>
+  **Worked example - recovery after Period 1.**
+
+  - Borrower opened a loan against 100 DA at `loan.price = 1.00`. Initial debt: 70 USDT.
+  - Borrower does not repay. Period 1 triggers on day 120: 25 DA is burned, 17.50 USDT is routed to the Pool. Pledged remaining: 75 DA. Debt remaining: 52.50 USDT.
+  - On day 150, before Period 2 triggers, the borrower decides to recover what is left. They call `repay()` for the full remaining balance.
+  - `toPay = 75 × 1.00 × 0.70 = 52.50 USDT`. Borrower returns 52.50 USDT. Contract releases 75 DA back to the borrower's TokenStack. Loan closes.
+  - The 25 DA burned in Period 1 is permanently lost - it cannot be recovered.
+</Info>
+
+<Note>
+  **Behavior of `repay()` after auto-sell has begun.** When `repay()` is called on a stack that has already crossed into the auto-sell cycle, the contract first runs `_processExpiredStacks()` to settle every period whose trigger has already passed. After that settlement, the call proceeds against the post-burn collateral and post-burn debt. The borrower **cannot** use `repay()` to "jump in front of" a burn that has already triggered, but they **can** stop the **next** burn by repaying before its period boundary.
+</Note>
+
+## Post-recovery sale mechanics
+
+DA reclaimed via full or partial repayment returns to the borrower's TokenStack and behaves exactly like normal DA going forward. It can be:
+
+- **Sold manually** for 75% of the **current market price** in USDT (100% of sold DA burned)
+- **Held** until the batch's auto-sell schedule reaches the next period
+- **Allowed to auto-sell** at the standard 70% payout when its period triggers
+
+The Income Limit on the holder's NFT is consumed against the **current market value** of the DA being sold, not against `loan.price`.
+
+<Info>
+  **Worked example - selling reclaimed DA after price growth.**
+
+  - Borrower opened a loan against 100 DA at `loan.price = 1.00`. Received 66.50 USDT.
+  - 90 days later, market price has grown to 2.00 USDT. Borrower fully repays: returns 70 USDT, reclaims 100 DA.
+  - Borrower then sells those 100 DA manually. Market value: 100 DA × 2.00 USDT = 200 USDT.
+    - Borrower receives `200 × 0.75 = 150 USDT` in their Regular Balance.
+    - All 100 DA is burned.
+    - The 50 USDT difference (200 - 150) stays in the Pool as protocol commission.
+    - **Income Limit is reduced by the full 200 USDT market value of the sale**, not by the 100 USDT that would correspond to `loan.price`.
+</Info>
+
+This is the structural reason lending is attractive at scale: the borrower locks in liquidity at today's price, retains upside on DA appreciation, and only consumes Income Limit on the actual realized value at the time of sale.
+
+## Lending parameters at a glance
+
+| Parameter | Value | Mutability |
+|---|---|---|
+| LTV | 70% | Immutable |
+| Lending commission (`loanFee`) | 5% | DAO-adjustable (0% - 5%) |
+| Commission destination | DA Liquidity Pool | Immutable |
+| Eligibility gate (time-to-next-auto-sell) | 30 days | Immutable |
+| Loan term | None (until auto-sell or repayment) | Structural |
+| Price reference for debt | `loan.price` at issuance | Structural |
+| Loans per batch | 1 (lifetime) | Structural |
+| Default proceeds destination | DA Liquidity Pool | Structural |
+| Repayment fee | None | Structural |
+| Minimum NFT tier | L5 (Hydro) | Immutable |
+
+The `loanFee` parameter is governed independently of all other protocol fees so that the DAO can tune lending economics without touching marketing taxes, accumulative fees, or any other commission.
+
+## Common pitfalls
+
+<Warning>
+  **You cannot pledge the same batch twice.** Even after a full repayment, the batch's lending slot is consumed. To open a new loan, mine and farm a new batch.
+</Warning>
+
+<Warning>
+  **You cannot pledge a batch within 30 days of its next auto-sell trigger.** Plan loans against fresh batches - the loan-issuance path reverts on a batch with less than 30 days remaining to its next auto-sell event.
+</Warning>
+
+<Warning>
+  **Burns that have already triggered cannot be undone.** Partial recovery during default is possible, but every period that has already passed has burned its share of collateral permanently. Repay before the next period if you want to save what remains.
+</Warning>
+
+<Warning>
+  **Income Limit consumes against current market value, not against `loan.price`.** A reclaimed batch sold after large DA price growth will consume Income Limit proportional to the new market value. Keep the NFT renewed so the full higher payout is actually credited.
+</Warning>
+
+## Related pages
+
+<CardGroup cols={2}>
+  <Card title="Selling Mechanics" icon="fire" href="/en/da-selling-lending">
+    Manual sell at 75%, auto-sell at 70%, and how the four-period auto-sell cycle interacts with lending defaults.
+  </Card>
+  <Card title="DA Token Economics" icon="coins" href="/en/da-token-mechanics">
+    The 21M hard cap, the `Price = Liquidity ÷ Supply` formula, and every revenue stream that feeds the Pool.
+  </Card>
+</CardGroup>

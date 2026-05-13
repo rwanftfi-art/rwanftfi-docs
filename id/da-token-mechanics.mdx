@@ -109,7 +109,7 @@ Pembakaran DA adalah mekanisme deflasi inti — mengurangi pasokan token dan men
 Token DA tersedia 100% bagi pengguna sejak saat di-farming. Tidak ada periode lock-up. Pengguna dapat segera:
 
 - **Menjual secara manual** — menerima 75% nilai dalam USDT, 100% token dibakar
-- **Mengambil pinjaman** — 70% LTV terhadap jaminan DA, biaya komisi 5%
+- **Mengambil pinjaman** — LTV 70% tetap terhadap jaminan DA, komisi 5% sekali bayar saat penerbitan
 - **Menyimpan dan menunggu** — menyimpan token dan mendapatkan manfaat dari pertumbuhan harga seiring waktu
 
 ### Siklus Auto-Sell
@@ -158,19 +158,19 @@ Setiap batch DA dari setiap siklus mining berfungsi sebagai jaminan independen. 
     Pengguna menyelesaikan siklus mining dan menerima batch DA 1.
   </Step>
   <Step title="Pinjam dengan jaminan Batch 1">
-    Pengguna mengambil pinjaman 70% LTV terhadap batch 1 (komisi 5% ke Liquidity Pool).
+    Pengguna mengambil pinjaman dengan LTV 70% tetap terhadap batch 1 (komisi 5% sekali bayar saat penerbitan ke Liquidity Pool).
   </Step>
   <Step title="Mining Batch 2">
     Pengguna memulai siklus mining baru dan menerima batch DA 2.
   </Step>
   <Step title="Pinjam dengan jaminan Batch 2">
-    Pengguna mengambil pinjaman 70% LTV lain terhadap batch 2 (komisi 5% terpisah).
+    Pengguna mengambil pinjaman dengan LTV 70% tetap lain terhadap batch 2 (komisi 5% sekali bayar terpisah saat penerbitan).
   </Step>
 </Steps>
 
-Ini memungkinkan beberapa mikro-pinjaman simultan, satu per batch DA. Setiap pinjaman bersifat independen — terikat pada batch-nya sendiri — dan tetap aktif sampai stack batch tersebut memasuki siklus auto-sell. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang dibakar — bukan seluruh kepemilikan DA.
+Ini memungkinkan beberapa mikro-pinjaman simultan, satu per batch DA. Setiap pinjaman bersifat independen - terikat pada batch-nya sendiri - dan tetap aktif sampai stack batch tersebut memasuki siklus auto-sell. Jika ada pinjaman individu yang gagal bayar, hanya jaminan batch tersebut yang dibakar - bukan seluruh kepemilikan DA.
 
-Untuk perbandingan menjual vs meminjamkan secara mendetail, lihat [Penjualan & Pinjaman](/id/da-selling-lending).
+Untuk perbandingan menjual vs meminjamkan secara mendetail, lihat [Penjualan & Pinjaman](/id/da-selling-lending). Lending juga mendukung pelunasan sebagian dan pemulihan gagal bayar secara proporsional. Lihat [Mekanika Lending](/id/da-lending) untuk penjelasan lengkapnya.
 
 ## Siklus Deflasi
 

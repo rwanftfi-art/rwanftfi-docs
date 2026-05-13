@@ -158,19 +158,19 @@ Each DA batch from each mining cycle serves as independent collateral. This enab
     User completes a mining cycle and receives DA batch 1.
   </Step>
   <Step title="Borrow against Batch 1">
-    User takes a 70% LTV loan against batch 1 (5% commission to the Liquidity Pool).
+    User takes a **fixed 70% LTV** loan against batch 1. The 5% commission is charged once at issuance and routed to the Liquidity Pool - it is not re-charged at repayment.
   </Step>
   <Step title="Mine Batch 2">
     User starts a new mining cycle and receives DA batch 2.
   </Step>
   <Step title="Borrow against Batch 2">
-    User takes another 70% LTV loan against batch 2 (separate 5% commission).
+    User takes another **fixed 70% LTV** loan against batch 2. A separate one-time 5% commission is charged at issuance for this new loan.
   </Step>
 </Steps>
 
-This allows multiple simultaneous micro-loans, one per DA batch. Each loan is independent — bound to its own batch — and stays active until that batch's stack enters the auto-sell cycle. If any individual loan defaults, only that batch's collateral is burned — not all DA holdings.
+This allows multiple simultaneous micro-loans, one per DA batch. Each loan is independent - bound to its own batch - and stays active until that batch's stack enters the auto-sell cycle. If any individual loan defaults, only that batch's collateral is burned - not all DA holdings.
 
-For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-lending).
+For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-lending). Lending also supports partial repayments and proportional default recovery. See [Lending Mechanics](/en/da-lending) for the full breakdown.
 
 ## What is the biannual Deflationary Cycle?
 

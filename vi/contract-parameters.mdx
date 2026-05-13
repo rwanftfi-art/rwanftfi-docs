@@ -61,6 +61,10 @@ Tất cả các phí được thực thi bởi hợp đồng thông minh và có
 | Số Dư Đóng Băng → Người Tài Trợ | 30% | 0% – 30% |
 
 <Note>
+  **Phí Vay - ngữ nghĩa:** 5% được thu **một lần, tại thời điểm phát hành khoản vay**, và chuyển trực tiếp vào Pool Thanh khoản DA. Trả nợ - toàn bộ hoặc một phần - không kích hoạt lại phí. Tham số được lưu trữ on-chain dưới dạng `loanFee` chuyên dụng, tách biệt với các tham số phí khác của giao thức, để DAO có thể điều chỉnh kinh tế cho vay một cách độc lập với thuế marketing, phí tích lũy, hoặc bất kỳ hoa hồng nào khác.
+</Note>
+
+<Note>
   **Phí Bán Doanh Nghiệp — ngữ nghĩa:** Hàng "Phí Bán Doanh Nghiệp" là **hoa hồng chuyển nhượng do người bán trả** để thực hiện việc chuyển nhượng cấu trúc kinh doanh. Đó **không phải** là giá bán thu từ người mua — người mua không trả hoa hồng on-chain cho giao thức và nhận cấu trúc cây đối tác khi thực hiện. Tham số on-chain quản lý hoa hồng này là `businessTransferFee` (đổi tên từ `businessSalePrice` cũ để phản ánh đúng ngữ nghĩa hoa hồng thực sự của nó).
 </Note>
 
@@ -179,6 +183,7 @@ Matching Bonus trả 5% qua ba cấp thu nhập đối tác trực tiếp. Mỗi
 |---|---|
 | Thanh Toán Bán Thủ Công | 75% |
 | Thanh Toán Tự Động Bán / Cho Vay | 70% |
+| Tỷ Lệ LTV | 70% (cố định) |
 | Matching Bonus Mỗi Cấp | 5% |
 | Cửa Sổ Số Dư Đóng Băng | 72 giờ |
 | Vòng Đời Voucher | 365 ngày |
@@ -188,5 +193,7 @@ Matching Bonus trả 5% qua ba cấp thu nhập đối tác trực tiếp. Mỗi
 | Thời Gian Ân Hạn DAO | 7 ngày |
 
 <Note>
-  **Ngưỡng Đủ Điều Kiện Vay — ý nghĩa:** Đây **không phải** là kỳ hạn vay. Đây là thời gian tối thiểu còn lại đến lần tự động bán tiếp theo mà một stack DA phải còn để có thể được dùng làm tài sản thế chấp cho một khoản vay **mới** (kiểm tra on-chain: `_getTimeToNextAutosale >= 30 days`). Sau khi mở khoản vay, không có kỳ hạn cố định — người vay có thể gọi `repay()` bất kỳ lúc nào khi stack vẫn còn hoạt động; `repay()` chỉ bị hoàn nguyên sau khi stack đã đi vào chu kỳ tự động bán.
+  **Ngưỡng Đủ Điều Kiện Vay - ngữ nghĩa:** Đây **không phải** là kỳ hạn vay. Đây là **kiểm tra on-chain liên tục được thực hiện trước mỗi lệnh gọi `loan()` mới** (`_getTimeToNextAutosale(stack) >= 30 days`): lô DA đang được cầm cố phải còn ít nhất 30 ngày đến lần tự động bán theo lịch tiếp theo, hoặc lệnh gọi sẽ bị hoàn nguyên. Lô có 29 ngày hoặc ít hơn đến lần kích hoạt tiếp theo không thể được dùng làm tài sản thế chấp cho khoản vay mới.
+
+  Đây là **cổng đủ điều kiện** kiểm soát quyền truy cập vào sản phẩm, không phải **kỳ hạn vay** kiểm soát vòng đời của khoản vay đang mở. Một khi khoản vay đang mở, người vay có thể gọi `repay()` bất kỳ lúc nào - toàn bộ hoặc một phần - miễn là lô chưa vượt qua ranh giới tự động bán đầu tiên. `repay()` vẫn có thể gọi sau ranh giới đó, nhưng hợp đồng trước tiên chạy `_processExpiredStacks()` để thanh toán mọi giai đoạn mà ranh giới đã qua trước khi việc trả nợ tiến hành dựa trên phần còn lại sau khi đốt.
 </Note>

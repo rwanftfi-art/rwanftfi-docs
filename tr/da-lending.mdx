@@ -1,0 +1,294 @@
+---
+title: "DA Karşılığı Borç Verme"
+description: "TokenStack'inizdeki herhangi bir DA partisi karşılığında sabit %70 LTV USDT kredisi alın. Tek seferlik %5 komisyon ödeyin, bugünkü DA fiyatını kilitleyin ve stack otomatik satış döngüsüne girmeden önce istediğiniz zaman tam veya kısmi geri ödeme yapın."
+icon: "hand-holding-dollar"
+---
+
+
+Borç verme, bir DA sahibinin varlığı satmadan ve gelecekteki DA fiyat artışından vazgeçmeden anında USDT likiditesine erişmesini sağlar. Kredi, belirli bir DA partisi tarafından teminat altına alınır, ihraç anında fiyatlandırılır ve teminatlandırılmış stack otomatik satış döngüsüne girmeden önce herhangi bir zamanda tam veya kısmi olarak geri ödenebilir.
+
+<CardGroup cols={2}>
+  <Card title="%70 LTV - Sabit" icon="percent">
+    Her kredi, ihraç anında teminatın USDT değerinin tam olarak %70'i oranında verilir. Kaydırıcı ve "%70'e kadar" aralığı yoktur - %70 tek ayardır.
+  </Card>
+  <Card title="Tek Seferlik %5 Komisyon" icon="receipt">
+    Kredi açıldığında tek bir %5 ücret alınır ve DA Likidite Havuzuna yönlendirilir. Tam veya kısmi geri ödemede hiçbir şey tahsil edilmez.
+  </Card>
+  <Card title="İhraç Anında Fiyat Kilitlenir" icon="lock">
+    Tüm kredi hesaplamalarında kullanılan DA fiyatı, ihraç anında `loan.price` içinde sabitlenir. DA daha sonra 2x veya 10x değer kazansa bile USDT borcunuz artmaz.
+  </Card>
+  <Card title="Sabit Vade Yok" icon="clock-rotate-left">
+    Kredinin vade tarihi yoktur. Borçlu geri ödeme yapana kadar veya teminatlandırılmış parti otomatik satış döngüsüne girene kadar açık kalır.
+  </Card>
+</CardGroup>
+
+## Kredi kimler alabilir?
+
+Borç verme yalnızca Premium ve Elite NFT katmanlarını (Seviye 5 ve üzeri) tutan kullanıcılara açıktır. Daha düşük katmanlar NFTM madenciliği yapmaz ve dolayısıyla borç almak için DA teminatları yoktur.
+
+<CardGroup cols={3}>
+  <Card title="Premium Katman (S5-S8)" icon="gem">
+    Hydro, Quantum, Pulse, Aurora. Her tamamlanan madencilik döngüsü, bir kredi için uygun bir DA partisi üretir.
+  </Card>
+  <Card title="Elite Katman (S9-S10)" icon="crown">
+    Flame, Infinity. NFT başına iki madencilik döngüsü - her döngü kendi bağımsız kredi slotu ile kendi bağımsız partisini üretir.
+  </Card>
+  <Card title="Aktif Gelir Limiti" icon="signal-bars">
+    Borçlanan NFT'nin sıfır olmayan bir kalan Gelir Limitine sahip olması gerekir. Borç verme, pazarlama ödülleriyle aynı uygunluk modeli ile kapılanmıştır.
+  </Card>
+</CardGroup>
+
+## Teminat nedir?
+
+Bir kredi, **belirli bir DA partisi** tarafından teminat altına alınır - tek bir tamamlanmış madencilik ve farming döngüsünden bir TokenStack'e yatırılan DA. Tüm parti, teminatın birimidir: bir partinin bir kesrini teminat olarak göstererek kısmi tutarda borç almak desteklenmez. Bir parti 100 DA içeriyorsa, kredi aynı anda tüm 100 DA karşılığında verilir.
+
+<Info>
+  **Parti başına, ömür boyu bir kredi.** Belirli bir DA partisi, tüm ömrü boyunca en fazla bir krediye teminat olabilir. Bu kredi açıldıktan sonra - daha sonra tam olarak geri ödenip ödenmediğine, kısmen geri ödenip ödenmediğine veya temerrüde düşülüp düşülmediğine bakılmaksızın - parti tekrar teminat gösterilemez. Başka bir kredi açmak için, borçlunun yeni bir parti madenciliği ve farming yapması gerekir.
+</Info>
+
+## Kredi tutarı nasıl hesaplanır?
+
+Akıllı sözleşme, ihraç anında tek bir deterministik formül kullanır:
+
+```
+usdAmount       = collateral_DA × loan.price × 0.70
+fee             = usdAmount × 0.05
+borrowerPayout  = usdAmount - fee
+```
+
+`loan.price`, ihraç anındaki DA fiyatıdır. Kredi struct'ında saklanır ve kredinin ömrü boyunca asla değişmez.
+
+<Steps>
+  <Step title="Parti oluşturulur">
+    Madencilik döngüsü tamamlanır. Kullanıcı NFTM'yi Farming'e stake eder. Farming süresi sona erdikten sonra, kullanıcının adresindeki yeni bir TokenStack'e 100 DA yatırılır.
+  </Step>
+  <Step title="Kullanıcı parti karşılığında loan() çağrısı yapar">
+    Bu anda mevcut DA fiyatının 1.00 USDT olduğunu varsayalım. Sözleşme, kredi struct'ına `loan.price = 1.00` kaydeder. `usdAmount = 100 × 1.00 × 0.70 = 70 USDT`.
+  </Step>
+  <Step title="%5 komisyon ayrılır">
+    `fee = 70 × 0.05 = 3.50 USDT`. 3.50 USDT anında DA Likidite Havuzuna yönlendirilir.
+  </Step>
+  <Step title="Borçlu net tutarı alır">
+    `borrowerPayout = 70 - 3.50 = 66.50 USDT` borçlunun Normal Bakiyesine yatırılır. 100 DA partisi artık teminat olarak kilitlenmiştir. Kredi açıktır.
+  </Step>
+</Steps>
+
+<Note>
+  **Toz koruması.** Akıllı sözleşme, `borrowerPayout` %5 ücret sonrasında 0 USDT'ye yuvarlanacak olan kredileri reddeder. Sıfır olmayan bir net ödeme üretemeyecek kadar küçük bir parti teminat gösterilemez.
+</Note>
+
+## Kredi borcu USDT cinsinden sabittir
+
+Bu, borç verme ürününün en önemli özelliği ve DA sahiplerinin satmak yerine borç vermeyi seçmesinin ana nedenidir.
+
+**Geri ödemede borçlu olunan tutar, mevcut DA piyasa fiyatına karşı değil, `loan.price`'a karşı hesaplanır.** Bir kredi açıldıktan sonra, borçlunun borcu ihraç anında alınan fiyat anlık görüntüsünde USDT cinsinden ifade edilir. DA fiyat artışı borcu artırmaz.
+
+<Info>
+  **Çalışma örneği - kredi süresince DA fiyatı ikiye katlanır.**
+
+  - Gün 0: DA fiyatı 1.00 USDT. Borçlu 100 DA karşılığında kredi açar. `loan.price = 1.00`. Borçlu %5 ücret sonrasında 66.50 USDT alır.
+  - Gün 90: DA piyasa fiyatı 2.00 USDT'ye yükseldi. Aynı 100 DA artık piyasada 200 USDT değerindedir.
+  - Gün 90: Borçlu tam bakiye için `repay()` çağrısı yapar. Sözleşme piyasa fiyatını değil `loan.price = 1.00`'ı kullanır. Borçlu olunan tutar: `100 × 1.00 × 0.70 = 70 USDT`. Borçlu 70 USDT iade eder ve tüm 100 DA'yı geri alır. Bu 100 DA mevcut piyasa fiyatında 200 USDT değerindedir.
+</Info>
+
+Aslında kredi, sahibin bugünkü fiyatta USDT likiditesi elde etmesine izin verirken gelecekteki DA değer artışındaki yükseliş potansiyelini korur. Protokol, DA büyüdükçe borcu yeniden fiyatlandırmaz.
+
+## 30 günlük uygunluk kapısı
+
+Bir kredi, yalnızca o partinin bir sonraki planlanmış otomatik satış olayına kadar en az **30 gün kalan** bir DA partisi karşılığında açılabilir. Kontrol, kredi ihraç yolunda zincir üzerinde uygulanır:
+
+```
+require(_getTimeToNextAutosale(stack) >= 30 days)
+```
+
+<Warning>
+  **Uygunluk kapısı, kredi vadesi değil.** 30 günlük pencere **yalnızca ihraçta** kontrol edilir. Kredi açıldıktan sonra, borçluya karşı işleyen 30 günlük bir süre yoktur - kredi, geri ödeme yapılana veya partinin otomatik satış döngüsü başlayana kadar açık kalır. Bir sonraki otomatik satış tetikleyicisine 29 veya daha az günü kalan bir parti yeni bir kredi için teminat olarak kullanılamaz ve işlem geri alınır.
+</Warning>
+
+Bu kural, borçlunun günler içinde otomatik satış yapacak bir parti karşılığında kredi açmasını önler; bu, ekonomik olarak bir satıştan ayırt edilemez olurdu ve anlamlı bir likidite penceresi sunmazdı.
+
+## Tam geri ödeme
+
+Borçlu, **teminatlandırılmış stack hâlâ aktifken** - yani parti aşamalı otomatik satış döngüsüne girmeden önce - herhangi bir zamanda krediyi kapatabilir. Tam geri ödeme, orijinal `usdAmount`'u (ihraçtaki brüt anapara) iade eder ve tam DA partisini borçlunun TokenStack'ine geri bırakır.
+
+**%5 komisyon tekrar tahsil edilmez.** Tek seferlik, ihraçta alınmıştır ve geri ödeme hesabının bir parçası değildir.
+
+<Info>
+  **Çalışma örneği - tam geri ödeme.**
+
+  - Kredi, `loan.price = 1.00`'da 100 DA karşılığında açıldı. `usdAmount = 70 USDT`. Ücret ihraçta zaten ödendi.
+  - Borçlu tam bakiye için `repay()` çağrısı yapar ve 70 USDT iade eder.
+  - Sözleşme, tüm 100 DA'yı borçlunun TokenStack'ine geri bırakır. Kredi kapanır.
+</Info>
+
+## Kısmi geri ödeme
+
+Borçlu ayrıca, yalnızca serbest bırakmayı seçtiği DA miktarı için ödeme yaparak, otomatik satıştan önce herhangi bir zamanda **teminatın bir bölümünü** kullanabilir:
+
+```
+toPay = released_DA × loan.price × 0.70
+```
+
+Serbest bırakılan DA, orijinal TokenStack'e geri döner. Kalan DA, orantılı olarak azaltılmış bir borç karşılığında teminat olarak kilitli kalır. **Partinin otomatik satış zamanlayıcısı sıfırlanmaz** - stack mevcut programında devam eder.
+
+<Info>
+  **Çalışma örneği - teminatın yarısı kullanıldı.**
+
+  - Kredi, `loan.price = 1.00`'da 100 DA karşılığında açıldı. Başlangıç borcu: 100 DA teminatı karşılığında 70 USDT.
+  - 60 gün sonra, borçlu teminatın yarısını kullanmak istiyor. 50 DA serbest bırakan `repay()` çağrısı yapar.
+  - `toPay = 50 × 1.00 × 0.70 = 35 USDT`. Borçlu 35 USDT iade eder.
+  - 50 DA, orijinal TokenStack'e geri bırakılır. Kalan 50 DA, kalan 35 USDT borcu karşılığında teminat olarak kalır.
+  - Partinin otomatik satış zamanlayıcısı orijinal başlangıcından itibaren devam eder: mevcut dönem programına karşı zaten 60 gün geçmiştir.
+</Info>
+
+<Note>
+  **Serbest bırakılan DA aynı partide kalır.** Kısmi geri ödeme yoluyla kullanılan tokenler, orijinal TokenStack'e geri döner ve o stack'in mevcut otomatik satış programına tabi kalmaya devam eder. Borçlu bunları standart %75 ödeme için manuel olarak satabilir veya partinin dönemi tetiklendiğinde %70'te otomatik satışa izin verebilir. Bunlar yeni bir kredi için teminat olarak kullanılamaz - "parti başına bir kredi" kuralı, yalnızca halihazırda taahhüt edilen kısma değil, tüm partiye uygulanır.
+</Note>
+
+## Çoklu parti bağımsızlığı
+
+Her madencilik döngüsü yeni bir DA partisi üretir ve her parti bağımsız bir teminat birimidir. Bir sahibi, her biri farklı bir parti karşılığında birden fazla krediyi aynı anda taşıyabilir; her kredinin kendine ait şunları vardır:
+
+- `loan.price` anlık görüntüsü, kendi ihraç zamanında alınmıştır
+- %5 tek seferlik komisyon, kendi ihraçta ödenmiştir
+- Kendi partisinde çalışan otomatik satış zamanlayıcısı
+- Geri ödeme, kısmi geri ödeme veya temerrüt için uygunluk
+
+<CardGroup cols={3}>
+  <Card title="Parti A" icon="layer-group">
+    Tam parti karşılığında aktif kredi. Borçlu ihraçta USDT aldı ve borcu tutuyor.
+  </Card>
+  <Card title="Parti B" icon="layer-group">
+    Kısmen geri ödendi. Bir miktar DA kullanıldı; kalanı hâlâ azaltılmış bir borç karşılığında taahhütlüdür.
+  </Card>
+  <Card title="Parti C" icon="layer-group">
+    Kredi açılmadı. DA tamamen kullanıcıya aittir ve normal bir DA stack'i gibi davranır, yalnızca kendi otomatik satış programına tabidir.
+  </Card>
+</CardGroup>
+
+Parti A'daki bir temerrüdün Parti B veya Parti C üzerinde hiçbir etkisi yoktur. Aşağıda açıklanan aşamalı yakım yalnızca temerrüde düşen partinin teminatına uygulanır.
+
+## Temerrüt - aşamalı teminat yakımı
+
+Borçlu, teminatlandırılmış stack otomatik satış döngüsüne girmeden önce krediyi geri ödemezse, standart dört dönemli program (120 / 90 / 90 / 65 gün, toplam 365 gün) taahhütlü DA'ya karşı ilerler. Her dönem, **kalan taahhütlü DA**'nın bir yüzdesini yakar:
+
+<Steps>
+  <Step title="Dönem 1 - gün 120: taahhütlü DA'nın %25'i yakılır">
+    Halihazırda taahhütlü DA'nın %25'i kalıcı olarak yakılır. `loan.price`'daki karşılık gelen USDT değeri DA Likidite Havuzuna yönlendirilir. Borçlu bu kısım için hiçbir şey almaz. Kalan borç, kalan taahhütlü DA ile orantılı olarak azaltılır.
+  </Step>
+  <Step title="Dönem 2 - gün 210 (+90 gün): kalanın %40'ı yakılır">
+    Hâlâ taahhütlü DA'nın %40'ı yakılır. `loan.price`'daki USDT değeri DA Likidite Havuzuna akar. Kalan borç tekrar azaltılır.
+  </Step>
+  <Step title="Dönem 3 - gün 300 (+90 gün): kalanın %50'si yakılır">
+    Hâlâ taahhütlü DA'nın %50'si yakılır. `loan.price`'daki USDT değeri DA Likidite Havuzuna akar.
+  </Step>
+  <Step title="Dönem 4 - gün 365 (+65 gün): kalanın %100'ü yakılır">
+    Bu noktada hâlâ taahhütlü tüm DA yakılır. Kredi pozisyonu tamamen kapatılır. Borçlu ihraçta aldığı USDT'yi korur.
+  </Step>
+</Steps>
+
+<Info>
+  **Çalışma örneği - `loan.price = 1.00`'da 100 DA / 70 USDT kredi üzerinde tam temerrüt.**
+
+  | Olay | Önceki taahhütlü DA | Yakılan DA | Havuza USDT | Sonraki taahhütlü DA | Kalan borç |
+  |---|---|---|---|---|---|
+  | İhraç (gün 0) | - | - | - | 100 | 70.00 |
+  | Dönem 1 (gün 120) | 100 | 25 | 17.50 | 75 | 52.50 |
+  | Dönem 2 (gün 210) | 75 | 30 | 21.00 | 45 | 31.50 |
+  | Dönem 3 (gün 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
+  | Dönem 4 (gün 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
+
+  Borçlu dört dönem boyunca hiçbir kurtarma eylemi gerçekleştirmezse, ihraçta alınan orijinal 66.50 USDT'yi korur ve tam 100 DA teminatı 365 günlük döngü boyunca yakılır. Yakılan tüm DA arzdan kalıcı olarak kaldırılır; Havuza yönlendirilen tüm USDT, ekosistemin geri kalanı için DA desteğini güçlendirir.
+</Info>
+
+<Warning>
+  **Borçlu, temerrüde düşen bir partiden USDT almaz.** Temerrüt süresince, yakılan teminata atfedilebilir gelirlerin %100'ü DA Likidite Havuzuna yönlendirilir, borçlunun Normal Bakiyesine değil. Borçlunun temerrüde düşen bir partiden elde ettiği tek ekonomik kurtarma, ihraçta alınan USDT'dir.
+</Warning>
+
+## Temerrüt sırasında kısmi kurtarma
+
+Temerrüt aşamalıdır, hepsi ya da hiç değildir. **Otomatik satış dönemleri arasında herhangi bir anda, borçlu hâlâ `repay()` çağrısı yapabilir ve yalnızca hâlâ taahhütlü olanlar için ödeme yaparak kalan taahhütlü DA'yı geri alabilir.**
+
+<Info>
+  **Çalışma örneği - Dönem 1 sonrasında kurtarma.**
+
+  - Borçlu `loan.price = 1.00`'da 100 DA karşılığında kredi açtı. Başlangıç borcu: 70 USDT.
+  - Borçlu geri ödeme yapmıyor. Dönem 1 gün 120'de tetikleniyor: 25 DA yakılıyor, 17.50 USDT Havuza yönlendiriliyor. Kalan taahhütlü: 75 DA. Kalan borç: 52.50 USDT.
+  - Gün 150'de, Dönem 2 tetiklenmeden önce, borçlu kalanı kurtarmaya karar veriyor. Tam kalan bakiye için `repay()` çağrısı yapıyor.
+  - `toPay = 75 × 1.00 × 0.70 = 52.50 USDT`. Borçlu 52.50 USDT iade eder. Sözleşme, 75 DA'yı borçlunun TokenStack'ine geri bırakır. Kredi kapanır.
+  - Dönem 1'de yakılan 25 DA kalıcı olarak kayboldu - kurtarılamaz.
+</Info>
+
+<Note>
+  **Otomatik satış başladıktan sonra `repay()` davranışı.** `repay()`, otomatik satış döngüsüne zaten girmiş bir stack üzerinde çağrıldığında, sözleşme önce `_processExpiredStacks()` işlevini çalıştırarak tetikleyicisi zaten geçmiş olan her dönemi kapatır. Bu kapatma işleminden sonra, çağrı yakım sonrası teminat ve yakım sonrası borca karşı ilerler. Borçlu, zaten tetiklenmiş bir yakımın "önüne geçmek" için `repay()` **kullanamaz**, ancak dönem sınırından önce geri ödeme yaparak **sonraki** yakımı durdurabilir.
+</Note>
+
+## Kurtarma sonrası satış mekanikleri
+
+Tam veya kısmi geri ödeme yoluyla geri alınan DA, borçlunun TokenStack'ine geri döner ve ileriye dönük olarak tam olarak normal DA gibi davranır. Şu şekillerde kullanılabilir:
+
+- USDT cinsinden **mevcut piyasa fiyatının** %75'ine **manuel satış** (satılan DA'nın %100'ü yakılır)
+- Partinin otomatik satış programı bir sonraki döneme ulaşana kadar **tutma**
+- Dönemi tetiklendiğinde standart %70 ödeme ile **otomatik satışa izin verme**
+
+Sahibin NFT'sindeki Gelir Limiti, `loan.price`'a karşı değil, satılan DA'nın **mevcut piyasa değerine** karşı tüketilir.
+
+<Info>
+  **Çalışma örneği - fiyat artışından sonra geri alınan DA'nın satılması.**
+
+  - Borçlu `loan.price = 1.00`'da 100 DA karşılığında kredi açtı. 66.50 USDT aldı.
+  - 90 gün sonra, piyasa fiyatı 2.00 USDT'ye yükseldi. Borçlu tam geri ödeme yapar: 70 USDT iade eder, 100 DA'yı geri alır.
+  - Borçlu ardından bu 100 DA'yı manuel olarak satar. Piyasa değeri: 100 DA × 2.00 USDT = 200 USDT.
+    - Borçlu, Normal Bakiyesine `200 × 0.75 = 150 USDT` alır.
+    - Tüm 100 DA yakılır.
+    - 50 USDT farkı (200 - 150) protokol komisyonu olarak Havuzda kalır.
+    - **Gelir Limiti, `loan.price`'a karşılık gelen 100 USDT ile değil, satışın tam 200 USDT piyasa değeri ile azaltılır.**
+</Info>
+
+Bu, borç vermenin büyük ölçekte cazip olmasının yapısal nedenidir: borçlu bugünkü fiyatta likiditesini kilitler, DA değer artışındaki yükseliş potansiyelini korur ve Gelir Limitini yalnızca satış anındaki gerçekleşen değerden tüketir.
+
+## Borç verme parametrelerine genel bakış
+
+| Parametre | Değer | Değişkenlik |
+|---|---|---|
+| LTV | %70 | Değiştirilemez |
+| Borç verme komisyonu (`loanFee`) | %5 | DAO tarafından ayarlanabilir (%0 - %5) |
+| Komisyon hedefi | DA Likidite Havuzu | Değiştirilemez |
+| Uygunluk kapısı (bir sonraki otomatik satışa kalan süre) | 30 gün | Değiştirilemez |
+| Kredi vadesi | Yok (otomatik satışa veya geri ödemeye kadar) | Yapısal |
+| Borç için fiyat referansı | İhraçta `loan.price` | Yapısal |
+| Parti başına kredi | 1 (ömür boyu) | Yapısal |
+| Temerrüt geliri hedefi | DA Likidite Havuzu | Yapısal |
+| Geri ödeme ücreti | Yok | Yapısal |
+| Minimum NFT katmanı | S5 (Hydro) | Değiştirilemez |
+
+`loanFee` parametresi, diğer tüm protokol ücretlerinden bağımsız olarak yönetilir; böylece DAO, pazarlama vergilerine, birikim ücretlerine veya diğer herhangi bir komisyona dokunmadan borç verme ekonomisini ayarlayabilir.
+
+## Yaygın hatalar
+
+<Warning>
+  **Aynı partiyi iki kez teminat gösteremezsiniz.** Tam bir geri ödemeden sonra bile, partinin borç verme slotu tüketilmiştir. Yeni bir kredi açmak için yeni bir parti madenciliği ve farming yapın.
+</Warning>
+
+<Warning>
+  **Bir sonraki otomatik satış tetikleyicisine 30 gün kala bir partiyi teminat gösteremezsiniz.** Kredileri taze partiler karşılığında planlayın - kredi ihraç yolu, bir sonraki otomatik satış olayına 30 günden az kalan bir partide geri alınır.
+</Warning>
+
+<Warning>
+  **Zaten tetiklenmiş yakımlar geri alınamaz.** Temerrüt sırasında kısmi kurtarma mümkündür, ancak zaten geçmiş olan her dönem teminatının payını kalıcı olarak yakmıştır. Kalanı kurtarmak istiyorsanız bir sonraki dönemden önce geri ödeyin.
+</Warning>
+
+<Warning>
+  **Gelir Limiti, `loan.price`'a karşı değil mevcut piyasa değerine karşı tüketilir.** Büyük bir DA fiyat artışından sonra satılan geri alınmış bir parti, yeni piyasa değeriyle orantılı Gelir Limiti tüketir. Tam yüksek ödemenin gerçekten yatırılabilmesi için NFT'yi yenilenmiş tutun.
+</Warning>
+
+## İlgili sayfalar
+
+<CardGroup cols={2}>
+  <Card title="Satış Mekanikleri" icon="fire" href="/tr/da-selling-lending">
+    %75 manuel satış, %70 otomatik satış ve dört dönemli otomatik satış döngüsünün borç verme temerrütleriyle nasıl etkileşime girdiği.
+  </Card>
+  <Card title="DA Token Ekonomisi" icon="coins" href="/tr/da-token-mechanics">
+    21M sabit üst sınır, `Fiyat = Likidite ÷ Arz` formülü ve Havuzu besleyen her gelir akışı.
+  </Card>
+</CardGroup>

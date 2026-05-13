@@ -61,6 +61,10 @@ Todas as taxas são aplicadas pelo smart contract e ajustáveis dentro de faixas
 | Saldo Congelado → Patrocinador | 30% | 0% – 30% |
 
 <Note>
+  **Taxa de Empréstimo - semântica:** Os 5% são cobrados **uma vez, na emissão do empréstimo**, e direcionados diretamente ao Pool de Liquidez do DA. O reembolso - total ou parcial - não aciona a taxa novamente. O parâmetro é armazenado on-chain como um `loanFee` dedicado, separado dos outros parâmetros de taxa do protocolo, para que a DAO possa ajustar a economia do lending independentemente dos impostos de marketing, taxas acumulativas ou qualquer outra comissão.
+</Note>
+
+<Note>
   **Taxa de Venda de Negócio — semântica:** A linha "Taxa de Venda de Negócio" é uma **comissão de transferência paga pelo vendedor** para executar uma transferência de estrutura de negócio. Ela **não** é um preço de venda cobrado do comprador — o comprador não paga comissão on-chain ao protocolo e recebe a estrutura da árvore de parceiros na execução. O parâmetro on-chain que governa esta comissão é `businessTransferFee` (renomeado a partir do legado `businessSalePrice` para refletir sua verdadeira semântica de comissão).
 </Note>
 
@@ -179,6 +183,7 @@ O Bônus de Matching paga 5% em três níveis de renda direta de parceiros. Cada
 |---|---|
 | Pagamento de Venda Manual | 75% |
 | Pagamento de Auto-Venda / Lending | 70% |
+| Índice LTV | 70% (fixo) |
 | Bônus de Matching por Nível | 5% |
 | Janela do Saldo Congelado | 72 horas |
 | Vida Útil do Voucher | 365 dias |
@@ -188,5 +193,7 @@ O Bônus de Matching paga 5% em três níveis de renda direta de parceiros. Cada
 | Período de Carência da DAO | 7 dias |
 
 <Note>
-  **Limiar de Elegibilidade do Empréstimo — semântica:** Não é um prazo de empréstimo. É o tempo mínimo restante até a próxima auto-venda que um stack de DA deve ainda ter para poder ser usado como garantia de um **novo** empréstimo (verificação on-chain: `_getTimeToNextAutosale >= 30 days`). Uma vez aberto, o empréstimo não tem prazo fixo — o tomador pode chamar `repay()` a qualquer momento enquanto o stack estiver ativo; `repay()` só é revertido após o stack entrar no seu ciclo de auto-venda.
+  **Limiar de Elegibilidade do Empréstimo - semântica:** Não é uma duração de empréstimo. É uma **verificação on-chain contínua executada antes de cada nova chamada `loan()`** (`_getTimeToNextAutosale(stack) >= 30 days`): o batch de DA sendo dado em garantia deve ainda ter pelo menos 30 dias restantes até o seu próximo gatilho de auto-venda agendado, ou a chamada é revertida. Um batch com 29 dias ou menos até o seu próximo gatilho não pode ser usado como garantia para um novo empréstimo.
+
+  Esta é uma **barreira de elegibilidade** que controla o acesso ao produto, não um **prazo de empréstimo** que controla a vida de um empréstimo aberto. Uma vez que um empréstimo esteja aberto, o tomador pode chamar `repay()` a qualquer momento - total ou parcialmente - enquanto o batch não tiver cruzado seu primeiro gatilho de auto-venda. `repay()` permanece chamável após esse gatilho também, mas o contrato primeiro executa `_processExpiredStacks()` para liquidar cada período cujo limite passou antes de o reembolso prosseguir contra o restante pós-queima.
 </Note>

@@ -158,19 +158,19 @@ Chaque lot de DA issu de chaque cycle de minage sert de collatéral indépendant
     L'utilisateur termine un cycle de minage et reçoit le lot 1 de DA.
   </Step>
   <Step title="Emprunter contre le Lot 1">
-    L'utilisateur contracte un prêt à 70 % LTV adossé au lot 1 (5 % de commission au Pool de Liquidité).
+    L'utilisateur contracte un prêt à LTV fixe de 70 % adossé au lot 1. La commission de 5 % est perçue une seule fois à l'émission et dirigée vers le Pool de Liquidité - elle n'est pas prélevée à nouveau au remboursement.
   </Step>
   <Step title="Miner le Lot 2">
     L'utilisateur démarre un nouveau cycle de minage et reçoit le lot 2 de DA.
   </Step>
   <Step title="Emprunter contre le Lot 2">
-    L'utilisateur contracte un autre prêt à 70 % LTV adossé au lot 2 (5 % de commission distincte).
+    L'utilisateur contracte un autre prêt à LTV fixe de 70 % adossé au lot 2. Une commission unique de 5 % distincte est perçue à l'émission de ce nouveau prêt.
   </Step>
 </Steps>
 
-Cela permet plusieurs micro-prêts simultanés, un par lot de DA. Chaque prêt est indépendant — rattaché à son propre lot — et reste actif tant que le stack de ce lot n'est pas entré dans le cycle d'auto-vente. Si un prêt particulier fait défaut, seul le collatéral de ce lot est brûlé — pas l'ensemble des avoirs en DA.
+Cela permet plusieurs micro-prêts simultanés, un par lot de DA. Chaque prêt est indépendant - rattaché à son propre lot - et reste actif tant que le stack de ce lot n'est pas entré dans le cycle d'auto-vente. Si un prêt particulier fait défaut, seul le collatéral de ce lot est brûlé - pas l'ensemble des avoirs en DA.
 
-Pour une comparaison détaillée vente vs prêt, voir [Vente & Prêt](/fr/da-selling-lending).
+Pour une comparaison détaillée vente vs prêt, voir [Vente & Prêt](/fr/da-selling-lending). Le lending prend également en charge les remboursements partiels et la récupération proportionnelle en cas de défaut. Voir [Mécanique du Lending](/fr/da-lending) pour le détail complet.
 
 ## Cycle Déflationniste
 

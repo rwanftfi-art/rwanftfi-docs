@@ -1,0 +1,294 @@
+---
+title: "Lending contro DA"
+description: "Ottieni un prestito USDT a LTV fisso del 70% contro qualsiasi batch DA nel tuo TokenStack. Paga una commissione una tantum del 5% all'emissione, blocca il prezzo DA odierno e rimborsa in tutto o in parte in qualsiasi momento prima che lo stack entri nel suo ciclo di auto-vendita."
+icon: "hand-holding-dollar"
+---
+
+
+Il lending permette a un detentore di DA di accedere a liquidità immediata in USDT senza vendere l'asset e senza rinunciare all'esposizione alla futura crescita del prezzo DA. Il prestito è collateralizzato da uno specifico batch DA, prezzato all'emissione, e rimborsabile in tutto o in parte in qualsiasi momento prima che lo stack collateralizzato entri nel suo ciclo di auto-vendita.
+
+<CardGroup cols={2}>
+  <Card title="70% LTV - Fisso" icon="percent">
+    Ogni prestito viene emesso esattamente al 70% del valore USDT del collaterale al momento dell'emissione. Non c'è alcuno slider e nessun intervallo "fino a" - il 70% è l'unica impostazione.
+  </Card>
+  <Card title="Commissione Una Tantum del 5%" icon="receipt">
+    Una singola commissione del 5% viene addebitata all'apertura del prestito e indirizzata al Pool di Liquidità DA. Nulla viene addebitato al rimborso, totale o parziale.
+  </Card>
+  <Card title="Prezzo Bloccato all'Emissione" icon="lock">
+    Il prezzo DA utilizzato per tutti i calcoli del prestito è fissato in `loan.price` al momento dell'emissione. Anche se il DA si apprezza di 2x o 10x in seguito, il tuo debito in USDT non aumenta.
+  </Card>
+  <Card title="Nessuna Scadenza Fissa" icon="clock-rotate-left">
+    Il prestito non ha una data di scadenza. Rimane aperto finché il mutuatario non lo rimborsa, o finché il batch collateralizzato non entra nel suo ciclo di auto-vendita.
+  </Card>
+</CardGroup>
+
+## Chi può richiedere un prestito?
+
+Il lending è disponibile solo per i detentori di NFT dei livelli Premium ed Elite (Livello 5 e superiori). I livelli inferiori non eseguono il mining NFTM e quindi non hanno collaterale DA da mettere a garanzia.
+
+<CardGroup cols={3}>
+  <Card title="Livello Premium (L5-L8)" icon="gem">
+    Hydro, Quantum, Pulse, Aurora. Ogni ciclo di mining completato produce un batch DA idoneo per un prestito.
+  </Card>
+  <Card title="Livello Elite (L9-L10)" icon="crown">
+    Flame, Infinity. Due cicli di mining per NFT - ogni ciclo produce il proprio batch indipendente con il proprio slot di prestito indipendente.
+  </Card>
+  <Card title="Income Limit Attivo" icon="signal-bars">
+    L'NFT mutuatario deve avere un Income Limit residuo non zero. Il lending è vincolato dallo stesso modello di idoneità delle ricompense di marketing.
+  </Card>
+</CardGroup>
+
+## Qual è il collaterale?
+
+Un prestito è collateralizzato da **uno specifico batch DA** - il DA accreditato a un TokenStack da un singolo ciclo completato di mining e farming. L'intero batch è l'unità di collaterale: il prestito su una frazione di un batch non è supportato. Se un batch contiene 100 DA, il prestito viene emesso contro tutti i 100 DA contemporaneamente.
+
+<Info>
+  **Un prestito per batch, per sempre.** Un determinato batch DA può servire come collaterale per al massimo un prestito nel corso della sua intera vita. Una volta che quel prestito è aperto - indipendentemente dal fatto che venga poi rimborsato integralmente, parzialmente o risulti in default - il batch non può essere dato in pegno di nuovo. Per aprire un altro prestito, il mutuatario deve minare e farmare un nuovo batch.
+</Info>
+
+## Come viene calcolato l'importo del prestito?
+
+Lo smart contract utilizza un'unica formula deterministica all'emissione:
+
+```
+usdAmount       = collateral_DA × loan.price × 0.70
+fee             = usdAmount × 0.05
+borrowerPayout  = usdAmount - fee
+```
+
+`loan.price` è il prezzo DA al momento dell'emissione. È memorizzato nella struttura del prestito e non cambia mai per tutta la durata del prestito.
+
+<Steps>
+  <Step title="Il batch viene creato">
+    Il ciclo di mining si completa. L'utente mette in staking NFTM nel Farming. Al termine del periodo di farming, 100 DA vengono accreditati a un nuovo TokenStack all'indirizzo dell'utente.
+  </Step>
+  <Step title="L'utente chiama loan() contro il batch">
+    Si supponga che il prezzo DA corrente in questo momento sia 1,00 USDT. Il contratto registra `loan.price = 1.00` nella struttura del prestito. `usdAmount = 100 × 1,00 × 0,70 = 70 USDT`.
+  </Step>
+  <Step title="La commissione del 5% viene separata">
+    `fee = 70 × 0,05 = 3,50 USDT`. I 3,50 USDT vengono immediatamente indirizzati al Pool di Liquidità DA.
+  </Step>
+  <Step title="Il mutuatario riceve l'importo netto">
+    `borrowerPayout = 70 - 3,50 = 66,50 USDT` viene accreditato sul Saldo Regolare del mutuatario. Il batch da 100 DA è ora bloccato come collaterale. Il prestito è aperto.
+  </Step>
+</Steps>
+
+<Note>
+  **Protezione dust.** Lo smart contract rifiuta i prestiti in cui `borrowerPayout` verrebbe arrotondato per difetto a 0 USDT dopo la commissione del 5%. Un batch troppo piccolo per produrre un payout netto non zero non può essere dato in pegno.
+</Note>
+
+## Il debito del prestito è fisso in USDT
+
+Questa è la proprietà più importante del prodotto di lending e il motivo principale per cui i detentori di DA scelgono il lending invece della vendita.
+
+**L'importo dovuto al rimborso è calcolato rispetto a `loan.price`, non rispetto al prezzo di mercato corrente del DA.** Una volta aperto un prestito, il debito del mutuatario è denominato in USDT al prezzo snapshot preso all'emissione. La crescita del prezzo DA non aumenta il debito.
+
+<Info>
+  **Esempio pratico - il prezzo DA raddoppia durante il prestito.**
+
+  - Giorno 0: il prezzo DA è 1,00 USDT. Il mutuatario apre un prestito contro 100 DA. `loan.price = 1.00`. Il mutuatario riceve 66,50 USDT dopo la commissione del 5%.
+  - Giorno 90: il prezzo di mercato del DA è cresciuto a 2,00 USDT. Gli stessi 100 DA valgono ora 200 USDT a mercato.
+  - Giorno 90: il mutuatario chiama `repay()` per il saldo totale. Il contratto usa `loan.price = 1.00`, non il prezzo di mercato. Importo dovuto: `100 × 1,00 × 0,70 = 70 USDT`. Il mutuatario restituisce 70 USDT e recupera tutti i 100 DA. Quei 100 DA valgono 200 USDT al prezzo di mercato corrente.
+</Info>
+
+In sostanza, il prestito permette al detentore di estrarre liquidità USDT al prezzo odierno mantenendo il rialzo sulla futura apprezzazione del DA. Il protocollo non riprezza il debito con la crescita del DA.
+
+## La finestra di idoneità di 30 giorni
+
+Un prestito può essere aperto solo contro un batch DA che abbia ancora almeno **30 giorni rimanenti fino al prossimo evento di auto-vendita programmato di quel batch**. Il controllo è applicato on-chain nel percorso di emissione del prestito:
+
+```
+require(_getTimeToNextAutosale(stack) >= 30 days)
+```
+
+<Warning>
+  **Finestra di idoneità, non durata del prestito.** La finestra di 30 giorni viene verificata **solo all'emissione**. Una volta aperto il prestito, il mutuatario non è soggetto a una scadenza di 30 giorni - il prestito rimane aperto fino al rimborso o fino all'inizio del ciclo di auto-vendita del batch. Un batch con 29 o meno giorni rimanenti al prossimo trigger di auto-vendita non può essere utilizzato come collaterale per un nuovo prestito e la transazione viene revocata.
+</Warning>
+
+La regola impedisce al mutuatario di aprire un prestito contro un batch che sta per essere auto-venduto entro pochi giorni, il che sarebbe economicamente indistinguibile da una vendita e non offrirebbe alcuna finestra di liquidità significativa.
+
+## Rimborso totale
+
+Il mutuatario può chiudere il prestito in qualsiasi momento **mentre lo stack collateralizzato è ancora attivo** - cioè prima che il batch sia entrato nel suo ciclo progressivo di auto-vendita. Il rimborso totale restituisce l'`usdAmount` originale (il capitale lordo all'emissione) e libera l'intero batch DA nel TokenStack del mutuatario.
+
+**La commissione del 5% non viene addebitata di nuovo.** È stata prelevata una volta, all'emissione, e non fa parte della matematica del rimborso.
+
+<Info>
+  **Esempio pratico - rimborso totale.**
+
+  - Il prestito è stato aperto contro 100 DA a `loan.price = 1.00`. `usdAmount = 70 USDT`. Commissione già pagata all'emissione.
+  - Il mutuatario chiama `repay()` per il saldo totale e restituisce 70 USDT.
+  - Il contratto libera tutti i 100 DA nel TokenStack del mutuatario. Il prestito si chiude.
+</Info>
+
+## Rimborso parziale
+
+Il mutuatario può anche riscattare **una parte del collaterale** in qualsiasi momento prima dell'auto-vendita, pagando solo per la quantità di DA che sceglie di liberare:
+
+```
+toPay = released_DA × loan.price × 0.70
+```
+
+Il DA liberato torna al TokenStack originale. Il DA rimanente resta bloccato come collaterale a fronte di un debito proporzionalmente ridotto. **Il timer di auto-vendita per il batch non si azzera** - lo stack continua secondo il suo programma esistente.
+
+<Info>
+  **Esempio pratico - metà del collaterale riscattata.**
+
+  - Il prestito è stato aperto contro 100 DA a `loan.price = 1.00`. Debito iniziale: 70 USDT contro 100 DA di collaterale.
+  - 60 giorni dopo, il mutuatario vuole riscattare metà del collaterale. Chiama `repay()` liberando 50 DA.
+  - `toPay = 50 × 1,00 × 0,70 = 35 USDT`. Il mutuatario restituisce 35 USDT.
+  - 50 DA vengono liberati e tornano al TokenStack originale. I restanti 50 DA rimangono come collaterale a fronte del debito residuo di 35 USDT.
+  - Il timer di auto-vendita per il batch continua dal suo avvio originale: 60 giorni sono già trascorsi rispetto al programma dei periodi esistente.
+</Info>
+
+<Note>
+  **Il DA liberato resta nello stesso batch.** I token riscattati tramite rimborso parziale tornano al TokenStack originale e rimangono soggetti al programma di auto-vendita esistente di quello stack. Il mutuatario può venderli manualmente al payout standard del 75% o lasciarli auto-vendere al 70% quando scatta il periodo del batch. Non possono essere utilizzati come collaterale per un nuovo prestito - la regola "un prestito per batch" si applica all'intero batch, non solo alla porzione attualmente data in pegno.
+</Note>
+
+## Indipendenza multi-batch
+
+Ogni ciclo di mining produce un nuovo batch DA, e ogni batch è un'unità indipendente di collaterale. Un detentore può portare contemporaneamente più prestiti, ciascuno contro un batch diverso, con ogni prestito che porta il proprio:
+
+- Snapshot `loan.price`, preso al momento della propria emissione
+- Commissione una tantum del 5%, pagata alla propria emissione
+- Timer di auto-vendita, in esecuzione sul proprio batch
+- Idoneità al rimborso, rimborso parziale o default
+
+<CardGroup cols={3}>
+  <Card title="Batch A" icon="layer-group">
+    Prestito attivo contro l'intero batch. Il mutuatario ha ricevuto USDT all'emissione e sta portando il debito.
+  </Card>
+  <Card title="Batch B" icon="layer-group">
+    Parzialmente rimborsato. Parte del DA è stata riscattata; il resto è ancora dato in pegno a fronte di un debito ridotto.
+  </Card>
+  <Card title="Batch C" icon="layer-group">
+    Nessun prestito aperto. Il DA è interamente di proprietà dell'utente e si comporta come un normale stack DA, soggetto solo al suo programma di auto-vendita.
+  </Card>
+</CardGroup>
+
+Un default sul Batch A non ha alcun effetto sul Batch B o sul Batch C. Il burn progressivo descritto di seguito si applica solo al collaterale del batch in default.
+
+## Default - burn progressivo del collaterale
+
+Se il mutuatario non rimborsa il prestito prima che lo stack collateralizzato entri nel suo ciclo di auto-vendita, il programma standard a quattro periodi (120 / 90 / 90 / 65 giorni, 365 giorni totali) procede contro il DA dato in pegno. Ogni periodo brucia una percentuale del **DA in pegno rimanente**:
+
+<Steps>
+  <Step title="Periodo 1 - giorno 120: il 25% del DA in pegno viene bruciato">
+    Il 25% del DA attualmente in pegno viene bruciato in modo permanente. Il corrispondente valore in USDT a `loan.price` viene indirizzato al Pool di Liquidità DA. Il mutuatario non riceve nulla per questa porzione. Il debito rimanente viene ridotto proporzionalmente al DA in pegno rimanente.
+  </Step>
+  <Step title="Periodo 2 - giorno 210 (+90 giorni): il 40% del resto viene bruciato">
+    Il 40% del DA ancora in pegno viene bruciato. Il valore in USDT a `loan.price` fluisce al Pool di Liquidità DA. Il debito rimanente viene ridotto di nuovo.
+  </Step>
+  <Step title="Periodo 3 - giorno 300 (+90 giorni): il 50% del resto viene bruciato">
+    Il 50% del DA ancora in pegno viene bruciato. Il valore in USDT a `loan.price` fluisce al Pool di Liquidità DA.
+  </Step>
+  <Step title="Periodo 4 - giorno 365 (+65 giorni): il 100% del resto viene bruciato">
+    Tutto il DA ancora in pegno a questo punto viene bruciato. La posizione del prestito è completamente chiusa. Il mutuatario conserva gli USDT ricevuti all'emissione.
+  </Step>
+</Steps>
+
+<Info>
+  **Esempio pratico - default totale su un prestito da 100 DA / 70 USDT a `loan.price = 1.00`.**
+
+  | Evento | DA in pegno prima | DA bruciato | USDT al Pool | DA in pegno dopo | Debito residuo |
+  |---|---|---|---|---|---|
+  | Emissione (giorno 0) | - | - | - | 100 | 70,00 |
+  | Periodo 1 (giorno 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+  | Periodo 2 (giorno 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+  | Periodo 3 (giorno 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+  | Periodo 4 (giorno 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
+  Se il mutuatario non intraprende alcuna azione di recupero in tutti e quattro i periodi, conserva i 66,50 USDT originali ricevuti all'emissione e l'intero collaterale da 100 DA viene bruciato nel corso del ciclo di 365 giorni. Tutto il DA bruciato viene rimosso permanentemente dall'offerta; tutto l'USDT indirizzato al Pool rafforza il backing del DA per il resto dell'ecosistema.
+</Info>
+
+<Warning>
+  **Il mutuatario non riceve USDT da un batch in default.** Durante il default, il 100% dei proventi attribuibili al collaterale bruciato viene indirizzato al Pool di Liquidità DA, non al Saldo Regolare del mutuatario. L'unico recupero economico del mutuatario da un batch in default è l'USDT ricevuto all'emissione.
+</Warning>
+
+## Recupero parziale durante il default
+
+Il default è progressivo, non tutto-o-niente. **In qualsiasi momento tra i periodi di auto-vendita, il mutuatario può ancora chiamare `repay()` e recuperare il DA in pegno rimanente** pagando solo per ciò che è ancora in pegno.
+
+<Info>
+  **Esempio pratico - recupero dopo il Periodo 1.**
+
+  - Il mutuatario ha aperto un prestito contro 100 DA a `loan.price = 1.00`. Debito iniziale: 70 USDT.
+  - Il mutuatario non rimborsa. Il Periodo 1 scatta al giorno 120: 25 DA vengono bruciati, 17,50 USDT vengono indirizzati al Pool. In pegno rimanente: 75 DA. Debito rimanente: 52,50 USDT.
+  - Al giorno 150, prima che scatti il Periodo 2, il mutuatario decide di recuperare ciò che rimane. Chiama `repay()` per il saldo rimanente completo.
+  - `toPay = 75 × 1,00 × 0,70 = 52,50 USDT`. Il mutuatario restituisce 52,50 USDT. Il contratto libera 75 DA nel TokenStack del mutuatario. Il prestito si chiude.
+  - I 25 DA bruciati nel Periodo 1 sono persi in modo permanente - non possono essere recuperati.
+</Info>
+
+<Note>
+  **Comportamento di `repay()` dopo l'avvio dell'auto-vendita.** Quando `repay()` viene chiamata su uno stack che ha già attraversato il ciclo di auto-vendita, il contratto esegue prima `_processExpiredStacks()` per liquidare ogni periodo il cui trigger è già scattato. Dopo quella liquidazione, la chiamata procede contro il collaterale e il debito post-burn. Il mutuatario **non può** usare `repay()` per "anticipare" un burn già scattato, ma **può** fermare il **prossimo** burn rimborsando prima del confine del suo periodo.
+</Note>
+
+## Meccanica della vendita post-recupero
+
+Il DA recuperato tramite rimborso totale o parziale torna al TokenStack del mutuatario e si comporta esattamente come normale DA in seguito. Può essere:
+
+- **Venduto manualmente** al 75% del **prezzo di mercato corrente** in USDT (il 100% del DA venduto viene bruciato)
+- **Tenuto** fino a quando il programma di auto-vendita del batch raggiunge il periodo successivo
+- **Lasciato auto-vendere** al payout standard del 70% quando scatta il suo periodo
+
+L'Income Limit sul NFT del detentore viene consumato rispetto al **valore di mercato corrente** del DA venduto, non rispetto a `loan.price`.
+
+<Info>
+  **Esempio pratico - vendita di DA recuperato dopo crescita del prezzo.**
+
+  - Il mutuatario ha aperto un prestito contro 100 DA a `loan.price = 1.00`. Ricevuti 66,50 USDT.
+  - 90 giorni dopo, il prezzo di mercato è cresciuto a 2,00 USDT. Il mutuatario rimborsa integralmente: restituisce 70 USDT, recupera 100 DA.
+  - Il mutuatario vende poi quei 100 DA manualmente. Valore di mercato: 100 DA × 2,00 USDT = 200 USDT.
+    - Il mutuatario riceve `200 × 0,75 = 150 USDT` nel proprio Saldo Regolare.
+    - Tutti i 100 DA vengono bruciati.
+    - La differenza di 50 USDT (200 - 150) resta nel Pool come commissione di protocollo.
+    - **L'Income Limit viene ridotto dell'intero valore di mercato di 200 USDT della vendita**, non dei 100 USDT che corrisponderebbero a `loan.price`.
+</Info>
+
+Questa è la ragione strutturale per cui il lending è attraente su larga scala: il mutuatario blocca la liquidità al prezzo odierno, mantiene il rialzo sull'apprezzazione del DA e consuma l'Income Limit solo sul valore effettivo realizzato al momento della vendita.
+
+## Parametri di lending in sintesi
+
+| Parametro | Valore | Mutabilità |
+|---|---|---|
+| LTV | 70% | Immutabile |
+| Commissione di lending (`loanFee`) | 5% | Regolabile dalla DAO (0% - 5%) |
+| Destinazione della commissione | Pool di Liquidità DA | Immutabile |
+| Finestra di idoneità (tempo alla prossima auto-vendita) | 30 giorni | Immutabile |
+| Durata del prestito | Nessuna (fino all'auto-vendita o al rimborso) | Strutturale |
+| Riferimento di prezzo per il debito | `loan.price` all'emissione | Strutturale |
+| Prestiti per batch | 1 (per tutta la vita) | Strutturale |
+| Destinazione dei proventi in default | Pool di Liquidità DA | Strutturale |
+| Commissione di rimborso | Nessuna | Strutturale |
+| Livello NFT minimo | L5 (Hydro) | Immutabile |
+
+Il parametro `loanFee` è governato indipendentemente da tutte le altre commissioni del protocollo affinché la DAO possa regolare l'economia del lending senza toccare le tasse di marketing, le commissioni cumulative o qualsiasi altra commissione.
+
+## Errori comuni
+
+<Warning>
+  **Non puoi dare in pegno lo stesso batch due volte.** Anche dopo un rimborso totale, lo slot di lending del batch è consumato. Per aprire un nuovo prestito, mina e farma un nuovo batch.
+</Warning>
+
+<Warning>
+  **Non puoi dare in pegno un batch entro 30 giorni dal prossimo trigger di auto-vendita.** Pianifica i prestiti contro batch freschi - il percorso di emissione del prestito viene revocato su un batch con meno di 30 giorni rimanenti al prossimo evento di auto-vendita.
+</Warning>
+
+<Warning>
+  **I burn già scattati non possono essere annullati.** Il recupero parziale durante il default è possibile, ma ogni periodo già trascorso ha bruciato in modo permanente la sua quota di collaterale. Rimborsa prima del periodo successivo se vuoi salvare ciò che rimane.
+</Warning>
+
+<Warning>
+  **L'Income Limit viene consumato rispetto al valore di mercato corrente, non rispetto a `loan.price`.** Un batch recuperato venduto dopo una forte crescita del prezzo DA consumerà l'Income Limit proporzionale al nuovo valore di mercato. Mantieni l'NFT rinnovato affinché l'intero payout superiore venga effettivamente accreditato.
+</Warning>
+
+## Pagine correlate
+
+<CardGroup cols={2}>
+  <Card title="Meccanica della Vendita" icon="fire" href="/it/da-selling-lending">
+    Vendita manuale al 75%, auto-vendita al 70% e come il ciclo di auto-vendita a quattro periodi interagisce con i default di lending.
+  </Card>
+  <Card title="Economia del Token DA" icon="coins" href="/it/da-token-mechanics">
+    Il hard cap di 21M, la formula `Prezzo = Liquidità ÷ Offerta` e ogni flusso di ricavi che alimenta il Pool.
+  </Card>
+</CardGroup>
