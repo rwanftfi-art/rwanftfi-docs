@@ -158,17 +158,19 @@ Her madencilik döngüsünden gelen her DA partisi bağımsız teminat olarak hi
     Kullanıcı bir madencilik döngüsünü tamamlar ve DA parti 1 alır.
   </Step>
   <Step title="Parti 1 Karşılığında Borç Al">
-    Kullanıcı parti 1 karşılığında %70 LTV kredi alır (Likidite Havuzuna %5 komisyon).
+    Kullanıcı parti 1 karşılığında sabit %70 LTV kredi alır (ihraçta Likidite Havuzuna tek seferlik %5 komisyon; geri ödemede tekrar tahsil edilmez).
   </Step>
   <Step title="Parti 2 Madenciliği">
     Kullanıcı yeni bir madencilik döngüsü başlatır ve DA parti 2 alır.
   </Step>
   <Step title="Parti 2 Karşılığında Borç Al">
-    Kullanıcı parti 2 karşılığında başka bir %70 LTV kredi alır (ayrı %5 komisyon).
+    Kullanıcı parti 2 karşılığında başka bir sabit %70 LTV kredi alır (ihraçta ayrı tek seferlik %5 komisyon).
   </Step>
 </Steps>
 
-Bu, her DA partisi başına bir tane olmak üzere birden fazla eş zamanlı mikro-kredi sağlar. Her kredi bağımsızdır — kendi partisine bağlıdır — ve o partinin stack'i otomatik satış döngüsüne girene kadar aktif kalır. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı yakılır — tüm DA varlıkları değil.
+Bu, her DA partisi başına bir tane olmak üzere birden fazla eş zamanlı mikro-kredi sağlar. Her kredi bağımsızdır - kendi partisine bağlıdır - ve o partinin stack'i otomatik satış döngüsüne girene kadar aktif kalır. Herhangi bir bireysel kredi temerrüde düşerse, yalnızca o partinin teminatı yakılır - tüm DA varlıkları değil.
+
+Borç verme aynı zamanda kısmi geri ödemeleri ve orantılı temerrüt kurtarımını da destekler. Tam döküm için bkz. [Borç Verme Mekanikleri](/tr/da-lending).
 
 Ayrıntılı satış vs. borç verme karşılaştırması için bkz. [Satış ve Borç Verme](/tr/da-selling-lending).
 
