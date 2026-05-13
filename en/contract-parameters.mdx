@@ -61,6 +61,10 @@ All fees are enforced by the smart contract and adjustable within defined ranges
 | Frozen Balance → Sponsor | 30% | 0% – 30% |
 
 <Note>
+  **Loan Fee - semantics:** The 5% is charged **once, at loan issuance**, and routed directly to the DA Liquidity Pool. Repayment - full or partial - does not trigger the fee again. The parameter is stored on-chain as a dedicated `loanFee`, separate from the protocol's other fee parameters, so the DAO can tune lending economics independently of marketing taxes, accumulative fees, or any other commission.
+</Note>
+
+<Note>
   **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
 </Note>
 
@@ -179,6 +183,7 @@ Matching Bonus pays 5% across three levels of direct partner income. Each level 
 |---|---|
 | Manual Sell Payout | 75% |
 | Auto-Sell / Lending Payout | 70% |
+| LTV Ratio | 70% (fixed) |
 | Matching Bonus per Level | 5% |
 | Frozen Balance Window | 72 hours |
 | Voucher Lifetime | 365 days |
@@ -188,5 +193,7 @@ Matching Bonus pays 5% across three levels of direct partner income. Each level 
 | DAO Grace Period | 7 days |
 
 <Note>
-  **Loan Eligibility Threshold — semantics:** This is **not** a loan duration. It is the minimum time-to-next-auto-sell that a DA stack must still have remaining in order to be used as collateral for a **new** loan (on-chain check: `_getTimeToNextAutosale >= 30 days`). Once a loan is open, there is no fixed term — the borrower can call `repay()` at any time while the stack is still active, and `repay()` only reverts after the stack has entered its auto-sell cycle.
+  **Loan Eligibility Threshold - semantics:** This is **not** a loan duration. It is a **rolling on-chain check executed before every new `loan()` call** (`_getTimeToNextAutosale(stack) >= 30 days`): the DA batch being pledged must still have at least 30 days remaining until its next scheduled auto-sell trigger, or the call reverts. A batch with 29 days or fewer to its next trigger cannot be used as collateral for a new loan.
+
+  This is an **eligibility gate** controlling access to the product, not a **loan term** controlling the life of an open loan. Once a loan is open, the borrower can call `repay()` at any time - in full or in part - for as long as the batch has not crossed its first auto-sell trigger. `repay()` remains callable after that trigger too, but the contract first runs `_processExpiredStacks()` to settle every period whose boundary has passed before the repayment proceeds against the post-burn remainder.
 </Note>
