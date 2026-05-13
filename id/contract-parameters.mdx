@@ -61,6 +61,10 @@ Semua biaya ditegakkan oleh smart contract dan dapat disesuaikan dalam rentang y
 | Frozen Balance → Sponsor | 30% | 0% – 30% |
 
 <Note>
+  **Biaya Pinjaman - semantik:** 5% dikenakan **sekali, saat penerbitan pinjaman**, dan diarahkan langsung ke DA Liquidity Pool. Pelunasan - penuh atau sebagian - tidak memicu biaya lagi. Parameter ini disimpan secara on-chain sebagai `loanFee` khusus, terpisah dari parameter biaya protokol lainnya, sehingga DAO dapat menyetel ekonomi lending secara independen dari pajak marketing, biaya akumulatif, atau komisi lainnya.
+</Note>
+
+<Note>
   **Biaya Penjualan Bisnis — semantik:** Baris "Biaya Penjualan Bisnis" adalah **komisi transfer yang dibayar oleh penjual** untuk mengeksekusi pemindahan struktur bisnis. Ini **bukan** harga jual yang dipungut dari pembeli — pembeli tidak membayar komisi on-chain apa pun kepada protokol dan menerima struktur pohon mitra saat eksekusi. Parameter on-chain yang mengatur komisi ini adalah `businessTransferFee` (diganti namanya dari `businessSalePrice` lama untuk mencerminkan semantik komisinya yang sebenarnya).
 </Note>
 
@@ -179,6 +183,7 @@ Matching Bonus membayar 5% di tiga level pendapatan mitra langsung. Setiap level
 |---|---|
 | Pembayaran Penjualan Manual | 75% |
 | Pembayaran Auto-Sell / Lending | 70% |
+| Rasio LTV | 70% (tetap) |
 | Matching Bonus per Level | 5% |
 | Jendela Frozen Balance | 72 jam |
 | Masa Hidup Voucher | 365 hari |
@@ -188,5 +193,7 @@ Matching Bonus membayar 5% di tiga level pendapatan mitra langsung. Setiap level
 | Periode Tenggang DAO | 7 hari |
 
 <Note>
-  **Ambang Kelayakan Pinjaman — semantik:** Ini **bukan** jangka waktu pinjaman. Ini adalah waktu minimum tersisa hingga auto-sell berikutnya yang harus masih ada pada stack DA agar dapat digunakan sebagai jaminan untuk pinjaman **baru** (pemeriksaan on-chain: `_getTimeToNextAutosale >= 30 days`). Setelah pinjaman dibuka, tidak ada jangka waktu tetap — peminjam dapat memanggil `repay()` kapan saja selama stack masih aktif; `repay()` baru dibatalkan setelah stack memasuki siklus auto-sell-nya.
+  **Ambang Kelayakan Pinjaman - semantik:** Ini **bukan** jangka waktu pinjaman. Ini adalah **pemeriksaan on-chain bergulir yang dieksekusi sebelum setiap panggilan `loan()` baru** (`_getTimeToNextAutosale(stack) >= 30 days`): batch DA yang dijaminkan harus masih memiliki setidaknya 30 hari tersisa hingga pemicu auto-sell terjadwal berikutnya, atau panggilan dibatalkan. Batch dengan 29 hari atau kurang hingga pemicu berikutnya tidak dapat digunakan sebagai jaminan untuk pinjaman baru.
+
+  Ini adalah **pintu kelayakan** yang mengontrol akses ke produk, bukan **jangka waktu pinjaman** yang mengontrol kehidupan pinjaman yang terbuka. Setelah pinjaman terbuka, peminjam dapat memanggil `repay()` kapan saja - penuh atau sebagian - selama batch belum melewati pemicu auto-sell pertamanya. `repay()` tetap dapat dipanggil setelah pemicu tersebut juga, tetapi kontrak pertama menjalankan `_processExpiredStacks()` untuk menyelesaikan setiap periode yang batasnya telah terlewati sebelum pelunasan dilanjutkan terhadap sisa pasca-pembakaran.
 </Note>
