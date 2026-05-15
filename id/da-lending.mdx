@@ -187,17 +187,17 @@ Jika peminjam tidak melunasi pinjaman sebelum stack yang dijaminkan memasuki sik
   </Step>
 </Steps>
 
+**Contoh perhitungan - gagal bayar penuh pada pinjaman 100 DA / 70 USDT dengan `loan.price = 1,00`.**
+
+| Peristiwa | DA dijaminkan sebelum | DA dibakar | USDT ke Pool | DA dijaminkan setelah | Sisa utang |
+|---|---|---|---|---|---|
+| Penerbitan (hari 0) | - | - | - | 100 | 70,00 |
+| Periode 1 (hari 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Periode 2 (hari 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Periode 3 (hari 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Periode 4 (hari 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Contoh perhitungan - gagal bayar penuh pada pinjaman 100 DA / 70 USDT dengan `loan.price = 1,00`.**
-
-  | Peristiwa | DA dijaminkan sebelum | DA dibakar | USDT ke Pool | DA dijaminkan setelah | Sisa utang |
-  |---|---|---|---|---|---|
-  | Penerbitan (hari 0) | - | - | - | 100 | 70,00 |
-  | Periode 1 (hari 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Periode 2 (hari 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Periode 3 (hari 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Periode 4 (hari 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Jika peminjam tidak mengambil tindakan pemulihan selama keempat periode, mereka menyimpan 66,50 USDT asli yang diterima saat penerbitan dan seluruh jaminan 100 DA dibakar selama siklus 365 hari. Semua DA yang dibakar dihapus secara permanen dari pasokan; semua USDT yang diarahkan ke Pool memperkuat pendukung DA untuk seluruh ekosistem.
 </Info>
 
