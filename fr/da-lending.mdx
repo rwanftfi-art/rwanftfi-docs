@@ -187,17 +187,17 @@ Si l'emprunteur ne rembourse pas le prêt avant que le stack mis en collatéral 
   </Step>
 </Steps>
 
+**Exemple - défaut total sur un prêt de 100 DA / 70 USDT à `loan.price = 1,00`.**
+
+| Événement | DA mis en gage avant | DA brûlé | USDT vers le Pool | DA mis en gage après | Dette restante |
+|---|---|---|---|---|---|
+| Émission (jour 0) | - | - | - | 100 | 70,00 |
+| Période 1 (jour 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Période 2 (jour 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Période 3 (jour 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Période 4 (jour 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Exemple - défaut total sur un prêt de 100 DA / 70 USDT à `loan.price = 1,00`.**
-
-  | Événement | DA mis en gage avant | DA brûlé | USDT vers le Pool | DA mis en gage après | Dette restante |
-  |---|---|---|---|---|---|
-  | Émission (jour 0) | - | - | - | 100 | 70,00 |
-  | Période 1 (jour 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Période 2 (jour 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Période 3 (jour 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Période 4 (jour 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Si l'emprunteur ne prend aucune mesure de récupération sur les quatre périodes, il conserve les 66,50 USDT originaux reçus à l'émission et la totalité des 100 DA en collatéral est brûlée sur le cycle de 365 jours. Tous les DA brûlés sont définitivement retirés de la masse monétaire ; tous les USDT dirigés vers le Pool renforcent l'adossement du DA pour le reste de l'écosystème.
 </Info>
 

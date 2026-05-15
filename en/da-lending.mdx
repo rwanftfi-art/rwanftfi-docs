@@ -187,17 +187,17 @@ If the borrower does not repay the loan before the collateralized stack enters i
   </Step>
 </Steps>
 
+**Worked example - full default on a 100 DA / 70 USDT loan at `loan.price = 1.00`.**
+
+| Event | Pledged DA before | DA burned | USDT to Pool | Pledged DA after | Remaining debt |
+|---|---|---|---|---|---|
+| Issuance (day 0) | - | - | - | 100 | 70.00 |
+| Period 1 (day 120) | 100 | 25 | 17.50 | 75 | 52.50 |
+| Period 2 (day 210) | 75 | 30 | 21.00 | 45 | 31.50 |
+| Period 3 (day 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
+| Period 4 (day 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
+
 <Info>
-  **Worked example - full default on a 100 DA / 70 USDT loan at `loan.price = 1.00`.**
-
-  | Event | Pledged DA before | DA burned | USDT to Pool | Pledged DA after | Remaining debt |
-  |---|---|---|---|---|---|
-  | Issuance (day 0) | - | - | - | 100 | 70.00 |
-  | Period 1 (day 120) | 100 | 25 | 17.50 | 75 | 52.50 |
-  | Period 2 (day 210) | 75 | 30 | 21.00 | 45 | 31.50 |
-  | Period 3 (day 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
-  | Period 4 (day 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
-
   If the borrower takes no recovery action across all four periods, they keep the original 66.50 USDT received at issuance and the full 100 DA collateral is burned over the 365-day cycle. All burned DA is permanently removed from supply; all USDT routed to the Pool strengthens DA backing for the rest of the ecosystem.
 </Info>
 

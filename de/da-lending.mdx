@@ -187,17 +187,17 @@ Wenn der Kreditnehmer den Kredit nicht zurückzahlt, bevor der besicherte Stack 
   </Step>
 </Steps>
 
+**Bearbeitetes Beispiel - vollständiger Ausfall bei einem 100 DA / 70 USDT Kredit bei `loan.price = 1,00`.**
+
+| Ereignis | Verpf. DA vorher | DA verbrannt | USDT an Pool | Verpf. DA nachher | Verbleibende Schuld |
+|---|---|---|---|---|---|
+| Ausgabe (Tag 0) | - | - | - | 100 | 70,00 |
+| Periode 1 (Tag 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Periode 2 (Tag 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Periode 3 (Tag 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Periode 4 (Tag 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Bearbeitetes Beispiel - vollständiger Ausfall bei einem 100 DA / 70 USDT Kredit bei `loan.price = 1,00`.**
-
-  | Ereignis | Verpf. DA vorher | DA verbrannt | USDT an Pool | Verpf. DA nachher | Verbleibende Schuld |
-  |---|---|---|---|---|---|
-  | Ausgabe (Tag 0) | - | - | - | 100 | 70,00 |
-  | Periode 1 (Tag 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Periode 2 (Tag 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Periode 3 (Tag 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Periode 4 (Tag 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Wenn der Kreditnehmer über alle vier Perioden hinweg keine Rückgewinnungsmaßnahmen ergreift, behält er die ursprünglich bei Ausgabe erhaltenen 66,50 USDT und die vollständigen 100 DA Sicherheiten werden über den 365-Tage-Zyklus verbrannt. Alle verbrannten DA werden dauerhaft aus dem Angebot entfernt; alle USDT, die an den Pool weitergeleitet werden, stärken die DA-Deckung für den Rest des Ökosystems.
 </Info>
 

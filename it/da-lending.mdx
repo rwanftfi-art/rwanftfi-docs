@@ -187,17 +187,17 @@ Se il mutuatario non rimborsa il prestito prima che lo stack collateralizzato en
   </Step>
 </Steps>
 
+**Esempio pratico - default totale su un prestito da 100 DA / 70 USDT a `loan.price = 1.00`.**
+
+| Evento | DA in pegno prima | DA bruciato | USDT al Pool | DA in pegno dopo | Debito residuo |
+|---|---|---|---|---|---|
+| Emissione (giorno 0) | - | - | - | 100 | 70,00 |
+| Periodo 1 (giorno 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Periodo 2 (giorno 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Periodo 3 (giorno 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Periodo 4 (giorno 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Esempio pratico - default totale su un prestito da 100 DA / 70 USDT a `loan.price = 1.00`.**
-
-  | Evento | DA in pegno prima | DA bruciato | USDT al Pool | DA in pegno dopo | Debito residuo |
-  |---|---|---|---|---|---|
-  | Emissione (giorno 0) | - | - | - | 100 | 70,00 |
-  | Periodo 1 (giorno 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Periodo 2 (giorno 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Periodo 3 (giorno 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Periodo 4 (giorno 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Se il mutuatario non intraprende alcuna azione di recupero in tutti e quattro i periodi, conserva i 66,50 USDT originali ricevuti all'emissione e l'intero collaterale da 100 DA viene bruciato nel corso del ciclo di 365 giorni. Tutto il DA bruciato viene rimosso permanentemente dall'offerta; tutto l'USDT indirizzato al Pool rafforza il backing del DA per il resto dell'ecosistema.
 </Info>
 

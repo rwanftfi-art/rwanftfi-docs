@@ -187,17 +187,17 @@ Se o tomador não quitar o empréstimo antes de o stack colateralizado entrar no
   </Step>
 </Steps>
 
+**Exemplo prático - inadimplência total em um empréstimo de 100 DA / 70 USDT com `loan.price = 1,00`.**
+
+| Evento | DA em garantia antes | DA queimado | USDT para o Pool | DA em garantia depois | Dívida restante |
+|---|---|---|---|---|---|
+| Emissão (dia 0) | - | - | - | 100 | 70,00 |
+| Período 1 (dia 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Período 2 (dia 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Período 3 (dia 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Período 4 (dia 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Exemplo prático - inadimplência total em um empréstimo de 100 DA / 70 USDT com `loan.price = 1,00`.**
-
-  | Evento | DA em garantia antes | DA queimado | USDT para o Pool | DA em garantia depois | Dívida restante |
-  |---|---|---|---|---|---|
-  | Emissão (dia 0) | - | - | - | 100 | 70,00 |
-  | Período 1 (dia 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Período 2 (dia 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Período 3 (dia 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Período 4 (dia 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Se o tomador não tomar nenhuma ação de recuperação ao longo dos quatro períodos, ele mantém os 66,50 USDT originais recebidos na emissão e toda a garantia de 100 DA é queimada ao longo do ciclo de 365 dias. Todo o DA queimado é removido permanentemente da oferta; todo o USDT direcionado ao Pool fortalece o lastro do DA para o resto do ecossistema.
 </Info>
 

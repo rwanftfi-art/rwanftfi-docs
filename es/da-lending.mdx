@@ -187,17 +187,17 @@ Si el prestatario no reembolsa el préstamo antes de que el stack colateralizado
   </Step>
 </Steps>
 
+**Ejemplo - default total sobre un préstamo de 100 DA / 70 USDT a `loan.price = 1,00`.**
+
+| Evento | DA pigñorado antes | DA quemado | USDT al Pool | DA pigñorado después | Deuda restante |
+|---|---|---|---|---|---|
+| Emisión (día 0) | - | - | - | 100 | 70,00 |
+| Período 1 (día 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Período 2 (día 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Período 3 (día 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Período 4 (día 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Ejemplo - default total sobre un préstamo de 100 DA / 70 USDT a `loan.price = 1,00`.**
-
-  | Evento | DA pigñorado antes | DA quemado | USDT al Pool | DA pigñorado después | Deuda restante |
-  |---|---|---|---|---|---|
-  | Emisión (día 0) | - | - | - | 100 | 70,00 |
-  | Período 1 (día 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Período 2 (día 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Período 3 (día 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Período 4 (día 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Si el prestatario no toma ninguna acción de recuperación a lo largo de los cuatro períodos, conserva los 66,50 USDT originales recibidos al emitirse y el total de 100 DA de colateral se quema a lo largo del ciclo de 365 días. Todo el DA quemado se elimina permanentemente del suministro; todo el USDT enrutado al Pool fortalece el respaldo del DA para el resto del ecosistema.
 </Info>
 

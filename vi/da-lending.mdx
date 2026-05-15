@@ -187,17 +187,17 @@ Nếu người vay không trả nợ trước khi stack thế chấp đi vào ch
   </Step>
 </Steps>
 
+**Ví dụ minh họa - vỡ nợ hoàn toàn trên khoản vay 100 DA / 70 USDT tại `loan.price = 1,00`.**
+
+| Sự kiện | DA cầm cố trước | DA bị đốt | USDT vào Pool | DA cầm cố sau | Khoản nợ còn lại |
+|---|---|---|---|---|---|
+| Phát hành (ngày 0) | - | - | - | 100 | 70,00 |
+| Giai đoạn 1 (ngày 120) | 100 | 25 | 17,50 | 75 | 52,50 |
+| Giai đoạn 2 (ngày 210) | 75 | 30 | 21,00 | 45 | 31,50 |
+| Giai đoạn 3 (ngày 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
+| Giai đoạn 4 (ngày 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
+
 <Info>
-  **Ví dụ minh họa - vỡ nợ hoàn toàn trên khoản vay 100 DA / 70 USDT tại `loan.price = 1,00`.**
-
-  | Sự kiện | DA cầm cố trước | DA bị đốt | USDT vào Pool | DA cầm cố sau | Khoản nợ còn lại |
-  |---|---|---|---|---|---|
-  | Phát hành (ngày 0) | - | - | - | 100 | 70,00 |
-  | Giai đoạn 1 (ngày 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-  | Giai đoạn 2 (ngày 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-  | Giai đoạn 3 (ngày 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-  | Giai đoạn 4 (ngày 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
   Nếu người vay không thực hiện hành động phục hồi nào trong cả bốn giai đoạn, họ giữ lại 66,50 USDT gốc nhận được tại thời điểm phát hành và toàn bộ 100 DA tài sản thế chấp bị đốt trong chu kỳ 365 ngày. Toàn bộ DA bị đốt được loại bỏ vĩnh viễn khỏi nguồn cung; toàn bộ USDT chuyển vào Pool tăng cường bảo chứng DA cho phần còn lại của hệ sinh thái.
 </Info>
 

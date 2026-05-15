@@ -187,17 +187,17 @@ Borçlu, teminatlandırılmış stack otomatik satış döngüsüne girmeden ön
   </Step>
 </Steps>
 
+**Çalışma örneği - `loan.price = 1.00`'da 100 DA / 70 USDT kredi üzerinde tam temerrüt.**
+
+| Olay | Önceki taahhütlü DA | Yakılan DA | Havuza USDT | Sonraki taahhütlü DA | Kalan borç |
+|---|---|---|---|---|---|
+| İhraç (gün 0) | - | - | - | 100 | 70.00 |
+| Dönem 1 (gün 120) | 100 | 25 | 17.50 | 75 | 52.50 |
+| Dönem 2 (gün 210) | 75 | 30 | 21.00 | 45 | 31.50 |
+| Dönem 3 (gün 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
+| Dönem 4 (gün 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
+
 <Info>
-  **Çalışma örneği - `loan.price = 1.00`'da 100 DA / 70 USDT kredi üzerinde tam temerrüt.**
-
-  | Olay | Önceki taahhütlü DA | Yakılan DA | Havuza USDT | Sonraki taahhütlü DA | Kalan borç |
-  |---|---|---|---|---|---|
-  | İhraç (gün 0) | - | - | - | 100 | 70.00 |
-  | Dönem 1 (gün 120) | 100 | 25 | 17.50 | 75 | 52.50 |
-  | Dönem 2 (gün 210) | 75 | 30 | 21.00 | 45 | 31.50 |
-  | Dönem 3 (gün 300) | 45 | 22.5 | 15.75 | 22.5 | 15.75 |
-  | Dönem 4 (gün 365) | 22.5 | 22.5 | 15.75 | 0 | 0 |
-
   Borçlu dört dönem boyunca hiçbir kurtarma eylemi gerçekleştirmezse, ihraçta alınan orijinal 66.50 USDT'yi korur ve tam 100 DA teminatı 365 günlük döngü boyunca yakılır. Yakılan tüm DA arzdan kalıcı olarak kaldırılır; Havuza yönlendirilen tüm USDT, ekosistemin geri kalanı için DA desteğini güçlendirir.
 </Info>
 
