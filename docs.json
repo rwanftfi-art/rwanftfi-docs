@@ -93,6 +93,7 @@
               "en/faq",
               "en/glossary",
               "en/corporate-structure",
+              "en/intellectual-property",
               "en/support",
               "en/partnerships",
               "en/legal"
@@ -157,6 +158,7 @@
             "group": "Ресурсы",
             "pages": [
               "ru/corporate-structure",
+              "ru/intellectual-property",
               "ru/support",
               "ru/partnerships",
               "ru/legal"
@@ -221,6 +223,7 @@
             "group": "Kaynaklar",
             "pages": [
               "tr/corporate-structure",
+              "tr/intellectual-property",
               "tr/support",
               "tr/partnerships",
               "tr/legal"
@@ -285,6 +288,7 @@
             "group": "资源",
             "pages": [
               "zh/corporate-structure",
+              "zh/intellectual-property",
               "zh/support",
               "zh/partnerships",
               "zh/legal"
@@ -349,6 +353,7 @@
             "group": "Recursos",
             "pages": [
               "es/corporate-structure",
+              "es/intellectual-property",
               "es/support",
               "es/partnerships",
               "es/legal"
@@ -413,6 +418,7 @@
             "group": "Ressourcen",
             "pages": [
               "de/corporate-structure",
+              "de/intellectual-property",
               "de/support",
               "de/partnerships",
               "de/legal"
@@ -477,6 +483,7 @@
             "group": "Recursos",
             "pages": [
               "pt/corporate-structure",
+              "pt/intellectual-property",
               "pt/support",
               "pt/partnerships",
               "pt/legal"
@@ -541,6 +548,7 @@
             "group": "संसाधन",
             "pages": [
               "hi/corporate-structure",
+              "hi/intellectual-property",
               "hi/support",
               "hi/partnerships",
               "hi/legal"
@@ -605,6 +613,7 @@
             "group": "Risorse",
             "pages": [
               "it/corporate-structure",
+              "it/intellectual-property",
               "it/support",
               "it/partnerships",
               "it/legal"
@@ -669,6 +678,7 @@
             "group": "Ressources",
             "pages": [
               "fr/corporate-structure",
+              "fr/intellectual-property",
               "fr/support",
               "fr/partnerships",
               "fr/legal"
@@ -733,6 +743,7 @@
             "group": "الموارد",
             "pages": [
               "ar/corporate-structure",
+              "ar/intellectual-property",
               "ar/support",
               "ar/partnerships",
               "ar/legal"
@@ -797,6 +808,7 @@
             "group": "Sumber Daya",
             "pages": [
               "id/corporate-structure",
+              "id/intellectual-property",
               "id/support",
               "id/partnerships",
               "id/legal"
@@ -861,6 +873,7 @@
             "group": "リソース",
             "pages": [
               "ja/corporate-structure",
+              "ja/intellectual-property",
               "ja/support",
               "ja/partnerships",
               "ja/legal"
@@ -925,6 +938,7 @@
             "group": "Tài Nguyên",
             "pages": [
               "vi/corporate-structure",
+              "vi/intellectual-property",
               "vi/support",
               "vi/partnerships",
               "vi/legal"
@@ -989,6 +1003,7 @@
             "group": "Ресурси",
             "pages": [
               "uk/corporate-structure",
+              "uk/intellectual-property",
               "uk/support",
               "uk/partnerships",
               "uk/legal"
