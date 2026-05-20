@@ -76,17 +76,30 @@ icon: "circle-question"
   }}
 />
 
-A consolidated reference for the most common questions about the RWANFTFI protocol. Each answer is self-contained and links to the full mechanics page.
+A consolidated reference for the most common questions about the RWANFTFI protocol. Browse by topic below — each answer is self-contained and links to the full mechanics page.
 
-## What is RWANFTFI?
+<CardGroup cols={3}>
+  <Card title="Protocol Basics" icon="circle-info" href="#faq-sec-1" />
+  <Card title="The DA Token" icon="coins" href="#faq-sec-2" />
+  <Card title="Income, Balances & Marketing" icon="chart-line" href="#faq-sec-3" />
+  <Card title="Mining, Farming & Lending" icon="hand-holding-dollar" href="#faq-sec-4" />
+  <Card title="Architecture & Governance" icon="sitemap" href="#faq-sec-5" />
+  <Card title="Security, Legal & Company" icon="shield-halved" href="#faq-sec-6" />
+</CardGroup>
+
+<div id="faq-sec-1" />
+
+## Protocol Basics
+
+### What is RWANFTFI?
 
 RWANFTFI is a Web3 protocol on the Binance Smart Chain (BSC) that bridges NFTs, Real World Assets (RWA), DeFi, and CeFi into a unified financial ecosystem. Holders of one of 10 NFT tiers (priced from 28 to 24,000 USDT) gain access to a 22-level marketing structure, NFTM mining, DA farming, and lending. The economic engine is the Deflationary Asset (DA) — a token strictly hard-capped at 21,000,000 units and 100% backed by a USDT liquidity pool. Smart contracts are independently audited by [CertiK](https://skynet.certik.com/projects/rwanftfi) and built on the Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
 
-## What blockchain does RWANFTFI run on?
+### What blockchain does RWANFTFI run on?
 
 RWANFTFI operates exclusively on the Binance Smart Chain (BSC) using the BEP20 token standard. Transactions require a small amount of BNB for gas. A managed cross-chain deposit service (operated by a dedicated `SERVICE_ROLE`) lets users fund their accounts from any supported blockchain.
 
-## How many NFT tiers exist and what do they cost?
+### How many NFT tiers exist and what do they cost?
 
 There are 10 tiers. Prices and naming:
 
@@ -105,84 +118,105 @@ There are 10 tiers. Prices and naming:
 
 Higher tiers unlock deeper marketing earnings, NFTM mining, and lending. Full details on the [NFT Ecosystem page](/en/nft-ecosystem).
 
-## How does the DA token's price grow?
+<div id="faq-sec-2" />
+
+## The DA Token
+
+### How does the DA token's price grow?
 
 The DA price follows a single formula: **Price = Liquidity ÷ Circulating Supply**. Every time DA is sold, 100% of the sold tokens are permanently burned (supply decreases) while USDT remains in the pool (liquidity stays or grows). The result is mechanically deflationary: less supply over the same or larger backing means a higher price per token. The pool is funded by 14+ revenue streams across the ecosystem. See [DA Token Mechanics](/en/da-token-mechanics).
 
-## Can DA be transferred between users?
+### Can DA be transferred between users?
 
 No. DA is a non-transferable utility token. It can only be sold (manual or automatic), used as lending collateral, or repaid. Peer-to-peer transfers are disabled at the contract level.
 
-## What is the Income Limit?
+### What is the Auto-Sell cycle?
+
+If a user does not sell DA manually, the system triggers automatic sales from the remaining balance over four periods totaling 365 days: 25% after 120 days, 40% of the remainder after 90 more days, 50% of the remainder after 90 more days, and 100% of the remainder after the final 65 days. 100% of auto-sold tokens are burned and the user receives 70% of the value in USDT (vs 75% on manual sale). Each auto-sell executes at the DA price at the time of that period's trigger.
+
+<div id="faq-sec-3" />
+
+## Income, Balances & Marketing
+
+### What is the Income Limit?
 
 Every NFT has a strict Income Limit — the maximum cumulative income that NFT can generate before renewal. The limit is consumed by both marketing rewards and DA sales. When it reaches zero, the holder stops receiving all marketing rewards and loses the ability to sell DA manually. To prevent this, renew the NFT via Autobuy, manual same-level repurchase, or upgrade to a higher tier. Manual repurchase is locked while the remaining limit is above 30% of the original.
 
-## What is Frozen Balance and when does it activate?
+### What is the Accumulative Balance?
+
+A mandatory savings account where 20% of every marketing reward is automatically credited. It can only be used to purchase the same-level NFT or upgrade to a higher level. Using it incurs a 20% fee routed to the DA Liquidity Pool; transferring it to another user incurs the same 20% fee. If unused for 120 days, it becomes eligible for redistribution: 70% to the DA Liquidity Pool and 30% to the upline sponsor (Regular NFT holders). See [Architecture — Balance Schema](/en/architecture).
+
+### What is Frozen Balance and when does it activate?
 
 Frozen Balance is a 72-hour income protection mechanic. It activates only when **all three** conditions are met: (1) the buyer is your direct personal invitee, (2) it is that invitee's first NFT purchase or their Autobuy renewal, and (3) the resulting commission exceeds your remaining Income Limit. The excess is held for 72 hours, giving you time to upgrade your NFT and claim it. If you miss the window and Autobuy did not cover the excess, 70% is routed to the DA Liquidity Pool and 30% goes to your direct upline sponsor. Full mechanics on the [Frozen Balance page](/en/frozen-balance).
 
-## How does the marketing structure work?
+### How does the marketing structure work?
 
 When a user activates an NFT, the smart contract permanently places them into a 22-level binary tree using a "weakest branch, left to right" algorithm. Maximum capacity is 8,388,606 positions when fully filled. Earnings come from three independent streams: **Sponsor Bonus** (30% Phase 1 / 20% Phase 2 of NFT price for direct invites), **Tree Distribution** (per-level percentages from Level 2 to Level 22), and **Matching Bonus** (5% + 5% + 5% across three levels of direct partners' income). Levels 16–22 unlock in Phase 2 via DAO vote. See [Marketing Structure](/en/marketing-binary-tree).
 
-## How deep can my NFT earn?
+### How deep can my NFT earn?
 
 Depth depends on your NFT level. Currently, Genesis (L1) earns from 2 levels deep, and Infinity (L10) earns up to 19 levels deep. After Phase 2 is activated by DAO vote (planned Q4 2026), Infinity will earn up to the full 22 levels. Other tiers expand proportionally. Lower-tier holders rely on **compression** — when an upline does not qualify, their reward passes upward to the next active participant.
 
-## Can I take a loan against my DA?
+<div id="faq-sec-4" />
+
+## Mining, Farming & Lending
+
+### What is NFTM?
+
+NFTM is **not a token** — it is an internal mining counter tracked by the smart contract. It has no market value and cannot be traded or transferred. Its only function is to be staked into Farming, where it converts to DA at the current price. Mining requires an active Income Limit and a Premium tier or higher (L5+). After mining completes, you have exactly 72 hours to stake NFTM into Farming or the cycle is lost. See [Mining & Farming](/en/da-mining-farming).
+
+### What happens if I don't claim a matured Farming reward before upgrading?
+
+It is permanently destroyed. Any NFT purchase or upgrade calls `terminate()`, which stops the active session and **destroys all unclaimed farming rewards** — including matured ones. Operational rule: claim first, then upgrade.
+
+### Can I take a loan against my DA?
 
 Yes. Premium and Elite NFT holders (L5+) can borrow against their DA at a **fixed 70% LTV** - the rate is hardcoded, the user cannot choose a smaller percentage, and the entire DA batch is pledged at once (no fractional borrowing against part of a batch). Each DA batch from each mining cycle is independent collateral, so multiple simultaneous loans are possible - one per batch. A given batch can be pledged **only once over its entire lifetime**: after a loan is opened, that batch cannot be used as collateral again, even after the loan is fully repaid. A one-time **5% commission** is paid at issuance and routed to the DA Liquidity Pool; repayment, full or partial, does not trigger the fee again. The borrower receives 95% of the gross loan amount in their Regular Balance.
 
 The debt is denominated in USDT at the `loan.price` captured at issuance and **does not increase if DA appreciates** - the loan lets you extract liquidity at today's price while keeping upside on future DA appreciation. The borrower can also **partially repay** at any time, releasing a portion of the collateral and reducing the debt proportionally. A loan can be opened only if at least 30 days remain until the batch's next scheduled auto-sell - this is an on-chain eligibility gate, not a fixed loan term. Once open, the loan has no maturity and can be repaid in full or in part at any time before the batch enters its auto-sell cycle. See [Full lending mechanics →](/en/da-lending).
 
-## What happens if I don't repay my loan in time?
+### What happens if I don't repay my loan in time?
 
 If the borrower does not repay before the collateralized batch enters its auto-sell cycle, the pledged DA is progressively burned through the standard four-period schedule (120 / 90 / 90 / 65 days, 365 days total). Each period burns a fraction of the **remaining** pledged DA: 25%, then 40%, then 50%, then 100%. All burned DA is permanently destroyed and the USDT value at `loan.price` for each burned portion flows to the DA Liquidity Pool. The borrower keeps the USDT received at issuance and loses only the burned portion of the collateral. Default is **not all-or-nothing** - between any two auto-sell periods the borrower can still call `repay()` and reclaim the **remaining** pledged DA by paying only for what is still pledged, stopping every future burn. See [Full lending mechanics →](/en/da-lending).
 
-## What is the Auto-Sell cycle?
+<div id="faq-sec-5" />
 
-If a user does not sell DA manually, the system triggers automatic sales from the remaining balance over four periods totaling 365 days: 25% after 120 days, 40% of the remainder after 90 more days, 50% of the remainder after 90 more days, and 100% of the remainder after the final 65 days. 100% of auto-sold tokens are burned and the user receives 70% of the value in USDT (vs 75% on manual sale). Each auto-sell executes at the DA price at the time of that period's trigger.
+## Architecture & Governance
 
-## Is the protocol audited?
-
-Yes. The smart contracts are independently audited by **CertiK**, with the final report published on **April 28, 2026**. CertiK applied their standard methodology: Static Analysis, Manual Review, and Formal Verification. The full report is publicly verifiable on the [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi) and embedded on the [Security & Audit page](/en/security).
-
-## What contract architecture is used?
+### What contract architecture is used?
 
 The protocol uses the **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, splitting functionality across 7 modular Facets (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) accessed through a single proxy. The Diamond contract is upgradeable via Facet cuts; the TokenReserve (DA) is upgradeable via Transparent Proxy; NFTs, GovToken, and AdminContract are non-upgradeable. See [Architecture](/en/architecture).
 
-## Who governs the protocol?
+### Who governs the protocol?
 
 A Decentralized Autonomous Organization (DAO) backed by an ERC20Votes governance token (GovToken) with a permanently fixed supply of **10,000,000**. A proposal requires backing from **30% of total supply** to be submitted, and a **50% majority** to pass. Current allocation: RWANFTFI Corporation 30% + 20 Guardians at 3.5% each. A future redistribution plan expands governance to up to 101 wallets (Corporation 30% + 20 Guardians at 1.5% + 80 Leaders at 0.5%) without minting new tokens. Developers cannot unilaterally alter system rules or access user funds. See [Governance](/en/governance).
 
-## Are NFTs an investment or a security?
+### Is the protocol audited?
 
-No. NFTs are a **digital product**: by purchasing one, you receive a digital asset and access to ecosystem services. They are explicitly **not** financial instruments, **not** an investment, and **not** securities. All purchases are final, legally binding, and non-refundable — blockchain transactions are immutable. See [Legal & Compliance](/en/legal).
+Yes. The smart contracts are independently audited by **CertiK**, with the final report published on **April 28, 2026**. CertiK applied their standard methodology: Static Analysis, Manual Review, and Formal Verification. The full report is publicly verifiable on the [CertiK Skynet directory](https://skynet.certik.com/projects/rwanftfi) and embedded on the [Security & Audit page](/en/security).
 
-## What corporate entities operate the protocol?
+<div id="faq-sec-6" />
 
-Two entities. **RWANFTFI Corporation** (registered in the Republic of Panama) is the technology and product company — it owns platform infrastructure, NFT architecture, the tokenization engine, and all intellectual property. **NFT FI Corporation** (registered in the British Virgin Islands) is the marketing and commercial company — it manages platform operations, distribution, and partnerships. Disputes are resolved through binding arbitration at the [London Court of International Arbitration (LCIA)](https://www.lcia.org/). See [Corporate Structure](/en/corporate-structure).
+## Security, Legal & Company
 
-## Is the RWANFTFI brand legally protected?
-
-Yes. The **RWANFT** word mark is officially registered with the **UK Intellectual Property Office (UKIPO)** under application **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Nice Class **42** (digital asset management). The owner of record is **RWANFTFI Corporation** (Panama), and the application is professionally represented by **Gresham International** (London). The full case file is publicly searchable on the official UKIPO registry — every detail (number, owner, address, filing date, class, representative) is independently verifiable in real time. See the full record on the [Intellectual Property](/en/intellectual-property) page.
-
-## What is the Accumulative Balance?
-
-A mandatory savings account where 20% of every marketing reward is automatically credited. It can only be used to purchase the same-level NFT or upgrade to a higher level. Using it incurs a 20% fee routed to the DA Liquidity Pool; transferring it to another user incurs the same 20% fee. If unused for 120 days, it becomes eligible for redistribution: 70% to the DA Liquidity Pool and 30% to the upline sponsor (Regular NFT holders). See [Architecture — Balance Schema](/en/architecture).
-
-## What is NFTM?
-
-NFTM is **not a token** — it is an internal mining counter tracked by the smart contract. It has no market value and cannot be traded or transferred. Its only function is to be staked into Farming, where it converts to DA at the current price. Mining requires an active Income Limit and a Premium tier or higher (L5+). After mining completes, you have exactly 72 hours to stake NFTM into Farming or the cycle is lost. See [Mining & Farming](/en/da-mining-farming).
-
-## What happens if I don't claim a matured Farming reward before upgrading?
-
-It is permanently destroyed. Any NFT purchase or upgrade calls `terminate()`, which stops the active session and **destroys all unclaimed farming rewards** — including matured ones. Operational rule: claim first, then upgrade.
-
-## How do I keep my account safe?
+### How do I keep my account safe?
 
 Use a Web3 wallet (MetaMask, Trust Wallet, or compatible). Email/password gives view-only access; financial actions require a wallet signature. The platform layers additional protections: three-level security separating login, financial actions, and high-value operations; single-use TAN codes for every financial transaction; a separate financial password; and 2FA via the official Telegram bot. RWANFTFI staff will never DM you first or ask for private keys, seed phrases, or out-of-platform payments. Always verify you are on **rwanftfi.com**.
 
-## Can the team confiscate my NFT?
+### Can the team confiscate my NFT?
 
 No. The platform does not have the technical capability to seize or transfer an NFT out of a user's wallet. The DAO can vote to **freeze** an NFT's functionality on the platform (disabling withdrawals, purchases, and reward accruals) in cases of terms violations, AML risks, or NFT-based fraud. The NFT itself remains the user's property; unfreezing also requires a separate DAO vote.
+
+### Are NFTs an investment or a security?
+
+No. NFTs are a **digital product**: by purchasing one, you receive a digital asset and access to ecosystem services. They are explicitly **not** financial instruments, **not** an investment, and **not** securities. All purchases are final, legally binding, and non-refundable — blockchain transactions are immutable. See [Legal & Compliance](/en/legal).
+
+### What corporate entities operate the protocol?
+
+Two entities. **RWANFTFI Corporation** (registered in the Republic of Panama) is the technology and product company — it owns platform infrastructure, NFT architecture, the tokenization engine, and all intellectual property. **NFT FI Corporation** (registered in the British Virgin Islands) is the marketing and commercial company — it manages platform operations, distribution, and partnerships. Disputes are resolved through binding arbitration at the [London Court of International Arbitration (LCIA)](https://www.lcia.org/). See [Corporate Structure](/en/corporate-structure).
+
+### Is the RWANFTFI brand legally protected?
+
+Yes. The **RWANFT** word mark is officially registered with the **UK Intellectual Property Office (UKIPO)** under application **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Nice Class **42** (digital asset management). The owner of record is **RWANFTFI Corporation** (Panama), and the application is professionally represented by **Gresham International** (London). The full case file is publicly searchable on the official UKIPO registry — every detail (number, owner, address, filing date, class, representative) is independently verifiable in real time. See the full record on the [Intellectual Property](/en/intellectual-property) page.
+

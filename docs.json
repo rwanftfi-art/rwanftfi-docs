@@ -72,29 +72,24 @@
             "pages": [
               "en/architecture",
               "en/contract-parameters",
-              "en/security"
-            ]
-          },
-          {
-            "group": "Governance",
-            "pages": [
+              "en/security",
               "en/governance"
-            ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "en/roadmap"
             ]
           },
           {
             "group": "Resources",
             "pages": [
+              "en/roadmap",
               "en/faq",
               "en/glossary",
+              "en/support"
+            ]
+          },
+          {
+            "group": "Company & Legal",
+            "pages": [
               "en/corporate-structure",
               "en/intellectual-property",
-              "en/support",
               "en/partnerships",
               "en/legal"
             ]
@@ -139,27 +134,24 @@
             "pages": [
               "ru/architecture",
               "ru/contract-parameters",
-              "ru/security"
-            ]
-          },
-          {
-            "group": "Управление",
-            "pages": [
+              "ru/security",
               "ru/governance"
-            ]
-          },
-          {
-            "group": "Дорожная карта",
-            "pages": [
-              "ru/roadmap"
             ]
           },
           {
             "group": "Ресурсы",
             "pages": [
+              "ru/roadmap",
+              "ru/faq",
+              "ru/glossary",
+              "ru/support"
+            ]
+          },
+          {
+            "group": "Компания и право",
+            "pages": [
               "ru/corporate-structure",
               "ru/intellectual-property",
-              "ru/support",
               "ru/partnerships",
               "ru/legal"
             ]
@@ -204,27 +196,24 @@
             "pages": [
               "tr/architecture",
               "tr/contract-parameters",
-              "tr/security"
-            ]
-          },
-          {
-            "group": "Yönetişim",
-            "pages": [
+              "tr/security",
               "tr/governance"
-            ]
-          },
-          {
-            "group": "Yol Haritası",
-            "pages": [
-              "tr/roadmap"
             ]
           },
           {
             "group": "Kaynaklar",
             "pages": [
+              "tr/roadmap",
+              "tr/faq",
+              "tr/glossary",
+              "tr/support"
+            ]
+          },
+          {
+            "group": "Şirket ve Hukuk",
+            "pages": [
               "tr/corporate-structure",
               "tr/intellectual-property",
-              "tr/support",
               "tr/partnerships",
               "tr/legal"
             ]
@@ -269,27 +258,24 @@
             "pages": [
               "zh/architecture",
               "zh/contract-parameters",
-              "zh/security"
-            ]
-          },
-          {
-            "group": "治理",
-            "pages": [
+              "zh/security",
               "zh/governance"
-            ]
-          },
-          {
-            "group": "路线图",
-            "pages": [
-              "zh/roadmap"
             ]
           },
           {
             "group": "资源",
             "pages": [
+              "zh/roadmap",
+              "zh/faq",
+              "zh/glossary",
+              "zh/support"
+            ]
+          },
+          {
+            "group": "公司与法律",
+            "pages": [
               "zh/corporate-structure",
               "zh/intellectual-property",
-              "zh/support",
               "zh/partnerships",
               "zh/legal"
             ]
@@ -334,27 +320,24 @@
             "pages": [
               "es/architecture",
               "es/contract-parameters",
-              "es/security"
-            ]
-          },
-          {
-            "group": "Gobernanza",
-            "pages": [
+              "es/security",
               "es/governance"
-            ]
-          },
-          {
-            "group": "Hoja de Ruta",
-            "pages": [
-              "es/roadmap"
             ]
           },
           {
             "group": "Recursos",
             "pages": [
+              "es/roadmap",
+              "es/faq",
+              "es/glossary",
+              "es/support"
+            ]
+          },
+          {
+            "group": "Empresa y Legal",
+            "pages": [
               "es/corporate-structure",
               "es/intellectual-property",
-              "es/support",
               "es/partnerships",
               "es/legal"
             ]
@@ -399,27 +382,24 @@
             "pages": [
               "de/architecture",
               "de/contract-parameters",
-              "de/security"
-            ]
-          },
-          {
-            "group": "Governance",
-            "pages": [
+              "de/security",
               "de/governance"
-            ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "de/roadmap"
             ]
           },
           {
             "group": "Ressourcen",
             "pages": [
+              "de/roadmap",
+              "de/faq",
+              "de/glossary",
+              "de/support"
+            ]
+          },
+          {
+            "group": "Unternehmen & Recht",
+            "pages": [
               "de/corporate-structure",
               "de/intellectual-property",
-              "de/support",
               "de/partnerships",
               "de/legal"
             ]
@@ -464,27 +444,24 @@
             "pages": [
               "pt/architecture",
               "pt/contract-parameters",
-              "pt/security"
-            ]
-          },
-          {
-            "group": "Governança",
-            "pages": [
+              "pt/security",
               "pt/governance"
-            ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "pt/roadmap"
             ]
           },
           {
             "group": "Recursos",
             "pages": [
+              "pt/roadmap",
+              "pt/faq",
+              "pt/glossary",
+              "pt/support"
+            ]
+          },
+          {
+            "group": "Empresa e Jurídico",
+            "pages": [
               "pt/corporate-structure",
               "pt/intellectual-property",
-              "pt/support",
               "pt/partnerships",
               "pt/legal"
             ]
@@ -529,27 +506,24 @@
             "pages": [
               "hi/architecture",
               "hi/contract-parameters",
-              "hi/security"
-            ]
-          },
-          {
-            "group": "गवर्नेंस",
-            "pages": [
+              "hi/security",
               "hi/governance"
-            ]
-          },
-          {
-            "group": "रोडमैप",
-            "pages": [
-              "hi/roadmap"
             ]
           },
           {
             "group": "संसाधन",
             "pages": [
+              "hi/roadmap",
+              "hi/faq",
+              "hi/glossary",
+              "hi/support"
+            ]
+          },
+          {
+            "group": "कंपनी और कानूनी",
+            "pages": [
               "hi/corporate-structure",
               "hi/intellectual-property",
-              "hi/support",
               "hi/partnerships",
               "hi/legal"
             ]
@@ -594,27 +568,24 @@
             "pages": [
               "it/architecture",
               "it/contract-parameters",
-              "it/security"
-            ]
-          },
-          {
-            "group": "Governance",
-            "pages": [
+              "it/security",
               "it/governance"
-            ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "it/roadmap"
             ]
           },
           {
             "group": "Risorse",
             "pages": [
+              "it/roadmap",
+              "it/faq",
+              "it/glossary",
+              "it/support"
+            ]
+          },
+          {
+            "group": "Azienda e Legale",
+            "pages": [
               "it/corporate-structure",
               "it/intellectual-property",
-              "it/support",
               "it/partnerships",
               "it/legal"
             ]
@@ -659,27 +630,24 @@
             "pages": [
               "fr/architecture",
               "fr/contract-parameters",
-              "fr/security"
-            ]
-          },
-          {
-            "group": "Gouvernance",
-            "pages": [
+              "fr/security",
               "fr/governance"
-            ]
-          },
-          {
-            "group": "Feuille de Route",
-            "pages": [
-              "fr/roadmap"
             ]
           },
           {
             "group": "Ressources",
             "pages": [
+              "fr/roadmap",
+              "fr/faq",
+              "fr/glossary",
+              "fr/support"
+            ]
+          },
+          {
+            "group": "Entreprise et Juridique",
+            "pages": [
               "fr/corporate-structure",
               "fr/intellectual-property",
-              "fr/support",
               "fr/partnerships",
               "fr/legal"
             ]
@@ -724,27 +692,24 @@
             "pages": [
               "ar/architecture",
               "ar/contract-parameters",
-              "ar/security"
-            ]
-          },
-          {
-            "group": "الحوكمة",
-            "pages": [
+              "ar/security",
               "ar/governance"
-            ]
-          },
-          {
-            "group": "خارطة الطريق",
-            "pages": [
-              "ar/roadmap"
             ]
           },
           {
             "group": "الموارد",
             "pages": [
+              "ar/roadmap",
+              "ar/faq",
+              "ar/glossary",
+              "ar/support"
+            ]
+          },
+          {
+            "group": "الشركة والقانون",
+            "pages": [
               "ar/corporate-structure",
               "ar/intellectual-property",
-              "ar/support",
               "ar/partnerships",
               "ar/legal"
             ]
@@ -789,27 +754,24 @@
             "pages": [
               "id/architecture",
               "id/contract-parameters",
-              "id/security"
-            ]
-          },
-          {
-            "group": "Tata Kelola",
-            "pages": [
+              "id/security",
               "id/governance"
-            ]
-          },
-          {
-            "group": "Roadmap",
-            "pages": [
-              "id/roadmap"
             ]
           },
           {
             "group": "Sumber Daya",
             "pages": [
+              "id/roadmap",
+              "id/faq",
+              "id/glossary",
+              "id/support"
+            ]
+          },
+          {
+            "group": "Perusahaan & Hukum",
+            "pages": [
               "id/corporate-structure",
               "id/intellectual-property",
-              "id/support",
               "id/partnerships",
               "id/legal"
             ]
@@ -854,27 +816,24 @@
             "pages": [
               "ja/architecture",
               "ja/contract-parameters",
-              "ja/security"
-            ]
-          },
-          {
-            "group": "ガバナンス",
-            "pages": [
+              "ja/security",
               "ja/governance"
-            ]
-          },
-          {
-            "group": "ロードマップ",
-            "pages": [
-              "ja/roadmap"
             ]
           },
           {
             "group": "リソース",
             "pages": [
+              "ja/roadmap",
+              "ja/faq",
+              "ja/glossary",
+              "ja/support"
+            ]
+          },
+          {
+            "group": "会社と法務",
+            "pages": [
               "ja/corporate-structure",
               "ja/intellectual-property",
-              "ja/support",
               "ja/partnerships",
               "ja/legal"
             ]
@@ -919,27 +878,24 @@
             "pages": [
               "vi/architecture",
               "vi/contract-parameters",
-              "vi/security"
-            ]
-          },
-          {
-            "group": "Quản Trị",
-            "pages": [
+              "vi/security",
               "vi/governance"
-            ]
-          },
-          {
-            "group": "Lộ Trình",
-            "pages": [
-              "vi/roadmap"
             ]
           },
           {
             "group": "Tài Nguyên",
             "pages": [
+              "vi/roadmap",
+              "vi/faq",
+              "vi/glossary",
+              "vi/support"
+            ]
+          },
+          {
+            "group": "Công ty & Pháp lý",
+            "pages": [
               "vi/corporate-structure",
               "vi/intellectual-property",
-              "vi/support",
               "vi/partnerships",
               "vi/legal"
             ]
@@ -984,27 +940,24 @@
             "pages": [
               "uk/architecture",
               "uk/contract-parameters",
-              "uk/security"
-            ]
-          },
-          {
-            "group": "Управління",
-            "pages": [
+              "uk/security",
               "uk/governance"
-            ]
-          },
-          {
-            "group": "Дорожня карта",
-            "pages": [
-              "uk/roadmap"
             ]
           },
           {
             "group": "Ресурси",
             "pages": [
+              "uk/roadmap",
+              "uk/faq",
+              "uk/glossary",
+              "uk/support"
+            ]
+          },
+          {
+            "group": "Компанія та право",
+            "pages": [
               "uk/corporate-structure",
               "uk/intellectual-property",
-              "uk/support",
               "uk/partnerships",
               "uk/legal"
             ]

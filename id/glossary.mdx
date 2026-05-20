@@ -1,0 +1,125 @@
+---
+title: "Glosarium"
+description: "Definisi setiap istilah khusus protokol dalam RWANFTFI: DA, NFTM, Batas Pendapatan, Sponsor Bonus, Frozen Balance, Kompresi, Saldo Akumulatif, dan lainnya."
+icon: "book"
+---
+
+Sumber kebenaran tunggal untuk setiap istilah yang digunakan di seluruh dokumentasi RWANFTFI. Setiap entri ditulis agar bersifat mandiri — salin definisi ke konteks mana pun dan seharusnya tetap dapat dipahami.
+
+## Token & aset
+
+**DA (Aset Deflasi).** Mesin ekonomi ekosistem. Token BEP20 yang dibatasi secara ketat pada **21.000.000 unit** dan didukung 100% oleh kumpulan likuiditas USDT. Harga mengikuti rumus `Harga = Likuiditas ÷ Pasokan Beredar`. DA tidak dapat ditransfer peer-to-peer; hanya dapat dijual (manual atau otomatis), digunakan sebagai jaminan pinjaman, atau dilunasi. 100% DA yang terjual dibakar secara permanen. Lihat [Mekanika Token DA](/id/da-token-mechanics).
+
+**NFTM.** Penghitung penambangan internal yang dilacak oleh smart contract, **bukan token**. NFTM tidak memiliki nilai pasar, tidak dapat diperdagangkan atau ditransfer, dan hanya ada untuk di-stake ke Farming, di mana ia dikonversi ke DA pada harga saat ini. Lihat [Penambangan & Pertanian](/id/da-mining-farming).
+
+**GovToken.** Token tata kelola. Standar ERC20Votes, pasokan tetap secara permanen sebesar **10.000.000**, tanpa pencetakan setelah penerapan. Kekuatan suara didelegasikan secara otomatis kepada penerima pada setiap transfer; tidak ada `delegate()` manual yang tersedia. Lihat [Tata Kelola](/id/governance).
+
+**NFT (tingkatan RWANFTFI).** Kunci akses berbasis keanggotaan ke protokol. Ada 10 tingkatan — **Genesis, Advance, Ascend, Eclipse, Hydro, Quantum, Pulse, Aurora, Flame, Infinity** — dengan harga mulai dari 28 hingga 24.000 USDT. Satu NFT aktif per akun; peningkatan menggantikan yang sebelumnya. Lihat [Ekosistem NFT](/id/nft-ecosystem).
+
+**NFT Hadiah.** NFT promosi yang tidak dapat dijual, diberikan melalui promosi atau pencapaian Career Rank. Tidak dapat dibeli. Hingga 100 per alamat (dapat disesuaikan DAO). Dicetak ke ID token genap untuk menghindari tabrakan dengan NFT Reguler (ID ganjil).
+
+**NFT Ambassador.** Terbatas pada 100 unit (Q4 2026). Tanpa batas pendapatan, sistem imbalan khusus tersendiri, tidak dialihkan saat Penjualan Bisnis.
+
+**NFT Edisi VIP.** Terbatas pada 100 unit (Q4 2026). Akses diberikan untuk pencapaian Career Rank **Leader** atau lebih tinggi.
+
+**USDT.** Stablecoin yang digunakan sebagai unit akun utama dan sebagai pendukung 100% token DA. RWANFTFI menggunakan USDT pada standar BEP20.
+
+## Penghasilan & batas
+
+**Batas Pendapatan.** Penghasilan kumulatif maksimum yang dapat dihasilkan NFT aktif sebelum diperbarui. Dikonsumsi oleh imbalan marketing maupun penjualan DA. Ketika mencapai nol, pemegang berhenti menerima semua imbalan marketing dan kehilangan kemampuan untuk menjual DA secara manual. Diperbarui melalui Autobuy, pembelian ulang manual pada level yang sama, atau peningkatan.
+
+**Sponsor Bonus.** Komisi langsung yang dibayarkan kepada pengundang atas pembelian NFT mitra. **30%** dari harga NFT pada penjualan baru (Fase 1) atau **20%** pada pembelian ulang / Autobuy. Fase 2 menyesuaikan Sponsor Bonus penjualan baru menjadi 20%.
+
+**Tree Distribution.** Imbalan per level yang dibayarkan kepada pemegang upline dari pembelian NFT peserta struktur. Persentase berkisar dari 0% (Level 1) hingga 5% (Level 15). Level 16–22 dibuka di Fase 2. Kedalaman maksimum yang dapat dicapai tergantung pada tingkatan NFT pemegang.
+
+**Matching Bonus.** Aliran sekunder yang membayar **5% + 5% + 5%** di tiga level penghasilan marketing mitra langsung pemegang. Level 1 dibuka pada Eclipse (L4); Level 2 dibuka pada penjualan pribadi kumulatif 1.000 USDT; Level 3 dibuka pada penjualan pribadi kumulatif 3.000 USDT.
+
+**Kompresi.** Ketika upline tidak memenuhi syarat untuk menerima imbalan (Batas Pendapatan habis atau level NFT terlalu dangkal), imbalan tersebut diteruskan ke atas ke peserta berikutnya yang memenuhi syarat. Imbalan yang terlewatkan ditandai sebagai **Lost Income** bagi pengguna yang dilewati.
+
+**Lost Income.** Imbalan yang seharusnya diterima pengguna tetapi tidak, karena Batas Pendapatan mereka nol atau kedalaman NFT mereka tidak mencukupi. Dilacak untuk transparansi; dana itu sendiri mengalir ke atas melalui kompresi.
+
+## Saldo
+
+**Saldo Reguler (`balance`).** Dompet USDT utama pengguna di dalam smart contract. Dapat ditarik kapan saja; dapat digunakan untuk pembelian NFT atau untuk menghasilkan Voucher.
+
+**Saldo Akumulatif (`accumulativeBalance`).** Rekening tabungan wajib di mana **20%** dari setiap imbalan marketing dikreditkan secara otomatis. Hanya dapat digunakan untuk membeli NFT pada level yang sama atau meningkatkan ke level yang lebih tinggi. Penggunaannya dikenakan biaya **20%** yang dialihkan ke DA Liquidity Pool; mentransfernya dikenakan biaya 20% yang sama. Jika tidak digunakan selama **120 hari**, memenuhi syarat untuk redistribusi (NFT Reguler: 70% ke pool / 30% ke upline; NFT Hadiah: 80% / 20%).
+
+**Frozen Balance.** Status penahanan 72 jam untuk komisi marketing yang melebihi sisa Batas Pendapatan pemegang, tetapi hanya ketika sumbernya adalah pembelian pertama undangan langsung atau Autobuy mereka. Dilepaskan saat peningkatan NFT; saat kedaluwarsa, 70% dialihkan ke DA Liquidity Pool dan 30% ke sponsor upline langsung. Lihat [Frozen Balance](/id/frozen-balance).
+
+**Batas (`limit`).** Bidang on-chain yang mewakili penghasilan maksimum yang tersisa dari suatu NFT. Setara dengan "sisa Batas Pendapatan."
+
+**Saldo Cadangan Token (`tokenReserveBalance`).** Kumpulan USDT tingkat sistem yang mendukung 100% token DA. Didanai oleh 14+ aliran pendapatan di seluruh ekosistem.
+
+**Saldo Dev (`devBalance`).** Mengakumulasi biaya platform dan komisi untuk pendanaan operasional. Tidak dapat diakses oleh pengguna individu atau administrator di luar prosedur tata kelola.
+
+**Saldo Dampak Harga (`priceImpactBalance`).** Cadangan yang digunakan untuk mengelola stabilitas harga DA selama acara ekosistem tertentu (misalnya, acara Dampak Harga yang dipicu oleh DAO).
+
+## Siklus hidup & otomasi
+
+**Autobuy (sistem 3/3).** Mekanisme perpanjangan NFT otomatis. Untuk Level 1–8, hingga **3 perpanjangan otomatis** diizinkan setelah pembelian manual awal, sehingga level NFT yang sama dapat aktif maksimum 4 kali (1 manual + 3 otomatis). Untuk tingkatan Elite (L9–L10), Autobuy **tidak terbatas**. Penghitung 3/3 di-reset ke 0/3 ketika NFT tingkatan yang lebih tinggi dibeli.
+
+**Penjualan Bisnis.** Proses yang diotorisasi DAO untuk mentransfer seluruh struktur pohon mitra ke pengguna lain. Dikenakan **komisi transfer tetap yang dibayarkan oleh penjual** (saat ini 500 USDT, dapat disesuaikan DAO 0–500). Pembeli tidak membayar komisi on-chain apa pun dan menerima struktur saat eksekusi. Parameter dasar: `businessTransferFee`.
+
+**Voucher (Voucher Hadiah).** Kupon yang dibuat pengguna yang berlaku selama **365 hari** dengan minimum yang ditegakkan oleh smart contract sebesar **5 USDT**. Menutupi hingga 100% dari pembelian NFT. Dapat dipindahtangankan dengan komisi 0%, kecuali dalam **24 jam terakhir** sebelum kedaluwarsa. Tidak dapat dikombinasikan dengan Saldo Akumulatif. Jika tidak digunakan pada 365 hari → 100% ke DA Liquidity Pool.
+
+**Career Rank.** Metrik kemajuan yang digunakan untuk membuka manfaat seperti NFT Ambassador atau VIP dan imbalan khusus. Dicapai melalui aktivitas ekosistem kumulatif.
+
+## Mekanika protokol
+
+**Penambangan.** Langkah pertama perolehan DA. Pengguna mengaktifkan Penambangan pada NFT Premium atau Elite (L5+). Siklus menghasilkan NFTM selama periode tetap (45 hari pada Hydro hingga 40 hari pada Infinity). Level 5–7 memiliki 1 siklus penambangan menghasilkan 10% dari harga NFT dalam NFTM. Level 8–10 memiliki 2 siklus menghasilkan 10% lalu 15%.
+
+**Farming.** Langkah kedua perolehan DA. NFTM di-stake selama durasi yang sama dengan siklus penambangan. Setelah selesai, NFTM dikonversi ke DA pada harga saat ini dan dikreditkan ke TokenStack pengguna. Harus di-stake dalam **72 jam** setelah penambangan selesai atau siklus hilang.
+
+**Siklus Auto-Sell.** Penjualan progresif empat periode dari saldo DA pengguna jika tidak dijual secara manual. Saat ini: 25% setelah 120 hari → 40% dari sisa setelah 90 hari berikutnya → 50% dari sisa setelah 90 hari berikutnya → 100% dari sisa setelah 65 hari terakhir. Total: 365 hari. Pengguna menerima 70% dari nilai dalam USDT; 100% token dibakar.
+
+**Penjualan Manual.** Penjualan DA yang diprakarsai pengguna. 100% token yang terjual dibakar; pengguna menerima **75%** dari nilai dalam USDT (vs 70% pada auto-sell). Sisa 25% adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung.
+
+**Multi-Batch Lending.** Setiap batch DA dari setiap siklus penambangan berfungsi sebagai **jaminan independen**. Pinjaman diterbitkan pada **LTV tetap 70%** terhadap seluruh batch — peminjaman fraksional terhadap sebagian batch tidak didukung — dan dikenakan komisi sekali bayar 5% saat penerbitan. Batch tertentu hanya dapat dijaminkan **sekali seumur hidupnya**: setelah pinjaman dibuka, batch tersebut tidak dapat digunakan sebagai jaminan lagi, bahkan setelah dilunasi penuh. Beberapa pinjaman simultan oleh karena itu hanya dimungkinkan di seluruh **batch yang berbeda**, tidak pernah pada batch yang sama. Pelunasan sebagian didukung — peminjam dapat melepaskan sebagian jaminan kapan saja sebelum batch memasuki siklus auto-sell-nya dengan melunasi bagian proporsional dari utang yang didenominasikan dalam `loan.price`. Jika satu pinjaman gagal bayar, hanya jaminan batch tersebut yang dibakar secara progresif; batch dan saldo lainnya tidak terpengaruh.
+
+**Gagal Bayar Pinjaman.** Kegagalan melunasi sebelum batch yang dijaminkan memasuki siklus auto-sell-nya. DA yang dijaminkan kemudian melewati jadwal empat periode standar (120 / 90 / 90 / 65 hari, total 365 hari), membakar 25%, lalu 40%, lalu 50%, lalu 100% dari DA yang dijaminkan **tersisa** per periode. 100% DA yang dibakar dihancurkan secara permanen, dan nilai USDT pada `loan.price` untuk setiap bagian yang dibakar mengalir ke DA Liquidity Pool. Peminjam menyimpan USDT yang diterima saat penerbitan dan kehilangan bagian jaminan yang dibakar secara proporsional terhadap durasi gagal bayar. Gagal bayar bukan semua-atau-tidak sama sekali: di antara dua periode auto-sell mana pun, peminjam masih dapat memanggil `repay()` dan mengklaim kembali DA yang dijaminkan **tersisa** dengan hanya membayar untuk yang masih dijaminkan. Batch dan saldo DA lainnya tidak terpengaruh.
+
+**Ambang Batas Kelayakan Pinjaman.** **Pemeriksaan on-chain bergulir yang dieksekusi sebelum setiap panggilan `loan()` baru** (`_getTimeToNextAutosale(stack) >= 30 days`): batch DA yang dijaminkan harus masih memiliki setidaknya **30 hari** tersisa hingga pemicu auto-sell terjadwal berikutnya, atau panggilan akan dibatalkan. Ini adalah **gerbang kelayakan** yang mengontrol akses ke pinjaman, bukan **jangka waktu pinjaman** — pinjaman yang terbuka tidak memiliki jatuh tempo tetap dan dapat dilunasi penuh atau sebagian kapan saja sebelum batch memasuki siklus auto-sell-nya.
+
+**Biaya Pinjaman (`loanFee`).** Komisi sekali bayar **5%** yang dikenakan saat penerbitan pinjaman dan dialihkan langsung ke DA Liquidity Pool. Pembayaran — penuh atau sebagian — tidak memicu biaya lagi. Disimpan on-chain sebagai parameter `loanFee` khusus (bukan sebagai bagian dari biaya generik mana pun), yang memungkinkan DAO menyetel ekonomi pinjaman secara independen dari pajak marketing, biaya akumulatif, atau komisi lainnya. Kisaran DAO saat ini: 0% - 5%.
+
+**Harga Pinjaman (`loan.price`).** Harga DA yang diambil oleh `getPrice()` saat penerbitan pinjaman dan disimpan pada stack sebagai `ts.loan.price`. Semua matematika pinjaman selanjutnya — pelunasan penuh, pelunasan sebagian, dan penyelesaian gagal bayar — didenominasikan terhadap harga ini, bukan terhadap harga pasar saat ini. Jika harga pasar DA berlipat dua atau tiga sementara pinjaman terbuka, kewajiban USDT tidak bertambah — tetap terikat pada `loan.price`. Inilah mekanisme yang memungkinkan peminjam mengekstrak likuiditas USDT pada nilai DA hari ini sambil mempertahankan potensi kenaikan pada apresiasi di masa depan.
+
+**Pelunasan Sebagian.** Opsi untuk menebus hanya sebagian dari pinjaman yang dijaminkan DA alih-alih menutupnya secara penuh. Peminjam memanggil `repay()` untuk jumlah DA yang dijaminkan yang dipilih (kurang dari atau sama dengan total yang saat ini dijaminkan) dan membayar `released_DA × loan.price × 0.70` USDT. DA yang dilepaskan kembali ke bagian aktif dari batch yang sama; DA yang tersisa tetap dijaminkan terhadap utang yang dikurangi secara proporsional. Tidak ada biaya tambahan — komisi 5% sudah dibayarkan saat penerbitan. Pelunasan sebagian dapat dipanggil pada setiap tahap masa hidup pinjaman, termasuk setelah pemicu auto-sell (dalam hal ini `_processExpiredStacks()` dijalankan terlebih dahulu, membakar bagian jaminan yang sesuai sebelum pelunasan dilanjutkan terhadap sisa setelah pembakaran).
+
+**Siklus Deflasi.** Acara terjadwal yang dipicu dua kali setahun, berlangsung hingga 30 hari, yang menjeda **peluncuran** siklus penambangan NFTM, staking, dan pembentukan DA baru. Siklus yang sudah berjalan sebelum Siklus Deflasi dimulai terus berlanjut dan selesai sesuai jadwal. Selama Siklus, pembakaran DA harian mengintensifkan kelangkaan.
+
+**Seed Supply.** Cadangan DA permanen kecil yang di-deposit sebelumnya saat peluncuran. Permanen dan tidak dapat dijual, dikecualikan dari pasokan beredar, dan ada semata-mata untuk menjamin penyebut yang tidak nol dalam `Harga = Likuiditas ÷ Pasokan Beredar` — mencegah pembagian dengan nol dalam kasus ekstrem di mana setiap token lain telah dibakar.
+
+## Tata kelola & peran
+
+**DAO (Organisasi Otonom Terdesentralisasi).** Badan tata kelola on-chain RWANFTFI. Didukung oleh 10.000.000 GovToken. Ambang batas proposal: **30%** dari total pasokan. Ambang batas lolos: mayoritas **50%**.
+
+**Guardian.** Peserta tata kelola utama dalam alokasi saat ini. **20 dompet**, masing-masing memegang 350.000 GovToken (3,5%). Redistribusi di masa depan mengurangi ini menjadi 1,5% per Guardian seiring penambahan Leader.
+
+**Leader.** Kelas peserta tata kelola masa depan (direncanakan **80 dompet** dengan 0,5% masing-masing), didefinisikan sebagai kontributor ekosistem aktif, pembangun komunitas, mitra strategis, dan operator dengan dampak yang terukur.
+
+**Acara Dampak Harga.** Acara yang dipicu DAO di mana penghasilan pengguna dialihkan ke DA Liquidity Pool untuk memperkuat dukungan DA dan stabilitas harga.
+
+**Pembekuan Akun.** Tindakan moderasi yang dipilih oleh DAO yang menonaktifkan fungsionalitas NFT di platform. NFT itu sendiri tetap berada di dompet pengguna — platform tidak dapat menyita NFT. Pencabutan pembekuan memerlukan pemungutan suara DAO yang terpisah.
+
+## Peran smart contract
+
+**ADMIN_ROLE.** Dapat memberikan/mencabut peran lain dan mengubah parameter sistem kritis dalam kisaran yang ditetapkan saat penerapan.
+
+**SERVICE_ROLE.** Dieksekusi oleh skrip backend untuk tugas otomatis: menyelesaikan stack yang kedaluwarsa, memproses deposit lintas-rantai, memicu redistribusi akumulatif.
+
+**SIGNER_ROLE.** Digunakan untuk verifikasi tanda tangan kriptografi guna mengotorisasi tindakan tertentu (misalnya, transfer Voucher).
+
+**MINTER_ROLE.** Berwenang untuk mencetak token atau NFT tertentu.
+
+## Arsitektur
+
+**Diamond Pattern (EIP-2535).** Arsitektur smart contract yang digunakan oleh RWANFTFI. Membagi fungsionalitas di seluruh beberapa modul ("Facet") yang diakses melalui satu kontrak proxy — melewati batas ukuran kontrak 24KB dan memungkinkan kemampuan peningkatan per-modul melalui pemotongan Facet. Spesifikasi: [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
+
+**Facet.** Modul smart contract independen yang diakses melalui proxy Diamond. RWANFTFI menggunakan **7 Facet**: AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet.
+
+**TokenReserve.** Kontrak yang mengelola token DA. Dapat ditingkatkan melalui Transparent Proxy (pembaruan logika tanpa mengubah alamat).
+
+**Kode TAN (Nomor Autentikasi Transaksi).** Kode sekali pakai yang diperlukan untuk mengotorisasi setiap transaksi keuangan di lapisan aplikasi. Independen dari cakupan audit on-chain.
+
+**Pembagian 75/20/5.** Pembagian kredit standar untuk imbalan marketing dalam Batas Pendapatan pemegang: **75%** ke Saldo Reguler, **20%** ke Saldo Akumulatif, **5%** ke DA Liquidity Pool.

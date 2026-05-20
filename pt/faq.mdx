@@ -1,0 +1,222 @@
+---
+title: "Perguntas Frequentes"
+description: "Respostas diretas sobre a RWANFTFI: 10 níveis de NFT, o token DA com limite de 21M, a estrutura de marketing de 22 níveis, empréstimos com LTV fixo de 70%, governança e a auditoria da CertiK."
+icon: "circle-question"
+---
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "O que é a RWANFTFI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A RWANFTFI é um protocolo Web3 na Binance Smart Chain que conecta NFTs, Ativos do Mundo Real (RWA), DeFi e CeFi. Detentores de um dos 10 níveis de NFT (de 28 a 24.000 USDT) têm acesso a uma estrutura de marketing de 22 níveis, mineração de NFTM, farming de DA e empréstimos com LTV fixo de 70%. O Ativo Deflacionário (DA) tem limite máximo fixo de 21.000.000 unidades e é 100% lastreado em USDT. Os smart contracts são auditados pela CertiK e utilizam o Diamond Pattern (EIP-2535)." }
+        },
+        {
+          "@type": "Question",
+          "name": "Em qual blockchain a RWANFTFI opera?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A RWANFTFI opera exclusivamente na Binance Smart Chain (BSC) usando o padrão de token BEP20. As transações requerem BNB para gas. Um serviço gerenciado de depósito cross-chain operado pelo SERVICE_ROLE permite que os usuários financiem contas a partir de qualquer blockchain suportada." }
+        },
+        {
+          "@type": "Question",
+          "name": "Quantos níveis de NFT existem e quais são seus preços?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Existem 10 níveis: Genesis (28 USDT), Advance (55), Ascend (140), Eclipse (275), Hydro (550), Quantum (1.100), Pulse (2.200), Aurora (5.500), Flame (11.000), Infinity (24.000). Níveis mais altos desbloqueiam ganhos de marketing mais profundos, mineração de NFTM e empréstimos." }
+        },
+        {
+          "@type": "Question",
+          "name": "Como o preço do token DA cresce?",
+          "acceptedAnswer": { "@type": "Answer", "text": "O preço do DA segue a fórmula Preço = Liquidez dividido pela Oferta Circulante. Cada venda queima 100% dos tokens vendidos enquanto o USDT permanece no pool, então a oferta diminui em relação ao mesmo lastro ou maior — matematicamente empurrando o preço para cima." }
+        },
+        {
+          "@type": "Question",
+          "name": "O que é o Limite de Rendimento?",
+          "acceptedAnswer": { "@type": "Answer", "text": "O Limite de Rendimento é a renda cumulativa máxima que um NFT ativo pode gerar antes da renovação. Ele é consumido tanto pelas recompensas de marketing quanto pelas vendas de DA. Quando chega a zero, o detentor para de receber todas as recompensas de marketing e não pode vender DA manualmente. Renove via Autobuy, recompra manual do mesmo nível ou upgrade." }
+        },
+        {
+          "@type": "Question",
+          "name": "O que é o Saldo Congelado?",
+          "acceptedAnswer": { "@type": "Answer", "text": "O Saldo Congelado é uma proteção de renda de 72 horas. Ele é ativado quando a primeira compra de NFT ou Autobuy de um convidado pessoal direto gera uma comissão que excede o Limite de Rendimento restante do detentor. O excesso fica retido por 72 horas; fazer upgrade do NFT o libera. No vencimento, 70% vai para o Pool de Liquidez do DA e 30% para o patrocinador upline." }
+        },
+        {
+          "@type": "Question",
+          "name": "Posso tomar um empréstimo usando meu DA como garantia?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sim. Detentores de NFT Premium e Elite (L5+) podem tomar empréstimos usando seu DA como garantia com um LTV fixo de 70%. O batch completo de DA é dado em garantia de uma vez — empréstimos fracionados não são suportados, e um determinado batch pode servir como garantia apenas uma vez durante toda a sua vida (não pode ser dado em garantia novamente, mesmo após o pagamento total). Uma comissão única de 5% é paga na emissão e direcionada ao Pool de Liquidez do DA; o reembolso, total ou parcial, não aciona a taxa novamente. A dívida é denominada em USDT ao loan.price capturado na emissão e não aumenta se o DA se valorizar. Um empréstimo só pode ser aberto se restar pelo menos 30 dias até a próxima auto-venda programada daquele batch — esta é uma condição de elegibilidade on-chain, não um prazo fixo de empréstimo. O tomador pode reembolsar total ou parcialmente a qualquer momento antes do batch entrar no seu ciclo de auto-venda." }
+        },
+        {
+          "@type": "Question",
+          "name": "O que acontece se eu não reembolsar meu empréstimo a tempo?",
+          "acceptedAnswer": { "@type": "Answer", "text": "O DA dado em garantia passa pelo cronograma padrão de auto-venda de quatro períodos (120 / 90 / 90 / 65 dias), queimando 25%, depois 40%, depois 50%, depois 100% do DA dado em garantia restante em períodos sucessivos. 100% do DA queimado é destruído e o valor correspondente em USDT ao loan.price flui para o Pool de Liquidez do DA. O tomador mantém o USDT recebido na emissão. O inadimplemento não é tudo-ou-nada: entre quaisquer dois períodos o tomador ainda pode chamar repay() e recuperar o DA dado em garantia restante pagando apenas pelo que ainda está dado em garantia." }
+        },
+        {
+          "@type": "Question",
+          "name": "O protocolo é auditado?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sim. Os smart contracts da RWANFTFI são auditados de forma independente pela CertiK, com o relatório final publicado em 28 de abril de 2026. Verificável no diretório público CertiK Skynet em https://skynet.certik.com/projects/rwanftfi." }
+        },
+        {
+          "@type": "Question",
+          "name": "Quem governa a RWANFTFI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Uma DAO respaldada por 10.000.000 GovTokens (ERC20Votes). O limite para submissão de proposta é de 30% da oferta total; o limite para aprovação é de maioria de 50%. Alocação atual: RWANFTFI Corporation 30% mais 20 Guardiões com 3,5% cada. Um plano futuro de redistribuição expande a governança para até 101 carteiras sem cunhar novos tokens." }
+        },
+        {
+          "@type": "Question",
+          "name": "Os NFTs são um investimento ou um valor mobiliário?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Não. Os NFTs são um produto digital que concede acesso aos serviços do ecossistema. Eles explicitamente não são instrumentos financeiros, não são investimentos e não são valores mobiliários. Todas as compras são definitivas, legalmente vinculantes e não reembolsáveis." }
+        },
+        {
+          "@type": "Question",
+          "name": "A marca RWANFTFI é legalmente protegida?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sim. A marca nominativa RWANFT está oficialmente registrada no Instituto de Propriedade Intelectual do Reino Unido (solicitação UK00004369823, Classe 42 — gestão de ativos digitais) sob a titularidade da RWANFTFI Corporation (Panamá). A solicitação é publicamente verificável no registro do UKIPO e é representada profissionalmente pela Gresham International (Londres). Registro completo na página de Propriedade Intelectual em https://docs.rwanftfi.com/pt/intellectual-property." }
+        }
+      ]
+    })
+  }}
+/>
+
+Uma referência consolidada para as perguntas mais comuns sobre o protocolo RWANFTFI. Navegue por tópico e expanda qualquer pergunta — cada resposta é autocontida e tem links para a página completa de mecânicas.
+
+<CardGroup cols={3}>
+  <Card title="Fundamentos do Protocolo" icon="circle-info" href="#faq-sec-1" />
+  <Card title="O Token DA" icon="coins" href="#faq-sec-2" />
+  <Card title="Renda, Saldos e Marketing" icon="chart-line" href="#faq-sec-3" />
+  <Card title="Mineração, Farming e Empréstimos" icon="hand-holding-dollar" href="#faq-sec-4" />
+  <Card title="Arquitetura e Governança" icon="sitemap" href="#faq-sec-5" />
+  <Card title="Segurança, Aspectos Jurídicos e Empresa" icon="shield-halved" href="#faq-sec-6" />
+</CardGroup>
+
+<div id="faq-sec-1" />
+
+## Fundamentos do Protocolo
+
+### O que é a RWANFTFI?
+
+A RWANFTFI é um protocolo Web3 na Binance Smart Chain (BSC) que conecta NFTs, Ativos do Mundo Real (RWA), DeFi e CeFi em um ecossistema financeiro unificado. Detentores de um dos 10 níveis de NFT (com preços de 28 a 24.000 USDT) têm acesso a uma estrutura de marketing de 22 níveis, mineração de NFTM, farming de DA e empréstimos. O motor econômico é o Ativo Deflacionário (DA) — um token com limite máximo fixo de 21.000.000 unidades e 100% lastreado por um pool de liquidez em USDT. Os smart contracts são auditados de forma independente pela [CertiK](https://skynet.certik.com/projects/rwanftfi) e construídos sobre o Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
+
+### Em qual blockchain a RWANFTFI opera?
+
+A RWANFTFI opera exclusivamente na Binance Smart Chain (BSC) usando o padrão de token BEP20. As transações requerem uma pequena quantidade de BNB para gas. Um serviço gerenciado de depósito cross-chain (operado por um `SERVICE_ROLE` dedicado) permite que os usuários financiem suas contas a partir de qualquer blockchain suportada.
+
+### Quantos níveis de NFT existem e quais são seus preços?
+
+Existem 10 níveis. Preços e nomenclatura:
+
+| Nível | Nome | Preço (USDT) | Grupo |
+|------:|------|-------------:|-------|
+| L1 | Genesis | 28 | Básico |
+| L2 | Advance | 55 | Básico |
+| L3 | Ascend | 140 | Básico |
+| L4 | Eclipse | 275 | Básico |
+| L5 | Hydro | 550 | Premium |
+| L6 | Quantum | 1.100 | Premium |
+| L7 | Pulse | 2.200 | Premium |
+| L8 | Aurora | 5.500 | Premium |
+| L9 | Flame | 11.000 | Elite |
+| L10 | Infinity | 24.000 | Elite |
+
+Níveis mais altos desbloqueiam ganhos de marketing mais profundos, mineração de NFTM e empréstimos. Detalhes completos na [página do Ecossistema NFT](/pt/nft-ecosystem).
+
+<div id="faq-sec-2" />
+
+## O Token DA
+
+### Como o preço do token DA cresce?
+
+O preço do DA segue uma única fórmula: **Preço = Liquidez ÷ Oferta Circulante**. Toda vez que o DA é vendido, 100% dos tokens vendidos são permanentemente queimados (a oferta diminui) enquanto o USDT permanece no pool (a liquidez se mantém ou cresce). O resultado é mecanicamente deflacionário: menos oferta sobre o mesmo lastro ou maior significa um preço por token mais alto. O pool é financiado por 14+ fontes de receita em todo o ecossistema. Veja [Mecânica do Token DA](/pt/da-token-mechanics).
+
+### O DA pode ser transferido entre usuários?
+
+Não. O DA é um token utilitário não transferível. Ele só pode ser vendido (manual ou automaticamente), usado como garantia de empréstimo ou reembolsado. As transferências peer-to-peer são desativadas no nível do contrato.
+
+### O que é o ciclo de Auto-Venda?
+
+Se um usuário não vender o DA manualmente, o sistema aciona vendas automáticas do saldo restante ao longo de quatro períodos totalizando 365 dias: 25% após 120 dias, 40% do restante após mais 90 dias, 50% do restante após mais 90 dias e 100% do restante após os 65 dias finais. 100% dos tokens vendidos automaticamente são queimados e o usuário recebe 70% do valor em USDT (versus 75% na venda manual). Cada auto-venda é executada ao preço do DA no momento do acionamento daquele período.
+
+<div id="faq-sec-3" />
+
+## Renda, Saldos e Marketing
+
+### O que é o Limite de Rendimento?
+
+Todo NFT tem um Limite de Rendimento estrito — a renda cumulativa máxima que aquele NFT pode gerar antes da renovação. O limite é consumido tanto pelas recompensas de marketing quanto pelas vendas de DA. Quando chega a zero, o detentor para de receber todas as recompensas de marketing e perde a capacidade de vender DA manualmente. Para evitar isso, renove o NFT via Autobuy, recompra manual do mesmo nível ou upgrade para um nível superior. A recompra manual fica bloqueada enquanto o limite restante estiver acima de 30% do original.
+
+### O que é o Saldo Acumulativo?
+
+Uma conta poupança obrigatória onde 20% de cada recompensa de marketing é creditado automaticamente. Ele só pode ser usado para comprar o NFT do mesmo nível ou fazer upgrade para um nível superior. Usá-lo incorre em uma taxa de 20% direcionada ao Pool de Liquidez do DA; transferi-lo para outro usuário incorre na mesma taxa de 20%. Se não utilizado por 120 dias, torna-se elegível para redistribuição: 70% para o Pool de Liquidez do DA e 30% para o patrocinador upline (detentores de NFT Regular). Veja [Arquitetura — Esquema de Saldos](/pt/architecture).
+
+### O que é o Saldo Congelado e quando ele é ativado?
+
+O Saldo Congelado é uma mecânica de proteção de renda de 72 horas. Ele é ativado **somente quando todas as três** condições são atendidas: (1) o comprador é seu convidado pessoal direto, (2) é a primeira compra de NFT desse convidado ou seu Autobuy de renovação, e (3) a comissão resultante excede seu Limite de Rendimento restante. O excesso fica retido por 72 horas, dando-lhe tempo para fazer upgrade do seu NFT e reivindicá-lo. Se você perder a janela e o Autobuy não cobrir o excesso, 70% é direcionado ao Pool de Liquidez do DA e 30% vai para seu patrocinador upline direto. Mecânicas completas na [página do Saldo Congelado](/pt/frozen-balance).
+
+### Como funciona a estrutura de marketing?
+
+Quando um usuário ativa um NFT, o smart contract o posiciona permanentemente em uma árvore binária de 22 níveis usando um algoritmo de "ramo mais fraco, da esquerda para a direita". A capacidade máxima é de 8.388.606 posições quando totalmente preenchida. Os ganhos vêm de três fluxos independentes: **Sponsor Bonus** (30% Fase 1 / 20% Fase 2 do preço do NFT para convites diretos), **Distribuição em Árvore** (percentuais por nível do Nível 2 ao Nível 22) e **Matching Bonus** (5% + 5% + 5% em três níveis da renda dos parceiros diretos). Os Níveis 16–22 são desbloqueados na Fase 2 por votação da DAO. Veja [Estrutura de Marketing](/pt/marketing-binary-tree).
+
+### Qual a profundidade que meu NFT pode render?
+
+A profundidade depende do nível do seu NFT. Atualmente, Genesis (L1) rende a partir de 2 níveis de profundidade, e Infinity (L10) rende até 19 níveis de profundidade. Após a Fase 2 ser ativada por votação da DAO (prevista para o 4º trimestre de 2026), Infinity renderá até os 22 níveis completos. Outros níveis se expandem proporcionalmente. Detentores de níveis mais baixos dependem da **compressão** — quando um upline não se qualifica, a recompensa passa para cima para o próximo participante ativo.
+
+<div id="faq-sec-4" />
+
+## Mineração, Farming e Empréstimos
+
+### O que é o NFTM?
+
+O NFTM **não é um token** — é um contador interno de mineração rastreado pelo smart contract. Não tem valor de mercado e não pode ser negociado ou transferido. Sua única função é ser aplicado em Farming, onde é convertido em DA ao preço atual. A mineração requer um Limite de Rendimento ativo e um nível Premium ou superior (L5+). Após a conclusão da mineração, você tem exatamente 72 horas para aplicar o NFTM em Farming ou o ciclo é perdido. Veja [Mineração e Farming](/pt/da-mining-farming).
+
+### O que acontece se eu não resgatar uma recompensa de Farming vencida antes de fazer upgrade?
+
+Ela é permanentemente destruída. Qualquer compra ou upgrade de NFT chama `terminate()`, que interrompe a sessão ativa e **destrói todas as recompensas de Farming não resgatadas** — incluindo as vencidas. Regra operacional: resgate primeiro, depois faça o upgrade.
+
+### Posso tomar um empréstimo usando meu DA como garantia?
+
+Sim. Detentores de NFT Premium e Elite (L5+) podem tomar empréstimos usando seu DA como garantia com um **LTV fixo de 70%** — a taxa é codificada no contrato, o usuário não pode escolher um percentual menor, e o batch completo de DA é dado em garantia de uma vez (sem empréstimos fracionados contra parte de um batch). Cada batch de DA de cada ciclo de mineração é uma garantia independente, portanto múltiplos empréstimos simultâneos são possíveis — um por batch. Um determinado batch pode ser dado em garantia **apenas uma vez durante toda a sua vida**: após um empréstimo ser aberto, aquele batch não pode ser usado como garantia novamente, mesmo após o reembolso total do empréstimo. Uma **comissão única de 5%** é paga na emissão e direcionada ao Pool de Liquidez do DA; o reembolso, total ou parcial, não aciona a taxa novamente. O tomador recebe 95% do valor bruto do empréstimo em seu Saldo Regular.
+
+A dívida é denominada em USDT ao `loan.price` capturado na emissão e **não aumenta se o DA se valorizar** — o empréstimo permite extrair liquidez ao preço de hoje enquanto mantém o potencial de valorização futura do DA. O tomador também pode **reembolsar parcialmente** a qualquer momento, liberando uma parte da garantia e reduzindo a dívida proporcionalmente. Um empréstimo só pode ser aberto se restar pelo menos 30 dias até a próxima auto-venda programada do batch — esta é uma condição de elegibilidade on-chain, não um prazo fixo de empréstimo. Uma vez aberto, o empréstimo não tem vencimento e pode ser reembolsado total ou parcialmente a qualquer momento antes do batch entrar no seu ciclo de auto-venda. Veja [Mecânicas completas de empréstimo →](/pt/da-lending).
+
+### O que acontece se eu não reembolsar meu empréstimo a tempo?
+
+Se o tomador não reembolsar antes do batch dado em garantia entrar no seu ciclo de auto-venda, o DA dado em garantia é progressivamente queimado pelo cronograma padrão de quatro períodos (120 / 90 / 90 / 65 dias, 365 dias no total). Cada período queima uma fração do DA dado em garantia **restante**: 25%, depois 40%, depois 50%, depois 100%. Todo o DA queimado é permanentemente destruído e o valor em USDT ao `loan.price` de cada porção queimada flui para o Pool de Liquidez do DA. O tomador mantém o USDT recebido na emissão e perde apenas a porção queimada da garantia. O inadimplemento **não é tudo-ou-nada** — entre quaisquer dois períodos de auto-venda o tomador ainda pode chamar `repay()` e recuperar o DA dado em garantia **restante** pagando apenas pelo que ainda está dado em garantia, interrompendo todas as queimas futuras. Veja [Mecânicas completas de empréstimo →](/pt/da-lending).
+
+<div id="faq-sec-5" />
+
+## Arquitetura e Governança
+
+### Qual arquitetura de contrato é utilizada?
+
+O protocolo usa o **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, dividindo a funcionalidade em 7 Facets modulares (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) acessados por meio de um único proxy. O contrato Diamond é atualizável via cortes de Facet; o TokenReserve (DA) é atualizável via Transparent Proxy; NFTs, GovToken e AdminContract são não atualizáveis. Veja [Arquitetura](/pt/architecture).
+
+### Quem governa o protocolo?
+
+Uma Organização Autônoma Descentralizada (DAO) respaldada por um token de governança ERC20Votes (GovToken) com oferta permanentemente fixada de **10.000.000**. Uma proposta requer apoio de **30% da oferta total** para ser submetida, e **maioria de 50%** para ser aprovada. Alocação atual: RWANFTFI Corporation 30% + 20 Guardiões com 3,5% cada. Um plano futuro de redistribuição expande a governança para até 101 carteiras (Corporation 30% + 20 Guardiões a 1,5% + 80 Líderes a 0,5%) sem cunhar novos tokens. Os desenvolvedores não podem alterar unilateralmente as regras do sistema ou acessar fundos de usuários. Veja [Governança](/pt/governance).
+
+### O protocolo é auditado?
+
+Sim. Os smart contracts são auditados de forma independente pela **CertiK**, com o relatório final publicado em **28 de abril de 2026**. A CertiK aplicou sua metodologia padrão: Análise Estática, Revisão Manual e Verificação Formal. O relatório completo é publicamente verificável no [diretório CertiK Skynet](https://skynet.certik.com/projects/rwanftfi) e incorporado na [página de Segurança e Auditoria](/pt/security).
+
+<div id="faq-sec-6" />
+
+## Segurança, Aspectos Jurídicos e Empresa
+
+### Como manter minha conta segura?
+
+Use uma carteira Web3 (MetaMask, Trust Wallet ou compatível). E-mail/senha fornece acesso somente de visualização; ações financeiras requerem assinatura da carteira. A plataforma adiciona proteções extras: segurança em três níveis separando login, ações financeiras e operações de alto valor; códigos TAN de uso único para cada transação financeira; uma senha financeira separada; e 2FA via o bot oficial do Telegram. A equipe da RWANFTFI nunca irá lhe enviar mensagem primeiro nem solicitará chaves privadas, frases-semente ou pagamentos fora da plataforma. Sempre verifique se você está em **rwanftfi.com**.
+
+### A equipe pode confiscar meu NFT?
+
+Não. A plataforma não possui capacidade técnica para apreender ou transferir um NFT da carteira de um usuário. A DAO pode votar para **congelar** a funcionalidade de um NFT na plataforma (desabilitando saques, compras e acúmulo de recompensas) em casos de violações dos termos, riscos de AML ou fraude baseada em NFT. O NFT em si permanece propriedade do usuário; o descongelamento também requer um voto separado da DAO.
+
+### Os NFTs são um investimento ou um valor mobiliário?
+
+Não. Os NFTs são um **produto digital**: ao comprá-lo, você recebe um ativo digital e acesso aos serviços do ecossistema. Eles explicitamente **não** são instrumentos financeiros, **não** são um investimento e **não** são valores mobiliários. Todas as compras são definitivas, legalmente vinculantes e não reembolsáveis — transações em blockchain são imutáveis. Veja [Aspectos Jurídicos e Conformidade](/pt/legal).
+
+### Quais entidades corporativas operam o protocolo?
+
+Duas entidades. A **RWANFTFI Corporation** (registrada na República do Panamá) é a empresa de tecnologia e produto — ela detém a infraestrutura da plataforma, a arquitetura de NFT, o motor de tokenização e toda a propriedade intelectual. A **NFT FI Corporation** (registrada nas Ilhas Virgens Britânicas) é a empresa de marketing e comercial — ela gerencia as operações da plataforma, distribuição e parcerias. As disputas são resolvidas por arbitragem vinculante no [London Court of International Arbitration (LCIA)](https://www.lcia.org/). Veja [Estrutura Corporativa](/pt/corporate-structure).
+
+### A marca RWANFTFI é legalmente protegida?
+
+Sim. A marca nominativa **RWANFT** está oficialmente registrada no **Instituto de Propriedade Intelectual do Reino Unido (UKIPO)** sob a solicitação **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Classe Nice **42** (gestão de ativos digitais). O titular do registro é a **RWANFTFI Corporation** (Panamá), e a solicitação é representada profissionalmente pela **Gresham International** (Londres). O arquivo completo do caso é publicamente pesquisável no registro oficial do UKIPO — cada detalhe (número, titular, endereço, data de depósito, classe, representante) é verificável de forma independente em tempo real. Veja o registro completo na página de [Propriedade Intelectual](/pt/intellectual-property).
+
