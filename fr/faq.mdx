@@ -78,23 +78,28 @@ icon: "circle-question"
 
 Une référence consolidée pour les questions les plus fréquentes sur le protocole RWANFTFI. Naviguez par thème et développez n'importe quelle question — chaque réponse est autonome et renvoie à la page de mécanique complète.
 
+<CardGroup cols={3}>
+  <Card title="Bases du Protocole" icon="circle-info" href="#faq-sec-1" />
+  <Card title="Le Jeton DA" icon="coins" href="#faq-sec-2" />
+  <Card title="Revenus, Soldes & Marketing" icon="chart-line" href="#faq-sec-3" />
+  <Card title="Minage, Farming & Lending" icon="hand-holding-dollar" href="#faq-sec-4" />
+  <Card title="Architecture & Gouvernance" icon="sitemap" href="#faq-sec-5" />
+  <Card title="Sécurité, Légal & Entreprise" icon="shield-halved" href="#faq-sec-6" />
+</CardGroup>
+
+<div id="faq-sec-1" />
+
 ## Bases du Protocole
 
-<AccordionGroup>
-
-<Accordion title="Qu'est-ce que RWANFTFI ?">
+### Qu'est-ce que RWANFTFI ?
 
 RWANFTFI est un protocole Web3 sur la Binance Smart Chain (BSC) qui relie les NFT, les Actifs du Monde Réel (RWA), la DeFi et la CeFi en un écosystème financier unifié. Les détenteurs d'un des 10 niveaux de NFT (de 28 à 24 000 USDT) accèdent à une structure marketing à 22 niveaux, au minage de NFTM, au farming de DA et au lending. Le moteur économique est l'Actif Déflationniste (DA) — un jeton strictement plafonné à 21 000 000 unités et adossé à 100 % par un pool de liquidité en USDT. Les smart contracts sont audités de manière indépendante par [CertiK](https://skynet.certik.com/projects/rwanftfi) et construits sur le Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
 
-</Accordion>
-
-<Accordion title="Sur quelle blockchain RWANFTFI fonctionne-t-il ?">
+### Sur quelle blockchain RWANFTFI fonctionne-t-il ?
 
 RWANFTFI opère exclusivement sur la Binance Smart Chain (BSC) en utilisant le standard de jeton BEP20. Les transactions nécessitent une petite quantité de BNB pour les frais de gas. Un service géré de dépôt inter-chaînes (opéré par un `SERVICE_ROLE` dédié) permet aux utilisateurs d'alimenter leurs comptes depuis n'importe quelle blockchain supportée.
 
-</Accordion>
-
-<Accordion title="Combien de niveaux de NFT existent et quel est leur prix ?">
+### Combien de niveaux de NFT existent et quel est leur prix ?
 
 Il existe 10 niveaux. Prix et nomenclature :
 
@@ -113,158 +118,105 @@ Il existe 10 niveaux. Prix et nomenclature :
 
 Les niveaux supérieurs débloquent des gains marketing plus profonds, le minage de NFTM et le lending. Détails complets sur la [page Écosystème NFT](/fr/nft-ecosystem).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-2" />
 
 ## Le Jeton DA
 
-<AccordionGroup>
-
-<Accordion title="Comment le prix du jeton DA croît-il ?">
+### Comment le prix du jeton DA croît-il ?
 
 Le prix du DA suit une formule unique : **Prix = Liquidité ÷ Offre en Circulation**. À chaque vente de DA, 100 % des jetons vendus sont définitivement brûlés (l'offre diminue) tandis que l'USDT reste dans le pool (la liquidité reste stable ou augmente). Le résultat est mécaniquement déflationniste : moins d'offre face au même adossement ou à un adossement plus grand signifie un prix plus élevé par jeton. Le pool est alimenté par plus de 14 sources de revenus à travers l'écosystème. Voir [Mécanique du Jeton DA](/fr/da-token-mechanics).
 
-</Accordion>
-
-<Accordion title="Le DA peut-il être transféré entre utilisateurs ?">
+### Le DA peut-il être transféré entre utilisateurs ?
 
 Non. Le DA est un jeton utilitaire non transférable. Il ne peut être que vendu (manuellement ou automatiquement), utilisé comme collatéral de lending, ou remboursé. Les transferts pair-à-pair sont désactivés au niveau du contrat.
 
-</Accordion>
-
-<Accordion title="Qu'est-ce que le cycle d'Auto-Vente ?">
+### Qu'est-ce que le cycle d'Auto-Vente ?
 
 Si un utilisateur ne vend pas son DA manuellement, le système déclenche des ventes automatiques à partir du solde restant sur quatre périodes totalisant 365 jours : 25 % après 120 jours, 40 % du reste après 90 jours supplémentaires, 50 % du reste après 90 jours supplémentaires, et 100 % du reste après les 65 derniers jours. 100 % des jetons auto-vendus sont brûlés et l'utilisateur reçoit 70 % de la valeur en USDT (contre 75 % lors d'une vente manuelle). Chaque auto-vente s'exécute au prix du DA au moment du déclenchement de cette période.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-3" />
 
 ## Revenus, Soldes & Marketing
 
-<AccordionGroup>
-
-<Accordion title="Qu'est-ce que la Limite de Revenus ?">
+### Qu'est-ce que la Limite de Revenus ?
 
 Chaque NFT possède une Limite de Revenus stricte — le revenu cumulatif maximal que ce NFT peut générer avant son renouvellement. La limite est consommée à la fois par les récompenses marketing et les ventes de DA. Lorsqu'elle atteint zéro, le détenteur cesse de recevoir toutes les récompenses marketing et perd la capacité de vendre du DA manuellement. Pour l'éviter, renouvelez le NFT via Autobuy, rachat manuel au même niveau, ou mise à niveau vers un niveau supérieur. Le rachat manuel est verrouillé tant que la limite restante est supérieure à 30 % de la limite d'origine.
 
-</Accordion>
-
-<Accordion title="Qu'est-ce que le Solde Cumulatif ?">
+### Qu'est-ce que le Solde Cumulatif ?
 
 Un compte d'épargne obligatoire où 20 % de chaque récompense marketing est automatiquement crédité. Il ne peut être utilisé que pour acheter un NFT du même niveau ou passer à un niveau supérieur. Son utilisation entraîne une commission de 20 % dirigée vers le Pool de Liquidité du DA ; son transfert à un autre utilisateur entraîne la même commission de 20 %. S'il reste inutilisé pendant 120 jours, il devient éligible à la redistribution : 70 % vers le Pool de Liquidité du DA et 30 % vers le sponsor amont (détenteurs de NFT Regular). Voir [Architecture — Schéma des Soldes](/fr/architecture).
 
-</Accordion>
-
-<Accordion title="Qu'est-ce que le Solde Gelé et quand s'active-t-il ?">
+### Qu'est-ce que le Solde Gelé et quand s'active-t-il ?
 
 Le Solde Gelé est un mécanisme de protection des revenus de 72 heures. Il s'active uniquement lorsque **les trois** conditions sont réunies : (1) l'acheteur est votre invité personnel direct, (2) il s'agit du premier achat de NFT de cet invité ou de son renouvellement Autobuy, et (3) la commission résultante dépasse votre Limite de Revenus restante. L'excédent est retenu pendant 72 heures, vous laissant le temps de mettre à niveau votre NFT et de le réclamer. Si vous manquez la fenêtre et qu'Autobuy n'a pas couvert l'excédent, 70 % est dirigé vers le Pool de Liquidité du DA et 30 % va à votre sponsor direct. Mécanique complète sur la [page Solde Gelé](/fr/frozen-balance).
 
-</Accordion>
-
-<Accordion title="Comment fonctionne la structure marketing ?">
+### Comment fonctionne la structure marketing ?
 
 Lorsqu'un utilisateur active un NFT, le smart contract le place définitivement dans un arbre binaire à 22 niveaux en utilisant l'algorithme « branche la plus faible, de gauche à droite ». La capacité maximale est de 8 388 606 positions lorsqu'elle est entièrement remplie. Les gains proviennent de trois flux indépendants : **Bonus de Sponsor** (30 % Phase 1 / 20 % Phase 2 du prix du NFT pour les invitations directes), **Distribution de l'Arbre** (pourcentages par niveau du Niveau 2 au Niveau 22) et **Bonus de Matching** (5 % + 5 % + 5 % sur trois niveaux des revenus des partenaires directs). Les niveaux 16 à 22 se débloquent en Phase 2 via vote du DAO. Voir [Structure Marketing](/fr/marketing-binary-tree).
 
-</Accordion>
-
-<Accordion title="Jusqu'à quelle profondeur mon NFT peut-il générer des revenus ?">
+### Jusqu'à quelle profondeur mon NFT peut-il générer des revenus ?
 
 La profondeur dépend de votre niveau de NFT. Actuellement, Genesis (L1) perçoit jusqu'à 2 niveaux de profondeur, et Infinity (L10) jusqu'à 19 niveaux. Après l'activation de la Phase 2 par vote du DAO (prévue T4 2026), Infinity percevra jusqu'aux 22 niveaux complets. Les autres niveaux se développent proportionnellement. Les détenteurs de niveaux inférieurs bénéficient de la **compression** — lorsqu'un amont ne remplit pas les conditions, sa récompense remonte au prochain participant actif.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-4" />
 
 ## Minage, Farming & Lending
 
-<AccordionGroup>
-
-<Accordion title="Qu'est-ce que le NFTM ?">
+### Qu'est-ce que le NFTM ?
 
 Le NFTM n'est **pas un jeton** — c'est un compteur de minage interne suivi par le smart contract. Il n'a aucune valeur marchande et ne peut être ni échangé ni transféré. Son unique fonction est d'être mis en staking dans le Farming, où il se convertit en DA au prix actuel. Le minage nécessite une Limite de Revenus active et un niveau Premium ou supérieur (L5+). Une fois le minage terminé, vous avez exactement 72 heures pour mettre le NFTM en staking dans le Farming, faute de quoi le cycle est perdu. Voir [Minage & Farming](/fr/da-mining-farming).
 
-</Accordion>
-
-<Accordion title="Que se passe-t-il si je ne réclame pas une récompense de Farming arrivée à maturité avant une mise à niveau ?">
+### Que se passe-t-il si je ne réclame pas une récompense de Farming arrivée à maturité avant une mise à niveau ?
 
 Elle est définitivement détruite. Tout achat ou mise à niveau de NFT appelle `terminate()`, ce qui arrête la session active et **détruit toutes les récompenses de Farming non réclamées** — y compris celles arrivées à maturité. Règle opérationnelle : réclamez d'abord, puis mettez à niveau.
 
-</Accordion>
-
-<Accordion title="Puis-je contracter un prêt adossé à mon DA ?">
+### Puis-je contracter un prêt adossé à mon DA ?
 
 Oui. Les détenteurs de NFT Premium et Elite (L5+) peuvent emprunter adossé à leur DA à un **LTV fixe de 70 %** — le taux est codé en dur, l'utilisateur ne peut pas choisir un pourcentage inférieur, et le lot entier de DA est mis en gage en une seule fois (pas d'emprunt fractionné sur une partie d'un lot). Chaque lot de DA issu de chaque cycle de minage est un collatéral indépendant, de sorte que plusieurs prêts simultanés sont possibles — un par lot. Un lot donné ne peut être mis en gage **qu'une seule fois au cours de sa vie** : une fois un prêt ouvert, ce lot ne peut plus être utilisé comme collatéral, même après remboursement intégral. Une **commission unique de 5 %** est perçue à l'émission et dirigée vers le Pool de Liquidité du DA ; le remboursement, total ou partiel, ne déclenche pas à nouveau la commission. L'emprunteur reçoit 95 % du montant brut du prêt sur son Solde Régulier.
 
 La dette est libellée en USDT au `loan.price` capturé à l'émission et **n'augmente pas si le DA prend de la valeur** — le prêt vous permet d'extraire de la liquidité au prix actuel tout en conservant le potentiel de hausse de la future appréciation du DA. L'emprunteur peut également **rembourser partiellement** à tout moment, libérant une portion du collatéral et réduisant la dette proportionnellement. Un prêt ne peut être ouvert que s'il reste au moins 30 jours avant la prochaine auto-vente programmée du lot — c'est une condition d'éligibilité on-chain, non un terme fixe du prêt. Une fois ouvert, le prêt n'a pas d'échéance et peut être remboursé en totalité ou en partie à tout moment avant que le lot entre dans son cycle d'auto-vente. Voir [Mécanique complète du lending →](/fr/da-lending).
 
-</Accordion>
-
-<Accordion title="Que se passe-t-il si je ne rembourse pas mon prêt à temps ?">
+### Que se passe-t-il si je ne rembourse pas mon prêt à temps ?
 
 Si l'emprunteur ne rembourse pas avant que le lot mis en collatéral entre dans son cycle d'auto-vente, le DA mis en gage est progressivement brûlé selon le calendrier standard en quatre périodes (120 / 90 / 90 / 65 jours, 365 jours au total). Chaque période brûle une fraction du DA mis en gage **restant** : 25 %, puis 40 %, puis 50 %, puis 100 %. Tout le DA brûlé est définitivement détruit et la valeur USDT au `loan.price` pour chaque portion brûlée afflue vers le Pool de Liquidité du DA. L'emprunteur conserve l'USDT reçu à l'émission et ne perd que la portion brûlée du collatéral. Le défaut n'est **pas tout-ou-rien** — entre deux périodes d'auto-vente, l'emprunteur peut encore appeler `repay()` et récupérer le DA mis en gage **restant** en ne payant que ce qui est encore mis en gage, stoppant tout brûlage futur. Voir [Mécanique complète du lending →](/fr/da-lending).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-5" />
 
 ## Architecture & Gouvernance
 
-<AccordionGroup>
-
-<Accordion title="Quelle architecture de contrat est utilisée ?">
+### Quelle architecture de contrat est utilisée ?
 
 Le protocole utilise le **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, répartissant les fonctionnalités sur 7 Facets modulaires (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) accessibles via un seul proxy. Le contrat Diamond est évolutif via des coupes de Facets ; le TokenReserve (DA) est évolutif via Transparent Proxy ; les NFT, GovToken et AdminContract sont non évolutifs. Voir [Architecture](/fr/architecture).
 
-</Accordion>
-
-<Accordion title="Qui gouverne le protocole ?">
+### Qui gouverne le protocole ?
 
 Une Organisation Autonome Décentralisée (DAO) adossée à un jeton de gouvernance ERC20Votes (GovToken) avec une offre définitivement fixée de **10 000 000**. Une proposition nécessite le soutien de **30 % de l'offre totale** pour être soumise, et une **majorité de 50 %** pour être adoptée. Allocation actuelle : RWANFTFI Corporation 30 % + 20 Guardians à 3,5 % chacun. Un plan de redistribution futur étend la gouvernance à jusqu'à 101 wallets (Corporation 30 % + 20 Guardians à 1,5 % + 80 Leaders à 0,5 %) sans création de nouveaux jetons. Les développeurs ne peuvent pas modifier unilatéralement les règles du système ou accéder aux fonds des utilisateurs. Voir [Gouvernance](/fr/governance).
 
-</Accordion>
-
-<Accordion title="Le protocole est-il audité ?">
+### Le protocole est-il audité ?
 
 Oui. Les smart contracts sont audités de manière indépendante par **CertiK**, le rapport final ayant été publié le **28 avril 2026**. CertiK a appliqué sa méthodologie standard : Analyse Statique, Revue Manuelle et Vérification Formelle. Le rapport complet est publiquement vérifiable sur le [répertoire CertiK Skynet](https://skynet.certik.com/projects/rwanftfi) et intégré sur la [page Sécurité & Audit](/fr/security).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-6" />
 
 ## Sécurité, Légal & Entreprise
 
-<AccordionGroup>
-
-<Accordion title="Comment sécuriser mon compte ?">
+### Comment sécuriser mon compte ?
 
 Utilisez un wallet Web3 (MetaMask, Trust Wallet ou compatible). L'accès e-mail/mot de passe est en lecture seule ; les actions financières nécessitent une signature de wallet. La plateforme ajoute des protections supplémentaires : sécurité à trois niveaux séparant la connexion, les actions financières et les opérations à haute valeur ; codes TAN à usage unique pour chaque transaction financière ; mot de passe financier distinct ; et 2FA via le bot Telegram officiel. Le personnel de RWANFTFI ne vous contactera jamais en premier par message privé et ne vous demandera jamais de clés privées, phrases de récupération ou paiements hors plateforme. Vérifiez toujours que vous êtes sur **rwanftfi.com**.
 
-</Accordion>
-
-<Accordion title="L'équipe peut-elle confisquer mon NFT ?">
+### L'équipe peut-elle confisquer mon NFT ?
 
 Non. La plateforme n'a pas la capacité technique de saisir ou de transférer un NFT hors du wallet d'un utilisateur. Le DAO peut voter pour **geler** la fonctionnalité du NFT d'un utilisateur sur la plateforme (désactivant les retraits, achats et accruals de récompenses) en cas de violation des conditions d'utilisation, de risques LCB-FT ou de fraude liée aux NFT. Le NFT lui-même reste la propriété de l'utilisateur ; le dégel nécessite également un vote DAO distinct.
 
-</Accordion>
-
-<Accordion title="Les NFT sont-ils un investissement ou un titre financier ?">
+### Les NFT sont-ils un investissement ou un titre financier ?
 
 Non. Les NFT sont un **produit numérique** : en en achetant un, vous recevez un actif numérique et l'accès aux services de l'écosystème. Ils ne sont explicitement **pas** des instruments financiers, **pas** un investissement et **pas** des titres financiers. Tous les achats sont définitifs, juridiquement contraignants et non remboursables — les transactions blockchain sont immuables. Voir [Légal & Conformité](/fr/legal).
 
-</Accordion>
-
-<Accordion title="Quelles entités corporatives opèrent le protocole ?">
+### Quelles entités corporatives opèrent le protocole ?
 
 Deux entités. **RWANFTFI Corporation** (enregistrée en République du Panama) est la société de technologie et produit — elle possède l'infrastructure de la plateforme, l'architecture NFT, le moteur de tokenisation et toute la propriété intellectuelle. **NFT FI Corporation** (enregistrée dans les Îles Vierges Britanniques) est la société de marketing et commerciale — elle gère les opérations de la plateforme, la distribution et les partenariats. Les litiges sont résolus par arbitrage contraignant devant la [London Court of International Arbitration (LCIA)](https://www.lcia.org/). Voir [Structure Corporative](/fr/corporate-structure).
 
-</Accordion>
-
-<Accordion title="La marque RWANFTFI est-elle légalement protégée ?">
+### La marque RWANFTFI est-elle légalement protégée ?
 
 Oui. La marque verbale **RWANFT** est officiellement enregistrée auprès de l'**Office de la Propriété Intellectuelle du Royaume-Uni (UKIPO)** sous la demande **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Classe Nice **42** (gestion d'actifs numériques). Le titulaire inscrit est **RWANFTFI Corporation** (Panama), et la demande est professionnellement représentée par **Gresham International** (Londres). Le dossier complet est publiquement consultable sur le registre officiel de l'UKIPO — chaque détail (numéro, titulaire, adresse, date de dépôt, classe, représentant) est vérifiable indépendamment en temps réel. Voir le dossier complet sur la page [Propriété Intellectuelle](/fr/intellectual-property).
 
-</Accordion>
-
-</AccordionGroup>

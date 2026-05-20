@@ -78,23 +78,28 @@ icon: "circle-question"
 
 RWANFTFI protokolüyle ilgili en sık sorulan soruların derlenmiş bir başvuru kaynağı. Konuya göre göz atın ve herhangi bir soruyu genişletin — her yanıt kendi içinde tamamdır ve ilgili tam mekanik sayfasına bağlantı içerir.
 
+<CardGroup cols={3}>
+  <Card title="Protokol Temelleri" icon="circle-info" href="#faq-sec-1" />
+  <Card title="DA Tokeni" icon="coins" href="#faq-sec-2" />
+  <Card title="Gelir, Bakiyeler ve Pazarlama" icon="chart-line" href="#faq-sec-3" />
+  <Card title="Madencilik, Farming ve Borç Verme" icon="hand-holding-dollar" href="#faq-sec-4" />
+  <Card title="Mimari ve Yönetişim" icon="sitemap" href="#faq-sec-5" />
+  <Card title="Güvenlik, Hukuk ve Şirket" icon="shield-halved" href="#faq-sec-6" />
+</CardGroup>
+
+<div id="faq-sec-1" />
+
 ## Protokol Temelleri
 
-<AccordionGroup>
-
-<Accordion title="RWANFTFI nedir?">
+### RWANFTFI nedir?
 
 RWANFTFI, NFT'leri, Gerçek Dünya Varlıklarını (RWA), DeFi ve CeFi'yi birleşik bir finansal ekosistemde bir araya getiren Binance Smart Chain (BSC) üzerinde bir Web3 protokolüdür. 10 NFT seviyesinden (28 ila 24.000 USDT arasında fiyatlandırılmış) birinin sahipleri 22 seviyeli pazarlama yapısına, NFTM madenciliğine, DA farming'e ve borç almaya erişim kazanır. Ekonomik motor, Deflasyonist Varlık (DA)'dır — kesin olarak 21.000.000 birimle sınırlandırılmış ve %100 USDT likidite havuzuyla desteklenmiş bir token. Akıllı sözleşmeler [CertiK](https://skynet.certik.com/projects/rwanftfi) tarafından bağımsız olarak denetlenmiş ve Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)) üzerine inşa edilmiştir.
 
-</Accordion>
-
-<Accordion title="RWANFTFI hangi blok zincirinde çalışır?">
+### RWANFTFI hangi blok zincirinde çalışır?
 
 RWANFTFI, BEP20 token standardını kullanan Binance Smart Chain (BSC) üzerinde özel olarak çalışır. İşlemler gaz için az miktarda BNB gerektirir. Özel bir `SERVICE_ROLE` tarafından işletilen yönetilen zincirler arası yatırım hizmeti, kullanıcıların desteklenen herhangi bir blok zincirinden hesaplarını fonlamalarına olanak tanır.
 
-</Accordion>
-
-<Accordion title="Kaç NFT seviyesi vardır ve maliyetleri nedir?">
+### Kaç NFT seviyesi vardır ve maliyetleri nedir?
 
 10 seviye vardır. Fiyatlar ve isimlendirme:
 
@@ -113,158 +118,105 @@ RWANFTFI, BEP20 token standardını kullanan Binance Smart Chain (BSC) üzerinde
 
 Daha yüksek seviyeler daha derin pazarlama kazançlarını, NFTM madenciliğini ve borç almayı açar. [NFT Ekosistemi sayfasında](/tr/nft-ecosystem) tam ayrıntılar.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-2" />
 
 ## DA Tokeni
 
-<AccordionGroup>
-
-<Accordion title="DA tokeninin fiyatı nasıl artar?">
+### DA tokeninin fiyatı nasıl artar?
 
 DA fiyatı tek bir formülü izler: **Fiyat = Likidite ÷ Dolaşımdaki Arz**. DA her satıldığında, satılan tokenlerin %100'ü kalıcı olarak yakılır (arz azalır) ve USDT havuzda kalır (likidite kalır veya artar). Sonuç mekanik olarak deflasyonisttir: aynı veya daha büyük bir destek üzerinde daha az arz, token başına daha yüksek fiyat anlamına gelir. Havuz, ekosistem genelinde 14'ten fazla gelir akışıyla beslenir. Bkz. [DA Token Mekanikleri](/tr/da-token-mechanics).
 
-</Accordion>
-
-<Accordion title="DA kullanıcılar arasında transfer edilebilir mi?">
+### DA kullanıcılar arasında transfer edilebilir mi?
 
 Hayır. DA, transfer edilemeyen bir yardımcı tokendir. Yalnızca satılabilir (manuel veya otomatik), borç teminatı olarak kullanılabilir veya geri ödenebilir. Eşler arası transferler sözleşme düzeyinde devre dışı bırakılmıştır.
 
-</Accordion>
-
-<Accordion title="Otomatik Satış döngüsü nedir?">
+### Otomatik Satış döngüsü nedir?
 
 Bir kullanıcı DA'yı manuel olarak satmazsa, sistem kalan bakiyeden toplam 365 gün boyunca dört dönem içinde otomatik satışları tetikler: 120 gün sonra %25, 90 gün daha sonra kalanın %40'ı, 90 gün daha sonra kalanın %50'si ve son 65 günde kalanın %100'ü. Otomatik satılan tokenlerin %100'ü yakılır ve kullanıcı değerin %70'ini USDT olarak alır (manuel satışta %75'e karşın). Her otomatik satış, o dönemin tetikleme anındaki DA fiyatından gerçekleşir.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-3" />
 
 ## Gelir, Bakiyeler ve Pazarlama
 
-<AccordionGroup>
-
-<Accordion title="Gelir Limiti nedir?">
+### Gelir Limiti nedir?
 
 Her NFT'nin sıkı bir Gelir Limiti vardır — bu NFT'nin yenileme öncesinde üretebileceği maksimum kümülatif gelir. Limit hem pazarlama ödülleri hem de DA satışları tarafından tüketilir. Sıfıra ulaştığında, sahip tüm pazarlama ödüllerini almayı durdurur ve DA'yı manuel olarak satma yeteneğini kaybeder. Bunu önlemek için NFT'yi Otomatik Alım, manuel aynı seviye yeniden satın alma veya daha yüksek bir seviyeye yükseltme yoluyla yenileyin. Kalan limit orijinalin %30'unun üzerindeyken manuel yeniden satın alma kilitlidir.
 
-</Accordion>
-
-<Accordion title="Birikim Bakiyesi nedir?">
+### Birikim Bakiyesi nedir?
 
 Her pazarlama ödülünün %20'sinin otomatik olarak alacaklandırıldığı zorunlu bir tasarruf hesabı. Yalnızca aynı seviyeli NFT satın almak veya daha yüksek bir seviyeye yükseltmek için kullanılabilir. Kullanımı, DA Likidite Havuzuna yönlendirilen %20 ücret gerektirir; başka bir kullanıcıya aktarımı da aynı %20 ücreti gerektirir. 120 gün kullanılmazsa yeniden dağıtım için uygun hale gelir: %70 DA Likidite Havuzuna ve %30 üst sponsor'a gider (Normal NFT sahipleri). Bkz. [Mimari — Bakiye Şeması](/tr/architecture).
 
-</Accordion>
-
-<Accordion title="Dondurulmuş Bakiye nedir ve ne zaman etkinleşir?">
+### Dondurulmuş Bakiye nedir ve ne zaman etkinleşir?
 
 Dondurulmuş Bakiye, 72 saatlik bir gelir koruma mekanizmasıdır. Yalnızca **üç koşulun tümü** karşılandığında etkinleşir: (1) alıcı doğrudan kişisel davet ettiğiniz kişidir, (2) bu davet edilen kişinin ilk NFT satın alımı veya Otomatik Alım yenilemesidir ve (3) sonuçta ortaya çıkan komisyon kalan Gelir Limitinizi aşmaktadır. Fazlalık, NFT'nizi yükseltip talep etmeniz için 72 saat tutulur. Pencereyi kaçırır ve Otomatik Alım fazlalığı karşılamadıysa, %70 DA Likidite Havuzuna ve %30 doğrudan üst sponsor'unuza yönlendirilir. Tam mekanikler için [Dondurulmuş Bakiye sayfası](/tr/frozen-balance).
 
-</Accordion>
-
-<Accordion title="Pazarlama yapısı nasıl çalışır?">
+### Pazarlama yapısı nasıl çalışır?
 
 Bir kullanıcı NFT etkinleştirdiğinde, akıllı sözleşme onları "en zayıf dal, soldan sağa" algoritması kullanarak kalıcı olarak 22 seviyeli bir ikili ağaca yerleştirir. Maksimum kapasite tamamen dolduğunda 8.388.606 pozisyondur. Kazançlar üç bağımsız akıştan gelir: **Sponsor Bonusu** (doğrudan davetler için NFT fiyatının Aşama 1'de %30'u / Aşama 2'de %20'si), **Ağaç Dağılımı** (Seviye 2'den Seviye 22'ye kadar seviye başına yüzdeler) ve **Eşleştirme Bonusu** (doğrudan ortakların gelirinden üç seviye boyunca %5 + %5 + %5). Seviye 16–22, DAO oylamasıyla Aşama 2'de açılır. Bkz. [Pazarlama Yapısı](/tr/marketing-binary-tree).
 
-</Accordion>
-
-<Accordion title="NFT'im ne kadar derinliğe kadar kazanabilir?">
+### NFT'im ne kadar derinliğe kadar kazanabilir?
 
 Derinlik NFT seviyenize bağlıdır. Şu anda, Genesis (L1) 2 seviye derinliğe kadar kazanır ve Infinity (L10) 19 seviyeye kadar kazanır. DAO oylamasıyla Aşama 2 etkinleştirildikten sonra (Q4 2026 planlanmış), Infinity tam 22 seviyeye kadar kazanacaktır. Diğer seviyeler orantılı olarak genişler. Daha düşük seviyeli sahipler **sıkıştırmaya** güvenir — üst katılımcı uygun değilse, ödül aktif bir sonraki katılımcıya yukarı iletilir.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-4" />
 
 ## Madencilik, Farming ve Borç Verme
 
-<AccordionGroup>
-
-<Accordion title="NFTM nedir?">
+### NFTM nedir?
 
 NFTM **bir token değildir** — akıllı sözleşme tarafından izlenen dahili bir madencilik sayacıdır. Piyasa değeri yoktur, işlem görülemez veya transfer edilemez. Tek işlevi, mevcut fiyattan DA'ya dönüştüğü Farming'e stake edilmektir. Madencilik, aktif bir Gelir Limiti ve Premium veya daha yüksek seviye (L5+) gerektirir. Madencilik tamamlandıktan sonra, NFTM'yi Farming'e stake etmek için tam 72 saatiniz vardır, aksi takdirde döngü kaybolur. Bkz. [Madencilik ve Farming](/tr/da-mining-farming).
 
-</Accordion>
-
-<Accordion title="Olgunlaşmış bir Farming ödülünü yükseltmeden önce talep etmezsem ne olur?">
+### Olgunlaşmış bir Farming ödülünü yükseltmeden önce talep etmezsem ne olur?
 
 Kalıcı olarak yok edilir. Herhangi bir NFT satın alımı veya yükseltmesi `terminate()` çağırır; bu, aktif oturumu durdurur ve **olgunlaşmış olanlar dahil tüm talep edilmemiş farming ödüllerini yok eder**. Operasyonel kural: önce talep et, sonra yükselt.
 
-</Accordion>
-
-<Accordion title="DA'ma karşı kredi alabilir miyim?">
+### DA'ma karşı kredi alabilir miyim?
 
 Evet. Premium ve Elite NFT sahipleri (L5+) **sabit %70 LTV** ile DA'larına karşı borç alabilir — oran sabit kodlanmıştır, kullanıcı daha küçük bir yüzde seçemez ve tüm DA partisi bir kez rehin edilir (bir partinin bir kısmına karşı kısmi borçlanma desteklenmez). Her madencilik döngüsünden gelen her DA partisi bağımsız teminattır, bu nedenle birden fazla eş zamanlı kredi mümkündür — parti başına bir tane. Belirli bir parti **tüm ömrü boyunca yalnızca bir kez** rehin edilebilir: kredi açıldıktan sonra, tam geri ödemeden sonra bile bu parti yeniden teminat olarak kullanılamaz. İhraçta tek seferlik **%5 komisyon** ödenir ve DA Likidite Havuzuna yönlendirilir; tam veya kısmi geri ödeme ücreti tekrar tetiklemez. Borçlu, brüt kredi tutarının %95'ini Normal Bakiyesinde alır.
 
 Borç, ihraç sırasında yakalanan `loan.price` üzerinden USDT cinsinden ifade edilir ve **DA değer kazanırsa artmaz** — kredi, gelecekteki DA değer artışına ilişkin potansiyeli korurken bugünün fiyatından likidite çıkarmanıza olanak tanır. Borçlu aynı zamanda **istediği zaman kısmi geri ödeme** yapabilir; bu, teminatın bir kısmını serbest bırakır ve borcu orantılı olarak azaltır. Kredi, yalnızca partinin bir sonraki planlanmış otomatik satışına en az 30 gün kalıyorsa açılabilir — bu zincir üzerinde bir uygunluk kapısıdır, sabit bir kredi vadesi değildir. Açıldıktan sonra kredinin vadesi yoktur ve parti otomatik satış döngüsüne girmeden önce istediği zaman tamamen veya kısmen geri ödenebilir. Bkz. [Tam borç verme mekanikleri →](/tr/da-lending).
 
-</Accordion>
-
-<Accordion title="Kredimi zamanında geri ödemezsem ne olur?">
+### Kredimi zamanında geri ödemezsem ne olur?
 
 Borçlu, teminatlı parti otomatik satış döngüsüne girmeden önce geri ödemezse, rehin edilen DA standart dört dönemli program aracılığıyla aşamalı olarak yakılır (120 / 90 / 90 / 65 gün, toplam 365 gün). Her dönem, **kalan** rehin edilen DA'nın bir kısmını yakar: %25, ardından %40, ardından %50, ardından %100. Yakılan tüm DA kalıcı olarak yok edilir ve her yakılan kısım için `loan.price` üzerindeki USDT değeri DA Likidite Havuzuna akar. Borçlu, ihraçta alınan USDT'yi elinde tutar ve yalnızca teminatın yakılan kısmını kaybeder. Temerrüt **ya hep ya hiç değildir** — herhangi iki otomatik satış döneminin arasında borçlu hâlâ `repay()` çağırabilir ve yalnızca hâlâ rehinli olan için ödeyerek **kalan** rehinli DA'yı geri alabilir, tüm gelecekteki yakımları durdurabilir. Bkz. [Tam borç verme mekanikleri →](/tr/da-lending).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-5" />
 
 ## Mimari ve Yönetişim
 
-<AccordionGroup>
-
-<Accordion title="Hangi sözleşme mimarisi kullanılıyor?">
+### Hangi sözleşme mimarisi kullanılıyor?
 
 Protokol, işlevselliği tek bir proxy aracılığıyla erişilen 7 modüler Facet (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) arasında bölen **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))** kullanır. Diamond sözleşmesi, Facet kesintileri yoluyla yükseltilebilirdir; TokenReserve (DA) Şeffaf Proxy aracılığıyla yükseltilebilirdir; NFT'ler, GovToken ve AdminContract yükseltilemezdir. Bkz. [Mimari](/tr/architecture).
 
-</Accordion>
-
-<Accordion title="Protokolü kim yönetir?">
+### Protokolü kim yönetir?
 
 **10.000.000** kalıcı sabit arzlı ERC20Votes yönetişim tokeni (GovToken) tarafından desteklenen bir Merkeziyetsiz Otonom Organizasyon (DAO). Bir önerinin sunulabilmesi için **toplam arzın %30'undan** destek gerekir ve geçmesi için **%50 çoğunluk** gerekir. Mevcut dağılım: RWANFTFI Corporation %30 + her biri %3,5 olan 20 Guardian. Gelecekteki bir yeniden dağıtım planı, yeni token basmadan yönetişimi 101 cüzdana kadar genişletir (Corporation %30 + 20 Guardian %1,5 + 80 Lider %0,5). Geliştiriciler sistem kurallarını tek taraflı olarak değiştiremez veya kullanıcı fonlarına erişemez. Bkz. [Yönetişim](/tr/governance).
 
-</Accordion>
-
-<Accordion title="Protokol denetlendi mi?">
+### Protokol denetlendi mi?
 
 Evet. Akıllı sözleşmeler **28 Nisan 2026** tarihinde yayımlanan nihai raporla **CertiK** tarafından bağımsız olarak denetlenmiştir. CertiK standart metodolojisini uygulamıştır: Statik Analiz, Manuel İnceleme ve Biçimsel Doğrulama. Tam rapor [CertiK Skynet dizininde](https://skynet.certik.com/projects/rwanftfi) kamuya açık olarak doğrulanabilir ve [Güvenlik ve Denetim sayfasında](/tr/security) yerleştirilmiştir.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-6" />
 
 ## Güvenlik, Hukuk ve Şirket
 
-<AccordionGroup>
-
-<Accordion title="Hesabımı nasıl güvende tutabilirim?">
+### Hesabımı nasıl güvende tutabilirim?
 
 Web3 cüzdanı (MetaMask, Trust Wallet veya uyumlu bir cüzdan) kullanın. E-posta/şifre yalnızca görüntüleme erişimi sağlar; finansal işlemler cüzdan imzası gerektirir. Platform ek korumalar sağlar: giriş, finansal işlemler ve yüksek değerli operasyonları ayıran üç seviyeli güvenlik; her finansal işlem için tek kullanımlık TAN kodları; ayrı bir finansal şifre ve resmi Telegram botu aracılığıyla 2FA. RWANFTFI personeli size asla önce DM atmaz veya özel anahtarlar, başlangıç ifadeleri ya da platform dışı ödemeler istemez. Her zaman **rwanftfi.com** üzerinde olduğunuzu doğrulayın.
 
-</Accordion>
-
-<Accordion title="Ekip NFT'mi müsadere edebilir mi?">
+### Ekip NFT'mi müsadere edebilir mi?
 
 Hayır. Platformun bir NFT'yi kullanıcının cüzdanından ele geçirme veya transfer etme teknik kapasitesi yoktur. DAO, şart ihlalleri, AML riskleri veya NFT tabanlı dolandırıcılık durumlarında bir NFT'nin platform üzerindeki işlevselliğini **dondurmak** için oy verebilir (para çekme, satın alma ve ödül tahakkuklarını devre dışı bırakarak). NFT'nin kendisi kullanıcının mülkiyetinde kalır; dondurmanın kaldırılması da ayrı bir DAO oylaması gerektirir.
 
-</Accordion>
-
-<Accordion title="NFT'ler bir yatırım veya menkul kıymet midir?">
+### NFT'ler bir yatırım veya menkul kıymet midir?
 
 Hayır. NFT'ler **dijital bir üründür**: bir tanesini satın alarak dijital bir varlık ve ekosistem hizmetlerine erişim alırsınız. Açıkça **finansal araç değil**, **yatırım değil** ve **menkul kıymet değildir**. Tüm satın almalar kesin, hukuken bağlayıcı ve iade edilemez niteliktedir — blok zinciri işlemleri değiştirilemez. Bkz. [Hukuki ve Uyum](/tr/legal).
 
-</Accordion>
-
-<Accordion title="Protokolü hangi kurumsal kuruluşlar işletir?">
+### Protokolü hangi kurumsal kuruluşlar işletir?
 
 İki kuruluş. **RWANFTFI Corporation** (Panama Cumhuriyeti'nde kayıtlı) teknoloji ve ürün şirketidir — platform altyapısı, NFT mimarisi, tokenizasyon motoru ve tüm fikri mülkiyete sahiptir. **NFT FI Corporation** (İngiliz Virgin Adaları'nda kayıtlı) pazarlama ve ticaret şirketidir — platform operasyonlarını, dağıtımı ve ortaklıkları yönetir. Anlaşmazlıklar [Londra Uluslararası Tahkim Mahkemesi (LCIA)](https://www.lcia.org/) aracılığıyla bağlayıcı tahkimle çözülür. Bkz. [Kurumsal Yapı](/tr/corporate-structure).
 
-</Accordion>
-
-<Accordion title="RWANFTFI markası yasal olarak korumalı mıdır?">
+### RWANFTFI markası yasal olarak korumalı mıdır?
 
 Evet. **RWANFT** kelime markası, **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)** başvurusu kapsamında **Birleşik Krallık Fikri Mülkiyet Ofisi (UKIPO)** nezdinde Nice Sınıf **42** (dijital varlık yönetimi) altında resmi olarak tescil edilmiştir. Kayıt sahibi **RWANFTFI Corporation** (Panama) olup başvuru **Gresham International** (Londra) tarafından profesyonel olarak temsil edilmektedir. Tam dava dosyası resmi UKIPO sicilinde kamuya açık olarak aranabilir — her ayrıntı (numara, sahip, adres, başvuru tarihi, sınıf, temsilci) gerçek zamanlı olarak bağımsız biçimde doğrulanabilir. [Fikri Mülkiyet](/tr/intellectual-property) sayfasındaki tam kayıta bakın.
 
-</Accordion>
-
-</AccordionGroup>

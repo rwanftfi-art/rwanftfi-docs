@@ -78,23 +78,28 @@ icon: "circle-question"
 
 Tài liệu tham khảo tổng hợp cho các câu hỏi phổ biến nhất về giao thức RWANFTFI. Duyệt theo chủ đề và mở rộng bất kỳ câu hỏi nào — mỗi câu trả lời độc lập và liên kết đến trang cơ chế đầy đủ.
 
+<CardGroup cols={3}>
+  <Card title="Kiến Thức Cơ Bản Về Giao Thức" icon="circle-info" href="#faq-sec-1" />
+  <Card title="Token DA" icon="coins" href="#faq-sec-2" />
+  <Card title="Thu Nhập, Số Dư & Marketing" icon="chart-line" href="#faq-sec-3" />
+  <Card title="Khai Thác, Farming & Cho Vay" icon="hand-holding-dollar" href="#faq-sec-4" />
+  <Card title="Kiến Trúc & Quản Trị" icon="sitemap" href="#faq-sec-5" />
+  <Card title="Bảo Mật, Pháp Lý & Công Ty" icon="shield-halved" href="#faq-sec-6" />
+</CardGroup>
+
+<div id="faq-sec-1" />
+
 ## Kiến Thức Cơ Bản Về Giao Thức
 
-<AccordionGroup>
-
-<Accordion title="RWANFTFI là gì?">
+### RWANFTFI là gì?
 
 RWANFTFI là một giao thức Web3 trên Binance Smart Chain (BSC) kết nối NFT, Tài Sản Thực (RWA), DeFi và CeFi vào một hệ sinh thái tài chính thống nhất. Người sở hữu một trong 10 cấp NFT (giá từ 28 đến 24.000 USDT) được truy cập vào cấu trúc marketing 22 cấp, khai thác NFTM, farming DA, và cho vay. Cỗ máy kinh tế là Tài Sản Giảm Phát (DA) — một token được giới hạn cứng nghiêm ngặt ở 21.000.000 đơn vị và được bảo chứng 100% bởi một pool thanh khoản USDT. Hợp đồng thông minh được kiểm toán độc lập bởi [CertiK](https://skynet.certik.com/projects/rwanftfi) và được xây dựng trên Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
 
-</Accordion>
-
-<Accordion title="RWANFTFI chạy trên blockchain nào?">
+### RWANFTFI chạy trên blockchain nào?
 
 RWANFTFI hoạt động độc quyền trên Binance Smart Chain (BSC) sử dụng chuẩn token BEP20. Các giao dịch cần một lượng nhỏ BNB để trả phí gas. Dịch vụ nạp tiền đa chuỗi được quản lý (vận hành bởi `SERVICE_ROLE` chuyên dụng) cho phép người dùng nạp tiền vào tài khoản từ bất kỳ blockchain được hỗ trợ nào.
 
-</Accordion>
-
-<Accordion title="Có bao nhiêu cấp NFT và giá như thế nào?">
+### Có bao nhiêu cấp NFT và giá như thế nào?
 
 Có 10 cấp. Giá và tên gọi:
 
@@ -113,158 +118,105 @@ Có 10 cấp. Giá và tên gọi:
 
 Cấp cao hơn mở khóa độ sâu kiếm tiền marketing lớn hơn, khai thác NFTM, và cho vay. Chi tiết đầy đủ trên [trang Hệ Sinh Thái NFT](/vi/nft-ecosystem).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-2" />
 
 ## Token DA
 
-<AccordionGroup>
-
-<Accordion title="Giá token DA tăng như thế nào?">
+### Giá token DA tăng như thế nào?
 
 Giá DA theo một công thức duy nhất: **Giá = Thanh khoản ÷ Nguồn cung lưu hành**. Mỗi khi DA được bán, 100% token bán ra bị đốt vĩnh viễn (nguồn cung giảm) trong khi USDT vẫn ở trong pool (thanh khoản giữ nguyên hoặc tăng). Kết quả là giảm phát về mặt cơ học: ít nguồn cung hơn trên cùng lượng hoặc nhiều tài sản bảo chứng hơn có nghĩa là giá cao hơn cho mỗi token. Pool được tài trợ bởi hơn 14 dòng doanh thu trên khắp hệ sinh thái. Xem [Cơ Chế Token DA](/vi/da-token-mechanics).
 
-</Accordion>
-
-<Accordion title="DA có thể chuyển nhượng giữa người dùng không?">
+### DA có thể chuyển nhượng giữa người dùng không?
 
 Không. DA là token tiện ích không thể chuyển nhượng. Nó chỉ có thể được bán (thủ công hoặc tự động), dùng làm tài sản thế chấp cho vay, hoặc được trả nợ. Chuyển nhượng ngang hàng bị vô hiệu hóa ở cấp hợp đồng.
 
-</Accordion>
-
-<Accordion title="Chu Kỳ Tự Động Bán là gì?">
+### Chu Kỳ Tự Động Bán là gì?
 
 Nếu người dùng không bán DA thủ công, hệ thống kích hoạt bán tự động từ số dư còn lại qua bốn giai đoạn tổng cộng 365 ngày: 25% sau 120 ngày, 40% phần còn lại sau 90 ngày tiếp theo, 50% phần còn lại sau 90 ngày tiếp theo, và 100% phần còn lại sau 65 ngày cuối. 100% token tự động bán bị đốt và người dùng nhận 70% giá trị bằng USDT (so với 75% khi bán thủ công). Mỗi lần tự động bán được thực hiện tại giá DA vào thời điểm kích hoạt giai đoạn đó.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-3" />
 
 ## Thu Nhập, Số Dư & Marketing
 
-<AccordionGroup>
-
-<Accordion title="Giới Hạn Thu Nhập là gì?">
+### Giới Hạn Thu Nhập là gì?
 
 Mỗi NFT có một Giới Hạn Thu Nhập nghiêm ngặt — thu nhập tích lũy tối đa mà NFT đó có thể tạo ra trước khi được gia hạn. Giới hạn này được tiêu thụ bởi cả phần thưởng marketing lẫn bán DA. Khi về 0, người nắm giữ ngừng nhận tất cả phần thưởng marketing và mất khả năng bán DA thủ công. Để ngăn chặn điều này, hãy gia hạn NFT qua Autobuy, mua lại thủ công cùng cấp, hoặc nâng cấp lên cấp cao hơn. Mua lại thủ công bị khóa khi giới hạn còn lại cao hơn 30% so với ban đầu.
 
-</Accordion>
-
-<Accordion title="Số Dư Tích Lũy là gì?">
+### Số Dư Tích Lũy là gì?
 
 Một tài khoản tiết kiệm bắt buộc nơi 20% mỗi phần thưởng marketing được tự động ghi có. Nó chỉ có thể dùng để mua NFT cùng cấp hoặc nâng cấp lên cấp cao hơn. Sử dụng nó phát sinh phí 20% chuyển vào Pool Thanh khoản DA; chuyển nhượng sang người dùng khác cũng phát sinh phí 20% tương tự. Nếu không được sử dụng trong 120 ngày, nó đủ điều kiện để phân phối lại: 70% vào Pool Thanh khoản DA và 30% đến người tài trợ tuyến trên (người nắm giữ NFT Thông Thường). Xem [Kiến Trúc — Sơ Đồ Số Dư](/vi/architecture).
 
-</Accordion>
-
-<Accordion title="Số Dư Đóng Băng là gì và khi nào nó kích hoạt?">
+### Số Dư Đóng Băng là gì và khi nào nó kích hoạt?
 
 Số Dư Đóng Băng là cơ chế bảo vệ thu nhập 72 giờ. Nó chỉ kích hoạt khi **cả ba** điều kiện được đáp ứng: (1) người mua là người bạn trực tiếp mời cá nhân, (2) đó là giao dịch mua NFT đầu tiên của người được mời hoặc Autobuy của họ, và (3) hoa hồng phát sinh vượt quá Giới Hạn Thu Nhập còn lại của bạn. Phần vượt quá được giữ trong 72 giờ, cho bạn thời gian nâng cấp NFT và nhận lại. Nếu bỏ lỡ thời hạn và Autobuy không bù đắp phần vượt quá, 70% được chuyển vào Pool Thanh khoản DA và 30% đến người tài trợ tuyến trên trực tiếp của bạn. Cơ chế đầy đủ trên [trang Số Dư Đóng Băng](/vi/frozen-balance).
 
-</Accordion>
-
-<Accordion title="Cấu trúc marketing hoạt động như thế nào?">
+### Cấu trúc marketing hoạt động như thế nào?
 
 Khi người dùng kích hoạt NFT, hợp đồng thông minh đặt họ vĩnh viễn vào một cây nhị phân 22 cấp bằng thuật toán "nhánh yếu nhất, từ trái sang phải". Sức chứa tối đa là 8.388.606 vị trí khi được lấp đầy hoàn toàn. Thu nhập đến từ ba dòng độc lập: **Sponsor Bonus** (30% Giai đoạn 1 / 20% Giai đoạn 2 của giá NFT cho lời mời trực tiếp), **Phân Phối Theo Cây** (tỷ lệ phần trăm theo cấp từ Cấp 2 đến Cấp 22), và **Matching Bonus** (5% + 5% + 5% trên ba cấp của thu nhập đối tác trực tiếp). Cấp 16–22 được mở khóa trong Giai đoạn 2 qua biểu quyết DAO. Xem [Cấu Trúc Marketing](/vi/marketing-binary-tree).
 
-</Accordion>
-
-<Accordion title="NFT của tôi có thể kiếm sâu đến đâu?">
+### NFT của tôi có thể kiếm sâu đến đâu?
 
 Độ sâu phụ thuộc vào cấp NFT của bạn. Hiện tại, Genesis (L1) kiếm từ 2 cấp sâu, và Infinity (L10) kiếm đến 19 cấp sâu. Sau khi Giai đoạn 2 được DAO biểu quyết kích hoạt (dự kiến Q4 2026), Infinity sẽ kiếm đến toàn bộ 22 cấp. Các cấp khác mở rộng theo tỷ lệ. Người nắm giữ cấp thấp hơn dựa vào **nén** — khi tuyến trên không đủ điều kiện, phần thưởng của họ chuyển lên người tham gia tiếp theo có đủ điều kiện.
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-4" />
 
 ## Khai Thác, Farming & Cho Vay
 
-<AccordionGroup>
-
-<Accordion title="NFTM là gì?">
+### NFTM là gì?
 
 NFTM **không phải là token** — đó là bộ đếm khai thác nội bộ được theo dõi bởi hợp đồng thông minh. Nó không có giá trị thị trường và không thể giao dịch hay chuyển nhượng. Chức năng duy nhất của nó là được stake vào Farming, nơi nó chuyển thành DA theo giá hiện tại. Khai thác yêu cầu Giới Hạn Thu Nhập đang hoạt động và cấp Premium trở lên (L5+). Sau khi khai thác hoàn thành, bạn có đúng 72 giờ để stake NFTM vào Farming hoặc chu kỳ đó bị mất. Xem [Khai Thác & Farming](/vi/da-mining-farming).
 
-</Accordion>
-
-<Accordion title="Điều gì xảy ra nếu tôi không nhận phần thưởng Farming đã đáo hạn trước khi nâng cấp?">
+### Điều gì xảy ra nếu tôi không nhận phần thưởng Farming đã đáo hạn trước khi nâng cấp?
 
 Nó bị hủy vĩnh viễn. Bất kỳ giao dịch mua hoặc nâng cấp NFT nào đều gọi `terminate()`, dừng phiên đang hoạt động và **hủy tất cả phần thưởng farming chưa nhận** — kể cả phần đã đáo hạn. Quy tắc vận hành: nhận trước, rồi mới nâng cấp.
 
-</Accordion>
-
-<Accordion title="Tôi có thể vay dựa trên DA của mình không?">
+### Tôi có thể vay dựa trên DA của mình không?
 
 Có. Người nắm giữ NFT Premium và Elite (L5+) có thể vay dựa trên DA của họ với **LTV cố định 70%** — tỷ lệ được hardcode, người dùng không thể chọn tỷ lệ nhỏ hơn, và toàn bộ lô DA được thế chấp cùng một lúc (không hỗ trợ vay một phần lô). Mỗi lô DA từ mỗi chu kỳ khai thác là tài sản thế chấp độc lập, vì vậy nhiều khoản vay đồng thời là có thể — một khoản cho mỗi lô. Một lô chỉ có thể được thế chấp **một lần trong suốt vòng đời**: sau khi khoản vay được mở, lô đó không thể dùng làm tài sản thế chấp lần nữa, dù đã trả nợ đầy đủ. **Hoa hồng một lần 5%** được thu tại thời điểm phát hành và chuyển vào Pool Thanh khoản DA; trả nợ toàn bộ hoặc một phần không kích hoạt phí lần nữa. Người vay nhận 95% tổng số tiền vay vào Số Dư Thông Thường.
 
 Khoản nợ được định danh bằng USDT theo `loan.price` tại thời điểm phát hành và **không tăng nếu DA tăng giá** — khoản vay cho phép bạn rút thanh khoản tại giá hôm nay trong khi giữ lại lợi ích tăng giá DA trong tương lai. Người vay cũng có thể **trả nợ một phần** bất cứ lúc nào, giải phóng một phần tài sản thế chấp và giảm khoản nợ theo tỷ lệ. Khoản vay chỉ có thể được mở nếu còn ít nhất 30 ngày đến lần tự động bán tiếp theo của lô — đây là cổng điều kiện on-chain, không phải thời hạn vay cố định. Khi đã mở, khoản vay không có ngày đáo hạn và có thể được trả toàn bộ hoặc một phần bất cứ lúc nào trước khi lô vào chu kỳ tự động bán. Xem [Cơ Chế Cho Vay đầy đủ →](/vi/da-lending).
 
-</Accordion>
-
-<Accordion title="Điều gì xảy ra nếu tôi không trả nợ đúng hạn?">
+### Điều gì xảy ra nếu tôi không trả nợ đúng hạn?
 
 Nếu người vay không trả nợ trước khi lô thế chấp vào chu kỳ tự động bán, DA thế chấp bị đốt lũy tiến qua lịch bốn giai đoạn tiêu chuẩn (120 / 90 / 90 / 65 ngày, tổng cộng 365 ngày). Mỗi giai đoạn đốt một phần DA thế chấp **còn lại**: 25%, rồi 40%, rồi 50%, rồi 100%. Tất cả DA bị đốt bị hủy vĩnh viễn và giá trị USDT tại `loan.price` cho mỗi phần bị đốt chảy vào Pool Thanh khoản DA. Người vay giữ lại USDT nhận được tại thời điểm phát hành và chỉ mất phần tài sản thế chấp bị đốt. Vỡ nợ **không phải là tất-cả-hoặc-không-gì** — giữa hai giai đoạn tự động bán bất kỳ, người vay vẫn có thể gọi `repay()` và lấy lại DA thế chấp **còn lại** bằng cách chỉ trả cho phần vẫn còn được thế chấp, dừng mọi lần đốt trong tương lai. Xem [Cơ Chế Cho Vay đầy đủ →](/vi/da-lending).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-5" />
 
 ## Kiến Trúc & Quản Trị
 
-<AccordionGroup>
-
-<Accordion title="Kiến trúc hợp đồng nào được sử dụng?">
+### Kiến trúc hợp đồng nào được sử dụng?
 
 Giao thức sử dụng **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, chia chức năng thành 7 Facet mô-đun (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) được truy cập qua một proxy duy nhất. Hợp đồng Diamond có thể nâng cấp qua Facet cut; TokenReserve (DA) có thể nâng cấp qua Transparent Proxy; NFT, GovToken, và AdminContract không thể nâng cấp. Xem [Kiến Trúc](/vi/architecture).
 
-</Accordion>
-
-<Accordion title="Ai quản trị giao thức?">
+### Ai quản trị giao thức?
 
 Một Tổ Chức Tự Trị Phi Tập Trung (DAO) được hậu thuẫn bởi token quản trị ERC20Votes (GovToken) với nguồn cung cố định vĩnh viễn là **10.000.000**. Một đề xuất cần sự hỗ trợ từ **30% tổng nguồn cung** để được gửi, và **đa số 50%** để được thông qua. Phân bổ hiện tại: RWANFTFI Corporation 30% + 20 Guardian ở mức 3,5% mỗi người. Kế hoạch phân phối lại trong tương lai mở rộng quản trị đến tối đa 101 ví (Corporation 30% + 20 Guardian ở mức 1,5% + 80 Leader ở mức 0,5%) mà không đúc token mới. Các nhà phát triển không thể đơn phương thay đổi các quy tắc hệ thống hay truy cập tiền của người dùng. Xem [Quản Trị](/vi/governance).
 
-</Accordion>
-
-<Accordion title="Giao thức có được kiểm toán không?">
+### Giao thức có được kiểm toán không?
 
 Có. Hợp đồng thông minh được kiểm toán độc lập bởi **CertiK**, với báo cáo cuối cùng được công bố vào ngày **28 tháng 4 năm 2026**. CertiK áp dụng phương pháp tiêu chuẩn của họ: Phân Tích Tĩnh, Xem Xét Thủ Công, và Xác Minh Hình Thức. Báo cáo đầy đủ có thể xác minh công khai trên [thư mục CertiK Skynet](https://skynet.certik.com/projects/rwanftfi) và được nhúng trên [trang Bảo Mật & Kiểm Toán](/vi/security).
 
-</Accordion>
-
-</AccordionGroup>
+<div id="faq-sec-6" />
 
 ## Bảo Mật, Pháp Lý & Công Ty
 
-<AccordionGroup>
-
-<Accordion title="Làm thế nào để giữ tài khoản của tôi an toàn?">
+### Làm thế nào để giữ tài khoản của tôi an toàn?
 
 Sử dụng ví Web3 (MetaMask, Trust Wallet, hoặc tương thích). Email/mật khẩu chỉ cấp quyền xem; các hành động tài chính yêu cầu chữ ký ví. Nền tảng có các lớp bảo vệ bổ sung: bảo mật ba cấp tách biệt đăng nhập, hành động tài chính, và hoạt động giá trị cao; mã TAN dùng một lần cho mỗi giao dịch tài chính; mật khẩu tài chính riêng; và 2FA qua bot Telegram chính thức. Nhân viên RWANFTFI sẽ không bao giờ nhắn tin trước cho bạn hay yêu cầu khóa riêng tư, cụm từ gốc, hoặc thanh toán ngoài nền tảng. Luôn xác minh bạn đang ở trên **rwanftfi.com**.
 
-</Accordion>
-
-<Accordion title="Đội ngũ có thể tịch thu NFT của tôi không?">
+### Đội ngũ có thể tịch thu NFT của tôi không?
 
 Không. Nền tảng không có khả năng kỹ thuật để thu giữ hoặc chuyển NFT ra khỏi ví người dùng. DAO có thể biểu quyết để **đóng băng** chức năng NFT trên nền tảng (vô hiệu hóa rút tiền, mua, và tích lũy phần thưởng) trong trường hợp vi phạm điều khoản, rủi ro AML, hoặc gian lận dựa trên NFT. Bản thân NFT vẫn là tài sản của người dùng; việc gỡ đóng băng cũng cần một cuộc biểu quyết DAO riêng.
 
-</Accordion>
-
-<Accordion title="NFT có phải là khoản đầu tư hay chứng khoán không?">
+### NFT có phải là khoản đầu tư hay chứng khoán không?
 
 Không. NFT là **sản phẩm kỹ thuật số**: bằng cách mua một NFT, bạn nhận được tài sản kỹ thuật số và quyền truy cập vào các dịch vụ hệ sinh thái. Chúng **không** phải là công cụ tài chính, **không** phải khoản đầu tư, và **không** phải chứng khoán. Tất cả giao dịch mua là cuối cùng, có giá trị pháp lý ràng buộc, và không hoàn tiền — các giao dịch blockchain là bất biến. Xem [Pháp Lý & Tuân Thủ](/vi/legal).
 
-</Accordion>
-
-<Accordion title="Những thực thể doanh nghiệp nào vận hành giao thức?">
+### Những thực thể doanh nghiệp nào vận hành giao thức?
 
 Hai thực thể. **RWANFTFI Corporation** (đăng ký tại Cộng hòa Panama) là công ty công nghệ và sản phẩm — sở hữu cơ sở hạ tầng nền tảng, kiến trúc NFT, công cụ token hóa, và toàn bộ tài sản trí tuệ. **NFT FI Corporation** (đăng ký tại Quần đảo Virgin thuộc Anh) là công ty marketing và thương mại — quản lý vận hành nền tảng, phân phối, và quan hệ đối tác. Tranh chấp được giải quyết qua trọng tài ràng buộc tại [Tòa án Trọng tài Quốc tế London (LCIA)](https://www.lcia.org/). Xem [Cơ Cấu Doanh Nghiệp](/vi/corporate-structure).
 
-</Accordion>
-
-<Accordion title="Thương hiệu RWANFTFI có được bảo hộ pháp lý không?">
+### Thương hiệu RWANFTFI có được bảo hộ pháp lý không?
 
 Có. Nhãn hiệu từ **RWANFT** được đăng ký chính thức với **Văn phòng Sở hữu Trí tuệ Vương quốc Anh (UKIPO)** theo đơn **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Nhóm Nice **42** (quản lý tài sản kỹ thuật số). Chủ sở hữu được ghi nhận là **RWANFTFI Corporation** (Panama), và đơn được đại diện chuyên nghiệp bởi **Gresham International** (London). Toàn bộ hồ sơ có thể tìm kiếm công khai trên đăng bạ UKIPO chính thức — mọi chi tiết (số hiệu, chủ sở hữu, địa chỉ, ngày nộp đơn, nhóm, người đại diện) đều có thể xác minh độc lập theo thời gian thực. Xem hồ sơ đầy đủ trên trang [Sở Hữu Trí Tuệ](/vi/intellectual-property).
 
-</Accordion>
-
-</AccordionGroup>
