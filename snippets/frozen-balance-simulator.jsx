@@ -455,7 +455,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
                 <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '6px', display: 'block' }}>{T.upgradeChoose}</label>
                 <select value={upgradeLevel} onChange={function(e) { setUpgradeLevel(Number(e.target.value)); }} style={nftSelectStyle}>
                   {NFT_DATA.filter(function(n) { return n.level > yourLevel; }).map(function(n) {
-                    return <option key={n.level} value={n.level}>{T.level + n.level + ' — ' + n.name + ' · ' + fmtUsd(n.limit)}</option>;
+                    return <option key={n.level} value={n.level}>{T.level + n.level + ' — ' + n.name + ' · ' + fmtUsd(n.price)}</option>;
                   })}
                 </select>
               </div>
