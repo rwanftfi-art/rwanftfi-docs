@@ -142,6 +142,8 @@
             "group": "Ресурсы",
             "pages": [
               "ru/roadmap",
+              "ru/faq",
+              "ru/glossary",
               "ru/support"
             ]
           },
@@ -202,6 +204,8 @@
             "group": "Kaynaklar",
             "pages": [
               "tr/roadmap",
+              "tr/faq",
+              "tr/glossary",
               "tr/support"
             ]
           },
@@ -262,6 +266,8 @@
             "group": "资源",
             "pages": [
               "zh/roadmap",
+              "zh/faq",
+              "zh/glossary",
               "zh/support"
             ]
           },
@@ -322,6 +328,8 @@
             "group": "Recursos",
             "pages": [
               "es/roadmap",
+              "es/faq",
+              "es/glossary",
               "es/support"
             ]
           },
@@ -382,6 +390,8 @@
             "group": "Ressourcen",
             "pages": [
               "de/roadmap",
+              "de/faq",
+              "de/glossary",
               "de/support"
             ]
           },
@@ -442,6 +452,8 @@
             "group": "Recursos",
             "pages": [
               "pt/roadmap",
+              "pt/faq",
+              "pt/glossary",
               "pt/support"
             ]
           },
@@ -502,6 +514,8 @@
             "group": "संसाधन",
             "pages": [
               "hi/roadmap",
+              "hi/faq",
+              "hi/glossary",
               "hi/support"
             ]
           },
@@ -562,6 +576,8 @@
             "group": "Risorse",
             "pages": [
               "it/roadmap",
+              "it/faq",
+              "it/glossary",
               "it/support"
             ]
           },
@@ -622,6 +638,8 @@
             "group": "Ressources",
             "pages": [
               "fr/roadmap",
+              "fr/faq",
+              "fr/glossary",
               "fr/support"
             ]
           },
@@ -682,6 +700,8 @@
             "group": "الموارد",
             "pages": [
               "ar/roadmap",
+              "ar/faq",
+              "ar/glossary",
               "ar/support"
             ]
           },
@@ -742,6 +762,8 @@
             "group": "Sumber Daya",
             "pages": [
               "id/roadmap",
+              "id/faq",
+              "id/glossary",
               "id/support"
             ]
           },
@@ -802,6 +824,8 @@
             "group": "リソース",
             "pages": [
               "ja/roadmap",
+              "ja/faq",
+              "ja/glossary",
               "ja/support"
             ]
           },
@@ -862,6 +886,8 @@
             "group": "Tài Nguyên",
             "pages": [
               "vi/roadmap",
+              "vi/faq",
+              "vi/glossary",
               "vi/support"
             ]
           },
@@ -922,6 +948,8 @@
             "group": "Ресурси",
             "pages": [
               "uk/roadmap",
+              "uk/faq",
+              "uk/glossary",
               "uk/support"
             ]
           },

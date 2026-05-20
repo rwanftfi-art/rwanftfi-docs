@@ -1,0 +1,270 @@
+---
+title: "常见问题"
+description: "关于 RWANFTFI 的直接解答：10 个 NFT 等级、2100 万硬顶 DA 代币、22 级营销结构、固定 70% LTV 借贷、治理以及 CertiK 审计。"
+icon: "circle-question"
+---
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "RWANFTFI 是什么？",
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI 是部署在币安智能链上的 Web3 协议，将 NFT、真实世界资产（RWA）、DeFi 与 CeFi 融为一体。持有 10 个 NFT 等级之一（28 至 24,000 USDT）的用户，可访问 22 级营销结构、NFTM 挖矿、DA 农场以及固定 70% LTV 借贷。通缩资产（DA）硬顶 21,000,000 枚，100% 由 USDT 背书。智能合约由 CertiK 审计，采用 Diamond Pattern（EIP-2535）架构。" }
+        },
+        {
+          "@type": "Question",
+          "name": "RWANFTFI 运行在哪条区块链上？",
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI 专属运行在币安智能链（BSC）上，使用 BEP20 代币标准。交易需要 BNB 支付 Gas 费。由 SERVICE_ROLE 运营的托管式跨链入金服务，允许用户从任意受支持的区块链为账户充值。" }
+        },
+        {
+          "@type": "Question",
+          "name": "共有多少个 NFT 等级，各自的价格是多少？",
+          "acceptedAnswer": { "@type": "Answer", "text": "共 10 个等级：Genesis（28 USDT）、Advance（55）、Ascend（140）、Eclipse（275）、Hydro（550）、Quantum（1,100）、Pulse（2,200）、Aurora（5,500）、Flame（11,000）、Infinity（24,000）。更高等级可解锁更深层的营销收益、NFTM 挖矿和借贷功能。" }
+        },
+        {
+          "@type": "Question",
+          "name": "DA 代币的价格如何增长？",
+          "acceptedAnswer": { "@type": "Answer", "text": "DA 价格遵循公式：价格 = 流动性 ÷ 流通供应量。每次 DA 出售，100% 的已售代币被销毁，流通量减少，而 USDT 留在池中，数学上必然推动价格上涨。" }
+        },
+        {
+          "@type": "Question",
+          "name": "什么是收入上限？",
+          "acceptedAnswer": { "@type": "Answer", "text": "收入上限是一个有效 NFT 在续约前可累计产生的最大收入。它同时被营销奖励和 DA 销售所消耗。当上限归零时，持有者将停止获得所有营销奖励，且无法手动出售 DA。可通过 Autobuy、同等级手动续购或升级来续约。" }
+        },
+        {
+          "@type": "Question",
+          "name": "什么是冻结余额？",
+          "acceptedAnswer": { "@type": "Answer", "text": "冻结余额是为期 72 小时的收入保护机制。当直接邀请人的首次 NFT 购买或 Autobuy 产生的佣金超过持有者剩余收入上限时触发。超额部分被冻结 72 小时；升级 NFT 可释放冻结金额。到期后，70% 进入 DA 流动性池，30% 归上级推荐人。" }
+        },
+        {
+          "@type": "Question",
+          "name": "我可以用 DA 质押借款吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。高级和精英 NFT 持有者（L5+）可以以 DA 为抵押，按固定 70% LTV 借款。全批次 DA 一次性质押 —— 不支持分批借款，且同一批次 DA 在其整个生命周期内只能质押一次（即使全额还款后也不能再次质押）。发放时一次性收取 5% 佣金并路由至 DA 流动性池；还款（全部或部分）不再触发手续费。债务以发放时锁定的 loan.price 计价，DA 升值后债务金额不增加。贷款只能在该批次距下一次计划自动出售至少剩余 30 天时开通 —— 这是链上准入门槛，而非固定贷款期限。借款人可在批次进入自动出售周期前的任意时间全额或部分还款。" }
+        },
+        {
+          "@type": "Question",
+          "name": "如果我未能按时还款会怎样？",
+          "acceptedAnswer": { "@type": "Answer", "text": "质押的 DA 将按标准四周期自动出售计划（120 / 90 / 90 / 65 天）被渐进式销毁，每期依次销毁剩余质押 DA 的 25%、40%、50%、100%。所有被销毁的 DA 永久销毁，对应的以 loan.price 计价的 USDT 价值流入 DA 流动性池。借款人保留发放时收到的 USDT。违约并非全有全无：在任意两个周期之间，借款人仍可调用 repay() 并仅就仍在质押的部分付款，即可赎回剩余质押 DA，从而中止后续销毁。" }
+        },
+        {
+          "@type": "Question",
+          "name": "协议是否经过审计？",
+          "acceptedAnswer": { "@type": "Answer", "text": "是的。RWANFTFI 智能合约已由 CertiK 独立审计，最终报告于 2026 年 4 月 28 日发布。可在公开的 CertiK Skynet 目录 https://skynet.certik.com/projects/rwanftfi 上验证。" }
+        },
+        {
+          "@type": "Question",
+          "name": "谁在治理 RWANFTFI？",
+          "acceptedAnswer": { "@type": "Answer", "text": "由持有 10,000,000 GovToken（ERC20Votes）的 DAO 进行治理。提案门槛为总供应量的 30%；通过门槛为 50% 多数票。当前分配：RWANFTFI Corporation 30% + 20 名 Guardian 各 3.5%。未来再分配计划将治理范围扩展至最多 101 个钱包，无需增发新代币。" }
+        },
+        {
+          "@type": "Question",
+          "name": "NFT 是投资或证券吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不是。NFT 是一种数字产品，赋予持有者访问生态服务的权利。它们明确不是金融工具、不是投资、也不是证券。所有购买均为最终结果，具有法律约束力，不可退款。" }
+        },
+        {
+          "@type": "Question",
+          "name": "RWANFTFI 品牌受到法律保护吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "是的。RWANFT 文字商标已在英国知识产权局（UKIPO）正式注册（申请编号 UK00004369823，第 42 类 —— 数字资产管理），所有人为 RWANFTFI Corporation（巴拿马）。该申请可在 UKIPO 注册库上公开核验，并由 Gresham International（伦敦）提供专业代理。完整记录见知识产权页面 https://docs.rwanftfi.com/zh/intellectual-property。" }
+        }
+      ]
+    })
+  }}
+/>
+
+RWANFTFI 协议最常见问题的综合参考。按主题浏览并展开任意问题 —— 每个答案均自成体系，并链接至完整的机制说明页面。
+
+## 协议基础
+
+<AccordionGroup>
+
+<Accordion title="RWANFTFI 是什么？">
+
+RWANFTFI 是部署在币安智能链（BSC）上的 Web3 协议，将 NFT、真实世界资产（RWA）、DeFi 与 CeFi 融合为统一的金融生态系统。持有 10 个 NFT 等级之一（价格从 28 至 24,000 USDT）的用户，可访问 22 级营销结构、NFTM 挖矿、DA 农场和借贷服务。经济引擎是通缩资产（DA）—— 严格硬顶 21,000,000 枚、100% 由 USDT 流动性池背书的代币。智能合约由 [CertiK](https://skynet.certik.com/projects/rwanftfi) 独立审计，并基于 Diamond Pattern（[EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)）构建。
+
+</Accordion>
+
+<Accordion title="RWANFTFI 运行在哪条区块链上？">
+
+RWANFTFI 专属运行在币安智能链（BSC）上，使用 BEP20 代币标准。交易需要少量 BNB 支付 Gas 费。由专用 `SERVICE_ROLE` 运营的托管式跨链入金服务，允许用户从任意受支持的区块链为账户充值。
+
+</Accordion>
+
+<Accordion title="共有多少个 NFT 等级，各自的价格是多少？">
+
+共 10 个等级。价格与名称如下：
+
+| 级别 | 名称 | 价格（USDT） | 组别 |
+|------:|------|-------------:|-------|
+| L1 | Genesis | 28 | 基础 |
+| L2 | Advance | 55 | 基础 |
+| L3 | Ascend | 140 | 基础 |
+| L4 | Eclipse | 275 | 基础 |
+| L5 | Hydro | 550 | 高级 |
+| L6 | Quantum | 1,100 | 高级 |
+| L7 | Pulse | 2,200 | 高级 |
+| L8 | Aurora | 5,500 | 高级 |
+| L9 | Flame | 11,000 | 精英 |
+| L10 | Infinity | 24,000 | 精英 |
+
+更高等级可解锁更深层的营销收益、NFTM 挖矿和借贷功能。完整详情见 [NFT 生态系统页面](/zh/nft-ecosystem)。
+
+</Accordion>
+
+</AccordionGroup>
+
+## DA 代币
+
+<AccordionGroup>
+
+<Accordion title="DA 代币的价格如何增长？">
+
+DA 价格遵循单一公式：**价格 = 流动性 ÷ 流通供应量**。每次 DA 出售，100% 的已售代币被永久销毁（供应量减少），而 USDT 留在池中（流动性保持或增长）。结果是机械性通缩：更少的供应量对应等量或更多的背书，意味着每枚代币价格更高。流动性池由生态系统中 14 条以上的收入来源共同注资。详见 [DA 代币机制](/zh/da-token-mechanics)。
+
+</Accordion>
+
+<Accordion title="DA 可以在用户之间转让吗？">
+
+不可以。DA 是不可转让的实用代币。它只能被出售（手动或自动）、用作借贷抵押物，或进行还款。点对点转账在合约层面已被禁用。
+
+</Accordion>
+
+<Accordion title="自动出售周期是什么？">
+
+如果用户未手动出售 DA，系统将在总计 365 天的四个周期内，从剩余余额中触发自动出售：120 天后出售 25%，再过 90 天出售剩余的 40%，再过 90 天出售剩余的 50%，最后 65 天出售剩余的 100%。100% 的自动出售代币被销毁，用户以 USDT 形式获得 70% 的价值（手动出售为 75%）。每次自动出售按对应周期触发时刻的 DA 价格执行。
+
+</Accordion>
+
+</AccordionGroup>
+
+## 收入、余额与营销
+
+<AccordionGroup>
+
+<Accordion title="什么是收入上限？">
+
+每个 NFT 都有严格的收入上限 —— 即该 NFT 在续约前可累计产生的最大收入。收入上限同时被营销奖励和 DA 销售所消耗。当上限归零时，持有者将停止获得所有营销奖励，并失去手动出售 DA 的能力。为防止这种情况，可通过 Autobuy、同等级手动续购或升级至更高等级来续约 NFT。当剩余上限高于原值 30% 时，手动续购将被锁定。
+
+</Accordion>
+
+<Accordion title="什么是累积余额？">
+
+一种强制储蓄账户，每笔营销奖励的 20% 会自动存入其中。它只能用于购买同等级 NFT 或升级至更高等级。使用时需支付 20% 的手续费，路由至 DA 流动性池；转让给其他用户同样收取 20% 手续费。若 120 天内未使用，将符合再分配条件：70% 进入 DA 流动性池，30% 归上级推荐人（普通 NFT 持有者）。详见[架构 — 余额结构](/zh/architecture)。
+
+</Accordion>
+
+<Accordion title="什么是冻结余额，何时触发？">
+
+冻结余额是为期 72 小时的收入保护机制。仅当**以下三个条件全部满足**时才会激活：（1）买家是您直接邀请的伙伴，（2）这是该邀请人的首次 NFT 购买或其 Autobuy 续购，（3）产生的佣金超过您剩余的收入上限。超额部分被冻结 72 小时，给您留出时间升级 NFT 并领取全额。若错过窗口期且 Autobuy 未能覆盖超额部分，70% 将路由至 DA 流动性池，30% 归您的直接上级推荐人。完整机制见[冻结余额页面](/zh/frozen-balance)。
+
+</Accordion>
+
+<Accordion title="营销结构如何运作？">
+
+用户激活 NFT 后，智能合约通过"弱侧优先，从左至右"算法将其永久置入 22 级二叉树中。满员时最大容量为 8,388,606 个位置。收益来自三条独立流：**Sponsor Bonus**（直接邀请时，第一阶段 NFT 价格的 30%，第二阶段 20%）、**二叉树分配**（第 2 至第 22 级的按级百分比）以及 **Matching Bonus**（直接合作伙伴收入三个层级各 5% + 5% + 5%）。第 16–22 级在第二阶段通过 DAO 投票解锁。详见[营销结构](/zh/marketing-binary-tree)。
+
+</Accordion>
+
+<Accordion title="我的 NFT 最多可以获得多深层的收益？">
+
+深度取决于您的 NFT 等级。目前，Genesis（L1）可获得 2 层深度的收益，Infinity（L10）最多可获得 19 层。待 DAO 投票激活第二阶段（计划 2026 年第四季度）后，Infinity 将达到完整的 22 层。其他等级按比例扩展。低等级持有者依赖**压缩**机制 —— 当上级不符合资格时，奖励向上传递至下一位有效参与者。
+
+</Accordion>
+
+</AccordionGroup>
+
+## 挖矿、农场与借贷
+
+<AccordionGroup>
+
+<Accordion title="什么是 NFTM？">
+
+NFTM **不是代币** —— 它是由智能合约追踪的内部挖矿计数器。它没有市场价值，不可交易或转让。其唯一功能是质押进入农场，在那里按当前价格兑换为 DA。挖矿需要有效的收入上限及高级等级或以上（L5+）。挖矿完成后，您有 72 小时将 NFTM 质押进农场，否则本轮周期作废。详见[挖矿与农场](/zh/da-mining-farming)。
+
+</Accordion>
+
+<Accordion title="如果我在升级前未领取已成熟的农场奖励，会发生什么？">
+
+它将被永久销毁。任何 NFT 购买或升级操作都会调用 `terminate()`，停止当前活跃会话并**销毁所有未领取的农场奖励**，包括已成熟的奖励。操作原则：先领取，再升级。
+
+</Accordion>
+
+<Accordion title="我可以用 DA 质押借款吗？">
+
+可以。高级和精英 NFT 持有者（L5+）可以以 DA 为抵押，按**固定 70% LTV** 借款 —— 比例已硬编码，用户无法选择更低比例，且整个 DA 批次一次性质押（不支持对批次的部分借款）。每次挖矿周期产生的每个 DA 批次均为独立抵押物，因此可同时开立多笔贷款，每批次对应一笔。同一批次 DA 在其整个生命周期内**只能质押一次**：贷款开通后，即使全额还款，该批次也不能再次用作抵押物。发放时一次性收取 **5% 佣金**，路由至 DA 流动性池；还款（全部或部分）不再触发手续费。借款人在常规余额中收到贷款总额的 95%。
+
+债务以发放时锁定的 `loan.price` 计价，**DA 升值后债务金额不增加** —— 借贷使您以今日价格提取流动性，同时保留对未来 DA 升值的收益权。借款人还可随时**部分还款**，按比例释放抵押物并减少债务。贷款只能在该批次距下一次计划自动出售至少剩余 30 天时开通 —— 这是链上准入门槛，而非固定贷款期限。贷款一旦开通，无固定到期日，可在批次进入自动出售周期前随时全额或部分还款。详见[完整借贷机制 →](/zh/da-lending)。
+
+</Accordion>
+
+<Accordion title="如果我未能按时还款会怎样？">
+
+如果借款人在质押批次进入自动出售周期前未还款，质押的 DA 将按标准四周期计划（120 / 90 / 90 / 65 天，共 365 天）被渐进式销毁。每期销毁**剩余**质押 DA 的一个比例：25%，然后 40%，然后 50%，最后 100%。所有被销毁的 DA 永久销毁，每期被销毁部分对应的以 `loan.price` 计价的 USDT 价值流入 DA 流动性池。借款人保留发放时收到的 USDT，仅损失被销毁的抵押物部分。违约**并非全有全无** —— 在任意两个自动出售周期之间，借款人仍可调用 `repay()`，仅就仍在质押的部分付款，即可赎回**剩余**质押 DA，从而中止后续所有销毁。详见[完整借贷机制 →](/zh/da-lending)。
+
+</Accordion>
+
+</AccordionGroup>
+
+## 架构与治理
+
+<AccordionGroup>
+
+<Accordion title="使用了什么合约架构？">
+
+协议采用 **Diamond Pattern（[EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)）**，通过单一代理访问 7 个模块化 Facet（AdminFacet、MarketingFacet、FarmingFacet、PaymentFacet、TreeFacet、ResolverFacet、ViewFacet）。Diamond 合约可通过 Facet 切割进行升级；TokenReserve（DA）通过透明代理升级；NFT、GovToken 和 AdminContract 不可升级。详见[架构](/zh/architecture)。
+
+</Accordion>
+
+<Accordion title="谁在治理协议？">
+
+去中心化自治组织（DAO）以 ERC20Votes 治理代币（GovToken）为支撑，永久固定供应量为 **10,000,000**。提交提案需获得**总供应量 30%** 的支持，通过需要 **50% 多数票**。当前分配：RWANFTFI Corporation 30% + 20 名 Guardian 各 3.5%。未来再分配计划将治理范围扩展至最多 101 个钱包（Corporation 30% + 20 名 Guardian 各 1.5% + 80 名 Leader 各 0.5%），无需增发新代币。开发者不能单方面更改系统规则或访问用户资金。详见[治理](/zh/governance)。
+
+</Accordion>
+
+<Accordion title="协议是否经过审计？">
+
+是的。智能合约已由 **CertiK** 独立审计，最终报告于 **2026 年 4 月 28 日**发布。CertiK 采用标准方法论：静态分析、人工审查和形式化验证。完整报告可在 [CertiK Skynet 目录](https://skynet.certik.com/projects/rwanftfi)公开核验，并嵌入在[安全与审计页面](/zh/security)中。
+
+</Accordion>
+
+</AccordionGroup>
+
+## 安全、法律与公司
+
+<AccordionGroup>
+
+<Accordion title="如何保护我的账户安全？">
+
+使用 Web3 钱包（MetaMask、Trust Wallet 或兼容钱包）。邮箱/密码仅提供只读访问；财务操作需要钱包签名。平台还设有多层附加保护：将登录、财务操作和高价值操作分离的三级安全机制；每笔财务交易均需一次性 TAN 码；独立的财务密码；以及通过官方 Telegram 机器人进行的 2FA 验证。RWANFTFI 工作人员绝不会主动私信您，或索要私钥、助记词或平台外付款。请始终核验您所在的网址为 **rwanftfi.com**。
+
+</Accordion>
+
+<Accordion title="团队能没收我的 NFT 吗？">
+
+不能。平台在技术上没有能力从用户钱包中扣押或转移 NFT。DAO 可投票**冻结**某个 NFT 在平台上的功能（禁用提现、购买和奖励累积），适用于违反条款、AML 风险或基于 NFT 的欺诈等情形。NFT 本身仍为用户财产；解冻同样需要单独的 DAO 投票。
+
+</Accordion>
+
+<Accordion title="NFT 是投资或证券吗？">
+
+不是。NFT 是**数字产品**：购买后，您获得一项数字资产并可访问生态服务。它们明确**不是**金融工具，**不是**投资，**也不是**证券。所有购买均为最终结果，具有法律约束力，不可退款 —— 区块链交易不可篡改。详见[法律与合规](/zh/legal)。
+
+</Accordion>
+
+<Accordion title="哪些法律主体在运营该协议？">
+
+两个实体。**RWANFTFI Corporation**（注册于巴拿马共和国）是技术与产品公司 —— 拥有平台基础设施、NFT 架构、代币化引擎及全部知识产权。**NFT FI Corporation**（注册于英属维尔京群岛）是营销与商业公司 —— 负责平台运营、分销和合作伙伴关系。争议通过[伦敦国际仲裁院（LCIA）](https://www.lcia.org/)的具有约束力的仲裁解决。详见[公司结构](/zh/corporate-structure)。
+
+</Accordion>
+
+<Accordion title="RWANFTFI 品牌受到法律保护吗？">
+
+是的。**RWANFT** 文字商标已在**英国知识产权局（UKIPO）**正式注册，申请编号 **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**，尼斯分类第 **42** 类（数字资产管理）。注册所有人为 **RWANFTFI Corporation**（巴拿马），由 **Gresham International**（伦敦）提供专业代理。完整案卷可在官方 UKIPO 注册库中公开检索 —— 每项细节（编号、所有人、地址、申请日期、分类、代理人）均可实时独立核验。完整记录见[知识产权](/zh/intellectual-property)页面。
+
+</Accordion>
+
+</AccordionGroup>

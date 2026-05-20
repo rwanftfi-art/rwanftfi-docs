@@ -1,0 +1,270 @@
+---
+title: "Häufige Fragen"
+description: "Direkte Antworten zu RWANFTFI: 10 NFT-Stufen, der auf 21 Mio. begrenzte DA-Token, die 22-stufige Marketingstruktur, Lending mit festem 70 % LTV, Governance und das CertiK-Audit."
+icon: "circle-question"
+---
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was ist RWANFTFI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI ist ein Web3-Protokoll auf der Binance Smart Chain, das NFTs, Real World Assets (RWA), DeFi und CeFi miteinander verbindet. Inhaber einer der 10 NFT-Stufen (28 bis 24.000 USDT) erhalten Zugang zu einer 22-stufigen Marketingstruktur, NFTM-Mining, DA-Farming und Lending mit festem 70 % LTV. Der Deflationary Asset (DA) ist auf 21.000.000 Einheiten begrenzt und zu 100 % durch USDT gedeckt. Smart Contracts werden von CertiK geprüft und verwenden das Diamond Pattern (EIP-2535)." }
+        },
+        {
+          "@type": "Question",
+          "name": "Auf welcher Blockchain läuft RWANFTFI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI läuft ausschließlich auf der Binance Smart Chain (BSC) und verwendet den BEP20-Token-Standard. Transaktionen benötigen BNB als Gas. Ein verwalteter Chain-übergreifender Einzahlungsdienst, der von SERVICE_ROLE betrieben wird, ermöglicht es Nutzern, Konten von jeder unterstützten Blockchain aus aufzuladen." }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie viele NFT-Stufen gibt es und was kosten sie?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Es gibt 10 Stufen: Genesis (28 USDT), Advance (55), Ascend (140), Eclipse (275), Hydro (550), Quantum (1.100), Pulse (2.200), Aurora (5.500), Flame (11.000), Infinity (24.000). Höhere Stufen schalten tiefere Marketing-Erträge, NFTM-Mining und Lending frei." }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie wächst der Preis des DA-Tokens?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Der DA-Preis folgt der Formel: Preis = Liquidität geteilt durch umlaufendes Angebot. Bei jedem Verkauf werden 100 % der verkauften Tokens verbrannt, während USDT im Pool verbleibt – das Angebot sinkt bei gleicher oder größerer Deckung, was den Preis mathematisch nach oben treibt." }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist das Einkommenslimit?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Das Einkommenslimit ist das maximale kumulative Einkommen, das ein aktives NFT vor der Erneuerung generieren kann. Es wird sowohl durch Marketing-Belohnungen als auch durch DA-Verkäufe verbraucht. Wenn es null erreicht, empfängt der Inhaber keine Marketing-Belohnungen mehr und kann DA nicht manuell verkaufen. Erneuerung über Autobuy, manuellen Rückkauf auf gleicher Ebene oder Upgrade." }
+        },
+        {
+          "@type": "Question",
+          "name": "Was ist der Frozen Balance?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Der Frozen Balance ist ein 72-stündiger Einkommensschutz. Er wird aktiviert, wenn der erste NFT-Kauf oder das Autobuy eines direkt eingeladenen Partners eine Provision erzeugt, die das verbleibende Einkommenslimit des Inhabers übersteigt. Der Überschuss wird 72 Stunden gehalten; ein Upgrade des NFTs gibt ihn frei. Bei Ablauf gehen 70 % an den DA-Liquiditätspool und 30 % an den direkten Upline-Sponsor." }
+        },
+        {
+          "@type": "Question",
+          "name": "Kann ich einen Kredit auf meine DA aufnehmen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja. Premium- und Elite-NFT-Inhaber (L5+) können zu einem festen 70 % LTV gegen ihre DA leihen. Die gesamte DA-Charge wird auf einmal verpfändet – ein teilweises Ausleihen ist nicht möglich, und eine bestimmte Charge kann während ihrer gesamten Laufzeit nur einmal als Sicherheit dienen (auch nach vollständiger Rückzahlung kann sie nicht erneut verpfändet werden). Bei der Ausgabe wird eine einmalige Provision von 5 % erhoben und an den DA-Liquiditätspool weitergeleitet; die Rückzahlung, ganz oder teilweise, löst die Provision nicht erneut aus. Die Schuld ist in USDT zum bei der Ausgabe erfassten loan.price denominiert und steigt nicht, wenn DA sich aufwertet. Ein Kredit kann nur eröffnet werden, wenn mindestens 30 Tage bis zum nächsten geplanten Auto-Verkauf dieser Charge verbleiben – dies ist eine On-Chain-Zulassungsvoraussetzung, kein fester Kreditlaufzeit. Der Kreditnehmer kann jederzeit vor Eintritt der Charge in den Auto-Verkaufs-Zyklus vollständig oder teilweise zurückzahlen." }
+        },
+        {
+          "@type": "Question",
+          "name": "Was passiert, wenn ich meinen Kredit nicht rechtzeitig zurückzahle?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Das verpfändete DA durchläuft den Standard-Auto-Verkaufs-Zeitplan mit vier Perioden (120 / 90 / 90 / 65 Tage), wobei in aufeinanderfolgenden Perioden 25 %, dann 40 %, dann 50 %, dann 100 % des verbleibenden verpfändeten DA verbrannt werden. 100 % des verbrannten DA wird vernichtet und der entsprechende USDT-Wert zum loan.price fließt in den DA-Liquiditätspool. Der Kreditnehmer behält den bei der Ausgabe erhaltenen USDT. Ein Ausfall ist kein Alles-oder-Nichts: Zwischen zwei Perioden kann der Kreditnehmer noch repay() aufrufen und das verbleibende verpfändete DA zurückfordern, indem er nur für das noch Verpfändete zahlt." }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist das Protokoll geprüft?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die RWANFTFI-Smart-Contracts werden unabhängig von CertiK geprüft, wobei der abschließende Bericht am 28. April 2026 veröffentlicht wurde. Überprüfbar im öffentlichen CertiK-Skynet-Verzeichnis unter https://skynet.certik.com/projects/rwanftfi." }
+        },
+        {
+          "@type": "Question",
+          "name": "Wer regiert RWANFTFI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Eine DAO, gestützt auf 10.000.000 GovTokens (ERC20Votes). Vorschlagsschwelle: 30 % des Gesamtangebots; Annahmeschwelle: 50 % Mehrheit. Aktuelle Zuteilung: RWANFTFI Corporation 30 % plus 20 Guardians mit je 3,5 %. Ein künftiger Umverteilungsplan erweitert die Governance auf bis zu 101 Wallets ohne Prägung neuer Tokens." }
+        },
+        {
+          "@type": "Question",
+          "name": "Sind NFTs eine Investition oder ein Wertpapier?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Nein. NFTs sind ein digitales Produkt, das Zugang zu Ökosystem-Diensten gewährt. Sie sind ausdrücklich keine Finanzinstrumente, keine Investitionen und keine Wertpapiere. Alle Käufe sind endgültig, rechtlich bindend und nicht erstattungsfähig." }
+        },
+        {
+          "@type": "Question",
+          "name": "Ist die Marke RWANFTFI rechtlich geschützt?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Wortmarke RWANFT ist offiziell beim UK Intellectual Property Office (Antragsummer UK00004369823, Klasse 42 – digitales Asset-Management) unter der Eigentümerschaft der RWANFTFI Corporation (Panama) eingetragen. Der Antrag ist im UKIPO-Register öffentlich überprüfbar und wird professionell von Gresham International (London) vertreten. Vollständiger Eintrag auf der Seite Geistiges Eigentum unter https://docs.rwanftfi.com/de/intellectual-property." }
+        }
+      ]
+    })
+  }}
+/>
+
+Eine konsolidierte Referenz für die häufigsten Fragen zum RWANFTFI-Protokoll. Nach Themen durchsuchen und eine beliebige Frage aufklappen – jede Antwort ist eigenständig und verlinkt auf die vollständige Mechanik-Seite.
+
+## Protokoll-Grundlagen
+
+<AccordionGroup>
+
+<Accordion title="Was ist RWANFTFI?">
+
+RWANFTFI ist ein Web3-Protokoll auf der Binance Smart Chain (BSC), das NFTs, Real World Assets (RWA), DeFi und CeFi in ein einheitliches Finanz-Ökosystem zusammenführt. Inhaber einer der 10 NFT-Stufen (Preise von 28 bis 24.000 USDT) erhalten Zugang zu einer 22-stufigen Marketingstruktur, NFTM-Mining, DA-Farming und Lending. Der wirtschaftliche Motor ist der Deflationary Asset (DA) – ein Token mit einem absoluten Hard Cap von 21.000.000 Einheiten, der zu 100 % durch einen USDT-Liquiditätspool gedeckt ist. Smart Contracts werden unabhängig von [CertiK](https://skynet.certik.com/projects/rwanftfi) geprüft und basieren auf dem Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
+
+</Accordion>
+
+<Accordion title="Auf welcher Blockchain läuft RWANFTFI?">
+
+RWANFTFI läuft ausschließlich auf der Binance Smart Chain (BSC) und verwendet den BEP20-Token-Standard. Transaktionen benötigen eine kleine Menge BNB als Gas. Ein verwalteter Chain-übergreifender Einzahlungsdienst (betrieben durch eine dedizierte `SERVICE_ROLE`) ermöglicht es Nutzern, ihre Konten von jeder unterstützten Blockchain aus aufzuladen.
+
+</Accordion>
+
+<Accordion title="Wie viele NFT-Stufen gibt es und was kosten sie?">
+
+Es gibt 10 Stufen. Preise und Bezeichnungen:
+
+| Stufe | Name | Preis (USDT) | Gruppe |
+|------:|------|-------------:|-------|
+| L1 | Genesis | 28 | Basic |
+| L2 | Advance | 55 | Basic |
+| L3 | Ascend | 140 | Basic |
+| L4 | Eclipse | 275 | Basic |
+| L5 | Hydro | 550 | Premium |
+| L6 | Quantum | 1.100 | Premium |
+| L7 | Pulse | 2.200 | Premium |
+| L8 | Aurora | 5.500 | Premium |
+| L9 | Flame | 11.000 | Elite |
+| L10 | Infinity | 24.000 | Elite |
+
+Höhere Stufen schalten tiefere Marketing-Erträge, NFTM-Mining und Lending frei. Vollständige Details auf der [NFT-Ökosystem-Seite](/de/nft-ecosystem).
+
+</Accordion>
+
+</AccordionGroup>
+
+## Der DA-Token
+
+<AccordionGroup>
+
+<Accordion title="Wie wächst der Preis des DA-Tokens?">
+
+Der DA-Preis folgt einer einzigen Formel: **Preis = Liquidität ÷ umlaufendes Angebot**. Jedes Mal, wenn DA verkauft wird, werden 100 % der verkauften Tokens dauerhaft verbrannt (Angebot sinkt), während USDT im Pool verbleibt (Liquidität bleibt gleich oder wächst). Das Ergebnis ist mechanisch deflationär: weniger Angebot bei gleicher oder größerer Deckung bedeutet einen höheren Preis pro Token. Der Pool wird durch 14+ Einnahmequellen im gesamten Ökosystem gespeist. Siehe [DA-Token-Mechanik](/de/da-token-mechanics).
+
+</Accordion>
+
+<Accordion title="Kann DA zwischen Nutzern übertragen werden?">
+
+Nein. DA ist ein nicht übertragbarer Utility-Token. Er kann nur verkauft (manuell oder automatisch), als Lending-Sicherheit verwendet oder zurückgezahlt werden. Peer-to-Peer-Transfers sind auf Vertragsebene deaktiviert.
+
+</Accordion>
+
+<Accordion title="Was ist der Auto-Verkaufs-Zyklus?">
+
+Wenn ein Nutzer DA nicht manuell verkauft, löst das System automatische Verkäufe aus dem verbleibenden Guthaben über vier Perioden mit einer Gesamtdauer von 365 Tagen aus: 25 % nach 120 Tagen, 40 % des Rests nach weiteren 90 Tagen, 50 % des Rests nach weiteren 90 Tagen und 100 % des Rests nach den abschließenden 65 Tagen. 100 % der automatisch verkauften Tokens werden verbrannt, und der Nutzer erhält 70 % des Werts in USDT (gegenüber 75 % beim manuellen Verkauf). Jeder Auto-Verkauf wird zum DA-Preis zum Zeitpunkt der Auslösung dieser Periode ausgeführt.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Einkommen, Guthaben & Marketing
+
+<AccordionGroup>
+
+<Accordion title="Was ist das Einkommenslimit?">
+
+Jedes NFT hat ein striktes Einkommenslimit – das maximale kumulative Einkommen, das dieses NFT vor der Erneuerung generieren kann. Das Limit wird sowohl durch Marketing-Belohnungen als auch durch DA-Verkäufe verbraucht. Wenn es null erreicht, empfängt der Inhaber keine Marketing-Belohnungen mehr und verliert die Möglichkeit, DA manuell zu verkaufen. Um dies zu verhindern, das NFT über Autobuy, manuellen Rückkauf auf gleicher Ebene oder Upgrade auf eine höhere Stufe erneuern. Der manuelle Rückkauf ist gesperrt, solange das verbleibende Limit über 30 % des ursprünglichen Werts liegt.
+
+</Accordion>
+
+<Accordion title="Was ist das Akkumulative Guthaben?">
+
+Ein obligatorisches Sparkonto, auf dem automatisch 20 % jeder Marketing-Belohnung gutgeschrieben werden. Es kann nur zum Kauf desselben NFT-Levels oder für ein Upgrade auf eine höhere Stufe verwendet werden. Die Nutzung ist mit einer Gebühr von 20 % verbunden, die an den DA-Liquiditätspool weitergeleitet wird; eine Übertragung an einen anderen Nutzer zieht dieselbe Gebühr von 20 % nach sich. Wenn es 120 Tage lang ungenutzt bleibt, wird es zur Umverteilung freigegeben: 70 % an den DA-Liquiditätspool und 30 % an den direkten Upline-Sponsor (reguläre NFT-Inhaber). Siehe [Architektur — Guthaben-Schema](/de/architecture).
+
+</Accordion>
+
+<Accordion title="Was ist der Frozen Balance und wann wird er aktiviert?">
+
+Der Frozen Balance ist ein 72-stündiger Einkommensschutzmechanismus. Er wird nur dann aktiviert, wenn **alle drei** Bedingungen erfüllt sind: (1) der Käufer ist Ihr direkt persönlich Eingeladener, (2) es handelt sich um den ersten NFT-Kauf dieses Eingeladenen oder dessen Autobuy-Erneuerung, und (3) die daraus resultierende Provision übersteigt Ihr verbleibendes Einkommenslimit. Der Überschuss wird 72 Stunden gehalten und gibt Ihnen Zeit, Ihr NFT aufzuwerten und ihn zu beanspruchen. Wenn Sie das Zeitfenster verpassen und Autobuy den Überschuss nicht gedeckt hat, gehen 70 % an den DA-Liquiditätspool und 30 % an Ihren direkten Upline-Sponsor. Vollständige Mechanik auf der [Frozen-Balance-Seite](/de/frozen-balance).
+
+</Accordion>
+
+<Accordion title="Wie funktioniert die Marketingstruktur?">
+
+Wenn ein Nutzer ein NFT aktiviert, platziert der Smart Contract ihn dauerhaft in einem 22-stufigen Binärbaum mithilfe eines „schwächster Ast, von links nach rechts"-Algorithmus. Die maximale Kapazität beträgt 8.388.606 Positionen bei vollständiger Befüllung. Einnahmen kommen aus drei unabhängigen Quellen: **Sponsor-Bonus** (30 % Phase 1 / 20 % Phase 2 des NFT-Preises für direkte Einladungen), **Tree Distribution** (prozentuale Verteilung pro Ebene von Ebene 2 bis Ebene 22) und **Matching-Bonus** (5 % + 5 % + 5 % über drei Ebenen des Einkommens direkter Partner). Die Ebenen 16–22 werden in Phase 2 per DAO-Abstimmung freigeschaltet. Siehe [Marketingstruktur](/de/marketing-binary-tree).
+
+</Accordion>
+
+<Accordion title="Wie tief kann mein NFT Erträge erzielen?">
+
+Die Tiefe hängt von Ihrer NFT-Stufe ab. Aktuell erzielt Genesis (L1) Erträge bis 2 Ebenen tief, Infinity (L10) bis zu 19 Ebenen tief. Nachdem Phase 2 per DAO-Abstimmung aktiviert wurde (geplant Q4 2026), wird Infinity bis zu den vollen 22 Ebenen erreichen. Andere Stufen erweitern sich proportional. Inhaber niedrigerer Stufen profitieren von **Kompression** – wenn ein Upline nicht qualifiziert ist, wird die Belohnung nach oben an den nächsten aktiven Teilnehmer weitergeleitet.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Mining, Farming & Lending
+
+<AccordionGroup>
+
+<Accordion title="Was ist NFTM?">
+
+NFTM ist **kein Token** – es ist ein interner Mining-Zähler, der vom Smart Contract erfasst wird. Er hat keinen Marktwert und kann weder gehandelt noch übertragen werden. Seine einzige Funktion besteht darin, in Farming eingesetzt zu werden, wo er zum aktuellen Preis in DA umgewandelt wird. Mining erfordert ein aktives Einkommenslimit und eine Premium-Stufe oder höher (L5+). Nach Abschluss des Minings haben Sie genau 72 Stunden, um NFTM in Farming einzusetzen, sonst verfällt der Zyklus. Siehe [Mining & Farming](/de/da-mining-farming).
+
+</Accordion>
+
+<Accordion title="Was passiert, wenn ich eine ausgereifte Farming-Belohnung nicht beanspruche, bevor ich upgraden?">
+
+Sie wird dauerhaft vernichtet. Jeder NFT-Kauf oder jedes Upgrade ruft `terminate()` auf, das die aktive Sitzung stoppt und **alle nicht beanspruchten Farming-Belohnungen vernichtet** – einschließlich ausgereifter. Operative Regel: zuerst beanspruchen, dann upgraden.
+
+</Accordion>
+
+<Accordion title="Kann ich einen Kredit auf meine DA aufnehmen?">
+
+Ja. Premium- und Elite-NFT-Inhaber (L5+) können gegen ihre DA zu einem **festen 70 % LTV** leihen – der Satz ist fest kodiert, der Nutzer kann keinen kleineren Prozentsatz wählen, und die gesamte DA-Charge wird auf einmal verpfändet (kein teilweises Ausleihen gegen einen Teil einer Charge). Jede DA-Charge aus jedem Mining-Zyklus ist unabhängige Sicherheit, sodass mehrere gleichzeitige Kredite möglich sind – einer pro Charge. Eine bestimmte Charge kann **nur einmal während ihrer gesamten Laufzeit** verpfändet werden: Nach Eröffnung eines Kredits kann diese Charge nicht erneut als Sicherheit verwendet werden, auch nicht nach vollständiger Rückzahlung. Bei der Ausgabe wird eine einmalige **Provision von 5 %** erhoben und an den DA-Liquiditätspool weitergeleitet; die Rückzahlung, ganz oder teilweise, löst die Provision nicht erneut aus. Der Kreditnehmer erhält 95 % des Bruttokreditbetrags auf seinem Regulären Guthaben.
+
+Die Schuld ist in USDT zum bei der Ausgabe erfassten `loan.price` denominiert und **steigt nicht, wenn DA sich aufwertet** – der Kredit ermöglicht es, Liquidität zum heutigen Preis zu extrahieren und dabei vom zukünftigen DA-Anstieg zu profitieren. Der Kreditnehmer kann auch jederzeit **teilweise zurückzahlen**, einen Teil der Sicherheit freigeben und die Schuld proportional reduzieren. Ein Kredit kann nur eröffnet werden, wenn mindestens 30 Tage bis zum nächsten geplanten Auto-Verkauf der Charge verbleiben – dies ist eine On-Chain-Zulassungsvoraussetzung, kein fester Kreditlaufzeit. Nach Eröffnung hat der Kredit keine Fälligkeit und kann jederzeit vor Eintritt der Charge in den Auto-Verkaufs-Zyklus vollständig oder teilweise zurückgezahlt werden. Siehe [Vollständige Lending-Mechanik →](/de/da-lending).
+
+</Accordion>
+
+<Accordion title="Was passiert, wenn ich meinen Kredit nicht rechtzeitig zurückzahle?">
+
+Wenn der Kreditnehmer nicht zurückzahlt, bevor die besicherte Charge in ihren Auto-Verkaufs-Zyklus eintritt, wird das verpfändete DA progressiv durch den Standard-Vier-Perioden-Zeitplan verbrannt (120 / 90 / 90 / 65 Tage, insgesamt 365 Tage). Jede Periode verbrennt einen Anteil des **verbleibenden** verpfändeten DA: 25 %, dann 40 %, dann 50 %, dann 100 %. Alles verbrannte DA wird dauerhaft vernichtet, und der USDT-Wert zum `loan.price` für jeden verbrannten Anteil fließt in den DA-Liquiditätspool. Der Kreditnehmer behält den bei der Ausgabe erhaltenen USDT und verliert nur den verbrannten Anteil der Sicherheit. Ein Ausfall ist **kein Alles-oder-Nichts** – zwischen zwei Auto-Verkaufs-Perioden kann der Kreditnehmer noch `repay()` aufrufen und das **verbleibende** verpfändete DA zurückfordern, indem er nur für das noch Verpfändete zahlt und jeden weiteren Brand stoppt. Siehe [Vollständige Lending-Mechanik →](/de/da-lending).
+
+</Accordion>
+
+</AccordionGroup>
+
+## Architektur & Governance
+
+<AccordionGroup>
+
+<Accordion title="Welche Vertragsarchitektur wird verwendet?">
+
+Das Protokoll verwendet das **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, das die Funktionalität auf 7 modulare Facets aufteilt (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet), die über einen einzigen Proxy aufgerufen werden. Der Diamond-Vertrag ist über Facet-Cuts upgradebar; der TokenReserve (DA) ist über Transparent Proxy upgradebar; NFTs, GovToken und AdminContract sind nicht upgradebar. Siehe [Architektur](/de/architecture).
+
+</Accordion>
+
+<Accordion title="Wer regiert das Protokoll?">
+
+Eine Decentralized Autonomous Organization (DAO), gestützt auf einen ERC20Votes-Governance-Token (GovToken) mit einem dauerhaft fixen Angebot von **10.000.000**. Ein Vorschlag erfordert die Unterstützung von **30 % des Gesamtangebots** zur Einreichung und eine **50 % Mehrheit** zur Annahme. Aktuelle Zuteilung: RWANFTFI Corporation 30 % + 20 Guardians mit je 3,5 %. Ein künftiger Umverteilungsplan erweitert die Governance auf bis zu 101 Wallets (Corporation 30 % + 20 Guardians mit je 1,5 % + 80 Leaders mit je 0,5 %) ohne Prägung neuer Tokens. Entwickler können Systemregeln nicht einseitig ändern oder auf Nutzermittel zugreifen. Siehe [Governance](/de/governance).
+
+</Accordion>
+
+<Accordion title="Ist das Protokoll geprüft?">
+
+Ja. Die Smart Contracts werden unabhängig von **CertiK** geprüft, wobei der abschließende Bericht am **28. April 2026** veröffentlicht wurde. CertiK wandte seine Standardmethodik an: Statische Analyse, manuelle Überprüfung und formale Verifikation. Der vollständige Bericht ist öffentlich im [CertiK-Skynet-Verzeichnis](https://skynet.certik.com/projects/rwanftfi) überprüfbar und auf der [Sicherheits- & Audit-Seite](/de/security) eingebettet.
+
+</Accordion>
+
+</AccordionGroup>
+
+## Sicherheit, Rechtliches & Unternehmen
+
+<AccordionGroup>
+
+<Accordion title="Wie halte ich mein Konto sicher?">
+
+Verwenden Sie eine Web3-Wallet (MetaMask, Trust Wallet oder kompatibel). E-Mail/Passwort gewährt nur Lesezugriff; finanzielle Aktionen erfordern eine Wallet-Signatur. Die Plattform bietet zusätzliche Schutzmaßnahmen: dreistufige Sicherheit, die Login, finanzielle Aktionen und hochwertige Operationen trennt; Einmal-TAN-Codes für jede Finanztransaktion; ein separates Finanzpasswort; und 2FA über den offiziellen Telegram-Bot. RWANFTFI-Mitarbeiter werden Sie niemals zuerst anschreiben oder nach privaten Schlüsseln, Seed-Phrasen oder plattformfremden Zahlungen fragen. Stellen Sie immer sicher, dass Sie sich auf **rwanftfi.com** befinden.
+
+</Accordion>
+
+<Accordion title="Kann das Team mein NFT beschlagnahmen?">
+
+Nein. Die Plattform verfügt nicht über die technische Möglichkeit, ein NFT aus der Wallet eines Nutzers zu beschlagnahmen oder zu übertragen. Die DAO kann per Abstimmung die Funktionalität eines NFTs auf der Plattform **einfrieren** (Deaktivierung von Auszahlungen, Käufen und Belohnungsanrechnungen) bei Verstößen gegen die Nutzungsbedingungen, AML-Risiken oder NFT-basiertem Betrug. Das NFT selbst bleibt Eigentum des Nutzers; auch das Einfrieren erfordert eine separate DAO-Abstimmung.
+
+</Accordion>
+
+<Accordion title="Sind NFTs eine Investition oder ein Wertpapier?">
+
+Nein. NFTs sind ein **digitales Produkt**: Durch den Kauf erhalten Sie ein digitales Asset und Zugang zu Ökosystem-Diensten. Sie sind ausdrücklich **keine** Finanzinstrumente, **keine** Investition und **keine** Wertpapiere. Alle Käufe sind endgültig, rechtlich bindend und nicht erstattungsfähig – Blockchain-Transaktionen sind unveränderlich. Siehe [Rechtliches & Compliance](/de/legal).
+
+</Accordion>
+
+<Accordion title="Welche Unternehmen betreiben das Protokoll?">
+
+Zwei Unternehmen. **RWANFTFI Corporation** (registriert in der Republik Panama) ist das Technologie- und Produktunternehmen – es besitzt die Plattforminfrastruktur, die NFT-Architektur, die Tokenisierungs-Engine und das gesamte geistige Eigentum. **NFT FI Corporation** (registriert auf den Britischen Jungferninseln) ist das Marketing- und Handelsunternehmen – es verwaltet den Plattformbetrieb, den Vertrieb und Partnerschaften. Streitigkeiten werden durch verbindliche Schiedsgerichtsbarkeit beim [London Court of International Arbitration (LCIA)](https://www.lcia.org/) beigelegt. Siehe [Unternehmensstruktur](/de/corporate-structure).
+
+</Accordion>
+
+<Accordion title="Ist die Marke RWANFTFI rechtlich geschützt?">
+
+Ja. Die Wortmarke **RWANFT** ist offiziell beim **UK Intellectual Property Office (UKIPO)** unter dem Antrag **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Nizza-Klasse **42** (digitales Asset-Management), eingetragen. Eingetragener Eigentümer ist **RWANFTFI Corporation** (Panama), und der Antrag wird professionell von **Gresham International** (London) vertreten. Die vollständige Akte ist im offiziellen UKIPO-Register öffentlich durchsuchbar – jedes Detail (Nummer, Eigentümer, Adresse, Anmeldedatum, Klasse, Vertreter) ist in Echtzeit unabhängig überprüfbar. Den vollständigen Eintrag finden Sie auf der Seite [Geistiges Eigentum](/de/intellectual-property).
+
+</Accordion>
+
+</AccordionGroup>

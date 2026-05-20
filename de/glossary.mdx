@@ -1,0 +1,125 @@
+---
+title: "Glossar"
+description: "Definitionen aller protokollspezifischen Begriffe in RWANFTFI: DA, NFTM, Einkommenslimit, Sponsor-Bonus, Frozen Balance, Kompression, Akkumulatives Guthaben und mehr."
+icon: "book"
+---
+
+Eine einzige Wahrheitsquelle für alle in der RWANFTFI-Dokumentation verwendeten Begriffe. Jeder Eintrag ist so verfasst, dass er eigenständig verständlich ist – eine Definition kann in jeden Kontext kopiert werden und sollte weiterhin Sinn ergeben.
+
+## Tokens & Assets
+
+**DA (Deflationary Asset).** Der wirtschaftliche Motor des Ökosystems. Ein BEP20-Token mit einem absoluten Hard Cap von **21.000.000 Einheiten**, der zu 100 % durch einen USDT-Liquiditätspool gedeckt ist. Der Preis folgt der Formel `Preis = Liquidität ÷ umlaufendes Angebot`. DA ist nicht Peer-to-Peer übertragbar; er kann nur verkauft (manuell oder automatisch), als Lending-Sicherheit verwendet oder zurückgezahlt werden. 100 % des verkauften DA wird dauerhaft verbrannt. Siehe [DA-Token-Mechanik](/de/da-token-mechanics).
+
+**NFTM.** Ein interner Mining-Zähler, der vom Smart Contract erfasst wird – **kein Token**. NFTM hat keinen Marktwert, kann weder gehandelt noch übertragen werden und existiert ausschließlich dazu, in Farming eingesetzt zu werden, wo er zum aktuellen Preis in DA umgewandelt wird. Siehe [Mining & Farming](/de/da-mining-farming).
+
+**GovToken.** Der Governance-Token. ERC20Votes-Standard, dauerhaft fixes Angebot von **10.000.000**, keine Prägung nach dem Deployment. Stimmkraft wird bei jeder Übertragung automatisch an den Empfänger delegiert; ein manueller `delegate()`-Aufruf ist nicht verfügbar. Siehe [Governance](/de/governance).
+
+**NFT (RWANFTFI-Stufe).** Ein mitgliedschaftsbasierter Zugangscode zum Protokoll. Es gibt 10 Stufen – **Genesis, Advance, Ascend, Eclipse, Hydro, Quantum, Pulse, Aurora, Flame, Infinity** – mit Preisen von 28 bis 24.000 USDT. Ein aktives NFT pro Konto; ein Upgrade ersetzt das vorherige. Siehe [NFT-Ökosystem](/de/nft-ecosystem).
+
+**Geschenk-NFT.** Ein nicht verkaufbares Werbe-NFT, das durch Aktionen oder Karriererang-Erfolge vergeben wird. Kann nicht gekauft werden. Bis zu 100 pro Adresse (DAO-anpassbar). Wird mit geraden Token-IDs geprägt, um Kollisionen mit regulären NFTs (ungerade IDs) zu vermeiden.
+
+**Ambassador-NFT.** Limitiert auf 100 Einheiten (Q4 2026). Keine Einkommenslimits, eigenes dediziertes Belohnungssystem, wird beim Geschäftsverkauf nicht übertragen.
+
+**VIP-Edition-NFT.** Limitiert auf 100 Einheiten (Q4 2026). Zugang wird durch Erreichen des Karriererangs **Leader** oder höher gewährt.
+
+**USDT.** Der Stablecoin, der als primäre Rechnungseinheit und als 100 %-Deckung des DA-Tokens verwendet wird. RWANFTFI verwendet USDT im BEP20-Standard.
+
+## Erträge & Limits
+
+**Einkommenslimit.** Das maximale kumulative Einkommen, das ein aktives NFT vor der Erneuerung generieren kann. Wird sowohl durch Marketing-Belohnungen als auch durch DA-Verkäufe verbraucht. Wenn es null erreicht, empfängt der Inhaber keine Marketing-Belohnungen mehr und verliert die Möglichkeit, DA manuell zu verkaufen. Erneuerung über Autobuy, manuellen Rückkauf auf gleicher Ebene oder Upgrade.
+
+**Sponsor-Bonus.** Direkte Provision, die dem Einlader beim NFT-Kauf eines Partners gezahlt wird. **30 %** des NFT-Preises bei einem Neuverkauf (Phase 1) oder **20 %** bei einem Wiederholungskauf / Autobuy. Phase 2 passt den Sponsor-Bonus für Neuverkäufe auf 20 % an.
+
+**Tree Distribution.** Pro-Ebene-Belohnungen, die an übergeordnete Inhaber aus dem NFT-Kauf eines Strukturteilnehmers gezahlt werden. Prozentsätze reichen von 0 % (Ebene 1) bis zu 5 % (Ebene 15). Die Ebenen 16–22 werden in Phase 2 freigeschaltet. Die maximal erreichbare Tiefe hängt von der NFT-Stufe des Inhabers ab.
+
+**Matching-Bonus.** Ein sekundärer Einkommensstrom, der **5 % + 5 % + 5 %** über drei Ebenen des Marketing-Einkommens der direkten Partner eines Inhabers zahlt. Ebene 1 wird bei Eclipse (L4) freigeschaltet; Ebene 2 bei 1.000 USDT kumulativen persönlichen Verkäufen; Ebene 3 bei 3.000 USDT kumulativen persönlichen Verkäufen.
+
+**Kompression.** Wenn ein übergeordneter Inhaber keine Belohnung erhält (Einkommenslimit erschöpft oder NFT-Stufe zu flach), wird die Belohnung nach oben an den nächsten qualifizierten Teilnehmer weitergeleitet. Die übersprungene Belohnung wird als **Verlorenes Einkommen** für den übergangenen Nutzer erfasst.
+
+**Verlorenes Einkommen.** Eine Belohnung, die ein Nutzer hätte erhalten können, aber nicht erhalten hat, weil sein Einkommenslimit null war oder seine NFT-Tiefe unzureichend war. Wird zur Transparenz nachverfolgt; die Mittel selbst fließen per Kompression nach oben.
+
+## Guthaben
+
+**Reguläres Guthaben (`balance`).** Die primäre USDT-Wallet des Nutzers innerhalb des Smart Contracts. Jederzeit auszahlbar; verwendbar für NFT-Käufe oder zur Erstellung von Gutscheinen.
+
+**Akkumulatives Guthaben (`accumulativeBalance`).** Ein obligatorisches Sparkonto, auf dem automatisch **20 %** jeder Marketing-Belohnung gutgeschrieben werden. Kann nur zum Kauf desselben NFT-Levels oder für ein Upgrade verwendet werden. Die Nutzung ist mit einer Gebühr von **20 %** verbunden, die an den DA-Liquiditätspool weitergeleitet wird; eine Übertragung zieht dieselbe 20 %-Gebühr nach sich. Wenn es **120 Tage** lang ungenutzt bleibt, wird es zur Umverteilung freigegeben (Reguläres NFT: 70 % an Pool / 30 % an Upline; Geschenk-NFT: 80 % / 20 %).
+
+**Frozen Balance.** Ein 72-stündiger Haltezustand für Marketing-Provision, die das verbleibende Einkommenslimit des Inhabers übersteigt, jedoch nur wenn die Quelle der erste Kauf eines direkt Eingeladenen oder dessen Autobuy ist. Wird beim NFT-Upgrade freigegeben; bei Ablauf gehen 70 % an den DA-Liquiditätspool und 30 % an den direkten Upline-Sponsor. Siehe [Frozen Balance](/de/frozen-balance).
+
+**Limit (`limit`).** Das On-Chain-Feld, das das maximal verbleibende Einkommen darstellt, das ein NFT generieren kann. Entspricht dem „verbleibenden Einkommenslimit".
+
+**Token-Reserve-Guthaben (`tokenReserveBalance`).** Der systemweite USDT-Pool, der den DA-Token zu 100 % deckt. Wird aus 14+ Einnahmequellen im gesamten Ökosystem gespeist.
+
+**Dev-Guthaben (`devBalance`).** Akkumuliert Plattformgebühren und Provisionen für die operative Finanzierung. Für einzelne Nutzer oder Administratoren außerhalb der Governance-Verfahren nicht zugänglich.
+
+**Preiseinfluss-Guthaben (`priceImpactBalance`).** Eine Reserve zur Steuerung der DA-Preisstabilität während bestimmter Ökosystem-Ereignisse (z. B. Preiseinfluss-Ereignis, ausgelöst durch DAO).
+
+## Lebenszyklus & Automatisierung
+
+**Autobuy (3/3-System).** Ein automatischer NFT-Erneuerungsmechanismus. Für die Stufen 1–8 sind bis zu **3 automatische Erneuerungen** nach dem ursprünglichen manuellen Kauf erlaubt, sodass dieselbe NFT-Stufe maximal 4 Mal aktiv sein kann (1 manuell + 3 automatisch). Bei Elite-Stufen (L9–L10) ist Autobuy **unbegrenzt**. Der 3/3-Zähler wird auf 0/3 zurückgesetzt, wenn ein NFT einer höheren Stufe gekauft wird.
+
+**Geschäftsverkauf.** Ein DAO-autorisierter Prozess zur Übertragung einer gesamten Partnerstruktur auf einen anderen Nutzer. Geregelt durch eine feste **vom Verkäufer gezahlte Übertragungsprovision** (aktuell 500 USDT, DAO-anpassbar 0–500). Der Käufer zahlt keine On-Chain-Provision und erhält die Struktur bei Ausführung. Zugrunde liegender Parameter: `businessTransferFee`.
+
+**Gutschein (Geschenkgutschein).** Ein nutzergenerierter Coupon, gültig für **365 Tage**, mit einem per Smart Contract durchgesetzten Mindestwert von **5 USDT**. Deckt bis zu 100 % eines NFT-Kaufs ab. Übertragbar mit 0 % Provision, außer in den **letzten 24 Stunden** vor Ablauf. Kann nicht mit dem Akkumulativen Guthaben kombiniert werden. Bei Nichtnutzung nach 365 Tagen → 100 % an den DA-Liquiditätspool.
+
+**Karriererang.** Eine Fortschrittsmetrik, mit der Vorteile wie Ambassador- oder VIP-NFTs und besondere Belohnungen freigeschaltet werden. Wird durch kumulative Ökosystem-Aktivität erreicht.
+
+## Protokollmechanik
+
+**Mining.** Der erste Schritt des DA-Erwerbs. Der Nutzer aktiviert Mining auf einem Premium- oder Elite-NFT (L5+). Der Zyklus generiert NFTM über einen festen Zeitraum (45 Tage bei Hydro bis 40 Tage bei Infinity). Stufen 5–7 haben 1 Mining-Zyklus, der 10 % des NFT-Preises in NFTM erzeugt. Stufen 8–10 haben 2 Zyklen, die 10 % und dann 15 % erzeugen.
+
+**Farming.** Der zweite Schritt des DA-Erwerbs. NFTM wird für dieselbe Dauer wie der Mining-Zyklus eingesetzt. Bei Abschluss wird NFTM zum aktuellen Preis in DA umgewandelt und dem TokenStack des Nutzers gutgeschrieben. Muss innerhalb von **72 Stunden** nach Abschluss des Minings eingesetzt werden, sonst verfällt der Zyklus.
+
+**Auto-Verkaufs-Zyklus.** Der vierstufige progressive Verkauf des DA-Guthabens eines Nutzers, wenn nicht manuell verkauft wird. Aktuell: 25 % nach 120 Tagen → 40 % des Rests nach weiteren 90 → 50 % des Rests nach weiteren 90 → 100 % des Rests nach abschließenden 65 Tagen. Gesamt: 365 Tage. Der Nutzer erhält 70 % des Werts in USDT; 100 % der Tokens werden verbrannt.
+
+**Manueller Verkauf.** Ein nutzerseitig initiierter DA-Verkauf. 100 % der verkauften Tokens werden verbrannt; der Nutzer erhält **75 %** des Werts in USDT (gegenüber 70 % beim Auto-Verkauf). Die verbleibenden 25 % sind eine Protokollprovision, die als Deckung im Pool verbleibt.
+
+**Multi-Batch-Lending.** Jede DA-Charge aus jedem Mining-Zyklus dient als **unabhängige Sicherheit**. Kredite werden zu einem **festen 70 % LTV** gegen die gesamte Charge ausgegeben – ein teilweises Ausleihen gegen einen Teil einer Charge wird nicht unterstützt – und tragen eine einmalige 5 %-Provision bei der Ausgabe. Eine bestimmte Charge kann **nur einmal während ihrer gesamten Laufzeit** verpfändet werden: Nach Eröffnung eines Kredits kann diese Charge nicht erneut als Sicherheit verwendet werden, auch nicht nach vollständiger Rückzahlung. Mehrere gleichzeitige Kredite sind daher nur über **verschiedene Chargen** möglich, niemals auf derselben Charge. Teilrückzahlung wird unterstützt – der Kreditnehmer kann jederzeit vor Eintritt der Charge in den Auto-Verkaufs-Zyklus einen Teil der Sicherheit freigeben, indem er den proportionalen Anteil der `loan.price`-denominierten Schuld zurückzahlt. Wenn ein einzelner Kredit ausfällt, wird nur die Sicherheit dieser Charge progressiv verbrannt; andere Chargen und Guthaben bleiben unberührt.
+
+**Lending-Ausfall.** Nichtrückzahlung vor Eintritt der besicherten Charge in ihren Auto-Verkaufs-Zyklus. Das verpfändete DA durchläuft dann den Standard-Vier-Perioden-Zeitplan (120 / 90 / 90 / 65 Tage, insgesamt 365 Tage), wobei 25 %, dann 40 %, dann 50 %, dann 100 % des **verbleibenden** verpfändeten DA pro Periode verbrannt werden. 100 % des verbrannten DA wird dauerhaft vernichtet, und der USDT-Wert zum `loan.price` für jeden verbrannten Anteil fließt in den DA-Liquiditätspool. Der Kreditnehmer behält den bei der Ausgabe erhaltenen USDT und verliert den verbrannten Anteil der Sicherheit proportional zur Dauer des Ausfalls. Ein Ausfall ist kein Alles-oder-Nichts: Zwischen zwei Auto-Verkaufs-Perioden kann der Kreditnehmer noch `repay()` aufrufen und das **verbleibende** verpfändete DA zurückfordern, indem er nur für das noch Verpfändete zahlt. Andere DA-Chargen und Guthaben bleiben unberührt.
+
+**Kredit-Zulassungsschwelle.** Eine **rollende On-Chain-Prüfung, die vor jedem neuen `loan()`-Aufruf ausgeführt wird** (`_getTimeToNextAutosale(stack) >= 30 days`): Die verpfändete DA-Charge muss noch mindestens **30 Tage** bis zu ihrem nächsten geplanten Auto-Verkaufs-Trigger haben, andernfalls wird der Aufruf zurückgewiesen. Dies ist eine **Zulassungsvoraussetzung**, die den Zugang zu Lending regelt, keine **Kreditlaufzeit** – ein offener Kredit hat keine feste Fälligkeit und kann jederzeit vor Eintritt der Charge in den Auto-Verkaufs-Zyklus vollständig oder teilweise zurückgezahlt werden.
+
+**Kreditgebühr (`loanFee`).** Eine einmalige **5 %-**Provision, die bei der Kreditausgabe erhoben und direkt an den DA-Liquiditätspool weitergeleitet wird. Die Rückzahlung – ganz oder teilweise – löst die Gebühr nicht erneut aus. On-Chain als dedizierter `loanFee`-Parameter gespeichert (nicht als Teil einer generischen Gebühr), was der DAO ermöglicht, die Lending-Ökonomie unabhängig von Marketing-Steuern, Akkumulativen Gebühren oder anderen Provisionen anzupassen. Aktueller DAO-Bereich: 0 % – 5 %.
+
+**Kreditpreis (`loan.price`).** Der DA-Preis, der bei der Kreditausgabe durch `getPrice()` erfasst und auf dem Stack als `ts.loan.price` gespeichert wird. Alle nachfolgenden Kreditberechnungen – vollständige Rückzahlung, Teilrückzahlung und Ausfall-Abrechnung – werden gegen diesen Preis denominiert, nicht gegen den aktuellen Marktpreis. Wenn der Marktpreis von DA verdoppelt oder verdreifacht wird, während der Kredit offen ist, erhöht sich die USDT-Verpflichtung nicht – sie bleibt am `loan.price` verankert. Dies ist der Mechanismus, der es Kreditnehmern ermöglicht, USDT-Liquidität zum heutigen DA-Wert zu extrahieren und dabei vom zukünftigen Kursanstieg zu profitieren.
+
+**Teilrückzahlung.** Die Option, nur einen Teil eines DA-besicherten Kredits zurückzuzahlen, anstatt ihn vollständig zu schließen. Der Kreditnehmer ruft `repay()` für eine gewählte Menge des verpfändeten DA auf (kleiner als oder gleich dem aktuell verpfändeten Gesamtbetrag) und zahlt `freigegebene_DA × loan.price × 0,70` USDT. Das freigegebene DA kehrt in den aktiven Teil derselben Charge zurück; das verbleibende DA bleibt gegen eine proportional reduzierte Schuld verpfändet. Es wird keine zusätzliche Gebühr erhoben – die 5 %-Provision wurde bereits bei der Ausgabe bezahlt. Teilrückzahlung kann in jedem Stadium des Kredits aufgerufen werden, auch nach Auto-Verkaufs-Triggern (in diesem Fall läuft `_processExpiredStacks()` zuerst, verbrennt den entsprechenden Anteil der Sicherheit, bevor die Rückzahlung gegen den Rest nach dem Brand durchgeführt wird).
+
+**Deflationszyklus.** Ein geplantes Ereignis, das zweimal jährlich ausgelöst wird und bis zu 30 Tage dauert; es pausiert den **Start neuer** NFTM-Mining-, Staking- und DA-Generierungszyklen. Bereits laufende Zyklen, die vor dem Deflationszyklus gestartet wurden, laufen weiter und werden planmäßig abgeschlossen. Während des Zyklus intensivieren tägliche DA-Verbrennungen die Knappheit.
+
+**Seed Supply.** Eine kleine permanente DA-Reserve, die beim Start vorab hinterlegt wird. Dauerhaft und nicht verkaufbar, vom umlaufenden Angebot ausgeschlossen, und existiert ausschließlich dazu, einen von null verschiedenen Nenner in `Preis = Liquidität ÷ umlaufendes Angebot` zu garantieren – um eine Division durch null im extremen Grenzfall zu verhindern, in dem jeder andere Token verbrannt wurde.
+
+## Governance & Rollen
+
+**DAO (Decentralized Autonomous Organization).** Das On-Chain-Governance-Gremium von RWANFTFI. Gestützt auf 10.000.000 GovTokens. Vorschlagsschwelle: **30 %** des Gesamtangebots. Annahmeschwelle: **50 %** Mehrheit.
+
+**Guardians.** Die primären Governance-Teilnehmer in der aktuellen Zuteilung. **20 Wallets**, jede mit 350.000 GovTokens (3,5 %). Eine künftige Umverteilung reduziert dies auf 1,5 % pro Guardian, wenn Leaders hinzugefügt werden.
+
+**Leaders.** Eine künftige Klasse von Governance-Teilnehmern (geplant **80 Wallets** mit je 0,5 %), definiert als aktive Ökosystem-Beitragende, Community-Aufbauer, strategische Partner und Teilnehmer mit messbarem Einfluss.
+
+**Preiseinfluss-Ereignis.** Ein DAO-ausgelöstes Ereignis, bei dem die Nutzererträge in den DA-Liquiditätspool geleitet werden, um die DA-Deckung und Preisstabilität zu stärken.
+
+**Kontosperrung.** Eine per DAO-Abstimmung beschlossene Moderationsmaßnahme, die die Funktionalität eines NFTs auf der Plattform deaktiviert. Das NFT selbst verbleibt in der Wallet des Nutzers – die Plattform kann NFTs nicht beschlagnahmen. Die Entsperrung erfordert eine separate DAO-Abstimmung.
+
+## Smart-Contract-Rollen
+
+**ADMIN_ROLE.** Kann andere Rollen vergeben/widerrufen und kritische Systemparameter innerhalb der bei der Bereitstellung festgelegten Bereiche ändern.
+
+**SERVICE_ROLE.** Wird von Backend-Skripten für automatisierte Aufgaben ausgeführt: Auflösung abgelaufener Stacks, Verarbeitung Chain-übergreifender Einzahlungen, Auslösung der Akkumulativen Umverteilung.
+
+**SIGNER_ROLE.** Wird für kryptografische Signaturverifikation verwendet, um bestimmte Aktionen zu autorisieren (z. B. Gutschein-Übertragungen).
+
+**MINTER_ROLE.** Autorisiert, bestimmte Tokens oder NFTs zu prägen.
+
+## Architektur
+
+**Diamond Pattern (EIP-2535).** Die vom RWANFTFI verwendete Smart-Contract-Architektur. Teilt die Funktionalität auf mehrere Module („Facets") auf, die über einen einzigen Proxy-Vertrag zugänglich sind – umgeht das 24-KB-Vertragsgrößenlimit und ermöglicht modulweise Upgradierbarkeit über Facet-Cuts. Spezifikation: [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
+
+**Facet.** Ein unabhängiges Smart-Contract-Modul, das über den Diamond-Proxy zugänglich ist. RWANFTFI verwendet **7 Facets**: AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet.
+
+**TokenReserve.** Der Vertrag, der den DA-Token verwaltet. Upgradebar über Transparent Proxy (Logik-Updates ohne Adressänderung).
+
+**TAN-Code (Transaktionsauthentifizierungsnummer).** Ein Einmal-Code, der zur Autorisierung jeder Finanztransaktion auf der Anwendungsebene erforderlich ist. Unabhängig vom On-Chain-Prüfumfang.
+
+**75/20/5-Aufteilung.** Die standardmäßige Gutschriften-Aufteilung für Marketing-Belohnungen innerhalb des Einkommenslimits des Inhabers: **75 %** an das Reguläre Guthaben, **20 %** an das Akkumulative Guthaben, **5 %** an den DA-Liquiditätspool.
