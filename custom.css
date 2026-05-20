@@ -1,0 +1,58 @@
+/*
+  Language-switcher flags.
+
+  Mintlify shows native country flags only for its officially supported
+  locales. This site also ships hi / vi / uk (not in that set), and mixing
+  unsupported codes drops the native flags from the switcher — so we draw
+  them ourselves, consistently for all 15 languages and on every OS
+  (SVG via flagcdn.com).
+
+  Selector note: these target `hreflang` and the bare locale-root href on the
+  switcher's language links. If the live switcher uses different markup, the
+  selector list below is the only thing that needs updating.
+*/
+
+[hreflang="en"]::before, a[href="/en"]::before, a[href="/en/"]::before,
+[hreflang="ru"]::before, a[href="/ru"]::before, a[href="/ru/"]::before,
+[hreflang="tr"]::before, a[href="/tr"]::before, a[href="/tr/"]::before,
+[hreflang="zh"]::before, a[href="/zh"]::before, a[href="/zh/"]::before,
+[hreflang="es"]::before, a[href="/es"]::before, a[href="/es/"]::before,
+[hreflang="de"]::before, a[href="/de"]::before, a[href="/de/"]::before,
+[hreflang="pt"]::before, a[href="/pt"]::before, a[href="/pt/"]::before,
+[hreflang="hi"]::before, a[href="/hi"]::before, a[href="/hi/"]::before,
+[hreflang="it"]::before, a[href="/it"]::before, a[href="/it/"]::before,
+[hreflang="fr"]::before, a[href="/fr"]::before, a[href="/fr/"]::before,
+[hreflang="ar"]::before, a[href="/ar"]::before, a[href="/ar/"]::before,
+[hreflang="id"]::before, a[href="/id"]::before, a[href="/id/"]::before,
+[hreflang="ja"]::before, a[href="/ja"]::before, a[href="/ja/"]::before,
+[hreflang="vi"]::before, a[href="/vi"]::before, a[href="/vi/"]::before,
+[hreflang="uk"]::before, a[href="/uk"]::before, a[href="/uk/"]::before {
+  content: "";
+  display: inline-block;
+  width: 1.25em;
+  height: 0.9em;
+  margin-inline-end: 0.5em;
+  vertical-align: -0.1em;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  flex: 0 0 auto;
+}
+
+[hreflang="en"]::before, a[href="/en"]::before, a[href="/en/"]::before { background-image: url("https://flagcdn.com/gb.svg"); }
+[hreflang="ru"]::before, a[href="/ru"]::before, a[href="/ru/"]::before { background-image: url("https://flagcdn.com/ru.svg"); }
+[hreflang="tr"]::before, a[href="/tr"]::before, a[href="/tr/"]::before { background-image: url("https://flagcdn.com/tr.svg"); }
+[hreflang="zh"]::before, a[href="/zh"]::before, a[href="/zh/"]::before { background-image: url("https://flagcdn.com/cn.svg"); }
+[hreflang="es"]::before, a[href="/es"]::before, a[href="/es/"]::before { background-image: url("https://flagcdn.com/es.svg"); }
+[hreflang="de"]::before, a[href="/de"]::before, a[href="/de/"]::before { background-image: url("https://flagcdn.com/de.svg"); }
+[hreflang="pt"]::before, a[href="/pt"]::before, a[href="/pt/"]::before { background-image: url("https://flagcdn.com/pt.svg"); }
+[hreflang="hi"]::before, a[href="/hi"]::before, a[href="/hi/"]::before { background-image: url("https://flagcdn.com/in.svg"); }
+[hreflang="it"]::before, a[href="/it"]::before, a[href="/it/"]::before { background-image: url("https://flagcdn.com/it.svg"); }
+[hreflang="fr"]::before, a[href="/fr"]::before, a[href="/fr/"]::before { background-image: url("https://flagcdn.com/fr.svg"); }
+[hreflang="ar"]::before, a[href="/ar"]::before, a[href="/ar/"]::before { background-image: url("https://flagcdn.com/sa.svg"); }
+[hreflang="id"]::before, a[href="/id"]::before, a[href="/id/"]::before { background-image: url("https://flagcdn.com/id.svg"); }
+[hreflang="ja"]::before, a[href="/ja"]::before, a[href="/ja/"]::before { background-image: url("https://flagcdn.com/jp.svg"); }
+[hreflang="vi"]::before, a[href="/vi"]::before, a[href="/vi/"]::before { background-image: url("https://flagcdn.com/vn.svg"); }
+[hreflang="uk"]::before, a[href="/uk"]::before, a[href="/uk/"]::before { background-image: url("https://flagcdn.com/ua.svg"); }
