@@ -93,6 +93,15 @@ To manage the complex flow of funds, RWANFTFI employs a multi-tiered balance sch
 
      The team's stated intent, recorded in the audit response: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Treat 120 days as the **minimum guaranteed window before potential redistribution**, not as a hard on-chain expiry timestamp.
    </Note>
+
+   <Note>
+     **Transfer recipient must be an active node.** A transfer of Accumulative Balance to another user only succeeds if the **recipient already exists as an active node** in the system. Creating an account (email/password) is not enough on its own - the recipient must first have entered the system in one of two ways:
+
+     - Made **any deposit** to their balance (even a minimal one), or
+     - **Activated a Gift NFT**, which registers them as a node in the marketing structure.
+
+     If the recipient has done neither, the transfer cannot complete: the **sender's transaction reverts**, and the operation stays blocked until the recipient activates their presence on-chain. This mirrors the [**Sponsor must be an active tree node**](/en/marketing-binary-tree) rule - an identity-only mapping (a wallet that holds a user ID but carries no active on-chain state) cannot participate, whether as a sponsor or as the recipient of an Accumulative Balance transfer.
+   </Note>
 3. **Limit (`limit`):** Represents the maximum remaining income an NFT can generate.
 
 ### System Balances

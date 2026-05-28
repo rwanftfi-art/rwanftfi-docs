@@ -42,7 +42,7 @@ A single source of truth for every term used across the RWANFTFI documentation. 
 
 **Regular Balance (`balance`).** The user's primary USDT wallet inside the smart contract. Withdrawable at any time; usable for NFT purchases or to generate Vouchers.
 
-**Accumulative Balance (`accumulativeBalance`).** A mandatory savings account where **20%** of every marketing reward is credited automatically. Can only be used to purchase the same-level NFT or upgrade to a higher one. Using it incurs a **20%** fee routed to the DA Liquidity Pool; transferring it incurs the same 20% fee. If unused for **120 days**, it becomes eligible for redistribution (Regular NFT: 70% to pool / 30% to upline; Gift NFT: 80% / 20%).
+**Accumulative Balance (`accumulativeBalance`).** A mandatory savings account where **20%** of every marketing reward is credited automatically. Can only be used to purchase the same-level NFT or upgrade to a higher one. Using it incurs a **20%** fee routed to the DA Liquidity Pool; transferring it incurs the same 20% fee and only succeeds if the recipient is already an active node (reached through any deposit or a Gift NFT activation). If unused for **120 days**, it becomes eligible for redistribution (Regular NFT: 70% to pool / 30% to upline; Gift NFT: 80% / 20%).
 
 **Frozen Balance.** A 72-hour holding state for marketing commission that exceeds the holder's remaining Income Limit, but only when the source is a direct invitee's first purchase or their Autobuy. Released on NFT upgrade; on expiry, 70% goes to the DA Liquidity Pool and 30% to the direct upline sponsor. See [Frozen Balance](/en/frozen-balance).
 
