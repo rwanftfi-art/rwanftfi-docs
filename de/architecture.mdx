@@ -93,6 +93,15 @@ Zur Verwaltung des komplexen Mittelflusses verwendet RWANFTFI ein mehrstufiges G
 
      Die in der Audit-Antwort festgehaltene Absicht des Teams: *„Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Behandeln Sie 120 Tage als das **garantierte Mindestfenster vor möglicher Umverteilung**, nicht als harten On-Chain-Verfallszeitstempel.
    </Note>
+
+   <Note>
+     **Empfänger einer Übertragung muss ein aktiver Knoten sein.** Eine Übertragung des Akkumulativen Guthabens an einen anderen Nutzer gelingt nur, wenn der **Empfänger bereits als aktiver Knoten** im System existiert. Das Erstellen eines Kontos (E-Mail/Passwort) reicht allein nicht aus - der Empfänger muss zuvor auf eine von zwei Arten ins System eingetreten sein:
+
+     - **Irgendeine Einzahlung** auf sein Guthaben getätigt haben (auch eine minimale), oder
+     - Ein **Geschenk-NFT aktiviert** haben, das ihn als Knoten in der Marketing-Struktur registriert.
+
+     Hat der Empfänger keines von beidem getan, kann die Übertragung nicht abgeschlossen werden: Die **Transaktion des Senders wird zurückgesetzt**, und der Vorgang bleibt blockiert, bis der Empfänger seine Präsenz on-chain aktiviert. Dies spiegelt die Regel [**Der Sponsor muss ein aktiver Baumknoten sein.**](/de/marketing-binary-tree) wider - eine reine Identitätszuordnung (eine Wallet, der eine Nutzer-ID zugewiesen wurde, die aber keinen aktiven On-Chain-Status besitzt) kann weder als Sponsor noch als Empfänger einer Übertragung des Akkumulativen Guthabens teilnehmen.
+   </Note>
 3. **Limit (`limit`):** Repräsentiert das maximale verbleibende Einkommen, das ein NFT generieren kann.
 
 ### Systemguthaben

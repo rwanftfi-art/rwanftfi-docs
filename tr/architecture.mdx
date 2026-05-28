@@ -93,6 +93,15 @@ Karmaşık fon akışını yönetmek için, RWANFTFI akıllı sözleşme içinde
 
      Ekibin denetim yanıtında kayıtlı belirtilen niyeti: *"Hedefimiz kullanıcının fonlarının bütünlüğünü belirli bir süre boyunca garanti etmek, onlara bir yaşam döngüsü vermek değil."* 120 günü, sıkı bir zincir üzerindeki son kullanma zaman damgası olarak değil, **olası yeniden dağıtım öncesi minimum garantili pencere** olarak değerlendirin.
    </Note>
+
+   <Note>
+     **Transfer alıcısı aktif bir düğüm olmalıdır.** Birikim Bakiyesinin başka bir kullanıcıya transferi yalnızca **alıcı sistemde zaten aktif bir düğüm olarak mevcutsa** tamamlanabilir. Hesap oluşturmak (e-posta/şifre) tek başına yeterli değildir - alıcının önce aşağıdaki iki yoldan biriyle sisteme girmiş olması gerekir:
+
+     - Bakiyesine **herhangi bir yatırım** yapmış olmak (minimal bir miktar bile olsa), ya da
+     - **Bir Hediye NFT'yi etkinleştirmiş olmak** - bu işlem onları pazarlama yapısında bir düğüm olarak kaydeder.
+
+     Alıcı bu ikisini de yapmamışsa transfer tamamlanamaz: **göndericinin işlemi geri döner** ve alıcı zincir üzerindeki varlığını etkinleştirene kadar işlem bloke kalır. Bu durum, [**Sponsor aktif bir ağaç düğümü olmalıdır**](/tr/marketing-binary-tree) kuralının aynasıdır - yalnızca kimlik haritalaması (bir kullanıcı kimliği atanmış ancak aktif bir zincir üzerindeki duruma sahip olmayan bir cüzdan), ister sponsor ister Birikim Bakiyesi transferinin alıcısı olsun, işleme katılamaz.
+   </Note>
 3. **Limit (`limit`):** Bir NFT'nin üretebileceği maksimum kalan geliri temsil eder.
 
 ### Sistem Bakiyeleri

@@ -93,6 +93,15 @@ Pour gérer le flux complexe des fonds, RWANFTFI utilise un schéma de soldes à
 
      L'intention déclarée de l'équipe, consignée dans la réponse à l'audit : *« Notre objectif est de garantir l'intégrité des fonds de l'utilisateur pendant une certaine période, et non de leur donner un cycle de vie. »* Considérez les 120 jours comme la **fenêtre minimale garantie avant une éventuelle redistribution**, et non comme un timestamp d'expiration on-chain strict.
    </Note>
+
+   <Note>
+     **Le destinataire d'un transfert doit être un nœud actif.** Un transfert de Solde Cumulatif vers un autre utilisateur ne réussit que si le **destinataire existe déjà en tant que nœud actif** dans le système. La création d'un compte (email/mot de passe) ne suffit pas à elle seule - le destinataire doit d'abord être entré dans le système de l'une des deux façons suivantes :
+
+     - Avoir effectué **n'importe quel dépôt** sur son solde (même minimal), ou
+     - **Avoir activé un NFT Cadeau**, ce qui l'enregistre en tant que nœud dans la structure marketing.
+
+     Si le destinataire n'a fait ni l'un ni l'autre, le transfert ne peut pas aboutir : la **transaction de l'émetteur est revertée**, et l'opération reste bloquée jusqu'à ce que le destinataire active sa présence on-chain. Cela reflète la règle [**Le sponsor doit être un nœud actif de l'arbre**](/fr/marketing-binary-tree) - un mappage uniquement d'identité (un wallet auquel un ID utilisateur a été attribué mais sans état actif on-chain) ne peut pas participer, que ce soit comme sponsor ou comme destinataire d'un transfert de Solde Cumulatif.
+   </Note>
 3. **Limite (`limit`) :** Représente le revenu maximal restant qu'un NFT peut générer.
 
 ### Soldes Système

@@ -146,6 +146,10 @@ Todo NFT tem um Limite de Rendimento estrito — a renda cumulativa máxima que 
 
 Uma conta poupança obrigatória onde 20% de cada recompensa de marketing é creditado automaticamente. Ele só pode ser usado para comprar o NFT do mesmo nível ou fazer upgrade para um nível superior. Usá-lo incorre em uma taxa de 20% direcionada ao Pool de Liquidez do DA; transferi-lo para outro usuário incorre na mesma taxa de 20%. Se não utilizado por 120 dias, torna-se elegível para redistribuição: 70% para o Pool de Liquidez do DA e 30% para o patrocinador upline (detentores de NFT Regular). Veja [Arquitetura — Esquema de Saldos](/pt/architecture).
 
+### Por que meu amigo não consegue me transferir Saldo Acumulativo?
+
+Porque uma transferência só pode chegar a uma conta que já esteja "ativa" no sistema - simplesmente se cadastrar com e-mail e senha não é suficiente por si só. Antes que alguém possa te enviar Saldo Acumulativo, você precisa aparecer on-chain primeiro, de uma das duas formas: fazer qualquer depósito em seu saldo (mesmo que pequeno), ou ativar um Gift NFT. Enquanto não fizer isso, a transferência do seu amigo falhará e ele não conseguirá concluí-la - da mesma forma que uma conta recém-criada não pode patrocinar outros até se tornar ativa. Depois que você fizer um depósito ou ativar um Gift NFT, as transferências para você passam normalmente.
+
 ### O que é o Saldo Congelado e quando ele é ativado?
 
 O Saldo Congelado é uma mecânica de proteção de renda de 72 horas. Ele é ativado **somente quando todas as três** condições são atendidas: (1) o comprador é seu convidado pessoal direto, (2) é a primeira compra de NFT desse convidado ou seu Autobuy de renovação, e (3) a comissão resultante excede seu Limite de Rendimento restante. O excesso fica retido por 72 horas, dando-lhe tempo para fazer upgrade do seu NFT e reivindicá-lo. Se você perder a janela e o Autobuy não cobrir o excesso, 70% é direcionado ao Pool de Liquidez do DA e 30% vai para seu patrocinador upline direto. Mecânicas completas na [página do Saldo Congelado](/pt/frozen-balance).
