@@ -146,6 +146,10 @@ Todo NFT tiene un Límite de Ingresos estricto — el ingreso acumulado máximo 
 
 Una cuenta de ahorro obligatoria donde se acredita automáticamente el 20% de cada recompensa de marketing. Solo puede usarse para comprar un NFT del mismo nivel o actualizar a uno de nivel superior. Su uso genera una comisión del 20% dirigida al Pool de Liquidez del DA; transferirlo a otro usuario genera la misma comisión del 20%. Si no se utiliza durante 120 días, se vuelve elegible para redistribución: el 70% al Pool de Liquidez del DA y el 30% al patrocinador upline (titulares de NFT Regular). Ver [Arquitectura — Esquema de Saldos](/es/architecture).
 
+### ¿Por qué mi amigo no puede transferirme Saldo Acumulativo?
+
+Porque una transferencia solo puede llegar a una cuenta que ya esté "activa" en el sistema - simplemente registrarse con un correo electrónico y contraseña no es suficiente por sí solo. Para que alguien pueda enviarte Saldo Acumulativo, primero tienes que aparecer on-chain de una de estas dos formas: realizar cualquier depósito en tu saldo (aunque sea pequeño), o activar un NFT de Regalo. Hasta que lo hagas, la transferencia de tu amigo fallará y no podrá completarla - igual que una cuenta nueva no puede patrocinar a otros hasta que se activa. Una vez que hayas realizado un depósito o activado un NFT de Regalo, las transferencias hacia ti se procesan con normalidad.
+
 ### ¿Qué es el Saldo Congelado y cuándo se activa?
 
 El Saldo Congelado es una mecánica de protección de ingresos de 72 horas. Se activa únicamente cuando se cumplen **las tres** condiciones: (1) el comprador es tu invitado personal directo, (2) es la primera compra de NFT de ese invitado o su renovación de Autobuy, y (3) la comisión resultante supera tu Límite de Ingresos restante. El excedente se retiene durante 72 horas, dándote tiempo para actualizar tu NFT y reclamarlo. Si pierdes la ventana y el Autobuy no cubrió el excedente, el 70% se dirige al Pool de Liquidez del DA y el 30% va a tu patrocinador upline directo. Mecánica completa en la [página del Saldo Congelado](/es/frozen-balance).

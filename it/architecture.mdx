@@ -93,6 +93,15 @@ Per gestire il flusso complesso dei fondi, RWANFTFI impiega uno schema di saldi 
 
      L'intento dichiarato del team, registrato nella risposta all'audit: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Considera 120 giorni come la **finestra minima garantita prima di una potenziale ridistribuzione**, non come un timestamp di scadenza on-chain rigido.
    </Note>
+
+   <Note>
+     **Il destinatario del trasferimento deve essere un nodo attivo.** Un trasferimento del Saldo Cumulativo a un altro utente ha successo solo se il **destinatario esiste già come nodo attivo** nel sistema. Creare un account (email/password) non è sufficiente di per sé - il destinatario deve prima essere entrato nel sistema in uno dei due modi seguenti:
+
+     - Aver effettuato **qualsiasi deposito** sul proprio saldo (anche minimo), oppure
+     - Aver **attivato un NFT Regalo**, che lo registra come nodo nella struttura di marketing.
+
+     Se il destinatario non ha fatto nessuna delle due cose, il trasferimento non può essere completato: la **transazione del mittente viene annullata (reverts)**, e l'operazione rimane bloccata finché il destinatario non attiva la propria presenza on-chain. Questo rispecchia la regola [**Lo sponsor deve essere un nodo attivo dell'albero**](/it/marketing-binary-tree) - una mappatura solo-identità (un wallet a cui è stato assegnato un ID utente ma che non ha uno stato on-chain attivo) non può partecipare, né come sponsor né come destinatario di un trasferimento del Saldo Cumulativo.
+   </Note>
 3. **Limit (`limit`):** Rappresenta il reddito massimo residuo che un NFT può generare.
 
 ### Saldi di Sistema

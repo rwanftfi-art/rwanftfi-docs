@@ -146,6 +146,10 @@ Every NFT has a strict Income Limit — the maximum cumulative income that NFT c
 
 A mandatory savings account where 20% of every marketing reward is automatically credited. It can only be used to purchase the same-level NFT or upgrade to a higher level. Using it incurs a 20% fee routed to the DA Liquidity Pool; transferring it to another user incurs the same 20% fee. If unused for 120 days, it becomes eligible for redistribution: 70% to the DA Liquidity Pool and 30% to the upline sponsor (Regular NFT holders). See [Architecture — Balance Schema](/en/architecture).
 
+### Why can't my friend transfer to my Accumulative Balance?
+
+Because a transfer can only reach an account that is already "live" in the system - simply signing up with an email and password is not enough on its own. Before anyone can send you Accumulative Balance, you have to appear on-chain first, in one of two ways: make any deposit to your balance (even a small one), or activate a Gift NFT. Until you do, your friend's transfer will fail and they won't be able to complete it - the same way a brand-new account can't sponsor others until it becomes active. Once you've made a deposit or activated a Gift NFT, transfers to you go through normally.
+
 ### What is Frozen Balance and when does it activate?
 
 Frozen Balance is a 72-hour income protection mechanic. It activates only when **all three** conditions are met: (1) the buyer is your direct personal invitee, (2) it is that invitee's first NFT purchase or their Autobuy renewal, and (3) the resulting commission exceeds your remaining Income Limit. The excess is held for 72 hours, giving you time to upgrade your NFT and claim it. If you miss the window and Autobuy did not cover the excess, 70% is routed to the DA Liquidity Pool and 30% goes to your direct upline sponsor. Full mechanics on the [Frozen Balance page](/en/frozen-balance).

@@ -93,6 +93,15 @@ Para gerenciar o fluxo complexo de fundos, a RWANFTFI emprega um esquema multin�
 
      A intenção declarada da equipe, registrada na resposta da auditoria: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Trate os 120 dias como a **janela mínima garantida antes de uma possível redistribuição**, não como um carimbo de hora rígido de expiração on-chain.
    </Note>
+
+   <Note>
+     **O destinatário de uma transferência deve ser um nó ativo.** A transferência de Saldo Acumulativo para outro usuário só é concluída se o **destinatário já existir como um nó ativo** no sistema. Criar uma conta (e-mail/senha) não é suficiente por si só - o destinatário precisa primeiro ter entrado no sistema de uma das duas formas:
+
+     - Ter feito **qualquer depósito** em seu saldo (mesmo que mínimo), ou
+     - Ter **ativado um Gift NFT**, o que o registra como um nó na estrutura de marketing.
+
+     Se o destinatário não tiver feito nenhuma das duas coisas, a transferência não pode ser concluída: a **transação do remetente é revertida**, e a operação permanece bloqueada até que o destinatário ative sua presença on-chain. Isso espelha a regra [**O patrocinador deve ser um nó ativo da árvore**](/pt/marketing-binary-tree) - um mapeamento somente de identidade (uma carteira que possui um ID de usuário, mas não carrega nenhum estado on-chain ativo) não pode participar, seja como patrocinador ou como destinatário de uma transferência de Saldo Acumulativo.
+   </Note>
 3. **Limite (`limit`):** Representa a renda restante máxima que um NFT pode gerar.
 
 ### Saldos do Sistema

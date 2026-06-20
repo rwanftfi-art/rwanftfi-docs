@@ -146,6 +146,10 @@ Setiap NFT memiliki Batas Pendapatan yang ketat — penghasilan kumulatif maksim
 
 Rekening tabungan wajib di mana 20% dari setiap imbalan marketing dikreditkan secara otomatis. Hanya dapat digunakan untuk membeli NFT pada level yang sama atau meningkatkan ke level yang lebih tinggi. Penggunaannya dikenakan biaya 20% yang dialihkan ke DA Liquidity Pool; mentransfernya ke pengguna lain dikenakan biaya 20% yang sama. Jika tidak digunakan selama 120 hari, memenuhi syarat untuk redistribusi: 70% ke DA Liquidity Pool dan 30% ke sponsor upline (pemegang NFT Reguler). Lihat [Arsitektur — Skema Saldo](/id/architecture).
 
+### Mengapa teman saya tidak bisa mentransfer ke Saldo Akumulatif saya?
+
+Karena transfer hanya dapat menjangkau akun yang sudah "aktif" dalam sistem - sekadar mendaftar dengan email dan kata sandi saja tidak cukup. Sebelum siapa pun dapat mengirimkan Saldo Akumulatif kepada Anda, Anda harus terlebih dahulu muncul secara on-chain melalui salah satu dari dua cara: melakukan deposit apa pun ke saldo Anda (bahkan yang kecil), atau mengaktifkan NFT Hadiah. Sampai Anda melakukannya, transfer dari teman Anda akan gagal dan mereka tidak akan dapat menyelesaikannya - sama seperti akun yang baru dibuat tidak dapat mensponsori orang lain sampai menjadi aktif. Setelah Anda melakukan deposit atau mengaktifkan NFT Hadiah, transfer kepada Anda akan berjalan normal.
+
 ### Apa itu Frozen Balance dan kapan aktif?
 
 Frozen Balance adalah mekanika perlindungan pendapatan selama 72 jam. Aktif hanya ketika **ketiga** kondisi terpenuhi: (1) pembeli adalah undangan langsung pribadi Anda, (2) itu adalah pembelian NFT pertama undangan tersebut atau perpanjangan Autobuy mereka, dan (3) komisi yang dihasilkan melebihi sisa Batas Pendapatan Anda. Kelebihan ditahan selama 72 jam, memberi Anda waktu untuk meningkatkan NFT dan mengklaimnya. Jika Anda melewatkan jendela waktu dan Autobuy tidak menutupi kelebihan, 70% dialihkan ke DA Liquidity Pool dan 30% ke sponsor upline langsung Anda. Mekanika lengkap di [halaman Frozen Balance](/id/frozen-balance).

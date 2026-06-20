@@ -93,6 +93,15 @@ Hệ thống sử dụng cấu trúc vai trò phân cấp (AccessControlEnumerab
 
      Ý định đã nêu của nhóm, được ghi lại trong phản hồi kiểm toán: *"Mục tiêu của chúng tôi là đảm bảo tính toàn vẹn của tiền của người dùng trong một khoảng thời gian nhất định, không phải để cung cấp cho họ một vòng đời."* Hãy coi 120 ngày là **cửa sổ đảm bảo tối thiểu trước khi có khả năng phân phối lại**, không phải là dấu thời gian hết hạn on-chain cứng.
    </Note>
+
+   <Note>
+     **Người nhận chuyển nhượng phải là một nút đang hoạt động.** Một giao dịch chuyển Số Dư Tích Lũy cho người dùng khác chỉ thành công nếu **người nhận đã tồn tại là một nút đang hoạt động** trong hệ thống. Việc tạo tài khoản (email/mật khẩu) không đủ - người nhận phải trước tiên đã tham gia vào hệ thống theo một trong hai cách:
+
+     - Đã thực hiện **bất kỳ lần nạp tiền nào** vào số dư của họ (dù chỉ một lượng tối thiểu), hoặc
+     - **Đã kích hoạt một NFT Quà Tặng**, điều này đăng ký họ là một nút trong cấu trúc marketing.
+
+     Nếu người nhận chưa thực hiện cả hai, giao dịch chuyển nhượng không thể hoàn thành: **giao dịch của người gửi bị hoàn nguyên**, và thao tác bị chặn cho đến khi người nhận kích hoạt sự hiện diện on-chain của họ. Điều này phản chiếu quy tắc [**Người tài trợ phải là một nút cây đang hoạt động**](/vi/marketing-binary-tree) - một ánh xạ chỉ định danh (một ví đã được gán ID người dùng nhưng không có trạng thái on-chain đang hoạt động) không thể tham gia, dù là với tư cách người tài trợ hay là người nhận chuyển Số Dư Tích Lũy.
+   </Note>
 3. **Giới Hạn (`limit`):** Đại diện cho thu nhập còn lại tối đa mà NFT có thể tạo ra.
 
 ### Số Dư Hệ Thống

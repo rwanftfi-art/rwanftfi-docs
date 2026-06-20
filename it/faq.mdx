@@ -146,6 +146,10 @@ Ogni NFT ha un Income Limit rigoroso — il reddito cumulativo massimo che quell
 
 Un conto di risparmio obbligatorio in cui il 20% di ogni ricompensa di marketing viene accreditato automaticamente. Può essere usato solo per acquistare un NFT dello stesso livello o fare upgrade a un livello superiore. Il suo utilizzo comporta una commissione del 20% indirizzata al Pool di Liquidità DA; il trasferimento a un altro utente comporta la stessa commissione del 20%. Se non utilizzato per 120 giorni, diventa idoneo alla redistribuzione: il 70% al Pool di Liquidità DA e il 30% allo sponsor in upline (titolari di NFT Regolare). Vedi [Architettura — Schema dei Saldi](/it/architecture).
 
+### Perché il mio amico non riesce a trasferirmi il Saldo Cumulativo?
+
+Perché un trasferimento può raggiungere solo un account che è già "attivo" nel sistema - registrarsi con un'email e una password non è sufficiente di per sé. Prima che qualcuno possa inviarti il Saldo Cumulativo, devi risultare on-chain in uno dei due modi seguenti: effettuare qualsiasi deposito sul tuo saldo (anche minimo), oppure attivare un NFT Regalo. Finché non lo fai, il trasferimento del tuo amico andrà in errore e non potrà completarlo - nello stesso modo in cui un account appena creato non può sponsorizzare altri finché non diventa attivo. Una volta effettuato un deposito o attivato un NFT Regalo, i trasferimenti verso di te vengono elaborati normalmente.
+
 ### Cos'è il Saldo Congelato e quando si attiva?
 
 Il Saldo Congelato è una meccanica di protezione del reddito di 72 ore. Si attiva solo quando **tutte e tre** le condizioni sono soddisfatte: (1) l'acquirente è il tuo invitato personale diretto, (2) si tratta del primo acquisto NFT di quell'invitato o del suo rinnovo tramite Autobuy, e (3) la commissione risultante supera il tuo Income Limit residuo. L'eccedenza viene trattenuta per 72 ore, dandoti il tempo di fare l'upgrade del tuo NFT e reclamarla. Se perdi la finestra e Autobuy non ha coperto l'eccedenza, il 70% viene indirizzato al Pool di Liquidità DA e il 30% va al tuo sponsor diretto in upline. Meccanica completa nella [pagina Saldo Congelato](/it/frozen-balance).

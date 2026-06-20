@@ -146,6 +146,10 @@ Mỗi NFT có một Giới Hạn Thu Nhập nghiêm ngặt — thu nhập tích 
 
 Một tài khoản tiết kiệm bắt buộc nơi 20% mỗi phần thưởng marketing được tự động ghi có. Nó chỉ có thể dùng để mua NFT cùng cấp hoặc nâng cấp lên cấp cao hơn. Sử dụng nó phát sinh phí 20% chuyển vào Pool Thanh khoản DA; chuyển nhượng sang người dùng khác cũng phát sinh phí 20% tương tự. Nếu không được sử dụng trong 120 ngày, nó đủ điều kiện để phân phối lại: 70% vào Pool Thanh khoản DA và 30% đến người tài trợ tuyến trên (người nắm giữ NFT Thông Thường). Xem [Kiến Trúc — Sơ Đồ Số Dư](/vi/architecture).
 
+### Tại sao bạn bè tôi không thể chuyển Số Dư Tích Lũy cho tôi?
+
+Vì một giao dịch chuyển nhượng chỉ có thể đến tài khoản đã "hoạt động" trong hệ thống - chỉ đăng ký bằng email và mật khẩu thôi là chưa đủ. Trước khi ai đó có thể gửi Số Dư Tích Lũy cho bạn, bạn phải xuất hiện on-chain trước, theo một trong hai cách: thực hiện bất kỳ lần nạp tiền nào vào số dư của bạn (dù chỉ một lượng nhỏ), hoặc kích hoạt một NFT Quà Tặng. Cho đến khi bạn làm vậy, giao dịch chuyển nhượng của bạn bè sẽ thất bại và họ sẽ không thể hoàn tất - tương tự như cách một tài khoản mới toanh không thể tài trợ cho người khác cho đến khi nó trở nên hoạt động. Một khi bạn đã nạp tiền hoặc kích hoạt NFT Quà Tặng, các giao dịch chuyển nhượng đến bạn sẽ được thực hiện bình thường.
+
 ### Số Dư Đóng Băng là gì và khi nào nó kích hoạt?
 
 Số Dư Đóng Băng là cơ chế bảo vệ thu nhập 72 giờ. Nó chỉ kích hoạt khi **cả ba** điều kiện được đáp ứng: (1) người mua là người bạn trực tiếp mời cá nhân, (2) đó là giao dịch mua NFT đầu tiên của người được mời hoặc Autobuy của họ, và (3) hoa hồng phát sinh vượt quá Giới Hạn Thu Nhập còn lại của bạn. Phần vượt quá được giữ trong 72 giờ, cho bạn thời gian nâng cấp NFT và nhận lại. Nếu bỏ lỡ thời hạn và Autobuy không bù đắp phần vượt quá, 70% được chuyển vào Pool Thanh khoản DA và 30% đến người tài trợ tuyến trên trực tiếp của bạn. Cơ chế đầy đủ trên [trang Số Dư Đóng Băng](/vi/frozen-balance).

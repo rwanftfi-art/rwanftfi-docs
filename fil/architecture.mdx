@@ -93,6 +93,15 @@ Upang pamahalaan ang kumplikadong daloy ng mga pondo, ginagamit ng RWANFTFI ang 
 
      Ang nakasulat na intensiyon ng team, naitala sa audit response: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Ituring ang 120 araw bilang **minimum garantisadong window bago ang potensyal na redistribution**, hindi bilang isang mahigpit na on-chain expiry timestamp.
    </Note>
+
+   <Note>
+     **Ang tatanggap ng transfer ay dapat na isang aktibong node.** Ang isang paglilipat ng Accumulative Balance sa ibang user ay matagumpay lamang kung ang **tatanggap ay mayroon nang aktibong node** sa sistema. Ang paglikha ng account (email/password) ay hindi sapat sa sarili nito - ang tatanggap ay dapat munang nakapasok sa sistema sa isa sa dalawang paraan:
+
+     - Nagsagawa ng **anumang deposito** sa kanilang balanse (kahit maliit na halaga), o
+     - **Nag-activate ng Gift NFT**, na nagrehistro sa kanila bilang isang node sa marketing structure.
+
+     Kung hindi pa nagawa ng tatanggap ang alinman sa dalawa, hindi makukumpleto ang transfer: ang **transaksyon ng nagpadala ay nire-revert**, at ang operasyon ay nananatiling nakaharang hanggang sa i-activate ng tatanggap ang kanilang presensya on-chain. Ito ay katulad ng panuntunang [**Ang sponsor ay dapat na isang aktibong tree node**](/fil/marketing-binary-tree) - ang isang identity-only mapping (isang wallet na may hawak na user ID ngunit walang aktibong on-chain state) ay hindi maaaring lumahok, maging bilang sponsor o bilang tatanggap ng Accumulative Balance transfer.
+   </Note>
 3. **Limit (`limit`):** Kumakatawan sa maximum na natitirang kita na maaaring mabuo ng isang NFT.
 
 ### Mga System Balance

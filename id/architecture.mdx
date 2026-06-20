@@ -93,6 +93,15 @@ Untuk mengelola aliran dana yang kompleks, RWANFTFI menerapkan skema saldo berti
 
      Niat tim yang dinyatakan, tercatat dalam respons audit: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Anggap 120 hari sebagai **jendela minimum yang dijamin sebelum kemungkinan redistribusi**, bukan sebagai cap waktu kedaluwarsa on-chain yang ketat.
    </Note>
+
+   <Note>
+     **Penerima transfer harus berupa node aktif.** Transfer Saldo Akumulatif ke pengguna lain hanya berhasil jika **penerima sudah ada sebagai node aktif** dalam sistem. Membuat akun (email/kata sandi) saja tidak cukup - penerima harus terlebih dahulu masuk ke dalam sistem melalui salah satu dari dua cara:
+
+     - Melakukan **deposit apa pun** ke saldo mereka (bahkan yang minimal), atau
+     - **Mengaktifkan NFT Hadiah**, yang mendaftarkan mereka sebagai node dalam struktur marketing.
+
+     Jika penerima belum melakukan keduanya, transfer tidak dapat diselesaikan: **transaksi pengirim akan dibatalkan (revert)**, dan operasi tetap terblokir hingga penerima mengaktifkan kehadirannya secara on-chain. Ini mencerminkan aturan [**Sponsor harus berupa node pohon yang aktif**](/id/marketing-binary-tree) - pemetaan identitas saja (dompet yang memegang ID pengguna tetapi tidak memiliki status on-chain aktif) tidak dapat berpartisipasi, baik sebagai sponsor maupun sebagai penerima transfer Saldo Akumulatif.
+   </Note>
 3. **Limit (`limit`):** Mewakili pendapatan tersisa maksimum yang dapat dihasilkan oleh sebuah NFT.
 
 ### Saldo Sistem
