@@ -1,125 +1,24 @@
 ---
 title: "Sözlük"
-description: "RWANFTFI'deki her protokole özgü terimin tanımları: DA, NFTM, Gelir Limiti, Sponsor Bonusu, Dondurulmuş Bakiye, Sıkıştırma, Birikim Bakiyesi ve daha fazlası."
+description: "RWANFTFI belgeleri genelinde kullanılan protokole özgü terimlerin tanımları: DA, NFTM, Protokol Ödül Limiti, Sponsor Bonusu, Frozen Balance, Birikim Bakiyesi ve daha fazlası."
 icon: "book"
 ---
 
-RWANFTFI belgelerinde kullanılan her terimin tek doğru kaynağı. Her giriş kendi içinde tamamdır — bir tanımı herhangi bir bağlamda kopyalayın ve yine de anlamlı olmalıdır.
+RWANFTFI belgeleri genelinde kullanılan terimler için tek doğru kaynak.
 
-## Tokenler ve varlıklar
-
-**DA (Deflasyonist Varlık).** Ekosistemin ekonomik motoru. Kesin olarak **21.000.000 birimle** sınırlandırılmış ve %100 USDT likidite havuzuyla desteklenmiş bir BEP20 tokenidir. Fiyat `Fiyat = Likidite ÷ Dolaşımdaki Arz` formülünü izler. DA eşler arası olarak transfer edilemez; yalnızca satılabilir (manuel veya otomatik), borç teminatı olarak kullanılabilir veya geri ödenebilir. Satılan DA'nın %100'ü kalıcı olarak yakılır. Bkz. [DA Token Mekanikleri](/tr/da-token-mechanics).
-
-**NFTM.** Akıllı sözleşme tarafından izlenen dahili bir madencilik sayacı, **token değildir**. NFTM'nin piyasa değeri yoktur, işlem görülemez veya transfer edilemez ve yalnızca mevcut fiyattan DA'ya dönüştüğü Farming'e stake edilmek için mevcuttur. Bkz. [Madencilik ve Farming](/tr/da-mining-farming).
-
-**GovToken.** Yönetişim tokeni. ERC20Votes standardı, kalıcı olarak sabit **10.000.000** arzı, dağıtımdan sonra basım yok. Oy gücü herhangi bir transferde alıcıya otomatik olarak devredilir; manuel `delegate()` açık değildir. Bkz. [Yönetişim](/tr/governance).
-
-**NFT (RWANFTFI seviyesi).** Protokole üyelik tabanlı bir erişim anahtarı. 10 seviye vardır — **Genesis, Advance, Ascend, Eclipse, Hydro, Quantum, Pulse, Aurora, Flame, Infinity** — 28 ile 24.000 USDT arasında fiyatlandırılmıştır. Hesap başına bir aktif NFT; yükseltme öncekinin yerini alır. Bkz. [NFT Ekosistemi](/tr/nft-ecosystem).
-
-**Hediye NFT.** Promosyonlar veya Kariyer Rütbesi başarıları aracılığıyla verilen, satılamaz nitelikte tanıtım amaçlı bir NFT'dir. Satın alınamaz. Adres başına 100'e kadar (DAO tarafından ayarlanabilir). Normal NFT'lerle (tek numaralı kimlikler) çakışmaları önlemek için çift numaralı token kimliklerine basılır.
-
-**Ambassador NFT.** 100 birimle sınırlıdır (Q4 2026). Gelir limiti yoktur, özel ödül sistemi vardır, İş Satışında devredilmez.
-
-**VIP Edition NFT.** 100 birimle sınırlıdır (Q4 2026). **Lider** Kariyer Rütbesi veya üzerini elde etmek için erişim verilir.
-
-**USDT.** Hesap birimi olarak kullanılan ve DA tokeninin %100 desteği olarak kullanılan stabilcoin. RWANFTFI, BEP20 standardında USDT kullanır.
-
-## Kazançlar ve limitler
-
-**Gelir Limiti.** Aktif bir NFT'nin yenileme öncesinde üretebileceği maksimum kümülatif gelir. Hem pazarlama ödülleri hem de DA satışları tarafından tüketilir. Sıfıra ulaştığında, sahip tüm pazarlama ödüllerini almayı durdurur ve DA'yı manuel olarak satma yeteneğini kaybeder. Otomatik Alım, manuel aynı seviye yeniden satın alma veya yükseltme yoluyla yenilenir.
-
-**Sponsor Bonusu.** Ortağın NFT satın alımında davet edene ödenen doğrudan komisyon. Yeni bir satışta (Aşama 1) NFT fiyatının **%30'u** veya tekrar satın alma / Otomatik Alımda **%20'si**. Aşama 2, yeni satış Sponsor Bonusunu %20'ye ayarlar.
-
-**Ağaç Dağılımı.** Bir yapı katılımcısının NFT satın alımından üst kademe sahiplerine ödenen seviye başına ödüller. Yüzdeler Seviye 1'de %0'dan Seviye 15'te %5'e kadar değişir. Seviye 16–22 Aşama 2'de açılır. Ulaşılabilecek maksimum derinlik, sahibin NFT seviyesine bağlıdır.
-
-**Eşleştirme Bonusu.** Bir sahibin doğrudan ortaklarının pazarlama gelirinden üç seviye boyunca **%5 + %5 + %5** ödeyen ikincil bir akış. Seviye 1, Eclipse (L4)'te açılır; Seviye 2, kümülatif kişisel satışlarda 1.000 USDT'de açılır; Seviye 3, kümülatif kişisel satışlarda 3.000 USDT'de açılır.
-
-**Sıkıştırma.** Üst kademe bir katılımcı ödül için uygun olmadığında (Gelir Limiti tükendiğinde veya NFT seviyesi çok sığ olduğunda), ödül bir sonraki uygun katılımcıya yukarı iletilir. Atlanan ödül, atlanan kullanıcı için **Kayıp Gelir** olarak işaretlenir.
-
-**Kayıp Gelir.** Bir kullanıcının Gelir Limiti sıfır olduğu veya NFT derinliği yetersiz olduğu için almadığı bir ödül. Şeffaflık için izlenir; fonların kendisi sıkıştırma yoluyla yukarı akar.
-
-## Bakiyeler
-
-**Normal Bakiye (`balance`).** Kullanıcının akıllı sözleşme içindeki birincil USDT cüzdanı. İstediği zaman çekilebilir; NFT satın almaları için kullanılabilir veya Kupon oluşturmak için kullanılabilir.
-
-**Birikim Bakiyesi (`accumulativeBalance`).** Her pazarlama ödülünün **%20'sinin** otomatik olarak alacaklandırıldığı zorunlu bir tasarruf hesabı. Yalnızca aynı seviyeli NFT satın almak veya daha yüksek bir seviyeye yükseltmek için kullanılabilir. Kullanımı, DA Likidite Havuzuna yönlendirilen **%20** ücret gerektirir; aktarımı aynı %20 ücreti gerektirir. **120 gün** kullanılmazsa yeniden dağıtım için uygun hale gelir (Normal NFT: havuza %70 / üst kademeye %30; Hediye NFT: %80 / %20).
-
-**Dondurulmuş Bakiye.** Yalnızca kaynak doğrudan davet edilen kişinin ilk satın alımı veya Otomatik Alımı olduğunda, sahibin kalan Gelir Limitini aşan pazarlama komisyonu için 72 saatlik bir tutma durumu. NFT yükseltmesiyle serbest bırakılır; süresi dolduğunda %70 DA Likidite Havuzuna ve %30 doğrudan üst sponsor'a gider. Bkz. [Dondurulmuş Bakiye](/tr/frozen-balance).
-
-**Limit (`limit`).** Bir NFT'nin üretebileceği maksimum kalan geliri temsil eden zincir üzerindeki alan. "Kalan Gelir Limiti" ile eşdeğerdir.
-
-**Token Reserve Bakiyesi (`tokenReserveBalance`).** DA tokenini %100 destekleyen sistem düzeyindeki USDT havuzu. Ekosistem genelinde 14'ten fazla gelir akışıyla beslenir.
-
-**Dev Bakiyesi (`devBalance`).** Operasyonel fonlama için platform ücretlerini ve komisyonlarını biriktirir. Yönetişim prosedürleri dışında bireysel kullanıcılar veya yöneticiler tarafından erişilemez.
-
-**Fiyat Etkisi Bakiyesi (`priceImpactBalance`).** Belirli ekosistem olayları sırasında DA fiyat istikrarını yönetmek için kullanılan bir rezerv (örneğin, DAO tarafından tetiklenen Fiyat Etkisi olayı).
-
-## Yaşam döngüsü ve otomasyon
-
-**Otomatik Alım (3/3 sistemi).** Otomatik bir NFT yenileme mekanizması. Seviye 1–8 için, orijinal manuel satın almadan sonra **3 otomatik yenilemeye** kadar izin verilir; böylece aynı NFT seviyesi maksimum 4 kez aktif olabilir (1 manuel + 3 otomatik). Elite seviyeler için (L9–L10), Otomatik Alım **sınırsızdır**. 3/3 sayacı, daha yüksek seviyeli bir NFT satın alındığında 0/3'e sıfırlanır.
-
-**İş Satışı.** Tüm bir ortak-ağaç yapısını başka bir kullanıcıya varlık olarak devretmek için DAO tarafından yetkilendirilmiş bir süreç. Sabit bir **satıcı tarafından ödenen devir komisyonuyla** (şu anda 500 USDT, DAO tarafından 0–500 arasında ayarlanabilir) sınırlandırılmıştır. Alıcı zincir üzerinde komisyon ödemez ve yapıyı yürütmede alır. Temel parametre: `businessTransferFee`.
-
-**Kupon (Hediye Kuponu).** **365 gün** geçerli, akıllı sözleşme tarafından zorunlu kılınan minimum **5 USDT** olan kullanıcı tarafından oluşturulan bir kupon. Bir NFT satın alımının %100'üne kadar karşılar. %0 komisyonla devredilebilir, ancak son kullanma tarihinden önceki **son 24 saat** hariç. Birikim Bakiyesi ile birleştirilemez. 365 günde kullanılmazsa → %100'ü DA Likidite Havuzuna.
-
-**Kariyer Rütbesi.** Ambassador veya VIP NFT'ler ve özel ödüller gibi avantajların kilidini açmak için kullanılan bir ilerleme ölçütü. Kümülatif ekosistem aktivitesi yoluyla elde edilir.
-
-## Protokol mekanikleri
-
-**Madencilik.** DA ediniminin ilk adımı. Kullanıcı, Premium veya Elite NFT (L5+) üzerinde Madenciliği etkinleştirir. Döngü, sabit bir süre boyunca NFTM üretir (Hydro'da 45 günden Infinity'de 40 güne). Seviye 5–7, NFT fiyatının %10'u kadar NFTM üreten 1 madencilik döngüsüne sahiptir. Seviye 8–10, sırasıyla %10 ve %15 üreten 2 döngüye sahiptir.
-
-**Farming.** DA ediniminin ikinci adımı. NFTM, madencilik döngüsüyle aynı süre boyunca stake edilir. Tamamlandığında, NFTM mevcut fiyattan DA'ya dönüşür ve kullanıcının TokenStack'ine alacaklandırılır. Madencilik tamamlandıktan sonra **72 saat** içinde stake edilmelidir, aksi takdirde döngü kaybolur.
-
-**Otomatik Satış Döngüsü.** Manuel olarak satılmazsa kullanıcının DA bakiyesinin dört dönem boyunca aşamalı satışı. Şu anda: 120 gün sonra %25 → 90 gün daha sonra kalanın %40'ı → 90 gün daha sonra kalanın %50'si → son 65 günde kalanın %100'ü. Toplam: 365 gün. Kullanıcı USDT olarak değerin %70'ini alır; tokenlerin %100'ü yakılır.
-
-**Manuel Satış.** Kullanıcı tarafından başlatılan DA satışı. Satılan tokenlerin %100'ü yakılır; kullanıcı değerin **%75'ini** USDT olarak alır (otomatik satışta %70'e karşın). Kalan %25, havuzda destek olarak kalan bir protokol komisyonudur.
-
-**Çoklu Parti Borç Verme.** Her madencilik döngüsünden gelen her DA partisi **bağımsız teminat** olarak hizmet eder. Krediler, tüm parti karşılığında **sabit %70 LTV** ile verilir — bir partinin bir kısmına karşı kısmi borçlanma desteklenmez — ve ihraçta tek seferlik %5 komisyon alınır. Belirli bir parti **tüm ömrü boyunca yalnızca bir kez** rehin edilebilir: kredi açıldıktan sonra, tam geri ödemeden sonra bile o parti yeniden teminat olarak kullanılamaz. Bu nedenle birden fazla eş zamanlı kredi yalnızca **farklı partiler** arasında mümkündür, asla aynı partide değil. Kısmi geri ödeme desteklenir — borçlu, parti otomatik satış döngüsüne girmeden önce `loan.price` cinsinden borcun orantılı payını ödeyerek herhangi bir zamanda teminatın bir kısmını serbest bırakabilir. Tek bir kredi temerrüde düşerse, yalnızca o partinin teminatı aşamalı olarak yakılır; diğer partiler ve bakiyeler dokunulmaz kalır.
-
-**Borç Verme Temerrüdü.** Teminatlı parti otomatik satış döngüsüne girmeden önce geri ödeme yapılamaması. Rehin edilen DA daha sonra standart dört dönemli programdan geçer (120 / 90 / 90 / 65 gün, toplam 365 gün) ve **kalan** rehin edilen DA'nın dönem başına %25, ardından %40, ardından %50, ardından %100'ünü yakar. Yakılan DA'nın %100'ü kalıcı olarak yok edilir ve her yakılan kısım için `loan.price` üzerindeki USDT değeri DA Likidite Havuzuna akar. Borçlu, ihraçta alınan USDT'yi elinde tutar ve teminatın yakılan kısmını temerrüt süresinin orantılı olarak kaybeder. Temerrüt ya hep ya hiç değildir: herhangi iki otomatik satış döneminin arasında borçlu hâlâ `repay()` çağırabilir ve yalnızca hâlâ rehinli olan için ödeyerek **kalan** rehinli DA'yı geri alabilir. Diğer DA partileri ve bakiyeler dokunulmaz kalır.
-
-**Kredi Uygunluk Eşiği.** **Her yeni `loan()` çağrısından önce yürütülen zincir üzerinde sürekli bir kontrol** (`_getTimeToNextAutosale(stack) >= 30 days`): rehin edilen DA partisinin, bir sonraki planlanmış otomatik satış tetikleyicisine en az **30 gün** kalmış olması gerekir, aksi takdirde çağrı geri döner. Bu, borç almaya erişimi kontrol eden bir **uygunluk kapısıdır**, **kredi vadesi** değildir — açık bir kredinin sabit vadesi yoktur ve parti otomatik satış döngüsüne girmeden önce herhangi bir zamanda tamamen veya kısmen geri ödenebilir.
-
-**Kredi Ücreti (`loanFee`).** Kredi ihracında alınan ve doğrudan DA Likidite Havuzuna yönlendirilen tek seferlik **%5** komisyon. Geri ödeme — tam veya kısmi — ücreti tekrar tetiklemez. Zincir üzerinde özel bir `loanFee` parametresi olarak saklanır (herhangi bir genel ücretin parçası olarak değil), bu da DAO'nun borç verme ekonomisini pazarlama vergilerinden, birikim ücretlerinden veya diğer herhangi bir komisyondan bağımsız olarak ayarlamasına olanak tanır. Mevcut DAO aralığı: %0 - %5.
-
-**Kredi Fiyatı (`loan.price`).** Kredi ihracında `getPrice()` tarafından yakalanan ve stack üzerinde `ts.loan.price` olarak saklanan DA fiyatı. Tam geri ödeme, kısmi geri ödeme ve temerrüt tasfiyesi dahil tüm sonraki kredi matematiği, mevcut piyasa fiyatına karşı değil bu fiyata göre ifade edilir. Kredi açıkken DA'nın piyasa fiyatı iki veya üç katına çıkarsa, USDT yükümlülüğü artmaz — `loan.price`'a sabitlenmiş olarak kalır. Bu, borçluların gelecekteki değer artışı potansiyelini korurken bugünkü DA değerinde USDT likiditesi çıkarmasına olanak tanıyan mekanizmadır.
-
-**Kısmi Geri Ödeme.** Bir DA teminatlı krediyi tamamen kapatmak yerine yalnızca bir kısmını itfa etme seçeneği. Borçlu, seçilen miktarda rehinli DA (şu anda rehinli toplam miktardan az veya eşit) için `repay()` çağırır ve `serbest_bırakılan_DA × loan.price × 0.70` USDT öder. Serbest bırakılan DA, aynı partinin aktif kısmına döner; kalan DA, orantılı olarak azaltılmış bir borç karşılığında rehinli kalır. Ek ücret alınmaz — %5 komisyon ihraçta zaten ödendi. Kısmi geri ödeme, otomatik satış tetiklenenleri de dahil olmak üzere (bu durumda `_processExpiredStacks()` önce çalışır, geri ödeme işlem öncesi yakım sonrası kalan kısma karşı ilerlemeden önce teminatın karşılık gelen payını yakarak) kredinin ömrünün herhangi bir aşamasında çağrılabilir.
-
-**Deflasyonist Döngü.** Yılda iki kez tetiklenen, 30 güne kadar süren ve **yeni** NFTM madenciliği, stake etme ve DA üretim döngülerinin başlatılmasını duraklatmak için tasarlanmış planlanmış bir olay. Deflasyonist Döngü başlamadan önce zaten çalışan döngüler programa göre çalışmaya ve tamamlanmaya devam eder. Döngü süresince günlük DA yakımları kıtlığı yoğunlaştırır.
-
-**Tohum Arzı.** Başlangıçta önceden yatırılmış küçük kalıcı bir DA rezervi. Kalıcı ve satılamaz, dolaşımdaki arzın dışında tutulur ve yalnızca `Fiyat = Likidite ÷ Dolaşımdaki Arz` içinde sıfıra bölünmeyi önlemek için varolur — diğer her tokenin yakıldığı uç durumda bile fiyat fonksiyonunun her zaman tanımlı olmasını garanti eder.
-
-## Yönetişim ve roller
-
-**DAO (Merkeziyetsiz Otonom Organizasyon).** RWANFTFI'nin zincir üzerindeki yönetişim organı. 10.000.000 GovToken tarafından desteklenir. Öneri eşiği: toplam arzın **%30'u**. Geçiş eşiği: **%50** çoğunluk.
-
-**Guardian'lar.** Mevcut dağılımdaki birincil yönetişim katılımcıları. Her biri 350.000 GovToken (%3,5) tutan **20 cüzdan**. Gelecekteki yeniden dağıtım, Liderler eklenirken bunu Guardian başına %1,5'e düşürür.
-
-**Liderler.** Gelecekteki bir yönetişim katılımcıları sınıfı (her biri %0,5'te planlanmış **80 cüzdan**); aktif ekosistem katkıcıları, topluluk inşaatçıları, stratejik ortaklar ve ölçülebilir etkiye sahip operatörler olarak tanımlanır.
-
-**Fiyat Etkisi Olayı.** Kullanıcı kazançlarının DA desteğini ve fiyat istikrarını güçlendirmek için DA Likidite Havuzuna yönlendirildiği DAO tarafından tetiklenen bir olay.
-
-**Hesap Dondurma.** Bir NFT'nin platform üzerindeki işlevselliğini devre dışı bırakan DAO oylamasıyla alınan bir denetim eylemi. NFT'nin kendisi kullanıcının cüzdanında kalır — platform NFT'lere el koyamaz. Dondurmanın kaldırılması ayrı bir DAO oylaması gerektirir.
-
-## Akıllı sözleşme rolleri
-
-**ADMIN_ROLE.** Diğer rolleri verebilir/iptal edebilir ve dağıtımda sabitlenmiş aralıklar içinde kritik sistem parametrelerini değiştirebilir.
-
-**SERVICE_ROLE.** Otomatik görevler için arka uç betikler tarafından yürütülür: süresi dolmuş stack'leri çözme, zincirler arası yatırımları işleme, birikim yeniden dağıtımını tetikleme.
-
-**SIGNER_ROLE.** Belirli eylemleri yetkilendirmek için kriptografik imza doğrulamasında kullanılır (örneğin, Kupon transferleri).
-
-**MINTER_ROLE.** Belirli tokenları veya NFT'leri basmaya yetkilidir.
-
-## Mimari
-
-**Diamond Pattern (EIP-2535).** RWANFTFI tarafından kullanılan akıllı sözleşme mimarisi. İşlevselliği tek bir proxy sözleşmesi aracılığıyla erişilen birden fazla modül ("Facet") arasında böler — 24KB sözleşme boyutu sınırını aşar ve Facet kesintileri yoluyla modül başına yükseltilebilirliği mümkün kılar. Özellik: [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
-
-**Facet.** Diamond proxy aracılığıyla erişilen bağımsız bir akıllı sözleşme modülü. RWANFTFI **7 Facet** kullanır: AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet.
-
-**TokenReserve.** DA tokenini yöneten sözleşme. Şeffaf Proxy aracılığıyla yükseltilebilir (adres değiştirmeden mantık güncellemeleri).
-
-**TAN Kodu (İşlem Kimlik Doğrulama Numarası).** Uygulama katmanında her finansal işlemi yetkilendirmek için gereken tek kullanımlık kod. Zincir üzerindeki denetim kapsamından bağımsızdır.
-
-**75/20/5 Bölünmesi.** Sahibin Gelir Limiti dahilindeki pazarlama ödülleri için standart kredi bölünmesi: Normal Bakiyeye **%75**, Birikim Bakiyesine **%20**, DA Likidite Havuzuna **%5**.
+| Terim | Tanım |
+|---|---|
+| **Birikim Bakiyesi** | Uygun ortak ödüllerinin yapılandırılmış payını alan kısıtlı dahili bakiye. |
+| **Auto-Sell** | Kalan DA'nın dört protokol dönemi boyunca planlanmış işlenmesi. |
+| **Autobuy** | Protokol Ödül Limiti tükendiğinde uygun bir NFT'nin otomatik olarak yenilenmesi. |
+| **DA** | En fazla 21.000.000 birim arzına sahip, transfer edilemeyen BEP-20 protokol yardımcı programı tokeni. |
+| **Frozen Balance** | Kalan Protokol Ödül Limitinin üzerindeki uygun bir Sponsor Bonusu için geçici 72 saatlik tampon. |
+| **GovToken** | Sabit arzlı ERC20Votes yönetişim tokeni. |
+| **Matching Bonus** | En fazla üç uygun seviye boyunca koşullu ödül. |
+| **Kaçırılan Ödül** | Geçerli uygunluk koşulları karşılanmadığı için alacaklandırılmayan etkinlik. |
+| **NFTM** | Farming hesaplamasında kullanılan dahili Madencilik sayacı. |
+| **Ortak Ağı** | Yerleştirme ve ödül uygunluğunu tanımlamak için kullanılan, akıllı sözleşme tarafından yönetilen yapı. |
+| **Ortak Ağı Derinliği** | Uygun dağıtım hesaplamalarına dahil edilen maksimum ağ derinliği. |
+| **Protokol Ödül Limiti** | Bir NFT döngüsü sırasında alacaklandırılan maksimum kümülatif uygun ödül; zincir üzerindeki (on-chain) terim: *Income Limit*. |
+| **Sponsor Bonusu** | Uygun bir doğrudan NFT satın alımından elde edilen koşullu ödül. |
+| **Ağaç Dağılımı** | Ortak Ağı Dağıtımının zincir üzerindeki (on-chain) adı — uygun ağ derinliği içindeki seviye başına protokol ödülü hesaplaması. |
