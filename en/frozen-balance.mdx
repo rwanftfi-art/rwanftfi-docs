@@ -1,91 +1,55 @@
 ---
 title: "Frozen Balance"
-description: "Marketing income protection for invitations into higher tiers."
+description: "A temporary 72-hour buffer for an eligible Sponsor Bonus that exceeds the holder's remaining Protocol Reward Cap."
 icon: "snowflake"
 ---
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-Frozen Balance is the mechanic that protects your marketing income in two related situations: when **your direct personal invitee makes their first NFT purchase**, or when **your invitee's Autobuy fires** (automatic renewal of their NFT, generating the 20% rebuy Sponsor Bonus), and the resulting commission exceeds your NFT's remaining Income Limit.
-
-Without Frozen Balance, that excess would be lost to compression — passed up the structure. Frozen Balance freezes it for **72 hours** and gives you a window to upgrade your NFT and claim the full amount.
-
-<Info>
-  This is the marketing safety net for both "upward" invitations and recurring revenue from established invitees: you can confidently invite partners into any NFT tier and rely on their Autobuy renewals, without fearing that the commission will be lost because your own Income Limit is too small.
-</Info>
+Frozen Balance applies when a direct invitee makes their first NFT purchase or triggers Autobuy and the resulting Sponsor Bonus exceeds the holder's remaining Protocol Reward Cap. The mechanism temporarily holds the excess so the holder can meet the applicable release conditions.
 
 ## When does Frozen Balance trigger?
 
-Frozen Balance activates **only when all three conditions are met**:
+Frozen Balance activates only when all three conditions are met:
 
 <Steps>
-  <Step title="The buyer is your direct personal invitee">
-    Not a spillover, not a downline partner five levels deep — specifically a person you personally invited into your structure.
+  <Step title="The buyer is the holder's direct personal invitee">
+    Not a spillover placement or a deeper network participant — specifically a person the holder personally invited.
   </Step>
-  <Step title="It is that invitee's first NFT purchase or their Autobuy">
-    Frozen Balance covers two events from your invitee: their **first NFT purchase** and their **Autobuy** (automatic renewal of the same invitee's NFT, paying you the 20% rebuy Sponsor Bonus). Manual repeat purchases and upgrades by the same invitee are **not** covered — see the Lost Income section below.
+  <Step title="The event is the invitee's first NFT purchase or Autobuy">
+    Manual repeat purchases and upgrades by the same invitee are not covered — see the section on repeat purchases below.
   </Step>
-  <Step title="The commission exceeds your remaining Income Limit">
-    If your remaining Income Limit is large enough to absorb the full commission, no freeze occurs — everything is credited normally.
+  <Step title="The Sponsor Bonus exceeds the holder's remaining Protocol Reward Cap">
+    If the remaining Protocol Reward Cap can absorb the full amount, no freeze occurs — the reward is credited under the standard rules.
   </Step>
 </Steps>
 
 ## How does the commission amount split?
 
-When Frozen Balance triggers, the smart contract splits the commission into two parts:
-
-- **Within your remaining Income Limit** — credited immediately under the standard split: **75% Regular Balance / 20% Accumulative Balance / 5% DA Liquidity Pool**.
-- **Excess above your Income Limit** — placed into Frozen Balance with a **72-hour timer**.
+- The amount within the remaining Protocol Reward Cap is credited under the current **75/20/5** split.
+- The excess above the cap is placed in Frozen Balance for **72 hours**.
 
 ## What happens during the 72-hour window?
 
-You have three scenarios:
-
 <Tabs>
   <Tab title="You upgrade your NFT">
-    You purchase a higher-tier NFT (with a larger Income Limit). Frozen funds are automatically released and credited under the same **75/20/5** split. The released amount is deducted from the **new** NFT's Income Limit.
-
-    **Example.** Your NFT's Income Limit = 160 USDT. Your invitee buys an NFT for 2,200 USDT; commission = 660 USDT. 160 USDT is credited immediately (75/20/5). 500 USDT goes into Frozen Balance. You upgrade to Eclipse (Income Limit 650 USDT). The 500 USDT is released and credited. New remaining Income Limit: 650 − 500 = **150 USDT**.
+    If an eligible higher-tier NFT provides sufficient Protocol Reward Cap, the buffered amount is released and credited under the standard split. The released amount reduces the new NFT's remaining cap.
   </Tab>
   <Tab title="Autobuy is enabled">
-    If Autobuy is active, the order changes. Autobuy fires **first**, repurchasing the same-level NFT and refreshing your Income Limit. The commission is then re-evaluated against the refreshed limit, the in-limit portion is credited, and **only the remainder** (if any) goes into Frozen Balance with the 72-hour timer.
-
-    This means: if your own NFT and refreshed Income Limit are sufficient after Autobuy, Frozen Balance may not activate at all.
+    Autobuy may renew the current NFT first and refresh the Protocol Reward Cap. The Sponsor Bonus is then recalculated against the refreshed cap. Only any remaining excess is placed in Frozen Balance.
   </Tab>
   <Tab title="You miss the deadline">
-    If you do not upgrade within 72 hours and Autobuy did not cover the excess, the frozen funds are **permanently forfeited** and redistributed:
-
-    - **70%** is routed to the DA Liquidity Pool for new DA minting.
-    - **30%** is transferred to your direct upline sponsor.
-
-    The cascade rule is identical to the Accumulative Balance decay cascade: if the upline sponsor's Income Limit is zero, the 30% passes further up the chain to the first participant with an active Income Limit. If no upline has an active limit, the full 100% is routed to the DA Liquidity Pool.
+    If the release conditions are not met within 72 hours, the amount is redistributed under the current protocol parameters: the configured share is routed to the DA Liquidity Pool, and the remaining share follows the sponsor-route and cascade rules.
   </Tab>
 </Tabs>
 
 ## Repeat Purchases from the Same Invitee
 
-Frozen Balance protects two events from each personal invitee: their **first NFT purchase** and their **Autobuy** (automatic renewal of the same invitee's NFT — 20% rebuy Sponsor Bonus). **Manual** repeat purchases and upgrades by the same invitee are **not** covered: if your Income Limit cannot absorb the commission, the excess is flagged as **Lost Income** and distributed under the standard compression rule — passed up the structure to the next participant with an active Income Limit.
+Frozen Balance covers the qualifying first purchase and Autobuy events. Manual repeat purchases and upgrades by the same invitee follow the standard partner-reward, missed-reward, and compression rules.
 
-<Warning>
-  If your invitee makes many manual rebuys/upgrades while **your Income Limit is exhausted**, every such manual purchase bypasses you via compression. Keep your Income Limit active — through your own Autobuy or manual renewal — so you don't bleed income from established partners.
-</Warning>
+## High-Volume Scenario — Routing Through the Structure
 
-## High-Volume Scenario — Cascade Through the Structure
-
-Frozen Balance protects **only** the commission on a direct invitee's first purchase or their Autobuy. But in a large structure, most of your income comes not from personal sales — it comes from depth, through tree distribution (4% at level 9 × 500+ positions can yield tens of thousands of USDT in a single accrual cycle).
-
-When that volume hits and your Income Limit is 1,100 USDT with Autobuy capable of refreshing it three times max (3/3 on tiers L1–L8), the system:
-
-1. Credits you 1,100 USDT under the standard split.
-2. Triggers Autobuy, refreshes the Limit, credits another 1,100 USDT.
-3. Repeats up to 3 times.
-4. **All remaining volume is compressed** — passed upward to the next participant with an active Income Limit.
-
-Frozen Balance does **not** activate in this scenario because the source is not a direct invitee's first purchase or Autobuy but tree distribution from depth.
-
-<Info>
-  Takeaway for scale: at large network volumes, the key lever is **the level of your own NFT**. Higher tiers carry larger Income Limits and reduce the share lost to compression. Elite tiers (L9–L10), with unlimited Autobuy, address this systemically.
-</Info>
+For network-depth activity, the Protocol Reward Cap and Autobuy rules are applied first. Any remaining amount that cannot be credited is routed according to the active compression rules. Frozen Balance does not activate when the source is Partner Network Distribution rather than a qualifying direct first purchase or Autobuy.
 
 <FrozenBalanceSimulator lang="en" />
 
@@ -94,9 +58,9 @@ Frozen Balance does **not** activate in this scenario because the source is not 
 | Parameter | Value | Mutability |
 |---|---|---|
 | Freeze window | 72 hours | Immutable |
-| DA Liquidity Pool share on forfeit | 70% | DAO-adjustable (50–100%) |
-| Upline sponsor share on forfeit | 30% | DAO-adjustable (0–30%) |
-| Trigger | First purchase or Autobuy by direct personal invitee | Immutable |
-| Release distribution | 75/20/5 | Standard split — see Architecture |
+| DA Liquidity Pool share after expiry | 70% | DAO-adjustable within documented range |
+| Sponsor-route share after expiry | 30% | DAO-adjustable within documented range |
+| Trigger | First purchase or Autobuy by direct invitee | Immutable |
+| Release distribution | 75/20/5 | Standard split — see [Architecture](/en/architecture) |
 
-See also: [Income Limit on the NFT Ecosystem page](/en/nft-ecosystem), [Payment Priority in Architecture](/en/architecture).
+See also: [Protocol Reward Cap on the NFT Ecosystem page](/en/nft-ecosystem), [Payment Priority in Architecture](/en/architecture).

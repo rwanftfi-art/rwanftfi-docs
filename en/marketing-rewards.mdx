@@ -1,91 +1,39 @@
 ---
 title: "Rewards & Compensation"
-description: "Three independent reward streams in RWANFTFI: Sponsor Bonus (30% Phase 1 / 20% Phase 2), per-level Tree Distribution from Level 2 to 22, and Matching Bonus (5% + 5% + 5%) across three levels of direct partners."
+description: "The partner program uses three reward types: Sponsor Bonus, Tree Distribution, and Matching Bonus. Each reward depends on NFT tier, network relationship, qualifying activity, protocol phase, and remaining Protocol Reward Cap."
 icon: "money-bill-trend-up"
 ---
 
-import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+The partner program uses three reward types: **Sponsor Bonus**, **Tree Distribution**, and **Matching Bonus**. Each reward depends on NFT tier, network relationship, qualifying activity, protocol phase, and remaining Protocol Reward Cap.
 
-<CardGroup cols={2}>
-  <Card title="Phase 1 — New Sale" icon="user-plus">
-    Direct sponsor earns 30% of NFT sale price. Repeat purchase (rebuy): 20%.
-  </Card>
-  <Card title="Phase 2 — Adjusted" icon="arrows-rotate">
-    New sale adjusts to 20%. Rebuy stays 20%. Levels 16–22 fully unlocked.
-  </Card>
-</CardGroup>
+## Sponsor Bonus
 
-<Note>
-  The transition from Phase 1 to Phase 2 (including Sponsor Bonus adjustment from 30% to 20% and unlocking of tree levels 16–22) is executed through DAO governance, not automatically by date. The DAO vote requires the standard 30% proposal threshold and 50% majority approval to enact the parameter changes.
-</Note>
+The Sponsor Bonus is calculated from a qualifying direct NFT purchase. The current Phase 1 rates are **30%** for a new sale and **20%** for a rebuy. Any Phase 2 change requires the documented governance activation.
 
-Marketing rewards in RWANFTFI consist of three independent streams that combine to form your total income:
+## Tree Distribution
 
-1. **Sponsor Bonus** — Direct commission for inviting a partner (30% Phase 1 / 20% Phase 2 of NFT sale price).
-2. **Tree Distribution** — Per-level rewards from your downline structure (levels 2–22, percentages vary by depth).
-3. **Matching Bonus** — Secondary 5% + 5% + 5% from your direct partners' income across 3 levels.
+| Network Level | Current Rate |
+|:---:|:---:|
+| 1 | 0% |
+| 2 | 1% |
+| 3–4 | 2% each |
+| 5–6 | 3% each |
+| 7–14 | 4% each |
+| 15 | 5% |
+| 16–22 | 0% until governance activation |
 
-Each stream is calculated and paid independently by the smart contract on every qualifying NFT purchase.
+## Matching Bonus
 
-## How does Tree Distribution work?
+| Matching Level | Rate | Eligibility |
+|:---:|:---:|---|
+| 1 | 5% | Eligible NFT tier |
+| 2 | 5% | 1,000 USDT cumulative personal sales |
+| 3 | 5% | 3,000 USDT cumulative personal sales |
 
-Earn a percentage from every NFT sale in your downline, across up to 22 levels deep:
+## Standard Reward Split
 
-<AccordionGroup>
-  <Accordion title="Levels 1–6 · Entry Layers" icon="layer-group">
-    - Level 1: 0%
-    - Level 2: 1%
-    - Levels 3–4: 2% each
-    - Levels 5–6: 3% each
-  </Accordion>
-  <Accordion title="Levels 7–15 · Core Earning Depth" icon="chart-simple">
-    - Levels 7–14: 4% each (8 levels × 4% = main income driver)
-    - Level 15: 5% (highest single-level percentage)
-  </Accordion>
-  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="unlock">
-    - Levels 16–17: 2% each
-    - Level 18: 1%
-    - Levels 19–22: 0.5% each
+Eligible partner rewards are currently split under the documented **75/20/5** allocation between Regular Balance, Accumulative Balance, and the DA Liquidity Pool.
 
-    *Unlocked in Phase 2 via DAO governance vote (planned for Q4 2026). Requires INFINITY NFT for full depth.*
-  </Accordion>
-</AccordionGroup>
+## Compression
 
-<Info>
-  **Why is Level 1 = 0%?** Tree Distribution and Sponsor Bonus are two separate reward streams. Your direct invites sit on Level 1 of your marketing structure, and you already earn a Sponsor Bonus (30% in Phase 1, 20% in Phase 2) from their NFT purchase. Level 1 of Tree Distribution is set to 0% to prevent double-compensation. Tree Distribution rewards begin from Level 2 (1%) onward — covering activity deeper in your structure beyond your personal invites.
-</Info>
-
-<Note>
-  **Spillover on Level 1 earns nothing directly.** When a partner is placed on your Level 1 via spillover (your upline's invite lands in your tree), you earn 0% Sponsor Bonus (it goes to their actual inviter) and 0% Tree Distribution (Level 1 = 0%). The value of spillover is realized from Level 2 and deeper — when those spillover partners build their own teams, their recruits generate tree distribution rewards for you.
-</Note>
-
-## How does Compression redirect skipped rewards?
-
-<Tip>
-  **Compression works in your favor.** If someone above you has an exhausted income limit or insufficient NFT level, their rewards compress upward — potentially to you. The deeper your NFT's marketing access, the more compressed rewards you can capture.
-</Tip>
-
-When a user in your downline is skipped (Income Limit = 0 or NFT level too low), the reward passes upward to the next qualified participant. This is flagged as **Lost Income** for the skipped user.
-
-
-## How does the Matching Bonus (5% + 5% + 5%) unlock?
-
-Earn a percentage of the **NFT-sales income** generated by your direct partners across 3 levels. The Matching Bonus is calculated only from marketing payouts your direct partner receives from NFT sales within their structure — not from other income streams (Frozen Balance releases, manual DA sales, etc.):
-
-<Steps>
-  <Step title="Level 1 — 5%">
-    Requires at least a Level 4 (ECLIPSE, 275 USDT) NFT.
-  </Step>
-  <Step title="Level 2 — 5%">
-    Requires cumulative personal sales of 1,000 USDT.
-  </Step>
-  <Step title="Level 3 — 5%">
-    Requires cumulative personal sales of 3,000 USDT.
-  </Step>
-</Steps>
-
-<Info>
-  **What "cumulative personal sales" means:** This is the running lifetime total of all NFT purchases made by your direct invites. Repeat purchases (rebuys, upgrades) by the same partner count toward the total, and sales to different partners accumulate together. For example, if one partner buys three NFTs at 1,000 USDT each, your cumulative total is 3,000 USDT — unlocking Matching Bonus Level 3. Once a threshold is reached, that Matching Bonus level is **permanently active** and does not reset.
-</Info>
-
-<IncomeCalculator />
+If a network position does not meet the applicable eligibility conditions, the amount is routed according to the active compression and residual-budget rules. The exact routing matches the current contract parameters — see [Contract Parameters](/en/contract-parameters).

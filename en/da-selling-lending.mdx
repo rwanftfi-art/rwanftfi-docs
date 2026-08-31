@@ -1,102 +1,51 @@
 ---
 title: "Selling & Lending"
-description: "Manual sell at 75% USDT payout, auto-sell at 70% over a 365-day four-period cycle, and a fixed 70% LTV lending facility against DA collateral with a one-time 5% commission."
+description: "DA holders can use eligible DA through manual sale, scheduled Auto-Sell, or lending. Payouts, burns, fees, eligibility, and collateral processing are governed by the current smart-contract parameters."
 icon: "scale-balanced"
 ---
-import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
 
+DA holders can use eligible DA through manual sale, scheduled Auto-Sell, or lending. Payouts, burns, fees, eligibility, and collateral processing are governed by the current smart-contract parameters.
 
-Once a user holds DA, they have two primary financial options: selling the asset or using it as collateral for a loan.
+## How can DA be used?
 
 <CardGroup cols={2}>
-  <Card title="Sell DA" icon="fire">
-    100% of sold DA is permanently burned. You receive 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) is a protocol commission that stays in the pool as backing and drives the DA price upward.
+  <Card title="Manual Sale" icon="fire">
+    Receive the current 75% payout in USDT. Processed DA is burned.
   </Card>
-  <Card title="Lend DA" icon="building-columns">
-    Borrow at a fixed 70% LTV in USDT against your DA. A one-time 5% commission is paid at issuance and never charged again at repayment. Your DA stays in your TokenStack until you repay (in full or in part) or the batch enters its auto-sell cycle.
+  <Card title="Auto-Sell" icon="clock">
+    Receive the current 70% payout when scheduled processing occurs. Processed DA is burned.
+  </Card>
+  <Card title="Lending" icon="building-columns">
+    Use an eligible DA batch as collateral at the documented 70% LTV.
+  </Card>
+  <Card title="Holding" icon="hand-holding">
+    Keep DA until an eligible manual action or scheduled Auto-Sell event.
   </Card>
 </CardGroup>
 
-## Selling DA & Burn Mechanics
+## Manual Sale
 
-When selling DA, there are two distinct scenarios with different conditions:
+On an eligible manual sale, the user receives 75% of the calculated DA protocol value in USDT. The processed DA is burned, and the remaining protocol share follows the active allocation.
 
-1. **Manual Sale (user sells independently):**
-   * The user receives **75%** of the DA value in USDT at the current price.
-   * **100%** of the sold DA tokens are permanently burned.
-   * The remaining 25% is a protocol commission that stays in the pool as USDT backing — with fewer tokens and the same liquidity, this 25% directly drives the price growth.
+## Auto-Sell
 
-2. **Auto-Sell (triggered after TokenStack period expires):**
-   * The user receives **70%** of the DA value in USDT at the price on the date of auto-sell.
-   * **100%** of the auto-sold DA tokens are permanently burned.
-   * The remaining 30% is a protocol commission that stays in the pool as USDT backing — this 30% is what drives the price upward.
-   * Auto-sell triggers automatically if the user has not sold manually before the period expires.
+If DA is not sold manually, the protocol processes the remaining batch over four scheduled periods. Each event uses the protocol price available at execution.
 
-In both cases, 100% of sold tokens are burned — the 25%/30% represents the protocol commission that stays in the pool as USDT backing. This is the mechanism that drives price growth: fewer tokens + same liquidity = higher price per DA. Auto-sell offers a 5% lower payout, incentivizing users to actively manage their DA positions.
+| Period | Timing | Share of Remaining DA |
+|:---:|---|:---:|
+| 1 | After 120 days | 25% |
+| 2 | After another 90 days | 40% |
+| 3 | After another 90 days | 50% |
+| 4 | After another 65 days | 100% |
 
 <Warning>
-  **Selling DA consumes your NFT's Income Limit.** Every manual or auto-sell of DA reduces your NFT's remaining Income Limit by the USDT payout amount — on equal footing with marketing rewards. If the Income Limit is exhausted, manual DA sale is not possible (the system cannot credit the payout), and on auto-sell 100% of proceeds are routed to the DA Liquidity Pool or to burn (the exact mechanism is determined by DAO settings). Keep your Income Limit active — through Autobuy or manual NFT renewal — to receive the payout when selling DA.
+  **Protocol Reward Cap interaction:** Eligible DA-sale payouts reduce the user's remaining Protocol Reward Cap. If the cap is zero, the proceeds are processed according to the active DAO-controlled routing rule.
 </Warning>
 
-<Info>
-  **Auto-sell** triggers automatically if you don't sell manually before the TokenStack period expires. It pays 5% less (70% vs 75%), incentivizing active management.
-</Info>
+## Lending
 
-## Auto-Sell Periods
-
-DA is 100% available to the user immediately upon farming — there is no lock-up period. The user can sell manually at any time (receiving 75% in USDT) or take a loan against their DA. If the user does **not** act, the system triggers automatic forced sales from the **remaining balance** progressively over 4 periods spanning **365 days (1 year)** total. Period durations are denominated in days on-chain (120 / 90 / 90 / 65 days); the month references below are approximations for readability.
-
-**Example starting with 100 DA:**
-
-<Steps>
-  <Step title="Period 1 — 25% auto-sell after 120 days (~4 months)">
-    If you haven't sold manually within 120 days (~4 months), 25% of your current DA balance is auto-sold. 25% of 100 DA = **25 DA auto-sold** → You receive 70% of value in USDT at current price → 100% of 25 DA burned → Remaining: **75 DA**
-  </Step>
-  <Step title="Period 2 — 40% auto-sell after 90 more days (~3 months, day 210)">
-    40% of the remaining balance is auto-sold. 40% of 75 DA = **30 DA auto-sold** → Remaining: **45 DA**
-  </Step>
-  <Step title="Period 3 — 50% auto-sell after 90 more days (~3 months, day 300)">
-    50% of the remaining balance is auto-sold. 50% of 45 DA = **22.5 DA auto-sold** → Remaining: **22.5 DA**
-  </Step>
-  <Step title="Period 4 — 100% auto-sell after 65 more days (~2 months, day 365)">
-    100% of the remaining balance is auto-sold. Position fully closed. 100% of 22.5 DA = **22.5 DA auto-sold** → Remaining: **0 DA**
-  </Step>
-</Steps>
-
-<Note>
-  The auto-sell percentages (25% / 40% / 50% / 100%) shown above represent the current protocol configuration. Specific values are stored as protocol parameters and are subject to standard governance procedures. Always check the smart contract or current protocol documentation for the latest values.
-</Note>
-
-Each auto-sell executes at the DA price at that moment, not the original farming price. Since price grows over time, later auto-sells burn tokens at a higher price — strengthening deflation further.
-
-<Warning>
-  **Auto-Sell with Zero Income Limit:** If DA auto-sell triggers and the user has zero Income Limit on their NFT (meaning the NFT has not been renewed), 100% of proceeds are directed either to the Liquidity Pool or to DA burn. The exact mechanism is determined by DAO settings. Users should always maintain an active Income Limit to receive their auto-sell payout.
-</Warning>
-
-## Lending (Credit Against DA)
-
-Premium and Elite NFT holders (Level 5 and above) can take a USDT loan against their DA collateral instead of selling it. The loan is collateralized by a specific DA batch from a single completed mining and farming cycle - the whole batch at once, not a fraction of it. Lower tiers do not run mining and have no DA collateral to borrow against.
-
-Every loan is issued at a fixed **70% LTV** with a one-time **5% commission** routed to the DA Liquidity Pool at issuance. Nothing is charged at repayment. The borrower receives 95% of the gross loan amount in their Regular Balance. Example: for a 100 DA batch at a DA price of 1.00 USDT, the gross loan is 70 USDT, the fee is 3.50 USDT, and the borrower's net payout is 66.50 USDT.
-
-The defining structural property is that the DA price is captured in `loan.price` at issuance and never reprices afterward. Subsequent DA price growth does not increase the debt - so the borrower extracts USDT liquidity at today's price while retaining the upside on future appreciation. The loan has no fixed maturity, can be repaid in full or in part at any moment before the batch enters its auto-sell cycle, and a given batch can be pledged only once over its entire lifetime.
-
-If the loan is not repaid before the batch enters its auto-sell cycle, the pledged DA is progressively burned through the standard four-period schedule. The borrower keeps the USDT received at issuance; the USDT value of every burned portion flows to the DA Liquidity Pool. Between auto-sell periods the borrower can still step in and call `repay()` to reclaim whatever DA is still pledged.
-
-<Warning>
-  **Lending Default - Progressive Burn:** If the loan is not repaid before the collateralized batch enters its auto-sell cycle, the collateral proceeds through the standard four-period schedule (25% / 40% / 50% / 100% of the **remaining** pledged DA burned over 120 / 90 / 90 / 65 days, 365 days total). 100% of burned DA is permanently destroyed; the corresponding USDT value at `loan.price` is routed to the DA Liquidity Pool. The borrower does **not** receive USDT for the burned portion - the only economic recovery from a defaulted batch is the USDT received at issuance.
-
-  **Partial recovery is always available.** The borrower can call `repay()` between any two auto-sell periods and reclaim the **remaining** pledged DA by paying only for what is still pledged. DA already burned in earlier periods cannot be recovered, but every future burn can still be stopped by repaying before its period boundary.
-</Warning>
-
-<Note>
-  **`repay()` after auto-sell starts - behavior corrected post-CertiK (RWA-58):** Earlier contract versions reverted `repay()` once the batch crossed into the auto-sell cycle. After the CertiK audit, this was corrected: `repay()` is now callable at any stage of the loan's life. When the batch has already crossed an auto-sell trigger, the contract first runs `_processExpiredStacks()` to settle every period whose boundary has already passed - which burns the corresponding share of collateral - and then proceeds against the post-burn remainder.
-
-  Practical consequence: a late `repay()` cannot "outpace" a burn that has already triggered. To preserve the **entire** collateral, the borrower must repay before crossing the first auto-sell trigger (Period 1, currently day 120 of the batch's life).
-</Note>
+Eligible holders may use a complete DA batch as collateral for a USDT-denominated loan. The current LTV is 70%, and the one-time issuance fee is applied under the current protocol parameters.
 
 <Card title="Full Lending Mechanics →" icon="hand-holding-dollar" href="/en/da-lending">
-  Eligibility, the 30-day issuance gate, formulas, partial repayment with worked examples, full default math, and the parameter table - all on a dedicated page.
+  Loan parameters, calculation, price snapshot, partial repayment, and default processing — all on a dedicated page.
 </Card>
-
-<SellVsLend />

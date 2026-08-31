@@ -1,26 +1,20 @@
 ---
 title: "Marketing Structure & Placement"
-description: "How RWANFTFI places users into a 22-level binary marketing tree with up to 8,388,606 positions, weakest-branch auto-placement, permanent sponsor links, and spillover from upline invites."
+description: "The partner network is a smart-contract-managed placement structure. When an eligible NFT is activated, the account receives a permanent position. Placement, network depth, and reward eligibility follow the active protocol rules."
 icon: "sitemap"
 ---
 
-When a user activates an NFT, they are permanently placed into a marketing
-structure with a maximum depth of 22 levels — holding up to
-**8,388,606 positions** when fully filled.
+The partner network is a smart-contract-managed placement structure. When an eligible NFT is activated, the account receives a permanent position. Placement, network depth, and reward eligibility follow the active protocol rules.
+
 <CardGroup cols={3}>
   <Card title="Auto-Placement" icon="wand-magic-sparkles">
-    Smart contract places new users using "weakest branch, left to right"
-    algorithm. No manual positioning needed.
+    Additional registrations are placed under the branch selected by the active weakest-branch algorithm.
   </Card>
-  <Card title="Permanent Link" icon="link">
-    Each participant is permanently linked to their sponsor.
-    Changes are impossible — blockchain is immutable.
+  <Card title="Permanent Position" icon="link">
+    An activated account receives a permanent position in the structure; the sponsor link does not change.
   </Card>
   <Card title="Spillover" icon="arrow-down">
-    Upline sponsors' invites may land in YOUR structure automatically.
-    You earn tree distribution rewards from spillover under standard
-    marketing terms — the Sponsor Bonus, however, goes to the actual
-    inviter, not to you.
+    Spillover may place a participant inside another user's network. Placement alone does not guarantee a reward.
   </Card>
 </CardGroup>
 
@@ -34,76 +28,31 @@ structure with a maximum depth of 22 levels — holding up to
   src="/banner_new_1.mp4"
 />
 
-## How does placement in the marketing tree work?
+## How does placement work?
+
 <Steps>
-  <Step title="You Invite">
-    Your first 2 invites fill your Level 1 (left and right position).
+  <Step title="First-level positions fill first">
+    The first direct registrations fill the available first-level positions.
   </Step>
-  <Step title="Tree Grows Down">
-    Next invites go to Level 2 under the weakest branch.
-    Your structure grows exponentially: 2 → 4 → 8 → 16 positions per level.
+  <Step title="The weakest-branch algorithm places the rest">
+    Additional registrations are placed under the branch selected by the active weakest-branch algorithm.
   </Step>
-  <Step title="Spillover Fills Gaps">
-    When your upline sponsors invite more people than their Level 1 can hold,
-    those users spill into YOUR tree. You earn from them automatically.
+  <Step title="Spillover may occur">
+    Spillover may place a participant inside another user's network.
   </Step>
-  <Step title="You Earn from Depth">
-    Your NFT level determines how deep you earn.
-    Genesis (L1) earns from 2 levels. Infinity (L10) currently earns
-    up to **19 levels** in Phase 1 — and up to the full **22 levels**
-    once Phase 2 is activated by DAO vote (planned Q4 2026), which
-    unlocks marketing levels 16–22. Per-tier depths are listed in
-    [All 10 Tiers at a Glance](/en/nft-ecosystem#all-10-tiers-at-a-glance).
+  <Step title="Placement alone does not guarantee a reward">
+    Eligibility depends on tier, depth, qualifying activity, active phase, and remaining Protocol Reward Cap.
   </Step>
 </Steps>
 
-## How is Tree Distribution paid per level?
+## Partner Network Depth
 
-Each level of the marketing structure has a fixed number of positions and a corresponding reward percentage. Your NFT level determines how deep into this structure you can earn.
+Each NFT tier defines the maximum network depth included in eligible Partner Network Distribution calculations. Current Phase 1 values are shown in the [NFT tier table](/en/nft-ecosystem#all-10-tiers-at-a-glance). Levels 16–22 require the documented governance activation.
 
-| Level | Number of participants | Distribution per level |
-|:-----:|:----------------------:|:----------------------:|
-| 1     | 2                      | 0%                     |
-| 2     | 4                      | 1%                     |
-| 3     | 8                      | 2%                     |
-| 4     | 16                     | 2%                     |
-| 5     | 32                     | 3%                     |
-| 6     | 64                     | 3%                     |
-| 7     | 128                    | 4%                     |
-| 8     | 256                    | 4%                     |
-| 9     | 512                    | 4%                     |
-| 10    | 1,024                  | 4%                     |
-| 11    | 2,048                  | 4%                     |
-| 12    | 4,096                  | 4%                     |
-| 13    | 8,192                  | 4%                     |
-| 14    | 16,384                 | 4%                     |
-| 15    | 32,768                 | **5%**                 |
-| 16    | 65,536                 | 2%                     |
-| 17    | 131,072                | 2%                     |
-| 18    | 262,144                | 1%                     |
-| 19    | 524,288                | 0.5%                   |
-| 20    | 1,048,576              | 0.5%                   |
-| 21    | 2,097,152              | 0.5%                   |
-| 22    | 4,194,304              | 0.5%                   |
+## Network Capacity
+
+A complete 22-level binary structure contains **8,388,606 positions** (more than 8.3 million), excluding the root position.
 
 <Tip>
-  For full details on reward percentages, compression mechanics, and the Matching Bonus system, see [Rewards & Compensation](/en/marketing-rewards).
+  For reward rates, compression mechanics, and the Matching Bonus system, see [Rewards & Compensation](/en/marketing-rewards).
 </Tip>
-
-<Info>
-  **Multi-accounting is strictly prohibited.** The system enforces
-  a one-user, one-account policy with built-in tracking.
-</Info>
-<Warning>
-  **Sponsor is permanent.** Once placed in the tree, your sponsor
-  cannot be changed. Choose wisely before activating your NFT.
-</Warning>
-
-<Info>
-  **Sponsor must be an active tree node.** When a new user is registered through `registerUser()`, the smart contract does not accept any existing user ID as a sponsor — the supplied sponsor must be an **active node in the marketing structure**. Concretely, the sponsor must:
-
-  - Hold an **active NFT** in the system, and
-  - Be **registered in the tree** as a live node (tree node active).
-
-  An **identity-only mapping** — a wallet that has been assigned a user ID but does not currently hold an active NFT — can no longer sponsor new invites. This prevents new participants from being placed under inactive sponsors, blocks the creation of dead branches in the structure, and preserves the integrity of every sub-tree's reward flow.
-</Info>

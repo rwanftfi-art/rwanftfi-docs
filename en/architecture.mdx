@@ -1,11 +1,10 @@
 ---
 title: "Smart Contract Architecture"
-description: "RWANFTFI smart contracts are built on the Diamond Pattern (EIP-2535) with 7 Facets, parity-partitioned NFT token IDs, role-based access (ADMIN/SERVICE/SIGNER/MINTER), and a multi-tiered balance schema."
+description: "RWANFTFI uses an EIP-2535 Diamond architecture with seven functional facets, separate NFT and reserve contracts, defined upgradeability mechanisms, role-based permissions, and multiple internal balance types."
 icon: "cubes"
 ---
 
-
-The RWANFTFI platform is built on a robust, modular, and secure smart contract architecture that governs all interactions, distributions, and token mechanics without central control.
+RWANFTFI uses an [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond architecture with seven functional facets, separate NFT and reserve contracts, defined upgradeability mechanisms, role-based permissions, and multiple internal balance types.
 
 <video
   autoPlay
@@ -17,114 +16,68 @@ The RWANFTFI platform is built on a robust, modular, and secure smart contract a
   src="/bx2.mp4"
 />
 
-## Diamond Pattern (EIP-2535)
+## Diamond Facets
 
-The core of the RWANFTFI system is implemented using the Diamond Pattern, formally specified as [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) on the Ethereum Improvement Proposals registry. This architectural choice allows the protocol to bypass the standard smart contract size limit (24KB) by splitting functionality across multiple independent modules called "Facets" (smart contract modules accessed through a single proxy contract).
+| Facet | Function |
+|---|---|
+| AdminFacet | Roles, parameters, approved transfers, and special NFT minting. |
+| MarketingFacet | Registration, NFT purchases, and partner-reward calculations. |
+| FarmingFacet | NFTM Mining and DA Farming. |
+| PaymentFacet | Deposits, withdrawals, vouchers, and balance transfers. |
+| TreeFacet | Partner-network placement and depth. |
+| ResolverFacet | Expired values, voucher processing, and Frozen Balance resolution. |
+| ViewFacet | Read-only user, balance, and network queries. |
 
-## What are the 7 core Facets?
+## NFT Contracts
 
-<CardGroup cols={2}>
-  <Card title="AdminFacet" icon="gear">
-    System parameters, roles, business sales, and special NFT minting.
-  </Card>
-  <Card title="MarketingFacet" icon="bullhorn">
-    User registration, NFT purchases, and marketing reward distribution.
-  </Card>
-  <Card title="FarmingFacet" icon="seedling">
-    NFTM mining and DA farming cycle management.
-  </Card>
-  <Card title="PaymentFacet" icon="wallet">
-    Deposits, withdrawals, Voucher creation, and accumulative transfers.
-  </Card>
-  <Card title="TreeFacet" icon="sitemap">
-    22-level binary tree logic and user placement algorithms.
-  </Card>
-  <Card title="ResolverFacet" icon="rotate">
-    Expired DA stack processing, Voucher burns, and frozen account resolution.
-  </Card>
-  <Card title="ViewFacet" icon="eye">
-    Read-only queries for user data, balances, and tree structures.
-  </Card>
-</CardGroup>
+- Regular NFTs use odd token IDs.
+- Gift NFTs use even token IDs.
+- Ambassador NFTs use a separate contract and configuration.
 
-## How are NFT contract token IDs partitioned?
+## Upgradeability Matrix
 
-The protocol uses three distinct NFT contracts (Regular, Gift, Ambassador). To prevent identifier collisions in the on-chain `registeredTokens` mapping that tracks every minted NFT across the system, **Regular NFTs and Gift NFTs mint into separated `tokenId` spaces partitioned by parity**:
+| Component | Model |
+|---|---|
+| Diamond Contract | Upgradeable through facet cuts. |
+| TokenReserve / DA | Upgradeable through the documented proxy mechanism. |
+| NFT Contracts | Documented as non-upgradeable. |
+| GovToken | Documented as non-upgradeable with fixed supply. |
+| AdminContract | Documented as non-upgradeable. |
 
-- **Regular NFT** — odd token IDs (`1, 3, 5, 7, …`).
-- **Gift NFT** — even token IDs (`2, 4, 6, 8, …`).
+## Role Management
 
-The split is enforced inside each NFT contract's minter logic at mint time. Because a successful mint on one contract can never produce an identifier the other contract could ever issue, an entire class of mapping-collision bugs is eliminated at the type-system level — no runtime guard or per-call deduplication check is required. The partitioning is invisible to end users: wallets and marketplaces continue to display each NFT under its native contract.
+| Role | Documented Authority |
+|---|---|
+| `ADMIN_ROLE` | Grant and revoke roles; change permitted protocol parameters. |
+| `SERVICE_ROLE` | Execute documented automated and cross-chain service operations. |
+| `SIGNER_ROLE` | Verify authorized signatures for specified actions. |
+| `MINTER_ROLE` | Mint the token or NFT type assigned to that role. |
 
-## Upgradability Matrix
+## Balance Schema
 
-* **Diamond Contract (EIP-2535):** Upgradeable via Facet cuts — allows adding, replacing, or removing individual modules without redeploying the entire system.
-* **TokenReserve (DA):** Upgradeable via Transparent Proxy — logic updates are possible without changing the contract address.
-* **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Non-upgradeable — ensuring immutability of core assets and governance rules.
+| Balance | Purpose |
+|---|---|
+| Regular Balance | Eligible withdrawals, purchases, and vouchers. |
+| Accumulative Balance | Restricted internal balance used under documented purchase, transfer, fee, and redistribution rules. |
+| Protocol Reward Cap | Remaining reward eligibility for the active NFT cycle; on-chain term: *Income Limit*. |
+| Token Reserve Balance | Designated liquidity-pool balance supporting DA mechanics. |
+| Dev Balance | Protocol and operating allocations. |
+| Price Impact Balance | Reserve used by documented price-impact functions. |
 
-## How are smart contract roles managed?
-
-The system utilizes a hierarchical role structure (AccessControlEnumerable) to manage permissions securely:
-* `ADMIN_ROLE`: Can grant/revoke other roles and change critical system parameters.
-* `SERVICE_ROLE`: Executed by backend scripts for automated tasks (e.g., resolving expired stacks, processing cross-chain deposits).
-* `SIGNER_ROLE`: Used for cryptographic signature verification to authorize specific actions like Voucher transfers.
-* `MINTER_ROLE`: Authorized to mint specific tokens or NFTs.
-
-## Balance Schema & Payment Priority
-
-To manage the complex flow of funds, RWANFTFI employs a multi-tiered balance schema within the smart contract.
-
-**User Balances:**
-1. **Regular Balance (`balance`):** The primary wallet for available USDT. Funds here can be withdrawn at any time, used to purchase NFTs, or used to generate Vouchers.
-2. **Accumulative Balance (`accumulativeBalance`):** A mandatory savings account where 20% of each marketing reward is credited immediately upon accrual.
-   * **Usage:** Can only be used to purchase the same level NFT or to purchase a higher-level NFT.
-   * **Fees:** Using this balance for NFT purchases incurs a 20% fee **routed to the DA Liquidity Pool**. Transferring it to another user also incurs a 20% fee **routed to the DA Liquidity Pool**. Every movement of the Accumulative Balance generates an inflow to the Pool and creates the basis for new DA.
-   * **120-Day Redistribution:** If the user does not use their Accumulative Balance within 120 days, the unused balance becomes eligible for redistribution. The split depends on the user's NFT type:
-     - **Regular NFT holders:** **70%** is directed to the DA Liquidity Pool for minting new DA tokens; **30%** is transferred to the user's direct upline sponsor.
-     - **Gift NFT holders:** **80%** is directed to the DA Liquidity Pool; **20%** is transferred to the direct upline sponsor (governed by the separate `accumulativeClaimDistributeGift` parameter).
-     - **Cascade rule (both types):** If the upline sponsor's Income Limit is exhausted (equals zero), the sponsor share passes further up to the next eligible participant in the structure. If no participant in the chain has an active Income Limit, the entire amount is routed to the DA Liquidity Pool.
-
-   <Note>
-     **120 Days = Guaranteed Minimum Window, Not an Automatic Expiry:** The `accumulativeDecayTime` parameter is checked **only inside `withdrawAccumulative()`** — the admin/service-triggered redistribution path. It is **not** evaluated on the spend or transfer paths. In practice this means:
-
-     - For the first 120 days after a credit, the Accumulative Balance is **guaranteed integrity** — it cannot be redistributed by anyone.
-     - After day 120, the balance becomes **eligible** for redistribution, but redistribution does not fire automatically when the timer elapses. It happens only when `withdrawAccumulative()` is invoked for that specific user by the SERVICE_ROLE or ADMIN_ROLE.
-     - **Until that call lands**, an "expired" Accumulative Balance remains spendable on NFT purchases and upgrades and transferable to other users under the standard rules and fees.
-
-     The team's stated intent, recorded in the audit response: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Treat 120 days as the **minimum guaranteed window before potential redistribution**, not as a hard on-chain expiry timestamp.
-   </Note>
-3. **Limit (`limit`):** Represents the maximum remaining income an NFT can generate.
-
-### System Balances
-
-In addition to user balances, the smart contract maintains three internal system balances:
-
-- **Dev Balance (`devBalance`):** Accumulates platform fees and commissions for operational funding.
-- **Token Reserve Balance (`tokenReserveBalance`):** The USDT liquidity pool that 100% backs the DA token. Every income source in the ecosystem feeds into this pool.
-- **Price Impact Balance (`priceImpactBalance`):** A special reserve used to manage DA token price stability during specific ecosystem events.
-
-These balances are managed entirely by the smart contract and are not accessible to any individual user or administrator.
-
-### Payment Priority
-
-When making a purchase, the smart contract deducts funds in this order:
+## Payment Priority
 
 <Steps>
-  <Step title="Vouchers (manual)">
-    If the user explicitly applies a voucher at checkout, its value is consumed first. Vouchers are not auto-applied.
+  <Step title="Selected valid Voucher">
+    If the user explicitly applies a valid voucher at checkout, its value is consumed first.
   </Step>
   <Step title="Accumulative Balance">
-    If the user chooses to use the Accumulative Balance, it is applied at 100% coverage (when sufficient) or combined with the Regular Balance. The 20% fee is routed to the DA Liquidity Pool.
+    Applied when eligible and selected, under the documented fee rules.
   </Step>
   <Step title="Regular Balance">
     Any remaining amount is deducted from the Regular Balance.
   </Step>
 </Steps>
 
-<Warning>
-  Gift Vouchers **cannot** be combined with the Accumulative Balance. Valid combinations: [Voucher + Regular], [100% Accumulative], or [Accumulative + Regular].
-</Warning>
-
 <Note>
-  All transactions on the [Binance Smart Chain (BSC)](https://www.bnbchain.org/en/bnb-smart-chain) require standard network gas fees paid in **BNB**. Users must hold a small amount of BNB in their wallet to execute any on-chain operations (purchases, withdrawals, transfers). This is separate from [USDT (Tether)](https://tether.to/) balances used within the ecosystem. Contract deployments and balances are publicly verifiable on [BscScan](https://bscscan.com/).
+  All transactions on [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) require standard network gas fees paid in **BNB**, separate from [USDT](https://tether.to/) balances used within the ecosystem. Contract deployments and balances are publicly verifiable on [BscScan](https://bscscan.com/).
 </Note>

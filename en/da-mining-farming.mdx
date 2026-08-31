@@ -1,6 +1,6 @@
 ---
 title: "Mining & Farming"
-description: "How holders of Premium and Elite RWANFTFI NFTs (L5+) acquire DA through a two-step process: Mining produces NFTM over 40–45 days, then Farming converts NFTM into DA at the current price."
+description: "How holders of eligible Premium and Elite NFT tiers acquire DA through a two-step process: Mining records NFTM, and Farming calculates DA using the committed NFTM amount, current protocol price, and active parameters."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
@@ -8,43 +8,37 @@ import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
 ## How do you acquire DA through Mining and Farming?
 
-To acquire DA, users must participate in a two-step process: Mining and Farming. Only Premium (Level 5+) and Elite NFTs are capable of this.
+Only eligible Premium and Elite NFT tiers can access this process. An active NFT with a non-zero Protocol Reward Cap is required to start a new cycle.
 
 <Info>
-  **NFTM is not a token.** It is an internal mining counter (metric) tracked by the smart contract. In the interface, you see a progress bar and the expected NFTM amount. NFTM has no market value and cannot be traded or transferred — it exists only to be staked into Farming and converted to DA.
-</Info>
-
-<Info>
-  **Active Income Limit is required to mine.** Both Mining and Farming require the eligible NFT to have a non-zero **Income Limit**. If your limit has reached zero, the smart contract will refuse to start a new mining cycle. To resume mining, first refresh your Income Limit — through the Autobuy 3/3 system, a manual same-level renewal, or an upgrade to a higher-level NFT — and then activate the next cycle. Income Limit is the gating condition; without it, the mining flow does not begin.
+  **NFTM is an internal mining counter.** It is not a transferable token, has no independent market value, and exists only within the documented Mining and Farming process.
 </Info>
 
 <Steps>
   <Step title="Activate Mining">
-    Start mining on your eligible NFT. The cycle duration depends on your level — from 45 days (HYDRO) down to 40 days (INFINITY).
+    Start a cycle on an eligible NFT. Duration ranges from 45 days for Hydro to 40 days for Infinity.
   </Step>
   <Step title="Generate NFTM">
-    Your NFT generates NFTM over the cycle period. Levels 5–7 (HYDRO, QUANTUM, PULSE) have **1 mining cycle** producing **10%** of the NFT price in NFTM. Levels 8–10 (AURORA, FLAME, INFINITY) have **2 mining cycles** — the first produces **10%** and the second produces **15%** of the NFT price in NFTM.
+    Levels 5–7 currently generate one 10% NFTM cycle; Levels 8–10 generate a 10% first cycle and a 15% second cycle.
   </Step>
-  <Step title="Claim Within 72 Hours">
-    Once mining completes, you have exactly **72 hours** to stake your NFTM into Farming. Miss this window and you restart from scratch.
+  <Step title="Commit Within 72 Hours">
+    Completed NFTM must be committed to Farming within the claim window.
   </Step>
   <Step title="Farm DA">
-    Staked NFTM enters Farming for the same duration as the mining cycle. At the end, NFTM converts to DA based on the current price and is credited to your TokenStack.
+    After Farming completes, the protocol calculates the eligible DA amount using the current formula and credits it to the user's TokenStack.
   </Step>
 </Steps>
 
 <Warning>
-  **72-Hour Critical Window:** If you fail to stake your NFTM within 72 hours after mining completes, the entire cycle is lost. You must restart mining from scratch. Set a reminder.
+  **72-Hour Claim Window:** If completed NFTM is not committed within 72 hours, the cycle resets under the smart-contract rules.
 </Warning>
 
 <Warning>
-  **Claim Before You Upgrade — Unclaimed Farming Rewards Are Destroyed:** Any NFT purchase or upgrade triggers `terminate()` on the user's mining/farming state. By design, `terminate()` stops the active session and **destroys all unclaimed farming rewards**, including rewards that have already matured but have not yet been claimed. The team has confirmed this is intentional in the audit response: *"It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
-
-  **Operational rule:** if you have a matured-but-unclaimed farming reward, **claim it first**, and only then purchase or upgrade the NFT. Otherwise the reward is permanently lost the moment the new NFT transaction is confirmed.
+  **Claim Before You Upgrade:** An NFT purchase or upgrade invokes `terminate()` on the current Mining and Farming state. Claim any available matured result before replacing or upgrading the NFT.
 </Warning>
 
 <Warning>
-  **Deflationary Cycle Pause:** Twice per year, the system triggers a Deflationary Cycle lasting up to 30 days. During this period, the **launch of new cycles** of NFTM mining, staking, and DA generation is suspended. Cycles already running before the Deflationary Cycle starts **continue and complete on schedule** — progress is not lost. Plan the launch of new cycles around these scheduled periods.
+  **Deflationary Cycle Pause:** During an active Deflationary Cycle, launching new cycles may be paused. Existing cycles continue and complete on schedule.
 </Warning>
 
 <MiningPipeline />
