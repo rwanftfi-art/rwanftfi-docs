@@ -1,102 +1,51 @@
 ---
 title: "Verkauf & Lending"
-description: "Manueller Verkauf zu 75 % USDT-Auszahlung, Auto-Verkauf zu 70 % über einen 365-Tage-Vier-Perioden-Zyklus und eine feste 70 % LTV Lending-Einrichtung gegen DA-Sicherheit mit einer einmaligen 5 %-Provision."
+description: "DA-Inhaber können berechtigtes DA durch manuellen Verkauf, planmäßigen Auto-Sell oder Lending nutzen. Auszahlungen, Burns, Gebühren, Berechtigung und die Verarbeitung von Sicherheiten unterliegen den aktuellen Smart-Contract-Parametern."
 icon: "scale-balanced"
 ---
-import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
 
+DA-Inhaber können berechtigtes DA durch manuellen Verkauf, planmäßigen Auto-Sell oder Lending nutzen. Auszahlungen, Burns, Gebühren, Berechtigung und die Verarbeitung von Sicherheiten unterliegen den aktuellen Smart-Contract-Parametern.
 
-Sobald ein Nutzer DA hält, hat er zwei primäre finanzielle Optionen: den Verkauf des Vermögenswerts oder dessen Verwendung als Sicherheit für einen Kredit.
+## Wie kann DA genutzt werden?
 
 <CardGroup cols={2}>
-  <Card title="DA verkaufen" icon="fire">
-    100 % des verkauften DA werden dauerhaft verbrannt. Sie erhalten 75 % (manuell) bzw. 70 % (automatisch) des Werts in USDT. Die verbleibenden 25 % (manuell) bzw. 30 % (automatisch) sind eine Protokollprovision, die als Deckung im Pool verbleibt und den DA-Preis nach oben treibt.
+  <Card title="Manueller Verkauf" icon="fire">
+    Erhalten Sie die aktuelle 75 %-Auszahlung in USDT. Verarbeitetes DA wird verbrannt.
   </Card>
-  <Card title="DA verleihen" icon="building-columns">
-    Leihen Sie sich USDT zu festem 70 % LTV gegen Ihr DA. Eine einmalige 5 %-Provision wird bei der Ausgabe gezahlt und bei der Rückzahlung nie erneut berechnet. Ihr DA verbleibt in Ihrem TokenStack, bis Sie (vollständig oder teilweise) zurückzahlen oder die Charge in ihren Auto-Verkaufs-Zyklus eintritt.
+  <Card title="Auto-Sell" icon="clock">
+    Erhalten Sie die aktuelle 70 %-Auszahlung, wenn die planmäßige Verarbeitung erfolgt. Verarbeitetes DA wird verbrannt.
+  </Card>
+  <Card title="Lending" icon="building-columns">
+    Verwenden Sie eine berechtigte DA-Charge als Sicherheit zum dokumentierten 70 %-LTV.
+  </Card>
+  <Card title="Halten" icon="hand-holding">
+    Behalten Sie DA bis zu einer berechtigten manuellen Aktion oder einem planmäßigen Auto-Sell-Ereignis.
   </Card>
 </CardGroup>
 
-## Verkauf von DA & Burn-Mechanik
+## Manueller Verkauf
 
-Beim Verkauf von DA gibt es zwei verschiedene Szenarien mit unterschiedlichen Bedingungen:
+Bei einem berechtigten manuellen Verkauf erhält der Nutzer 75 % des berechneten DA-Protokollwerts in USDT. Das verarbeitete DA wird verbrannt, und der verbleibende Protokollanteil folgt der aktiven Zuweisung.
 
-1. **Manueller Verkauf (der Nutzer verkauft eigenständig):**
-   * Der Nutzer erhält **75 %** des DA-Werts in USDT zum aktuellen Preis.
-   * **100 %** der verkauften DA-Tokens werden dauerhaft verbrannt.
-   * Die verbleibenden 25 % sind eine Protokollprovision, die als USDT-Deckung im Pool verbleibt – mit weniger Tokens und gleicher Liquidität treiben diese 25 % das Preiswachstum direkt voran.
+## Auto-Sell
 
-2. **Auto-Verkauf (ausgelöst nach Ablauf der TokenStack-Periode):**
-   * Der Nutzer erhält **70 %** des DA-Werts in USDT zum Preis am Tag des Auto-Verkaufs.
-   * **100 %** der automatisch verkauften DA-Tokens werden dauerhaft verbrannt.
-   * Die verbleibenden 30 % sind eine Protokollprovision, die als USDT-Deckung im Pool verbleibt – diese 30 % sind es, die den Preis nach oben treiben.
-   * Der Auto-Verkauf wird automatisch ausgelöst, wenn der Nutzer vor Ablauf der Periode nicht manuell verkauft hat.
+Wird DA nicht manuell verkauft, verarbeitet das Protokoll die verbleibende Charge über vier planmäßige Perioden. Jedes Ereignis verwendet den bei Ausführung verfügbaren Protokollpreis.
 
-In beiden Fällen werden 100 % der verkauften Tokens verbrannt – die 25 %/30 % stellen die Protokollprovision dar, die als USDT-Deckung im Pool verbleibt. Dies ist der Mechanismus, der das Preiswachstum antreibt: weniger Tokens + gleiche Liquidität = höherer Preis pro DA. Der Auto-Verkauf bietet eine um 5 % geringere Auszahlung und schafft Anreize für Nutzer, ihre DA-Positionen aktiv zu verwalten.
+| Periode | Zeitpunkt | Anteil des verbleibenden DA |
+|:---:|---|:---:|
+| 1 | Nach 120 Tagen | 25 % |
+| 2 | Nach weiteren 90 Tagen | 40 % |
+| 3 | Nach weiteren 90 Tagen | 50 % |
+| 4 | Nach weiteren 65 Tagen | 100 % |
 
 <Warning>
-  **Der Verkauf von DA verbraucht das Einkommenslimit Ihres NFTs.** Jeder manuelle oder automatische Verkauf von DA reduziert das verbleibende Einkommenslimit Ihres NFTs um den USDT-Auszahlungsbetrag – auf Augenhöhe mit Marketing-Belohnungen. Wenn das Einkommenslimit erschöpft ist, ist ein manueller DA-Verkauf nicht möglich (das System kann die Auszahlung nicht gutschreiben), und beim Auto-Verkauf werden 100 % der Erlöse an den DA-Liquiditätspool oder zur Verbrennung weitergeleitet (der genaue Mechanismus wird durch DAO-Einstellungen bestimmt). Halten Sie Ihr Einkommenslimit aktiv – durch Autobuy oder manuelle NFT-Erneuerung – um beim Verkauf von DA die Auszahlung zu erhalten.
+  **Wechselwirkung mit dem Protokoll-Belohnungslimit:** Berechtigte DA-Verkaufsauszahlungen reduzieren das verbleibende Protokoll-Belohnungslimit des Nutzers. Ist das Limit null, werden die Erlöse gemäß der aktiven, DAO-kontrollierten Weiterleitungsregel verarbeitet.
 </Warning>
 
-<Info>
-  **Auto-Verkauf** wird automatisch ausgelöst, wenn Sie nicht vor Ablauf der TokenStack-Periode manuell verkaufen. Er zahlt 5 % weniger (70 % vs. 75 %) und schafft Anreize für aktive Verwaltung.
-</Info>
+## Lending
 
-## Auto-Verkaufs-Perioden
+Berechtigte Inhaber können eine vollständige DA-Charge als Sicherheit für einen USDT-denominierten Kredit verwenden. Der aktuelle LTV beträgt 70 %, und die einmalige Ausgabegebühr wird gemäß den aktuellen Protokollparametern angewendet.
 
-DA steht dem Nutzer ab dem Farming sofort zu 100 % zur Verfügung – es gibt keine Sperrfrist. Der Nutzer kann jederzeit manuell verkaufen (und 75 % in USDT erhalten) oder einen Kredit gegen sein DA aufnehmen. Wenn der Nutzer **nicht** handelt, löst das System automatische Zwangsverkäufe aus dem **verbleibenden Guthaben** progressiv über 4 Perioden mit einer Gesamtdauer von **365 Tagen (1 Jahr)** aus. Die Periodendauern sind On-Chain in Tagen angegeben (120 / 90 / 90 / 65 Tage); die Monatsangaben unten sind Annäherungen zur besseren Lesbarkeit.
-
-**Beispiel mit Beginn von 100 DA:**
-
-<Steps>
-  <Step title="Periode 1 — 25 % Auto-Verkauf nach 120 Tagen (~4 Monate)">
-    Wenn Sie innerhalb von 120 Tagen (~4 Monate) nicht manuell verkauft haben, werden 25 % Ihres aktuellen DA-Guthabens automatisch verkauft. 25 % von 100 DA = **25 DA automatisch verkauft** → Sie erhalten 70 % des Werts in USDT zum aktuellen Preis → 100 % der 25 DA werden verbrannt → Verbleibend: **75 DA**
-  </Step>
-  <Step title="Periode 2 — 40 % Auto-Verkauf nach weiteren 90 Tagen (~3 Monate, Tag 210)">
-    40 % des verbleibenden Guthabens werden automatisch verkauft. 40 % von 75 DA = **30 DA automatisch verkauft** → Verbleibend: **45 DA**
-  </Step>
-  <Step title="Periode 3 — 50 % Auto-Verkauf nach weiteren 90 Tagen (~3 Monate, Tag 300)">
-    50 % des verbleibenden Guthabens werden automatisch verkauft. 50 % von 45 DA = **22,5 DA automatisch verkauft** → Verbleibend: **22,5 DA**
-  </Step>
-  <Step title="Periode 4 — 100 % Auto-Verkauf nach weiteren 65 Tagen (~2 Monate, Tag 365)">
-    100 % des verbleibenden Guthabens werden automatisch verkauft. Position vollständig geschlossen. 100 % von 22,5 DA = **22,5 DA automatisch verkauft** → Verbleibend: **0 DA**
-  </Step>
-</Steps>
-
-<Note>
-  Die oben gezeigten Auto-Verkaufs-Prozentsätze (25 % / 40 % / 50 % / 100 %) entsprechen der aktuellen Protokollkonfiguration. Konkrete Werte werden als Protokollparameter gespeichert und unterliegen den standardmäßigen Governance-Verfahren. Prüfen Sie für die aktuellen Werte stets den Smart Contract oder die aktuelle Protokolldokumentation.
-</Note>
-
-Jeder Auto-Verkauf wird zum DA-Preis im jeweiligen Moment ausgeführt, nicht zum ursprünglichen Farming-Preis. Da der Preis im Laufe der Zeit wächst, verbrennen spätere Auto-Verkäufe Tokens zu einem höheren Preis – und verstärken die Deflation weiter.
-
-<Warning>
-  **Auto-Verkauf bei null Einkommenslimit:** Wenn der DA-Auto-Verkauf ausgelöst wird und der Nutzer ein Einkommenslimit von null auf seinem NFT hat (das heißt, das NFT wurde nicht erneuert), werden 100 % der Erlöse entweder an den Liquiditätspool oder zur DA-Verbrennung weitergeleitet. Der genaue Mechanismus wird durch DAO-Einstellungen bestimmt. Nutzer sollten stets ein aktives Einkommenslimit aufrechterhalten, um ihre Auto-Verkaufs-Auszahlung zu erhalten.
-</Warning>
-
-## Lending (Kredit gegen DA)
-
-Premium- und Elite-NFT-Inhaber (Level 5 und höher) können anstatt zu verkaufen einen USDT-Kredit gegen ihre DA-Sicherheit aufnehmen. Der Kredit wird durch eine bestimmte DA-Charge aus einem einzigen abgeschlossenen Mining- und Farming-Zyklus besichert - die gesamte Charge auf einmal, nicht ein Bruchteil davon. Niedrigere Stufen führen kein Mining durch und haben keine DA-Sicherheit, gegen die sie leihen könnten.
-
-Jeder Kredit wird zu festem **70 % LTV** mit einer einmaligen **5 %-Provision** vergeben, die bei der Ausgabe an den DA-Liquiditätspool weitergeleitet wird. Bei der Rückzahlung wird nichts berechnet. Der Kreditnehmer erhält 95 % des Bruttokreditbetrags in seinem Regular Balance. Beispiel: Bei einer 100-DA-Charge zu einem DA-Preis von 1,00 USDT beträgt der Bruttokredit 70 USDT, die Gebühr 3,50 USDT und die Nettoauszahlung des Kreditnehmers 66,50 USDT.
-
-Die entscheidende strukturelle Eigenschaft ist, dass der DA-Preis in `loan.price` bei der Ausgabe erfasst wird und danach nie neu bewertet wird. Nachfolgendes DA-Preiswachstum erhöht die Schuld nicht - der Kreditnehmer extrahiert also USDT-Liquidität zum heutigen Preis und behält gleichzeitig das Aufwärtspotenzial bei künftiger Wertsteigerung. Der Kredit hat keine feste Laufzeit, kann jederzeit vollständig oder teilweise zurückgezahlt werden, bevor die Charge in ihren Auto-Verkaufs-Zyklus eintritt, und eine bestimmte Charge kann über ihre gesamte Lebensdauer nur einmal verpfändet werden.
-
-Wenn der Kredit nicht zurückgezahlt wird, bevor die Charge in ihren Auto-Verkaufs-Zyklus eintritt, wird das verpfändete DA progressiv durch den standardmäßigen Vier-Perioden-Zeitplan verbrannt. Der Kreditnehmer behält das bei Ausgabe erhaltene USDT; der USDT-Wert jedes verbrannten Anteils fließt an den DA-Liquiditätspool. Zwischen den Auto-Verkaufs-Perioden kann der Kreditnehmer noch eingreifen und `repay()` aufrufen, um das noch verpfändete DA zurückzufordern.
-
-<Warning>
-  **Lending-Ausfall - Progressiver Burn:** Wenn der Kredit nicht zurückgezahlt wird, bevor die besicherte Charge in ihren Auto-Verkaufs-Zyklus eintritt, durchläuft die Sicherheit den standardmäßigen Vier-Perioden-Zeitplan (25 % / 40 % / 50 % / 100 % des **verbleibenden** verpfändeten DA werden über 120 / 90 / 90 / 65 Tage verbrannt, insgesamt 365 Tage). 100 % des verbrannten DA wird dauerhaft vernichtet; der entsprechende USDT-Wert bei `loan.price` wird an den DA-Liquiditätspool weitergeleitet. Der Kreditnehmer erhält **kein** USDT für den verbrannten Anteil - die einzige wirtschaftliche Rückgewinnung aus einer ausgefallenen Charge ist das bei Ausgabe erhaltene USDT.
-
-  **Teilweise Rückgewinnung ist jederzeit verfügbar.** Der Kreditnehmer kann `repay()` zwischen zwei Auto-Verkaufs-Perioden aufrufen und das **verbleibende** verpfändete DA zurückfordern, indem er nur für das noch Verpfändete zahlt. Bereits in früheren Perioden verbranntes DA kann nicht zurückgewonnen werden, aber jeder künftige Burn kann noch gestoppt werden, indem vor seiner Periodengrenze zurückgezahlt wird.
-</Warning>
-
-<Note>
-  **`repay()` nach dem Start des Auto-Verkaufs - Verhalten korrigiert nach CertiK (RWA-58):** Frühere Contract-Versionen haben `repay()` zurückgesetzt, sobald die Charge in den Auto-Verkaufs-Zyklus eingetreten ist. Nach dem CertiK-Audit wurde dies korrigiert: `repay()` ist nun in jedem Stadium der Kreditlaufzeit aufrufbar. Wenn die Charge bereits einen Auto-Verkaufs-Auslöser überschritten hat, führt der Contract zuerst `_processExpiredStacks()` aus, um jede Periode zu verrechnen, deren Grenze bereits vergangen ist - dabei wird der entsprechende Anteil der Sicherheit verbrannt - und fährt dann gegen den Rest nach dem Burn fort.
-
-  Praktische Konsequenz: Ein später `repay()`-Aufruf kann einem bereits ausgelösten Burn nicht „zuvorkommen". Um die **gesamte** Sicherheit zu erhalten, muss der Kreditnehmer vor dem ersten Auto-Verkaufs-Auslöser zurückzahlen (Periode 1, derzeit Tag 120 der Chargenlebensdauer).
-</Note>
-
-<Card title="Vollständige Lending-Mechanik ->" icon="hand-holding-dollar" href="/de/da-lending">
-  Berechtigung, das 30-Tage-Ausgabe-Gate, Formeln, Teilrückzahlung mit bearbeiteten Beispielen, vollständige Ausfall-Mathematik und die Parametertabelle - alles auf einer eigenen Seite.
+<Card title="Vollständige Lending-Mechanik →" icon="hand-holding-dollar" href="/de/da-lending">
+  Kreditparameter, Berechnung, Preis-Snapshot, Teilrückzahlung und Ausfallverarbeitung — alles auf einer eigenen Seite.
 </Card>
-
-<SellVsLend />

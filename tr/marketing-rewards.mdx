@@ -1,91 +1,50 @@
 ---
-title: "Ödüller ve Tazminat"
-description: "Ağınızdan nasıl kazanırsınız."
-icon: "money-bill-trend-up"
+title: "Ödüller ve Dağıtım"
+description: "Protokol; Sponsor Bonusu, Ortak Ağı Dağıtımı ve Matching Bonus olmak üzere üç belgelenen ödül türünü dağıtır — bunlar uygun NFT satın alımlarının tahsislerinden fonlanır ve uygunluk kuralları ile Protokol Ödül Limiti tarafından sınırlandırılır."
+icon: "award"
 ---
 
-import { IncomeCalculator } from '/snippets/income-calculator.jsx'
-
-<CardGroup cols={2}>
-  <Card title="Phase 1 — Yeni Satış" icon="user-plus">
-    Doğrudan sponsor NFT satış fiyatının %30'unu kazanır. Tekrar satın alma (rebuy): %20.
-  </Card>
-  <Card title="Phase 2 — Ayarlandı" icon="arrows-rotate">
-    Yeni satış %20'ye ayarlanır. Yeniden satın alma %20'de kalır. 16–22. Seviyeler tamamen açılır.
-  </Card>
-</CardGroup>
+Protokol ödülleri, akıllı sözleşme tarafından uygun NFT satın alımlarının belgelenen tahsislerinden hesaplanan dağıtımlardır. Bunlar faiz, getiri veya yatırım geri dönüşü değildir. Her ödül; uygun bir satın alma olayı, uygun bir pozisyon ve kalan Protokol Ödül Limiti gerektirir — ve herhangi bir satın alma için dağıtılabilecek toplam tutar, sözleşmenin tahsis bütçesiyle sınırlıdır.
 
 <Note>
-  Phase 1'den Phase 2'ye geçiş (Sponsor Bonusunun %30'dan %20'ye ayarlanması ve 16–22 ağaç seviyelerinin açılması dahil) DAO yönetişimi aracılığıyla yürütülür, otomatik olarak tarihe göre değil. DAO oylaması, parametre değişikliklerini yürürlüğe koymak için standart %30 öneri eşiğini ve %50 çoğunluk onayını gerektirir.
+  **Ödüller nasıl fonlanır ve sınırlandırılır:**
+  - **Olay başına fonlanır.** Her ödül, mevcut sözleşme parametreleri çerçevesinde belirli bir uygun NFT satın alımından hesaplanır — asla yeni kayıtlardan veya tek başına yerleştirmeden değil.
+  - **Bütçeyle sınırlıdır.** Ağ dağıtımı bütçesi, satın alma tahsisinin hesaplanan bir kalanıdır (bkz. [Sözleşme Parametreleri](/tr/contract-parameters)); protokol asla belgelenen tahsisten fazlasını dağıtmaz.
+  - **Limitlerle sınırlıdır.** Alacaklandırılan ödüller, alıcının Protokol Ödül Limitini tüketir. Alacaklandırılamayan tutarlar sıkıştırma ve kalan bütçe kurallarını izler.
 </Note>
 
-RWANFTFI'da pazarlama ödülleri, toplam gelirinizi oluşturan üç bağımsız akıştan oluşur:
+## Sponsor Bonusu
 
-1. **Sponsor Bonusu** — Bir partner davet etmek için doğrudan komisyon (Phase 1 NFT satış fiyatının %30'u / Phase 2 %20).
-2. **Ağaç Dağılımı** — Alt yapı yapınızdan seviye başına ödüller (2–22. seviyeler, yüzdeler derinliğe göre değişir).
-3. **Eşleştirme Bonusu** — Doğrudan partnerlerinizin gelirinden 3 seviye boyunca ikincil %5 + %5 + %5.
+Uygun bir doğrudan NFT satın alımından hesaplanan bir ödül; mevcut Phase 1 oranlarında: ilk uygun satın alma için **%30** ve rebuy için **%20**. Herhangi bir Phase 2 değişikliği, belgelenen yönetişim etkinleştirmesini gerektirir.
 
-Her akış, akıllı sözleşme tarafından her uygun NFT satın alımında bağımsız olarak hesaplanır ve ödenir.
+## Ortak Ağı Dağıtımı (Ağaç Dağılımı)
 
-## Ağaç Dağılımı
+Alıcının uygun ağ derinliği içinde seviye başına bir ödül hesaplaması:
 
-Alt yapınızdaki her NFT satışından, 22 seviyeye kadar derinlikte bir yüzde kazanın:
+| Ağ Seviyesi | Mevcut Oran |
+|:---:|:---:|
+| 1 | %0 |
+| 2 | %1 |
+| 3–4 | Her biri %2 |
+| 5–6 | Her biri %3 |
+| 7–14 | Her biri %4 |
+| 15 | %5 |
+| 16–22 | Yönetişim etkinleştirmesine kadar %0 |
 
-<AccordionGroup>
-  <Accordion title="1–6. Seviyeler · Giriş Katmanları" icon="layer-group">
-    - Seviye 1: %0
-    - Seviye 2: %1
-    - 3–4. Seviyeler: her biri %2
-    - 5–6. Seviyeler: her biri %3
-  </Accordion>
-  <Accordion title="7–15. Seviyeler · Çekirdek Kazanç Derinliği" icon="chart-simple">
-    - 7–14. Seviyeler: her biri %4 (8 seviye × %4 = ana gelir kaynağı)
-    - Seviye 15: %5 (en yüksek tek seviye yüzdesi)
-  </Accordion>
-  <Accordion title="16–22. Seviyeler · Phase 2 Genişleme" icon="unlock">
-    - 16–17. Seviyeler: her biri %2
-    - Seviye 18: %1
-    - 19–22. Seviyeler: her biri %0.5
+## Matching Bonus
 
-    *DAO yönetişim oylaması ile Phase 2'de açılır (Q4 2026 için planlandı). Tam derinlik için INFINITY NFT gerektirir.*
-  </Accordion>
-</AccordionGroup>
+En fazla üç uygun seviye boyunca koşullu bir ödül:
 
-<Info>
-  **Neden Seviye 1 = %0?** Ağaç Dağılımı ve Sponsor Bonusu iki ayrı ödül akışıdır. Doğrudan davetleriniz pazarlama yapınızın 1. Seviyesinde oturur ve NFT satın alımlarından zaten bir Sponsor Bonusu (Phase 1'de %30, Phase 2'de %20) kazanırsınız. Çift tazminatı önlemek için Ağaç Dağılımının 1. Seviyesi %0 olarak ayarlanmıştır. Ağaç Dağılımı ödülleri Seviye 2'den (%1) itibaren başlar — kişisel davetlerinizin ötesinde yapınızda daha derin aktiviteyi kapsar.
-</Info>
+| Matching Seviyesi | Oran | Uygunluk |
+|:---:|:---:|---|
+| 1 | %5 | Uygun NFT seviyesi |
+| 2 | %5 | Uygun doğrudan satın alımların 1.000 USDT kümülatif hacmi |
+| 3 | %5 | Uygun doğrudan satın alımların 3.000 USDT kümülatif hacmi |
 
-<Note>
-  **1. Seviyedeki aşağı taşma doğrudan hiçbir şey kazandırmaz.** Bir partner aşağı taşma yoluyla 1. Seviyenize yerleştirildiğinde (yukarı taşmanızın daveti ağacınıza inerse), %0 Sponsor Bonusu (gerçek davet edene gider) ve %0 Ağaç Dağılımı (Seviye 1 = %0) kazanırsınız. Aşağı taşmanın değeri Seviye 2 ve daha derinden gerçekleşir — bu aşağı taşma partnerleri kendi takımlarını kurduğunda, onların alımları size ağaç dağılım ödülleri üretir.
-</Note>
+## Standart Ödül Bölünmesi
+
+Uygun protokol ödülleri, mevcut durumda Normal Bakiye, Birikim Bakiyesi ve DA Likidite Havuzu arasında belgelenen **75/20/5** tahsisi çerçevesinde bölünür.
 
 ## Sıkıştırma
 
-<Tip>
-  **Sıkıştırma sizin lehinize çalışır.** Sizin üstünüzde biri tükenmiş bir gelir limitine veya yetersiz NFT seviyesine sahipse, ödülleri yukarı doğru sıkıştırılır — potansiyel olarak size. NFT'nizin pazarlama erişimi ne kadar derinse, o kadar çok sıkıştırılmış ödülü yakalayabilirsiniz.
-</Tip>
-
-Alt yapınızdaki bir kullanıcı atlandığında (Gelir Limiti = 0 veya NFT seviyesi çok düşük), ödül yukarıya, bir sonraki nitelikli katılımcıya geçer. Bu, atlanan kullanıcı için **Kayıp Gelir** olarak işaretlenir.
-
-
-## Eşleştirme Bonusu (%5 + %5 + %5)
-
-Doğrudan partnerleriniz tarafından 3 seviye boyunca üretilen **NFT-satış gelirinin** bir yüzdesini kazanın. Eşleştirme Bonusu yalnızca doğrudan partnerinizin yapısı içindeki NFT satışlarından aldığı pazarlama ödemelerinden hesaplanır — diğer gelir akışlarından (Dondurulmuş Bakiye serbest bırakmaları, manuel DA satışları vb.) değil:
-
-<Steps>
-  <Step title="Seviye 1 — %5">
-    En az bir Seviye 4 (ECLIPSE, 275 USDT) NFT gerektirir.
-  </Step>
-  <Step title="Seviye 2 — %5">
-    1.000 USDT kümülatif kişisel satış gerektirir.
-  </Step>
-  <Step title="Seviye 3 — %5">
-    3.000 USDT kümülatif kişisel satış gerektirir.
-  </Step>
-</Steps>
-
-<Info>
-  **"Kümülatif kişisel satışlar" ne anlama gelir:** Bu, doğrudan davetlerinizin yaptığı tüm NFT satın alımlarının yaşam boyu toplamıdır. Aynı partnerin tekrarlanan satın alımları (yeniden satın alma, yükseltme) toplama dahil edilir ve farklı partnerlere yapılan satışlar birlikte birikir. Örneğin, bir partner 1.000 USDT'ye üç NFT satın alırsa, kümülatif toplamınız 3.000 USDT olur — Eşleştirme Bonusu Seviye 3'ün kilidi açılır. Bir eşik ulaşıldığında, o Eşleştirme Bonusu seviyesi **kalıcı olarak aktif** olur ve sıfırlanmaz.
-</Info>
-
-<IncomeCalculator />
+Bir ağ pozisyonu geçerli uygunluk koşullarını karşılamıyorsa, tutar aktif sıkıştırma ve kalan bütçe kuralları çerçevesinde yönlendirilir. Kesin yönlendirme, mevcut sözleşme parametreleriyle eşleşir — bkz. [Sözleşme Parametreleri](/tr/contract-parameters).

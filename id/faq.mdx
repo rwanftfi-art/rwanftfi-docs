@@ -1,6 +1,6 @@
 ---
 title: "Pertanyaan yang Sering Diajukan"
-description: "Jawaban langsung tentang RWANFTFI: 10 tingkatan NFT, DA token dengan batas 21 juta unit, struktur marketing 22 level, pinjaman dengan LTV tetap 70%, tata kelola, dan audit CertiK."
+description: "Jawaban yang jelas tentang tingkatan akses NFT, mekanika DA, fungsionalitas program mitra, lending, tata kelola, keamanan, dan struktur perusahaan."
 icon: "circle-question"
 ---
 
@@ -14,209 +14,128 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "Apa itu RWANFTFI?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI adalah protokol Web3 di Binance Smart Chain yang menjembatani NFT, Aset Dunia Nyata (RWA), DeFi, dan CeFi. Pemegang salah satu dari 10 tingkatan NFT (28 hingga 24.000 USDT) mendapatkan akses ke struktur marketing 22 level, penambangan NFTM, pertanian DA, dan pinjaman dengan LTV tetap 70%. Aset Deflasi (DA) dibatasi secara ketat pada 21.000.000 unit dan didukung 100% oleh USDT. Smart contract diaudit oleh CertiK dan menggunakan Diamond Pattern (EIP-2535)." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI adalah protokol Web3 di BNB Smart Chain di mana tingkatan akses NFT membuka fitur ekosistem tertentu, termasuk mekanika DA, reward mitra, mining dan farming, lending, dan tata kelola." }
         },
         {
           "@type": "Question",
           "name": "Blockchain apa yang digunakan RWANFTFI?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI beroperasi secara eksklusif di Binance Smart Chain (BSC) menggunakan standar token BEP20. Transaksi memerlukan BNB untuk gas. Layanan deposit lintas-rantai yang dikelola oleh SERVICE_ROLE memungkinkan pengguna mendanai akun dari blockchain mana pun yang didukung." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI beroperasi di BNB Smart Chain menggunakan kontrak yang kompatibel dengan BEP-20. BNB diperlukan untuk biaya gas." }
         },
         {
           "@type": "Question",
           "name": "Berapa banyak tingkatan NFT yang ada dan berapa harganya?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Ada 10 tingkatan: Genesis (28 USDT), Advance (55), Ascend (140), Eclipse (275), Hydro (550), Quantum (1.100), Pulse (2.200), Aurora (5.500), Flame (11.000), Infinity (24.000). Tingkatan yang lebih tinggi membuka penghasilan marketing yang lebih dalam, penambangan NFTM, dan pinjaman." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Ada 10 tingkatan yang terdokumentasi, dari Genesis seharga 28 USDT hingga Infinity seharga 24.000 USDT." }
         },
         {
           "@type": "Question",
-          "name": "Bagaimana harga token DA tumbuh?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Harga DA mengikuti rumus Harga = Likuiditas dibagi Pasokan Beredar. Setiap penjualan membakar 100% token yang terjual sementara USDT tetap di kumpulan, sehingga pasokan berkurang dengan dukungan yang sama atau lebih besar — secara matematis mendorong harga naik." }
+          "name": "Bagaimana harga protokol DA dihitung?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Saldo pool likuiditas USDT yang ditunjuk dibagi dengan pasokan DA yang beredar. Formula ini dengan sendirinya tidak menjamin likuiditas, ketersediaan penukaran, atau hasil tertentu bagi pengguna." }
         },
         {
           "@type": "Question",
-          "name": "Apa itu Batas Pendapatan?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Batas Pendapatan adalah penghasilan kumulatif maksimum yang dapat dihasilkan NFT aktif sebelum diperbarui. Batas ini dikonsumsi oleh imbalan marketing maupun penjualan DA. Ketika mencapai nol, pemegang berhenti menerima semua imbalan marketing dan tidak dapat menjual DA secara manual. Perbarui melalui Autobuy, pembelian ulang manual pada level yang sama, atau peningkatan tingkatan." }
+          "name": "Apa itu Batas Reward Protokol?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Jumlah maksimum kumulatif reward yang memenuhi syarat yang dikreditkan selama siklus NFT saat ini. Istilah on-chain: Income Limit. Ini adalah batas teknis, bukan perkiraan penghasilan." }
         },
         {
           "@type": "Question",
           "name": "Apa itu Frozen Balance?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Frozen Balance adalah perlindungan pendapatan selama 72 jam. Aktif ketika pembelian NFT pertama atau Autobuy undangan langsung menghasilkan komisi yang melebihi sisa Batas Pendapatan pemegang. Kelebihan tersebut ditahan selama 72 jam; meningkatkan NFT akan melepaskannya. Saat kedaluwarsa, 70% dialihkan ke DA Liquidity Pool dan 30% ke sponsor upline." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Buffer 72 jam untuk Sponsor Bonus langsung yang memenuhi syarat di atas sisa Batas Reward Protokol." }
         },
         {
           "@type": "Question",
-          "name": "Bisakah saya mengambil pinjaman dengan jaminan DA saya?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Ya. Pemegang NFT Premium dan Elite (L5+) dapat meminjam dengan jaminan DA pada LTV tetap 70%. Seluruh batch DA dijaminkan sekaligus — peminjaman fraksional tidak didukung, dan batch tertentu hanya dapat dijadikan jaminan sekali seumur hidupnya (tidak dapat dijaminkan lagi, bahkan setelah dilunasi penuh). Komisi sekali bayar 5% dibayarkan saat penerbitan dan dialihkan ke DA Liquidity Pool; pembayaran, penuh atau sebagian, tidak memicu biaya lagi. Utang didenominasikan dalam USDT pada loan.price yang diambil saat penerbitan dan tidak bertambah jika DA naik nilainya. Pinjaman hanya dapat dibuka jika setidaknya 30 hari tersisa hingga auto-sell terjadwal berikutnya pada batch tersebut — ini adalah gerbang kelayakan on-chain, bukan jangka waktu pinjaman tetap. Peminjam dapat melunasi penuh atau sebagian kapan saja sebelum batch memasuki siklus auto-sell-nya." }
-        },
-        {
-          "@type": "Question",
-          "name": "Apa yang terjadi jika saya tidak melunasi pinjaman tepat waktu?",
-          "acceptedAnswer": { "@type": "Answer", "text": "DA yang dijaminkan melewati jadwal auto-sell empat periode standar (120 / 90 / 90 / 65 hari), membakar 25%, lalu 40%, lalu 50%, lalu 100% dari DA yang dijaminkan tersisa secara berurutan. 100% DA yang dibakar dihancurkan dan nilai USDT yang sesuai pada loan.price mengalir ke DA Liquidity Pool. Peminjam menyimpan USDT yang diterima saat penerbitan. Gagal bayar bukanlah semua-atau-tidak sama sekali: di antara dua periode mana pun, peminjam masih dapat memanggil repay() dan mengklaim kembali DA yang dijaminkan tersisa dengan hanya membayar untuk yang masih dijaminkan." }
+          "name": "Bisakah saya mengambil pinjaman dengan jaminan DA?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Pemegang L5-L10 yang memenuhi syarat dapat menggunakan batch DA yang didukung sebagai jaminan berdasarkan aturan yang terdokumentasi, pada LTV 70% yang terdokumentasi." }
         },
         {
           "@type": "Question",
           "name": "Apakah protokol ini diaudit?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Ya. Smart contract RWANFTFI diaudit secara independen oleh CertiK dengan laporan akhir diterbitkan pada 28 April 2026. Dapat diverifikasi di direktori publik CertiK Skynet di https://skynet.certik.com/projects/rwanftfi." }
+          "acceptedAnswer": { "@type": "Answer", "text": "CertiK meninjau kontrak dan versi kode dalam cakupan audit yang dipublikasikan. Laporan akhir bertanggal 28 April 2026 dan dapat diverifikasi di direktori publik CertiK Skynet di https://skynet.certik.com/projects/rwanftfi." }
         },
         {
           "@type": "Question",
-          "name": "Siapa yang mengatur RWANFTFI?",
-          "acceptedAnswer": { "@type": "Answer", "text": "DAO yang didukung oleh 10.000.000 GovToken (ERC20Votes). Ambang batas proposal adalah 30% dari total pasokan; ambang batas lolos adalah mayoritas 50%. Alokasi saat ini: RWANFTFI Corporation 30% ditambah 20 Guardian dengan 3,5% masing-masing. Rencana redistribusi di masa depan memperluas tata kelola hingga 101 dompet tanpa mencetak token baru." }
+          "name": "Siapa yang mengatur protokol?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Pemegang GovToken berdasarkan alokasi dan ambang batas saat ini yang terdokumentasi: pasokan tetap 10.000.000 token ERC20Votes, ambang batas proposal 30%, dan ambang batas persetujuan 50%." }
         },
         {
           "@type": "Question",
-          "name": "Apakah NFT merupakan investasi atau efek?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Tidak. NFT adalah produk digital yang memberikan akses ke layanan ekosistem. NFT secara eksplisit bukan instrumen keuangan, bukan investasi, dan bukan efek. Semua pembelian bersifat final, mengikat secara hukum, dan tidak dapat dikembalikan." }
-        },
-        {
-          "@type": "Question",
-          "name": "Apakah merek RWANFTFI dilindungi secara hukum?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Ya. Merek kata RWANFT secara resmi terdaftar di Kantor Kekayaan Intelektual Inggris (aplikasi UK00004369823, Kelas 42 — manajemen aset digital) di bawah kepemilikan RWANFTFI Corporation (Panama). Aplikasi dapat diverifikasi secara publik di registri UKIPO dan diwakili secara profesional oleh Gresham International (London). Catatan lengkap di halaman Kekayaan Intelektual di https://docs.rwanftfi.com/id/intellectual-property." }
+          "name": "Bagaimana NFT RWANFTFI dijelaskan dalam ketentuan platform?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Sebagai produk akses digital yang memberikan kelayakan untuk fitur ekosistem tertentu; tanpa jaminan pendapatan, imbal hasil tetap, atau nilai jual kembali." }
         }
       ]
     })
   }}
 />
 
-Referensi terpadu untuk pertanyaan-pertanyaan paling umum tentang protokol RWANFTFI. Telusuri berdasarkan topik dan perluas pertanyaan apa pun — setiap jawaban bersifat mandiri dan menautkan ke halaman mekanika lengkap.
-
-<CardGroup cols={3}>
-  <Card title="Dasar-Dasar Protokol" icon="circle-info" href="#faq-sec-1" />
-  <Card title="Token DA" icon="coins" href="#faq-sec-2" />
-  <Card title="Pendapatan, Saldo & Marketing" icon="chart-line" href="#faq-sec-3" />
-  <Card title="Penambangan, Pertanian & Pinjaman" icon="hand-holding-dollar" href="#faq-sec-4" />
-  <Card title="Arsitektur & Tata Kelola" icon="sitemap" href="#faq-sec-5" />
-  <Card title="Keamanan, Hukum & Perusahaan" icon="shield-halved" href="#faq-sec-6" />
-</CardGroup>
-
-<div id="faq-sec-1" />
-
-## Dasar-Dasar Protokol
+Jawaban yang jelas tentang tingkatan akses NFT, mekanika DA, fungsionalitas program mitra, lending, tata kelola, keamanan, dan struktur perusahaan.
 
 ### Apa itu RWANFTFI?
 
-RWANFTFI adalah protokol Web3 di Binance Smart Chain (BSC) yang menjembatani NFT, Aset Dunia Nyata (RWA), DeFi, dan CeFi ke dalam ekosistem keuangan yang terpadu. Pemegang salah satu dari 10 tingkatan NFT (harga mulai dari 28 hingga 24.000 USDT) mendapatkan akses ke struktur marketing 22 level, penambangan NFTM, pertanian DA, dan pinjaman. Mesin ekonominya adalah Aset Deflasi (DA) — token yang dibatasi secara ketat pada 21.000.000 unit dan didukung 100% oleh kumpulan likuiditas USDT. Smart contract diaudit secara independen oleh [CertiK](https://skynet.certik.com/projects/rwanftfi) dan dibangun di atas Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)).
+RWANFTFI adalah protokol Web3 di BNB Smart Chain di mana tingkatan akses NFT membuka fitur ekosistem tertentu.
 
 ### Blockchain apa yang digunakan RWANFTFI?
 
-RWANFTFI beroperasi secara eksklusif di Binance Smart Chain (BSC) menggunakan standar token BEP20. Transaksi memerlukan sejumlah kecil BNB untuk gas. Layanan deposit lintas-rantai yang dikelola (dioperasikan oleh `SERVICE_ROLE` yang berdedikasi) memungkinkan pengguna mendanai akun mereka dari blockchain mana pun yang didukung.
+RWANFTFI beroperasi di BNB Smart Chain menggunakan kontrak yang kompatibel dengan BEP-20. BNB diperlukan untuk biaya gas.
 
 ### Berapa banyak tingkatan NFT yang ada dan berapa harganya?
 
-Ada 10 tingkatan. Harga dan penamaan:
+Ada 10 tingkatan yang terdokumentasi, dari Genesis seharga 28 USDT hingga Infinity seharga 24.000 USDT. Lihat [halaman Ekosistem NFT](/id/nft-ecosystem).
 
-| Level | Nama | Harga (USDT) | Grup |
-|------:|------|-------------:|-------|
-| L1 | Genesis | 28 | Basic |
-| L2 | Advance | 55 | Basic |
-| L3 | Ascend | 140 | Basic |
-| L4 | Eclipse | 275 | Basic |
-| L5 | Hydro | 550 | Premium |
-| L6 | Quantum | 1.100 | Premium |
-| L7 | Pulse | 2.200 | Premium |
-| L8 | Aurora | 5.500 | Premium |
-| L9 | Flame | 11.000 | Elite |
-| L10 | Infinity | 24.000 | Elite |
+### Bagaimana harga protokol DA dihitung?
 
-Tingkatan yang lebih tinggi membuka penghasilan marketing yang lebih dalam, penambangan NFTM, dan pinjaman. Detail lengkap di [halaman Ekosistem NFT](/id/nft-ecosystem).
-
-<div id="faq-sec-2" />
-
-## Token DA
-
-### Bagaimana harga token DA tumbuh?
-
-Harga DA mengikuti satu rumus: **Harga = Likuiditas ÷ Pasokan Beredar**. Setiap kali DA dijual, 100% token yang terjual dibakar secara permanen (pasokan berkurang) sementara USDT tetap di kumpulan (likuiditas tetap atau tumbuh). Hasilnya bersifat deflasi secara mekanis: pasokan yang lebih sedikit atas dukungan yang sama atau lebih besar berarti harga per token yang lebih tinggi. Kumpulan didanai oleh 14+ aliran pendapatan di seluruh ekosistem. Lihat [Mekanika Token DA](/id/da-token-mechanics).
+Saldo pool likuiditas USDT yang ditunjuk dibagi dengan pasokan DA yang beredar.
 
 ### Bisakah DA ditransfer antar pengguna?
 
-Tidak. DA adalah token utilitas yang tidak dapat ditransfer. Token ini hanya dapat dijual (manual atau otomatis), digunakan sebagai jaminan pinjaman, atau dilunasi. Transfer peer-to-peer dinonaktifkan di tingkat kontrak.
+Tidak. DA tidak dapat ditransfer dan hanya dapat digunakan melalui fungsi protokol yang didukung.
 
 ### Apa itu siklus Auto-Sell?
 
-Jika pengguna tidak menjual DA secara manual, sistem memicu penjualan otomatis dari saldo yang tersisa selama empat periode dengan total 365 hari: 25% setelah 120 hari, 40% dari sisa setelah 90 hari berikutnya, 50% dari sisa setelah 90 hari berikutnya, dan 100% dari sisa setelah 65 hari terakhir. 100% token yang di-auto-sell dibakar dan pengguna menerima 70% dari nilai dalam USDT (vs 75% pada penjualan manual). Setiap auto-sell dieksekusi pada harga DA pada saat pemicu periode tersebut.
+DA yang belum diproses dijadwalkan dalam empat periode selama 365 hari berdasarkan parameter saat ini.
 
-<div id="faq-sec-3" />
+### Apa itu Batas Reward Protokol?
 
-## Pendapatan, Saldo & Marketing
-
-### Apa itu Batas Pendapatan?
-
-Setiap NFT memiliki Batas Pendapatan yang ketat — penghasilan kumulatif maksimum yang dapat dihasilkan NFT tersebut sebelum diperbarui. Batas ini dikonsumsi oleh imbalan marketing maupun penjualan DA. Ketika mencapai nol, pemegang berhenti menerima semua imbalan marketing dan kehilangan kemampuan untuk menjual DA secara manual. Untuk mencegah hal ini, perbarui NFT melalui Autobuy, pembelian ulang manual pada level yang sama, atau peningkatan ke tingkatan yang lebih tinggi. Pembelian ulang manual dikunci selama sisa batas berada di atas 30% dari nilai aslinya.
+Jumlah maksimum kumulatif reward yang memenuhi syarat yang dikreditkan selama siklus NFT saat ini. Istilah on-chain: *Income Limit*.
 
 ### Apa itu Saldo Akumulatif?
 
-Rekening tabungan wajib di mana 20% dari setiap imbalan marketing dikreditkan secara otomatis. Hanya dapat digunakan untuk membeli NFT pada level yang sama atau meningkatkan ke level yang lebih tinggi. Penggunaannya dikenakan biaya 20% yang dialihkan ke DA Liquidity Pool; mentransfernya ke pengguna lain dikenakan biaya 20% yang sama. Jika tidak digunakan selama 120 hari, memenuhi syarat untuk redistribusi: 70% ke DA Liquidity Pool dan 30% ke sponsor upline (pemegang NFT Reguler). Lihat [Arsitektur — Skema Saldo](/id/architecture).
+Saldo internal terbatas yang digunakan berdasarkan aturan pembelian, transfer, biaya, dan redistribusi yang terdokumentasi.
 
-### Apa itu Frozen Balance dan kapan aktif?
+### Apa itu Frozen Balance?
 
-Frozen Balance adalah mekanika perlindungan pendapatan selama 72 jam. Aktif hanya ketika **ketiga** kondisi terpenuhi: (1) pembeli adalah undangan langsung pribadi Anda, (2) itu adalah pembelian NFT pertama undangan tersebut atau perpanjangan Autobuy mereka, dan (3) komisi yang dihasilkan melebihi sisa Batas Pendapatan Anda. Kelebihan ditahan selama 72 jam, memberi Anda waktu untuk meningkatkan NFT dan mengklaimnya. Jika Anda melewatkan jendela waktu dan Autobuy tidak menutupi kelebihan, 70% dialihkan ke DA Liquidity Pool dan 30% ke sponsor upline langsung Anda. Mekanika lengkap di [halaman Frozen Balance](/id/frozen-balance).
+Buffer 72 jam untuk Sponsor Bonus langsung yang memenuhi syarat di atas sisa Batas Reward Protokol. Lihat [halaman Frozen Balance](/id/frozen-balance).
 
-### Bagaimana cara kerja struktur marketing?
+### Bagaimana cara kerja jaringan mitra?
 
-Ketika pengguna mengaktifkan NFT, smart contract secara permanen menempatkan mereka ke dalam pohon biner 22 level menggunakan algoritma "cabang terlemah, kiri ke kanan". Kapasitas maksimum adalah 8.388.606 posisi ketika terisi penuh. Penghasilan berasal dari tiga aliran independen: **Sponsor Bonus** (30% Fase 1 / 20% Fase 2 dari harga NFT untuk undangan langsung), **Tree Distribution** (persentase per level dari Level 2 hingga Level 22), dan **Matching Bonus** (5% + 5% + 5% di tiga level pendapatan mitra langsung). Level 16–22 dibuka di Fase 2 melalui pemungutan suara DAO. Lihat [Struktur Marketing](/id/marketing-binary-tree).
+Kontrak menetapkan posisi permanen; kelayakan bergantung pada tingkatan, kedalaman, aktivitas, fase, dan batas.
 
-### Seberapa dalam NFT saya bisa menghasilkan?
+### Kedalaman jaringan mitra apa yang didukung oleh setiap tingkatan NFT?
 
-Kedalaman tergantung pada level NFT Anda. Saat ini, Genesis (L1) menghasilkan dari 2 level ke dalam, dan Infinity (L10) menghasilkan hingga 19 level ke dalam. Setelah Fase 2 diaktifkan melalui pemungutan suara DAO (direncanakan Q4 2026), Infinity akan menghasilkan hingga 22 level penuh. Tingkatan lainnya berkembang secara proporsional. Pemegang tingkatan yang lebih rendah mengandalkan **kompresi** — ketika upline tidak memenuhi syarat, imbalan mereka diteruskan ke atas ke peserta aktif berikutnya.
-
-<div id="faq-sec-4" />
-
-## Penambangan, Pertanian & Pinjaman
+Nilai saat ini tercantum dalam [tabel tingkatan NFT](/id/nft-ecosystem#semua-10-tingkatan-sekilas); level di masa depan memerlukan aktivasi tata kelola.
 
 ### Apa itu NFTM?
 
-NFTM **bukan token** — melainkan penghitung penambangan internal yang dilacak oleh smart contract. NFTM tidak memiliki nilai pasar dan tidak dapat diperdagangkan atau ditransfer. Satu-satunya fungsinya adalah untuk di-stake ke Farming, di mana ia dikonversi ke DA pada harga saat ini. Penambangan memerlukan Batas Pendapatan yang aktif dan tingkatan Premium atau lebih tinggi (L5+). Setelah penambangan selesai, Anda memiliki tepat 72 jam untuk men-stake NFTM ke Farming atau siklus tersebut hilang. Lihat [Penambangan & Pertanian](/id/da-mining-farming).
+Penghitung Mining internal yang digunakan dalam Farming; bukan token yang dapat ditransfer.
 
-### Apa yang terjadi jika saya tidak mengklaim imbalan Farming yang telah matang sebelum meningkatkan tingkatan?
+### Bisakah saya mengambil pinjaman dengan jaminan DA?
 
-Imbalan tersebut dihancurkan secara permanen. Setiap pembelian atau peningkatan NFT memanggil `terminate()`, yang menghentikan sesi aktif dan **menghancurkan semua imbalan farming yang belum diklaim** — termasuk yang telah matang. Aturan operasional: klaim terlebih dahulu, baru tingkatkan.
+Pemegang L5–L10 yang memenuhi syarat dapat menggunakan batch DA yang didukung sebagai jaminan berdasarkan aturan yang terdokumentasi. Lihat [Lending terhadap DA](/id/da-lending).
 
-### Bisakah saya mengambil pinjaman dengan jaminan DA saya?
+### Arsitektur apa yang digunakan?
 
-Ya. Pemegang NFT Premium dan Elite (L5+) dapat meminjam dengan jaminan DA pada **LTV tetap 70%** — tarifnya dikodekan secara keras, pengguna tidak dapat memilih persentase yang lebih kecil, dan seluruh batch DA dijaminkan sekaligus (tidak ada peminjaman fraksional terhadap sebagian batch). Setiap batch DA dari setiap siklus penambangan merupakan jaminan independen, sehingga beberapa pinjaman simultan dimungkinkan — satu per batch. Batch tertentu hanya dapat dijaminkan **sekali seumur hidupnya**: setelah pinjaman dibuka, batch tersebut tidak dapat digunakan sebagai jaminan lagi, bahkan setelah pinjaman dilunasi penuh. Komisi sekali bayar **5%** dibayarkan saat penerbitan dan dialihkan ke DA Liquidity Pool; pembayaran, penuh atau sebagian, tidak memicu biaya lagi. Peminjam menerima 95% dari jumlah pinjaman bruto di Saldo Reguler mereka.
-
-Utang didenominasikan dalam USDT pada `loan.price` yang diambil saat penerbitan dan **tidak bertambah jika DA naik nilainya** — pinjaman memungkinkan Anda mengekstrak likuiditas pada harga hari ini sambil mempertahankan potensi kenaikan pada apresiasi DA di masa depan. Peminjam juga dapat **melunasi sebagian** kapan saja, melepaskan sebagian jaminan dan mengurangi utang secara proporsional. Pinjaman hanya dapat dibuka jika setidaknya 30 hari tersisa hingga auto-sell terjadwal berikutnya pada batch tersebut — ini adalah gerbang kelayakan on-chain, bukan jangka waktu pinjaman tetap. Setelah dibuka, pinjaman tidak memiliki jatuh tempo dan dapat dilunasi penuh atau sebagian kapan saja sebelum batch memasuki siklus auto-sell-nya. Lihat [Mekanika lending lengkap →](/id/da-lending).
-
-### Apa yang terjadi jika saya tidak melunasi pinjaman tepat waktu?
-
-Jika peminjam tidak melunasi sebelum batch yang dijaminkan memasuki siklus auto-sell-nya, DA yang dijaminkan dibakar secara progresif melalui jadwal empat periode standar (120 / 90 / 90 / 65 hari, total 365 hari). Setiap periode membakar sebagian dari DA yang dijaminkan **tersisa**: 25%, lalu 40%, lalu 50%, lalu 100%. Semua DA yang dibakar dihancurkan secara permanen dan nilai USDT pada `loan.price` untuk setiap bagian yang dibakar mengalir ke DA Liquidity Pool. Peminjam menyimpan USDT yang diterima saat penerbitan dan hanya kehilangan bagian jaminan yang dibakar. Gagal bayar **bukan semua-atau-tidak sama sekali** — di antara dua periode auto-sell mana pun, peminjam masih dapat memanggil `repay()` dan mengklaim kembali DA yang dijaminkan **tersisa** dengan hanya membayar untuk yang masih dijaminkan, menghentikan setiap pembakaran di masa depan. Lihat [Mekanika lending lengkap →](/id/da-lending).
-
-<div id="faq-sec-5" />
-
-## Arsitektur & Tata Kelola
-
-### Arsitektur kontrak apa yang digunakan?
-
-Protokol menggunakan **Diamond Pattern ([EIP-2535](https://eips.ethereum.org/EIPS/eip-2535))**, membagi fungsionalitas di seluruh 7 Facet modular (AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet) yang diakses melalui satu proxy tunggal. Kontrak Diamond dapat ditingkatkan melalui pemotongan Facet; TokenReserve (DA) dapat ditingkatkan melalui Transparent Proxy; NFT, GovToken, dan AdminContract tidak dapat ditingkatkan. Lihat [Arsitektur](/id/architecture).
+Arsitektur Diamond EIP-2535 dengan tujuh facet dan izin berbasis role. Lihat [Arsitektur](/id/architecture).
 
 ### Siapa yang mengatur protokol?
 
-Organisasi Otonom Terdesentralisasi (DAO) yang didukung oleh token tata kelola ERC20Votes (GovToken) dengan pasokan yang ditetapkan secara permanen sebesar **10.000.000**. Sebuah proposal memerlukan dukungan dari **30% dari total pasokan** untuk diajukan, dan **mayoritas 50%** untuk lolos. Alokasi saat ini: RWANFTFI Corporation 30% + 20 Guardian dengan 3,5% masing-masing. Rencana redistribusi di masa depan memperluas tata kelola hingga 101 dompet (Corporation 30% + 20 Guardian dengan 1,5% + 80 Leader dengan 0,5%) tanpa mencetak token baru. Para pengembang tidak dapat secara sepihak mengubah aturan sistem atau mengakses dana pengguna. Lihat [Tata Kelola](/id/governance).
+Pemegang GovToken berdasarkan alokasi dan ambang batas saat ini yang terdokumentasi. Lihat [Tata Kelola — DAO](/id/governance).
 
 ### Apakah protokol ini diaudit?
 
-Ya. Smart contract diaudit secara independen oleh **CertiK**, dengan laporan akhir diterbitkan pada **28 April 2026**. CertiK menerapkan metodologi standar mereka: Analisis Statis, Tinjauan Manual, dan Verifikasi Formal. Laporan lengkap dapat diverifikasi secara publik di [direktori CertiK Skynet](https://skynet.certik.com/projects/rwanftfi) dan tertanam di [halaman Keamanan & Audit](/id/security).
-
-<div id="faq-sec-6" />
-
-## Keamanan, Hukum & Perusahaan
+CertiK meninjau kontrak dan versi kode dalam cakupan audit yang dipublikasikan. Lihat [Keamanan & Audit](/id/security).
 
 ### Bagaimana cara menjaga keamanan akun saya?
 
-Gunakan dompet Web3 (MetaMask, Trust Wallet, atau yang kompatibel). Email/kata sandi memberikan akses hanya-lihat; tindakan keuangan memerlukan tanda tangan dompet. Platform menambahkan perlindungan tambahan: keamanan tiga tingkat yang memisahkan login, tindakan keuangan, dan operasi bernilai tinggi; kode TAN sekali pakai untuk setiap transaksi keuangan; kata sandi keuangan terpisah; dan 2FA melalui bot Telegram resmi. Staf RWANFTFI tidak akan pernah menghubungi Anda terlebih dahulu melalui DM atau meminta kunci pribadi, frasa seed, atau pembayaran di luar platform. Selalu verifikasi bahwa Anda berada di **rwanftfi.com**.
+Gunakan domain resmi, lindungi kredensial dompet, dan verifikasi setiap transaksi sebelum menandatangani.
 
-### Bisakah tim merampas NFT saya?
+### Bagaimana NFT RWANFTFI dijelaskan dalam ketentuan platform?
 
-Tidak. Platform tidak memiliki kemampuan teknis untuk menyita atau mentransfer NFT dari dompet pengguna. DAO dapat memberikan suara untuk **membekukan** fungsionalitas NFT di platform (menonaktifkan penarikan, pembelian, dan akrual imbalan) dalam kasus pelanggaran ketentuan, risiko AML, atau penipuan berbasis NFT. NFT itu sendiri tetap menjadi milik pengguna; pencabutan pembekuan juga memerlukan pemungutan suara DAO yang terpisah.
-
-### Apakah NFT merupakan investasi atau efek?
-
-Tidak. NFT adalah **produk digital**: dengan membelinya, Anda menerima aset digital dan akses ke layanan ekosistem. NFT secara eksplisit **bukan** instrumen keuangan, **bukan** investasi, dan **bukan** efek. Semua pembelian bersifat final, mengikat secara hukum, dan tidak dapat dikembalikan — transaksi blockchain bersifat permanen. Lihat [Hukum & Kepatuhan](/id/legal).
-
-### Entitas korporat apa yang mengoperasikan protokol?
-
-Dua entitas. **RWANFTFI Corporation** (terdaftar di Republik Panama) adalah perusahaan teknologi dan produk — memiliki infrastruktur platform, arsitektur NFT, mesin tokenisasi, dan semua kekayaan intelektual. **NFT FI Corporation** (terdaftar di Kepulauan Virgin Britania Raya) adalah perusahaan marketing dan komersial — mengelola operasi platform, distribusi, dan kemitraan. Perselisihan diselesaikan melalui arbitrase mengikat di [London Court of International Arbitration (LCIA)](https://www.lcia.org/). Lihat [Struktur Korporat](/id/corporate-structure).
-
-### Apakah merek RWANFTFI dilindungi secara hukum?
-
-Ya. Merek kata **RWANFT** secara resmi terdaftar di **Kantor Kekayaan Intelektual Inggris (UKIPO)** di bawah aplikasi **[UK00004369823](https://trademarks.ipo.gov.uk/ipo-tmcase/page/Results/1/UK00004369823)**, Kelas Nice **42** (manajemen aset digital). Pemilik tercatat adalah **RWANFTFI Corporation** (Panama), dan aplikasi diwakili secara profesional oleh **Gresham International** (London). File kasus lengkap dapat dicari secara publik di registri UKIPO resmi — setiap detail (nomor, pemilik, alamat, tanggal pengajuan, kelas, perwakilan) dapat diverifikasi secara independen secara real time. Lihat catatan lengkap di halaman [Kekayaan Intelektual](/id/intellectual-property).
-
+Sebagai produk akses digital yang memberikan kelayakan untuk fitur ekosistem tertentu; tanpa jaminan pendapatan, imbal hasil tetap, atau nilai jual kembali. Lihat [Hukum & Kepatuhan](/id/legal).

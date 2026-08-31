@@ -1,102 +1,51 @@
 ---
-title: "Penjualan & Pinjaman"
-description: "Penjualan manual dengan pembayaran USDT 75%, auto-sell 70% selama siklus empat periode 365 hari, dan fasilitas lending LTV 70% tetap terhadap jaminan DA dengan komisi 5% sekali bayar."
+title: "Penjualan & Lending"
+description: "Pemegang DA dapat menggunakan DA yang memenuhi syarat melalui penjualan manual, Auto-Sell terjadwal, atau lending. Pembayaran, pembakaran, biaya, kelayakan, dan pemrosesan jaminan diatur oleh parameter smart contract saat ini."
 icon: "scale-balanced"
 ---
-import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
 
+Pemegang DA dapat menggunakan DA yang memenuhi syarat melalui penjualan manual, Auto-Sell terjadwal, atau lending. Pembayaran, pembakaran, biaya, kelayakan, dan pemrosesan jaminan diatur oleh parameter smart contract saat ini.
 
-Setelah pengguna memegang DA, mereka memiliki dua opsi finansial utama: menjual aset atau menggunakannya sebagai jaminan untuk pinjaman.
+## Bagaimana DA dapat digunakan?
 
 <CardGroup cols={2}>
-  <Card title="Jual DA" icon="fire">
-    100% DA yang terjual dibakar secara permanen. Anda menerima 75% (manual) atau 70% (otomatis) dari nilai dalam USDT. Sisa 25% (manual) atau 30% (otomatis) adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung dan mendorong harga DA naik.
+  <Card title="Penjualan Manual" icon="fire">
+    Terima pembayaran 75% saat ini dalam USDT. DA yang diproses dibakar.
   </Card>
-  <Card title="Pinjamkan DA" icon="building-columns">
-    Pinjam dengan LTV 70% tetap dalam USDT terhadap DA Anda. Komisi 5% sekali bayar dibayar saat penerbitan dan tidak pernah dikenakan lagi saat pelunasan. DA Anda tetap di TokenStack Anda sampai Anda melunasi (penuh atau sebagian) atau batch memasuki siklus auto-sell-nya.
+  <Card title="Auto-Sell" icon="clock">
+    Terima pembayaran 70% saat ini ketika pemrosesan terjadwal berlangsung. DA yang diproses dibakar.
+  </Card>
+  <Card title="Lending" icon="building-columns">
+    Gunakan batch DA yang memenuhi syarat sebagai jaminan pada LTV 70% yang terdokumentasi.
+  </Card>
+  <Card title="Menyimpan" icon="hand-holding">
+    Simpan DA hingga tindakan manual yang memenuhi syarat atau acara Auto-Sell terjadwal.
   </Card>
 </CardGroup>
 
-## Penjualan DA & Mekanika Pembakaran
+## Penjualan Manual
 
-Saat menjual DA, ada dua skenario berbeda dengan kondisi yang berbeda:
+Pada penjualan manual yang memenuhi syarat, pengguna menerima 75% dari nilai protokol DA yang dihitung dalam USDT. DA yang diproses dibakar, dan bagian protokol yang tersisa mengikuti alokasi yang aktif.
 
-1. **Penjualan Manual (pengguna menjual secara mandiri):**
-   * Pengguna menerima **75%** dari nilai DA dalam USDT pada harga saat ini.
-   * **100%** token DA yang terjual dibakar secara permanen.
-   * Sisa 25% adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung USDT — dengan token yang lebih sedikit dan likuiditas yang sama, 25% ini secara langsung mendorong pertumbuhan harga.
+## Auto-Sell
 
-2. **Auto-Sell (dipicu setelah periode TokenStack berakhir):**
-   * Pengguna menerima **70%** dari nilai DA dalam USDT pada harga di tanggal auto-sell.
-   * **100%** token DA yang di-auto-sell dibakar secara permanen.
-   * Sisa 30% adalah komisi protokol yang tetap berada di kumpulan sebagai pendukung USDT — 30% inilah yang mendorong harga naik.
-   * Auto-sell terpicu secara otomatis jika pengguna belum menjual secara manual sebelum periode berakhir.
+Jika DA tidak dijual secara manual, protokol memproses batch yang tersisa selama empat periode terjadwal. Setiap acara menggunakan harga protokol yang tersedia saat eksekusi.
 
-Dalam kedua kasus, 100% token yang terjual dibakar — 25%/30% mewakili komisi protokol yang tetap berada di kumpulan sebagai pendukung USDT. Inilah mekanisme yang mendorong pertumbuhan harga: token lebih sedikit + likuiditas sama = harga per DA lebih tinggi. Auto-sell menawarkan pembayaran 5% lebih rendah, memberikan insentif kepada pengguna untuk secara aktif mengelola posisi DA mereka.
+| Periode | Waktu | Bagian dari DA Tersisa |
+|:---:|---|:---:|
+| 1 | Setelah 120 hari | 25% |
+| 2 | Setelah 90 hari berikutnya | 40% |
+| 3 | Setelah 90 hari berikutnya | 50% |
+| 4 | Setelah 65 hari berikutnya | 100% |
 
 <Warning>
-  **Menjual DA mengonsumsi Batas Pendapatan NFT Anda.** Setiap penjualan manual atau auto-sell DA mengurangi sisa Batas Pendapatan NFT Anda sebesar jumlah pembayaran USDT — setara dengan imbalan marketing. Jika Batas Pendapatan habis, penjualan DA manual tidak dapat dilakukan (sistem tidak dapat mengkredit pembayaran), dan pada auto-sell 100% hasil dialihkan ke DA Liquidity Pool atau dibakar (mekanisme tepatnya ditentukan oleh pengaturan DAO). Pertahankan Batas Pendapatan Anda tetap aktif — melalui Autobuy atau pembaruan NFT manual — untuk menerima pembayaran saat menjual DA.
+  **Interaksi dengan Batas Reward Protokol:** Pembayaran penjualan DA yang memenuhi syarat mengurangi sisa Batas Reward Protokol pengguna. Jika batas tersebut nol, hasil diproses sesuai aturan routing yang dikendalikan DAO yang aktif.
 </Warning>
 
-<Info>
-  **Auto-sell** terpicu secara otomatis jika Anda tidak menjual secara manual sebelum periode TokenStack berakhir. Auto-sell membayar 5% lebih rendah (70% vs 75%), memberikan insentif untuk manajemen aktif.
-</Info>
+## Lending
 
-## Periode Auto-Sell
-
-DA tersedia 100% untuk pengguna segera setelah farming — tidak ada periode lock-up. Pengguna dapat menjual secara manual kapan saja (menerima 75% dalam USDT) atau mengambil pinjaman dengan jaminan DA. Jika pengguna **tidak** bertindak, sistem memicu penjualan paksa otomatis dari **saldo tersisa** secara progresif selama 4 periode dengan total **365 hari (1 tahun)**. Durasi periode dihitung dalam hari pada on-chain (120 / 90 / 90 / 65 hari); referensi bulan di bawah ini adalah perkiraan untuk keterbacaan.
-
-**Contoh dimulai dengan 100 DA:**
-
-<Steps>
-  <Step title="Periode 1 — Auto-sell 25% setelah 120 hari (~4 bulan)">
-    Jika Anda belum menjual secara manual dalam 120 hari (~4 bulan), 25% dari saldo DA Anda saat ini di-auto-sell. 25% dari 100 DA = **25 DA di-auto-sell** → Anda menerima 70% nilai dalam USDT pada harga saat ini → 100% dari 25 DA dibakar → Tersisa: **75 DA**
-  </Step>
-  <Step title="Periode 2 — Auto-sell 40% setelah 90 hari berikutnya (~3 bulan, hari ke-210)">
-    40% dari saldo tersisa di-auto-sell. 40% dari 75 DA = **30 DA di-auto-sell** → Tersisa: **45 DA**
-  </Step>
-  <Step title="Periode 3 — Auto-sell 50% setelah 90 hari berikutnya (~3 bulan, hari ke-300)">
-    50% dari saldo tersisa di-auto-sell. 50% dari 45 DA = **22,5 DA di-auto-sell** → Tersisa: **22,5 DA**
-  </Step>
-  <Step title="Periode 4 — Auto-sell 100% setelah 65 hari berikutnya (~2 bulan, hari ke-365)">
-    100% dari saldo tersisa di-auto-sell. Posisi ditutup sepenuhnya. 100% dari 22,5 DA = **22,5 DA di-auto-sell** → Tersisa: **0 DA**
-  </Step>
-</Steps>
-
-<Note>
-  Persentase auto-sell (25% / 40% / 50% / 100%) yang ditampilkan di atas mewakili konfigurasi protokol saat ini. Nilai-nilai spesifik disimpan sebagai parameter protokol dan tunduk pada prosedur tata kelola standar. Selalu periksa smart contract atau dokumentasi protokol terbaru untuk nilai-nilai terbaru.
-</Note>
-
-Setiap auto-sell dieksekusi pada harga DA saat itu juga, bukan pada harga farming awal. Karena harga tumbuh seiring waktu, auto-sell yang lebih kemudian membakar token pada harga yang lebih tinggi — semakin memperkuat deflasi.
-
-<Warning>
-  **Auto-Sell dengan Batas Pendapatan Nol:** Jika auto-sell DA terpicu dan pengguna memiliki Batas Pendapatan nol pada NFT-nya (artinya NFT belum diperbarui), 100% hasil dialihkan ke Liquidity Pool atau pembakaran DA. Mekanisme tepatnya ditentukan oleh pengaturan DAO. Pengguna harus selalu mempertahankan Batas Pendapatan yang aktif untuk menerima pembayaran auto-sell mereka.
-</Warning>
-
-## Lending (Kredit terhadap DA)
-
-Pemegang NFT Premium dan Elite (Level 5 ke atas) dapat mengambil pinjaman USDT terhadap jaminan DA mereka alih-alih menjualnya. Pinjaman dijaminkan oleh batch DA tertentu dari satu siklus mining dan farming yang telah selesai - seluruh batch sekaligus, bukan sebagian darinya. Tingkatan yang lebih rendah tidak menjalankan mining dan tidak memiliki jaminan DA untuk dipinjam.
-
-Setiap pinjaman diterbitkan dengan **LTV 70% tetap** dengan **komisi 5% sekali bayar** yang diarahkan ke DA Liquidity Pool saat penerbitan. Tidak ada biaya yang dikenakan saat pelunasan. Peminjam menerima 95% dari jumlah pinjaman bruto di Saldo Reguler mereka. Contoh: untuk batch 100 DA pada harga DA 1,00 USDT, pinjaman bruto adalah 70 USDT, biaya adalah 3,50 USDT, dan pembayaran bersih peminjam adalah 66,50 USDT.
-
-Sifat struktural yang menentukan adalah bahwa harga DA ditangkap dalam `loan.price` saat penerbitan dan tidak pernah diperbarui setelahnya. Pertumbuhan harga DA berikutnya tidak meningkatkan utang - sehingga peminjam mengekstrak likuiditas USDT pada harga hari ini sambil mempertahankan potensi kenaikan pada apresiasi masa depan. Pinjaman tidak memiliki jatuh tempo tetap, dapat dilunasi penuh atau sebagian kapan saja sebelum batch memasuki siklus auto-sell-nya, dan batch tertentu hanya dapat dijaminkan sekali sepanjang hidupnya.
-
-Jika pinjaman tidak dilunasi sebelum batch memasuki siklus auto-sell-nya, DA yang dijaminkan dibakar secara progresif melalui jadwal empat periode standar. Peminjam menyimpan USDT yang diterima saat penerbitan; nilai USDT dari setiap bagian yang dibakar mengalir ke DA Liquidity Pool. Di antara periode auto-sell, peminjam masih dapat masuk dan memanggil `repay()` untuk mengklaim kembali DA yang masih dijaminkan.
-
-<Warning>
-  **Gagal Bayar Lending - Pembakaran Progresif:** Jika pinjaman tidak dilunasi sebelum batch yang dijaminkan memasuki siklus auto-sell-nya, jaminan melewati jadwal empat periode standar (25% / 40% / 50% / 100% dari DA yang dijaminkan **tersisa** dibakar selama 120 / 90 / 90 / 65 hari, total 365 hari). 100% DA yang dibakar dihancurkan secara permanen; nilai USDT yang sesuai pada `loan.price` diarahkan ke DA Liquidity Pool. Peminjam **tidak** menerima USDT untuk bagian yang dibakar - satu-satunya pemulihan ekonomi dari batch yang gagal bayar adalah USDT yang diterima saat penerbitan.
-
-  **Pemulihan sebagian selalu tersedia.** Peminjam dapat memanggil `repay()` di antara dua periode auto-sell mana pun dan mengklaim kembali DA yang **masih** dijaminkan dengan hanya membayar untuk apa yang masih dijaminkan. DA yang telah dibakar pada periode-periode sebelumnya tidak dapat dipulihkan, tetapi setiap pembakaran mendatang masih dapat dihentikan dengan melunasi sebelum batas periodenya.
-</Warning>
-
-<Note>
-  **`repay()` setelah auto-sell dimulai - perilaku dikoreksi pasca-CertiK (RWA-58):** Versi kontrak sebelumnya membatalkan `repay()` setelah batch memasuki siklus auto-sell. Setelah audit CertiK, hal ini dikoreksi: `repay()` kini dapat dipanggil pada tahap mana pun dalam kehidupan pinjaman. Ketika batch telah melewati pemicu auto-sell, kontrak pertama menjalankan `_processExpiredStacks()` untuk menyelesaikan setiap periode yang batasnya telah terlewati - yang membakar bagian jaminan yang sesuai - dan kemudian melanjutkan terhadap sisa pasca-pembakaran.
-
-  Konsekuensi praktis: `repay()` yang terlambat tidak dapat "mendahului" pembakaran yang telah terpicu. Untuk menjaga **seluruh** jaminan, peminjam harus melunasi sebelum melewati pemicu auto-sell pertama (Periode 1, saat ini hari ke-120 dari kehidupan batch).
-</Note>
+Pemegang yang memenuhi syarat dapat menggunakan satu batch DA lengkap sebagai jaminan untuk pinjaman yang didenominasikan dalam USDT. LTV saat ini adalah 70%, dan biaya penerbitan sekali bayar diterapkan berdasarkan parameter protokol saat ini.
 
 <Card title="Mekanika Lending Lengkap →" icon="hand-holding-dollar" href="/id/da-lending">
-  Kelayakan, pintu penerbitan 30 hari, formula, pelunasan sebagian dengan contoh perhitungan, matematika gagal bayar penuh, dan tabel parameter - semuanya di halaman khusus.
+  Parameter pinjaman, perhitungan, snapshot harga, pelunasan sebagian, dan pemrosesan gagal bayar — semuanya di halaman khusus.
 </Card>
-
-<SellVsLend />

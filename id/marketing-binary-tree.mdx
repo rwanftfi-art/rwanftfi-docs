@@ -1,26 +1,20 @@
 ---
-title: "Struktur Marketing & Penempatan"
-description: "Struktur 22 level dengan spillover."
+title: "Jaringan Mitra & Penempatan"
+description: "Jaringan mitra adalah registri penempatan smart contract. Ketika NFT yang memenuhi syarat diaktifkan, akun tersebut menerima posisi permanen. Penempatan mencatat hubungan jaringan untuk perhitungan reward; sebuah posisi dengan sendirinya tidak menciptakan reward."
 icon: "sitemap"
 ---
 
-Ketika seorang pengguna mengaktifkan NFT, mereka ditempatkan secara permanen ke dalam
-struktur marketing dengan kedalaman maksimum 22 level — menampung hingga
-**8.388.606 posisi** saat terisi penuh.
+Jaringan mitra adalah registri penempatan protokol — struktur data on-chain yang mencatat posisi setiap akun dan hubungan jaringan mana yang disertakan dalam perhitungan reward. Ketika NFT yang memenuhi syarat diaktifkan, akun tersebut menerima posisi permanen. Penempatan, kedalaman jaringan, dan kelayakan reward mengikuti aturan protokol yang aktif.
+
 <CardGroup cols={3}>
-  <Card title="Penempatan Otomatis" icon="wand-magic-sparkles">
-    Smart contract menempatkan pengguna baru menggunakan algoritma "cabang terlemah,
-    kiri ke kanan". Tidak perlu penempatan manual.
+  <Card title="Penempatan Deterministik" icon="wand-magic-sparkles">
+    Registrasi baru ditempatkan oleh algoritma cabang-terlemah kontrak yang terdokumentasi. Tidak ada penempatan manual.
   </Card>
-  <Card title="Tautan Permanen" icon="link">
-    Setiap peserta terhubung secara permanen dengan sponsornya.
-    Perubahan tidak mungkin dilakukan — blockchain bersifat tidak dapat diubah.
+  <Card title="Catatan Permanen" icon="link">
+    Sebuah posisi adalah entri permanen dalam registri on-chain; tautan sponsor tidak berubah.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    Undangan dari sponsor upline mungkin mendarat di struktur ANDA secara otomatis.
-    Anda mendapatkan imbalan tree distribution dari spillover sesuai dengan
-    syarat marketing standar — namun Sponsor Bonus diberikan kepada pengundang
-    sebenarnya, bukan kepada Anda.
+  <Card title="Tidak Ada Reward untuk Penempatan" icon="scale-balanced">
+    Sebuah posisi dengan sendirinya tidak membayar apa pun. Reward memerlukan peristiwa pembelian yang memenuhi syarat, kelayakan tingkatan, dan sisa Batas Reward Protokol.
   </Card>
 </CardGroup>
 
@@ -34,73 +28,31 @@ struktur marketing dengan kedalaman maksimum 22 level — menampung hingga
   src="/banner_new_1.mp4"
 />
 
-## Cara Kerja Penempatan
+## Bagaimana cara kerja penempatan?
+
 <Steps>
-  <Step title="Anda Mengundang">
-    2 undangan pertama Anda mengisi Level 1 Anda (posisi kiri dan kanan).
+  <Step title="Posisi level pertama terisi lebih dulu">
+    Registrasi langsung pertama mengisi posisi level pertama yang tersedia.
   </Step>
-  <Step title="Pohon Tumbuh ke Bawah">
-    Undangan berikutnya menuju Level 2 di bawah cabang terlemah.
-    Struktur Anda tumbuh secara eksponensial: 2 → 4 → 8 → 16 posisi per level.
+  <Step title="Algoritma menempatkan sisanya">
+    Registrasi tambahan ditempatkan di bawah cabang yang dipilih oleh algoritma cabang-terlemah yang terdokumentasi.
   </Step>
-  <Step title="Spillover Mengisi Celah">
-    Ketika sponsor upline Anda mengundang lebih banyak orang daripada yang dapat ditampung Level 1 mereka,
-    pengguna tersebut tumpah ke pohon ANDA. Anda mendapat penghasilan dari mereka secara otomatis.
+  <Step title="Penempatan otomatis dapat melintasi akun">
+    Algoritma dapat mencatat seorang peserta di dalam jaringan pengguna lain (spillover). Ini adalah hasil pembukuan dari penempatan otomatis, bukan peristiwa reward.
   </Step>
-  <Step title="Anda Mendapat Penghasilan dari Kedalaman">
-    Level NFT Anda menentukan seberapa dalam Anda mendapat penghasilan.
-    GENESIS mendapat penghasilan dari 2 level. INFINITY mendapat penghasilan hingga 22 level
-    (level 16–22 terbuka di Fase 2 melalui pemungutan suara tata kelola DAO).
+  <Step title="Penempatan saja tidak menciptakan reward">
+    Kelayakan reward bergantung pada tingkatan, kedalaman, aktivitas yang memenuhi syarat, fase yang aktif, dan sisa Batas Reward Protokol.
   </Step>
 </Steps>
 
-## Gambaran Distribusi Pohon
+## Kedalaman Jaringan dalam Perhitungan Reward
 
-Setiap level dari struktur marketing memiliki jumlah posisi tetap dan persentase imbalan yang sesuai. Level NFT Anda menentukan seberapa dalam Anda dapat memperoleh penghasilan dalam struktur ini.
+Setiap tingkatan NFT mendefinisikan kedalaman jaringan maksimum yang disertakan dalam perhitungan Distribusi Jaringan Mitra yang memenuhi syarat. Nilai Fase 1 saat ini ditampilkan dalam [tabel tingkatan NFT](/id/nft-ecosystem#semua-10-tingkatan-sekilas). Level 16–22 memerlukan aktivasi tata kelola yang terdokumentasi.
 
-| Level | Jumlah peserta | Distribusi per level |
-|:-----:|:----------------------:|:----------------------:|
-| 1     | 2                      | 0%                     |
-| 2     | 4                      | 1%                     |
-| 3     | 8                      | 2%                     |
-| 4     | 16                     | 2%                     |
-| 5     | 32                     | 3%                     |
-| 6     | 64                     | 3%                     |
-| 7     | 128                    | 4%                     |
-| 8     | 256                    | 4%                     |
-| 9     | 512                    | 4%                     |
-| 10    | 1.024                  | 4%                     |
-| 11    | 2.048                  | 4%                     |
-| 12    | 4.096                  | 4%                     |
-| 13    | 8.192                  | 4%                     |
-| 14    | 16.384                 | 4%                     |
-| 15    | 32.768                 | **5%**                 |
-| 16    | 65.536                 | 2%                     |
-| 17    | 131.072                | 2%                     |
-| 18    | 262.144                | 1%                     |
-| 19    | 524.288                | 0,5%                   |
-| 20    | 1.048.576              | 0,5%                   |
-| 21    | 2.097.152              | 0,5%                   |
-| 22    | 4.194.304              | 0,5%                   |
+## Kapasitas Struktural
+
+Registri ini adalah struktur biner terbatas dengan kedalaman maksimum 22 level yang terdokumentasi — kapasitas teknis tetap sebesar 8.388.606 posisi, tidak termasuk posisi root. Angka ini adalah properti dari struktur data, bukan target partisipasi atau proyeksi.
 
 <Tip>
-  Untuk detail lengkap tentang persentase imbalan, mekanika kompresi, dan sistem Matching Bonus, lihat [Imbalan & Kompensasi](/id/marketing-rewards).
+  Untuk jenis-jenis reward, anggaran distribusi, dan aturan kelayakan, lihat [Reward & Distribusi](/id/marketing-rewards).
 </Tip>
-
-<Info>
-  **Multi-akun sangat dilarang.** Sistem menegakkan
-  kebijakan satu pengguna, satu akun dengan pelacakan bawaan.
-</Info>
-<Warning>
-  **Sponsor bersifat permanen.** Setelah ditempatkan dalam pohon, sponsor Anda
-  tidak dapat diubah. Pilihlah dengan bijak sebelum mengaktifkan NFT Anda.
-</Warning>
-
-<Info>
-  **Sponsor harus berupa node pohon yang aktif.** Ketika pengguna baru didaftarkan melalui `registerUser()`, smart contract tidak menerima sembarang ID pengguna yang ada sebagai sponsor — sponsor yang diberikan harus berupa **node aktif dalam struktur marketing**. Secara konkret, sponsor harus:
-
-  - Memegang **NFT aktif** dalam sistem, dan
-  - **Terdaftar di pohon** sebagai node yang hidup (tree node active).
-
-  **Pemetaan identitas saja** — dompet yang telah ditetapkan ID pengguna tetapi saat ini tidak memegang NFT aktif — tidak lagi dapat mensponsori undangan baru. Ini mencegah peserta baru ditempatkan di bawah sponsor yang tidak aktif, memblokir pembentukan cabang mati dalam struktur, dan menjaga integritas aliran imbalan setiap sub-pohon.
-</Info>

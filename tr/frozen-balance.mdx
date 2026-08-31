@@ -1,102 +1,66 @@
 ---
-title: "Dondurulmuş Bakiye"
-description: "Daha yüksek seviyelere yapılan davetler için pazarlama geliri koruması."
+title: "Frozen Balance"
+description: "Sahibinin kalan Protokol Ödül Limitini aşan uygun bir Sponsor Bonusu için geçici 72 saatlik bir tampon."
 icon: "snowflake"
 ---
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-Dondurulmuş Bakiye, iki ilişkili durumda pazarlama gelirinizi koruyan mekaniktir: **doğrudan kişisel davet ettiğiniz kişi ilk NFT satın alımını yaptığında** veya **davet ettiğiniz kişinin Autobuy'u tetiklendiğinde** (NFT'sinin otomatik yenilenmesi, size %20 rebuy Sponsor Bonus üreten) ve sonuçta ortaya çıkan komisyon NFT'nizin kalan Gelir Limitini aştığında.
+Frozen Balance, doğrudan bir davetlinin ilk NFT satın alımını yaptığı veya Autobuy'u tetiklediği ve ortaya çıkan Sponsor Bonusunun sahibinin kalan Protokol Ödül Limitini aştığı durumlarda uygulanır. Mekanizma, sahibinin geçerli serbest bırakma koşullarını karşılayabilmesi için fazlalığı geçici olarak tutar.
 
-Dondurulmuş Bakiye olmasaydı, bu fazlalık sıkıştırma yoluyla kaybolur — yapıdan yukarıya iletilirdi. Dondurulmuş Bakiye bunu **72 saatliğine** dondurur ve size NFT'nizi yükseltip tam tutarı talep etmeniz için bir pencere sunar.
+## Frozen Balance ne zaman tetiklenir?
 
-<Info>
-  Bu, hem "yukarıya yönelik" davetler hem de yerleşik davet edilen kişilerden gelen tekrarlayan gelirler için pazarlama güvenlik ağıdır: kendi Gelir Limitinizin çok küçük olması nedeniyle komisyonun kaybolacağından korkmadan partnerleri herhangi bir NFT seviyesine güvenle davet edebilir ve onların Autobuy yenilemelerine güvenebilirsiniz.
-</Info>
-
-## Dondurulmuş Bakiye Ne Zaman Tetiklenir
-
-Dondurulmuş Bakiye **yalnızca üç koşulun tümü karşılandığında** etkinleşir:
+Frozen Balance yalnızca aşağıdaki üç koşulun tümü karşılandığında etkinleşir:
 
 <Steps>
-  <Step title="Alıcı doğrudan kişisel davet ettiğiniz kişidir">
-    Bir aşağıya taşma değil, beş seviye derinlikte bir alt yapı partneri değil — özellikle yapınıza kişisel olarak davet ettiğiniz bir kişi.
+  <Step title="Alıcı, sahibinin doğrudan kişisel davetlisidir">
+    Bir taşma yerleştirmesi veya daha derindeki bir ağ katılımcısı değil — özellikle sahibinin kişisel olarak davet ettiği bir kişi.
   </Step>
-  <Step title="Bu, davet ettiğiniz kişinin ilk NFT satın alımı veya Autobuy'udur">
-    Dondurulmuş Bakiye, davet ettiğiniz kişinin iki olayını kapsar: **ilk NFT satın alımı** ve **Autobuy** (aynı davet edilen kişinin NFT'sinin otomatik yenilenmesi, size %20 rebuy Sponsor Bonus öder). Aynı davet edilen kişinin manuel tekrar satın alımları ve yükseltmeleri **kapsanmaz** — aşağıdaki Kayıp Gelir bölümüne bakın.
+  <Step title="Olay, davetlinin ilk NFT satın alımı veya Autobuy'udur">
+    Aynı davetlinin manuel tekrar satın alımları ve yükseltmeleri kapsanmaz — aşağıdaki tekrar satın almalar bölümüne bakın.
   </Step>
-  <Step title="Komisyon kalan Gelir Limitinizi aşar">
-    Kalan Gelir Limitiniz tüm komisyonu emecek kadar büyükse, dondurma gerçekleşmez — her şey normal şekilde yatırılır.
+  <Step title="Sponsor Bonusu, sahibinin kalan Protokol Ödül Limitini aşar">
+    Kalan Protokol Ödül Limiti tam tutarı karşılayabiliyorsa dondurma gerçekleşmez — ödül standart kurallar çerçevesinde alacaklandırılır.
   </Step>
 </Steps>
 
-## Tutar Nasıl Bölünür
+## Komisyon tutarı nasıl bölünür?
 
-Dondurulmuş Bakiye tetiklendiğinde, akıllı sözleşme komisyonu iki parçaya böler:
+- Kalan Protokol Ödül Limiti dahilindeki tutar, mevcut **75/20/5** bölünmesi çerçevesinde alacaklandırılır.
+- Limitin üzerindeki fazlalık, **72 saat** boyunca Frozen Balance'a yerleştirilir.
 
-- **Kalan Gelir Limitiniz dahilinde** — standart bölünme altında hemen yatırılır: **%75 Normal Bakiye / %20 Birikim Bakiyesi / %5 DA Likidite Havuzu**.
-- **Gelir Limitinizin üstündeki fazlalık** — **72 saatlik zamanlayıcı** ile Dondurulmuş Bakiyeye yerleştirilir.
-
-## 72 Saat İçinde Ne Olur
-
-Üç senaryonuz var:
+## 72 saatlik pencere sırasında ne olur?
 
 <Tabs>
   <Tab title="NFT'nizi yükseltirsiniz">
-    Daha yüksek seviyeli bir NFT satın alırsınız (daha büyük bir Gelir Limiti ile). Donmuş fonlar otomatik olarak serbest bırakılır ve aynı **75/20/5** bölünmesi altında yatırılır. Serbest bırakılan tutar **yeni** NFT'nin Gelir Limitinden düşülür.
-
-    **Örnek.** NFT'nizin Gelir Limiti = 160 USDT. Davet ettiğiniz kişi 2.200 USDT'ye bir NFT satın alır; komisyon = 660 USDT. 160 USDT hemen yatırılır (75/20/5). 500 USDT Dondurulmuş Bakiyeye gider. Eclipse'e yükseltirsiniz (Gelir Limiti 650 USDT). 500 USDT serbest bırakılır ve yatırılır. Yeni kalan Gelir Limiti: 650 − 500 = **150 USDT**.
+    Uygun bir üst seviye NFT yeterli Protokol Ödül Limiti sağlıyorsa, tamponlanan tutar serbest bırakılır ve standart bölünme çerçevesinde alacaklandırılır. Serbest bırakılan tutar, yeni NFT'nin kalan limitini azaltır.
   </Tab>
-  <Tab title="Otomatik Alım etkindir">
-    Otomatik Alım aktifse, sıralama değişir. Otomatik Alım **önce** çalışır, aynı seviyeli NFT'yi yeniden satın alır ve Gelir Limitinizi yeniler. Komisyon daha sonra yenilenen limite göre yeniden değerlendirilir, limit dahilindeki kısım yatırılır ve **yalnızca kalan kısım** (varsa) 72 saatlik zamanlayıcı ile Dondurulmuş Bakiyeye gider.
-
-    Bu şu anlama gelir: kendi NFT'niz ve Otomatik Alım sonrası yenilenen Gelir Limitiniz yeterliyse, Dondurulmuş Bakiye hiç etkinleşmeyebilir.
+  <Tab title="Autobuy etkinleştirilmiştir">
+    Autobuy önce mevcut NFT'yi yenileyebilir ve Protokol Ödül Limitini tazeleyebilir. Sponsor Bonusu daha sonra tazelenen limite göre yeniden hesaplanır. Yalnızca kalan fazlalık (varsa) Frozen Balance'a yerleştirilir.
   </Tab>
   <Tab title="Son tarihi kaçırırsınız">
-    72 saat içinde yükseltme yapmaz ve Otomatik Alım fazlalığı karşılamadıysa, donmuş fonlar **kalıcı olarak kaybedilir** ve yeniden dağıtılır:
-
-    - **%70** yeni DA basımı için DA Likidite Havuzuna yönlendirilir.
-    - **%30** doğrudan yukarı sponsorunuza aktarılır.
-
-    Kademe kuralı, Birikim Bakiyesi azalma kademesi ile aynıdır: yukarı sponsorun Gelir Limiti sıfırsa, %30 zincirde aktif Gelir Limiti olan ilk katılımcıya iletilir. Hiçbir yukarı katılımcının aktif limiti yoksa, %100'ün tamamı DA Likidite Havuzuna yönlendirilir.
+    Serbest bırakma koşulları 72 saat içinde karşılanmazsa, tutar mevcut protokol parametreleri çerçevesinde yeniden dağıtılır: yapılandırılmış pay DA Likidite Havuzuna yönlendirilir ve kalan pay sponsor yönlendirme ve kademe kurallarını izler.
   </Tab>
 </Tabs>
 
-## Aynı Davet Edilen Kişiden Tekrarlanan Satın Almalar
+## Aynı Davetliden Tekrarlanan Satın Almalar
 
-Dondurulmuş Bakiye, her kişisel davet edilen kişinin iki olayını korur: **ilk NFT satın alımı** ve **Autobuy** (aynı davet edilen kişinin NFT'sinin otomatik yenilenmesi — %20 rebuy Sponsor Bonus). Aynı davet edilen kişinin **manuel** tekrar satın alımları ve yükseltmeleri **kapsanmaz**: Gelir Limitiniz komisyonu emememezse, fazlalık **Kayıp Gelir** olarak işaretlenir ve standart sıkıştırma kuralı altında dağıtılır — yapıdan yukarıya, aktif Gelir Limiti olan bir sonraki katılımcıya iletilir.
+Frozen Balance, uygun ilk satın alma ve Autobuy olaylarını kapsar. Aynı davetlinin manuel tekrar satın alımları ve yükseltmeleri, standart ortak ödülü, kaçırılan ödül ve sıkıştırma kurallarını izler.
 
-<Warning>
-  Davet ettiğiniz kişi **Gelir Limitiniz tükenmişken** çok sayıda manuel rebuy/yükseltme yaparsa, her bu tür manuel satın alma sıkıştırma yoluyla sizi atlar. Yerleşik partnerlerden gelir kaybetmemek için kendi Autobuy'unuz veya manuel yenileme yoluyla Gelir Limitinizi aktif tutun.
-</Warning>
+## Yüksek Hacimli Senaryo — Yapı Üzerinden Yönlendirme
 
-## Yüksek Hacimli Senaryo — Yapı Boyunca Kademe
-
-Dondurulmuş Bakiye **yalnızca** doğrudan davet edilen kişinin ilk satın alımındaki veya Autobuy'undaki komisyonu korur. Ancak büyük bir yapıda gelirinizin çoğu kişisel satışlardan değil — derinlikten, ağaç dağılımı yoluyla gelir (9. seviyede %4 × 500+ pozisyon, tek bir tahakkuk döngüsünde on binlerce USDT verebilir).
-
-Bu hacim geldiğinde ve Gelir Limitiniz 1.100 USDT olduğunda ve Otomatik Alım maksimum üç kez yenilenebildiğinde (L1–L8 seviyelerinde 3/3), sistem:
-
-1. Standart bölünme altında size 1.100 USDT yatırır.
-2. Otomatik Alımı tetikler, Limiti yeniler, başka 1.100 USDT yatırır.
-3. 3 kez tekrar eder.
-4. **Kalan tüm hacim sıkıştırılır** — aktif Gelir Limiti olan bir sonraki katılımcıya yukarıya iletilir.
-
-Dondurulmuş Bakiye bu senaryoda **etkinleşmez** çünkü kaynak doğrudan davet edilen kişinin ilk satın alımı veya Autobuy'u değil, derinlikten gelen ağaç dağılımıdır.
-
-<Info>
-  Ölçek için sonuç: büyük ağ hacimlerinde ana kaldıraç **kendi NFT'nizin seviyesidir**. Daha yüksek seviyeler daha büyük Gelir Limitleri taşır ve sıkıştırmaya kaybedilen payı azaltır. Sınırsız Otomatik Alıma sahip Elite seviyeler (L9–L10), bunu sistematik olarak ele alır.
-</Info>
+Ağ derinliği etkinliği için önce Protokol Ödül Limiti ve Autobuy kuralları uygulanır. Alacaklandırılamayan kalan herhangi bir tutar, aktif sıkıştırma kuralları çerçevesinde yönlendirilir. Kaynak, uygun bir doğrudan ilk satın alma veya Autobuy değil de Ortak Ağı Dağıtımı olduğunda Frozen Balance etkinleşmez.
 
 <FrozenBalanceSimulator lang="en" />
 
-## Dondurulmuş Bakiye Parametreleri (Zincir Üzerinde)
+## Frozen Balance Parametreleri (Zincir Üzerinde)
 
 | Parametre | Değer | Değiştirilebilirlik |
 |---|---|---|
-| Dondurma penceresi | 72 saat | Değişmez |
-| Kayıp durumunda DA Likidite Havuzu payı | %70 | DAO tarafından ayarlanabilir (%50–%100) |
-| Kayıp durumunda yukarı sponsor payı | %30 | DAO tarafından ayarlanabilir (%0–%30) |
-| Tetikleyici | Doğrudan kişisel davet edilen kişinin ilk satın alımı veya Autobuy'u | Değişmez |
-| Serbest bırakma dağılımı | 75/20/5 | Standart bölünme — Mimari'ye bakın |
+| Dondurma penceresi | 72 saat | Değiştirilemez |
+| Süre sonunda DA Likidite Havuzu payı | %70 | Belgelenen aralık dahilinde DAO tarafından ayarlanabilir |
+| Süre sonunda sponsor yönlendirme payı | %30 | Belgelenen aralık dahilinde DAO tarafından ayarlanabilir |
+| Tetikleyici | Doğrudan davetlinin ilk satın alımı veya Autobuy'u | Değiştirilemez |
+| Serbest bırakma dağılımı | 75/20/5 | Standart bölünme — bkz. [Mimari](/tr/architecture) |
 
-Ayrıca bakın: [NFT Ekosistemi sayfasındaki Gelir Limiti](/tr/nft-ecosystem), [Mimari'deki Ödeme Önceliği](/tr/architecture).
+Ayrıca bkz: [NFT Ekosistemi sayfasında Protokol Ödül Limiti](/tr/nft-ecosystem), [Mimari'de Ödeme Önceliği](/tr/architecture).

@@ -1,11 +1,10 @@
 ---
 title: "Akıllı Sözleşme Mimarisi"
-description: "Diamond Pattern ve 7 Facet."
+description: "RWANFTFI; yedi işlevsel facet'e sahip bir EIP-2535 Diamond mimarisi, ayrı NFT ve rezerv sözleşmeleri, tanımlanmış yükseltilebilirlik mekanizmaları, rol tabanlı izinler ve birden fazla dahili bakiye türü kullanır."
 icon: "cubes"
 ---
 
-
-RWANFTFI platformu, merkezi kontrol olmadan tüm etkileşimleri, dağıtımları ve token mekaniklerini yöneten sağlam, modüler ve güvenli bir akıllı sözleşme mimarisi üzerine inşa edilmiştir.
+RWANFTFI, yedi işlevsel facet'e sahip bir [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond mimarisi, ayrı NFT ve rezerv sözleşmeleri, tanımlanmış yükseltilebilirlik mekanizmaları, rol tabanlı izinler ve birden fazla dahili bakiye türü kullanır.
 
 <video
   autoPlay
@@ -17,114 +16,68 @@ RWANFTFI platformu, merkezi kontrol olmadan tüm etkileşimleri, dağıtımları
   src="/bx2.mp4"
 />
 
-## Diamond Pattern (EIP-2535)
+## Diamond Facet'leri
 
-RWANFTFI sisteminin çekirdeği Diamond Pattern (EIP-2535) kullanılarak uygulanmıştır. Bu mimari seçim, protokolün, "Facet'ler" (tek bir proxy sözleşme aracılığıyla erişilen akıllı sözleşme modülleri) adı verilen birden fazla bağımsız modüle işlevselliği bölerek standart akıllı sözleşme boyut sınırını (24KB) aşmasına olanak tanır.
+| Facet | İşlev |
+|---|---|
+| AdminFacet | Roller, parametreler, onaylı transferler ve özel NFT basımı. |
+| MarketingFacet | Kayıt, NFT satın alımları ve ortak ödülü hesaplamaları. |
+| FarmingFacet | NFTM Madenciliği ve DA Farming. |
+| PaymentFacet | Yatırmalar, çekimler, kuponlar ve bakiye transferleri. |
+| TreeFacet | Ortak ağı yerleştirmesi ve derinliği. |
+| ResolverFacet | Süresi dolmuş değerler, kupon işleme ve Frozen Balance çözümü. |
+| ViewFacet | Salt okunur kullanıcı, bakiye ve ağ sorguları. |
 
-## Çekirdek Facet'ler
+## NFT Sözleşmeleri
 
-<CardGroup cols={2}>
-  <Card title="AdminFacet" icon="gear">
-    Sistem parametreleri, roller, iş satışları ve özel NFT basımı.
-  </Card>
-  <Card title="MarketingFacet" icon="bullhorn">
-    Kullanıcı kaydı, NFT satın alımları ve pazarlama ödülü dağıtımı.
-  </Card>
-  <Card title="FarmingFacet" icon="seedling">
-    NFTM madenciliği ve DA farming döngüsü yönetimi.
-  </Card>
-  <Card title="PaymentFacet" icon="wallet">
-    Yatırma, çekme, Kupon oluşturma ve birikim transferleri.
-  </Card>
-  <Card title="TreeFacet" icon="sitemap">
-    22 seviyeli ikili ağaç mantığı ve kullanıcı yerleştirme algoritmaları.
-  </Card>
-  <Card title="ResolverFacet" icon="rotate">
-    Süresi dolmuş DA stak işleme, Kupon yakımları ve dondurulmuş hesap çözümü.
-  </Card>
-  <Card title="ViewFacet" icon="eye">
-    Kullanıcı verileri, bakiyeler ve ağaç yapıları için salt okunur sorgular.
-  </Card>
-</CardGroup>
-
-## NFT Sözleşmeleri ve Token Kimlik Alanları
-
-Protokol üç farklı NFT sözleşmesi kullanır (Normal, Hediye, Ambassador). Sistemdeki her basılan NFT'yi izleyen zincir üzerindeki `registeredTokens` haritalamasında tanımlayıcı çakışmalarını önlemek için, **Normal NFT'ler ve Hediye NFT'ler eşliğe göre bölünmüş ayrı `tokenId` alanlarına basılır**:
-
-- **Normal NFT** — tek token kimlikleri (`1, 3, 5, 7, …`).
-- **Hediye NFT** — çift token kimlikleri (`2, 4, 6, 8, …`).
-
-Bölünme, basım sırasında her NFT sözleşmesinin basıcı mantığı içinde uygulanır. Bir sözleşmedeki başarılı bir basım, diğer sözleşmenin asla yayınlayamayacağı bir tanımlayıcıyı asla üretemediği için, tüm bir haritalama-çakışma hata sınıfı tip-sistemi düzeyinde ortadan kaldırılır — herhangi bir çalışma zamanı koruması veya çağrı başına çoğaltma denetimi gerekmez. Bölme son kullanıcılara görünmezdir: cüzdanlar ve pazaryerleri her NFT'yi kendi yerel sözleşmesi altında görüntülemeye devam eder.
+- Normal NFT'ler tek sayılı token kimlikleri kullanır.
+- Hediye NFT'ler çift sayılı token kimlikleri kullanır.
+- Ambassador NFT'ler ayrı bir sözleşme ve yapılandırma kullanır.
 
 ## Yükseltilebilirlik Matrisi
 
-* **Diamond Sözleşmesi (EIP-2535):** Facet kesimleri yoluyla yükseltilebilir — tüm sistemi yeniden dağıtmadan bireysel modülleri eklemeye, değiştirmeye veya kaldırmaya olanak tanır.
-* **TokenReserve (DA):** Şeffaf Proxy yoluyla yükseltilebilir — sözleşme adresini değiştirmeden mantık güncellemeleri mümkündür.
-* **NFT'ler (Normal, Hediye, Ambassador), GovToken, AdminContract:** Yükseltilemez — temel varlıkların ve yönetişim kurallarının değişmezliğini sağlar.
+| Bileşen | Model |
+|---|---|
+| Diamond Sözleşmesi | Facet kesimleri (facet cuts) yoluyla yükseltilebilir. |
+| TokenReserve / DA | Belgelenen proxy mekanizması yoluyla yükseltilebilir. |
+| NFT Sözleşmeleri | Yükseltilemez olarak belgelenmiştir. |
+| GovToken | Sabit arzla yükseltilemez olarak belgelenmiştir. |
+| AdminContract | Yükseltilemez olarak belgelenmiştir. |
 
 ## Rol Yönetimi
 
-Sistem, izinleri güvenli bir şekilde yönetmek için hiyerarşik bir rol yapısı (AccessControlEnumerable) kullanır:
-* `ADMIN_ROLE`: Diğer rolleri verebilir/iptal edebilir ve kritik sistem parametrelerini değiştirebilir.
-* `SERVICE_ROLE`: Otomatik görevler için arka uç komut dosyaları tarafından yürütülür (örneğin, süresi dolmuş stak'leri çözme, zincirler arası yatırmaları işleme).
-* `SIGNER_ROLE`: Kupon transferleri gibi belirli eylemleri yetkilendirmek için kriptografik imza doğrulaması için kullanılır.
-* `MINTER_ROLE`: Belirli tokenleri veya NFT'leri basmaya yetkili.
+| Rol | Belgelenen Yetki |
+|---|---|
+| `ADMIN_ROLE` | Rolleri verir ve iptal eder; izin verilen protokol parametrelerini değiştirir. |
+| `SERVICE_ROLE` | Belgelenen otomatik ve zincirler arası servis işlemlerini yürütür. |
+| `SIGNER_ROLE` | Belirtilen eylemler için yetkili imzaları doğrular. |
+| `MINTER_ROLE` | O role atanmış token veya NFT türünü basar. |
 
-## Bakiye Şeması ve Ödeme Önceliği
+## Bakiye Şeması
 
-Karmaşık fon akışını yönetmek için, RWANFTFI akıllı sözleşme içinde çok katmanlı bir bakiye şeması kullanır.
+| Bakiye | Amaç |
+|---|---|
+| Normal Bakiye | Uygun çekimler, satın almalar ve kuponlar. |
+| Birikim Bakiyesi | Belgelenen satın alma, transfer, ücret ve yeniden dağıtım kuralları çerçevesinde kullanılan kısıtlı dahili bakiye. |
+| Protokol Ödül Limiti | Aktif NFT döngüsü için kalan ödül uygunluğu; zincir üzerindeki (on-chain) terim: *Income Limit*. |
+| Token Rezerv Bakiyesi | DA mekaniklerini destekleyen, belirlenen likidite havuzu bakiyesi. |
+| Dev Bakiyesi | Protokol ve operasyonel tahsisler. |
+| Fiyat Etkisi Bakiyesi | Belgelenen fiyat etkisi işlevleri tarafından kullanılan rezerv. |
 
-**Kullanıcı Bakiyeleri:**
-1. **Normal Bakiye (`balance`):** Mevcut USDT için birincil cüzdan. Buradaki fonlar herhangi bir zamanda çekilebilir, NFT satın almak için kullanılabilir veya Kuponlar oluşturmak için kullanılabilir.
-2. **Birikim Bakiyesi (`accumulativeBalance`):** Her pazarlama ödülünün %20'sinin tahakkuk üzerine hemen yatırıldığı zorunlu bir tasarruf hesabı.
-   * **Kullanım:** Yalnızca aynı seviyeli NFT satın almak veya daha yüksek seviyeli bir NFT satın almak için kullanılabilir.
-   * **Ücretler:** Bu bakiyenin NFT satın alımları için kullanılması, **DA Likidite Havuzuna yönlendirilen** %20 ücret gerektirir. Başka bir kullanıcıya transfer etmek de **DA Likidite Havuzuna yönlendirilen** %20 ücret gerektirir. Birikim Bakiyesinin her hareketi Havuza bir giriş üretir ve yeni DA için temel oluşturur.
-   * **120 Günlük Yeniden Dağıtım:** Kullanıcı 120 gün içinde Birikim Bakiyesini kullanmazsa, kullanılmayan bakiye yeniden dağıtım için uygun hale gelir. Bölünme, kullanıcının NFT türüne bağlıdır:
-     - **Normal NFT sahipleri:** **%70'i** yeni DA tokenleri basımı için DA Likidite Havuzuna yönlendirilir; **%30'u** kullanıcının doğrudan yukarı sponsoruna aktarılır.
-     - **Hediye NFT sahipleri:** **%80'i** DA Likidite Havuzuna yönlendirilir; **%20'si** doğrudan yukarı sponsora aktarılır (ayrı `accumulativeClaimDistributeGift` parametresi tarafından yönetilir).
-     - **Kademe kuralı (her iki tür):** Yukarı sponsorun Gelir Limiti tükenmişse (sıfıra eşitse), sponsor payı yapıdaki bir sonraki uygun katılımcıya yukarıya geçer. Zincirdeki hiçbir katılımcının aktif Gelir Limiti yoksa, tüm tutar DA Likidite Havuzuna yönlendirilir.
-
-   <Note>
-     **120 Gün = Garantili Minimum Pencere, Otomatik Sona Erme Değil:** `accumulativeDecayTime` parametresi **yalnızca `withdrawAccumulative()` içinde** kontrol edilir — yönetici/servis tarafından tetiklenen yeniden dağıtım yolu. Harcama veya transfer yollarında değerlendirilmez. Pratikte bu şu anlama gelir:
-
-     - Bir kredilendirmeden sonraki ilk 120 gün boyunca, Birikim Bakiyesi **bütünlük garantisi** sağlar — kimse tarafından yeniden dağıtılamaz.
-     - 120. günden sonra bakiye yeniden dağıtım için **uygun** hale gelir, ancak zamanlayıcı dolduğunda yeniden dağıtım otomatik olarak çalışmaz. Yalnızca SERVICE_ROLE veya ADMIN_ROLE tarafından bu belirli kullanıcı için `withdrawAccumulative()` çağrıldığında gerçekleşir.
-     - **O çağrı gerçekleşene kadar**, "süresi dolmuş" bir Birikim Bakiyesi standart kurallar ve ücretler altında NFT satın almalarında ve yükseltmelerde harcanabilir ve diğer kullanıcılara aktarılabilir kalır.
-
-     Ekibin denetim yanıtında kayıtlı belirtilen niyeti: *"Hedefimiz kullanıcının fonlarının bütünlüğünü belirli bir süre boyunca garanti etmek, onlara bir yaşam döngüsü vermek değil."* 120 günü, sıkı bir zincir üzerindeki son kullanma zaman damgası olarak değil, **olası yeniden dağıtım öncesi minimum garantili pencere** olarak değerlendirin.
-   </Note>
-3. **Limit (`limit`):** Bir NFT'nin üretebileceği maksimum kalan geliri temsil eder.
-
-### Sistem Bakiyeleri
-
-Kullanıcı bakiyelerine ek olarak, akıllı sözleşme üç dahili sistem bakiyesini sürdürür:
-
-- **Dev Bakiyesi (`devBalance`):** Operasyonel finansman için platform ücretlerini ve komisyonlarını biriktirir.
-- **Token Rezerv Bakiyesi (`tokenReserveBalance`):** DA tokenini %100 destekleyen USDT likidite havuzu. Ekosistemdeki her gelir kaynağı bu havuza beslenir.
-- **Fiyat Etkisi Bakiyesi (`priceImpactBalance`):** Belirli ekosistem olayları sırasında DA token fiyat istikrarını yönetmek için kullanılan özel bir rezerv.
-
-Bu bakiyeler tamamen akıllı sözleşme tarafından yönetilir ve herhangi bir bireysel kullanıcı veya yönetici tarafından erişilemez.
-
-### Ödeme Önceliği
-
-Bir satın alma yaparken, akıllı sözleşme fonları şu sırayla düşer:
+## Ödeme Önceliği
 
 <Steps>
-  <Step title="Kuponlar (manuel)">
-    Kullanıcı ödeme sırasında bir kuponu açıkça uygularsa, değeri önce tüketilir. Kuponlar otomatik olarak uygulanmaz.
+  <Step title="Seçilen geçerli Kupon">
+    Kullanıcı ödeme sırasında geçerli bir kuponu açıkça uygularsa, değeri önce tüketilir.
   </Step>
   <Step title="Birikim Bakiyesi">
-    Kullanıcı Birikim Bakiyesini kullanmayı seçerse, %100 kapsamda (yeterli olduğunda) uygulanır veya Normal Bakiye ile birleştirilir. %20 ücret DA Likidite Havuzuna yönlendirilir.
+    Uygun olduğunda ve seçildiğinde, belgelenen ücret kuralları çerçevesinde uygulanır.
   </Step>
   <Step title="Normal Bakiye">
     Kalan herhangi bir tutar Normal Bakiyeden düşülür.
   </Step>
 </Steps>
 
-<Warning>
-  Hediye Kuponları, Birikim Bakiyesi ile **birleştirilemez**. Geçerli kombinasyonlar: [Kupon + Normal], [%100 Birikim] veya [Birikim + Normal].
-</Warning>
-
 <Note>
-  Binance Smart Chain üzerindeki tüm işlemler **BNB** olarak ödenen standart ağ gas ücretleri gerektirir. Kullanıcılar herhangi bir zincir üzerindeki işlemi yürütmek için cüzdanlarında küçük miktarda BNB tutmalıdır (satın almalar, çekmeler, transferler). Bu, ekosistem içinde kullanılan USDT bakiyelerinden ayrıdır.
+  [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) üzerindeki tüm işlemler, ekosistem içinde kullanılan [USDT](https://tether.to/) bakiyelerinden ayrı olarak, **BNB** cinsinden ödenen standart ağ gas ücretleri gerektirir. Sözleşme dağıtımları ve bakiyeler [BscScan](https://bscscan.com/) üzerinde herkese açık olarak doğrulanabilir.
 </Note>

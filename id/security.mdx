@@ -1,21 +1,29 @@
 ---
 title: "Keamanan & Audit"
-description: "Diaudit secara independen oleh CertiK."
+description: "CertiK meninjau smart contract dan versi kode yang termasuk dalam cakupan audit yang dipublikasikan. Laporan akhir bertanggal 28 April 2026. Cakupan audit, temuan, dan pemetaan penerapan dipublikasikan bersama laporan."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="Diaudit oleh CertiK" icon="shield-check">
-    Smart contract RWANFTFI telah diaudit secara independen oleh **CertiK**. Laporan akhir diterbitkan **28 April 2026** — PDF lengkap di bawah, dan di [direktori publik CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="Ditinjau oleh CertiK" icon="shield-check">
+    CertiK meninjau smart contract dan versi kode yang termasuk dalam cakupan audit yang dipublikasikan. Laporan akhir bertanggal **28 April 2026** — PDF lengkap di bawah, dan di [direktori publik CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-CertiK adalah salah satu firma keamanan terlama dan paling mapan di Web3 dan mengaudit sebagian besar protokol utama di ruang ini. Audit dilakukan menggunakan metodologi standar mereka — Static Analysis, Manual Review, dan Formal Verification — dan laporan lengkap diterbitkan secara publik, baik di halaman ini maupun di direktori Skynet milik CertiK sendiri.
+## Detail Audit
 
-## Baca Laporannya
+| Item | Tempat Verifikasi |
+|---|---|
+| Auditor | CertiK |
+| Tanggal laporan | 28 April 2026 |
+| Commit yang diaudit | Hash yang tepat dinyatakan dalam laporan yang dipublikasikan. |
+| Kontrak dalam cakupan | Semua kontrak yang ditinjau tercantum dalam laporan yang dipublikasikan. |
+| Temuan | ID, tingkat keparahan, dan status tercantum dalam laporan yang dipublikasikan. |
+| Remediasi | Setiap temuan yang diselesaikan ditautkan ke perubahan kode yang sesuai dalam laporan. |
+| Pemetaan penerapan | Apakah kontrak produksi saat ini sesuai dengan versi yang diaudit dipublikasikan secara terpisah. |
+| Bug bounty | Status yang dapat diverifikasi secara eksternal saat ini dipublikasikan di saluran resmi. |
 
-Anda memiliki tiga cara independen untuk berinteraksi dengan audit. Tujuannya bukan untuk memberikan hal yang sama tiga kali — melainkan agar tidak ada keraguan bahwa versi pada halaman ini sesuai dengan versi yang diterbitkan CertiK sendiri, dan agar laporan dapat diakses terlepas dari perangkatnya.
+## Bagaimana saya dapat memverifikasi laporan audit?
 
 <CardGroup cols={3}>
   <Card title="Pratinjau Inline" icon="eye">
@@ -44,32 +52,29 @@ Anda memiliki tiga cara independen untuk berinteraksi dengan audit. Tujuannya bu
 </object>
 
 <Info>
-  **Pada Safari dan sebagian besar browser seluler**, pratinjau inline mungkin tidak dirender — browser tersebut tidak menanamkan PDF secara langsung. Gunakan tombol **Unduh PDF** (atau tautan di dalam area pratinjau) untuk membuka laporan di perangkat Anda.
+  **Di Safari dan sebagian besar browser seluler**, pratinjau inline mungkin tidak dirender — browser tersebut tidak menanamkan PDF secara langsung. Gunakan tombol **Unduh PDF** (atau tautan di dalam area pratinjau) untuk membuka laporan di perangkat Anda.
 </Info>
 
-## Perlindungan Akun
+<Note>
+  Audit ini mencakup smart contract dan versi kode dalam cakupan yang dipublikasikan. Ini dengan sendirinya tidak memverifikasi ekonomi protokol, kinerja korporasi, atau hasil bagi pengguna.
+</Note>
 
-Audit mencakup lapisan smart contract on-chain. Pada lapisan aplikasi, akun pengguna juga dilindungi oleh beberapa mekanisme independen:
+## Keamanan Akun Tiga Tingkat
 
-<CardGroup cols={2}>
-  <Card title="Keamanan Tiga Tingkat" icon="layer-group">
-    Perlindungan berjenjang yang memisahkan login, tindakan finansial, dan operasi bernilai tinggi.
+<CardGroup cols={3}>
+  <Card title="Kata Sandi Keuangan" icon="fingerprint">
+    Kata sandi yang terpisah dari kredensial login, diperlukan untuk tindakan keuangan.
   </Card>
-  <Card title="Kode TAN" icon="key">
-    Nomor Otentikasi Transaksi (Transaction Authentication Numbers) sekali pakai yang diperlukan untuk setiap transaksi finansial.
+  <Card title="Kode Otorisasi Transaksi" icon="key">
+    Kode sekali pakai yang diperlukan untuk mengotorisasi transaksi keuangan.
   </Card>
-  <Card title="Kata Sandi Finansial" icon="fingerprint">
-    Kata sandi yang terpisah dari kredensial login Anda, hanya diperlukan untuk memindahkan dana.
-  </Card>
-  <Card title="2FA + Bot Telegram" icon="telegram">
-    Otentikasi dua faktor standar, ditambah verifikasi tindakan melalui bot Telegram resmi.
+  <Card title="Autentikasi Dua Faktor" icon="lock">
+    Autentikasi dua faktor yang didukung untuk perlindungan akun.
   </Card>
 </CardGroup>
 
-<Info>
-  **Transaksi memerlukan dompet Web3.** Anda dapat masuk ke dasbor dengan email dan kata sandi untuk melihat data Anda, tetapi mengeksekusi setiap tindakan finansial memerlukan dompet Web3 yang terhubung (MetaMask, Trust Wallet, atau dompet kompatibel EVM lainnya).
-</Info>
+## Perlindungan Phishing
 
 <Warning>
-  **Waspadai penipu yang menyamar.** Staf RWANFTFI tidak akan pernah menghubungi Anda terlebih dahulu, tidak akan pernah meminta kunci pribadi atau seed phrase Anda, dan tidak akan pernah meminta pembayaran di luar platform resmi. Selalu verifikasi bahwa Anda berada di **rwanftfi.com** sebelum menghubungkan dompet atau memasukkan kredensial.
+  Gunakan hanya domain dan alamat kontrak resmi RWANFTFI. Perwakilan RWANFTFI tidak akan pernah meminta kunci pribadi, frasa seed, atau pembayaran ke alamat dompet tidak resmi. Selalu verifikasi bahwa Anda berada di **rwanftfi.com** sebelum menghubungkan dompet Anda atau memasukkan kredensial.
 </Warning>

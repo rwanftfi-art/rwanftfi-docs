@@ -1,48 +1,44 @@
 ---
 title: "Mining & Farming"
-description: "Von NFTM zu DA in zwei Schritten."
+description: "Wie Inhaber berechtigter Premium- und Elite-NFT-Stufen DA über einen zweistufigen Prozess erwerben: Mining erfasst NFTM, und Farming berechnet DA anhand des eingesetzten NFTM-Betrags, des aktuellen Protokollpreises und der aktiven Parameter."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
 
-Um DA zu erwerben, müssen Nutzer an einem zweistufigen Prozess teilnehmen: Mining und Farming. Nur Premium- (ab Level 5) und Elite-NFTs sind dazu in der Lage.
+## Wie erwerben Sie DA über Mining und Farming?
+
+Nur berechtigte Premium- und Elite-NFT-Stufen haben Zugang zu diesem Prozess. Ein aktives NFT mit einem von null verschiedenen Protokoll-Belohnungslimit ist erforderlich, um einen neuen Zyklus zu starten.
 
 <Info>
-  **NFTM ist kein Token.** Es ist ein interner Mining-Zähler (Metrik), der vom Smart Contract verfolgt wird. In der Benutzeroberfläche sehen Sie einen Fortschrittsbalken und die erwartete NFTM-Menge. NFTM hat keinen Marktwert und kann weder gehandelt noch übertragen werden – es existiert ausschließlich, um in Farming gestakt und in DA umgewandelt zu werden.
-</Info>
-
-<Info>
-  **Ein aktives Einkommenslimit ist zum Minen erforderlich.** Sowohl Mining als auch Farming erfordern, dass das berechtigte NFT ein nicht-null **Einkommenslimit** hat. Wenn Ihr Limit null erreicht hat, wird der Smart Contract den Start eines neuen Mining-Zyklus verweigern. Um das Mining wieder aufzunehmen, frischen Sie zuerst Ihr Einkommenslimit auf – über das Autobuy-3/3-System, eine manuelle Erneuerung auf gleicher Ebene oder ein Upgrade auf ein NFT höherer Stufe – und aktivieren Sie dann den nächsten Zyklus. Das Einkommenslimit ist die Voraussetzung; ohne dieses beginnt der Mining-Ablauf nicht.
+  **NFTM ist ein interner Mining-Zähler.** Es ist kein übertragbarer Token, hat keinen eigenständigen Marktwert und existiert ausschließlich innerhalb des dokumentierten Mining- und Farming-Prozesses.
 </Info>
 
 <Steps>
   <Step title="Mining aktivieren">
-    Starten Sie das Mining auf Ihrem berechtigten NFT. Die Zyklusdauer hängt von Ihrer Stufe ab – von 45 Tagen (HYDRO) bis zu 40 Tagen (INFINITY).
+    Starten Sie einen Zyklus auf einem berechtigten NFT. Die Dauer reicht von 45 Tagen bei Hydro bis 40 Tagen bei Infinity.
   </Step>
   <Step title="NFTM generieren">
-    Ihr NFT generiert NFTM über den Zyklus. Die Stufen 5–7 (HYDRO, QUANTUM, PULSE) haben **1 Mining-Zyklus**, der **10 %** des NFT-Preises in NFTM produziert. Die Stufen 8–10 (AURORA, FLAME, INFINITY) haben **2 Mining-Zyklen** – der erste produziert **10 %** und der zweite **15 %** des NFT-Preises in NFTM.
+    Die Stufen 5–7 generieren derzeit einen 10 %-NFTM-Zyklus; die Stufen 8–10 generieren einen 10 %-ersten Zyklus und einen 15 %-zweiten Zyklus.
   </Step>
-  <Step title="Beanspruchung innerhalb von 72 Stunden">
-    Sobald das Mining abgeschlossen ist, haben Sie genau **72 Stunden** Zeit, um Ihr NFTM in Farming zu staken. Wenn Sie dieses Zeitfenster verpassen, beginnen Sie wieder von vorn.
+  <Step title="Innerhalb von 72 Stunden einsetzen">
+    Abgeschlossenes NFTM muss innerhalb des Beanspruchungsfensters in Farming eingesetzt werden.
   </Step>
   <Step title="DA farmen">
-    Gestaktes NFTM tritt für die gleiche Dauer wie der Mining-Zyklus in Farming ein. Am Ende wird NFTM basierend auf dem aktuellen Preis in DA umgewandelt und Ihrem TokenStack gutgeschrieben.
+    Nach Abschluss des Farmings berechnet das Protokoll den berechtigten DA-Betrag anhand der aktuellen Formel und schreibt ihn dem TokenStack des Nutzers gut.
   </Step>
 </Steps>
 
 <Warning>
-  **Kritisches 72-Stunden-Fenster:** Wenn Sie es versäumen, Ihr NFTM innerhalb von 72 Stunden nach Abschluss des Minings zu staken, ist der gesamte Zyklus verloren. Sie müssen das Mining von vorn beginnen. Setzen Sie sich eine Erinnerung.
+  **72-Stunden-Beanspruchungsfenster:** Wird abgeschlossenes NFTM nicht innerhalb von 72 Stunden eingesetzt, wird der Zyklus gemäß den Smart-Contract-Regeln zurückgesetzt.
 </Warning>
 
 <Warning>
-  **Vor dem Upgrade beanspruchen — nicht beanspruchte Farming-Belohnungen werden zerstört:** Jeder NFT-Kauf oder jedes Upgrade löst `terminate()` auf den Mining-/Farming-Zustand des Nutzers aus. Per Design stoppt `terminate()` die aktive Sitzung und **zerstört alle nicht beanspruchten Farming-Belohnungen**, einschließlich Belohnungen, die bereits ausgereift, aber noch nicht beansprucht wurden. Das Team hat dies in der Audit-Antwort als beabsichtigt bestätigt: *„It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
-
-  **Betriebsregel:** Wenn Sie eine ausgereifte, aber noch nicht beanspruchte Farming-Belohnung haben, **beanspruchen Sie sie zuerst** und kaufen oder upgraden Sie erst danach das NFT. Andernfalls geht die Belohnung in dem Moment dauerhaft verloren, in dem die neue NFT-Transaktion bestätigt wird.
+  **Vor dem Upgrade beanspruchen:** Ein NFT-Kauf oder -Upgrade löst `terminate()` auf dem aktuellen Mining- und Farming-Zustand aus. Beanspruchen Sie jedes verfügbare ausgereifte Ergebnis, bevor Sie das NFT ersetzen oder aufwerten.
 </Warning>
 
 <Warning>
-  **Pause durch Deflationszyklus:** Zweimal jährlich löst das System einen Deflationszyklus mit einer Dauer von bis zu 30 Tagen aus. Während dieser Periode wird der **Start neuer Zyklen** für NFTM-Mining, Staking und DA-Generierung ausgesetzt. Bereits vor Beginn des Deflationszyklus laufende Zyklen **werden fortgesetzt und planmäßig abgeschlossen** – der Fortschritt geht nicht verloren. Planen Sie den Start neuer Zyklen rund um diese geplanten Zeiträume.
+  **Pause durch Deflationszyklus:** Während eines aktiven Deflationszyklus kann der Start neuer Zyklen pausiert werden. Bestehende Zyklen laufen weiter und werden planmäßig abgeschlossen.
 </Warning>
 
 <MiningPipeline />

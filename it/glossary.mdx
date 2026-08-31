@@ -1,125 +1,24 @@
 ---
 title: "Glossario"
-description: "Definizioni di ogni termine specifico del protocollo RWANFTFI: DA, NFTM, Income Limit, Sponsor Bonus, Saldo Congelato, Compressione, Saldo Cumulativo e altro."
+description: "Definizioni dei termini specifici del protocollo utilizzati in tutta la documentazione RWANFTFI: DA, NFTM, Limite di Ricompense del Protocollo, Sponsor Bonus, Frozen Balance, Saldo Cumulativo e altro."
 icon: "book"
 ---
 
-Un'unica fonte di verità per ogni termine utilizzato nella documentazione RWANFTFI. Ogni voce è scritta per essere autosufficiente — puoi copiare una definizione in qualsiasi contesto e avrà ancora senso.
+Un'unica fonte di verità per i termini utilizzati in tutta la documentazione RWANFTFI.
 
-## Token e asset
-
-**DA (Asset Deflazionario).** Il motore economico dell'ecosistema. Un token BEP20 con hard cap fissato a **21.000.000 unità** e garantito al 100% da un pool di liquidità in USDT. Il prezzo segue la formula `Prezzo = Liquidità ÷ Offerta Circolante`. Il DA non è trasferibile peer-to-peer; può essere solo venduto (manualmente o automaticamente), usato come collaterale per il lending o rimborsato. Il 100% del DA venduto viene bruciato in modo permanente. Vedi [Meccanica del Token DA](/it/da-token-mechanics).
-
-**NFTM.** Un contatore interno di mining tracciato dallo smart contract, **non un token**. NFTM non ha valore di mercato, non può essere scambiato o trasferito, ed esiste solo per essere messo in staking nel Farming, dove si converte in DA al prezzo corrente. Vedi [Mining e Farming](/it/da-mining-farming).
-
-**GovToken.** Il token di governance. Standard ERC20Votes, offerta permanentemente fissata di **10.000.000**, nessun minting dopo il deployment. Il potere di voto viene auto-delegato al destinatario ad ogni trasferimento; non è esposta alcuna funzione `delegate()` manuale. Vedi [Governance](/it/governance).
-
-**NFT (livello RWANFTFI).** Una chiave di accesso basata su membership al protocollo. Esistono 10 livelli — **Genesis, Advance, Ascend, Eclipse, Hydro, Quantum, Pulse, Aurora, Flame, Infinity** — con prezzi da 28 a 24.000 USDT. Un NFT attivo per account; l'upgrade sostituisce il precedente. Vedi [Ecosistema NFT](/it/nft-ecosystem).
-
-**NFT Regalo.** Un NFT promozionale non vendibile assegnato tramite promozioni o conseguimento di Career Rank. Non può essere acquistato. Fino a 100 per indirizzo (regolabile dalla DAO). Viene mintato con ID token pari per evitare collisioni con gli NFT Regolari (ID dispari).
-
-**NFT Ambassador.** Limitato a 100 unità (Q4 2026). Nessun Income Limit, sistema di ricompense dedicato, non trasferito in caso di Vendita del Business.
-
-**NFT VIP Edition.** Limitato a 100 unità (Q4 2026). Accesso concesso al conseguimento del Career Rank **Leader** o superiore.
-
-**USDT.** Lo stablecoin utilizzato come unità di conto principale e come backing al 100% del token DA. RWANFTFI utilizza USDT sullo standard BEP20.
-
-## Guadagni e limiti
-
-**Income Limit.** Il reddito cumulativo massimo che un NFT attivo può generare prima del rinnovo. Viene consumato sia dalle ricompense di marketing che dalle vendite di DA. Quando raggiunge zero, il titolare smette di ricevere tutte le ricompense di marketing e perde la possibilità di vendere DA manualmente. Si rinnova tramite Autobuy, riacquisto manuale dello stesso livello o upgrade.
-
-**Sponsor Bonus.** Commissione diretta pagata all'invitante sull'acquisto NFT di un partner. **30%** del prezzo NFT su una nuova vendita (Fase 1) o **20%** su un riacquisto / Autobuy. La Fase 2 riduce lo Sponsor Bonus sulle nuove vendite al 20%.
-
-**Tree Distribution.** Ricompense per livello pagate ai titolari in upline sull'acquisto NFT di un partecipante alla struttura. Le percentuali variano dallo 0% (Livello 1) fino al 5% (Livello 15). I Livelli 16–22 si sbloccano nella Fase 2. La profondità massima raggiungibile dipende dal livello NFT del titolare.
-
-**Matching Bonus.** Un flusso secondario che paga **5% + 5% + 5%** su tre livelli del reddito di marketing dei partner diretti di un titolare. Il Livello 1 si sblocca con Eclipse (L4); il Livello 2 si sblocca con 1.000 USDT di vendite personali cumulative; il Livello 3 si sblocca con 3.000 USDT di vendite personali cumulative.
-
-**Compressione.** Quando un upline non si qualifica per una ricompensa (Income Limit esaurito o livello NFT troppo basso), la ricompensa passa verso l'alto al successivo partecipante qualificato. La ricompensa saltata viene contrassegnata come **Reddito Perso** per l'utente scavalcato.
-
-**Reddito Perso.** Una ricompensa che un utente avrebbe potuto ricevere ma non ha ricevuto, perché il suo Income Limit era zero o la profondità del suo NFT era insufficiente. Tracciato per trasparenza; i fondi stessi scorrono verso l'alto tramite compressione.
-
-## Saldi
-
-**Saldo Regolare (`balance`).** Il wallet USDT principale dell'utente all'interno dello smart contract. Prelevabile in qualsiasi momento; utilizzabile per acquisti NFT o per generare Voucher.
-
-**Saldo Cumulativo (`accumulativeBalance`).** Un conto di risparmio obbligatorio in cui il **20%** di ogni ricompensa di marketing viene accreditato automaticamente. Può essere usato solo per acquistare un NFT dello stesso livello o fare upgrade a un livello superiore. Il suo utilizzo comporta una commissione del **20%** indirizzata al Pool di Liquidità DA; il trasferimento comporta la stessa commissione del 20%. Se non utilizzato per **120 giorni**, diventa idoneo alla redistribuzione (NFT Regolare: 70% al pool / 30% all'upline; NFT Regalo: 80% / 20%).
-
-**Saldo Congelato.** Uno stato di trattenuta di 72 ore per le commissioni di marketing che superano l'Income Limit residuo del titolare, ma solo quando la fonte è il primo acquisto di un invitato diretto o il suo Autobuy. Viene rilasciato all'upgrade NFT; alla scadenza, il 70% va al Pool di Liquidità DA e il 30% allo sponsor diretto in upline. Vedi [Saldo Congelato](/it/frozen-balance).
-
-**Limite (`limit`).** Il campo on-chain che rappresenta il reddito massimo residuo che un NFT può generare. Equivalente a "Income Limit residuo".
-
-**Saldo Riserva Token (`tokenReserveBalance`).** Il pool USDT a livello di sistema che garantisce al 100% il token DA. Alimentato da oltre 14 flussi di ricavi nell'ecosistema.
-
-**Saldo Dev (`devBalance`).** Accumula commissioni e proventi della piattaforma per il finanziamento operativo. Non accessibile a singoli utenti o amministratori al di fuori delle procedure di governance.
-
-**Saldo Price Impact (`priceImpactBalance`).** Una riserva utilizzata per gestire la stabilità del prezzo del DA durante specifici eventi dell'ecosistema (ad esempio, l'evento Price Impact attivato dalla DAO).
-
-## Ciclo di vita e automazione
-
-**Autobuy (sistema 3/3).** Un meccanismo automatico di rinnovo NFT. Per i Livelli 1–8, sono consentiti fino a **3 rinnovi automatici** dopo l'acquisto manuale originale, quindi lo stesso livello NFT può essere attivo per un massimo di 4 volte in totale (1 manuale + 3 automatici). Per i livelli Elite (L9–L10), Autobuy è **illimitato**. Il contatore 3/3 si azzera a 0/3 quando viene acquistato un NFT di livello superiore.
-
-**Vendita del Business.** Un processo autorizzato dalla DAO per trasferire l'intera struttura di partner-tree a un altro utente. Subordinato a una **commissione di trasferimento fissa pagata dal venditore** (attualmente 500 USDT, regolabile dalla DAO 0–500). L'acquirente non paga alcuna commissione on-chain e riceve la struttura all'esecuzione. Parametro sottostante: `businessTransferFee`.
-
-**Voucher (Voucher Regalo).** Un coupon generato dall'utente valido per **365 giorni** con un minimo applicato dallo smart contract di **5 USDT**. Copre fino al 100% di un acquisto NFT. Trasferibile con commissione 0%, eccetto nelle **ultime 24 ore** prima della scadenza. Non combinabile con il Saldo Cumulativo. Se non utilizzato entro 365 giorni → 100% al Pool di Liquidità DA.
-
-**Career Rank.** Una metrica di progressione utilizzata per sbloccare benefici come gli NFT Ambassador o VIP e ricompense speciali. Si ottiene tramite l'attività cumulativa nell'ecosistema.
-
-## Meccanismi del protocollo
-
-**Mining.** Il primo passo per l'acquisizione di DA. L'utente attiva il Mining su un NFT Premium o Elite (L5+). Il ciclo genera NFTM in un periodo fisso (45 giorni per Hydro, fino a 40 giorni per Infinity). I Livelli 5–7 hanno 1 ciclo di mining che produce il 10% del prezzo NFT in NFTM. I Livelli 8–10 hanno 2 cicli che producono il 10% e poi il 15%.
-
-**Farming.** Il secondo passo per l'acquisizione di DA. NFTM viene messo in staking per la stessa durata del ciclo di mining. Al completamento, NFTM si converte in DA al prezzo corrente e viene accreditato nel TokenStack dell'utente. Deve essere messo in staking entro **72 ore** dal completamento del mining altrimenti il ciclo va perso.
-
-**Ciclo di Auto-Vendita.** La vendita progressiva in quattro periodi del saldo DA di un utente se non venduto manualmente. Attualmente: 25% dopo 120 giorni → 40% del residuo dopo altri 90 → 50% del residuo dopo altri 90 → 100% del residuo dopo gli ultimi 65 giorni. Totale: 365 giorni. L'utente riceve il 70% del valore in USDT; il 100% dei token viene bruciato.
-
-**Vendita Manuale.** Una vendita di DA avviata dall'utente. Il 100% dei token venduti viene bruciato; l'utente riceve il **75%** del valore in USDT (rispetto al 70% sulla auto-vendita). Il restante 25% è una commissione di protocollo che rimane nel pool come backing.
-
-**Lending Multi-Batch.** Ogni batch DA di ogni ciclo di mining funge da **collaterale indipendente**. I prestiti vengono emessi a un **LTV fisso del 70%** sull'intero batch - il prestito parziale su parte di un batch non è supportato - e comportano una commissione una tantum del 5% all'emissione. Un dato batch può essere dato in garanzia **solo una volta nel corso della sua vita**: dopo l'apertura di un prestito, quel batch non può essere usato di nuovo come collaterale, nemmeno dopo il rimborso completo. Più prestiti simultanei sono quindi possibili solo su **batch diversi**, mai sullo stesso batch. Il rimborso parziale è supportato - il mutuatario può liberare una parte del collaterale in qualsiasi momento prima che il batch entri nel ciclo di auto-vendita rimborsando la quota proporzionale del debito denominato in `loan.price`. Se un singolo prestito va in default, viene bruciato solo il collaterale di quel batch; gli altri batch e saldi rimangono intatti.
-
-**Default sul Lending.** Mancato rimborso prima che il batch dato in garanzia entri nel ciclo di auto-vendita. Il DA dato in garanzia procede quindi secondo il calendario standard a quattro periodi (120 / 90 / 90 / 65 giorni, 365 giorni totali), bruciando il 25%, poi il 40%, poi il 50%, poi il 100% del DA dato in garanzia **rimanente** per periodo. Il 100% del DA bruciato viene distrutto in modo permanente e il valore USDT al `loan.price` per ogni porzione bruciata confluisce nel Pool di Liquidità DA. Il mutuatario trattiene l'USDT ricevuto all'emissione e perde la porzione bruciata del collaterale proporzionalmente alla durata del default. Il default non è tutto-o-niente: tra due periodi di auto-vendita il mutuatario può ancora chiamare `repay()` e recuperare il DA dato in garanzia **rimanente** pagando solo per ciò che è ancora in garanzia. Gli altri batch DA e saldi rimangono intatti.
-
-**Soglia di Idoneità al Prestito.** Un **controllo on-chain progressivo eseguito prima di ogni nuova chiamata `loan()`** (`_getTimeToNextAutosale(stack) >= 30 days`): il batch DA da dare in garanzia deve avere ancora almeno **30 giorni** prima del suo prossimo trigger di auto-vendita programmato, altrimenti la chiamata viene annullata. Questo è un **requisito di idoneità** che controlla l'accesso al lending, non un **termine del prestito** - un prestito aperto non ha scadenza fissa e può essere rimborsato in tutto o in parte in qualsiasi momento prima che il batch entri nel ciclo di auto-vendita.
-
-**Commissione di Prestito (`loanFee`).** Una commissione una tantum del **5%** addebitata all'emissione del prestito e indirizzata direttamente al Pool di Liquidità DA. Il rimborso - totale o parziale - non attiva nuovamente la commissione. Memorizzata on-chain come parametro `loanFee` dedicato (non come parte di alcuna commissione generica), il che consente alla DAO di modulare l'economia del lending indipendentemente dalle tasse di marketing, dalle commissioni cumulative o da qualsiasi altra commissione. Range DAO corrente: 0% - 5%.
-
-**Prezzo del Prestito (`loan.price`).** Il prezzo del DA rilevato da `getPrice()` all'emissione del prestito e memorizzato sullo stack come `ts.loan.price`. Tutta la matematica successiva del prestito - rimborso completo, rimborso parziale e liquidazione in caso di default - è denominata rispetto a questo prezzo, non al prezzo di mercato corrente. Se il prezzo di mercato del DA raddoppia o triplica mentre il prestito è aperto, l'obbligazione in USDT non aumenta - rimane ancorata al `loan.price`. Questo è il meccanismo che consente ai mutuatari di estrarre liquidità USDT al valore odierno del DA mantenendo il rialzo sulla futura apprezzazione.
-
-**Rimborso Parziale.** L'opzione di riscattare solo una parte di un prestito garantito da DA anziché chiuderlo per intero. Il mutuatario chiama `repay()` per una quantità scelta di DA dato in garanzia (inferiore o uguale al totale attualmente in garanzia) e paga `DA_rilasciato × loan.price × 0,70` USDT. Il DA rilasciato ritorna alla parte attiva dello stesso batch; il DA rimanente rimane in garanzia a fronte di un debito proporzionalmente ridotto. Non viene addebitata alcuna commissione aggiuntiva - la commissione del 5% è già stata pagata all'emissione. Il rimborso parziale è richiamabile in qualsiasi fase della vita del prestito, anche dopo l'attivazione dei trigger di auto-vendita (nel qual caso `_processExpiredStacks()` viene eseguito prima, bruciando la quota corrispondente di collaterale prima che il rimborso proceda sul residuo post-burn).
-
-**Ciclo Deflazionario.** Un evento programmato che si attiva due volte all'anno, della durata massima di 30 giorni, che sospende il **lancio di nuovi** cicli di mining NFTM, staking e generazione DA. I cicli già in corso prima dell'inizio del Ciclo Deflazionario continuano e si completano come previsto. Durante il Ciclo, i burn giornalieri di DA intensificano la scarsità.
-
-**Seed Supply.** Una piccola riserva permanente di DA pre-depositata al lancio. Permanente e non vendibile, esclusa dall'offerta circolante, esiste esclusivamente per garantire un denominatore non zero in `Prezzo = Liquidità ÷ Offerta Circolante` — prevenendo la divisione per zero nel caso limite estremo in cui ogni altro token sia stato bruciato.
-
-## Governance e ruoli
-
-**DAO (Organizzazione Autonoma Decentralizzata).** L'organo di governance on-chain di RWANFTFI. Supportato da 10.000.000 di GovToken. Soglia per presentare una proposta: **30%** dell'offerta totale. Soglia di approvazione: maggioranza del **50%**.
-
-**Guardiani.** I partecipanti primari di governance nell'allocazione attuale. **20 wallet**, ognuno con 350.000 GovToken (3,5%). La futura ridistribuzione riduce questo all'1,5% per Guardiano man mano che vengono aggiunti i Leader.
-
-**Leader.** Una futura categoria di partecipanti di governance (previsti **80 wallet** allo 0,5% ciascuno), definiti come contributori attivi dell'ecosistema, costruttori di community, partner strategici e operatori con un impatto misurabile.
-
-**Evento Price Impact.** Un evento attivato dalla DAO durante il quale i guadagni degli utenti vengono indirizzati al Pool di Liquidità DA per rafforzare il backing e la stabilità del prezzo del DA.
-
-**Blocco Account.** Un'azione di moderazione votata dalla DAO che disabilita la funzionalità NFT sulla piattaforma. L'NFT stesso rimane nel wallet dell'utente — la piattaforma non può sequestrare NFT. Lo sblocco richiede un voto separato della DAO.
-
-## Ruoli dello smart contract
-
-**ADMIN_ROLE.** Può concedere/revocare altri ruoli e modificare parametri di sistema critici entro i range fissati al deployment.
-
-**SERVICE_ROLE.** Eseguito da script di backend per attività automatizzate: risoluzione degli stack scaduti, elaborazione dei depositi cross-chain, attivazione della redistribuzione del saldo cumulativo.
-
-**SIGNER_ROLE.** Utilizzato per la verifica della firma crittografica per autorizzare azioni specifiche (ad esempio, i trasferimenti di Voucher).
-
-**MINTER_ROLE.** Autorizzato a mintare token o NFT specifici.
-
-## Architettura
-
-**Diamond Pattern (EIP-2535).** L'architettura smart contract utilizzata da RWANFTFI. Suddivide le funzionalità in più moduli ("Facet") accessibili tramite un singolo contratto proxy — bypassando il limite di dimensione del contratto di 24KB e abilitando l'aggiornabilità per modulo tramite Facet cut. Specifica: [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
-
-**Facet.** Un modulo smart contract indipendente accessibile tramite il proxy Diamond. RWANFTFI utilizza **7 Facet**: AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet.
-
-**TokenReserve.** Il contratto che gestisce il token DA. Aggiornabile tramite Transparent Proxy (aggiornamenti della logica senza cambiare l'indirizzo).
-
-**Codice TAN (Transaction Authentication Number).** Un codice monouso necessario per autorizzare ogni transazione finanziaria a livello applicativo. Indipendente dall'ambito di audit on-chain.
-
-**Suddivisione 75/20/5.** La suddivisione standard dei crediti per le ricompense di marketing all'interno dell'Income Limit del titolare: **75%** al Saldo Regolare, **20%** al Saldo Cumulativo, **5%** al Pool di Liquidità DA.
+| Termine | Definizione |
+|---|---|
+| **Saldo Cumulativo** | Saldo interno vincolato che riceve la quota configurata delle ricompense idonee dei partner. |
+| **Auto-Sell** | Elaborazione programmata del DA residuo su quattro periodi di protocollo. |
+| **Autobuy** | Rinnovo automatico di un NFT idoneo quando il suo Limite di Ricompense del Protocollo è esaurito. |
+| **DA** | Token di utilità di protocollo non trasferibile, BEP-20, con un'offerta massima di 21.000.000 di unità. |
+| **Frozen Balance** | Buffer temporaneo di 72 ore per uno Sponsor Bonus qualificante che supera il Limite di Ricompense del Protocollo residuo. |
+| **GovToken** | Token di governance ERC20Votes a offerta fissa. |
+| **Matching Bonus** | Ricompensa condizionale su un massimo di tre livelli qualificanti. |
+| **Reddito Perso** | Attività non accreditata perché le condizioni di idoneità applicabili non sono state soddisfatte. |
+| **NFTM** | Contatore interno di Mining utilizzato nel calcolo del Farming. |
+| **Rete Partner** | Struttura gestita dallo smart contract, utilizzata per definire il posizionamento e l'idoneità alle ricompense. |
+| **Profondità della Rete Partner** | Profondità massima di rete inclusa nei calcoli di distribuzione idonei. |
+| **Limite di Ricompense del Protocollo** | Massimo cumulativo di ricompense idonee accreditate durante un ciclo NFT; termine on-chain: *Income Limit*. |
+| **Sponsor Bonus** | Ricompensa condizionale da un acquisto NFT diretto qualificante. |
+| **Tree Distribution** | Nome on-chain per la Distribuzione della Rete Partner — il calcolo della ricompensa di protocollo per livello entro la profondità di rete idonea. |

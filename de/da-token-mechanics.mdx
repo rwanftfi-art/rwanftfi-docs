@@ -1,200 +1,128 @@
 ---
 title: "DA-Token-Mechanik"
-description: "Das ausschließlich aufwärts gerichtete Preismodell."
+description: "DA ist ein nicht übertragbarer BEP-20-Protokoll-Utility-Token mit einem maximalen Angebot von 21.000.000 Einheiten. Sein interner Protokollpreis wird anhand des designierten USDT-Liquiditätspool-Guthabens und des umlaufenden DA-Angebots berechnet."
 icon: "coins"
 ---
-import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
 
+DA ist ein nicht übertragbarer BEP-20-Protokoll-Utility-Token mit einem maximalen Angebot von 21.000.000 Einheiten. Sein interner Protokollpreis wird anhand des designierten USDT-Liquiditätspool-Guthabens und des umlaufenden DA-Angebots berechnet.
 
 <CardGroup cols={2}>
-  <Card title="21 Mio. Hard Cap" icon="cube">
-    Maximales Angebot für immer fixiert. Keine Inflation, keine Prägung.
+  <Card title="Maximales Angebot von 21 Mio." icon="cube">
+    DA-Ausgabe kann nur über definierte Protokollmechanik erfolgen und darf das Angebot nicht über das Limit hinaus erhöhen.
   </Card>
-  <Card title="100 % USDT-gedeckt" icon="shield-check">
-    Jeder DA-Token ist durch echte USDT im Liquiditätspool gedeckt.
+  <Card title="USDT-Liquiditätspool" icon="droplet">
+    Die DA-Mechanik wird durch einen designierten [USDT](https://tether.to/)-Liquiditätspool auf der [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) unterstützt.
   </Card>
-  <Card title="Verbrennung bei jedem Verkauf" icon="fire">
-    100 % der verkauften Tokens werden dauerhaft verbrannt. Der Nutzer erhält 75 % (manuell) bzw. 70 % (automatisch) des Werts in USDT. Die verbleibenden 25 % (manuell) bzw. 30 % (automatisch) sind eine Protokollprovision, die als Deckung im Pool verbleibt – dies ist das, was den DA-Preis nach oben treibt.
+  <Card title="Burn bei berechtigten Verkäufen" icon="fire">
+    Über berechtigte Verkäufe verarbeitetes DA wird gemäß den aktuellen Regeln verbrannt.
   </Card>
-  <Card title="Keine P2P-Transfers" icon="ban">
-    DA kann nur verkauft, verliehen oder zurückgezahlt werden – keine Peer-to-Peer-Übertragungen.
+  <Card title="Keine P2P-Übertragungen" icon="ban">
+    DA kann nicht direkt zwischen Nutzern übertragen werden.
   </Card>
 </CardGroup>
 
-## Die „Nur-Aufwärts"-Preisformel
+## Wie funktioniert die Protokollpreisformel?
 
-Preis = Liquidität ÷ umlaufendes Angebot
+DA-Protokollpreis = designiertes USDT-Liquiditätspool-Guthaben ÷ umlaufendes DA-Angebot.
 
-Jedes Mal, wenn DA verkauft wird, werden Tokens verbrannt (das Angebot sinkt), während USDT im Pool bleibt (die Liquidität bleibt gleich oder wächst). Weniger Tokens ÷ gleich viel oder mehr USDT = höherer Preis pro Token.
-
-<Info>
-  **So funktioniert es:** 200 DA im Umlauf, 200 USDT im Liquiditätspool. Preis = 1,00 USDT pro DA. Ein Nutzer verkauft 100 DA. Der Pool zahlt 70 USDT aus (70 % von 100 USDT Wert). Alle 100 DA werden verbrannt. Ergebnis: 100 DA verbleiben, 130 USDT im Pool. Neuer Preis = 130 ÷ 100 = **1,30 USDT pro DA**.
-</Info>
-
-<Tip>
-  Die 5 %-Provision auf alle Marketing-Belohnungen fließt direkt in den DA-Liquiditätspool – getrennt von den Verkaufsprozentsätzen. Zusätzliche Liquidität kommt aus Lending-Gebühren, RWA-Einnahmen und FinPro-Erlösen.
-</Tip>
+Der Preis ändert sich, wenn sich entweder die Liquidität oder das umlaufende Angebot ändert. Die Formel garantiert für sich genommen weder Liquidität noch Rücknahmeverfügbarkeit noch ein bestimmtes Nutzerergebnis.
 
 <Info>
-  **Seed-Supply-Schutz:** Eine kleine permanente DA-Reserve – die **Seed Supply** – wird beim Start als technische Absicherung der Preisformel im Protokoll vorab hinterlegt.
-
-  - **Permanent und nicht verkaufbar.** Die Seed Supply ist auf Protokollebene gesperrt: Sie **kann nicht verbrannt werden**, **kann nicht verkauft werden** (manuell oder per Auto-Verkauf) und ist **von Auto-Verkaufs-Zyklen ausgeschlossen**.
-  - **Außerhalb des Umlaufs.** Sie wird **nicht als umlaufendes Angebot gezählt** und nimmt niemals an Nutzerguthaben, Farming, Lending oder Marketing-Verteilungen teil.
-  - **Garantiert einen von null verschiedenen Nenner.** Da `Preis = Liquidität ÷ umlaufendes Angebot`, darf die Formel niemals durch null dividieren. Die Seed Supply garantiert jederzeit `totalSupply > 0`, sodass die Preisfunktion immer definiert ist – selbst im extremen Grenzfall, in dem jeder andere Token im Umlauf verbrannt wurde.
-  - **Nur Grenzfall-Schutz.** Im Normalbetrieb hat die Seed Supply keinen Einfluss auf die Preisbildung. Sie existiert ausschließlich als deterministischer Mindestwert, der `getPrice()` wohldefiniert hält, wenn Liquidität vorhanden ist, das umlaufende Angebot jedoch andernfalls null erreichen würde.
+  **Seed Supply** ist eine kleine permanente Reserve, die als technische Absicherung für die Preisfunktion dient. Sie ist vom Nutzerumlauf, von Verkäufen, Farming, Lending und Partnerverteilungen ausgeschlossen.
 </Info>
 
-## Quellen des Liquiditätspools
-
-Der Liquiditätspool ist das Fundament der DA-Ökonomie. Er wird aus mehreren Quellen im gesamten RWANFTFI-Ökosystem gespeist und gewährleistet ein kontinuierliches Wachstum der Token-Deckung. Jede Protokoll-Einnahmequelle fließt in einen einzigen Pool und verstärkt die Formel Preis = Liquidität ÷ Angebot.
+## Wie wird der DA-Liquiditätspool finanziert?
 
 <AccordionGroup>
   <Accordion title="NFT-Aktivität">
-    **NFT-Käufe** – 20 % jedes NFT-Kaufs werden automatisch an den Liquiditätspool zur Prägung neuer DA weitergeleitet.
-
-    **Rückkauf & Autobuy** – zusätzliche 20 % aus jedem wiederholten oder automatischen NFT-Kauf fließen in den Liquiditätspool. Dies fördert die Erneuerung von Positionen und unterstützt das Systemwachstum.
+    Zuweisungen aus NFT-Käufen und Wiederholungskäufen gemäß den aktuellen Vertragsparametern.
   </Accordion>
 
   <Accordion title="Gebühren & Provisionen">
-    **Marketing-Belohnungs-Steuer** – 5 % aller Marketing-Belohnungen im Empfehlungsnetzwerk werden automatisch an den Liquiditätspool weitergeleitet. Netzwerkaktivität stärkt direkt die DA-Deckung.
-
-    **Übertragungsgebühr für das Akkumulative Guthaben** – beim Übertragen des Akkumulativen Guthabens an einen anderen Nutzer werden 20 % des Übertragungsbetrags an den DA-Liquiditätspool weitergeleitet. Jede Bewegung des Akkumulativen Guthabens – sei es bei einem NFT-Kauf oder bei der Übertragung zwischen Wallets – erzeugt einen 20 %-Zufluss in den Pool.
-
-    **Kaufgebühr für das Akkumulative Guthaben** – beim Kauf eines NFTs unter Verwendung des Akkumulativen Guthabens werden 20 % des integrierten Betrags an den DA-Liquiditätspool zur Prägung neuer DA weitergeleitet. Beispiel: 898 USDT auf dem Akkumulativen Guthaben – bei der Integration in einen NFT-Kauf gehen 718 USDT in die NFT-Kosten und 180 USDT (20 % von 898) fließen in den DA-Liquiditätspool. Jeder solche Kauf füllt den Pool wieder auf und schafft die Grundlage für neue DA.
-
-    **Lending-Provision** – beim Aufnehmen eines Kredits zahlt der Kreditnehmer eine einmalige Provision von 5 % an den Liquiditätspool. Beispiel: Kredit 1.000 USD, Kreditnehmer erhält 950 USD, 50 USD gehen in den Pool. Die Provision wird bei jedem neuen Kredit erhoben.
+    - Partner-Belohnungsgebühr.
+    - Übertragungs- und Nutzungsgebühren des Akkumulativen Guthabens.
+    - Lending-Gebühren und Protokollprovisionen aus DA-Verkäufen.
   </Accordion>
 
   <Accordion title="Abgelaufene & ungenutzte Mittel">
-    **Auto-Verkauf bei null Einkommenslimit** – wenn der DA-Auto-Verkauf ausgelöst wird und der Nutzer ein Einkommenslimit von null auf seinem NFT hat, gehen 100 % der Erlöse entweder an den Liquiditätspool oder zur DA-Verbrennung (genauer Mechanismus durch DAO-Einstellungen bestimmt).
-
-    **Abgelaufene Gutscheine** – wenn Gutscheine 365 Tage lang ungenutzt bleiben, werden 100 % der Mittel an den Liquiditätspool weitergeleitet. Dies verhindert Mittel im Leerlauf und beseitigt inaktive Verbindlichkeiten.
-
-    **Ungenutztes Akkumulatives Guthaben** – wenn das Akkumulative Guthaben 120 Tage lang ungenutzt bleibt, werden 70 % der Mittel an den Liquiditätspool zur Prägung neuer DA weitergeleitet.
+    - Abgelaufene Gutscheine und Guthaben, weitergeleitet gemäß den aktuellen Smart-Contract-Regeln.
+    - Auto-Sell-Erlöse, verarbeitet, wenn der Inhaber kein verbleibendes Protokoll-Belohnungslimit hat, gemäß der aktiven DAO-Einstellung.
   </Accordion>
 
   <Accordion title="Externe Einnahmen">
-    **SWAP-Provisionen** – Provisionen aus allen Tausch- (SWAP-) Operationen werden automatisch an den Liquiditätspool weitergeleitet.
-
-    **Debitkarten-Provisionen** – Provisionen aus dem Debitkartenprogramm fließen in den Liquiditätspool und schaffen einen echten Cashflow aus der externen Wirtschaft.
-
-    **RWA-Einnahmen** – ein Teil der Einnahmen aus Immobilien, Mieteinnahmen, Gewerbeanlagen und anderen realen Vermögenswerten wird an den Liquiditätspool weitergeleitet, was das System an die Realwirtschaft bindet.
-
-    **FinPro-Einnahmen** – ein Teil der Gewinne aus Finanzprodukten (Lending, Anlageprodukte, Finanzdienstleistungen) fließt in den Liquiditätspool.
-
-    **Ökosystem-Einnahmen** – ein Teil der gesamten Protokolleinnahmen kann an den Liquiditätspool geleitet oder zur Schaffung zusätzlicher Liquidität für die Prägung neuer DA verwendet werden.
+    Swap-Provisionen, Debitkarten-Provisionen, RWA-Erträge, FinPro-Erlöse und andere Ökosystem-Einnahmen werden erst als aktiv ausgewiesen, nachdem die Integration und der Einnahmefluss öffentlich dokumentiert sind. Bis dahin bleiben sie Roadmap-Punkte oder von Dritten abhängige Quellen.
   </Accordion>
 </AccordionGroup>
 
-## DA-Burn-Mechanik
-
-Das DA-Burning ist der zentrale deflationäre Mechanismus – es reduziert das Token-Angebot und erzeugt einen anhaltenden Aufwärtsdruck auf den Wert des Vermögenswerts.
+## Wie wird DA verbrannt?
 
 <CardGroup cols={3}>
   <Card title="Manueller Verkauf" icon="fire">
-    100 % des verkauften DA werden dauerhaft verbrannt. Der Nutzer erhält 75 % des Werts in USDT. Die verbleibenden 25 % sind eine Protokollprovision, die als Deckung im Pool verbleibt und das Preiswachstum vorantreibt.
+    Verarbeitetes DA wird verbrannt. Der Nutzer erhält die aktuelle 75 %-Auszahlung; der verbleibende Protokollanteil folgt der aktiven Zuweisung.
   </Card>
-  <Card title="Auto-Verkauf" icon="clock">
-    100 % des automatisch verkauften DA werden dauerhaft verbrannt. Der Nutzer erhält 70 % des Werts in USDT. Die verbleibenden 30 % sind eine Protokollprovision, die als Deckung im Pool verbleibt und das Preiswachstum vorantreibt. Wird progressiv aus dem verbleibenden Guthaben über 4 Perioden ausgelöst (insgesamt 365 Tage / 1 Jahr).
+  <Card title="Auto-Sell" icon="clock">
+    Verarbeitetes DA wird verbrannt. Der Nutzer erhält die aktuelle 70 %-Auszahlung; der verbleibende Protokollanteil folgt der aktiven Zuweisung.
   </Card>
   <Card title="Lending-Ausfall" icon="ban">
-    Wenn ein Kredit nicht zurückgezahlt wird, wird das als Sicherheit hinterlegte DA progressiv durch den Auto-Verkaufs-Zyklus verbrannt. Schützt die Systemliquidität und setzt finanzielle Disziplin durch.
+    Verpfändetes DA kann gemäß dem dokumentierten Ausfallzeitplan progressiv verbrannt werden.
   </Card>
 </CardGroup>
 
-## Sofortzugang & Auto-Verkaufs-Zyklus
+## Sofortzugang & Auto-Sell-Zyklus
 
 ### Sofortzugang
 
-DA-Tokens stehen dem Nutzer ab dem Zeitpunkt ihres Farmings zu 100 % zur Verfügung. Es gibt keine Sperrfrist. Der Nutzer kann sofort:
+DA, das nach dem Farming gutgeschrieben wird, steht gemäß den aktuellen Protokollregeln zur Verfügung. Berechtigte Nutzer können manuell verkaufen, eine unterstützte Charge als Lending-Sicherheit verwenden oder das DA bis zu den planmäßigen Auto-Sell-Ereignissen halten.
 
-- **Manuell verkaufen** – 75 % des Werts in USDT erhalten, 100 % der Tokens werden verbrannt
-- **Einen Kredit aufnehmen** – 70 % LTV gegen DA-Sicherheit, 5 % Provisionsgebühr
-- **Halten und warten** – Tokens behalten und vom Preiswachstum im Laufe der Zeit profitieren
+### Auto-Sell-Zyklus
 
-### Auto-Verkaufs-Zyklus
+| Periode | Zeitpunkt | Anteil des verbleibenden DA |
+|:---:|---|:---:|
+| 1 | Nach 120 Tagen | 25 % |
+| 2 | Nach weiteren 90 Tagen | 40 % |
+| 3 | Nach weiteren 90 Tagen | 50 % |
+| 4 | Nach weiteren 65 Tagen | 100 % |
 
-Wenn der Nutzer nicht manuell verkauft, löst das System automatische Verkäufe aus dem **verbleibenden Guthaben** über 4 Perioden mit einer Gesamtdauer von **365 Tagen (1 Jahr)** aus. Die Periodendauern sind On-Chain in Tagen angegeben (120 / 90 / 90 / 65 Tage); die Monatsangaben unten sind Annäherungen zur besseren Lesbarkeit.
+Jeder Auto-Sell verwendet den bei Ausführung geltenden DA-Protokollpreis. Künftige Protokollpreise stehen nicht im Voraus fest.
 
-**Beispiel mit Beginn von 100 DA:**
+## Wie funktioniert Multi-Batch-Lending gegen DA?
 
 <Steps>
-  <Step title="Periode 1 — Nach 120 Tagen (~4 Monate)">
-    25 % des aktuellen Guthabens werden automatisch verkauft. 25 % von 100 = **25 DA verkauft** → Verbleibend: **75 DA**
+  <Step title="Einen Mining- und Farming-Zyklus abschließen">
+    Ein abgeschlossener Zyklus erzeugt eine berechtigte DA-Charge.
   </Step>
-  <Step title="Periode 2 — Nach weiteren 90 Tagen (~3 Monate, Tag 210)">
-    40 % des verbleibenden Guthabens werden automatisch verkauft. 40 % von 75 = **30 DA verkauft** → Verbleibend: **45 DA**
+  <Step title="Diese Charge als Sicherheit verwenden">
+    Die Charge dient gemäß den aktuellen Lending-Regeln als unabhängige Sicherheit.
   </Step>
-  <Step title="Periode 3 — Nach weiteren 90 Tagen (~3 Monate, Tag 300)">
-    50 % des verbleibenden Guthabens werden automatisch verkauft. 50 % von 45 = **22,5 DA verkauft** → Verbleibend: **22,5 DA**
+  <Step title="Einen weiteren Zyklus abschließen">
+    Ein neuer Zyklus erzeugt eine separate Charge.
   </Step>
-  <Step title="Periode 4 — Nach weiteren 65 Tagen (~2 Monate, Tag 365)">
-    100 % des verbleibenden Guthabens werden automatisch verkauft. 100 % von 22,5 = **22,5 DA verkauft** → Verbleibend: **0 DA**
+  <Step title="Einen separaten Kredit eröffnen">
+    Ein separater berechtigter Kredit kann gegen die neue Charge eröffnet werden.
   </Step>
 </Steps>
 
-<Note>
-  Die oben gezeigten Auto-Verkaufs-Prozentsätze (25 % / 40 % / 50 % / 100 %) entsprechen der aktuellen Protokollkonfiguration. Konkrete Werte werden als Protokollparameter gespeichert und unterliegen den standardmäßigen Governance-Verfahren. Prüfen Sie für die aktuellen Werte stets den Smart Contract oder die aktuelle Protokolldokumentation.
-</Note>
+Jeder Kredit ist an eine DA-Charge gebunden. Die Ausfallverarbeitung betrifft nur die verpfändete Charge, nicht das gesamte vom Nutzer gehaltene DA.
 
-Jeder Auto-Verkauf wird zum DA-Preis zum Zeitpunkt der Auslösung dieser Periode ausgeführt – nicht zum ursprünglichen Farming-Preis. 100 % der automatisch verkauften Tokens werden verbrannt, und der Nutzer erhält 70 % des Werts in USDT zum Preis am Tag des Auto-Verkaufs. Da der Preis im Laufe der Zeit wächst, verbrennen spätere Perioden Tokens zu einem höheren Preis und beschleunigen die Deflation.
+Details finden Sie unter [Verkauf & Lending](/de/da-selling-lending) und [Kreditvergabe gegen DA](/de/da-lending).
 
-Der Nutzer kann jederzeit vor der Auslösung des Auto-Verkaufs manuell verkaufen und erhält dabei 75 % statt 70 %.
-
-<Tip>
-  Der manuelle Verkauf (75 % Auszahlung) ist pro Token immer profitabler als der Auto-Verkauf (70 % Auszahlung). Allerdings profitiert der Auto-Verkauf vom Preiswachstum über die Zeit – spätere Perioden werden zu einem höheren DA-Preis ausgeführt.
-</Tip>
-
-<Warning>
-  **Auto-Verkauf bei null Einkommenslimit:** Wenn der Auto-Verkauf ausgelöst wird und der Nutzer ein Einkommenslimit von null hat (NFT nicht erneuert), gehen 100 % der Erlöse an den Liquiditätspool oder zur DA-Verbrennung (durch DAO bestimmt). Der Nutzer erhält nichts. Halten Sie stets ein aktives Einkommenslimit aufrecht.
-</Warning>
-
-## Multi-Batch-Lending
-
-Jede DA-Charge aus jedem Mining-Zyklus dient als unabhängige Sicherheit. Dies ermöglicht einen kontinuierlichen Mikro-Kredit-Zyklus:
+## Was ist der halbjährliche Deflationszyklus?
 
 <Steps>
-  <Step title="Charge 1 minen">
-    Der Nutzer schließt einen Mining-Zyklus ab und erhält DA-Charge 1.
+  <Step title="Neue Zyklen können pausiert werden">
+    Neue Mining-, Staking- und DA-Generierungszyklen können pausiert werden.
   </Step>
-  <Step title="Gegen Charge 1 leihen">
-    Der Nutzer nimmt einen Kredit mit festem 70 % LTV gegen Charge 1 auf (einmalige 5 %-Provision bei der Ausgabe an den Liquiditätspool - nicht bei der Rückzahlung).
+  <Step title="Verkaufsmechanismen laufen weiter">
+    Berechtigte Verkaufsmechanismen laufen gemäß der aktiven Konfiguration weiter.
   </Step>
-  <Step title="Charge 2 minen">
-    Der Nutzer startet einen neuen Mining-Zyklus und erhält DA-Charge 2.
+  <Step title="DA wird verarbeitet und verbrannt">
+    DA wird gemäß den dokumentierten Regeln verarbeitet und verbrannt.
   </Step>
-  <Step title="Gegen Charge 2 leihen">
-    Der Nutzer nimmt einen weiteren Kredit mit festem 70 % LTV gegen Charge 2 auf (separate einmalige 5 %-Provision bei der Ausgabe).
-  </Step>
-</Steps>
-
-Dies erlaubt mehrere gleichzeitige Mikrokredite, einen pro DA-Charge. Jeder Kredit ist unabhängig - an seine eigene Charge gebunden - und bleibt aktiv, bis der Stack dieser Charge in den Auto-Verkaufs-Zyklus eintritt. Wenn ein einzelner Kredit ausfällt, wird nur die Sicherheit dieser Charge verbrannt - nicht alle DA-Bestände.
-
-Für einen detaillierten Vergleich Verkauf vs. Lending siehe [Verkauf & Lending](/de/da-selling-lending). Lending unterstützt auch Teilrückzahlungen und proportionale Ausfall-Rückgewinnung. Die vollständige Aufschlüsselung finden Sie unter [Lending-Mechanik](/de/da-lending).
-
-## Deflationszyklus
-
-Zweimal jährlich löst das System einen speziellen Deflationszyklus aus, der bis zu 30 Tage dauert und darauf ausgelegt ist, die Token-Knappheit zu verstärken.
-
-<Steps>
-  <Step title="Neue Zyklen pausieren">
-    Der Start neuer Zyklen für NFTM-Mining, Staking und DA-Generierung wird für die Dauer des Deflationszyklus pausiert. **Aktive Zyklen, die vor dem Deflationszyklus gestartet wurden, laufen weiter und werden planmäßig abgeschlossen** – Nutzer mit bereits laufendem Mining verlieren ihren Fortschritt nicht.
-  </Step>
-  <Step title="Verkaufsmechanismen aktivieren">
-    Automatische oder freiwillige DA-Verkaufsmechanismen werden aktiviert.
-  </Step>
-  <Step title="Tägliche Verbrennung">
-    Ein Teil der Tokens wird täglich verbrannt.
-  </Step>
-  <Step title="Angebot schrumpft">
-    Das Marktangebot schrumpft und verstärkt den Aufwärtsdruck auf den Preis.
+  <Step title="Bestehende Zyklen laufen weiter">
+    Vor dem Ereignis gestartete bestehende Zyklen laufen planmäßig weiter.
   </Step>
 </Steps>
 
 <Info>
-  Der Deflationszyklus macht die DA-Wirtschaft langfristig vorhersehbar, steuerbar und nachhaltig.
+  Der Deflationszyklus ist ein Protokollereignis. Aktuelle Termine, Dauer und aktive Parameter werden vor jedem Zyklus veröffentlicht.
 </Info>
-
-Erhöhte Aktivität → erhöhte Liquidität → erhöhte DA-Emission → erhöhte Verbrennung → erhöhte Knappheit → erhöhter Vermögenswert. Dieses geschlossene System bedeutet: Je aktiver sich das Ökosystem entwickelt, desto stärker wird die DA-Wirtschaft.
-
-<DaPriceSimulator />

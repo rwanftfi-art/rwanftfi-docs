@@ -1,102 +1,51 @@
 ---
 title: "Vendita e Lending"
-description: "Vendita manuale al 75% del payout in USDT, auto-vendita al 70% su un ciclo a quattro periodi di 365 giorni, e un lending a LTV fisso del 70% contro collaterale DA con una commissione una tantum del 5%."
+description: "I detentori di DA possono utilizzare il DA idoneo tramite vendita manuale, Auto-Sell programmato o lending. Payout, burn, commissioni, idoneità ed elaborazione del collaterale sono disciplinati dagli attuali parametri dello smart contract."
 icon: "scale-balanced"
 ---
-import { SellVsLend } from '/snippets/sell-vs-lend.jsx'
 
+I detentori di DA possono utilizzare il DA idoneo tramite vendita manuale, Auto-Sell programmato o lending. Payout, burn, commissioni, idoneità ed elaborazione del collaterale sono disciplinati dagli attuali parametri dello smart contract.
 
-Una volta che un utente detiene DA, ha due opzioni finanziarie principali: vendere l'asset o utilizzarlo come collaterale per un prestito.
+## Come può essere utilizzato il DA?
 
 <CardGroup cols={2}>
-  <Card title="Vendi DA" icon="fire">
-    Il 100% del DA venduto viene bruciato in modo permanente. Ricevi il 75% (manuale) o il 70% (auto) del valore in USDT. Il restante 25% (manuale) o 30% (auto) è una commissione di protocollo che resta nel pool come backing e fa salire il prezzo del DA.
+  <Card title="Vendita Manuale" icon="fire">
+    Ricevi l'attuale payout del 75% in USDT. Il DA elaborato viene bruciato.
   </Card>
-  <Card title="Presta DA" icon="building-columns">
-    Prendi in prestito a un LTV fisso del 70% in USDT contro il tuo DA. Una commissione una tantum del 5% viene pagata all'emissione e non viene mai addebitata di nuovo al rimborso. Il tuo DA resta nel tuo TokenStack finché non rimborsi (in tutto o in parte) o il batch non entra nel suo ciclo di auto-vendita.
+  <Card title="Auto-Sell" icon="clock">
+    Ricevi l'attuale payout del 70% quando avviene l'elaborazione programmata. Il DA elaborato viene bruciato.
+  </Card>
+  <Card title="Lending" icon="building-columns">
+    Utilizza un batch DA idoneo come collaterale al documentato 70% LTV.
+  </Card>
+  <Card title="Holding" icon="hand-holding">
+    Mantieni il DA fino a un'azione manuale idonea o a un evento Auto-Sell programmato.
   </Card>
 </CardGroup>
 
-## Vendita di DA e Meccanica del Burn
+## Vendita Manuale
 
-Quando si vende DA, ci sono due scenari distinti con condizioni diverse:
+Con una vendita manuale idonea, l'utente riceve il 75% del valore di protocollo calcolato del DA in USDT. Il DA elaborato viene bruciato e la quota di protocollo residua segue l'allocazione attiva.
 
-1. **Vendita Manuale (l'utente vende in modo indipendente):**
-   * L'utente riceve il **75%** del valore DA in USDT al prezzo corrente.
-   * Il **100%** dei token DA venduti viene bruciato in modo permanente.
-   * Il restante 25% è una commissione di protocollo che resta nel pool come backing in USDT — con meno token e la stessa liquidità, questo 25% guida direttamente la crescita del prezzo.
+## Auto-Sell
 
-2. **Auto-Vendita (attivata dopo la scadenza del periodo TokenStack):**
-   * L'utente riceve il **70%** del valore DA in USDT al prezzo della data dell'auto-vendita.
-   * Il **100%** dei token DA auto-venduti viene bruciato in modo permanente.
-   * Il restante 30% è una commissione di protocollo che resta nel pool come backing in USDT — questo 30% è ciò che fa salire il prezzo.
-   * L'auto-vendita si attiva automaticamente se l'utente non ha venduto manualmente prima della scadenza del periodo.
+Se il DA non viene venduto manualmente, il protocollo elabora il batch residuo su quattro periodi programmati. Ogni evento utilizza il prezzo di protocollo disponibile all'esecuzione.
 
-In entrambi i casi, il 100% dei token venduti viene bruciato — il 25%/30% rappresenta la commissione di protocollo che resta nel pool come backing in USDT. Questo è il meccanismo che guida la crescita del prezzo: meno token + stessa liquidità = prezzo più alto per DA. L'auto-vendita offre un payout inferiore del 5%, incentivando gli utenti a gestire attivamente le proprie posizioni in DA.
+| Periodo | Tempistica | Quota del DA Residuo |
+|:---:|---|:---:|
+| 1 | Dopo 120 giorni | 25% |
+| 2 | Dopo altri 90 giorni | 40% |
+| 3 | Dopo altri 90 giorni | 50% |
+| 4 | Dopo altri 65 giorni | 100% |
 
 <Warning>
-  **La vendita di DA consuma l'Income Limit del tuo NFT.** Ogni vendita manuale o auto-vendita di DA riduce l'Income Limit residuo del tuo NFT dell'importo del payout in USDT — sullo stesso piano delle ricompense di marketing. Se l'Income Limit è esaurito, la vendita manuale di DA non è possibile (il sistema non può accreditare il payout), e in caso di auto-vendita il 100% dei proventi viene indirizzato al Pool di Liquidità DA o al burn (il meccanismo esatto è determinato dalle impostazioni della DAO). Mantieni il tuo Income Limit attivo — tramite Autobuy o rinnovo manuale dell'NFT — per ricevere il payout quando vendi DA.
+  **Interazione con il Limite di Ricompense del Protocollo:** I payout idonei da vendita DA riducono il Limite di Ricompense del Protocollo residuo dell'utente. Se il limite è zero, i proventi vengono elaborati secondo la regola di instradamento attiva controllata dalla DAO.
 </Warning>
 
-<Info>
-  L'**auto-vendita** si attiva automaticamente se non vendi manualmente prima della scadenza del periodo TokenStack. Paga il 5% in meno (70% vs 75%), incentivando la gestione attiva.
-</Info>
+## Lending
 
-## Periodi di Auto-Vendita
-
-Il DA è al 100% disponibile per l'utente immediatamente al farming — non c'è alcun periodo di lock-up. L'utente può vendere manualmente in qualsiasi momento (ricevendo il 75% in USDT) o stipulare un prestito contro il proprio DA. Se l'utente **non** agisce, il sistema attiva vendite forzate automatiche dal **saldo residuo** progressivamente in 4 periodi che coprono complessivamente **365 giorni (1 anno)**. Le durate dei periodi sono espresse in giorni on-chain (120 / 90 / 90 / 65 giorni); i riferimenti ai mesi qui sotto sono approssimazioni per la leggibilità.
-
-**Esempio iniziando con 100 DA:**
-
-<Steps>
-  <Step title="Periodo 1 — auto-vendita del 25% dopo 120 giorni (~4 mesi)">
-    Se non hai venduto manualmente entro 120 giorni (~4 mesi), il 25% del tuo saldo DA attuale viene auto-venduto. Il 25% di 100 DA = **25 DA auto-venduti** → Ricevi il 70% del valore in USDT al prezzo corrente → Il 100% di 25 DA viene bruciato → Residuo: **75 DA**
-  </Step>
-  <Step title="Periodo 2 — auto-vendita del 40% dopo altri 90 giorni (~3 mesi, giorno 210)">
-    Il 40% del saldo residuo viene auto-venduto. Il 40% di 75 DA = **30 DA auto-venduti** → Residuo: **45 DA**
-  </Step>
-  <Step title="Periodo 3 — auto-vendita del 50% dopo altri 90 giorni (~3 mesi, giorno 300)">
-    Il 50% del saldo residuo viene auto-venduto. Il 50% di 45 DA = **22,5 DA auto-venduti** → Residuo: **22,5 DA**
-  </Step>
-  <Step title="Periodo 4 — auto-vendita del 100% dopo altri 65 giorni (~2 mesi, giorno 365)">
-    Il 100% del saldo residuo viene auto-venduto. Posizione completamente chiusa. Il 100% di 22,5 DA = **22,5 DA auto-venduti** → Residuo: **0 DA**
-  </Step>
-</Steps>
-
-<Note>
-  Le percentuali di auto-vendita (25% / 40% / 50% / 100%) mostrate sopra rappresentano la configurazione attuale del protocollo. I valori specifici sono memorizzati come parametri del protocollo e sono soggetti alle procedure standard di governance. Verifica sempre lo smart contract o la documentazione attuale del protocollo per i valori più recenti.
-</Note>
-
-Ogni auto-vendita viene eseguita al prezzo del DA in quel momento, non al prezzo di farming originale. Poiché il prezzo cresce nel tempo, le auto-vendite successive bruciano token a un prezzo più alto — rinforzando ulteriormente la deflazione.
-
-<Warning>
-  **Auto-Vendita con Income Limit Zero:** Se l'auto-vendita di DA si attiva e l'utente ha Income Limit zero sul proprio NFT (il che significa che l'NFT non è stato rinnovato), il 100% dei proventi viene indirizzato al Pool di Liquidità o al burn del DA. Il meccanismo esatto è determinato dalle impostazioni della DAO. Gli utenti dovrebbero sempre mantenere un Income Limit attivo per ricevere il proprio payout di auto-vendita.
-</Warning>
-
-## Lending (Credito contro DA)
-
-I detentori di NFT Premium ed Elite (Livello 5 e superiori) possono stipulare un prestito in USDT contro il proprio collaterale DA invece di venderlo. Il prestito è collateralizzato da uno specifico batch DA da un singolo ciclo completato di mining e farming - l'intero batch in una volta, non una sua frazione. I livelli inferiori non eseguono il mining e non hanno collaterale DA da mettere a garanzia.
-
-Ogni prestito viene emesso a un **LTV fisso del 70%** con una **commissione una tantum del 5%** indirizzata al Pool di Liquidità DA all'emissione. Nulla viene addebitato al rimborso. Il mutuatario riceve il 95% dell'importo lordo del prestito nel proprio Saldo Regolare. Esempio: per un batch da 100 DA a un prezzo DA di 1,00 USDT, il prestito lordo è 70 USDT, la commissione è 3,50 USDT e il payout netto al mutuatario è 66,50 USDT.
-
-La proprietà strutturale distintiva è che il prezzo DA viene catturato in `loan.price` all'emissione e non viene mai riprezionato in seguito. La successiva crescita del prezzo DA non aumenta il debito - quindi il mutuatario estrae liquidità USDT al prezzo odierno mantenendo il rialzo sulla futura apprezzazione. Il prestito non ha una scadenza fissa, può essere rimborsato in tutto o in parte in qualsiasi momento prima che il batch entri nel suo ciclo di auto-vendita, e un determinato batch può essere dato in pegno solo una volta nel corso della sua intera vita.
-
-Se il prestito non viene rimborsato prima che il batch entri nel suo ciclo di auto-vendita, il DA dato in pegno viene progressivamente bruciato attraverso il programma standard a quattro periodi. Il mutuatario conserva gli USDT ricevuti all'emissione; il valore USDT di ogni porzione bruciata fluisce al Pool di Liquidità DA. Tra i periodi di auto-vendita il mutuatario può ancora intervenire e chiamare `repay()` per recuperare il DA ancora in pegno.
-
-<Warning>
-  **Default sul Lending - Burn Progressivo:** Se il prestito non viene rimborsato prima che il batch collateralizzato entri nel suo ciclo di auto-vendita, il collaterale procede attraverso il programma standard a quattro periodi (25% / 40% / 50% / 100% del DA in pegno **rimanente** bruciato in 120 / 90 / 90 / 65 giorni, 365 giorni totali). Il 100% del DA bruciato viene distrutto in modo permanente; il corrispondente valore USDT a `loan.price` viene indirizzato al Pool di Liquidità DA. Il mutuatario **non** riceve USDT per la porzione bruciata - l'unico recupero economico da un batch in default è l'USDT ricevuto all'emissione.
-
-  **Il recupero parziale è sempre disponibile.** Il mutuatario può chiamare `repay()` tra qualsiasi due periodi di auto-vendita e recuperare il DA in pegno **rimanente** pagando solo per ciò che è ancora in pegno. Il DA già bruciato nei periodi precedenti non può essere recuperato, ma ogni burn futuro può ancora essere fermato rimborsando prima del confine del suo periodo.
-</Warning>
-
-<Note>
-  **`repay()` dopo l'avvio dell'auto-vendita - comportamento corretto post-CertiK (RWA-58):** Le versioni precedenti del contratto revocare `repay()` una volta che il batch attraversava il ciclo di auto-vendita. Dopo l'audit CertiK, questo è stato corretto: `repay()` è ora richiamabile in qualsiasi fase della vita del prestito. Quando il batch ha già attraversato un trigger di auto-vendita, il contratto esegue prima `_processExpiredStacks()` per liquidare ogni periodo il cui confine è già passato - bruciando la corrispondente quota di collaterale - e poi procede contro il resto post-burn.
-
-  Conseguenza pratica: un `repay()` tardivo non può "anticipare" un burn già scattato. Per preservare l'**intero** collaterale, il mutuatario deve rimborsare prima di attraversare il primo trigger di auto-vendita (Periodo 1, attualmente giorno 120 della vita del batch).
-</Note>
+I detentori idonei possono utilizzare un intero batch DA come collaterale per un prestito denominato in USDT. L'LTV attuale è del 70% e la commissione di emissione una tantum viene applicata secondo gli attuali parametri di protocollo.
 
 <Card title="Meccanica Completa del Lending →" icon="hand-holding-dollar" href="/it/da-lending">
-  Idoneità, la finestra di emissione di 30 giorni, formule, rimborso parziale con esempi pratici, matematica completa del default e la tabella dei parametri - tutto in una pagina dedicata.
+  Parametri del prestito, calcolo, snapshot di prezzo, rimborso parziale ed elaborazione in caso di default — tutto in una pagina dedicata.
 </Card>
-
-<SellVsLend />

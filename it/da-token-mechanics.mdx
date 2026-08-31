@@ -1,200 +1,128 @@
 ---
 title: "Meccanica del Token DA"
-description: "Il modello di prezzo solo-al-rialzo."
+description: "Il DA è un token di utilità di protocollo non trasferibile, BEP-20, con un'offerta massima di 21.000.000 di unità. Il suo prezzo di protocollo interno viene calcolato utilizzando il saldo designato del pool di liquidità USDT e l'offerta circolante di DA."
 icon: "coins"
 ---
-import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
 
+Il DA è un token di utilità di protocollo non trasferibile, BEP-20, con un'offerta massima di 21.000.000 di unità. Il suo prezzo di protocollo interno viene calcolato utilizzando il saldo designato del pool di liquidità USDT e l'offerta circolante di DA.
 
 <CardGroup cols={2}>
-  <Card title="Hard Cap di 21M" icon="cube">
-    Offerta massima fissata per sempre. Nessuna inflazione, nessun minting.
+  <Card title="Offerta Massima di 21M" icon="cube">
+    L'emissione di DA può avvenire solo tramite le meccaniche di protocollo definite e non può portare l'offerta oltre il cap.
   </Card>
-  <Card title="Garantito 100% in USDT" icon="shield-check">
-    Ogni token DA è garantito da USDT reali nel pool di liquidità.
+  <Card title="Pool di Liquidità USDT" icon="droplet">
+    La meccanica del DA è supportata da un pool di liquidità [USDT](https://tether.to/) designato su [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain).
   </Card>
-  <Card title="Burn ad Ogni Vendita" icon="fire">
-    Il 100% dei token venduti viene bruciato in modo permanente. L'utente riceve il 75% (manuale) o il 70% (auto) del valore in USDT. Il restante 25% (manuale) o 30% (auto) è una commissione di protocollo che resta nel pool come backing — è ciò che fa salire il prezzo del DA.
+  <Card title="Burn sulle Vendite Idonee" icon="fire">
+    Il DA elaborato tramite vendite idonee viene bruciato secondo le regole attuali.
   </Card>
   <Card title="Nessun Trasferimento P2P" icon="ban">
-    Il DA può essere solo venduto, dato in prestito o rimborsato — nessun trasferimento peer-to-peer.
+    Il DA non può essere trasferito direttamente tra utenti.
   </Card>
 </CardGroup>
 
-## La Formula di Prezzo "Solo al Rialzo"
+## Come funziona la formula del prezzo di protocollo?
 
-Prezzo = Liquidità ÷ Offerta Circolante
+Prezzo di protocollo del DA = saldo designato del pool di liquidità USDT ÷ offerta circolante di DA.
 
-Ogni volta che il DA viene venduto, i token vengono bruciati (l'offerta diminuisce) mentre l'USDT resta nel pool (la liquidità rimane stabile o cresce). Meno token ÷ stessa o più USDT = prezzo più alto per token.
-
-<Info>
-  **Come funziona:** 200 DA in circolazione, 200 USDT nel pool di liquidità. Prezzo = 1,00 USDT per DA. Un utente vende 100 DA. Il pool paga 70 USDT (70% del valore di 100 USDT). Tutti i 100 DA vengono bruciati. Risultato: 100 DA rimangono, 130 USDT nel pool. Nuovo prezzo = 130 ÷ 100 = **1,30 USDT per DA**.
-</Info>
-
-<Tip>
-  La commissione del 5% su tutte le ricompense di marketing fluisce direttamente nel pool di liquidità DA — separatamente dalle percentuali di vendita. Liquidità aggiuntiva proviene dalle commissioni di Lending, dai ricavi RWA e dai ricavi FinPro.
-</Tip>
+Il prezzo cambia quando varia la liquidità o l'offerta circolante. La formula non garantisce autonomamente la liquidità, la disponibilità di rimborso o un risultato specifico per l'utente.
 
 <Info>
-  **Protezione Seed Supply:** Una piccola riserva permanente di DA — la **Seed Supply** — viene pre-depositata nel protocollo al lancio come salvaguardia tecnica per la formula di prezzo.
-
-  - **Permanente e non vendibile.** La Seed Supply è bloccata a livello di protocollo: **non può essere bruciata**, **non può essere venduta** (manualmente o tramite auto-vendita), ed è **esclusa dai cicli di auto-vendita**.
-  - **Fuori dalla circolazione.** **Non è conteggiata come offerta circolante** e non partecipa mai ai saldi degli utenti, al farming, al lending o alle distribuzioni di marketing.
-  - **Garantisce un denominatore non zero.** Poiché `Prezzo = Liquidità ÷ Offerta Circolante`, la formula non deve mai dividere per zero. La Seed Supply garantisce `totalSupply > 0` in ogni momento, quindi la funzione di prezzo è sempre definita — anche nel caso estremo in cui ogni altro token in circolazione sia stato bruciato.
-  - **Protezione solo per casi limite.** In condizioni operative normali la Seed Supply non ha effetto sulla price discovery. Esiste puramente come un floor deterministico che mantiene `getPrice()` ben definito quando la liquidità è presente ma l'offerta circolante altrimenti raggiungerebbe zero.
+  **Seed Supply** è una piccola riserva permanente utilizzata come salvaguardia tecnica per la funzione di determinazione del prezzo. È esclusa dalla circolazione utente, dalle vendite, dal farming, dal lending e dalle distribuzioni ai partner.
 </Info>
 
-## Fonti del Pool di Liquidità
-
-Il Pool di Liquidità è il fondamento dell'economia DA. È alimentato da molteplici fonti in tutto l'ecosistema RWANFTFI, garantendo una crescita continua del backing del token. Ogni flusso di ricavi del protocollo confluisce in un singolo pool, rinforzando la formula Prezzo = Liquidità ÷ Offerta.
+## Come viene finanziato il Pool di Liquidità DA?
 
 <AccordionGroup>
   <Accordion title="Attività NFT">
-    **Acquisti NFT** — il 20% di ogni acquisto NFT viene automaticamente indirizzato al Pool di Liquidità per il minting di nuovo DA.
-
-    **Rebuy e Autobuy** — un ulteriore 20% da ogni acquisto NFT ripetuto o automatico fluisce nel Pool di Liquidità. Questo incentiva il rinnovo della posizione e supporta la crescita del sistema.
+    Allocazioni da acquisto e rebuy di NFT secondo gli attuali parametri contrattuali.
   </Accordion>
 
   <Accordion title="Commissioni e Tasse">
-    **Tassa sulle Ricompense di Marketing** — il 5% di tutte le ricompense di marketing nella rete di referral viene automaticamente indirizzato al Pool di Liquidità. L'attività della rete rinforza direttamente il backing del DA.
-
-    **Commissione di Trasferimento del Saldo Cumulativo** — quando si trasferisce il Saldo Cumulativo a un altro utente, il 20% dell'importo del trasferimento viene indirizzato al Pool di Liquidità DA. Qualsiasi movimento del Saldo Cumulativo — sia che venga utilizzato in un acquisto NFT o trasferito tra wallet — genera un flusso del 20% nel Pool.
-
-    **Commissione di Acquisto del Saldo Cumulativo** — quando si acquista un NFT utilizzando il Saldo Cumulativo, il 20% dell'importo integrato viene indirizzato al Pool di Liquidità DA per il minting di nuovo DA. Esempio: 898 USDT sul Saldo Cumulativo — quando integrati in un acquisto NFT, 718 USDT vanno verso il costo dell'NFT, e 180 USDT (20% di 898) fluiscono nel Pool di Liquidità DA. Ogni tale acquisto ricarica il Pool e crea la base per nuovo DA.
-
-    **Commissione di Lending** — quando si stipula un prestito, il mutuatario paga una commissione una tantum del 5% indirizzata al Pool di Liquidità. Esempio: prestito di \$1.000, il mutuatario riceve \$950, \$50 vanno al Pool. La commissione viene riscossa con ogni nuovo prestito.
+    - Commissione sulle Ricompense dei Partner.
+    - Commissioni di trasferimento e utilizzo del Saldo Cumulativo.
+    - Commissioni di lending e commissioni di protocollo sulla vendita di DA.
   </Accordion>
 
   <Accordion title="Fondi Scaduti e Inutilizzati">
-    **Auto-Vendita con Income Limit Zero** — se l'auto-vendita di DA si attiva e l'utente ha Income Limit zero sul proprio NFT, il 100% dei proventi va al Pool di Liquidità o al burn del DA (meccanismo esatto determinato dalle impostazioni della DAO).
-
-    **Voucher Scaduti** — se i Voucher rimangono inutilizzati per 365 giorni, il 100% dei fondi viene indirizzato al Pool di Liquidità. Questo previene fondi inattivi ed elimina passività inattive.
-
-    **Saldo Cumulativo Inutilizzato** — se il Saldo Cumulativo rimane inutilizzato per 120 giorni, il 70% dei fondi viene indirizzato al Pool di Liquidità per il minting di nuovo DA.
+    - Voucher e saldi scaduti instradati secondo le regole attuali dello smart contract.
+    - Proventi Auto-Sell elaborati quando il detentore non ha Limite di Ricompense del Protocollo residuo, secondo l'impostazione DAO attiva.
   </Accordion>
 
   <Accordion title="Ricavi Esterni">
-    **Commissioni SWAP** — le commissioni da tutte le operazioni di scambio (SWAP) vengono automaticamente indirizzate al Pool di Liquidità.
-
-    **Commissioni Carta di Debito** — le commissioni dal programma Carta di Debito fluiscono nel Pool di Liquidità, creando un cash flow reale dall'economia esterna.
-
-    **Ricavi RWA** — una parte dei ricavi da immobili, redditi da locazione, asset commerciali e altri asset del mondo reale viene indirizzata al Pool di Liquidità, ancorando il sistema all'economia reale.
-
-    **Ricavi FinPro** — una parte dei profitti dai prodotti finanziari (Lending, prodotti di investimento, servizi finanziari) fluisce nel Pool di Liquidità.
-
-    **Ricavi dell'Ecosistema** — una parte dei ricavi totali del protocollo può essere indirizzata al Pool di Liquidità o utilizzata per creare liquidità aggiuntiva per il minting di nuovo DA.
+    Le commissioni di swap, le commissioni sulla carta di debito, i ricavi RWA, i ricavi FinPro e altri ricavi dell'ecosistema sono mostrati come attivi solo dopo che l'integrazione e il flusso di ricavi sono pubblicamente documentati. Fino ad allora, restano fonti di roadmap o dipendenti da terze parti.
   </Accordion>
 </AccordionGroup>
 
-## Meccanica del Burn DA
-
-Il burn del DA è il meccanismo deflazionario centrale — riduce l'offerta di token e crea una pressione al rialzo sostenuta sul valore dell'asset.
+## Come viene bruciato il DA?
 
 <CardGroup cols={3}>
   <Card title="Vendita Manuale" icon="fire">
-    Il 100% del DA venduto viene bruciato in modo permanente. L'utente riceve il 75% del valore in USDT. Il restante 25% è una commissione di protocollo che resta nel pool come backing, guidando la crescita del prezzo.
+    Il DA elaborato viene bruciato. L'utente riceve l'attuale payout del 75%; la quota di protocollo residua segue l'allocazione attiva.
   </Card>
-  <Card title="Auto-Vendita" icon="clock">
-    Il 100% del DA auto-venduto viene bruciato in modo permanente. L'utente riceve il 70% del valore in USDT. Il restante 30% è una commissione di protocollo che resta nel pool come backing, guidando la crescita del prezzo. Si attiva progressivamente dal saldo residuo in 4 periodi (365 giorni / 1 anno totale).
+  <Card title="Auto-Sell" icon="clock">
+    Il DA elaborato viene bruciato. L'utente riceve l'attuale payout del 70%; la quota di protocollo residua segue l'allocazione attiva.
   </Card>
   <Card title="Default sul Lending" icon="ban">
-    Se un prestito non viene rimborsato, il DA dato in collaterale viene progressivamente bruciato attraverso il ciclo di auto-vendita. Protegge la liquidità del sistema e rafforza la disciplina finanziaria.
+    Il DA dato in pegno può essere bruciato progressivamente secondo il programma di default documentato.
   </Card>
 </CardGroup>
 
-## Accesso Istantaneo e Ciclo di Auto-Vendita
+## Accesso Istantaneo e Ciclo Auto-Sell
 
 ### Accesso Istantaneo
 
-I token DA sono al 100% disponibili per l'utente dal momento in cui vengono farmati. Non c'è alcun periodo di lock-up. L'utente può immediatamente:
+Il DA accreditato dopo il Farming è disponibile secondo le regole di protocollo attuali. Gli utenti idonei possono vendere manualmente, utilizzare un batch supportato come collaterale per il lending, o mantenere il DA fino agli eventi Auto-Sell programmati.
 
-- **Vendere manualmente** — ricevere il 75% del valore in USDT, il 100% dei token viene bruciato
-- **Stipulare un prestito** — 70% LTV contro il collaterale DA, commissione del 5%
-- **Holdare e attendere** — mantenere i token e beneficiare della crescita del prezzo nel tempo
+### Ciclo Auto-Sell
 
-### Ciclo di Auto-Vendita
+| Periodo | Tempistica | Quota del DA Residuo |
+|:---:|---|:---:|
+| 1 | Dopo 120 giorni | 25% |
+| 2 | Dopo altri 90 giorni | 40% |
+| 3 | Dopo altri 90 giorni | 50% |
+| 4 | Dopo altri 65 giorni | 100% |
 
-Se l'utente non vende manualmente, il sistema attiva vendite automatiche dal **saldo residuo** in 4 periodi che coprono complessivamente **365 giorni (1 anno)**. Le durate dei periodi sono espresse in giorni on-chain (120 / 90 / 90 / 65 giorni); i riferimenti ai mesi qui sotto sono approssimazioni per la leggibilità.
+Ogni Auto-Sell utilizza il prezzo di protocollo del DA applicabile all'esecuzione. I prezzi di protocollo futuri non sono predeterminati.
 
-**Esempio iniziando con 100 DA:**
+## Come funziona il lending multi-batch contro il DA?
 
 <Steps>
-  <Step title="Periodo 1 — Dopo 120 giorni (~4 mesi)">
-    Il 25% del saldo attuale viene auto-venduto. Il 25% di 100 = **25 DA venduti** → Residuo: **75 DA**
+  <Step title="Completa un ciclo di Mining e Farming">
+    Un ciclo completato crea un batch DA idoneo.
   </Step>
-  <Step title="Periodo 2 — Dopo altri 90 giorni (~3 mesi, giorno 210)">
-    Il 40% del saldo residuo viene auto-venduto. Il 40% di 75 = **30 DA venduti** → Residuo: **45 DA**
+  <Step title="Usa quel batch come collaterale">
+    Il batch funge da collaterale indipendente secondo le attuali regole di lending.
   </Step>
-  <Step title="Periodo 3 — Dopo altri 90 giorni (~3 mesi, giorno 300)">
-    Il 50% del saldo residuo viene auto-venduto. Il 50% di 45 = **22,5 DA venduti** → Residuo: **22,5 DA**
+  <Step title="Completa un altro ciclo">
+    Un nuovo ciclo crea un batch separato.
   </Step>
-  <Step title="Periodo 4 — Dopo altri 65 giorni (~2 mesi, giorno 365)">
-    Il 100% del saldo residuo viene auto-venduto. Il 100% di 22,5 = **22,5 DA venduti** → Residuo: **0 DA**
+  <Step title="Apri un prestito separato">
+    Un prestito idoneo separato può essere aperto contro il nuovo batch.
   </Step>
 </Steps>
 
-<Note>
-  Le percentuali di auto-vendita (25% / 40% / 50% / 100%) mostrate sopra rappresentano la configurazione attuale del protocollo. I valori specifici sono memorizzati come parametri del protocollo e sono soggetti alle procedure standard di governance. Verifica sempre lo smart contract o la documentazione attuale del protocollo per i valori più recenti.
-</Note>
+Ogni prestito è legato a un solo batch DA. L'elaborazione in caso di default interessa solo il batch dato in pegno, non tutto il DA detenuto dall'utente.
 
-Ogni auto-vendita viene eseguita al prezzo del DA al momento del trigger di quel periodo — non al prezzo di farming originale. Il 100% dei token auto-venduti viene bruciato, e l'utente riceve il 70% del valore in USDT al prezzo della data dell'auto-vendita. Poiché il prezzo cresce nel tempo, i periodi successivi bruciano token a un prezzo più alto, accelerando la deflazione.
+Per i dettagli, vedi [Vendita e Lending](/it/da-selling-lending) e [Lending contro DA](/it/da-lending).
 
-L'utente può vendere manualmente in qualsiasi momento prima che si attivi l'auto-vendita, ricevendo il 75% invece del 70%.
-
-<Tip>
-  La vendita manuale (payout 75%) è sempre più redditizia per token rispetto all'auto-vendita (payout 70%). Tuttavia, l'auto-vendita beneficia della crescita del prezzo nel tempo — i periodi successivi vengono eseguiti a un prezzo DA più alto.
-</Tip>
-
-<Warning>
-  **Auto-Vendita con Income Limit Zero:** Se l'auto-vendita si attiva e l'utente ha Income Limit zero (NFT non rinnovato), il 100% dei proventi va al Pool di Liquidità o al burn del DA (determinato dalla DAO). L'utente non riceve nulla. Mantieni sempre un Income Limit attivo.
-</Warning>
-
-## Lending Multi-Batch
-
-Ogni batch di DA da ciascun ciclo di mining serve come collaterale indipendente. Questo abilita un ciclo continuo di micro-prestiti:
+## Cos'è il Ciclo Deflazionario semestrale?
 
 <Steps>
-  <Step title="Mina Batch 1">
-    L'utente completa un ciclo di mining e riceve il batch DA 1.
+  <Step title="I nuovi cicli possono essere sospesi">
+    I nuovi cicli di Mining, staking e generazione DA possono essere sospesi.
   </Step>
-  <Step title="Prendi in prestito contro Batch 1">
-    L'utente stipula un prestito a un LTV fisso del 70% contro il batch 1 (commissione del 5% pagata all'emissione al Pool di Liquidità).
+  <Step title="I meccanismi di vendita continuano">
+    I meccanismi di vendita idonei continuano secondo la configurazione attiva.
   </Step>
-  <Step title="Mina Batch 2">
-    L'utente avvia un nuovo ciclo di mining e riceve il batch DA 2.
+  <Step title="Il DA viene elaborato e bruciato">
+    Il DA viene elaborato e bruciato secondo le regole documentate.
   </Step>
-  <Step title="Prendi in prestito contro Batch 2">
-    L'utente stipula un altro prestito a un LTV fisso del 70% contro il batch 2 (commissione separata del 5% pagata all'emissione).
-  </Step>
-</Steps>
-
-Ciò consente più micro-prestiti simultanei, uno per batch DA. Ogni prestito è indipendente - legato al proprio batch - e resta attivo finché lo stack di quel batch non entra nel ciclo di auto-vendita. Se un singolo prestito va in default, viene bruciato solo il collaterale di quel batch - non tutte le posizioni in DA.
-
-Per un confronto dettagliato tra vendita e lending, vedi [Vendita e Lending](/it/da-selling-lending). Il lending supporta anche rimborsi parziali e recupero proporzionale in caso di default. Consulta [Meccanica del Lending](/it/da-lending) per la panoramica completa.
-
-## Ciclo Deflazionario
-
-Due volte all'anno il sistema attiva uno speciale Ciclo Deflazionario della durata massima di 30 giorni, progettato per intensificare la scarsità del token.
-
-<Steps>
-  <Step title="Sospendi nuovi cicli">
-    L'avvio di nuovi cicli di mining NFTM, staking e generazione DA è sospeso per la durata del Ciclo Deflazionario. **I cicli attivi avviati prima del Ciclo Deflazionario continuano a funzionare e si completano come previsto** — gli utenti con mining già in corso non perdono il loro progresso.
-  </Step>
-  <Step title="Attiva i meccanismi di vendita">
-    I meccanismi di vendita automatica o volontaria del DA vengono attivati.
-  </Step>
-  <Step title="Burn giornaliero">
-    Una porzione di token viene bruciata quotidianamente.
-  </Step>
-  <Step title="L'offerta si riduce">
-    L'offerta sul mercato si riduce, rinforzando la pressione al rialzo sul prezzo.
+  <Step title="I cicli esistenti continuano">
+    I cicli esistenti avviati prima dell'evento continuano secondo il programma.
   </Step>
 </Steps>
 
 <Info>
-  Il Ciclo Deflazionario rende l'economia DA prevedibile, gestibile e sostenibile nel lungo periodo.
+  Il Ciclo Deflazionario è un evento di protocollo. Le date attuali, la durata e i parametri attivi vengono pubblicati prima di ogni ciclo.
 </Info>
-
-Maggiore attività → maggiore liquidità → maggiore emissione DA → maggiore burn → maggiore scarsità → maggiore valore dell'asset. Questo sistema a circuito chiuso significa che più attivamente l'ecosistema si sviluppa, più forte diventa l'economia DA.
-
-<DaPriceSimulator />

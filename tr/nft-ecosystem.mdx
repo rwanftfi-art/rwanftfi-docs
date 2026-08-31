@@ -1,6 +1,6 @@
 ---
 title: "NFT Ekosistemi"
-description: "28'den 24.000 USDT'ye kadar 10 seviye."
+description: "Genesis'ten (28 USDT) Infinity'ye (24.000 USDT) kadar tüm 10 RWANFTFI NFT seviyesi — Protokol Ödül Limitleri, Ortak Ağı Derinliği, NFTM madenciliği ve borç verme uygunluğu, Autobuy, Hediye NFT'ler, Kuponlar ve planlanan Ambassador/VIP sürümleri dahil."
 icon: "id-card"
 ---
 
@@ -8,95 +8,80 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 
 <CardGroup cols={3}>
   <Card title="Basic · L1–L4" icon="circle">
-    28 – 275 USDT · RWA ve FinPro erişimi
+    28 – 275 USDT · RWA ve FinPro erişimi, ortak programı uygunluğu
   </Card>
   <Card title="Premium · L5–L8" icon="circle-half-stroke">
-    550 – 5.500 USDT · Madencilik, Borç Verme, Eşleştirme
+    550 – 5.500 USDT · Madencilik, borç verme ve Matching Bonus uygunluğu
   </Card>
   <Card title="Elite · L9–L10" icon="circle-dot">
-    11.000 – 24.000 USDT · Maksimum derinlik, en kısa döngüler
+    11.000 – 24.000 USDT · Mevcut en yüksek ağ derinliği ve en kısa madencilik döngüleri
   </Card>
 </CardGroup>
 
-NFT sahibi olmak, pazarlamaya katılmak, DA madenciliği yapmak ve finansal araçlara erişmek için zorunludur. Hesap başına bir aktif NFT — yükseltme, öncekini otomatik olarak değiştirir.
+Aktif bir NFT'ye sahip olmak; ortak programına, DA madenciliğine ve seçilen seviyeye bağlı finansal araçlara erişmek için gereklidir. Hesap başına bir aktif NFT desteklenir; bir yükseltme önceki NFT'nin yerini alır.
+
+## 10 Seviyeye Genel Bakış
+
+**Protokol Ödül Limiti**, mevcut NFT döngüsü sırasında alacaklandırılabilecek uygun ödüllerin maksimum kümülatif tutarıdır. **Ortak Ağı Derinliği**, uygun Ortak Ağı Dağıtımı hesaplamalarına dahil edilen maksimum seviyedir.
+
+| L | İsim | Grup | Fiyat (USDT) | Ödül Limiti (USDT) | Ağ Derinliği | Madencilik Döngüsü | NFTM (Döngü 1 / 2) | Matching Bonus | DA | Borç Verme | Autobuy |
+|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
+| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
+| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
+| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
+| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
+| 5 | Hydro | Premium | 550 | 1.400 | 9 | 45 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
+| 6 | Quantum | Premium | 1.100 | 2.700 | 11 | 44 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
+| 7 | Pulse | Premium | 2.200 | 5.800 | 12 | 43 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
+| 8 | Aurora | Premium | 5.500 | 12.800 | 13 | 42 gün | %10 / %15 | ✓ | ✓ | ✓ | 3/3 |
+| 9 | Flame | Elite | 11.000 | 28.000 | 15 | 41 gün | %10 / %15 | ✓ | ✓ | ✓ | Sınırsız |
+| 10 | Infinity | Elite | 24.000 | 70.000 | 19 (mevcut) | 40 gün | %10 / %15 | ✓ | ✓ | ✓ | Sınırsız |
+
+<Note>
+  **Derinlik değerleri mevcut protokol aşamasını yansıtır.** 16–22. Seviyelere yönelik gelecekteki herhangi bir genişleme, yalnızca gerekli yönetişim onayı ve protokol güncellemesinden sonra etkin hale gelir. **Matching Bonus** sütunu, Seviye 1 uygunluğunu gösterir (Eclipse / L4 ve üzeri); Seviye 2 ve 3, sırasıyla 1.000 ve 3.000 USDT kümülatif kişisel satış gerektirir. **NFTM (Döngü 1 / 2)**, NFT fiyatının bir yüzdesi olarak ifade edilir.
+</Note>
 
 <NftTierExplorer />
 
-## Gelir Limitleri ve Otomatik Yenileme
+## Protokol Ödül Limitleri ve Otomatik Yenileme
 <AccordionGroup>
-  <Accordion title="Gelir Limitleri Nasıl Çalışır" icon="gauge-high">
-    Her NFT'nin sıkı bir Gelir Limiti vardır — bu NFT'nin yenileme öncesinde üretebileceği maksimum kümülatif gelir. Gelir Limiti **iki kaynak** tarafından tüketilir:
-
-    1. **Pazarlama ödülleri** — Sponsor Bonusu, Ağaç Dağılımı, Eşleştirme Bonusu, yapınızın aktivitesinden gelen herhangi bir ödeme.
-    2. **DA satışları** — her manuel veya otomatik DA satışı, kalan Gelir Limitinizi USDT ödeme tutarı kadar azaltır.
-
-    Limit sıfıra ulaştığında, **tüm** pazarlama ödüllerini almayı durdurur **ve** DA satma yeteneğini kaybedersiniz: manuel satışta sistem ödemenizi yatıramaz; otomatik satışta gelirin %100'ü DA Likidite Havuzuna veya yakıma yönlendirilir (kesin mekanizma DAO ayarları tarafından belirlenir). Bunu önlemek için NFT'nizi yenileyin — Otomatik Alım, manuel aynı seviye yeniden satın alma veya daha yüksek bir seviyeye yükseltme yoluyla. Kalan limitiniz orijinalin %30'undan fazlaysa manuel yeniden satın alma kilitlidir.
+  <Accordion title="Protokol Ödül Limitleri Nasıl Çalışır" icon="gauge-high">
+    Her NFT'nin bir **Protokol Ödül Limiti** vardır — zincir üzerindeki (on-chain) terim *Income Limit*'tir. Limit, uygun ortak ödülleri ve DA satış ödemeleri tarafından tüketilir. Sıfıra ulaştığında, etkilenen ödül ve DA satış işlevleri, NFT mevcut protokol kuralları çerçevesinde yenilenene veya yükseltilene kadar duraklar.
   </Accordion>
-  <Accordion title="Otomatik Alım (3/3 Sistemi)" icon="rotate">
-    Limiti sıfıra ulaştığında aynı NFT'yi otomatik olarak yeniden
-    satın almak için Otomatik Alımı etkinleştirin. **1–8. Seviyeler için**, 3/3 sayacı,
-    orijinal manuel satın alımdan sonra 3 otomatik yenilemeye kadar izin verir — yani
-    aynı NFT seviyesi toplamda en fazla 4 kez aktif olabilir (1 manuel
-    + 3 otomatik). Sayaç yalnızca otomatik yenilemeleri takip eder; orijinal
-    satın alma ayrıdır. 3 otomatik alımın tümü kullanıldıktan sonra fonksiyon
-    kilitlenir ve yükseltme yapmanız veya ödülleri kaybetmeniz gerekir. **Elite (L9–L10) için**,
-    otomatik alımlar sınırsızdır — üst seviye NFT'ler sınır olmaksızın yenilenir.
-    Tüm otomatik alımlar Normal veya Birikim Bakiyesinde yeterli USDT gerektirir
-    (her ikisi birleştirilebilir). L1–L8'de, daha yüksek seviyeli bir NFT
-    satın alındığında 3/3 sayacı 0/3'e sıfırlanır. Önceki NFT'nin Gelir Limitinin
-    kullanılmayan kısmı yeni NFT'ye **aktarılmaz** —
-    geçersiz sayılır.
+  <Accordion title="Autobuy (3/3 Sistemi)" icon="rotate">
+    Autobuy, Protokol Ödül Limiti sıfıra ulaştığında uygun bir NFT'yi otomatik olarak yeniler. 1–8. Seviyeler şu anda orijinal satın almadan sonra üç otomatik yenilemeye kadar izin verir. Elite seviyeler, mevcut yapılandırma çerçevesinde sınırsız Autobuy kullanır. Her Autobuy, yeterli uygun USDT bakiyesi gerektirir. Önceki NFT'den kalan kullanılmamış Protokol Ödül Limiti, değiştirilen veya yükseltilen NFT'ye aktarılmaz.
   </Accordion>
-  <Accordion title="İş Satışı" icon="handshake">
-    DAO tarafından yetkilendirilmiş bir süreç aracılığıyla tüm iş yapınızı (partner ağacı ve alt yapı)
-    başka bir kullanıcıya devredin. Devir, bir satış fiyatıyla değil,
-    akıllı sözleşme **devir komisyonu** ile yapılır: **satıcı
-    sabit 500 USDT ücret öder** (DAO tarafından **0–500 USDT** aralığında ayarlanabilir)
-    ve devri gerçekleştirir. **Alıcı protokole zincir üzerinde komisyon
-    ödemez** ve uygulamada tüm yapıyı alır. Temel
-    zincir üzerindeki parametre `businessTransferFee`'dir (gerçek komisyon
-    semantiğini yansıtmak için eski `businessSalePrice` adı değiştirilmiştir).
-    Yapı olmadan bireysel NFT satışları desteklenmez.
+  <Accordion title="Ortak Yapısı Transferi" icon="handshake">
+    DAO tarafından yetkilendirilen bir süreç, tam ortak yapısını başka bir kullanıcıya devredebilir. Satıcı, mevcut zincir üzerindeki transfer ücretini öder. Alıcı, işlem sonrasında yapıyı devralır. İlişkili yapı olmadan bireysel NFT satışları desteklenmez.
   </Accordion>
 </AccordionGroup>
-<Warning>
-  **Gelir Limiti:** NFT'niz gelir limitine ulaştığında,
-  TÜM pazarlama ödüllerini almayı durdurursunuz. Bunu önlemek için Otomatik Alımı etkinleştirin —
-  veya limitiniz %30'un altına düştüğünde manuel olarak yenileyin.
-</Warning>
+<Note>
+  **Protokol Ödül Limiti teknik bir sınırdır.** Beklenen bir kazanç değildir ve tam tutarın alacaklandırılacağını garanti etmez.
+</Note>
 
-### Dondurulmuş Bakiye — İlk Kişisel Satışlarda Gelir Koruması
+### Frozen Balance — Uygun Doğrudan Etkinlikte Geçici Tampon
 
-Doğrudan davet ettiğiniz kişinin **ilk satın alımından** kaynaklanan bir pazarlama ödülü, NFT'nizin kalan Gelir Limitini aştığında, fazla miktar kaybolmaz — 72 saatliğine dondurulur ve size NFT'nizi yükseltip fonları talep etmeniz için bir pencere sunar. Bu, partnerleri daha yüksek seviyeli NFT'lere davet etmekten kaynaklanan geliri koruyan ana mekaniktir.
+Doğrudan bir davetlinin ilk NFT satın alımından veya Autobuy'undan kaynaklanan uygun bir Sponsor Bonusu, sahibinin kalan Protokol Ödül Limitini aştığında, fazlalık Frozen Balance kuralları çerçevesinde 72 saat tutulur.
 
-<Card title="Tam Dondurulmuş Bakiye Mekanikleri" icon="snowflake" href="/tr/frozen-balance">
-  72 saatlik pencerenin, Otomatik Alım ile etkileşimin, 70/30 kayıp bölünmesinin, yapı düzeyindeki kademenin ve aynı davet edilen kişiden tekrarlanan satın almaların neden farklı şekilde ele alındığının ayrıntılı incelemesi.
+<Card title="Tam Frozen Balance Mekanikleri" icon="snowflake" href="/tr/frozen-balance">
+  Tetikleme koşullarının, 72 saatlik pencerenin, Autobuy ile etkileşimin ve süre sonrası yeniden dağıtım kurallarının ayrıntılı incelemesi.
 </Card>
 
 ## Hediye NFT'ler ve Kuponlar
 <CardGroup cols={2}>
   <Card title="Hediye NFT'ler" icon="gift">
-    Kullanıcıları pazarlama yapısına kalıcı olarak yerleştiren satılamaz tanıtım
-    varlıkları. Satın alınamaz — promosyonlar veya Kariyer Rütbesi
-    başarıları yoluyla verilir. Adres başına 100'e kadar (DAO tarafından ayarlanabilir, mevcut).
+    Hediye NFT'ler, kullanıcıları ortak ağına yerleştirebilen, satılamayan tanıtım varlıklarıdır. Satın alınamazlar ve onaylı promosyonlar veya rütbe programları çerçevesinde verilirler.
   </Card>
   <Card title="Hediye Kuponları" icon="ticket">
-    Akıllı sözleşme tarafından zorunlu kılınan minimum **5 USDT** ile kullanıcı tarafından oluşturulan
-    kuponlar (sıfır değerli kuponlar zincir üzerinde reddedilir), **365 gün** geçerlidir.
-    Bir NFT satın alımının %100'üne kadar karşılar. %0 komisyonla devredilebilir,
-    ancak son kullanma tarihinden önceki **son 24 saat** dışında, transferler kilitlenir.
-    Birikim Bakiyesi ile birleştirilemez. 365 günlük tam ömür boyunca kullanılmazsa,
-    **kupon değerinin %100'ü DA Likidite Havuzuna yönlendirilir**.
+    Hediye Kuponları, belgelenen minimum değer, ömür, transfer kısıtlaması ve ödeme birleştirme kurallarına tabi, kullanıcı tarafından oluşturulan kuponlardır. Tam ömür boyunca kullanılmazsa, değer mevcut akıllı sözleşme kuralları çerçevesinde yönlendirilir.
   </Card>
 </CardGroup>
 ## Ambassador ve VIP Edition
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">
-    **100 birimle** sınırlıdır (Q4 2026). Gelir limiti yok. Kendi özel ödül
-    sistemi. İş Satışında devredilmez.
+    Planlanan Ambassador NFT, ayrı bir ödül yapılandırmasına sahip sınırlı bir sürümdür. Yayınlanması, nihai uygunluğu ve zincir üzerindeki parametreleri, etkinleştirilene kadar yol haritası kalemleri olarak kalır.
   </Card>
   <Card title="VIP Edition NFT" icon="gem">
-    **100 birimle** sınırlıdır (Q4 2026). **Lider** Kariyer Rütbesi veya üzerini
-    elde etmek için erişim verilir.
+    Planlanan VIP Edition, belgelenen rütbe gereksinimleriyle ilişkilendirilmiş sınırlı bir NFT'dir. Mevcut durumu ve nihai işlevselliği, lansmandan önce yayımlanır.
   </Card>
 </CardGroup>
