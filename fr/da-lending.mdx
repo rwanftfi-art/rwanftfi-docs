@@ -1,294 +1,58 @@
 ---
 title: "Prêt Adossé au DA"
-description: "Contractez un prêt USDT à LTV fixe de 70 % adossé à n'importe quel lot de DA dans votre TokenStack. Payez une commission unique de 5 % à l'émission, verrouillez le prix du DA au moment de l'émission, et remboursez en totalité ou partiellement à tout moment avant que le stack entre dans son cycle d'auto-vente."
+description: "Les détenteurs éligibles de NFT Premium et Elite peuvent utiliser un lot complet de DA pris en charge comme collatéral pour un prêt libellé en USDT, au LTV documenté de 70 %."
 icon: "hand-holding-dollar"
 ---
 
+Les détenteurs éligibles de NFT Premium et Elite peuvent utiliser un lot complet de DA pris en charge comme collatéral pour un prêt libellé en USDT.
 
-Le lending permet à un détenteur de DA d'accéder immédiatement à des liquidités en USDT sans vendre l'actif et sans renoncer à l'exposition à la future croissance du prix du DA. Le prêt est collatéralisé par un lot de DA spécifique, évalué à l'émission, et remboursable en totalité ou partiellement à tout moment avant que le stack mis en collatéral entre dans son cycle d'auto-vente.
+## Paramètres du Prêt
 
-<CardGroup cols={2}>
-  <Card title="70 % LTV - Fixe" icon="percent">
-    Chaque prêt est émis exactement à 70 % de la valeur USDT du collatéral au moment de l'émission. Il n'y a pas de curseur ni de plage « jusqu'à » - 70 % est le seul paramètre.
-  </Card>
-  <Card title="Commission Unique de 5 %" icon="receipt">
-    Une commission unique de 5 % est perçue à l'ouverture du prêt et dirigée vers le Pool de Liquidité du DA. Rien n'est prélevé au remboursement, qu'il soit total ou partiel.
-  </Card>
-  <Card title="Prix Verrouillé à l'Émission" icon="lock">
-    Le prix du DA utilisé pour tous les calculs du prêt est fixé dans `loan.price` au moment de l'émission. Même si le DA double ou décuple de valeur par la suite, votre dette en USDT reste inchangée.
-  </Card>
-  <Card title="Aucune Durée Fixe" icon="clock-rotate-left">
-    Le prêt n'a pas de date d'échéance. Il reste ouvert jusqu'à ce que l'emprunteur le rembourse ou jusqu'à ce que le lot mis en collatéral entre dans son cycle d'auto-vente.
-  </Card>
-</CardGroup>
+| Paramètre | Règle Actuelle |
+|---|---|
+| Niveaux éligibles | L5–L10 |
+| Collatéral | Un lot complet de DA |
+| LTV | 70 % |
+| Frais d'émission | 5 % |
+| Référence de dette | Prix protocolaire du DA enregistré à l'émission du prêt |
+| Éligibilité à un nouveau prêt | Au moins 30 jours avant le prochain événement Auto-Sell |
+| Réutilisation du lot | Un prêt par lot |
+| Remboursement | Remboursement total ou partiel |
 
-## Qui peut contracter un prêt ?
+## Comment le prêt est-il calculé ?
 
-Le lending est réservé aux détenteurs de NFT de rang Premium et Elite (Niveau 5 et supérieur). Les rangs inférieurs n'exécutent pas de minage NFTM et n'ont donc aucun collatéral en DA à mettre en gage.
+Prêt brut = DA du collatéral × prix de prêt enregistré × 70 %.
 
-<CardGroup cols={3}>
-  <Card title="Rang Premium (N5-N8)" icon="gem">
-    Hydro, Quantum, Pulse, Aurora. Chaque cycle de minage complété produit un lot de DA éligible à un prêt.
-  </Card>
-  <Card title="Rang Elite (N9-N10)" icon="crown">
-    Flame, Infinity. Deux cycles de minage par NFT - chaque cycle produit son propre lot indépendant avec son propre créneau de prêt indépendant.
-  </Card>
-  <Card title="Limite de Revenus Active" icon="signal-bars">
-    Le NFT emprunteur doit avoir une Limite de Revenus restante non nulle. Le lending est soumis au même modèle d'éligibilité que les récompenses marketing.
-  </Card>
-</CardGroup>
+Les frais actuels de 5 % sont déduits à l'émission. Le montant restant est crédité selon les règles de solde actives.
 
-## Quel est le collatéral ?
+## Instantané de Prix
 
-Un prêt est collatéralisé par **un lot de DA spécifique** - le DA crédité à un TokenStack issu d'un seul cycle de minage et de farming complété. L'ensemble du lot constitue l'unité de collatéral : l'emprunt partiel contre une fraction d'un lot n'est pas pris en charge. Si un lot contient 100 DA, le prêt est émis contre la totalité des 100 DA à la fois.
+Le prix de prêt enregistré demeure la valeur de référence pour les calculs de remboursement. Les changements ultérieurs du prix protocolaire du DA ne modifient pas le principal d'origine libellé en USDT.
 
-<Info>
-  **Un prêt par lot, définitivement.** Un lot de DA donné ne peut servir de collatéral que pour un seul prêt sur toute sa durée de vie. Une fois ce prêt ouvert - qu'il soit ensuite remboursé en totalité, partiellement ou en défaut - le lot ne peut plus être mis en gage. Pour ouvrir un autre prêt, l'emprunteur doit miner et farmer un nouveau lot.
-</Info>
+## Remboursement Partiel
 
-## Comment est calculé le montant du prêt ?
+Un emprunteur peut rembourser une partie du principal restant dû afin de libérer une quantité proportionnelle de collatéral restant. Le DA libéré reste soumis au calendrier du lot d'origine.
 
-Le smart contract utilise une formule déterministe unique à l'émission :
+## Défaut & Traitement Progressif du Collatéral
 
-```
-montantUSD      = DA_collatéral × loan.price × 0.70
-commission      = montantUSD × 0.05
-paiementNet     = montantUSD - commission
-```
+Si le prêt reste ouvert lorsque le lot entre en Auto-Sell, le DA mis en gage est traité progressivement selon le calendrier standard. L'emprunteur peut rembourser entre deux limites de période pour libérer le collatéral pas encore traité.
 
-`loan.price` est le prix du DA au moment de l'émission. Il est stocké dans la structure du prêt et ne change jamais pendant toute la durée de vie du prêt.
-
-<Steps>
-  <Step title="Le lot est créé">
-    Le cycle de minage se termine. L'utilisateur met en stake des NFTM dans le Farming. À la fin de la période de farming, 100 DA sont crédités sur un nouveau TokenStack à l'adresse de l'utilisateur.
-  </Step>
-  <Step title="L'utilisateur appelle loan() contre le lot">
-    En supposant que le prix actuel du DA à ce moment est de 1,00 USDT. Le contrat enregistre `loan.price = 1,00` dans la structure du prêt. `montantUSD = 100 × 1,00 × 0,70 = 70 USDT`.
-  </Step>
-  <Step title="La commission de 5 % est prélevée">
-    `commission = 70 × 0,05 = 3,50 USDT`. Les 3,50 USDT sont immédiatement dirigés vers le Pool de Liquidité du DA.
-  </Step>
-  <Step title="L'emprunteur reçoit le montant net">
-    `paiementNet = 70 - 3,50 = 66,50 USDT` est crédité sur le Solde Régulier de l'emprunteur. Le lot de 100 DA est désormais verrouillé comme collatéral. Le prêt est ouvert.
-  </Step>
-</Steps>
-
-<Note>
-  **Protection anti-résidu.** Le smart contract rejette les prêts pour lesquels le `paiementNet` serait arrondi à 0 USDT après la commission de 5 %. Un lot trop petit pour produire un paiement net non nul ne peut pas être mis en gage.
-</Note>
-
-## La dette du prêt est fixée en USDT
-
-C'est la propriété la plus importante du produit de lending et la raison principale pour laquelle les détenteurs de DA choisissent le lending plutôt que la vente.
-
-**Le montant dû au remboursement est calculé sur la base de `loan.price`, et non sur le prix de marché actuel du DA.** Une fois le prêt ouvert, la dette de l'emprunteur est libellée en USDT au prix capturé à l'émission. La valorisation du DA ne crée pas d'augmentation de la dette.
-
-<Info>
-  **Exemple - le prix du DA double pendant la durée du prêt.**
-
-  - Jour 0 : le prix du DA est de 1,00 USDT. L'emprunteur ouvre un prêt contre 100 DA. `loan.price = 1,00`. L'emprunteur reçoit 66,50 USDT après la commission de 5 %.
-  - Jour 90 : le prix de marché du DA a progressé à 2,00 USDT. Les mêmes 100 DA valent désormais 200 USDT au marché.
-  - Jour 90 : l'emprunteur appelle `repay()` pour la totalité du solde. Le contrat utilise `loan.price = 1,00`, non le prix de marché. Montant dû : `100 × 1,00 × 0,70 = 70 USDT`. L'emprunteur restitue 70 USDT et récupère la totalité des 100 DA. Ces 100 DA valent 200 USDT au prix de marché actuel.
-</Info>
-
-En pratique, le prêt permet au détenteur d'extraire des liquidités en USDT au prix d'aujourd'hui tout en conservant l'exposition à la future valorisation du DA. Le protocole ne réévalue pas la dette à mesure que le DA croît.
-
-## La fenêtre d'éligibilité de 30 jours
-
-Un prêt ne peut être ouvert que contre un lot de DA ayant encore au moins **30 jours avant la prochaine auto-vente programmée de ce lot**. La vérification est appliquée on-chain dans le chemin d'émission du prêt :
-
-```
-require(_getTimeToNextAutosale(stack) >= 30 days)
-```
+## Conditions Importantes du Prêt
 
 <Warning>
-  **Condition d'éligibilité, pas une durée de prêt.** La fenêtre de 30 jours est vérifiée **uniquement à l'émission**. Une fois le prêt ouvert, l'emprunteur n'est pas soumis à une échéance de 30 jours - le prêt reste ouvert jusqu'au remboursement ou jusqu'au démarrage du cycle d'auto-vente du lot. Un lot ayant 29 jours ou moins restant avant son prochain déclencheur d'auto-vente ne peut pas être utilisé comme collatéral pour un nouveau prêt, et la transaction est annulée.
-</Warning>
-
-Cette règle empêche l'emprunteur d'ouvrir un prêt contre un lot qui s'apprête à être auto-vendu dans les jours à venir, ce qui serait économiquement indiscernable d'une vente et n'offrirait aucune fenêtre de liquidité significative.
-
-## Remboursement total
-
-L'emprunteur peut clôturer le prêt à tout moment **tant que le stack mis en collatéral est encore actif** - c'est-à-dire avant que le lot ne soit entré dans son cycle progressif d'auto-vente. Le remboursement total restitue le `montantUSD` original (le principal brut à l'émission) et libère l'ensemble du lot de DA vers le TokenStack de l'emprunteur.
-
-**La commission de 5 % n'est pas perçue à nouveau.** Elle a été prélevée une seule fois, à l'émission, et ne fait pas partie du calcul du remboursement.
-
-<Info>
-  **Exemple - remboursement total.**
-
-  - Le prêt a été ouvert contre 100 DA à `loan.price = 1,00`. `montantUSD = 70 USDT`. Commission déjà payée à l'émission.
-  - L'emprunteur appelle `repay()` pour la totalité du solde et restitue 70 USDT.
-  - Le contrat libère les 100 DA sur le TokenStack de l'emprunteur. Le prêt est clôturé.
-</Info>
-
-## Remboursement partiel
-
-L'emprunteur peut également récupérer **une partie du collatéral** à tout moment avant l'auto-vente, en ne payant que pour la quantité de DA qu'il choisit de libérer :
-
-```
-montantDû = DA_libéré × loan.price × 0.70
-```
-
-Le DA libéré retourne au TokenStack original. Le DA restant reste verrouillé comme collatéral contre une dette proportionnellement réduite. **Le minuteur d'auto-vente du lot ne se réinitialise pas** - le stack continue sur son calendrier existant.
-
-<Info>
-  **Exemple - la moitié du collatéral récupérée.**
-
-  - Le prêt a été ouvert contre 100 DA à `loan.price = 1,00`. Dette initiale : 70 USDT contre 100 DA de collatéral.
-  - 60 jours plus tard, l'emprunteur souhaite récupérer la moitié du collatéral. Il appelle `repay()` en libérant 50 DA.
-  - `montantDû = 50 × 1,00 × 0,70 = 35 USDT`. L'emprunteur restitue 35 USDT.
-  - 50 DA sont libérés vers le TokenStack original. Les 50 DA restants restent en collatéral contre la dette résiduelle de 35 USDT.
-  - Le minuteur d'auto-vente du lot se poursuit depuis son point de départ original : 60 jours se sont déjà écoulés sur le calendrier des périodes en cours.
-</Info>
-
-<Note>
-  **Le DA libéré reste dans le même lot.** Les jetons récupérés via un remboursement partiel retournent au TokenStack original et restent soumis au calendrier d'auto-vente existant de ce stack. L'emprunteur peut les vendre manuellement au paiement standard de 75 % ou les laisser s'auto-vendre à 70 % lors du déclenchement de la période du lot. Ils ne peuvent pas être utilisés comme collatéral pour un nouveau prêt - la règle « un prêt par lot » s'applique à l'ensemble du lot, pas uniquement à la portion actuellement mise en gage.
-</Note>
-
-## Indépendance multi-lots
-
-Chaque cycle de minage produit un nouveau lot de DA, et chaque lot est une unité de collatéral indépendante. Un détenteur peut simultanément porter plusieurs prêts, chacun adossé à un lot différent, chaque prêt comportant ses propres :
-
-- Instantané de `loan.price`, pris à son propre moment d'émission
-- Commission unique de 5 %, payée à sa propre émission
-- Minuteur d'auto-vente, s'exécutant sur son propre lot
-- Éligibilité au remboursement, remboursement partiel ou défaut
-
-<CardGroup cols={3}>
-  <Card title="Lot A" icon="layer-group">
-    Prêt actif contre l'ensemble du lot. L'emprunteur a reçu des USDT à l'émission et porte la dette.
-  </Card>
-  <Card title="Lot B" icon="layer-group">
-    Partiellement remboursé. Une partie du DA a été récupérée ; le reste est toujours mis en gage contre une dette réduite.
-  </Card>
-  <Card title="Lot C" icon="layer-group">
-    Aucun prêt ouvert. Le DA est entièrement possédé par l'utilisateur et se comporte comme un stack de DA normal, soumis uniquement à son propre calendrier d'auto-vente.
-  </Card>
-</CardGroup>
-
-Un défaut sur le Lot A n'a aucun effet sur le Lot B ni sur le Lot C. Le brûlage progressif décrit ci-dessous s'applique uniquement au collatéral du lot en défaut.
-
-## Défaut - brûlage progressif du collatéral
-
-Si l'emprunteur ne rembourse pas le prêt avant que le stack mis en collatéral entre dans son cycle d'auto-vente, le calendrier standard en quatre périodes (120 / 90 / 90 / 65 jours, 365 jours au total) s'applique au DA mis en gage. Chaque période brûle un pourcentage du **DA mis en gage restant** :
-
-<Steps>
-  <Step title="Période 1 - jour 120 : 25 % du DA mis en gage est brûlé">
-    25 % du DA actuellement mis en gage est définitivement brûlé. La valeur USDT correspondante au `loan.price` est dirigée vers le Pool de Liquidité du DA. L'emprunteur ne reçoit rien pour cette portion. La dette restante est réduite proportionnellement au DA mis en gage restant.
-  </Step>
-  <Step title="Période 2 - jour 210 (+90 jours) : 40 % du reste est brûlé">
-    40 % du DA encore mis en gage est brûlé. La valeur USDT au `loan.price` afflue vers le Pool de Liquidité du DA. La dette restante est à nouveau réduite.
-  </Step>
-  <Step title="Période 3 - jour 300 (+90 jours) : 50 % du reste est brûlé">
-    50 % du DA encore mis en gage est brûlé. La valeur USDT au `loan.price` afflue vers le Pool de Liquidité du DA.
-  </Step>
-  <Step title="Période 4 - jour 365 (+65 jours) : 100 % du reste est brûlé">
-    Tout le DA encore mis en gage à ce stade est brûlé. La position de prêt est entièrement clôturée. L'emprunteur conserve les USDT reçus à l'émission.
-  </Step>
-</Steps>
-
-**Exemple - défaut total sur un prêt de 100 DA / 70 USDT à `loan.price = 1,00`.**
-
-| Événement | DA mis en gage avant | DA brûlé | USDT vers le Pool | DA mis en gage après | Dette restante |
-|---|---|---|---|---|---|
-| Émission (jour 0) | - | - | - | 100 | 70,00 |
-| Période 1 (jour 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-| Période 2 (jour 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-| Période 3 (jour 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-| Période 4 (jour 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
-<Info>
-  Si l'emprunteur ne prend aucune mesure de récupération sur les quatre périodes, il conserve les 66,50 USDT originaux reçus à l'émission et la totalité des 100 DA en collatéral est brûlée sur le cycle de 365 jours. Tous les DA brûlés sont définitivement retirés de la masse monétaire ; tous les USDT dirigés vers le Pool renforcent l'adossement du DA pour le reste de l'écosystème.
-</Info>
-
-<Warning>
-  **L'emprunteur ne reçoit pas d'USDT d'un lot en défaut.** Lors d'un défaut, 100 % du produit attribuable au collatéral brûlé est dirigé vers le Pool de Liquidité du DA, et non vers le Solde Régulier de l'emprunteur. La seule récupération économique de l'emprunteur sur un lot en défaut est l'USDT reçu à l'émission.
-</Warning>
-
-## Récupération partielle pendant le défaut
-
-Le défaut est progressif, pas tout-ou-rien. **À tout moment entre deux périodes d'auto-vente, l'emprunteur peut encore appeler `repay()` et récupérer le DA mis en gage restant** en ne payant que pour ce qui est encore mis en gage.
-
-<Info>
-  **Exemple - récupération après la Période 1.**
-
-  - L'emprunteur a ouvert un prêt contre 100 DA à `loan.price = 1,00`. Dette initiale : 70 USDT.
-  - L'emprunteur ne rembourse pas. La Période 1 se déclenche au jour 120 : 25 DA sont brûlés, 17,50 USDT sont dirigés vers le Pool. DA mis en gage restant : 75. Dette restante : 52,50 USDT.
-  - Au jour 150, avant le déclenchement de la Période 2, l'emprunteur décide de récupérer ce qui reste. Il appelle `repay()` pour la totalité du solde restant.
-  - `montantDû = 75 × 1,00 × 0,70 = 52,50 USDT`. L'emprunteur restitue 52,50 USDT. Le contrat libère 75 DA vers le TokenStack de l'emprunteur. Le prêt est clôturé.
-  - Les 25 DA brûlés en Période 1 sont définitivement perdus - ils ne peuvent pas être récupérés.
-</Info>
-
-<Note>
-  **Comportement de `repay()` après le début de l'auto-vente.** Lorsque `repay()` est appelé sur un stack qui a déjà franchi le cycle d'auto-vente, le contrat exécute d'abord `_processExpiredStacks()` pour régler chaque période dont le déclencheur est déjà passé. Après ce règlement, l'appel se poursuit contre le collatéral post-brûlage et la dette post-brûlage. L'emprunteur **ne peut pas** utiliser `repay()` pour « devancer » un brûlage qui a déjà été déclenché, mais il **peut** stopper le **prochain** brûlage en remboursant avant sa limite de période.
-</Note>
-
-## Mécanique de vente post-récupération
-
-Le DA récupéré via un remboursement total ou partiel retourne au TokenStack de l'emprunteur et se comporte exactement comme un DA normal par la suite. Il peut être :
-
-- **Vendu manuellement** pour 75 % du **prix de marché actuel** en USDT (100 % du DA vendu est brûlé)
-- **Conservé** jusqu'à ce que le calendrier d'auto-vente du lot atteigne la prochaine période
-- **Laissé à l'auto-vente** au paiement standard de 70 % lors du déclenchement de sa période
-
-La Limite de Revenus du NFT du détenteur est consommée à hauteur de la **valeur de marché actuelle** du DA vendu, et non à hauteur de `loan.price`.
-
-<Info>
-  **Exemple - vente du DA récupéré après une croissance de prix.**
-
-  - L'emprunteur a ouvert un prêt contre 100 DA à `loan.price = 1,00`. A reçu 66,50 USDT.
-  - 90 jours plus tard, le prix de marché a progressé à 2,00 USDT. L'emprunteur rembourse intégralement : restitue 70 USDT, récupère 100 DA.
-  - L'emprunteur vend ensuite ces 100 DA manuellement. Valeur de marché : 100 DA × 2,00 USDT = 200 USDT.
-    - L'emprunteur reçoit `200 × 0,75 = 150 USDT` sur son Solde Régulier.
-    - Les 100 DA sont brûlés.
-    - La différence de 50 USDT (200 - 150) reste dans le Pool comme commission protocolaire.
-    - **La Limite de Revenus est réduite de la valeur de marché totale de 200 USDT**, et non des 100 USDT qui correspondraient à `loan.price`.
-</Info>
-
-C'est la raison structurelle pour laquelle le lending est attractif à grande échelle : l'emprunteur fixe des liquidités au prix d'aujourd'hui, conserve l'exposition à la hausse du DA, et ne consomme la Limite de Revenus que sur la valeur réalisée effective au moment de la vente.
-
-## Paramètres de lending en un coup d'oeil
-
-| Paramètre | Valeur | Mutabilité |
-|---|---|---|
-| LTV | 70 % | Immuable |
-| Commission de lending (`loanFee`) | 5 % | Ajustable par le DAO (0 % - 5 %) |
-| Destination de la commission | Pool de Liquidité du DA | Immuable |
-| Condition d'éligibilité (temps avant la prochaine auto-vente) | 30 jours | Immuable |
-| Durée du prêt | Aucune (jusqu'à l'auto-vente ou au remboursement) | Structurel |
-| Référence de prix pour la dette | `loan.price` à l'émission | Structurel |
-| Prêts par lot | 1 (à vie) | Structurel |
-| Destination du produit en cas de défaut | Pool de Liquidité du DA | Structurel |
-| Frais de remboursement | Aucun | Structurel |
-| Rang de NFT minimum | N5 (Hydro) | Immuable |
-
-Le paramètre `loanFee` est géré indépendamment de tous les autres frais du protocole afin que le DAO puisse ajuster l'économie du lending sans toucher aux taxes marketing, aux frais cumulatifs ou à toute autre commission.
-
-## Pièges courants
-
-<Warning>
-  **Vous ne pouvez pas mettre le même lot en gage deux fois.** Même après un remboursement total, le créneau de lending du lot est consommé. Pour ouvrir un nouveau prêt, minez et farmez un nouveau lot.
-</Warning>
-
-<Warning>
-  **Vous ne pouvez pas mettre en gage un lot dans les 30 jours avant son prochain déclencheur d'auto-vente.** Planifiez les prêts contre des lots récents - le chemin d'émission du prêt est annulé pour un lot ayant moins de 30 jours restant avant sa prochaine auto-vente.
-</Warning>
-
-<Warning>
-  **Les brûlages déjà déclenchés ne peuvent pas être annulés.** La récupération partielle pendant le défaut est possible, mais chaque période déjà écoulée a définitivement brûlé sa part de collatéral. Remboursez avant la prochaine période si vous voulez préserver ce qui reste.
-</Warning>
-
-<Warning>
-  **La Limite de Revenus est consommée à hauteur de la valeur de marché actuelle, et non de `loan.price`.** Un lot récupéré vendu après une forte croissance du prix du DA consommera la Limite de Revenus proportionnellement à la nouvelle valeur de marché. Maintenez le NFT renouvelé pour que le paiement plus élevé soit effectivement crédité.
+  - Un lot de DA ne peut être mis en gage qu'une seule fois.
+  - Le prêt doit être ouvert avant l'échéance d'éligibilité actuelle.
+  - Le calendrier Auto-Sell d'origine n'est pas réinitialisé.
+  - Seul le lot mis en gage est affecté par le traitement en cas de défaut.
 </Warning>
 
 ## Pages associées
 
 <CardGroup cols={2}>
-  <Card title="Mécanique de Vente" icon="fire" href="/fr/da-selling-lending">
-    Vente manuelle à 75 %, auto-vente à 70 %, et comment le cycle d'auto-vente en quatre périodes interagit avec les défauts de lending.
+  <Card title="Vente & Prêt" icon="fire" href="/fr/da-selling-lending">
+    Vente manuelle, calendrier Auto-Sell, et la manière dont les paiements de vente de DA interagissent avec le Plafond de Récompenses du Protocole.
   </Card>
-  <Card title="Économie du Jeton DA" icon="coins" href="/fr/da-token-mechanics">
-    Le plafond strict de 21M, la formule `Prix = Liquidité ÷ Offre`, et chaque flux de revenus qui alimente le Pool.
+  <Card title="Mécanique du Jeton DA" icon="coins" href="/fr/da-token-mechanics">
+    L'offre maximale de 21M, la formule du prix protocolaire, et les sources du Pool de Liquidité du DA.
   </Card>
 </CardGroup>

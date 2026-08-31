@@ -1,48 +1,44 @@
 ---
 title: "Mineração e Farming"
-description: "De NFTM a DA em duas etapas."
+description: "Como detentores de níveis elegíveis de NFT Premium e Elite adquirem DA por meio de um processo de duas etapas: a Mineração registra o NFTM, e o Farming calcula o DA usando o valor de NFTM comprometido, o preço atual do protocolo e os parâmetros vigentes."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
 
-Para adquirir DA, os usuários devem participar de um processo de duas etapas: Mineração e Farming. Apenas NFTs Premium (Nível 5+) e Elite são capazes disso.
+## Como você adquire DA por meio de Mineração e Farming?
+
+Apenas níveis elegíveis de NFT Premium e Elite podem acessar esse processo. É necessário um NFT ativo com Limite de Recompensas do Protocolo diferente de zero para iniciar um novo ciclo.
 
 <Info>
-  **NFTM não é um token.** É um contador (métrica) interno de mineração rastreado pelo smart contract. Na interface, você vê uma barra de progresso e o valor esperado de NFTM. O NFTM não tem valor de mercado e não pode ser negociado ou transferido — ele existe apenas para ser staked no Farming e convertido em DA.
-</Info>
-
-<Info>
-  **É necessário um Limite de Rendimento ativo para minerar.** Tanto a Mineração quanto o Farming exigem que o NFT elegível tenha um **Limite de Rendimento** diferente de zero. Se seu limite chegou a zero, o smart contract se recusará a iniciar um novo ciclo de mineração. Para retomar a mineração, primeiro renove seu Limite de Rendimento — através do sistema Autobuy 3/3, uma renovação manual no mesmo nível ou um upgrade para um NFT de nível superior — e então ative o próximo ciclo. O Limite de Rendimento é a condição limitante; sem ele, o fluxo de mineração não começa.
+  **NFTM é um contador interno de mineração.** Não é um token transferível, não tem valor de mercado independente e existe apenas dentro do processo documentado de Mineração e Farming.
 </Info>
 
 <Steps>
-  <Step title="Ativar Mineração">
-    Inicie a mineração no seu NFT elegível. A duração do ciclo depende do seu nível — de 45 dias (HYDRO) até 40 dias (INFINITY).
+  <Step title="Ativar a Mineração">
+    Inicie um ciclo em um NFT elegível. A duração varia de 45 dias para o Hydro a 40 dias para o Infinity.
   </Step>
   <Step title="Gerar NFTM">
-    Seu NFT gera NFTM ao longo do período do ciclo. Os Níveis 5–7 (HYDRO, QUANTUM, PULSE) têm **1 ciclo de mineração** que produz **10%** do preço do NFT em NFTM. Os Níveis 8–10 (AURORA, FLAME, INFINITY) têm **2 ciclos de mineração** — o primeiro produz **10%** e o segundo produz **15%** do preço do NFT em NFTM.
+    Os Níveis 5–7 atualmente geram um único ciclo de NFTM de 10%; os Níveis 8–10 geram um primeiro ciclo de 10% e um segundo ciclo de 15%.
   </Step>
-  <Step title="Reivindicar em até 72 Horas">
-    Assim que a mineração for concluída, você tem exatamente **72 horas** para fazer staking do seu NFTM no Farming. Perca essa janela e você reinicia do zero.
+  <Step title="Comprometer em até 72 Horas">
+    O NFTM concluído deve ser comprometido ao Farming dentro da janela de reivindicação.
   </Step>
-  <Step title="Farm de DA">
-    O NFTM em staking entra no Farming pela mesma duração do ciclo de mineração. No final, o NFTM é convertido em DA com base no preço atual e creditado ao seu TokenStack.
+  <Step title="Fazer o Farming do DA">
+    Após a conclusão do Farming, o protocolo calcula o valor elegível de DA usando a fórmula atual e o credita ao TokenStack do usuário.
   </Step>
 </Steps>
 
 <Warning>
-  **Janela Crítica de 72 Horas:** Se você não fizer staking do seu NFTM dentro de 72 horas após a conclusão da mineração, o ciclo inteiro é perdido. Você precisa reiniciar a mineração do zero. Configure um lembrete.
+  **Janela de Reivindicação de 72 Horas:** Se o NFTM concluído não for comprometido dentro de 72 horas, o ciclo é reiniciado conforme as regras do smart contract.
 </Warning>
 
 <Warning>
-  **Reivindique Antes de Fazer Upgrade — Recompensas Não Reivindicadas de Farming São Destruídas:** Qualquer compra ou upgrade de NFT aciona `terminate()` no estado de mineração/farming do usuário. Por design, `terminate()` interrompe a sessão ativa e **destrói todas as recompensas de farming não reivindicadas**, incluindo recompensas que já tenham amadurecido, mas que ainda não foram reivindicadas. A equipe confirmou que isso é intencional na resposta da auditoria: *"It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
-
-  **Regra operacional:** se você tem uma recompensa de farming amadurecida, mas não reivindicada, **reivindique-a primeiro**, e só então compre ou faça upgrade do NFT. Caso contrário, a recompensa é permanentemente perdida no momento em que a nova transação de NFT é confirmada.
+  **Reivindique Antes de Fazer Upgrade:** Uma compra ou upgrade de NFT aciona `terminate()` no estado atual de Mineração e Farming. Reivindique qualquer resultado maturado disponível antes de substituir ou fazer upgrade do NFT.
 </Warning>
 
 <Warning>
-  **Pausa do Ciclo Deflacionário:** Duas vezes por ano, o sistema aciona um Ciclo Deflacionário com duração de até 30 dias. Durante esse período, o **lançamento de novos ciclos** de mineração de NFTM, staking e geração de DA é suspenso. Os ciclos já em execução antes do início do Ciclo Deflacionário **continuam e são concluídos conforme o cronograma** — o progresso não é perdido. Planeje o lançamento de novos ciclos em torno desses períodos programados.
+  **Pausa do Ciclo Deflacionário:** Durante um Ciclo Deflacionário ativo, o lançamento de novos ciclos pode ser pausado. Os ciclos existentes continuam e são concluídos conforme o cronograma.
 </Warning>
 
 <MiningPipeline />

@@ -1,294 +1,58 @@
 ---
 title: "Empréstimo Contra DA"
-description: "Tome um empréstimo em USDT com LTV fixo de 70% contra qualquer batch de DA no seu TokenStack. Pague uma comissão única de 5%, fixe o preço do DA hoje, e quite total ou parcialmente a qualquer momento antes de o stack entrar no seu ciclo de auto-venda."
+description: "Detentores elegíveis de NFT Premium e Elite podem usar um batch de DA completo e suportado como garantia para um empréstimo denominado em USDT, ao LTV documentado de 70%."
 icon: "hand-holding-dollar"
 ---
 
+Detentores elegíveis de NFT Premium e Elite podem usar um batch de DA completo e suportado como garantia para um empréstimo denominado em USDT.
 
-O Lending permite que o detentor de DA acesse liquidez imediata em USDT sem vender o ativo e sem abrir mão da exposição ao crescimento futuro do preço do DA. O empréstimo é colateralizado por um batch específico de DA, precificado no momento da emissão, e pode ser quitado total ou parcialmente a qualquer momento antes de o stack colateralizado entrar no seu ciclo de auto-venda.
+## Parâmetros do Empréstimo
 
-<CardGroup cols={2}>
-  <Card title="70% LTV - Fixo" icon="percent">
-    Todo empréstimo é emitido exatamente a 70% do valor em USDT da garantia no momento da emissão. Não há slider nem faixa "até" - 70% é a única configuração.
-  </Card>
-  <Card title="Comissão Única de 5%" icon="receipt">
-    Uma única comissão de 5% é cobrada na abertura do empréstimo e direcionada ao Pool de Liquidez do DA. Nada é cobrado no reembolso, total ou parcial.
-  </Card>
-  <Card title="Preço Fixado na Emissão" icon="lock">
-    O preço do DA usado em todos os cálculos do empréstimo é fixado em `loan.price` no momento da emissão. Mesmo que o DA valorize 2x ou 10x depois, sua dívida em USDT não aumenta.
-  </Card>
-  <Card title="Sem Prazo Fixo" icon="clock-rotate-left">
-    O empréstimo não tem data de vencimento. Permanece aberto até que o tomador o quite, ou até que o batch colateralizado entre no seu ciclo de auto-venda.
-  </Card>
-</CardGroup>
+| Parâmetro | Regra Atual |
+|---|---|
+| Níveis elegíveis | L5–L10 |
+| Garantia | Um batch completo de DA |
+| LTV | 70% |
+| Taxa de emissão | 5% |
+| Referência da dívida | Preço do protocolo do DA registrado na emissão do empréstimo |
+| Elegibilidade para novo empréstimo | Pelo menos 30 dias antes do próximo evento de Auto-Sell |
+| Reutilização do batch | Um empréstimo por batch |
+| Reembolso | Total ou parcial |
 
-## Quem pode tomar um empréstimo?
+## Como o empréstimo é calculado?
 
-O Lending está disponível apenas para detentores de NFT dos níveis Premium e Elite (Nível 5 e acima). Níveis inferiores não executam mineração de NFTM e, portanto, não possuem garantia em DA para tomar emprestado.
+Empréstimo bruto = DA em garantia × preço do empréstimo registrado × 70%.
 
-<CardGroup cols={3}>
-  <Card title="Nível Premium (L5-L8)" icon="gem">
-    Hydro, Quantum, Pulse, Aurora. Cada ciclo de mineração concluído produz um batch de DA elegível para um empréstimo.
-  </Card>
-  <Card title="Nível Elite (L9-L10)" icon="crown">
-    Flame, Infinity. Dois ciclos de mineração por NFT - cada ciclo produz seu próprio batch independente com seu próprio slot de empréstimo independente.
-  </Card>
-  <Card title="Limite de Renda Ativo" icon="signal-bars">
-    O NFT do tomador deve ter Limite de Renda restante diferente de zero. O Lending é condicionado ao mesmo modelo de elegibilidade das recompensas de marketing.
-  </Card>
-</CardGroup>
+A taxa atual de 5% é deduzida na emissão. O valor restante é creditado conforme as regras de saldo vigentes.
 
-## O que é a garantia?
+## Snapshot de Preço
 
-Um empréstimo é colateralizado por **um batch específico de DA** - o DA creditado a um TokenStack a partir de um único ciclo de mineração e farming concluído. O batch inteiro é a unidade de garantia: não é suportado o empréstimo de valor parcial contra uma fração de um batch. Se um batch contém 100 DA, o empréstimo é emitido contra todos os 100 DA de uma vez.
+O preço do empréstimo registrado permanece como valor de referência para os cálculos de reembolso. Mudanças posteriores no preço do protocolo do DA não alteram o principal original denominado em USDT.
 
-<Info>
-  **Um empréstimo por batch, para sempre.** Um dado batch de DA pode servir como garantia para no máximo um empréstimo ao longo de toda a sua vida útil. Uma vez que esse empréstimo seja aberto - independentemente de ser posteriormente quitado integralmente, quitado parcialmente ou inadimplido - o batch não pode ser dado em garantia novamente. Para abrir outro empréstimo, o tomador deve minerar e fazer o farming de um novo batch.
-</Info>
+## Reembolso Parcial
 
-## Como o valor do empréstimo é calculado?
+Um tomador pode reembolsar parte do principal em aberto para liberar uma quantidade proporcional da garantia restante. O DA liberado permanece sujeito ao cronograma original do batch.
 
-O smart contract usa uma única fórmula determinística na emissão:
+## Inadimplência e Processamento Progressivo da Garantia
 
-```
-usdAmount       = collateral_DA × loan.price × 0.70
-fee             = usdAmount × 0.05
-borrowerPayout  = usdAmount - fee
-```
+Se o empréstimo permanecer aberto quando o batch entrar em Auto-Sell, o DA dado em garantia é processado progressivamente conforme o cronograma padrão. O tomador pode reembolsar entre os limites dos períodos para liberar a garantia ainda não processada.
 
-`loan.price` é o preço do DA no momento da emissão. Ele é armazenado na struct do empréstimo e nunca muda durante toda a vida do empréstimo.
-
-<Steps>
-  <Step title="O batch é criado">
-    O ciclo de mineração é concluído. O usuário faz o stake de NFTM no Farming. Após o término do período de farming, 100 DA são creditados a um novo TokenStack no endereço do usuário.
-  </Step>
-  <Step title="O usuário chama loan() contra o batch">
-    Suponha que o preço atual do DA neste momento seja 1,00 USDT. O contrato registra `loan.price = 1,00` na struct do empréstimo. `usdAmount = 100 × 1,00 × 0,70 = 70 USDT`.
-  </Step>
-  <Step title="A comissão de 5% é separada">
-    `fee = 70 × 0,05 = 3,50 USDT`. Os 3,50 USDT são direcionados imediatamente ao Pool de Liquidez do DA.
-  </Step>
-  <Step title="O tomador recebe o valor líquido">
-    `borrowerPayout = 70 - 3,50 = 66,50 USDT` é creditado ao Saldo Regular do tomador. O batch de 100 DA está agora bloqueado como garantia. O empréstimo está aberto.
-  </Step>
-</Steps>
-
-<Note>
-  **Proteção contra poeira.** O smart contract rejeita empréstimos em que `borrowerPayout` seria arredondado para 0 USDT após a comissão de 5%. Um batch muito pequeno para produzir um pagamento líquido diferente de zero não pode ser dado em garantia.
-</Note>
-
-## A dívida do empréstimo é fixada em USDT
-
-Esta é a propriedade mais importante do produto de lending e a principal razão pela qual os detentores de DA escolhem o lending em vez da venda.
-
-**O valor devido no reembolso é calculado com base em `loan.price`, não no preço de mercado atual do DA.** Uma vez aberto um empréstimo, a dívida do tomador é denominada em USDT ao preço fixado no momento da emissão. A valorização do DA não aumenta a dívida.
-
-<Info>
-  **Exemplo prático - o preço do DA dobra durante o empréstimo.**
-
-  - Dia 0: o preço do DA é 1,00 USDT. O tomador abre um empréstimo contra 100 DA. `loan.price = 1,00`. O tomador recebe 66,50 USDT após a comissão de 5%.
-  - Dia 90: o preço de mercado do DA cresceu para 2,00 USDT. Os mesmos 100 DA valem agora 200 USDT a mercado.
-  - Dia 90: o tomador chama `repay()` pelo saldo total. O contrato usa `loan.price = 1,00`, não o preço de mercado. Valor devido: `100 × 1,00 × 0,70 = 70 USDT`. O tomador devolve 70 USDT e resgata todos os 100 DA. Esses 100 DA valem 200 USDT ao preço de mercado atual.
-</Info>
-
-Na prática, o empréstimo permite que o detentor extraia liquidez em USDT ao preço de hoje, mantendo o potencial de ganho com a valorização futura do DA. O protocolo não reprecifica a dívida conforme o DA cresce.
-
-## A barreira de elegibilidade de 30 dias
-
-Um empréstimo só pode ser aberto contra um batch de DA que ainda tenha pelo menos **30 dias restantes até o próximo evento de auto-venda agendado daquele batch**. A verificação é executada on-chain no caminho de emissão do empréstimo:
-
-```
-require(_getTimeToNextAutosale(stack) >= 30 days)
-```
+## Condições Importantes do Empréstimo
 
 <Warning>
-  **Barreira de elegibilidade, não prazo do empréstimo.** A janela de 30 dias é verificada **apenas na emissão**. Uma vez que o empréstimo esteja aberto, o tomador não está sujeito a um prazo de 30 dias - o empréstimo permanece aberto até o reembolso ou até que o ciclo de auto-venda do batch comece. Um batch com 29 ou menos dias restantes até seu próximo gatilho de auto-venda não pode ser usado como garantia para um novo empréstimo, e a transação é revertida.
-</Warning>
-
-A regra impede que o tomador abra um empréstimo contra um batch que está prestes a entrar em auto-venda em poucos dias, o que seria economicamente indistinguível de uma venda e não ofereceria nenhuma janela de liquidez significativa.
-
-## Reembolso total
-
-O tomador pode fechar o empréstimo a qualquer momento **enquanto o stack colateralizado ainda estiver ativo** - ou seja, antes de o batch ter entrado no seu ciclo progressivo de auto-venda. O reembolso total devolve o `usdAmount` original (o principal bruto na emissão) e libera o batch completo de DA de volta ao TokenStack do tomador.
-
-**A comissão de 5% não é cobrada novamente.** Ela foi cobrada uma vez, na emissão, e não faz parte do cálculo do reembolso.
-
-<Info>
-  **Exemplo prático - reembolso total.**
-
-  - O empréstimo foi aberto contra 100 DA com `loan.price = 1,00`. `usdAmount = 70 USDT`. Comissão já paga na emissão.
-  - O tomador chama `repay()` pelo saldo total e devolve 70 USDT.
-  - O contrato libera todos os 100 DA de volta ao TokenStack do tomador. O empréstimo é encerrado.
-</Info>
-
-## Reembolso parcial
-
-O tomador também pode resgatar **uma parte da garantia** a qualquer momento antes da auto-venda, pagando apenas pelo valor do DA que escolhe liberar:
-
-```
-toPay = released_DA × loan.price × 0.70
-```
-
-O DA liberado retorna ao TokenStack original. O DA restante permanece bloqueado como garantia contra uma dívida proporcionalmente reduzida. **O temporizador de auto-venda do batch não é reiniciado** - o stack continua no seu cronograma existente.
-
-<Info>
-  **Exemplo prático - metade da garantia resgatada.**
-
-  - O empréstimo foi aberto contra 100 DA com `loan.price = 1,00`. Dívida inicial: 70 USDT contra 100 DA de garantia.
-  - 60 dias depois, o tomador deseja resgatar metade da garantia. Ele chama `repay()` liberando 50 DA.
-  - `toPay = 50 × 1,00 × 0,70 = 35 USDT`. O tomador devolve 35 USDT.
-  - 50 DA são liberados de volta ao TokenStack original. Os 50 DA restantes permanecem como garantia contra a dívida remanescente de 35 USDT.
-  - O temporizador de auto-venda do batch continua a partir do seu início original: 60 dias já transcorreram no cronograma de períodos existente.
-</Info>
-
-<Note>
-  **O DA liberado permanece no mesmo batch.** Tokens resgatados via reembolso parcial retornam ao TokenStack original e continuam sujeitos ao cronograma de auto-venda existente daquele stack. O tomador pode vendê-los manualmente pelo pagamento padrão de 75% ou deixá-los entrar em auto-venda a 70% quando o período do batch for acionado. Eles não podem ser usados como garantia para um novo empréstimo - a regra "um empréstimo por batch" se aplica ao batch inteiro, não apenas à porção atualmente dada em garantia.
-</Note>
-
-## Independência multi-batch
-
-Cada ciclo de mineração produz um novo batch de DA, e cada batch é uma unidade independente de garantia. Um detentor pode manter simultaneamente múltiplos empréstimos, cada um contra um batch diferente, com cada empréstimo carregando seu próprio:
-
-- Snapshot de `loan.price`, capturado no momento da sua própria emissão
-- Comissão única de 5%, paga na sua própria emissão
-- Temporizador de auto-venda, rodando no seu próprio batch
-- Elegibilidade para reembolso, reembolso parcial ou inadimplência
-
-<CardGroup cols={3}>
-  <Card title="Batch A" icon="layer-group">
-    Empréstimo ativo contra o batch completo. O tomador recebeu USDT na emissão e está mantendo a dívida.
-  </Card>
-  <Card title="Batch B" icon="layer-group">
-    Parcialmente reembolsado. Parte do DA foi resgatada; o restante ainda está dado em garantia contra uma dívida reduzida.
-  </Card>
-  <Card title="Batch C" icon="layer-group">
-    Nenhum empréstimo aberto. O DA é totalmente de propriedade do usuário e se comporta como um stack normal de DA, sujeito apenas ao seu próprio cronograma de auto-venda.
-  </Card>
-</CardGroup>
-
-Uma inadimplência no Batch A não tem efeito no Batch B ou Batch C. A queima progressiva descrita abaixo se aplica apenas à garantia do batch inadimplido.
-
-## Inadimplência - queima progressiva da garantia
-
-Se o tomador não quitar o empréstimo antes de o stack colateralizado entrar no seu ciclo de auto-venda, o cronograma padrão de quatro períodos (120 / 90 / 90 / 65 dias, 365 dias no total) prossegue contra o DA dado em garantia. Cada período queima uma porcentagem do **DA dado em garantia restante**:
-
-<Steps>
-  <Step title="Período 1 - dia 120: 25% do DA dado em garantia é queimado">
-    25% do DA atualmente dado em garantia é permanentemente queimado. O valor correspondente em USDT ao `loan.price` é direcionado ao Pool de Liquidez do DA. O tomador não recebe nada por esta porção. A dívida restante é reduzida proporcionalmente ao DA dado em garantia restante.
-  </Step>
-  <Step title="Período 2 - dia 210 (+90 dias): 40% do restante é queimado">
-    40% do DA ainda dado em garantia é queimado. O valor em USDT ao `loan.price` flui para o Pool de Liquidez do DA. A dívida restante é reduzida novamente.
-  </Step>
-  <Step title="Período 3 - dia 300 (+90 dias): 50% do restante é queimado">
-    50% do DA ainda dado em garantia é queimado. O valor em USDT ao `loan.price` flui para o Pool de Liquidez do DA.
-  </Step>
-  <Step title="Período 4 - dia 365 (+65 dias): 100% do restante é queimado">
-    Todo o DA ainda dado em garantia neste ponto é queimado. A posição do empréstimo é totalmente encerrada. O tomador mantém o USDT recebido na emissão.
-  </Step>
-</Steps>
-
-**Exemplo prático - inadimplência total em um empréstimo de 100 DA / 70 USDT com `loan.price = 1,00`.**
-
-| Evento | DA em garantia antes | DA queimado | USDT para o Pool | DA em garantia depois | Dívida restante |
-|---|---|---|---|---|---|
-| Emissão (dia 0) | - | - | - | 100 | 70,00 |
-| Período 1 (dia 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-| Período 2 (dia 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-| Período 3 (dia 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-| Período 4 (dia 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
-<Info>
-  Se o tomador não tomar nenhuma ação de recuperação ao longo dos quatro períodos, ele mantém os 66,50 USDT originais recebidos na emissão e toda a garantia de 100 DA é queimada ao longo do ciclo de 365 dias. Todo o DA queimado é removido permanentemente da oferta; todo o USDT direcionado ao Pool fortalece o lastro do DA para o resto do ecossistema.
-</Info>
-
-<Warning>
-  **O tomador não recebe USDT de um batch inadimplido.** Durante a inadimplência, 100% dos recursos atribuíveis à garantia queimada são direcionados ao Pool de Liquidez do DA, não ao Saldo Regular do tomador. A única recuperação econômica do tomador de um batch inadimplido é o USDT recebido na emissão.
-</Warning>
-
-## Recuperação parcial durante a inadimplência
-
-A inadimplência é progressiva, não tudo ou nada. **A qualquer momento entre os períodos de auto-venda, o tomador ainda pode chamar `repay()` e resgatar o DA dado em garantia restante**, pagando apenas pelo que ainda está dado em garantia.
-
-<Info>
-  **Exemplo prático - recuperação após o Período 1.**
-
-  - O tomador abriu um empréstimo contra 100 DA com `loan.price = 1,00`. Dívida inicial: 70 USDT.
-  - O tomador não reembolsa. O Período 1 é acionado no dia 120: 25 DA são queimados, 17,50 USDT são direcionados ao Pool. Dado em garantia restante: 75 DA. Dívida restante: 52,50 USDT.
-  - No dia 150, antes de o Período 2 ser acionado, o tomador decide recuperar o que resta. Ele chama `repay()` pelo saldo remanescente total.
-  - `toPay = 75 × 1,00 × 0,70 = 52,50 USDT`. O tomador devolve 52,50 USDT. O contrato libera 75 DA de volta ao TokenStack do tomador. O empréstimo é encerrado.
-  - Os 25 DA queimados no Período 1 são perdidos permanentemente - não podem ser recuperados.
-</Info>
-
-<Note>
-  **Comportamento de `repay()` após o início da auto-venda.** Quando `repay()` é chamado em um stack que já cruzou para o ciclo de auto-venda, o contrato primeiro executa `_processExpiredStacks()` para liquidar cada período cujo gatilho já passou. Após essa liquidação, a chamada prossegue contra a garantia pós-queima e a dívida pós-queima. O tomador **não pode** usar `repay()` para "passar à frente" de uma queima que já foi acionada, mas **pode** interromper a **próxima** queima reembolsando antes do limite do seu período.
-</Note>
-
-## Mecânica de venda pós-recuperação
-
-O DA recuperado via reembolso total ou parcial retorna ao TokenStack do tomador e se comporta exatamente como DA normal a partir de então. Ele pode ser:
-
-- **Vendido manualmente** por 75% do **preço de mercado atual** em USDT (100% do DA vendido é queimado)
-- **Mantido** até que o cronograma de auto-venda do batch atinja o próximo período
-- **Deixado para auto-venda** ao pagamento padrão de 70% quando o seu período for acionado
-
-O Limite de Renda no NFT do detentor é consumido contra o **valor de mercado atual** do DA sendo vendido, não contra `loan.price`.
-
-<Info>
-  **Exemplo prático - venda de DA recuperado após crescimento do preço.**
-
-  - O tomador abriu um empréstimo contra 100 DA com `loan.price = 1,00`. Recebeu 66,50 USDT.
-  - 90 dias depois, o preço de mercado cresceu para 2,00 USDT. O tomador quita integralmente: devolve 70 USDT, resgata 100 DA.
-  - O tomador então vende esses 100 DA manualmente. Valor de mercado: 100 DA × 2,00 USDT = 200 USDT.
-    - O tomador recebe `200 × 0,75 = 150 USDT` no seu Saldo Regular.
-    - Todos os 100 DA são queimados.
-    - A diferença de 50 USDT (200 - 150) permanece no Pool como comissão do protocolo.
-    - **O Limite de Renda é reduzido pelo valor de mercado total de 200 USDT da venda**, não pelos 100 USDT que corresponderiam ao `loan.price`.
-</Info>
-
-Esta é a razão estrutural pela qual o lending é atraente em escala: o tomador garante liquidez ao preço de hoje, retém o potencial de valorização do DA, e consome o Limite de Renda apenas sobre o valor efetivamente realizado no momento da venda.
-
-## Parâmetros de lending em resumo
-
-| Parâmetro | Valor | Mutabilidade |
-|---|---|---|
-| LTV | 70% | Imutável |
-| Comissão de lending (`loanFee`) | 5% | Ajustável pela DAO (0% - 5%) |
-| Destino da comissão | Pool de Liquidez do DA | Imutável |
-| Barreira de elegibilidade (tempo até próxima auto-venda) | 30 dias | Imutável |
-| Prazo do empréstimo | Nenhum (até auto-venda ou reembolso) | Estrutural |
-| Referência de preço para a dívida | `loan.price` na emissão | Estrutural |
-| Empréstimos por batch | 1 (vitalício) | Estrutural |
-| Destino dos recursos de inadimplência | Pool de Liquidez do DA | Estrutural |
-| Taxa de reembolso | Nenhuma | Estrutural |
-| Nível mínimo de NFT | L5 (Hydro) | Imutável |
-
-O parâmetro `loanFee` é governado independentemente de todas as outras taxas do protocolo para que a DAO possa ajustar a economia do lending sem alterar impostos de marketing, taxas acumulativas ou qualquer outra comissão.
-
-## Erros comuns
-
-<Warning>
-  **Você não pode dar o mesmo batch em garantia duas vezes.** Mesmo após um reembolso total, o slot de lending do batch é consumido. Para abrir um novo empréstimo, mine e faça o farming de um novo batch.
-</Warning>
-
-<Warning>
-  **Você não pode dar em garantia um batch com menos de 30 dias até o seu próximo gatilho de auto-venda.** Planeje os empréstimos contra batches recentes - o caminho de emissão do empréstimo é revertido para um batch com menos de 30 dias restantes até o seu próximo evento de auto-venda.
-</Warning>
-
-<Warning>
-  **Queimas que já foram acionadas não podem ser desfeitas.** A recuperação parcial durante a inadimplência é possível, mas cada período que já passou queimou sua parte da garantia permanentemente. Reembolse antes do próximo período se quiser salvar o que resta.
-</Warning>
-
-<Warning>
-  **O Limite de Renda é consumido com base no valor de mercado atual, não no `loan.price`.** Um batch recuperado e vendido após grande valorização do DA consumirá o Limite de Renda proporcional ao novo valor de mercado. Mantenha o NFT renovado para que o pagamento mais alto seja efetivamente creditado.
+  - Um batch de DA pode ser dado em garantia apenas uma vez.
+  - O empréstimo deve ser aberto antes do prazo de elegibilidade atual.
+  - O cronograma original de Auto-Sell não é reiniciado.
+  - Apenas o batch dado em garantia é afetado pelo processamento de inadimplência.
 </Warning>
 
 ## Páginas relacionadas
 
 <CardGroup cols={2}>
-  <Card title="Mecânica de Venda" icon="fire" href="/pt/da-selling-lending">
-    Venda manual a 75%, auto-venda a 70%, e como o ciclo de auto-venda de quatro períodos interage com as inadimplências de lending.
+  <Card title="Vender e Emprestar" icon="fire" href="/pt/da-selling-lending">
+    Venda manual, o cronograma de Auto-Sell, e como os pagamentos de venda de DA interagem com o Limite de Recompensas do Protocolo.
   </Card>
-  <Card title="Economia do Token DA" icon="coins" href="/pt/da-token-mechanics">
-    O hard cap de 21M, a fórmula `Preço = Liquidez ÷ Oferta`, e cada fluxo de receita que alimenta o Pool.
+  <Card title="Mecânica do Token DA" icon="coins" href="/pt/da-token-mechanics">
+    A oferta máxima de 21M, a fórmula de preço do protocolo, e as fontes do Pool de Liquidez do DA.
   </Card>
 </CardGroup>

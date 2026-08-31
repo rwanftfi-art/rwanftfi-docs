@@ -1,102 +1,66 @@
 ---
-title: "Solde Gelé"
-description: "Protection des revenus marketing pour les invitations vers des niveaux supérieurs."
+title: "Frozen Balance"
+description: "Un tampon temporaire de 72 heures pour un Bonus de Sponsor éligible qui dépasse le Plafond de Récompenses du Protocole restant du détenteur."
 icon: "snowflake"
 ---
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-Le Solde Gelé est le mécanisme qui protège vos revenus marketing dans deux situations connexes : lorsque **votre invité personnel direct effectue son premier achat de NFT**, ou lorsque **l'Autobuy de votre invité se déclenche** (renouvellement automatique de son NFT, qui vous génère le Sponsor Bonus de rebuy à 20 %), et que la commission qui en résulte dépasse la Limite de Revenus restante de votre NFT.
+Le Frozen Balance s'applique lorsqu'un invité direct effectue son premier achat de NFT ou déclenche l'Autobuy, et que le Bonus de Sponsor qui en résulte dépasse le Plafond de Récompenses du Protocole restant du détenteur. Le mécanisme retient temporairement l'excédent afin que le détenteur puisse satisfaire les conditions de libération applicables.
 
-Sans le Solde Gelé, cet excédent serait perdu par compression — transmis vers le haut de la structure. Le Solde Gelé le gèle pendant **72 heures** et vous laisse une fenêtre pour mettre à niveau votre NFT et réclamer la totalité du montant.
+## Quand le Frozen Balance se déclenche-t-il ?
 
-<Info>
-  C'est le filet de sécurité marketing à la fois pour les invitations « vers le haut » et pour les revenus récurrents issus d'invités établis : vous pouvez inviter en toute confiance des partenaires vers n'importe quel niveau de NFT et compter sur leurs renouvellements Autobuy, sans craindre que la commission soit perdue parce que votre propre Limite de Revenus est trop faible.
-</Info>
-
-## Quand le Solde Gelé se Déclenche
-
-Le Solde Gelé s'active **uniquement lorsque les trois conditions sont réunies** :
+Le Frozen Balance s'active uniquement lorsque les trois conditions suivantes sont réunies :
 
 <Steps>
-  <Step title="L'acheteur est votre invité personnel direct">
-    Pas un spillover, pas un partenaire de downline cinq niveaux plus bas — précisément une personne que vous avez personnellement invitée dans votre structure.
+  <Step title="L'acheteur est l'invité personnel direct du détenteur">
+    Pas un placement par spillover ni un participant plus profond dans le réseau — précisément une personne que le détenteur a personnellement invitée.
   </Step>
-  <Step title="Il s'agit du premier achat de NFT de cet invité ou de son Autobuy">
-    Le Solde Gelé couvre deux événements de votre invité : son **premier achat de NFT** et son **Autobuy** (renouvellement automatique du NFT du même invité, qui vous verse le Sponsor Bonus de rebuy à 20 %). Les rachats manuels et mises à niveau manuelles du même invité ne sont **pas** couverts — voir la section Revenu Perdu ci-dessous.
+  <Step title="L'événement est le premier achat de NFT ou l'Autobuy de l'invité">
+    Les rachats manuels répétés et les mises à niveau du même invité ne sont pas couverts — voir la section sur les achats répétés ci-dessous.
   </Step>
-  <Step title="La commission dépasse votre Limite de Revenus restante">
-    Si votre Limite de Revenus restante est suffisante pour absorber la totalité de la commission, aucun gel ne se produit — tout est crédité normalement.
+  <Step title="Le Bonus de Sponsor dépasse le Plafond de Récompenses du Protocole restant du détenteur">
+    Si le Plafond de Récompenses du Protocole restant peut absorber le montant total, aucun gel ne se produit — la récompense est créditée selon les règles standard.
   </Step>
 </Steps>
 
-## Comment le Montant est Réparti
+## Comment le montant de la commission est-il réparti ?
 
-Lorsque le Solde Gelé se déclenche, le smart contract divise la commission en deux parties :
+- Le montant dans la limite du Plafond de Récompenses du Protocole restant est crédité selon la répartition actuelle **75/20/5**.
+- L'excédent au-delà du plafond est placé en Frozen Balance pendant **72 heures**.
 
-- **Dans la limite de votre Limite de Revenus restante** — crédité immédiatement selon la répartition standard : **75 % Solde Régulier / 20 % Solde Cumulatif / 5 % Pool de Liquidité du DA**.
-- **Excédent au-delà de votre Limite de Revenus** — placé dans le Solde Gelé avec un **minuteur de 72 heures**.
-
-## Ce qui se Passe Pendant les 72 Heures
-
-Vous avez trois scénarios :
+## Que se passe-t-il pendant la fenêtre de 72 heures ?
 
 <Tabs>
   <Tab title="Vous mettez à niveau votre NFT">
-    Vous achetez un NFT de niveau supérieur (avec une Limite de Revenus plus large). Les fonds gelés sont automatiquement libérés et crédités selon la même répartition **75/20/5**. Le montant libéré est déduit de la Limite de Revenus du **nouveau** NFT.
-
-    **Exemple.** Limite de Revenus de votre NFT = 160 USDT. Votre invité achète un NFT à 2 200 USDT ; commission = 660 USDT. 160 USDT sont crédités immédiatement (75/20/5). 500 USDT vont dans le Solde Gelé. Vous montez à Eclipse (Limite de Revenus 650 USDT). Les 500 USDT sont libérés et crédités. Nouvelle Limite de Revenus restante : 650 − 500 = **150 USDT**.
+    Si un NFT éligible de niveau supérieur fournit un Plafond de Récompenses du Protocole suffisant, le montant en tampon est libéré et crédité selon la répartition standard. Le montant libéré réduit le plafond restant du nouveau NFT.
   </Tab>
-  <Tab title="Autobuy est activé">
-    Si Autobuy est actif, l'ordre change. Autobuy se déclenche **en premier**, rachetant le NFT du même niveau et rafraîchissant votre Limite de Revenus. La commission est ensuite réévaluée par rapport à la limite rafraîchie, la portion dans la limite est créditée, et **seul le reliquat** (s'il y en a un) va dans le Solde Gelé avec le minuteur de 72 heures.
-
-    Cela signifie : si votre propre NFT et la Limite de Revenus rafraîchie sont suffisants après Autobuy, le Solde Gelé peut ne pas s'activer du tout.
+  <Tab title="L'Autobuy est activé">
+    L'Autobuy peut d'abord renouveler le NFT actuel et rafraîchir le Plafond de Récompenses du Protocole. Le Bonus de Sponsor est ensuite recalculé par rapport au plafond rafraîchi. Seul l'excédent restant éventuel est placé en Frozen Balance.
   </Tab>
-  <Tab title="Vous manquez le délai">
-    Si vous ne mettez pas à niveau dans les 72 heures et qu'Autobuy n'a pas couvert l'excédent, les fonds gelés sont **définitivement perdus** et redistribués :
-
-    - **70 %** sont dirigés vers le Pool de Liquidité du DA pour le minage de nouveaux DA.
-    - **30 %** sont transférés à votre sponsor direct.
-
-    La règle de cascade est identique à celle de la cascade de péremption du Solde Cumulatif : si la Limite de Revenus du sponsor amont est nulle, les 30 % remontent dans la chaîne jusqu'au premier participant ayant une Limite de Revenus active. Si aucun amont n'a de limite active, l'intégralité des 100 % est dirigée vers le Pool de Liquidité du DA.
+  <Tab title="Vous manquez l'échéance">
+    Si les conditions de libération ne sont pas remplies dans les 72 heures, le montant est redistribué selon les paramètres actuels du protocole : la part configurée est acheminée vers le Pool de Liquidité du DA, et la part restante suit les règles de routage vers le sponsor et de cascade.
   </Tab>
 </Tabs>
 
 ## Achats Répétés du Même Invité
 
-Le Solde Gelé protège deux événements de chaque invité personnel : son **premier achat de NFT** et son **Autobuy** (renouvellement automatique du NFT du même invité — Sponsor Bonus de rebuy à 20 %). Les rachats et mises à niveau **manuels** du même invité ne sont **pas** couverts : si votre Limite de Revenus ne peut pas absorber la commission, l'excédent est qualifié de **Revenu Perdu** et distribué selon la règle standard de compression — remonté dans la structure jusqu'au prochain participant disposant d'une Limite de Revenus active.
+Le Frozen Balance couvre le premier achat qualifiant et les événements Autobuy. Les rachats manuels répétés et les mises à niveau du même invité suivent les règles standard de récompense partenaire, de Revenu Perdu, et de compression.
 
-<Warning>
-  Si votre invité effectue de nombreux rachats/mises à niveau manuels alors que **votre Limite de Revenus est épuisée**, chacun de ces achats manuels vous contourne par compression. Maintenez votre Limite de Revenus active — via votre propre Autobuy ou un renouvellement manuel — afin de ne pas perdre de revenus issus de partenaires établis.
-</Warning>
+## Scénario à Volume Élevé — Routage à Travers la Structure
 
-## Scénario à Volume Élevé — Cascade à Travers la Structure
-
-Le Solde Gelé protège **uniquement** la commission du premier achat ou de l'Autobuy d'un invité direct. Mais dans une grande structure, l'essentiel de vos revenus ne provient pas des ventes personnelles — il vient de la profondeur, via la distribution dans l'arbre (4 % au niveau 9 × 500+ positions peut générer des dizaines de milliers d'USDT en un seul cycle d'accumulation).
-
-Lorsque ce volume arrive et que votre Limite de Revenus est de 1 100 USDT avec Autobuy capable de la rafraîchir trois fois au maximum (3/3 sur les niveaux L1–L8), le système :
-
-1. Vous crédite 1 100 USDT selon la répartition standard.
-2. Déclenche Autobuy, rafraîchit la Limite, crédite 1 100 USDT supplémentaires.
-3. Répète jusqu'à 3 fois.
-4. **Tout volume restant est compressé** — remonté vers le prochain participant disposant d'une Limite de Revenus active.
-
-Le Solde Gelé **ne** s'active **pas** dans ce scénario car la source n'est pas le premier achat ni l'Autobuy d'un invité direct, mais une distribution dans l'arbre depuis la profondeur.
-
-<Info>
-  À retenir pour la mise à l'échelle : à grande échelle de réseau, le levier clé est **le niveau de votre propre NFT**. Les niveaux supérieurs ont des Limites de Revenus plus larges et réduisent la part perdue par compression. Les niveaux Elite (L9–L10), avec Autobuy illimité, traitent ce problème de manière systémique.
-</Info>
+Pour l'activité en profondeur de réseau, les règles du Plafond de Récompenses du Protocole et de l'Autobuy s'appliquent en premier. Tout montant restant qui ne peut pas être crédité est acheminé selon les règles de compression actives. Le Frozen Balance ne s'active pas lorsque la source est une Distribution du Réseau de Partenaires plutôt qu'un premier achat direct qualifiant ou un Autobuy.
 
 <FrozenBalanceSimulator lang="en" />
 
-## Paramètres du Solde Gelé (On-Chain)
+## Paramètres du Frozen Balance (On-Chain)
 
 | Paramètre | Valeur | Mutabilité |
 |---|---|---|
 | Fenêtre de gel | 72 heures | Immuable |
-| Part du Pool de Liquidité du DA en cas de perte | 70 % | Ajustable par le DAO (50–100 %) |
-| Part du sponsor amont en cas de perte | 30 % | Ajustable par le DAO (0–30 %) |
-| Déclencheur | Premier achat ou Autobuy d'un invité personnel direct | Immuable |
-| Distribution à la libération | 75/20/5 | Répartition standard — voir Architecture |
+| Part du Pool de Liquidité du DA après expiration | 70 % | Ajustable par le DAO dans la plage documentée |
+| Part de routage vers le sponsor après expiration | 30 % | Ajustable par le DAO dans la plage documentée |
+| Déclencheur | Premier achat ou Autobuy par un invité direct | Immuable |
+| Distribution à la libération | 75/20/5 | Répartition standard — voir [Architecture](/fr/architecture) |
 
-Voir aussi : [Limite de Revenus sur la page Écosystème NFT](/fr/nft-ecosystem), [Priorité des Paiements dans Architecture](/fr/architecture).
+Voir aussi : [Plafond de Récompenses du Protocole sur la page Écosystème NFT](/fr/nft-ecosystem), [Priorité des Paiements dans Architecture](/fr/architecture).
