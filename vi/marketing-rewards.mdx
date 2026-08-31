@@ -1,91 +1,50 @@
 ---
-title: "Phần Thưởng & Đền Bù"
-description: "Cách bạn kiếm tiền từ mạng lưới của mình."
-icon: "money-bill-trend-up"
+title: "Phần Thưởng & Phân Phối"
+description: "Giao thức phân phối ba loại phần thưởng được quy định — Sponsor Bonus, Phân Phối Mạng Lưới Đối Tác, và Matching Bonus — được tài trợ từ các khoản phân bổ của giao dịch mua NFT đủ điều kiện và bị giới hạn bởi các quy tắc điều kiện đủ và Giới Hạn Phần Thưởng Giao Thức."
+icon: "award"
 ---
 
-import { IncomeCalculator } from '/snippets/income-calculator.jsx'
-
-<CardGroup cols={2}>
-  <Card title="Phase 1 — Bán Mới" icon="user-plus">
-    Người tài trợ trực tiếp kiếm 30% giá bán NFT. Mua lại (rebuy): 20%.
-  </Card>
-  <Card title="Phase 2 — Đã Điều Chỉnh" icon="arrows-rotate">
-    Bán mới điều chỉnh xuống 20%. Rebuy giữ ở 20%. Cấp 16–22 mở khóa hoàn toàn.
-  </Card>
-</CardGroup>
+Phần thưởng giao thức là các khoản phân phối được hợp đồng thông minh tính toán từ các phân bổ được quy định của giao dịch mua NFT đủ điều kiện. Chúng không phải là lãi suất, lợi suất, hay lợi nhuận đầu tư. Mỗi phần thưởng đòi hỏi một sự kiện mua hàng đủ điều kiện, một vị trí đủ điều kiện, và Giới Hạn Phần Thưởng Giao Thức còn lại — và tổng số tiền có thể phân phối cho bất kỳ giao dịch mua nào đều bị giới hạn bởi ngân sách phân bổ của hợp đồng.
 
 <Note>
-  Việc chuyển đổi từ Phase 1 sang Phase 2 (bao gồm điều chỉnh Sponsor Bonus từ 30% xuống 20% và mở khóa các cấp cây 16–22) được thực hiện thông qua quản trị DAO, không phải tự động theo ngày. Cuộc bỏ phiếu DAO yêu cầu ngưỡng đề xuất tiêu chuẩn 30% và phê duyệt đa số 50% để ban hành các thay đổi tham số.
+  **Cách phần thưởng được tài trợ và giới hạn:**
+  - **Được tài trợ theo từng sự kiện.** Mỗi phần thưởng được tính toán từ một giao dịch mua NFT đủ điều kiện cụ thể theo các tham số hợp đồng hiện hành — không bao giờ từ các đăng ký mới hay việc đặt vị trí đơn thuần.
+  - **Bị giới hạn bởi ngân sách.** Ngân sách phân phối mạng lưới là phần dư được tính toán từ khoản phân bổ mua hàng (xem [Tham Số Hợp Đồng](/vi/contract-parameters)); giao thức không bao giờ phân phối nhiều hơn khoản phân bổ được quy định.
+  - **Bị giới hạn bởi các mức trần.** Phần thưởng được ghi có sẽ tiêu thụ Giới Hạn Phần Thưởng Giao Thức của người nhận. Các khoản không thể ghi có sẽ tuân theo các quy tắc nén và ngân sách dư.
 </Note>
 
-Phần thưởng marketing trong RWANFTFI bao gồm ba luồng độc lập kết hợp tạo thành tổng thu nhập của bạn:
+## Sponsor Bonus
 
-1. **Sponsor Bonus** — Hoa hồng trực tiếp cho việc mời đối tác (30% Phase 1 / 20% Phase 2 của giá bán NFT).
-2. **Tree Distribution** — Phần thưởng theo cấp từ cấu trúc tuyến dưới của bạn (cấp 2–22, tỷ lệ phần trăm thay đổi theo độ sâu).
-3. **Matching Bonus** — Phụ thứ cấp 5% + 5% + 5% từ thu nhập của các đối tác trực tiếp của bạn qua 3 cấp.
+Một phần thưởng được tính từ một giao dịch mua NFT trực tiếp đủ điều kiện, theo tỷ lệ Phase 1 hiện tại: **30%** cho giao dịch mua đủ điều kiện lần đầu và **20%** cho giao dịch mua lại. Bất kỳ thay đổi nào trong Phase 2 đều yêu cầu kích hoạt quản trị được quy định.
 
-Mỗi luồng được tính toán và thanh toán độc lập bởi hợp đồng thông minh trên mỗi giao dịch mua NFT đủ điều kiện.
+## Phân Phối Mạng Lưới Đối Tác (Phân Phối Theo Cây)
 
-## Phân Phối Theo Cây
+Một phép tính phần thưởng theo từng cấp trong phạm vi độ sâu mạng lưới đủ điều kiện của người nhận:
 
-Kiếm phần trăm từ mỗi giao dịch bán NFT trong tuyến dưới của bạn, qua tới 22 cấp sâu:
+| Cấp Mạng Lưới | Tỷ Lệ Hiện Tại |
+|:---:|:---:|
+| 1 | 0% |
+| 2 | 1% |
+| 3–4 | 2% mỗi cấp |
+| 5–6 | 3% mỗi cấp |
+| 7–14 | 4% mỗi cấp |
+| 15 | 5% |
+| 16–22 | 0% cho đến khi được quản trị kích hoạt |
 
-<AccordionGroup>
-  <Accordion title="Cấp 1–6 · Lớp Đầu Vào" icon="layer-group">
-    - Cấp 1: 0%
-    - Cấp 2: 1%
-    - Cấp 3–4: 2% mỗi cấp
-    - Cấp 5–6: 3% mỗi cấp
-  </Accordion>
-  <Accordion title="Cấp 7–15 · Độ Sâu Kiếm Tiền Cốt Lõi" icon="chart-simple">
-    - Cấp 7–14: 4% mỗi cấp (8 cấp × 4% = động lực thu nhập chính)
-    - Cấp 15: 5% (tỷ lệ phần trăm cao nhất ở một cấp đơn lẻ)
-  </Accordion>
-  <Accordion title="Cấp 16–22 · Mở Rộng Phase 2" icon="unlock">
-    - Cấp 16–17: 2% mỗi cấp
-    - Cấp 18: 1%
-    - Cấp 19–22: 0,5% mỗi cấp
+## Matching Bonus
 
-    *Mở khóa trong Phase 2 thông qua bỏ phiếu quản trị DAO (dự kiến vào Q4 2026). Yêu cầu NFT INFINITY để có độ sâu đầy đủ.*
-  </Accordion>
-</AccordionGroup>
+Một phần thưởng có điều kiện trải qua tối đa ba cấp đủ điều kiện:
 
-<Info>
-  **Tại sao Cấp 1 = 0%?** Tree Distribution và Sponsor Bonus là hai luồng phần thưởng riêng biệt. Những người được bạn trực tiếp mời ngồi ở Cấp 1 của cấu trúc marketing của bạn, và bạn đã kiếm được Sponsor Bonus (30% trong Phase 1, 20% trong Phase 2) từ giao dịch mua NFT của họ. Cấp 1 của Tree Distribution được đặt thành 0% để ngăn việc đền bù kép. Phần thưởng Tree Distribution bắt đầu từ Cấp 2 (1%) trở đi — bao phủ hoạt động sâu hơn trong cấu trúc của bạn ngoài các lời mời cá nhân của bạn.
-</Info>
+| Cấp Matching | Tỷ Lệ | Điều Kiện Đủ |
+|:---:|:---:|---|
+| 1 | 5% | Cấp NFT đủ điều kiện |
+| 2 | 5% | Khối lượng tích lũy 1.000 USDT từ các giao dịch mua trực tiếp đủ điều kiện |
+| 3 | 5% | Khối lượng tích lũy 3.000 USDT từ các giao dịch mua trực tiếp đủ điều kiện |
 
-<Note>
-  **Spillover ở Cấp 1 không kiếm được trực tiếp.** Khi một đối tác được đặt vào Cấp 1 của bạn qua spillover (lời mời của tuyến trên của bạn được đặt vào cây của bạn), bạn kiếm được 0% Sponsor Bonus (nó thuộc về người mời thực sự của họ) và 0% Tree Distribution (Cấp 1 = 0%). Giá trị của spillover được hiện thực hóa từ Cấp 2 và sâu hơn — khi những đối tác spillover đó xây dựng đội ngũ của riêng họ, các tân binh của họ tạo ra phần thưởng phân phối theo cây cho bạn.
-</Note>
+## Phân Chia Phần Thưởng Tiêu Chuẩn
+
+Các phần thưởng giao thức đủ điều kiện hiện được phân chia theo phân bổ **75/20/5** được quy định giữa Số Dư Thông Thường, Số Dư Tích Lũy, và Pool Thanh Khoản DA.
 
 ## Nén
 
-<Tip>
-  **Nén hoạt động có lợi cho bạn.** Nếu ai đó ở trên bạn có giới hạn thu nhập đã cạn kiệt hoặc cấp NFT không đủ, phần thưởng của họ sẽ được nén lên trên — có thể đến với bạn. Quyền truy cập marketing của NFT của bạn càng sâu, càng nhiều phần thưởng đã nén bạn có thể bắt được.
-</Tip>
-
-Khi một người dùng trong tuyến dưới của bạn bị bỏ qua (Giới Hạn Thu Nhập = 0 hoặc cấp NFT quá thấp), phần thưởng sẽ chuyển lên đến người tham gia đủ điều kiện tiếp theo. Điều này được đánh dấu là **Thu Nhập Bị Mất** đối với người dùng bị bỏ qua.
-
-
-## Matching Bonus (5% + 5% + 5%)
-
-Kiếm một phần trăm của **thu nhập bán NFT** được tạo ra bởi các đối tác trực tiếp của bạn qua 3 cấp. Matching Bonus chỉ được tính từ các khoản thanh toán marketing mà đối tác trực tiếp của bạn nhận được từ bán NFT trong cấu trúc của họ — không phải từ các luồng thu nhập khác (giải phóng Số Dư Đóng Băng, bán DA thủ công, v.v.):
-
-<Steps>
-  <Step title="Cấp 1 — 5%">
-    Yêu cầu ít nhất NFT Cấp 4 (ECLIPSE, 275 USDT).
-  </Step>
-  <Step title="Cấp 2 — 5%">
-    Yêu cầu doanh số cá nhân tích lũy 1.000 USDT.
-  </Step>
-  <Step title="Cấp 3 — 5%">
-    Yêu cầu doanh số cá nhân tích lũy 3.000 USDT.
-  </Step>
-</Steps>
-
-<Info>
-  **"Doanh số cá nhân tích lũy" có nghĩa là gì:** Đây là tổng cộng dồn suốt đời của tất cả các giao dịch mua NFT được thực hiện bởi những người được bạn trực tiếp mời. Các giao dịch mua lặp lại (mua lại, nâng cấp) bởi cùng một đối tác được tính vào tổng số, và các giao dịch bán cho các đối tác khác nhau cộng dồn lại với nhau. Ví dụ, nếu một đối tác mua ba NFT mỗi cái 1.000 USDT, tổng tích lũy của bạn là 3.000 USDT — mở khóa Matching Bonus Cấp 3. Khi đạt đến một ngưỡng, cấp Matching Bonus đó **được kích hoạt vĩnh viễn** và không đặt lại.
-</Info>
-
-<IncomeCalculator />
+Nếu một vị trí mạng lưới không đáp ứng các điều kiện đủ áp dụng, số tiền sẽ được định tuyến theo các quy tắc nén và ngân sách dư đang hoạt động. Việc định tuyến chính xác khớp với các tham số hợp đồng hiện tại — xem [Tham Số Hợp Đồng](/vi/contract-parameters).

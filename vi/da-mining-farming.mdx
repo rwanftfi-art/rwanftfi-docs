@@ -1,48 +1,44 @@
 ---
 title: "Khai Thác & Farming"
-description: "Từ NFTM đến DA trong hai bước."
+description: "Cách người nắm giữ các cấp NFT Premium và Elite đủ điều kiện có được DA thông qua quy trình hai bước: Khai Thác ghi nhận NFTM, và Farming tính toán DA dựa trên lượng NFTM đã stake, giá giao thức hiện tại, và các tham số đang hoạt động."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
 
-Để có được DA, người dùng phải tham gia vào quy trình hai bước: Khai Thác và Farming. Chỉ NFT Premium (Cấp 5+) và Elite mới có khả năng này.
+## Làm thế nào để có được DA thông qua Khai Thác và Farming?
+
+Chỉ các cấp NFT Premium và Elite đủ điều kiện mới có thể sử dụng quy trình này. Cần một NFT đang hoạt động với Giới Hạn Phần Thưởng Giao Thức khác 0 để bắt đầu một chu kỳ mới.
 
 <Info>
-  **NFTM không phải là token.** Đây là bộ đếm khai thác nội bộ (chỉ số) được hợp đồng thông minh theo dõi. Trong giao diện, bạn thấy thanh tiến trình và lượng NFTM dự kiến. NFTM không có giá trị thị trường và không thể giao dịch hoặc chuyển nhượng — nó chỉ tồn tại để được stake vào Farming và chuyển đổi thành DA.
-</Info>
-
-<Info>
-  **Yêu cầu Giới Hạn Thu Nhập đang hoạt động để khai thác.** Cả Khai Thác và Farming đều yêu cầu NFT đủ điều kiện có **Giới Hạn Thu Nhập** khác 0. Nếu giới hạn của bạn đã đạt 0, hợp đồng thông minh sẽ từ chối bắt đầu một chu kỳ khai thác mới. Để tiếp tục khai thác, hãy làm mới Giới Hạn Thu Nhập trước — thông qua hệ thống Autobuy 3/3, gia hạn thủ công cùng cấp, hoặc nâng cấp lên NFT cấp cao hơn — sau đó kích hoạt chu kỳ tiếp theo. Giới Hạn Thu Nhập là điều kiện tiên quyết; không có nó, dòng khai thác không bắt đầu.
+  **NFTM là một bộ đếm khai thác nội bộ.** Đây không phải là token có thể chuyển nhượng, không có giá trị thị trường độc lập, và chỉ tồn tại trong phạm vi quy trình Khai Thác và Farming được quy định.
 </Info>
 
 <Steps>
   <Step title="Kích Hoạt Khai Thác">
-    Bắt đầu khai thác trên NFT đủ điều kiện của bạn. Thời lượng chu kỳ phụ thuộc vào cấp của bạn — từ 45 ngày (HYDRO) xuống 40 ngày (INFINITY).
+    Bắt đầu một chu kỳ trên NFT đủ điều kiện. Thời lượng dao động từ 45 ngày đối với Hydro đến 40 ngày đối với Infinity.
   </Step>
   <Step title="Tạo NFTM">
-    NFT của bạn tạo NFTM trong suốt thời gian chu kỳ. Cấp 5–7 (HYDRO, QUANTUM, PULSE) có **1 chu kỳ khai thác** tạo ra **10%** giá NFT bằng NFTM. Cấp 8–10 (AURORA, FLAME, INFINITY) có **2 chu kỳ khai thác** — chu kỳ đầu tiên tạo ra **10%** và chu kỳ thứ hai tạo ra **15%** giá NFT bằng NFTM.
+    Cấp 5–7 hiện tạo ra một chu kỳ NFTM 10%; Cấp 8–10 tạo ra chu kỳ đầu tiên 10% và chu kỳ thứ hai 15%.
   </Step>
-  <Step title="Nhận Trong Vòng 72 Giờ">
-    Sau khi khai thác hoàn thành, bạn có chính xác **72 giờ** để stake NFTM của mình vào Farming. Bỏ lỡ cửa sổ này và bạn sẽ phải bắt đầu lại từ đầu.
+  <Step title="Stake Trong Vòng 72 Giờ">
+    NFTM đã hoàn thành phải được stake vào Farming trong cửa sổ nhận.
   </Step>
   <Step title="Farm DA">
-    NFTM đã stake vào Farming với cùng thời lượng như chu kỳ khai thác. Vào cuối, NFTM chuyển đổi thành DA dựa trên giá hiện tại và được ghi có vào TokenStack của bạn.
+    Sau khi Farming hoàn tất, giao thức tính toán lượng DA đủ điều kiện theo công thức hiện hành và ghi có vào TokenStack của người dùng.
   </Step>
 </Steps>
 
 <Warning>
-  **Cửa Sổ Quan Trọng 72 Giờ:** Nếu bạn không stake NFTM của mình trong vòng 72 giờ sau khi khai thác hoàn thành, toàn bộ chu kỳ sẽ mất. Bạn phải bắt đầu lại khai thác từ đầu. Đặt lời nhắc.
+  **Cửa Sổ Nhận 72 Giờ:** Nếu NFTM đã hoàn thành không được stake trong vòng 72 giờ, chu kỳ sẽ được đặt lại theo các quy tắc hợp đồng thông minh.
 </Warning>
 
 <Warning>
-  **Nhận Trước Khi Bạn Nâng Cấp — Phần Thưởng Farming Chưa Nhận Sẽ Bị Hủy:** Bất kỳ giao dịch mua hoặc nâng cấp NFT nào đều kích hoạt `terminate()` trên trạng thái khai thác/farming của người dùng. Theo thiết kế, `terminate()` dừng phiên đang hoạt động và **hủy tất cả phần thưởng farming chưa nhận**, bao gồm cả phần thưởng đã đáo hạn nhưng chưa được nhận. Nhóm đã xác nhận đây là chủ ý trong phản hồi kiểm toán: *"Đây là chủ ý, terminate() phải dừng các phiên đang hoạt động và hủy phần thưởng chưa nhận theo thiết kế."*
-
-  **Quy tắc vận hành:** nếu bạn có phần thưởng farming đã đáo hạn nhưng chưa nhận, **hãy nhận nó trước**, và chỉ sau đó mới mua hoặc nâng cấp NFT. Nếu không, phần thưởng sẽ bị mất vĩnh viễn vào thời điểm giao dịch NFT mới được xác nhận.
+  **Nhận Trước Khi Nâng Cấp:** Một giao dịch mua hoặc nâng cấp NFT sẽ gọi `terminate()` trên trạng thái Khai Thác và Farming hiện tại. Hãy nhận mọi kết quả đã đáo hạn trước khi thay thế hoặc nâng cấp NFT.
 </Warning>
 
 <Warning>
-  **Tạm Dừng Chu Kỳ Giảm Phát:** Hai lần mỗi năm, hệ thống kích hoạt Chu Kỳ Giảm Phát kéo dài tới 30 ngày. Trong giai đoạn này, **việc khởi động các chu kỳ mới** của khai thác NFTM, staking, và tạo DA bị tạm dừng. Các chu kỳ đã chạy trước khi Chu Kỳ Giảm Phát bắt đầu **tiếp tục và hoàn thành theo lịch trình** — tiến độ không bị mất. Lập kế hoạch khởi động các chu kỳ mới xung quanh các giai đoạn theo lịch trình này.
+  **Tạm Dừng Chu Kỳ Giảm Phát:** Trong một Chu Kỳ Giảm Phát đang hoạt động, việc khởi động các chu kỳ mới có thể bị tạm dừng. Các chu kỳ hiện có tiếp tục và hoàn thành theo lịch trình.
 </Warning>
 
 <MiningPipeline />

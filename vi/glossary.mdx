@@ -1,125 +1,24 @@
 ---
 title: "Thuật Ngữ"
-description: "Định nghĩa mọi thuật ngữ đặc thù của giao thức RWANFTFI: DA, NFTM, Giới Hạn Thu Nhập, Sponsor Bonus, Số Dư Đóng Băng, Nén, Số Dư Tích Lũy, và nhiều hơn nữa."
+description: "Định nghĩa các thuật ngữ đặc thù của giao thức được sử dụng trong toàn bộ tài liệu RWANFTFI: DA, NFTM, Giới Hạn Phần Thưởng Giao Thức, Sponsor Bonus, Frozen Balance, Số Dư Tích Lũy, và nhiều hơn nữa."
 icon: "book"
 ---
 
-Nguồn tham chiếu duy nhất cho mọi thuật ngữ được sử dụng trong tài liệu RWANFTFI. Mỗi mục được viết để độc lập — sao chép một định nghĩa vào bất kỳ ngữ cảnh nào cũng vẫn có ý nghĩa.
+Một nguồn tham chiếu duy nhất cho các thuật ngữ được sử dụng trong toàn bộ tài liệu RWANFTFI.
 
-## Token & Tài Sản
-
-**DA (Tài Sản Giảm Phát).** Cỗ máy kinh tế của hệ sinh thái. Một token BEP20 được giới hạn cứng nghiêm ngặt ở **21.000.000 đơn vị** và được bảo chứng 100% bởi một pool thanh khoản USDT. Giá theo công thức `Giá = Thanh khoản ÷ Nguồn cung lưu hành`. DA không thể chuyển nhượng ngang hàng; nó chỉ có thể được bán (thủ công hoặc tự động), dùng làm tài sản thế chấp cho vay, hoặc được trả nợ. 100% DA bán ra bị đốt vĩnh viễn. Xem [Cơ Chế Token DA](/vi/da-token-mechanics).
-
-**NFTM.** Bộ đếm khai thác nội bộ được theo dõi bởi hợp đồng thông minh, **không phải là token**. NFTM không có giá trị thị trường, không thể giao dịch hay chuyển nhượng, và chỉ tồn tại để được stake vào Farming, nơi nó chuyển thành DA theo giá hiện tại. Xem [Khai Thác & Farming](/vi/da-mining-farming).
-
-**GovToken.** Token quản trị. Chuẩn ERC20Votes, nguồn cung cố định vĩnh viễn là **10.000.000**, không đúc thêm sau khi triển khai. Quyền bỏ phiếu được tự động ủy quyền cho người nhận khi bất kỳ giao dịch chuyển nhượng nào; không có `delegate()` thủ công nào được cung cấp. Xem [Quản Trị](/vi/governance).
-
-**NFT (cấp RWANFTFI).** Một khóa truy cập dựa trên thành viên vào giao thức. Có 10 cấp — **Genesis, Advance, Ascend, Eclipse, Hydro, Quantum, Pulse, Aurora, Flame, Infinity** — giá từ 28 đến 24.000 USDT. Một NFT đang hoạt động mỗi tài khoản; nâng cấp sẽ thay thế cái trước. Xem [Hệ Sinh Thái NFT](/vi/nft-ecosystem).
-
-**NFT Quà Tặng.** NFT khuyến mại không thể bán được trao qua các chương trình khuyến mại hoặc thành tích Cấp Bậc Sự Nghiệp. Không thể mua. Tối đa 100 mỗi địa chỉ (DAO có thể điều chỉnh). Đúc vào các token ID chẵn để tránh xung đột với NFT Thông Thường (ID lẻ).
-
-**NFT Ambassador.** Giới hạn 100 đơn vị (Q4 2026). Không có giới hạn thu nhập, hệ thống phần thưởng riêng, không được chuyển nhượng trong Bán Doanh Nghiệp.
-
-**NFT VIP Edition.** Giới hạn 100 đơn vị (Q4 2026). Quyền truy cập được cấp khi đạt Cấp Bậc Sự Nghiệp **Leader** trở lên.
-
-**USDT.** Stablecoin được sử dụng làm đơn vị tài khoản chính và làm tài sản bảo chứng 100% của token DA. RWANFTFI sử dụng USDT theo chuẩn BEP20.
-
-## Thu Nhập & Giới Hạn
-
-**Giới Hạn Thu Nhập.** Thu nhập tích lũy tối đa mà một NFT đang hoạt động có thể tạo ra trước khi được gia hạn. Được tiêu thụ bởi cả phần thưởng marketing lẫn bán DA. Khi về 0, người nắm giữ ngừng nhận tất cả phần thưởng marketing và mất khả năng bán DA thủ công. Được gia hạn qua Autobuy, mua lại thủ công cùng cấp, hoặc nâng cấp.
-
-**Sponsor Bonus.** Hoa hồng trực tiếp trả cho người mời khi đối tác mua NFT. **30%** giá NFT khi bán mới (Giai đoạn 1) hoặc **20%** khi mua lại / Autobuy. Giai đoạn 2 điều chỉnh Sponsor Bonus bán mới xuống 20%.
-
-**Phân Phối Theo Cây.** Phần thưởng theo cấp trả cho các người nắm giữ tuyến trên từ giao dịch mua NFT của người tham gia cấu trúc. Tỷ lệ phần trăm từ 0% (Cấp 1) lên đến 5% (Cấp 15). Cấp 16–22 được mở khóa trong Giai đoạn 2. Độ sâu có thể đạt được tối đa phụ thuộc vào cấp NFT của người nắm giữ.
-
-**Matching Bonus.** Một dòng thứ cấp trả **5% + 5% + 5%** trên ba cấp của thu nhập marketing của đối tác trực tiếp. Cấp 1 mở khóa tại Eclipse (L4); Cấp 2 mở khóa tại 1.000 USDT doanh số cá nhân tích lũy; Cấp 3 mở khóa tại 3.000 USDT doanh số cá nhân tích lũy.
-
-**Nén.** Khi tuyến trên không đủ điều kiện nhận phần thưởng (Giới Hạn Thu Nhập đã cạn kiệt hoặc cấp NFT quá nông), phần thưởng chuyển lên người tham gia đủ điều kiện tiếp theo. Phần thưởng bị bỏ qua được gắn cờ là **Thu Nhập Bị Mất** cho người dùng bị bỏ qua.
-
-**Thu Nhập Bị Mất.** Phần thưởng mà người dùng lẽ ra đã nhận nhưng không nhận được, vì Giới Hạn Thu Nhập của họ bằng 0 hoặc độ sâu NFT không đủ. Được theo dõi để minh bạch; bản thân tiền chuyển lên qua nén.
-
-## Số Dư
-
-**Số Dư Thông Thường (`balance`).** Ví USDT chính của người dùng bên trong hợp đồng thông minh. Có thể rút bất cứ lúc nào; có thể dùng để mua NFT hoặc tạo Voucher.
-
-**Số Dư Tích Lũy (`accumulativeBalance`).** Tài khoản tiết kiệm bắt buộc nơi **20%** mỗi phần thưởng marketing được ghi có tự động. Chỉ có thể dùng để mua NFT cùng cấp hoặc nâng cấp lên cấp cao hơn. Sử dụng nó phát sinh phí **20%** chuyển vào Pool Thanh khoản DA; chuyển nhượng cũng phát sinh phí 20% tương tự. Nếu không được sử dụng trong **120 ngày**, nó đủ điều kiện phân phối lại (NFT Thông Thường: 70% vào pool / 30% đến tuyến trên; NFT Quà Tặng: 80% / 20%).
-
-**Số Dư Đóng Băng.** Trạng thái giữ 72 giờ cho hoa hồng marketing vượt quá Giới Hạn Thu Nhập còn lại của người nắm giữ, nhưng chỉ khi nguồn là giao dịch mua đầu tiên hoặc Autobuy của người được mời trực tiếp. Được giải phóng khi nâng cấp NFT; khi hết hạn, 70% vào Pool Thanh khoản DA và 30% đến người tài trợ tuyến trên trực tiếp. Xem [Số Dư Đóng Băng](/vi/frozen-balance).
-
-**Giới Hạn (`limit`).** Trường on-chain đại diện cho thu nhập tối đa còn lại mà một NFT có thể tạo ra. Tương đương với "Giới Hạn Thu Nhập còn lại."
-
-**Số Dư Dự Trữ Token (`tokenReserveBalance`).** Pool USDT cấp hệ thống bảo chứng 100% cho token DA. Được tài trợ bởi hơn 14 dòng doanh thu trên khắp hệ sinh thái.
-
-**Số Dư Dev (`devBalance`).** Tích lũy phí nền tảng và hoa hồng cho tài trợ vận hành. Không thể truy cập bởi người dùng cá nhân hay quản trị viên ngoài các quy trình quản trị.
-
-**Số Dư Tác Động Giá (`priceImpactBalance`).** Dự trữ dùng để quản lý ổn định giá DA trong các sự kiện hệ sinh thái cụ thể (ví dụ: Sự Kiện Tác Động Giá do DAO kích hoạt).
-
-## Vòng Đời & Tự Động Hóa
-
-**Autobuy (Hệ thống 3/3).** Cơ chế gia hạn NFT tự động. Đối với Cấp 1–8, cho phép tối đa **3 lần gia hạn tự động** sau giao dịch mua thủ công ban đầu, vì vậy cùng cấp NFT có thể hoạt động tối đa 4 lần (1 thủ công + 3 tự động). Đối với cấp Elite (L9–L10), Autobuy là **không giới hạn**. Bộ đếm 3/3 được đặt lại về 0/3 khi mua NFT cấp cao hơn.
-
-**Bán Doanh Nghiệp.** Quy trình được DAO ủy quyền để chuyển toàn bộ cấu trúc cây đối tác cho người dùng khác. Được kiểm soát bởi **phí chuyển nhượng cố định do người bán trả** (hiện tại 500 USDT, DAO có thể điều chỉnh 0–500). Người mua không trả hoa hồng on-chain và nhận cấu trúc khi thực hiện. Tham số cơ bản: `businessTransferFee`.
-
-**Voucher (Voucher Quà Tặng).** Phiếu giảm giá do người dùng tạo có hiệu lực **365 ngày** với mức tối thiểu được hợp đồng thông minh thực thi là **5 USDT**. Bao phủ tới 100% giao dịch mua NFT. Có thể chuyển nhượng với hoa hồng 0%, ngoại trừ trong **24 giờ cuối** trước khi hết hạn. Không thể kết hợp với Số Dư Tích Lũy. Không sử dụng trong 365 ngày → 100% vào Pool Thanh khoản DA.
-
-**Cấp Bậc Sự Nghiệp.** Chỉ số tiến triển dùng để mở khóa các lợi ích như NFT Ambassador hoặc VIP và phần thưởng đặc biệt. Đạt được thông qua hoạt động hệ sinh thái tích lũy.
-
-## Cơ Chế Giao Thức
-
-**Khai Thác.** Bước đầu tiên của việc mua DA. Người dùng kích hoạt Khai Thác trên NFT Premium hoặc Elite (L5+). Chu kỳ tạo ra NFTM trong một khoảng thời gian cố định (45 ngày tại Hydro xuống 40 ngày tại Infinity). Cấp 5–7 có 1 chu kỳ khai thác tạo ra 10% giá NFT bằng NFTM. Cấp 8–10 có 2 chu kỳ tạo ra 10% rồi 15%.
-
-**Farming.** Bước thứ hai của việc mua DA. NFTM được stake trong cùng khoảng thời gian với chu kỳ khai thác. Khi hoàn thành, NFTM chuyển thành DA theo giá hiện tại và được ghi có vào TokenStack của người dùng. Phải được stake trong **72 giờ** kể từ khi khai thác hoàn thành hoặc chu kỳ bị mất.
-
-**Chu Kỳ Tự Động Bán.** Bán lũy tiến bốn giai đoạn số dư DA của người dùng nếu không bán thủ công. Hiện tại: 25% sau 120 ngày → 40% phần còn lại sau 90 ngày tiếp theo → 50% phần còn lại sau 90 ngày tiếp theo → 100% phần còn lại sau 65 ngày cuối. Tổng cộng: 365 ngày. Người dùng nhận 70% giá trị bằng USDT; 100% token bị đốt.
-
-**Bán Thủ Công.** Bán DA do người dùng khởi tạo. 100% token bán ra bị đốt; người dùng nhận **75%** giá trị bằng USDT (so với 70% khi tự động bán). 25% còn lại là hoa hồng giao thức ở lại trong pool làm tài sản bảo chứng.
-
-**Cho Vay Đa Lô.** Mỗi lô DA từ mỗi chu kỳ khai thác đóng vai trò là **tài sản thế chấp độc lập**. Khoản vay được phát hành với **LTV cố định 70%** trên toàn bộ lô — không hỗ trợ vay một phần lô — và có hoa hồng một lần 5% tại thời điểm phát hành. Một lô chỉ có thể được thế chấp **một lần trong suốt vòng đời**: sau khi khoản vay được mở, lô đó không thể dùng làm tài sản thế chấp lần nữa, dù đã trả nợ đầy đủ. Nhiều khoản vay đồng thời do đó chỉ có thể xảy ra trên **các lô khác nhau**, không bao giờ trên cùng một lô. Trả nợ một phần được hỗ trợ — người vay có thể giải phóng một phần tài sản thế chấp bất cứ lúc nào trước khi lô vào chu kỳ tự động bán bằng cách trả phần nợ tương ứng được định danh bằng `loan.price`. Nếu một khoản vay vỡ nợ, chỉ tài sản thế chấp của lô đó bị đốt lũy tiến; các lô và số dư khác không bị ảnh hưởng.
-
-**Vỡ Nợ Cho Vay.** Không trả nợ trước khi lô thế chấp vào chu kỳ tự động bán. DA thế chấp sau đó đi qua lịch bốn giai đoạn tiêu chuẩn (120 / 90 / 90 / 65 ngày, tổng cộng 365 ngày), đốt 25%, rồi 40%, rồi 50%, rồi 100% DA thế chấp **còn lại** mỗi giai đoạn. 100% DA bị đốt bị hủy vĩnh viễn, và giá trị USDT tại `loan.price` cho mỗi phần bị đốt chảy vào Pool Thanh khoản DA. Người vay giữ lại USDT nhận được tại thời điểm phát hành và mất phần tài sản thế chấp bị đốt theo tỷ lệ thời gian vỡ nợ. Vỡ nợ không phải là tất-cả-hoặc-không-gì: giữa hai giai đoạn tự động bán bất kỳ, người vay vẫn có thể gọi `repay()` và lấy lại DA thế chấp **còn lại** bằng cách chỉ trả cho phần vẫn còn được thế chấp. Các lô DA và số dư khác không bị ảnh hưởng.
-
-**Ngưỡng Điều Kiện Cho Vay.** Một **kiểm tra on-chain liên tục được thực thi trước mỗi lệnh gọi `loan()` mới** (`_getTimeToNextAutosale(stack) >= 30 days`): lô DA được thế chấp phải còn ít nhất **30 ngày** đến lần kích hoạt tự động bán tiếp theo, hoặc lệnh gọi sẽ bị hoàn nguyên. Đây là **cổng điều kiện** kiểm soát quyền truy cập vào cho vay, không phải **thời hạn vay** — một khoản vay đang mở không có ngày đáo hạn cố định và có thể được trả toàn bộ hoặc một phần bất cứ lúc nào trước khi lô vào chu kỳ tự động bán.
-
-**Phí Cho Vay (`loanFee`).** Hoa hồng một lần **5%** được thu tại thời điểm phát hành khoản vay và chuyển trực tiếp vào Pool Thanh khoản DA. Trả nợ — toàn bộ hoặc một phần — không kích hoạt phí lần nữa. Được lưu trữ on-chain dưới dạng tham số `loanFee` riêng biệt (không phải là một phần của bất kỳ phí chung nào), cho phép DAO điều chỉnh kinh tế cho vay độc lập với thuế marketing, phí tích lũy, hoặc bất kỳ hoa hồng nào khác. Phạm vi DAO hiện tại: 0% - 5%.
-
-**Giá Khoản Vay (`loan.price`).** Giá DA được `getPrice()` ghi lại tại thời điểm phát hành khoản vay và được lưu trữ trong stack dưới dạng `ts.loan.price`. Tất cả tính toán khoản vay tiếp theo — trả nợ đầy đủ, trả nợ một phần, và thanh toán vỡ nợ — đều được định danh theo giá này, không phải theo giá thị trường hiện tại. Nếu giá thị trường của DA tăng gấp đôi hoặc gấp ba trong khi khoản vay đang mở, nghĩa vụ USDT không tăng — nó vẫn neo theo `loan.price`. Đây là cơ chế cho phép người vay rút thanh khoản USDT tại giá trị DA hôm nay trong khi giữ lại lợi ích tăng giá trong tương lai.
-
-**Trả Nợ Một Phần.** Lựa chọn để hoàn trả chỉ một phần khoản vay có tài sản thế chấp DA thay vì đóng toàn bộ. Người vay gọi `repay()` cho một lượng DA thế chấp đã chọn (ít hơn hoặc bằng tổng số đang được thế chấp) và trả `released_DA × loan.price × 0,70` USDT. DA được giải phóng trở lại phần đang hoạt động của cùng lô; DA còn lại vẫn được thế chấp so với khoản nợ giảm theo tỷ lệ. Không có phí bổ sung nào — hoa hồng 5% đã được trả tại thời điểm phát hành. Trả nợ một phần có thể gọi ở bất kỳ giai đoạn nào của vòng đời khoản vay, kể cả sau khi kích hoạt tự động bán (trong trường hợp đó `_processExpiredStacks()` chạy trước, đốt phần tài sản thế chấp tương ứng trước khi việc trả nợ tiến hành so với phần còn lại sau khi đốt).
-
-**Chu Kỳ Giảm Phát.** Một sự kiện có lịch được kích hoạt hai lần mỗi năm, kéo dài đến 30 ngày, tạm dừng **việc khởi động** các chu kỳ khai thác NFTM, staking, và tạo DA mới. Các chu kỳ đang chạy trước khi Chu Kỳ Giảm Phát bắt đầu tiếp tục và hoàn thành theo lịch trình. Trong Chu Kỳ, việc đốt DA hàng ngày tăng cường sự khan hiếm.
-
-**Nguồn Cung Hạt Giống.** Một lượng dự trữ DA vĩnh viễn nhỏ được nạp trước khi khởi động. Vĩnh viễn và không thể bán, loại trừ khỏi nguồn cung lưu hành, và chỉ tồn tại để đảm bảo mẫu số khác không trong `Giá = Thanh khoản ÷ Nguồn cung lưu hành` — ngăn chia cho 0 trong trường hợp cực đoan khi mọi token khác đã bị đốt.
-
-## Quản Trị & Vai Trò
-
-**DAO (Tổ Chức Tự Trị Phi Tập Trung).** Cơ quan quản trị on-chain của RWANFTFI. Được hậu thuẫn bởi 10.000.000 GovToken. Ngưỡng đề xuất: **30%** tổng nguồn cung. Ngưỡng thông qua: đa số **50%**.
-
-**Guardian.** Những người tham gia quản trị chính trong phân bổ hiện tại. **20 ví**, mỗi ví nắm giữ 350.000 GovToken (3,5%). Phân phối lại trong tương lai giảm xuống còn 1,5% mỗi Guardian khi Leader được bổ sung.
-
-**Leader.** Một lớp người tham gia quản trị trong tương lai (dự kiến **80 ví** ở mức 0,5% mỗi người), được định nghĩa là những người đóng góp hệ sinh thái tích cực, người xây dựng cộng đồng, đối tác chiến lược, và những người tham gia có tác động hệ sinh thái có thể đo lường được.
-
-**Sự Kiện Tác Động Giá.** Một sự kiện do DAO kích hoạt trong đó thu nhập của người dùng được chuyển vào Pool Thanh khoản DA để tăng cường tài sản bảo chứng và ổn định giá DA.
-
-**Đóng Băng Tài Khoản.** Hành động kiểm duyệt được DAO biểu quyết vô hiệu hóa chức năng NFT trên nền tảng. Bản thân NFT vẫn ở trong ví của người dùng — nền tảng không thể tịch thu NFT. Gỡ đóng băng cần một cuộc biểu quyết DAO riêng.
-
-## Vai Trò Hợp Đồng Thông Minh
-
-**ADMIN_ROLE.** Có thể cấp/thu hồi các vai trò khác và thay đổi các tham số hệ thống quan trọng trong phạm vi được cố định khi triển khai.
-
-**SERVICE_ROLE.** Được thực thi bởi các script backend cho các tác vụ tự động: giải quyết các stack đã hết hạn, xử lý nạp tiền đa chuỗi, kích hoạt phân phối lại tích lũy.
-
-**SIGNER_ROLE.** Được dùng để xác minh chữ ký mật mã nhằm ủy quyền các hành động cụ thể (ví dụ: chuyển nhượng Voucher).
-
-**MINTER_ROLE.** Được ủy quyền đúc các token hoặc NFT cụ thể.
-
-## Kiến Trúc
-
-**Diamond Pattern (EIP-2535).** Kiến trúc hợp đồng thông minh được RWANFTFI sử dụng. Chia chức năng thành nhiều mô-đun ("Facet") được truy cập qua một hợp đồng proxy duy nhất — vượt qua giới hạn kích thước hợp đồng 24KB và cho phép khả năng nâng cấp theo mô-đun qua Facet cut. Đặc tả: [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
-
-**Facet.** Một mô-đun hợp đồng thông minh độc lập được truy cập qua proxy Diamond. RWANFTFI sử dụng **7 Facet**: AdminFacet, MarketingFacet, FarmingFacet, PaymentFacet, TreeFacet, ResolverFacet, ViewFacet.
-
-**TokenReserve.** Hợp đồng quản lý token DA. Có thể nâng cấp qua Transparent Proxy (cập nhật logic mà không thay đổi địa chỉ).
-
-**Mã TAN (Số Xác Thực Giao Dịch).** Mã dùng một lần cần thiết để ủy quyền mọi giao dịch tài chính ở lớp ứng dụng. Độc lập với phạm vi kiểm toán on-chain.
-
-**Phân Chia 75/20/5.** Phân chia ghi có tiêu chuẩn cho phần thưởng marketing trong Giới Hạn Thu Nhập của người nắm giữ: **75%** vào Số Dư Thông Thường, **20%** vào Số Dư Tích Lũy, **5%** vào Pool Thanh khoản DA.
+| Thuật Ngữ | Định Nghĩa |
+|---|---|
+| **Số Dư Tích Lũy** | Số dư nội bộ bị hạn chế, nhận phần được cấu hình từ các phần thưởng đối tác đủ điều kiện. |
+| **Auto-Sell** | Việc xử lý theo lịch trình đối với DA còn lại qua bốn giai đoạn của giao thức. |
+| **Autobuy** | Việc tự động gia hạn một NFT đủ điều kiện khi Giới Hạn Phần Thưởng Giao Thức của nó cạn kiệt. |
+| **DA** | Token tiện ích giao thức chuẩn BEP-20 không thể chuyển nhượng, với nguồn cung tối đa 21.000.000 đơn vị. |
+| **Frozen Balance** | Vùng đệm tạm thời 72 giờ cho một Sponsor Bonus đủ điều kiện vượt quá Giới Hạn Phần Thưởng Giao Thức còn lại. |
+| **GovToken** | Token quản trị chuẩn ERC20Votes với nguồn cung cố định. |
+| **Matching Bonus** | Phần thưởng có điều kiện trải qua tối đa ba cấp đủ điều kiện. |
+| **Phần Thưởng Bị Bỏ Lỡ** | Hoạt động không được ghi có vì các điều kiện đủ áp dụng không được đáp ứng. |
+| **NFTM** | Bộ đếm Khai Thác nội bộ được sử dụng trong phép tính Farming. |
+| **Mạng Lưới Đối Tác** | Cấu trúc được quản lý bởi hợp đồng thông minh, dùng để xác định vị trí và điều kiện đủ nhận phần thưởng. |
+| **Độ Sâu Mạng Lưới Đối Tác** | Độ sâu mạng lưới tối đa được tính trong các phép tính phân phối đủ điều kiện. |
+| **Giới Hạn Phần Thưởng Giao Thức** | Tổng phần thưởng đủ điều kiện tối đa được ghi có trong một chu kỳ NFT; thuật ngữ on-chain: *Income Limit*. |
+| **Sponsor Bonus** | Phần thưởng có điều kiện từ một giao dịch mua NFT trực tiếp đủ điều kiện. |
+| **Phân Phối Theo Cây** | Tên on-chain của Phân Phối Mạng Lưới Đối Tác — phép tính phần thưởng giao thức theo từng cấp trong phạm vi độ sâu mạng lưới đủ điều kiện. |

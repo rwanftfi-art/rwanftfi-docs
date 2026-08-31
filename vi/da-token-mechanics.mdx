@@ -1,200 +1,128 @@
 ---
 title: "Cơ Chế Token DA"
-description: "Mô hình giá chỉ tăng."
+description: "DA là một token tiện ích giao thức chuẩn BEP-20 không thể chuyển nhượng, với nguồn cung tối đa 21.000.000 đơn vị. Giá giao thức nội bộ của nó được tính toán dựa trên số dư pool thanh khoản USDT được chỉ định và nguồn cung DA lưu hành."
 icon: "coins"
 ---
-import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
 
+DA là một token tiện ích giao thức chuẩn BEP-20 không thể chuyển nhượng, với nguồn cung tối đa 21.000.000 đơn vị. Giá giao thức nội bộ của nó được tính toán dựa trên số dư pool thanh khoản USDT được chỉ định và nguồn cung DA lưu hành.
 
 <CardGroup cols={2}>
-  <Card title="Giới Hạn Cứng 21M" icon="cube">
-    Nguồn cung tối đa được cố định vĩnh viễn. Không có lạm phát, không có đúc thêm.
+  <Card title="Nguồn Cung Tối Đa 21M" icon="cube">
+    Việc phát hành DA chỉ có thể diễn ra thông qua các cơ chế giao thức đã xác định và không thể làm nguồn cung vượt quá mức trần.
   </Card>
-  <Card title="Bảo Chứng 100% USDT" icon="shield-check">
-    Mỗi token DA được hậu thuẫn bởi USDT thực trong pool thanh khoản.
+  <Card title="Pool Thanh Khoản USDT" icon="droplet">
+    Cơ chế DA được hỗ trợ bởi một pool thanh khoản [USDT](https://tether.to/) được chỉ định trên [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain).
   </Card>
-  <Card title="Đốt Trong Mỗi Lần Bán" icon="fire">
-    100% token bán ra đều bị đốt vĩnh viễn. Người dùng nhận được 75% (thủ công) hoặc 70% (tự động) giá trị bằng USDT. 25% còn lại (thủ công) hoặc 30% (tự động) là hoa hồng giao thức ở lại trong pool làm tài sản bảo chứng — đây là yếu tố thúc đẩy giá DA tăng lên.
+  <Card title="Đốt Khi Bán Đủ Điều Kiện" icon="fire">
+    DA đã xử lý thông qua các giao dịch bán đủ điều kiện bị đốt theo các quy tắc hiện hành.
   </Card>
   <Card title="Không Có Chuyển Nhượng P2P" icon="ban">
-    DA chỉ có thể được bán, cho vay, hoặc trả nợ — không có chuyển nhượng ngang hàng.
+    DA không thể được chuyển trực tiếp giữa những người dùng.
   </Card>
 </CardGroup>
 
-## Công Thức Giá "Chỉ Tăng"
+## Công thức giá giao thức hoạt động như thế nào?
 
-Giá = Thanh khoản ÷ Nguồn cung lưu hành
+Giá giao thức DA = số dư pool thanh khoản USDT được chỉ định ÷ nguồn cung DA lưu hành.
 
-Mỗi lần DA được bán, token bị đốt (nguồn cung giảm) trong khi USDT vẫn ở trong pool (thanh khoản giữ nguyên hoặc tăng). Ít token hơn ÷ cùng lượng hoặc nhiều USDT hơn = giá cao hơn cho mỗi token.
-
-<Info>
-  **Cách hoạt động:** 200 DA đang lưu hành, 200 USDT trong pool thanh khoản. Giá = 1,00 USDT mỗi DA. Người dùng bán 100 DA. Pool thanh toán 70 USDT (70% của 100 USDT giá trị). Toàn bộ 100 DA bị đốt. Kết quả: còn lại 100 DA, 130 USDT trong pool. Giá mới = 130 ÷ 100 = **1,30 USDT mỗi DA**.
-</Info>
-
-<Tip>
-  Hoa hồng 5% trên tất cả phần thưởng marketing chảy trực tiếp vào pool thanh khoản DA — tách biệt với tỷ lệ phần trăm bán. Thanh khoản bổ sung đến từ phí Cho vay, doanh thu RWA, và doanh thu FinPro.
-</Tip>
+Giá thay đổi khi thanh khoản hoặc nguồn cung lưu hành thay đổi. Bản thân công thức không tự nó đảm bảo thanh khoản, khả năng đổi lại, hay một kết quả cụ thể cho người dùng.
 
 <Info>
-  **Bảo Vệ Nguồn Cung Hạt Giống:** Một lượng dự trữ DA vĩnh viễn nhỏ — **Nguồn Cung Hạt Giống** — được nạp trước vào giao thức khi khởi động như một biện pháp bảo vệ kỹ thuật cho công thức định giá.
-
-  - **Vĩnh viễn và không thể bán.** Nguồn Cung Hạt Giống bị khóa ở cấp giao thức: nó **không thể bị đốt**, **không thể được bán** (thủ công hoặc thông qua tự động bán), và bị **loại trừ khỏi các chu kỳ tự động bán**.
-  - **Ngoài lưu hành.** Nó **không được tính là nguồn cung lưu hành** và không bao giờ tham gia vào số dư người dùng, farming, lending, hoặc phân phối marketing.
-  - **Đảm bảo mẫu số khác không.** Vì `Giá = Thanh khoản ÷ Nguồn cung lưu hành`, công thức không bao giờ được chia cho 0. Nguồn Cung Hạt Giống đảm bảo `totalSupply > 0` mọi lúc, do đó hàm giá luôn được xác định — ngay cả trong trường hợp cực đoan khi mọi token khác trong lưu hành đã bị đốt.
-  - **Bảo vệ chỉ trong trường hợp ngoại lệ.** Trong vận hành bình thường, Nguồn Cung Hạt Giống không có ảnh hưởng đến phát hiện giá. Nó tồn tại thuần túy như một sàn xác định giúp `getPrice()` được định nghĩa rõ ràng khi thanh khoản hiện diện nhưng nguồn cung lưu hành sẽ đạt đến 0.
+  **Seed Supply** là một khoản dự trữ vĩnh viễn nhỏ, được sử dụng như một biện pháp bảo vệ kỹ thuật cho hàm định giá. Nó được loại trừ khỏi lưu hành của người dùng, bán hàng, farming, cho vay, và phân phối đối tác.
 </Info>
 
-## Nguồn Pool Thanh Khoản
-
-Pool Thanh khoản là nền tảng của kinh tế DA. Nó được tài trợ từ nhiều nguồn trên khắp hệ sinh thái RWANFTFI, đảm bảo tăng trưởng liên tục của tài sản bảo chứng token. Mỗi luồng doanh thu của giao thức đều chảy vào một pool duy nhất, củng cố công thức Giá = Thanh khoản ÷ Nguồn cung.
+## Pool Thanh Khoản DA được tài trợ như thế nào?
 
 <AccordionGroup>
   <Accordion title="Hoạt Động NFT">
-    **Mua NFT** — 20% từ mỗi giao dịch mua NFT được tự động chuyển vào Pool Thanh khoản để đúc DA mới.
-
-    **Mua Lại & Autobuy** — thêm 20% từ mỗi giao dịch mua NFT lặp lại hoặc tự động chảy vào Pool Thanh khoản. Điều này khuyến khích gia hạn vị thế và hỗ trợ tăng trưởng hệ thống.
+    Các khoản phân bổ từ giao dịch mua và mua lại NFT theo các tham số hợp đồng hiện hành.
   </Accordion>
 
   <Accordion title="Phí & Hoa Hồng">
-    **Thuế Phần Thưởng Marketing** — 5% của tất cả phần thưởng marketing trên mạng lưới giới thiệu được tự động chuyển vào Pool Thanh khoản. Hoạt động mạng lưới trực tiếp củng cố tài sản bảo chứng DA.
-
-    **Phí Chuyển Số Dư Tích Lũy** — khi chuyển Số Dư Tích Lũy cho người dùng khác, 20% số tiền chuyển được chuyển vào Pool Thanh khoản DA. Bất kỳ chuyển động nào của Số Dư Tích Lũy — cho dù được sử dụng trong giao dịch mua NFT hay chuyển giữa các ví — đều tạo ra dòng vào 20% cho Pool.
-
-    **Phí Mua Bằng Số Dư Tích Lũy** — khi mua NFT bằng Số Dư Tích Lũy, 20% số tiền tích hợp được chuyển vào Pool Thanh khoản DA để đúc DA mới. Ví dụ: 898 USDT trên Số Dư Tích Lũy — khi tích hợp vào giao dịch mua NFT, 718 USDT đi vào chi phí NFT, và 180 USDT (20% của 898) chảy vào Pool Thanh khoản DA. Mỗi giao dịch mua như vậy bổ sung Pool và tạo cơ sở cho DA mới.
-
-    **Hoa Hồng Cho Vay** — khi vay, người vay trả hoa hồng một lần 5% được chuyển vào Pool Thanh khoản. Ví dụ: vay \$1.000, người vay nhận \$950, \$50 vào Pool. Hoa hồng được thu với mỗi khoản vay mới.
+    - Phí Phần Thưởng Đối Tác.
+    - Phí chuyển nhượng và sử dụng Số Dư Tích Lũy.
+    - Phí cho vay và hoa hồng giao thức từ việc bán DA.
   </Accordion>
 
   <Accordion title="Tiền Hết Hạn & Không Sử Dụng">
-    **Tự Động Bán Với Giới Hạn Thu Nhập Bằng 0** — nếu tự động bán DA kích hoạt và người dùng có Giới Hạn Thu Nhập bằng 0 trên NFT của họ, 100% tiền thu được sẽ được chuyển vào Pool Thanh khoản hoặc đốt DA (cơ chế chính xác do cài đặt DAO quyết định).
-
-    **Voucher Hết Hạn** — nếu Voucher không được sử dụng trong 365 ngày, 100% tiền sẽ được chuyển vào Pool Thanh khoản. Điều này ngăn chặn tiền nhàn rỗi và loại bỏ các nghĩa vụ không hoạt động.
-
-    **Số Dư Tích Lũy Không Sử Dụng** — nếu Số Dư Tích Lũy không được sử dụng trong 120 ngày, 70% tiền sẽ được chuyển vào Pool Thanh khoản để đúc DA mới.
+    - Voucher hết hạn và số dư được định tuyến theo các quy tắc hợp đồng thông minh hiện hành.
+    - Tiền thu được từ Auto-Sell được xử lý khi người nắm giữ không còn Giới Hạn Phần Thưởng Giao Thức, theo cài đặt DAO đang hoạt động.
   </Accordion>
 
   <Accordion title="Doanh Thu Bên Ngoài">
-    **Hoa Hồng SWAP** — hoa hồng từ tất cả các thao tác trao đổi (SWAP) được tự động chuyển vào Pool Thanh khoản.
-
-    **Hoa Hồng Thẻ Ghi Nợ** — hoa hồng từ chương trình Thẻ Ghi Nợ chảy vào Pool Thanh khoản, tạo ra dòng tiền thực từ nền kinh tế bên ngoài.
-
-    **Doanh Thu RWA** — một phần doanh thu từ bất động sản, thu nhập cho thuê, tài sản thương mại, và các tài sản thế giới thực khác được chuyển vào Pool Thanh khoản, neo hệ thống vào nền kinh tế thực.
-
-    **Doanh Thu FinPro** — một phần lợi nhuận từ các sản phẩm tài chính (Cho vay, sản phẩm đầu tư, dịch vụ tài chính) chảy vào Pool Thanh khoản.
-
-    **Doanh Thu Hệ Sinh Thái** — một phần tổng doanh thu giao thức có thể được chuyển vào Pool Thanh khoản hoặc được sử dụng để tạo thanh khoản bổ sung cho việc đúc DA mới.
+    Hoa hồng swap, hoa hồng thẻ ghi nợ, thu nhập RWA, doanh thu FinPro, và các nguồn doanh thu hệ sinh thái khác chỉ được thể hiện là đang hoạt động sau khi việc tích hợp và dòng doanh thu được công bố công khai. Cho đến lúc đó, chúng vẫn là các hạng mục lộ trình hoặc phụ thuộc vào bên thứ ba.
   </Accordion>
 </AccordionGroup>
 
-## Cơ Chế Đốt DA
-
-Việc đốt DA là cơ chế giảm phát cốt lõi — nó làm giảm nguồn cung token và tạo áp lực tăng giá bền vững cho giá trị tài sản.
+## DA được đốt như thế nào?
 
 <CardGroup cols={3}>
   <Card title="Bán Thủ Công" icon="fire">
-    100% DA bán ra bị đốt vĩnh viễn. Người dùng nhận 75% giá trị bằng USDT. 25% còn lại là hoa hồng giao thức ở lại trong pool làm tài sản bảo chứng, thúc đẩy tăng giá.
+    DA đã xử lý bị đốt. Người dùng nhận khoản thanh toán 75% hiện hành; phần còn lại của giao thức tuân theo phân bổ đang hoạt động.
   </Card>
-  <Card title="Tự Động Bán" icon="clock">
-    100% DA tự động bán bị đốt vĩnh viễn. Người dùng nhận 70% giá trị bằng USDT. 30% còn lại là hoa hồng giao thức ở lại trong pool làm tài sản bảo chứng, thúc đẩy tăng giá. Kích hoạt lũy tiến từ số dư còn lại trong 4 giai đoạn (tổng cộng 365 ngày / 1 năm).
+  <Card title="Auto-Sell" icon="clock">
+    DA đã xử lý bị đốt. Người dùng nhận khoản thanh toán 70% hiện hành; phần còn lại của giao thức tuân theo phân bổ đang hoạt động.
   </Card>
   <Card title="Vỡ Nợ Cho Vay" icon="ban">
-    Nếu khoản vay không được trả, DA thế chấp được đốt lũy tiến qua chu kỳ tự động bán. Bảo vệ thanh khoản hệ thống và thực thi kỷ luật tài chính.
+    DA đã cầm cố có thể bị đốt lũy tiến theo lịch trình vỡ nợ được quy định.
   </Card>
 </CardGroup>
 
-## Truy Cập Tức Thì & Chu Kỳ Tự Động Bán
+## Truy Cập Tức Thì & Chu Kỳ Auto-Sell
 
 ### Truy Cập Tức Thì
 
-Token DA có sẵn 100% cho người dùng từ thời điểm chúng được farm. Không có thời gian khóa. Người dùng có thể ngay lập tức:
+DA được ghi có sau Farming có sẵn để sử dụng theo các quy tắc giao thức hiện hành. Người dùng đủ điều kiện có thể bán thủ công, sử dụng một lô được hỗ trợ làm tài sản thế chấp cho vay, hoặc giữ DA cho đến các sự kiện Auto-Sell theo lịch trình.
 
-- **Bán thủ công** — nhận 75% giá trị bằng USDT, 100% token bị đốt
-- **Vay** — LTV 70% cố định dựa trên DA thế chấp, hoa hồng 5% một lần tại thời điểm phát hành
-- **Giữ và chờ** — giữ token và hưởng lợi từ tăng giá theo thời gian
+### Chu Kỳ Auto-Sell
 
-### Chu Kỳ Tự Động Bán
+| Giai Đoạn | Thời Điểm | Tỷ Lệ Của DA Còn Lại |
+|:---:|---|:---:|
+| 1 | Sau 120 ngày | 25% |
+| 2 | Sau 90 ngày tiếp theo | 40% |
+| 3 | Sau 90 ngày tiếp theo | 50% |
+| 4 | Sau 65 ngày tiếp theo | 100% |
 
-Nếu người dùng không bán thủ công, hệ thống kích hoạt bán tự động từ **số dư còn lại** trong 4 giai đoạn kéo dài tổng cộng **365 ngày (1 năm)**. Thời lượng giai đoạn được biểu thị bằng ngày on-chain (120 / 90 / 90 / 65 ngày); các tham chiếu tháng dưới đây là xấp xỉ để dễ đọc.
+Mỗi sự kiện Auto-Sell sử dụng giá giao thức DA áp dụng tại thời điểm thực hiện. Giá giao thức trong tương lai không được xác định trước.
 
-**Ví dụ bắt đầu với 100 DA:**
+## Cho vay đa lô dựa trên DA hoạt động như thế nào?
 
 <Steps>
-  <Step title="Giai đoạn 1 — Sau 120 ngày (~4 tháng)">
-    25% số dư hiện tại được tự động bán. 25% của 100 = **25 DA bán** → Còn lại: **75 DA**
+  <Step title="Hoàn thành một chu kỳ Khai Thác và Farming">
+    Một chu kỳ hoàn thành tạo ra một lô DA đủ điều kiện.
   </Step>
-  <Step title="Giai đoạn 2 — Sau 90 ngày nữa (~3 tháng, ngày 210)">
-    40% số dư còn lại được tự động bán. 40% của 75 = **30 DA bán** → Còn lại: **45 DA**
+  <Step title="Sử dụng lô đó làm tài sản thế chấp">
+    Lô đóng vai trò là tài sản thế chấp độc lập theo các quy tắc cho vay hiện hành.
   </Step>
-  <Step title="Giai đoạn 3 — Sau 90 ngày nữa (~3 tháng, ngày 300)">
-    50% số dư còn lại được tự động bán. 50% của 45 = **22,5 DA bán** → Còn lại: **22,5 DA**
+  <Step title="Hoàn thành một chu kỳ khác">
+    Một chu kỳ mới tạo ra một lô riêng biệt.
   </Step>
-  <Step title="Giai đoạn 4 — Sau 65 ngày nữa (~2 tháng, ngày 365)">
-    100% số dư còn lại được tự động bán. 100% của 22,5 = **22,5 DA bán** → Còn lại: **0 DA**
+  <Step title="Mở một khoản vay riêng biệt">
+    Một khoản vay đủ điều kiện riêng biệt có thể được mở dựa trên lô mới.
   </Step>
 </Steps>
 
-<Note>
-  Tỷ lệ phần trăm tự động bán (25% / 40% / 50% / 100%) hiển thị ở trên đại diện cho cấu hình giao thức hiện tại. Các giá trị cụ thể được lưu trữ dưới dạng tham số giao thức và phải tuân theo các quy trình quản trị tiêu chuẩn. Luôn kiểm tra hợp đồng thông minh hoặc tài liệu giao thức hiện tại để có giá trị mới nhất.
-</Note>
+Mỗi khoản vay gắn với một lô DA. Việc xử lý vỡ nợ chỉ ảnh hưởng đến lô đã cầm cố, không phải toàn bộ DA mà người dùng nắm giữ.
 
-Mỗi lần tự động bán được thực hiện ở giá DA tại thời điểm kích hoạt giai đoạn đó — không phải giá farming ban đầu. 100% token tự động bán bị đốt, và người dùng nhận 70% giá trị bằng USDT ở giá vào ngày tự động bán. Vì giá tăng theo thời gian, các giai đoạn sau đốt token ở giá cao hơn, đẩy nhanh quá trình giảm phát.
+Để biết chi tiết, xem [Bán & Cho Vay](/vi/da-selling-lending) và [Cho Vay Dựa Trên DA](/vi/da-lending).
 
-Người dùng có thể bán thủ công bất cứ lúc nào trước khi tự động bán kích hoạt, nhận 75% thay vì 70%.
-
-<Tip>
-  Bán thủ công (75% thanh toán) luôn có lợi nhuận hơn cho mỗi token so với tự động bán (70% thanh toán). Tuy nhiên, tự động bán hưởng lợi từ tăng giá theo thời gian — các giai đoạn sau thực hiện ở giá DA cao hơn.
-</Tip>
-
-<Warning>
-  **Tự Động Bán Với Giới Hạn Thu Nhập Bằng 0:** Nếu tự động bán kích hoạt và người dùng có Giới Hạn Thu Nhập bằng 0 (NFT chưa được gia hạn), 100% tiền thu được sẽ vào Pool Thanh khoản hoặc đốt DA (do DAO quyết định). Người dùng không nhận được gì. Luôn duy trì Giới Hạn Thu Nhập đang hoạt động.
-</Warning>
-
-## Cho Vay Đa Lô
-
-Mỗi lô DA từ mỗi chu kỳ khai thác đóng vai trò là tài sản thế chấp độc lập. Điều này cho phép một chu kỳ vay vi mô liên tục:
+## Chu Kỳ Giảm Phát nửa năm một lần là gì?
 
 <Steps>
-  <Step title="Khai Thác Lô 1">
-    Người dùng hoàn thành chu kỳ khai thác và nhận lô DA 1.
+  <Step title="Các chu kỳ mới có thể bị tạm dừng">
+    Các chu kỳ Khai Thác, staking, và tạo DA mới có thể bị tạm dừng.
   </Step>
-  <Step title="Vay dựa trên Lô 1">
-    Người dùng vay với LTV 70% cố định dựa trên lô 1 (hoa hồng 5% một lần thu tại thời điểm phát hành, không phải trả nợ).
+  <Step title="Các cơ chế bán vẫn tiếp tục">
+    Các cơ chế bán đủ điều kiện tiếp tục hoạt động theo cấu hình đang áp dụng.
   </Step>
-  <Step title="Khai Thác Lô 2">
-    Người dùng bắt đầu chu kỳ khai thác mới và nhận lô DA 2.
+  <Step title="DA được xử lý và đốt">
+    DA được xử lý và đốt theo các quy tắc được quy định.
   </Step>
-  <Step title="Vay dựa trên Lô 2">
-    Người dùng vay thêm với LTV 70% cố định dựa trên lô 2 (hoa hồng 5% một lần riêng biệt thu tại thời điểm phát hành).
-  </Step>
-</Steps>
-
-Điều này cho phép nhiều khoản vay vi mô đồng thời, một khoản cho mỗi lô DA. Mỗi khoản vay là độc lập - gắn với lô riêng của mình - và vẫn hoạt động cho đến khi stack của lô đó đi vào chu kỳ tự động bán. Nếu bất kỳ khoản vay nào vỡ nợ, chỉ tài sản thế chấp của lô đó bị đốt - không phải tất cả các DA nắm giữ.
-
-Để so sánh chi tiết bán so với cho vay, xem [Bán & Cho Vay](/vi/da-selling-lending). Cho vay cũng hỗ trợ trả nợ một phần và phục hồi tỷ lệ khi vỡ nợ. Xem [Cơ Chế Cho Vay](/vi/da-lending) để biết toàn bộ chi tiết.
-
-## Chu Kỳ Giảm Phát
-
-Hai lần một năm hệ thống kích hoạt một Chu Kỳ Giảm Phát đặc biệt kéo dài tới 30 ngày, được thiết kế để tăng cường sự khan hiếm token.
-
-<Steps>
-  <Step title="Tạm dừng các chu kỳ mới">
-    Việc bắt đầu các chu kỳ mới của khai thác NFTM, staking, và tạo DA bị tạm dừng trong suốt thời gian Chu Kỳ Giảm Phát. **Các chu kỳ đang hoạt động bắt đầu trước Chu Kỳ Giảm Phát tiếp tục chạy và hoàn thành theo lịch trình** — người dùng có khai thác đang diễn ra không bị mất tiến độ.
-  </Step>
-  <Step title="Kích hoạt cơ chế bán">
-    Các cơ chế bán DA tự động hoặc tự nguyện được kích hoạt.
-  </Step>
-  <Step title="Đốt hàng ngày">
-    Một phần token bị đốt hàng ngày.
-  </Step>
-  <Step title="Nguồn cung thu hẹp">
-    Nguồn cung thị trường thu hẹp, củng cố áp lực tăng giá.
+  <Step title="Các chu kỳ hiện có tiếp tục">
+    Các chu kỳ hiện có đã bắt đầu trước sự kiện tiếp tục theo lịch trình.
   </Step>
 </Steps>
 
 <Info>
-  Chu Kỳ Giảm Phát làm cho nền kinh tế DA có thể dự đoán, quản lý và bền vững trong dài hạn.
+  Chu Kỳ Giảm Phát là một sự kiện giao thức. Ngày tháng, thời lượng, và các tham số đang áp dụng hiện tại được công bố trước mỗi chu kỳ.
 </Info>
-
-Tăng hoạt động → tăng thanh khoản → tăng phát hành DA → tăng đốt → tăng khan hiếm → tăng giá trị tài sản. Hệ thống vòng kín này có nghĩa là hệ sinh thái phát triển càng tích cực, nền kinh tế DA càng mạnh.
-
-<DaPriceSimulator />

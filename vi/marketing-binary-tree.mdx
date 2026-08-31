@@ -1,26 +1,20 @@
 ---
-title: "Cấu Trúc Marketing & Vị Trí"
-description: "Cấu trúc 22 cấp với spillover."
+title: "Mạng Lưới Đối Tác & Vị Trí"
+description: "Mạng lưới đối tác là một sổ đăng ký vị trí trên hợp đồng thông minh. Khi một NFT đủ điều kiện được kích hoạt, tài khoản nhận một vị trí vĩnh viễn. Vị trí ghi lại các quan hệ mạng lưới phục vụ cho việc tính phần thưởng; bản thân một vị trí không tạo ra phần thưởng."
 icon: "sitemap"
 ---
 
-Khi người dùng kích hoạt một NFT, họ được đặt vĩnh viễn vào một cấu trúc
-marketing với độ sâu tối đa 22 cấp — chứa tới
-**8.388.606 vị trí** khi đầy đủ.
+Mạng lưới đối tác là sổ đăng ký vị trí của giao thức — một cấu trúc dữ liệu on-chain ghi lại vị trí của mỗi tài khoản và những quan hệ mạng lưới nào được tính vào các phép tính phần thưởng. Khi một NFT đủ điều kiện được kích hoạt, tài khoản nhận một vị trí vĩnh viễn. Vị trí, độ sâu mạng lưới, và điều kiện đủ nhận phần thưởng tuân theo các quy tắc giao thức đang hoạt động.
+
 <CardGroup cols={3}>
-  <Card title="Đặt Vị Trí Tự Động" icon="wand-magic-sparkles">
-    Hợp đồng thông minh đặt người dùng mới sử dụng thuật toán "nhánh yếu nhất, từ trái sang phải".
-    Không cần định vị thủ công.
+  <Card title="Đặt Vị Trí Xác Định" icon="wand-magic-sparkles">
+    Các đăng ký mới được đặt vị trí bởi thuật toán nhánh yếu nhất được quy định trong hợp đồng. Không có việc định vị thủ công.
   </Card>
-  <Card title="Liên Kết Vĩnh Viễn" icon="link">
-    Mỗi người tham gia được liên kết vĩnh viễn với người tài trợ của họ.
-    Không thể thay đổi — blockchain là bất biến.
+  <Card title="Bản Ghi Vĩnh Viễn" icon="link">
+    Một vị trí là một mục vĩnh viễn trong sổ đăng ký on-chain; liên kết với người tài trợ không thay đổi.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    Lời mời của các tuyến trên có thể được đặt vào cấu trúc CỦA BẠN một cách tự động.
-    Bạn kiếm phần thưởng phân phối theo cây từ spillover theo các điều khoản
-    marketing tiêu chuẩn — tuy nhiên, Sponsor Bonus sẽ thuộc về người mời thực sự,
-    không phải bạn.
+  <Card title="Không Có Phần Thưởng Cho Việc Đặt Vị Trí" icon="scale-balanced">
+    Bản thân một vị trí không trả bất kỳ điều gì. Phần thưởng đòi hỏi các sự kiện mua hàng đủ điều kiện, điều kiện đủ về cấp, và Giới Hạn Phần Thưởng Giao Thức còn lại.
   </Card>
 </CardGroup>
 
@@ -34,73 +28,31 @@ marketing với độ sâu tối đa 22 cấp — chứa tới
   src="/banner_new_1.mp4"
 />
 
-## Cách Đặt Vị Trí Hoạt Động
+## Việc đặt vị trí hoạt động như thế nào?
+
 <Steps>
-  <Step title="Bạn Mời">
-    2 lời mời đầu tiên của bạn lấp đầy Cấp 1 (vị trí trái và phải).
+  <Step title="Các vị trí cấp một được lấp đầy trước">
+    Các đăng ký trực tiếp đầu tiên lấp đầy các vị trí cấp một hiện có.
   </Step>
-  <Step title="Cây Phát Triển Xuống">
-    Các lời mời tiếp theo đi đến Cấp 2 dưới nhánh yếu nhất.
-    Cấu trúc của bạn phát triển theo cấp số nhân: 2 → 4 → 8 → 16 vị trí mỗi cấp.
+  <Step title="Thuật toán đặt vị trí cho phần còn lại">
+    Các đăng ký bổ sung được đặt vào nhánh được chọn bởi thuật toán nhánh yếu nhất được quy định trong hợp đồng.
   </Step>
-  <Step title="Spillover Lấp Đầy Khoảng Trống">
-    Khi các tuyến trên của bạn mời nhiều người hơn so với khả năng giữ của Cấp 1 của họ,
-    những người dùng đó tràn vào cây CỦA BẠN. Bạn kiếm tiền từ họ một cách tự động.
+  <Step title="Việc đặt vị trí tự động có thể vượt qua ranh giới tài khoản">
+    Thuật toán có thể ghi nhận một người tham gia vào bên trong mạng lưới của một người dùng khác (spillover). Đây là kết quả ghi sổ của việc đặt vị trí tự động, không phải một sự kiện phần thưởng.
   </Step>
-  <Step title="Bạn Kiếm Tiền Từ Độ Sâu">
-    Cấp NFT của bạn quyết định độ sâu mà bạn kiếm được.
-    GENESIS kiếm từ 2 cấp. INFINITY kiếm tới 22 cấp
-    (cấp 16–22 mở khóa trong Phase 2 thông qua bỏ phiếu quản trị DAO).
+  <Step title="Bản thân việc đặt vị trí không tạo ra phần thưởng">
+    Điều kiện đủ nhận phần thưởng phụ thuộc vào cấp, độ sâu, hoạt động đủ điều kiện, phase đang hoạt động, và Giới Hạn Phần Thưởng Giao Thức còn lại.
   </Step>
 </Steps>
 
-## Tổng Quan Phân Phối Theo Cây
+## Độ Sâu Mạng Lưới Trong Các Phép Tính Phần Thưởng
 
-Mỗi cấp của cấu trúc marketing có một số vị trí cố định và tỷ lệ phần thưởng tương ứng. Cấp NFT của bạn quyết định bạn có thể kiếm tiền sâu vào cấu trúc này đến đâu.
+Mỗi cấp NFT xác định độ sâu mạng lưới tối đa được tính trong các phép tính Phân Phối Mạng Lưới Đối Tác đủ điều kiện. Các giá trị Phase 1 hiện tại được hiển thị trong [bảng cấp NFT](/vi/nft-ecosystem#all-10-tiers-at-a-glance). Cấp 16–22 yêu cầu kích hoạt quản trị được quy định.
 
-| Cấp | Số người tham gia | Phân phối mỗi cấp |
-|:-----:|:----------------------:|:----------------------:|
-| 1     | 2                      | 0%                     |
-| 2     | 4                      | 1%                     |
-| 3     | 8                      | 2%                     |
-| 4     | 16                     | 2%                     |
-| 5     | 32                     | 3%                     |
-| 6     | 64                     | 3%                     |
-| 7     | 128                    | 4%                     |
-| 8     | 256                    | 4%                     |
-| 9     | 512                    | 4%                     |
-| 10    | 1.024                  | 4%                     |
-| 11    | 2.048                  | 4%                     |
-| 12    | 4.096                  | 4%                     |
-| 13    | 8.192                  | 4%                     |
-| 14    | 16.384                 | 4%                     |
-| 15    | 32.768                 | **5%**                 |
-| 16    | 65.536                 | 2%                     |
-| 17    | 131.072                | 2%                     |
-| 18    | 262.144                | 1%                     |
-| 19    | 524.288                | 0,5%                   |
-| 20    | 1.048.576              | 0,5%                   |
-| 21    | 2.097.152              | 0,5%                   |
-| 22    | 4.194.304              | 0,5%                   |
+## Sức Chứa Cấu Trúc
+
+Sổ đăng ký là một cấu trúc nhị phân có giới hạn với độ sâu tối đa được quy định là 22 cấp — một sức chứa kỹ thuật cố định là 8.388.606 vị trí, không tính vị trí gốc. Con số này là một thuộc tính của cấu trúc dữ liệu, không phải một mục tiêu tham gia hay một dự phóng.
 
 <Tip>
-  Để biết chi tiết đầy đủ về tỷ lệ phần thưởng, cơ chế nén, và hệ thống Matching Bonus, xem [Phần Thưởng & Đền Bù](/vi/marketing-rewards).
+  Để biết các loại phần thưởng, ngân sách phân phối, và các quy tắc điều kiện đủ, xem [Phần Thưởng & Phân Phối](/vi/marketing-rewards).
 </Tip>
-
-<Info>
-  **Đa tài khoản bị nghiêm cấm.** Hệ thống thực thi
-  chính sách một người dùng, một tài khoản với theo dõi tích hợp.
-</Info>
-<Warning>
-  **Người tài trợ là vĩnh viễn.** Một khi đã được đặt trong cây, người tài trợ của bạn
-  không thể thay đổi. Hãy chọn một cách khôn ngoan trước khi kích hoạt NFT của bạn.
-</Warning>
-
-<Info>
-  **Người tài trợ phải là một nút cây đang hoạt động.** Khi một người dùng mới được đăng ký qua `registerUser()`, hợp đồng thông minh không chấp nhận bất kỳ ID người dùng hiện có nào làm người tài trợ — người tài trợ được cung cấp phải là **một nút đang hoạt động trong cấu trúc marketing**. Cụ thể, người tài trợ phải:
-
-  - Sở hữu một **NFT đang hoạt động** trong hệ thống, và
-  - Được **đăng ký trong cây** dưới dạng một nút trực tiếp (nút cây đang hoạt động).
-
-  Một **ánh xạ chỉ định danh** — một ví đã được gán ID người dùng nhưng hiện không nắm giữ NFT đang hoạt động — không thể tài trợ cho các lời mời mới nữa. Điều này ngăn người tham gia mới được đặt dưới những người tài trợ không hoạt động, chặn việc tạo các nhánh chết trong cấu trúc, và bảo tồn tính toàn vẹn của dòng phần thưởng của mỗi cây con.
-</Info>

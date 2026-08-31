@@ -1,294 +1,58 @@
 ---
 title: "Cho Vay Dựa Trên DA"
-description: "Nhận khoản vay USDT với LTV 70% cố định dựa trên bất kỳ lô DA nào trong TokenStack của bạn. Trả hoa hồng một lần 5% tại thời điểm phát hành, khóa giá DA hôm nay, và trả nợ toàn bộ hoặc một phần bất kỳ lúc nào trước khi stack đi vào chu kỳ tự động bán."
+description: "Người nắm giữ NFT Premium và Elite đủ điều kiện có thể sử dụng một lô DA được hỗ trợ hoàn chỉnh làm tài sản thế chấp cho một khoản vay định danh bằng USDT với LTV 70% được quy định."
 icon: "hand-holding-dollar"
 ---
 
+Người nắm giữ NFT Premium và Elite đủ điều kiện có thể sử dụng một lô DA được hỗ trợ hoàn chỉnh làm tài sản thế chấp cho một khoản vay định danh bằng USDT.
 
-Cho vay cho phép người nắm giữ DA tiếp cận thanh khoản USDT tức thì mà không cần bán tài sản và không từ bỏ tiếm năng tăng giá DA trong tương lai. Khoản vay được đảm bảo bởi một lô DA cụ thể, được định giá tại thời điểm phát hành, và có thể trả toàn bộ hoặc một phần bất kỳ lúc nào trước khi stack thế chấp đi vào chu kỳ tự động bán.
+## Tham Số Khoản Vay
 
-<CardGroup cols={2}>
-  <Card title="LTV 70% - Cố Định" icon="percent">
-    Mọi khoản vay được phát hành đúng 70% giá trị USDT của tài sản thế chấp tại thời điểm phát hành. Không có thanh trượt, không có phạm vi "lên đến" - 70% là thiết lập duy nhất.
-  </Card>
-  <Card title="Hoa Hồng 5% Một Lần" icon="receipt">
-    Một khoản phí 5% được thu khi mở khoản vay và chuyển vào Pool Thanh khoản DA. Không thu thêm gì tại thời điểm trả nợ, dù toàn bộ hay một phần.
-  </Card>
-  <Card title="Giá Khóa Tại Thời Điểm Phát Hành" icon="lock">
-    Giá DA được sử dụng cho mọi phép tính khoản vay được cố định trong `loan.price` tại thời điểm phát hành. Dù DA tăng giá 2x hay 10x sau đó, khoản nợ USDT của bạn không thay đổi.
-  </Card>
-  <Card title="Không Có Kỳ Hạn Cố Định" icon="clock-rotate-left">
-    Khoản vay không có ngày đáo hạn. Nó vẫn mở cho đến khi người vay trả nợ, hoặc cho đến khi lô thế chấp đi vào chu kỳ tự động bán.
-  </Card>
-</CardGroup>
-
-## Ai có thể vay?
-
-Cho vay chỉ dành cho người nắm giữ NFT cấp Premium và Elite (Level 5 trở lên). Các cấp thấp hơn không chạy khai thác NFTM và do đó không có tài sản thế chấp DA để vay.
-
-<CardGroup cols={3}>
-  <Card title="Cấp Premium (L5-L8)" icon="gem">
-    Hydro, Quantum, Pulse, Aurora. Mỗi chu kỳ khai thác hoàn thành tạo ra một lô DA đủ điều kiện cho một khoản vay.
-  </Card>
-  <Card title="Cấp Elite (L9-L10)" icon="crown">
-    Flame, Infinity. Hai chu kỳ khai thác mỗi NFT - mỗi chu kỳ tạo ra lô độc lập của riêng nó với vị trí khoản vay độc lập của riêng nó.
-  </Card>
-  <Card title="Giới Hạn Thu Nhập Đang Hoạt Động" icon="signal-bars">
-    NFT đang vay phải có Giới Hạn Thu Nhập còn lại khác 0. Cho vay được kiểm soát bởi cùng mô hình đủ điều kiện như phần thưởng marketing.
-  </Card>
-</CardGroup>
-
-## Tài sản thế chấp là gì?
-
-Khoản vay được đảm bảo bởi **một lô DA cụ thể** - DA được ghi có vào TokenStack từ một chu kỳ khai thác và farming hoàn thành. Toàn bộ lô là đơn vị tài sản thế chấp: không hỗ trợ vay một phần số tiền dựa trên một phần lô. Nếu lô chứa 100 DA, khoản vay được phát hành dựa trên toàn bộ 100 DA cùng một lúc.
-
-<Info>
-  **Một khoản vay mỗi lô, mãi mãi.** Một lô DA nhất định chỉ có thể đóng vai trò tài sản thế chấp cho tối đa một khoản vay trong suốt vòng đời của nó. Một khi khoản vay đó được mở - bất kể sau đó được trả toàn bộ, trả một phần, hay vỡ nợ - lô không thể được cầm cố lại. Để mở khoản vay khác, người vay phải khai thác và farm một lô mới.
-</Info>
+| Tham Số | Quy Tắc Hiện Tại |
+|---|---|
+| Cấp đủ điều kiện | L5–L10 |
+| Tài sản thế chấp | Một lô DA hoàn chỉnh |
+| LTV | 70% |
+| Phí phát hành | 5% |
+| Tham chiếu nợ | Giá giao thức DA được ghi nhận tại thời điểm phát hành khoản vay |
+| Điều kiện vay mới | Còn ít nhất 30 ngày trước sự kiện Auto-Sell tiếp theo |
+| Tái sử dụng lô | Một khoản vay mỗi lô |
+| Trả nợ | Trả nợ toàn bộ hoặc một phần |
 
 ## Số tiền vay được tính như thế nào?
 
-Hợp đồng thông minh sử dụng một công thức xác định duy nhất tại thời điểm phát hành:
+Tổng khoản vay = DA thế chấp × giá vay đã ghi nhận × 70%.
 
-```
-usdAmount       = collateral_DA × loan.price × 0.70
-fee             = usdAmount × 0.05
-borrowerPayout  = usdAmount - fee
-```
+Phí 5% hiện hành được khấu trừ tại thời điểm phát hành. Số tiền còn lại được ghi có theo các quy tắc số dư đang hoạt động.
 
-`loan.price` là giá DA tại thời điểm phát hành. Nó được lưu trữ trên struct khoản vay và không bao giờ thay đổi trong suốt vòng đời khoản vay.
+## Ảnh Chụp Giá
 
-<Steps>
-  <Step title="Lô được tạo ra">
-    Chu kỳ khai thác hoàn thành. Người dùng stake NFTM vào Farming. Sau khi giai đoạn farming kết thúc, 100 DA được ghi có vào TokenStack mới tại địa chỉ người dùng.
-  </Step>
-  <Step title="Người dùng gọi loan() dựa trên lô">
-    Giả sử giá DA hiện tại tại thời điểm này là 1,00 USDT. Hợp đồng ghi `loan.price = 1,00` vào struct khoản vay. `usdAmount = 100 × 1,00 × 0,70 = 70 USDT`.
-  </Step>
-  <Step title="5% hoa hồng được tách ra">
-    `fee = 70 × 0,05 = 3,50 USDT`. 3,50 USDT được chuyển ngay vào Pool Thanh khoản DA.
-  </Step>
-  <Step title="Người vay nhận số tiền ròng">
-    `borrowerPayout = 70 - 3,50 = 66,50 USDT` được ghi có vào Số Dư Thường của người vay. Lô 100 DA hiện bị khóa làm tài sản thế chấp. Khoản vay đang mở.
-  </Step>
-</Steps>
+Giá vay đã ghi nhận vẫn là giá trị tham chiếu cho các phép tính trả nợ. Những thay đổi sau đó của giá giao thức DA không làm thay đổi khoản gốc định danh bằng USDT ban đầu.
 
-<Note>
-  **Bảo vệ dust.** Hợp đồng thông minh từ chối các khoản vay mà `borrowerPayout` sẽ làm tròn xuống thành 0 USDT sau phí 5%. Một lô quá nhỏ để tạo ra khoản thanh toán ròng khác không không thể được cầm cố.
-</Note>
+## Trả Nợ Một Phần
 
-## Khoản nợ vay được cố định bằng USDT
+Người vay có thể trả một phần khoản gốc còn lại để giải phóng một lượng tài sản thế chấp còn lại tương ứng theo tỷ lệ. DA được giải phóng vẫn tuân theo lịch trình của lô ban đầu.
 
-Đây là thuộc tính quan trọng nhất của sản phẩm cho vay và lý do chính tại sao người nắm giữ DA chọn cho vay thay vì bán.
+## Vỡ Nợ & Xử Lý Tài Sản Thế Chấp Lũy Tiến
 
-**Số tiền nợ tại thời điểm trả nợ được tính dựa trên `loan.price`, không phải giá thị trường hiện tại của DA.** Một khi khoản vay được mở, khoản nợ của người vay được ghi bằng USDT theo giá snapshot được lấy tại thời điểm phát hành. Giá DA tăng không làm tăng khoản nợ.
+Nếu khoản vay vẫn còn mở khi lô bước vào Auto-Sell, DA đã cầm cố được xử lý lũy tiến theo lịch trình tiêu chuẩn. Người vay có thể trả nợ giữa các ranh giới giai đoạn để giải phóng phần tài sản thế chấp chưa được xử lý.
 
-<Info>
-  **Ví dụ minh họa - giá DA tăng gấp đôi trong thời gian vay.**
-
-  - Ngày 0: Giá DA là 1,00 USDT. Người vay mở khoản vay dựa trên 100 DA. `loan.price = 1,00`. Người vay nhận 66,50 USDT sau phí 5%.
-  - Ngày 90: Giá thị trường DA đã tăng lên 2,00 USDT. Cùng 100 DA hiện trị giá 200 USDT theo giá thị trường.
-  - Ngày 90: Người vay gọi `repay()` cho toàn bộ số dư. Hợp đồng sử dụng `loan.price = 1,00`, không phải giá thị trường. Số tiền nợ: `100 × 1,00 × 0,70 = 70 USDT`. Người vay trả 70 USDT và thu hồi toàn bộ 100 DA. 100 DA đó trị giá 200 USDT theo giá thị trường hiện tại.
-</Info>
-
-Về thực chất, khoản vay cho phép người nắm giữ trích xuất thanh khoản USDT theo giá hôm nay trong khi giữ lại tiềm năng tăng giá DA trong tương lai. Giao thức không định giá lại khoản nợ khi DA tăng trưởng.
-
-## Cổng đủ điều kiện 30 ngày
-
-Khoản vay chỉ có thể được mở dựa trên lô DA vẫn còn ít nhất **30 ngày tới lần tự động bán theo lịch tiếp theo của lô đó**. Kiểm tra được thực thi on-chain bên trong quy trình phát hành khoản vay:
-
-```
-require(_getTimeToNextAutosale(stack) >= 30 days)
-```
+## Các Điều Kiện Cho Vay Quan Trọng
 
 <Warning>
-  **Cổng đủ điều kiện, không phải kỳ hạn vay.** Cửa sổ 30 ngày chỉ được kiểm tra **tại thời điểm phát hành**. Một khi khoản vay đã mở, người vay không bị đặt vào thời hạn 30 ngày - khoản vay vẫn mở cho đến khi trả nợ hoặc cho đến khi chu kỳ tự động bán của lô bắt đầu. Lô có 29 ngày hoặc ít hơn còn lại đến lần tự động bán tiếp theo không thể được dùng làm tài sản thế chấp cho khoản vay mới, và giao dịch sẽ bị hoàn nguyên.
+  - Một lô DA chỉ có thể được cầm cố một lần.
+  - Khoản vay phải được mở trước thời hạn điều kiện đủ hiện hành.
+  - Lịch trình Auto-Sell ban đầu không bị đặt lại.
+  - Chỉ lô đã cầm cố mới bị ảnh hưởng bởi việc xử lý vỡ nợ.
 </Warning>
 
-Quy tắc này ngăn người vay mở khoản vay dựa trên lô sắp tự động bán trong vài ngày, điều này về mặt kinh tế không thể phân biệt với việc bán và sẽ không cung cấp cửa sổ thanh khoản có ý nghĩa.
-
-## Trả nợ toàn bộ
-
-Người vay có thể đóng khoản vay bất kỳ lúc nào **trong khi stack thế chấp vẫn còn hoạt động** - tức là trước khi lô đi vào chu kỳ tự động bán lũy tiến. Trả nợ toàn bộ trả lại `usdAmount` gốc (tổng vốn gốc tại thời điểm phát hành) và giải phóng toàn bộ lô DA trở lại TokenStack của người vay.
-
-**Hoa hồng 5% không bị thu lại.** Nó được thu một lần, tại thời điểm phát hành, và không phải là một phần của phép tính trả nợ.
-
-<Info>
-  **Ví dụ minh họa - trả nợ toàn bộ.**
-
-  - Khoản vay được mở dựa trên 100 DA tại `loan.price = 1,00`. `usdAmount = 70 USDT`. Phí đã trả tại thời điểm phát hành.
-  - Người vay gọi `repay()` cho toàn bộ số dư và trả 70 USDT.
-  - Hợp đồng giải phóng toàn bộ 100 DA trở lại TokenStack của người vay. Khoản vay đóng.
-</Info>
-
-## Trả nợ một phần
-
-Người vay cũng có thể chuộc lại **một phần tài sản thế chấp** bất kỳ lúc nào trước khi tự động bán, chỉ trả cho số DA họ chọn để giải phóng:
-
-```
-toPay = released_DA × loan.price × 0.70
-```
-
-DA được giải phóng trở về TokenStack gốc. DA còn lại vẫn bị khóa làm tài sản thế chấp dựa trên khoản nợ giảm tỷ lệ. **Bộ hẹn giờ tự động bán cho lô không bị đặt lại** - stack tiếp tục theo lịch trình hiện tại của nó.
-
-<Info>
-  **Ví dụ minh họa - chuộc lại một nửa tài sản thế chấp.**
-
-  - Khoản vay được mở dựa trên 100 DA tại `loan.price = 1,00`. Khoản nợ ban đầu: 70 USDT dựa trên 100 DA tài sản thế chấp.
-  - 60 ngày sau, người vay muốn chuộc lại một nửa tài sản thế chấp. Họ gọi `repay()` giải phóng 50 DA.
-  - `toPay = 50 × 1,00 × 0,70 = 35 USDT`. Người vay trả 35 USDT.
-  - 50 DA được giải phóng trở lại TokenStack gốc. 50 DA còn lại vẫn là tài sản thế chấp dựa trên khoản nợ còn lại là 35 USDT.
-  - Bộ hẹn giờ tự động bán cho lô tiếp tục từ điểm bắt đầu gốc: 60 ngày đã trôi qua theo lịch giai đoạn hiện tại.
-</Info>
-
-<Note>
-  **DA được giải phóng ở lại trong cùng lô.** Các token được chuộc lại qua trả nợ một phần trở về TokenStack gốc và vẫn chịu lịch tự động bán hiện tại của stack đó. Người vay có thể bán thủ công với khoản thanh toán 75% tiêu chuẩn hoặc để chúng tự động bán ở mức 70% khi giai đoạn lô kích hoạt. Chúng không thể được dùng làm tài sản thế chấp cho khoản vay mới - quy tắc "một khoản vay mỗi lô" áp dụng cho toàn bộ lô, không chỉ phần hiện đang được cầm cố.
-</Note>
-
-## Tính độc lập đa lô
-
-Mỗi chu kỳ khai thác tạo ra một lô DA mới, và mỗi lô là một đơn vị tài sản thế chấp độc lập. Người nắm giữ có thể đồng thời duy trì nhiều khoản vay, mỗi khoản dựa trên một lô khác nhau, với mỗi khoản vay có riêng:
-
-- Snapshot `loan.price`, được lấy tại thời điểm phát hành của chính nó
-- Hoa hồng một lần 5%, được trả tại thời điểm phát hành của chính nó
-- Bộ hẹn giờ tự động bán, chạy trên lô của chính nó
-- Điều kiện trả nợ, trả một phần, hoặc vỡ nợ
-
-<CardGroup cols={3}>
-  <Card title="Lô A" icon="layer-group">
-    Khoản vay đang hoạt động dựa trên toàn bộ lô. Người vay đã nhận USDT tại thời điểm phát hành và đang nắm giữ khoản nợ.
-  </Card>
-  <Card title="Lô B" icon="layer-group">
-    Đã trả một phần. Một số DA đã được chuộc lại; phần còn lại vẫn được cầm cố dựa trên khoản nợ giảm.
-  </Card>
-  <Card title="Lô C" icon="layer-group">
-    Chưa mở khoản vay. DA hoàn toàn thuộc sở hữu của người dùng và hoạt động như stack DA thông thường, chỉ chịu lịch tự động bán của chính nó.
-  </Card>
-</CardGroup>
-
-Vỡ nợ trên Lô A không có ảnh hưởng gì đến Lô B hay Lô C. Đốt lũy tiến mô tả bên dưới chỉ áp dụng cho tài sản thế chấp của lô vỡ nợ.
-
-## Vỡ nợ - đốt tài sản thế chấp lũy tiến
-
-Nếu người vay không trả nợ trước khi stack thế chấp đi vào chu kỳ tự động bán, lịch trình bốn giai đoạn tiêu chuẩn (120 / 90 / 90 / 65 ngày, tổng cộng 365 ngày) tiến hành dựa trên DA đã cầm cố. Mỗi giai đoạn đốt một tỷ lệ phần trăm của **DA đang cầm cố còn lại**:
-
-<Steps>
-  <Step title="Giai đoạn 1 - ngày 120: 25% DA cầm cố bị đốt">
-    25% DA đang cầm cố hiện tại bị đốt vĩnh viễn. Giá trị USDT tương ứng tại `loan.price` được chuyển vào Pool Thanh khoản DA. Người vay không nhận được gì cho phần này. Khoản nợ còn lại được giảm tỷ lệ theo DA cầm cố còn lại.
-  </Step>
-  <Step title="Giai đoạn 2 - ngày 210 (+90 ngày): 40% phần còn lại bị đốt">
-    40% DA vẫn còn được cầm cố bị đốt. Giá trị USDT tại `loan.price` chảy vào Pool Thanh khoản DA. Khoản nợ còn lại lại giảm.
-  </Step>
-  <Step title="Giai đoạn 3 - ngày 300 (+90 ngày): 50% phần còn lại bị đốt">
-    50% DA vẫn còn được cầm cố bị đốt. Giá trị USDT tại `loan.price` chảy vào Pool Thanh khoản DA.
-  </Step>
-  <Step title="Giai đoạn 4 - ngày 365 (+65 ngày): 100% phần còn lại bị đốt">
-    Toàn bộ DA vẫn còn được cầm cố tại thời điểm này bị đốt. Vị thế khoản vay đóng hoàn toàn. Người vay giữ lại USDT nhận được tại thời điểm phát hành.
-  </Step>
-</Steps>
-
-**Ví dụ minh họa - vỡ nợ hoàn toàn trên khoản vay 100 DA / 70 USDT tại `loan.price = 1,00`.**
-
-| Sự kiện | DA cầm cố trước | DA bị đốt | USDT vào Pool | DA cầm cố sau | Khoản nợ còn lại |
-|---|---|---|---|---|---|
-| Phát hành (ngày 0) | - | - | - | 100 | 70,00 |
-| Giai đoạn 1 (ngày 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-| Giai đoạn 2 (ngày 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-| Giai đoạn 3 (ngày 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-| Giai đoạn 4 (ngày 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
-<Info>
-  Nếu người vay không thực hiện hành động phục hồi nào trong cả bốn giai đoạn, họ giữ lại 66,50 USDT gốc nhận được tại thời điểm phát hành và toàn bộ 100 DA tài sản thế chấp bị đốt trong chu kỳ 365 ngày. Toàn bộ DA bị đốt được loại bỏ vĩnh viễn khỏi nguồn cung; toàn bộ USDT chuyển vào Pool tăng cường bảo chứng DA cho phần còn lại của hệ sinh thái.
-</Info>
-
-<Warning>
-  **Người vay không nhận USDT từ lô vỡ nợ.** Trong quá trình vỡ nợ, 100% tiền thu được từ tài sản thế chấp bị đốt được chuyển vào Pool Thanh khoản DA, không phải vào Số Dư Thường của người vay. Khoản phục hồi kinh tế duy nhất của người vay từ lô vỡ nợ là USDT nhận được tại thời điểm phát hành.
-</Warning>
-
-## Phục hồi một phần trong quá trình vỡ nợ
-
-Vỡ nợ là lũy tiến, không phải tất cả hoặc không có gì. **Tại bất kỳ thời điểm nào giữa các giai đoạn tự động bán, người vay vẫn có thể gọi `repay()` và thu hồi DA vẫn còn được cầm cố** bằng cách chỉ trả cho phần vẫn còn được cầm cố.
-
-<Info>
-  **Ví dụ minh họa - phục hồi sau Giai đoạn 1.**
-
-  - Người vay mở khoản vay dựa trên 100 DA tại `loan.price = 1,00`. Khoản nợ ban đầu: 70 USDT.
-  - Người vay không trả nợ. Giai đoạn 1 kích hoạt vào ngày 120: 25 DA bị đốt, 17,50 USDT được chuyển vào Pool. Còn lại được cầm cố: 75 DA. Khoản nợ còn lại: 52,50 USDT.
-  - Vào ngày 150, trước khi Giai đoạn 2 kích hoạt, người vay quyết định phục hồi những gì còn lại. Họ gọi `repay()` cho toàn bộ số dư còn lại.
-  - `toPay = 75 × 1,00 × 0,70 = 52,50 USDT`. Người vay trả 52,50 USDT. Hợp đồng giải phóng 75 DA trở lại TokenStack của người vay. Khoản vay đóng.
-  - 25 DA bị đốt trong Giai đoạn 1 đã mất vĩnh viễn - không thể phục hồi.
-</Info>
-
-<Note>
-  **Hành vi của `repay()` sau khi tự động bán đã bắt đầu.** Khi `repay()` được gọi trên một stack đã vượt qua chu kỳ tự động bán, hợp đồng trước tiên chạy `_processExpiredStacks()` để thanh toán mọi giai đoạn mà ranh giới kích hoạt đã qua. Sau khi thanh toán đó, lệnh gọi tiến hành dựa trên tài sản thế chấp sau khi đốt và khoản nợ sau khi đốt. Người vay **không thể** sử dụng `repay()` để "nhảy qua" lần đốt đã kích hoạt, nhưng họ **có thể** ngăn lần đốt **tiếp theo** bằng cách trả nợ trước ranh giới giai đoạn của nó.
-</Note>
-
-## Cơ chế bán sau khi phục hồi
-
-DA được thu hồi qua trả nợ toàn bộ hoặc một phần trở về TokenStack của người vay và hoạt động như DA thông thường. Nó có thể được:
-
-- **Bán thủ công** với 75% **giá thị trường hiện tại** bằng USDT (100% DA bán ra bị đốt)
-- **Giữ** cho đến khi lịch tự động bán của lô đến giai đoạn tiếp theo
-- **Để tự động bán** với khoản thanh toán 70% tiêu chuẩn khi giai đoạn của nó kích hoạt
-
-Giới Hạn Thu Nhập trên NFT của người nắm giữ bị tiêu thụ dựa trên **giá trị thị trường hiện tại** của DA đang bán, không phải dựa trên `loan.price`.
-
-<Info>
-  **Ví dụ minh họa - bán DA thu hồi sau khi giá tăng.**
-
-  - Người vay mở khoản vay dựa trên 100 DA tại `loan.price = 1,00`. Nhận 66,50 USDT.
-  - 90 ngày sau, giá thị trường đã tăng lên 2,00 USDT. Người vay trả nợ toàn bộ: trả 70 USDT, thu hồi 100 DA.
-  - Người vay sau đó bán thủ công 100 DA đó. Giá trị thị trường: 100 DA × 2,00 USDT = 200 USDT.
-    - Người vay nhận `200 × 0,75 = 150 USDT` vào Số Dư Thường.
-    - Toàn bộ 100 DA bị đốt.
-    - 50 USDT chênh lệch (200 - 150) ở lại trong Pool làm hoa hồng giao thức.
-    - **Giới Hạn Thu Nhập bị giảm bằng toàn bộ 200 USDT giá trị thị trường của lần bán**, không phải bằng 100 USDT tương ứng với `loan.price`.
-</Info>
-
-Đây là lý do cấu trúc khiến cho vay hấp dẫn ở quy mô lớn: người vay khóa thanh khoản theo giá hôm nay, giữ lại tiềm năng tăng giá DA, và chỉ tiêu thụ Giới Hạn Thu Nhập trên giá trị thực tế được thực hiện tại thời điểm bán.
-
-## Tóm tắt tham số cho vay
-
-| Tham số | Giá trị | Tính thay đổi |
-|---|---|---|
-| LTV | 70% | Bất biến |
-| Hoa hồng cho vay (`loanFee`) | 5% | DAO có thể điều chỉnh (0% - 5%) |
-| Đích đến hoa hồng | Pool Thanh khoản DA | Bất biến |
-| Cổng đủ điều kiện (thời gian đến tự động bán tiếp theo) | 30 ngày | Bất biến |
-| Kỳ hạn vay | Không có (cho đến tự động bán hoặc trả nợ) | Cấu trúc |
-| Tham chiếu giá cho khoản nợ | `loan.price` tại phát hành | Cấu trúc |
-| Khoản vay mỗi lô | 1 (trọn đời) | Cấu trúc |
-| Đích đến tiền thu được vỡ nợ | Pool Thanh khoản DA | Cấu trúc |
-| Phí trả nợ | Không có | Cấu trúc |
-| Cấp NFT tối thiểu | L5 (Hydro) | Bất biến |
-
-Tham số `loanFee` được quản lý độc lập với tất cả các phí giao thức khác để DAO có thể điều chỉnh kinh tế cho vay mà không ảnh hưởng đến thuế marketing, phí tích lũy, hoặc bất kỳ hoa hồng nào khác.
-
-## Những lỗi thường gặp
-
-<Warning>
-  **Bạn không thể cầm cố cùng một lô hai lần.** Ngay cả sau khi trả nợ toàn bộ, vị trí cho vay của lô đã bị tiêu thụ. Để mở khoản vay mới, hãy khai thác và farm một lô mới.
-</Warning>
-
-<Warning>
-  **Bạn không thể cầm cố lô trong vòng 30 ngày trước lần tự động bán tiếp theo của nó.** Hãy lên kế hoạch vay dựa trên các lô mới - quy trình phát hành khoản vay sẽ hoàn nguyên trên lô còn ít hơn 30 ngày đến lần tự động bán tiếp theo.
-</Warning>
-
-<Warning>
-  **Những lần đốt đã kích hoạt không thể hoàn tác.** Phục hồi một phần trong quá trình vỡ nợ là có thể, nhưng mỗi giai đoạn đã qua đã đốt phần tài sản thế chấp của nó vĩnh viễn. Hãy trả nợ trước giai đoạn tiếp theo nếu bạn muốn bảo toàn những gì còn lại.
-</Warning>
-
-<Warning>
-  **Giới Hạn Thu Nhập tiêu thụ dựa trên giá trị thị trường hiện tại, không phải dựa trên `loan.price`.** Lô được thu hồi được bán sau khi giá DA tăng lớn sẽ tiêu thụ Giới Hạn Thu Nhập tỷ lệ với giá trị thị trường mới. Hãy giữ NFT được gia hạn để khoản thanh toán cao hơn thực sự được ghi có.
-</Warning>
-
-## Trang liên quan
+## Trang Liên Quan
 
 <CardGroup cols={2}>
-  <Card title="Cơ Chế Bán" icon="fire" href="/vi/da-selling-lending">
-    Bán thủ công ở mức 75%, tự động bán ở mức 70%, và cách chu kỳ tự động bán bốn giai đoạn tương tác với vỡ nợ cho vay.
+  <Card title="Bán & Cho Vay" icon="fire" href="/vi/da-selling-lending">
+    Bán thủ công, lịch trình Auto-Sell, và cách các khoản thanh toán từ bán DA tương tác với Giới Hạn Phần Thưởng Giao Thức.
   </Card>
-  <Card title="Kinh Tế Học Token DA" icon="coins" href="/vi/da-token-mechanics">
-    Giới hạn cứng 21M, công thức `Giá = Thanh khoản ÷ Nguồn cung`, và mọi luồng doanh thu chảy vào Pool.
+  <Card title="Cơ Chế Token DA" icon="coins" href="/vi/da-token-mechanics">
+    Nguồn cung tối đa 21 triệu, công thức giá giao thức, và các nguồn của Pool Thanh Khoản DA.
   </Card>
 </CardGroup>
