@@ -1,48 +1,44 @@
 ---
 title: "Mining & Farming"
-description: "Dari NFTM ke DA dalam dua langkah."
+description: "Bagaimana pemegang tingkatan NFT Premium dan Elite yang memenuhi syarat memperoleh DA melalui proses dua langkah: Mining mencatat NFTM, dan Farming menghitung DA menggunakan jumlah NFTM yang di-commit, harga protokol saat ini, dan parameter yang aktif."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
 
-Untuk memperoleh DA, pengguna harus berpartisipasi dalam proses dua langkah: Mining dan Farming. Hanya NFT Premium (Level 5+) dan Elite yang mampu melakukan ini.
+## Bagaimana Anda memperoleh DA melalui Mining dan Farming?
+
+Hanya tingkatan NFT Premium dan Elite yang memenuhi syarat yang dapat mengakses proses ini. NFT aktif dengan Batas Reward Protokol yang tidak nol diperlukan untuk memulai siklus baru.
 
 <Info>
-  **NFTM bukanlah token.** Ini adalah penghitung mining (metrik) internal yang dilacak oleh smart contract. Pada antarmuka, Anda melihat progress bar dan jumlah NFTM yang diharapkan. NFTM tidak memiliki nilai pasar dan tidak dapat diperdagangkan atau ditransfer — NFTM hanya ada untuk di-stake ke Farming dan dikonversi menjadi DA.
-</Info>
-
-<Info>
-  **Batas Pendapatan aktif diperlukan untuk mining.** Baik Mining maupun Farming memerlukan NFT yang memenuhi syarat memiliki **Batas Pendapatan** yang tidak nol. Jika batas Anda telah mencapai nol, smart contract akan menolak memulai siklus mining baru. Untuk melanjutkan mining, segarkan terlebih dahulu Batas Pendapatan Anda — melalui sistem Autobuy 3/3, pembaruan manual pada level yang sama, atau peningkatan ke NFT level yang lebih tinggi — dan kemudian aktifkan siklus berikutnya. Batas Pendapatan adalah syarat penentu; tanpanya, alur mining tidak akan dimulai.
+  **NFTM adalah penghitung mining internal.** Ini bukan token yang dapat ditransfer, tidak memiliki nilai pasar independen, dan hanya ada dalam proses Mining dan Farming yang terdokumentasi.
 </Info>
 
 <Steps>
   <Step title="Aktifkan Mining">
-    Mulailah mining pada NFT Anda yang memenuhi syarat. Durasi siklus tergantung pada level Anda — dari 45 hari (HYDRO) hingga 40 hari (INFINITY).
+    Mulai siklus pada NFT yang memenuhi syarat. Durasi berkisar dari 45 hari untuk Hydro hingga 40 hari untuk Infinity.
   </Step>
   <Step title="Hasilkan NFTM">
-    NFT Anda menghasilkan NFTM selama periode siklus. Level 5–7 (HYDRO, QUANTUM, PULSE) memiliki **1 siklus mining** yang menghasilkan **10%** dari harga NFT dalam NFTM. Level 8–10 (AURORA, FLAME, INFINITY) memiliki **2 siklus mining** — yang pertama menghasilkan **10%** dan yang kedua menghasilkan **15%** dari harga NFT dalam NFTM.
+    Level 5–7 saat ini menghasilkan satu siklus NFTM 10%; Level 8–10 menghasilkan siklus pertama 10% dan siklus kedua 15%.
   </Step>
-  <Step title="Klaim Dalam 72 Jam">
-    Setelah mining selesai, Anda memiliki tepat **72 jam** untuk men-stake NFTM Anda ke Farming. Lewatkan jendela waktu ini dan Anda harus memulai dari awal.
+  <Step title="Commit Dalam 72 Jam">
+    NFTM yang telah selesai harus di-commit ke Farming dalam jendela klaim.
   </Step>
   <Step title="Farm DA">
-    NFTM yang di-stake masuk ke Farming dengan durasi yang sama dengan siklus mining. Pada akhirnya, NFTM dikonversi ke DA berdasarkan harga saat itu dan dikreditkan ke TokenStack Anda.
+    Setelah Farming selesai, protokol menghitung jumlah DA yang memenuhi syarat menggunakan formula saat ini dan mengkreditkannya ke TokenStack pengguna.
   </Step>
 </Steps>
 
 <Warning>
-  **Jendela Kritis 72 Jam:** Jika Anda gagal men-stake NFTM dalam 72 jam setelah mining selesai, seluruh siklus hilang. Anda harus memulai mining dari awal. Setel pengingat.
+  **Jendela Klaim 72 Jam:** Jika NFTM yang telah selesai tidak di-commit dalam 72 jam, siklus akan direset berdasarkan aturan smart contract.
 </Warning>
 
 <Warning>
-  **Klaim Sebelum Anda Meningkatkan — Imbalan Farming Tak Diklaim Akan Dihancurkan:** Setiap pembelian atau peningkatan NFT memicu `terminate()` pada status mining/farming pengguna. Berdasarkan desain, `terminate()` menghentikan sesi aktif dan **menghancurkan seluruh imbalan farming yang belum diklaim**, termasuk imbalan yang sudah matang tetapi belum diklaim. Tim telah mengonfirmasi ini disengaja dalam respons audit: *"It's intended, terminate() should stop active sessions and destroy unclaimed rewards by design."*
-
-  **Aturan operasional:** jika Anda memiliki imbalan farming yang sudah matang tetapi belum diklaim, **klaim dahulu**, baru kemudian beli atau tingkatkan NFT. Jika tidak, imbalan tersebut hilang secara permanen pada saat transaksi NFT baru dikonfirmasi.
+  **Klaim Sebelum Anda Upgrade:** Pembelian atau upgrade NFT memanggil `terminate()` pada status Mining dan Farming saat ini. Klaim setiap hasil yang telah matang dan tersedia sebelum mengganti atau meng-upgrade NFT.
 </Warning>
 
 <Warning>
-  **Jeda Siklus Deflasi:** Dua kali per tahun, sistem memicu Siklus Deflasi yang berlangsung hingga 30 hari. Selama periode ini, **peluncuran siklus baru** NFTM mining, staking, dan pembentukan DA ditangguhkan. Siklus yang sudah berjalan sebelum Siklus Deflasi dimulai **terus berjalan dan selesai sesuai jadwal** — kemajuan tidak hilang. Rencanakan peluncuran siklus baru di sekitar periode terjadwal ini.
+  **Jeda Siklus Deflasi:** Selama Siklus Deflasi yang aktif, peluncuran siklus baru dapat dijeda. Siklus yang sudah berjalan tetap berlanjut dan selesai sesuai jadwal.
 </Warning>
 
 <MiningPipeline />
