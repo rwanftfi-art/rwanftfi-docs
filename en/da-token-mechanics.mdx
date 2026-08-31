@@ -1,104 +1,70 @@
 ---
 title: "DA Token Mechanics"
-description: "The Deflationary Asset (DA) is a 21M hard-capped, 100% USDT-backed BEP20 token whose price grows via the Liquidity ÷ Supply formula, three burn mechanisms, and a biannual deflationary cycle."
+description: "DA is a non-transferable BEP-20 protocol utility token with a maximum supply of 21,000,000 units. Its internal protocol price is calculated using the designated USDT liquidity-pool balance and circulating DA supply."
 icon: "coins"
 ---
-import { DaPriceSimulator } from '/snippets/da-price-simulator.jsx'
 
+DA is a non-transferable BEP-20 protocol utility token with a maximum supply of 21,000,000 units. Its internal protocol price is calculated using the designated USDT liquidity-pool balance and circulating DA supply.
 
 <CardGroup cols={2}>
-  <Card title="21M Hard Cap" icon="cube">
-    Maximum supply fixed forever. No inflation, no minting.
+  <Card title="21M Maximum Supply" icon="cube">
+    DA issuance may occur only through defined protocol mechanics and may not increase supply above the cap.
   </Card>
-  <Card title="100% USDT Backed" icon="shield-check">
-    Every DA token backed by real [USDT](https://tether.to/) in the liquidity pool, held on the [Binance Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain).
+  <Card title="USDT Liquidity Pool" icon="droplet">
+    DA mechanics are supported by a designated [USDT](https://tether.to/) liquidity pool on [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain).
   </Card>
-  <Card title="Burn on Every Sale" icon="fire">
-    100% of sold tokens are permanently burned. User receives 75% (manual) or 70% (auto) of value in USDT. The remaining 25% (manual) or 30% (auto) is a protocol commission that stays as backing in the pool — this is what drives the DA price upward.
+  <Card title="Burn on Eligible Sales" icon="fire">
+    DA processed through eligible sales is burned under the current rules.
   </Card>
   <Card title="No P2P Transfers" icon="ban">
-    DA can only be sold, lent, or repaid — no peer-to-peer transfers.
+    DA cannot be transferred directly between users.
   </Card>
 </CardGroup>
 
-## How does the "only upward" price formula work?
+## How does the protocol price formula work?
 
-Price = Liquidity ÷ Circulating Supply
+DA protocol price = designated USDT liquidity-pool balance ÷ circulating DA supply.
 
-Every time DA is sold, tokens are burned (supply goes down) while USDT stays in the pool (liquidity stays or grows). Less tokens ÷ same or more USDT = higher price per token.
-
-<Info>
-  **How it works:** 200 DA in circulation, 200 USDT in the liquidity pool. Price = 1.00 USDT per DA. A user sells 100 DA. The pool pays out 70 USDT (70% of 100 USDT value). All 100 DA are burned. Result: 100 DA remain, 130 USDT in the pool. New price = 130 ÷ 100 = **1.30 USDT per DA**.
-</Info>
-
-<Tip>
-  The 5% commission on all marketing rewards flows directly into the DA liquidity pool — separate from sell percentages. Additional liquidity comes from Lending fees, RWA income, and FinPro revenue.
-</Tip>
+The price changes when either liquidity or circulating supply changes. The formula does not independently guarantee liquidity, redemption availability, or a specific user outcome.
 
 <Info>
-  **Seed Supply Protection:** A small permanent DA reserve — the **Seed Supply** — is pre-deposited into the protocol at launch as a technical safeguard for the pricing formula.
-
-  - **Permanent and non-sellable.** The Seed Supply is locked at the protocol level: it **cannot be burned**, **cannot be sold** (manually or via auto-sell), and is **excluded from auto-sell cycles**.
-  - **Outside circulation.** It is **not counted as circulating supply** and never participates in user balances, farming, lending, or marketing distributions.
-  - **Guarantees a non-zero denominator.** Because `Price = Liquidity ÷ Circulating Supply`, the formula must never divide by zero. The Seed Supply guarantees `totalSupply > 0` at all times, so the price function is always defined — even in the extreme edge case where every other token in circulation has been burned.
-  - **Edge-case-only protection.** Under normal operation the Seed Supply has no effect on price discovery. It exists purely as a deterministic floor that keeps `getPrice()` well-defined when liquidity is present but circulating supply would otherwise reach zero.
+  **Seed Supply** is a small permanent reserve used as a technical safeguard for the pricing function. It is excluded from user circulation, sales, farming, lending, and partner distributions.
 </Info>
 
 ## How is the DA Liquidity Pool funded?
 
-The Liquidity Pool is the foundation of DA economics. It is funded from multiple sources across the RWANFTFI ecosystem, ensuring continuous growth of the token's backing. Every protocol revenue stream flows into a single pool, reinforcing the Price = Liquidity ÷ Supply formula.
-
 <AccordionGroup>
   <Accordion title="NFT Activity">
-    **NFT Purchases** — 20% of every NFT purchase is automatically routed to the Liquidity Pool for minting new DA.
-
-    **Rebuy & Autobuy** — an additional 20% from every repeat or automatic NFT purchase flows into the Liquidity Pool. This incentivizes position renewal and supports system growth.
+    NFT purchase and rebuy allocations under the current contract parameters.
   </Accordion>
 
   <Accordion title="Fees & Commissions">
-    **Marketing Rewards Tax** — 5% of all marketing rewards across the referral network are automatically directed to the Liquidity Pool. Network activity directly strengthens DA backing.
-
-    **Accumulative Balance Transfer Fee** — when transferring Accumulative Balance to another user, 20% of the transfer amount is routed to the DA Liquidity Pool. Any movement of the Accumulative Balance — whether used in an NFT purchase or transferred between wallets — generates a 20% inflow to the Pool.
-
-    **Accumulative Balance Purchase Fee** — when purchasing an NFT using Accumulative Balance, 20% of the integrated amount is routed to the DA Liquidity Pool for minting new DA. Example: 898 USDT on the Accumulative Balance — when integrated into an NFT purchase, 718 USDT goes toward the NFT cost, and 180 USDT (20% of 898) flows into the DA Liquidity Pool. Every such purchase replenishes the Pool and creates the basis for new DA.
-
-    **Lending Commission** — when taking a loan, the borrower pays a one-time 5% commission directed to the Liquidity Pool. Example: loan \$1,000, borrower receives \$950, \$50 goes to Pool. The commission is collected with every new loan.
+    - Partner Reward Fee.
+    - Accumulative Balance transfer and use fees.
+    - Lending fees and DA-sale protocol commissions.
   </Accordion>
 
   <Accordion title="Expired & Unused Funds">
-    **Auto-Sell with Zero Income Limit** — if DA auto-sell triggers and the user has zero Income Limit on their NFT, 100% of proceeds go either to the Liquidity Pool or to DA burn (exact mechanism determined by DAO settings).
-
-    **Expired Vouchers** — if Vouchers remain unused for 365 days, 100% of funds are directed to the Liquidity Pool. This prevents idle funds and eliminates inactive liabilities.
-
-    **Unused Accumulative Balance** — if the Accumulative Balance remains unused for 120 days, 70% of funds are directed to the Liquidity Pool for minting new DA.
+    - Expired vouchers and balances routed under the current smart-contract rules.
+    - Auto-Sell proceeds processed when the holder has no remaining Protocol Reward Cap, under the active DAO setting.
   </Accordion>
 
   <Accordion title="External Revenue">
-    **SWAP Commissions** — commissions from all exchange (SWAP) operations are automatically routed to the Liquidity Pool.
-
-    **Debit Card Commissions** — commissions from the Debit Card program flow into the Liquidity Pool, creating real cash flow from the external economy.
-
-    **RWA Income** — a portion of revenue from real estate, rental income, commercial assets, and other real-world assets is directed to the Liquidity Pool, anchoring the system to the real economy.
-
-    **FinPro Revenue** — a portion of profits from financial products (Lending, investment products, financial services) flows into the Liquidity Pool.
-
-    **Ecosystem Revenue** — a portion of total protocol revenue may be directed to the Liquidity Pool or used to create additional liquidity for minting new DA.
+    Swap commissions, debit-card commissions, RWA income, FinPro revenue, and other ecosystem revenue are shown as active only after the integration and revenue flow are publicly documented. Until then, they remain roadmap or third-party-dependent sources.
   </Accordion>
 </AccordionGroup>
 
 ## How is DA burned?
 
-DA burning is the core deflationary mechanism — it reduces token supply and creates sustained upward pressure on the asset's value.
-
 <CardGroup cols={3}>
   <Card title="Manual Sale" icon="fire">
-    100% of sold DA is permanently burned. User receives 75% of value in USDT. The remaining 25% is a protocol commission that stays in the pool as backing, driving price growth.
+    Processed DA is burned. The user receives the current 75% payout; the remaining protocol share follows the active allocation.
   </Card>
   <Card title="Auto-Sell" icon="clock">
-    100% of auto-sold DA is permanently burned. User receives 70% of value in USDT. The remaining 30% is a protocol commission that stays in the pool as backing, driving price growth. Triggers progressively from remaining balance over 4 periods (365 days / 1 year total).
+    Processed DA is burned. The user receives the current 70% payout; the remaining protocol share follows the active allocation.
   </Card>
   <Card title="Lending Default" icon="ban">
-    If a loan is not repaid, collateralized DA is progressively burned through the auto-sell cycle. Protects system liquidity and enforces financial discipline.
+    Pledged DA may be burned progressively under the documented default schedule.
   </Card>
 </CardGroup>
 
@@ -106,95 +72,57 @@ DA burning is the core deflationary mechanism — it reduces token supply and cr
 
 ### Instant Access
 
-DA tokens are 100% available to the user from the moment they are farmed. There is no lock-up period. The user can immediately:
-
-- **Sell manually** — receive 75% of value in USDT, 100% of tokens are burned
-- **Take a loan** — 70% LTV against DA collateral, 5% commission fee
-- **Hold and wait** — keep tokens and benefit from price growth over time
+DA credited after Farming is available under the current protocol rules. Eligible users may sell manually, use a supported batch as lending collateral, or hold the DA until the scheduled Auto-Sell events.
 
 ### Auto-Sell Cycle
 
-If the user does not sell manually, the system triggers automatic sales from the **remaining balance** over 4 periods spanning **365 days (1 year)** total. Period durations are denominated in days on-chain (120 / 90 / 90 / 65 days); the month references below are approximations for readability.
+| Period | Timing | Share of Remaining DA |
+|:---:|---|:---:|
+| 1 | After 120 days | 25% |
+| 2 | After another 90 days | 40% |
+| 3 | After another 90 days | 50% |
+| 4 | After another 65 days | 100% |
 
-**Example starting with 100 DA:**
-
-<Steps>
-  <Step title="Period 1 — After 120 days (~4 months)">
-    25% of current balance is auto-sold. 25% of 100 = **25 DA sold** → Remaining: **75 DA**
-  </Step>
-  <Step title="Period 2 — After 90 more days (~3 months, day 210)">
-    40% of remaining balance is auto-sold. 40% of 75 = **30 DA sold** → Remaining: **45 DA**
-  </Step>
-  <Step title="Period 3 — After 90 more days (~3 months, day 300)">
-    50% of remaining balance is auto-sold. 50% of 45 = **22.5 DA sold** → Remaining: **22.5 DA**
-  </Step>
-  <Step title="Period 4 — After 65 more days (~2 months, day 365)">
-    100% of remaining balance is auto-sold. 100% of 22.5 = **22.5 DA sold** → Remaining: **0 DA**
-  </Step>
-</Steps>
-
-<Note>
-  The auto-sell percentages (25% / 40% / 50% / 100%) shown above represent the current protocol configuration. Specific values are stored as protocol parameters and are subject to standard governance procedures. Always check the smart contract or current protocol documentation for the latest values.
-</Note>
-
-Each auto-sell executes at the DA price at the time of that period's trigger — not the original farming price. 100% of auto-sold tokens are burned, and the user receives 70% of value in USDT at the price on the date of auto-sell. Since the price grows over time, later periods burn tokens at a higher price, accelerating deflation.
-
-The user can sell manually at any time before auto-sell triggers, receiving 75% instead of 70%.
-
-<Tip>
-  Manual sell (75% payout) is always more profitable per token than auto-sell (70% payout). However, auto-sell benefits from price growth over time — later periods execute at a higher DA price.
-</Tip>
-
-<Warning>
-  **Auto-Sell with Zero Income Limit:** If auto-sell triggers and the user has zero Income Limit (NFT not renewed), 100% of proceeds go to the Liquidity Pool or DA burn (determined by DAO). The user receives nothing. Always maintain an active Income Limit.
-</Warning>
+Each Auto-Sell uses the DA protocol price applicable at execution. Future protocol prices are not predetermined.
 
 ## How does multi-batch lending against DA work?
 
-Each DA batch from each mining cycle serves as independent collateral. This enables a continuous micro-loan cycle:
-
 <Steps>
-  <Step title="Mine Batch 1">
-    User completes a mining cycle and receives DA batch 1.
+  <Step title="Complete a Mining and Farming cycle">
+    A completed cycle creates an eligible DA batch.
   </Step>
-  <Step title="Borrow against Batch 1">
-    User takes a **fixed 70% LTV** loan against batch 1. The 5% commission is charged once at issuance and routed to the Liquidity Pool - it is not re-charged at repayment.
+  <Step title="Use that batch as collateral">
+    The batch serves as independent collateral under the current lending rules.
   </Step>
-  <Step title="Mine Batch 2">
-    User starts a new mining cycle and receives DA batch 2.
+  <Step title="Complete another cycle">
+    A new cycle creates a separate batch.
   </Step>
-  <Step title="Borrow against Batch 2">
-    User takes another **fixed 70% LTV** loan against batch 2. A separate one-time 5% commission is charged at issuance for this new loan.
+  <Step title="Open a separate loan">
+    A separate eligible loan may be opened against the new batch.
   </Step>
 </Steps>
 
-This allows multiple simultaneous micro-loans, one per DA batch. Each loan is independent - bound to its own batch - and stays active until that batch's stack enters the auto-sell cycle. If any individual loan defaults, only that batch's collateral is burned - not all DA holdings.
+Each loan is tied to one DA batch. Default processing affects only the pledged batch, not all DA held by the user.
 
-For detailed sell vs. lend comparison, see [Selling & Lending](/en/da-selling-lending). Lending also supports partial repayments and proportional default recovery. See [Lending Mechanics](/en/da-lending) for the full breakdown.
+For details, see [Selling & Lending](/en/da-selling-lending) and [Lending Against DA](/en/da-lending).
 
 ## What is the biannual Deflationary Cycle?
 
-Twice a year the system triggers a special Deflationary Cycle lasting up to 30 days, designed to intensify token scarcity.
-
 <Steps>
-  <Step title="Pause new cycles">
-    Starting new cycles of NFTM mining, staking, and DA generation is paused for the duration of the Deflationary Cycle. **Active cycles started before the Deflationary Cycle continue running and complete on schedule** — users with mining already in progress do not lose their progress.
+  <Step title="New cycles may be paused">
+    New Mining, staking, and DA-generation cycles may be paused.
   </Step>
-  <Step title="Activate sale mechanisms">
-    Automatic or voluntary DA sale mechanisms are activated.
+  <Step title="Sale mechanisms continue">
+    Eligible sale mechanisms continue under the active configuration.
   </Step>
-  <Step title="Daily burn">
-    A portion of tokens is burned daily.
+  <Step title="DA is processed and burned">
+    DA is processed and burned under the documented rules.
   </Step>
-  <Step title="Supply shrinks">
-    Market supply shrinks, strengthening upward price pressure.
+  <Step title="Existing cycles continue">
+    Existing cycles started before the event continue on schedule.
   </Step>
 </Steps>
 
 <Info>
-  The Deflationary Cycle makes the DA economy predictable, manageable, and sustainable over the long term.
+  The Deflationary Cycle is a protocol event. Current dates, duration, and active parameters are published before each cycle.
 </Info>
-
-Increased activity → increased liquidity → increased DA issuance → increased burning → increased scarcity → increased asset value. This closed-loop system means the more actively the ecosystem develops, the stronger the DA economy becomes.
-
-<DaPriceSimulator />

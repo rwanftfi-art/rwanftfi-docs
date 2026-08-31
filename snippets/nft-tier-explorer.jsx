@@ -40,16 +40,15 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  var RADAR_AXES = ['Afford', 'Income', 'Depth', 'Mining', 'ROI'];
+  var RADAR_AXES = ['Access', 'Cap', 'Depth', 'Mining', 'Cycles'];
 
   var normalize = (nft) => {
-    var roi = nft.limit / nft.price;
     return [
       ((24000 - nft.price) / 24000) * 100,
       (nft.limit / 70000) * 100,
       (nft.depth / 22) * 100,
       nft.cycles > 0 ? ((45 - nft.mining) / (45 - 40)) * 100 : 0,
-      Math.min((roi / 3.0) * 100, 100),
+      (nft.cycles / 2) * 100,
     ];
   };
 
@@ -159,8 +158,8 @@ export const NftTierExplorer = () => {
                 </div>
                 <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
                 <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Income Limit: {fmtUsd(nft.limit)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Mkt Depth: {nft.depth} levels</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Reward Cap: {fmtUsd(nft.limit)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Net Depth: {nft.depth} levels</div>
               </div>
               {isCmp && (
                 <div style={{ backgroundColor: '#FFFFFF', boxShadow: '0 0 8px rgba(255,255,255,0.3)' }} className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center">
@@ -207,7 +206,7 @@ export const NftTierExplorer = () => {
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Income Limit', fmtUsd(selected.limit)], ['Mkt Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'Unlimited' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'Unlimited' ? 'Elite: no autobuy cap' : 'Auto-reinvest limit'], ['ROI Ratio', (selected.limit / selected.price).toFixed(2) + 'x']].map(([label, val, subtext]) => (
+                  {[['Price', fmtUsd(selected.price)], ['Reward Cap', fmtUsd(selected.limit)], ['Net Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'Unlimited' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'Unlimited' ? 'Elite: no autobuy cap' : 'Auto-renewal limit'], ['Group', selected.tier]].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
@@ -276,9 +275,8 @@ export const NftTierExplorer = () => {
                 <tbody style={{ color: '#FFFFFF' }}>
                   {[
                     ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
-                    ['Income Limit', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
-                    ['ROI', (compare[0].limit / compare[0].price).toFixed(2) + 'x', (compare[1].limit / compare[1].price).toFixed(2) + 'x'],
-                    ['Mkt Depth', compare[0].depth + ' lvls', compare[1].depth + ' lvls'],
+                    ['Reward Cap', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
+                    ['Net Depth', compare[0].depth + ' lvls', compare[1].depth + ' lvls'],
                     ['Mining', compare[0].mining ? compare[0].mining + 'd' : '—', compare[1].mining ? compare[1].mining + 'd' : '—'],
                     ['Matching Bonus', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
                     ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],

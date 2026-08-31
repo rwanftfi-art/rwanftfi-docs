@@ -1,149 +1,50 @@
 ---
 title: "Governance — DAO"
-description: "RWANFTFI's DAO is backed by a 10,000,000 ERC20Votes GovToken with a 30% proposal threshold and 50% pass threshold; current allocation: Corporation 30% + 20 Guardians at 3.5% each, expanding to 80 Leaders."
+description: "RWANFTFI uses a fixed-supply ERC20Votes GovToken. Current governance authority is determined by the token allocation, proposal threshold, approval threshold, and administrative roles."
 icon: "landmark"
 ---
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-To ensure the ecosystem remains decentralized, independent, and secure, RWANFTFI relies on a Decentralized Autonomous Organization (DAO) governed by smart contracts. The developers cannot unilaterally alter system rules, access user funds, or manipulate balances.
+RWANFTFI uses a fixed-supply ERC20Votes GovToken. Current governance authority is determined by the token allocation, proposal threshold, approval threshold, and administrative roles.
 
 <GovernanceStats />
 
-## What can the DAO decide?
-
-For a proposal to be submitted to the DAO, it must be backed by at least 30% of the total token supply. For a proposal to pass and be executed on-chain, it requires a majority vote of 50%.
-
-<CardGroup cols={2}>
-  <Card title="30% to Submit" icon="file-signature">
-    A proposal requires backing from at least 30% of total GovToken supply to be submitted.
+<CardGroup cols={4}>
+  <Card title="10,000,000" icon="cube">
+    Fixed GovToken supply
   </Card>
-  <Card title="50% to Pass" icon="check-double">
-    A majority vote of 50% is required for a proposal to pass and execute on-chain.
+  <Card title="30%" icon="file-signature">
+    Proposal threshold
   </Card>
-</CardGroup>
-
-The DAO votes on critical ecosystem functions, such as:
-* Early termination of an "Accumulative Event". The event itself (a 30-day period where users can claim expired accumulative balances, with a 180-day cooldown) **is triggered from the admin panel — the DAO cannot initiate it**, but can terminate it early through a vote.
-* Triggering a **Price Impact** event, during which user earnings are routed to the DA Liquidity Pool to strengthen DA token backing and price stability.
-* Changing smart contract parameters within the ranges fixed at deployment (see [Contract Parameters](/en/contract-parameters)).
-* Authorizing the sale of a user's entire business structure as an asset.
-* Verifying and approving a user's request to change their compromised financial wallet.
-* Voting to block a specific user's NFT (Freeze). When an NFT is blocked, the user loses access to the platform's financial products. Unblocking is also executed exclusively through a DAO vote.
-
-<Info>
-  **Proposal Threshold in Practice — Honest Disclosure:** The 30% submission threshold is a single, supply-weighted bar; it does not partition voting power by role. In the **current** token distribution (RWANFTFI Corporation 30% + 20 Guardians at 3.5% each), the threshold is realistically reachable only by the Corporation acting directly, or by the Corporation together with a coordinated subset of Guardians. An individual Guardian holds well below 30% and **cannot single-handedly submit a proposal** under the current allocation. The team has formally acknowledged this in the audit response: by design, under the current allocation, only the Corporation has enough tokens to create proposals on its own, and there is no external delegation mechanism that would let smaller holders pool voting power off-chain to meet the threshold (see [Voting Mechanics](#voting-mechanics) below). The on-chain bar itself remains 30% — what changes over time is the breadth of participants able to clear it. The [Future Redistribution Plan](#future-redistribution-plan) (Corporation 30% + 20 Guardians at 1.5% + 80 Leaders at 0.5%) widens the coalitions that can together meet the threshold, progressively decentralizing proposal creation without lowering the threshold itself.
-</Info>
-
-## How does voting work?
-
-The mechanics below describe how a proposal moves from submission to execution, and how voting power is held and rotated at the contract level.
-
-<CardGroup cols={2}>
-  <Card title="Voting Closes at Deadline" icon="hourglass-end">
-    Voting on a proposal closes **strictly at the deadline** — never earlier. Reaching majority support before the deadline does not lock the outcome; additional votes (for or against) continue to be accepted until the timer expires.
+  <Card title="50%" icon="check-double">
+    Approval threshold
   </Card>
-  <Card title="Auto-Delegation, No Manual Delegation" icon="link-slash">
-    GovToken **auto-delegates voting power on transfer** to the recipient. There is no `delegate()` path to assign voting power to a third party — voting weight always tracks the current token holder.
+  <Card title="20" icon="shield-check">
+    Current Guardian wallets
   </Card>
 </CardGroup>
 
-<Note>
-  **Voting on Succeeded proposals:** Even after a proposal has accumulated enough support to be considered "succeeded" on its current tally, the voting window remains open until its deadline. Every eligible holder retains the ability to register a confirming or opposing vote up to the moment the window closes — early-succeeded status does not curtail participation.
-</Note>
+## Current Allocation
 
-<Note>
-  **No external delegation.** Because GovToken does not expose a manual delegation mechanism, smaller holders cannot pool their voting power off-chain to clear the proposal threshold. The only way to move voting weight is to move the underlying tokens, and any such transfer auto-delegates to the recipient. This keeps the relationship between token ownership and governance authority direct and on-chain traceable.
-</Note>
+RWANFTFI Corporation holds **30%** of the supply. Twenty Guardian wallets hold **3.5%** each. Under the current allocation, the Corporation can independently meet the proposal threshold; an individual Guardian cannot.
 
-<Info>
-  **DAO Authority Sync — single source of truth:** The DAO authority that governs GovToken is not stored as a duplicate value inside GovToken. When the DAO authority is rotated via `setDAO()` on the Diamond contract, GovToken **reads the updated DAO address directly from the Diamond contract** rather than relying on a separately maintained pointer. This eliminates the risk of the two contracts drifting into a split-authority state during a rotation — there is no window in which GovToken could honor a stale authority that the Diamond has already replaced.
-</Info>
+## Future Redistribution
 
-## GovToken Overview
+The documented future model targets 30% for the Corporation, 30% across 20 Guardians, and 40% across up to 80 Leader wallets. The new structure becomes operative only after the transfers are completed and publicly verifiable on-chain.
 
-GovToken is the governance and voting token of the RWANFTFI ecosystem. It is an ERC20Votes token with a permanently fixed supply. No additional minting is possible after deployment. There is no inflation mechanism — the supply model is fully fixed.
+## What can governance change?
 
-<CardGroup cols={3}>
-  <Card title="Fixed Supply" icon="cube">
-    10,000,000 GovTokens. Permanently capped. No inflation.
-  </Card>
-  <Card title="Mint Disabled" icon="ban">
-    Minting function permanently disabled after deployment. No hidden reserves.
-  </Card>
-  <Card title="On-Chain Governance" icon="landmark">
-    All governance actions executed through DAO voting. Full on-chain transparency and traceability.
-  </Card>
-</CardGroup>
+- Adjust parameters within their documented on-chain ranges (see [Contract Parameters](/en/contract-parameters)).
+- Approve Phase 2 activation.
+- Approve documented partner-structure transfers and wallet-change requests.
+- Restrict or restore specified platform functionality associated with an NFT.
 
-## How are GovTokens distributed initially?
+## Platform Function Restriction
 
-The initial allocation of GovTokens was designed to balance operational control with decentralized governance participation.
-
-<CardGroup cols={2}>
-  <Card title="RWANFTFI Corporation" icon="building">
-    3,000,000 GovTokens (30% of total supply). Technology & product company. Holds strategic governance allocation for long-term ecosystem development.
-  </Card>
-  <Card title="20 Guardians" icon="shield-check">
-    7,000,000 GovTokens (70% of total supply). 350,000 tokens per Guardian (3.5% each). Primary governance participants responsible for early-stage ecosystem stability.
-  </Card>
-</CardGroup>
-
-## How will governance decentralize over time?
-
-The DAO governance model includes a structured decentralization roadmap. Over time, governance participation will expand from 21 wallets to up to 101 wallets — without minting new tokens.
-
-Redistribution does not create new tokens. Total supply remains permanently fixed at 10,000,000 GovTokens. Guardians gradually redistribute a portion of their allocation to qualified Leaders through DAO-approved governance procedures.
-
-<CardGroup cols={3}>
-  <Card title="RWANFTFI Corporation" icon="building">
-    3,000,000 GovTokens (30%). Unchanged.
-  </Card>
-  <Card title="20 Guardians" icon="shield-check">
-    3,000,000 GovTokens (30%). 150,000 per Guardian (1.5% each).
-  </Card>
-  <Card title="80 Leaders" icon="users">
-    4,000,000 GovTokens (40%). 50,000 per Leader (0.5% each).
-  </Card>
-</CardGroup>
-
-Leaders are defined as active ecosystem contributors, community builders, strategic partners, and participants with measurable ecosystem impact who maintain active client or partner networks. Leader wallets will be assigned to qualified participants as governance decentralization progresses.
-
-## Guardians
-
-Guardians are the primary governance participants of the RWANFTFI DAO. They are responsible for maintaining ecosystem stability during the early growth phase and ensuring proper governance execution.
-
-<CardGroup cols={2}>
-  <Card title="Governance Participation" icon="check-to-slot">
-    Voting on all DAO proposals. Strategic ecosystem decisions. Protocol governance execution.
-  </Card>
-  <Card title="Security & Oversight" icon="eye">
-    Security oversight and risk management. Treasury governance participation. Long-term ecosystem stability.
-  </Card>
-</CardGroup>
-
-<CardGroup cols={1}>
-  <Card title="No Unilateral Control" icon="shield-check">
-    All governance actions — including token redistribution, parameter changes, and account operations — require standard DAO governance procedures with 30% proposal threshold and 50% majority vote.
-  </Card>
-</CardGroup>
-
-## Supply Integrity & Security
-
-<CardGroup cols={2}>
-  <Card title="Immutable Supply" icon="infinity">
-    Total supply permanently fixed at 10,000,000. No minting, no inflation, no hidden reserves. All tokens exist within the initial distribution allocation.
-  </Card>
-  <Card title="Governance Security" icon="shield-halved">
-    Multi-signature authorization for critical operations. Role-based governance permissions. DAO-based approval for any allocation changes.
-  </Card>
-</CardGroup>
-
-<CardGroup cols={1}>
-  <Card title="Audit-Verified Guarantees" icon="certificate">
-    Total supply equals exactly 10,000,000 tokens. No mint function is callable after deployment. Token redistribution does not alter total supply. All token movements are recorded on-chain.
-  </Card>
-</CardGroup>
+<Warning>
+  A successful governance decision may restrict specified platform functions associated with an NFT. The NFT remains in the holder's wallet. A separate governance decision is required to reverse the restriction.
+</Warning>
 
 ## Governance Wallets
 
@@ -181,14 +82,4 @@ All governance token holders are publicly verifiable on-chain. Below are the des
   </Tab>
 </Tabs>
 
-All wallet addresses are verifiable on [BscScan](https://bscscan.com/). Governance token balances and transaction history are fully transparent and publicly auditable.
-
-## How does the Account Freeze mechanism work?
-
-The DAO can vote to **freeze** a specific user's NFT functionality on the platform. This is a moderation tool, not an emergency security feature.
-
-<Warning>
-  **When an NFT is frozen:** The user loses access to all financial operations — withdrawals, purchases, marketing reward accruals, and transfers. However, the NFT itself remains in the user's blockchain wallet as their property. **Unfreezing** also requires a separate DAO vote.
-</Warning>
-
-The platform does not have the technical capability to seize or confiscate an NFT from a user's wallet. Freezing only disables the NFT's functionality within the RWANFTFI platform. This mechanism is used in cases of platform terms violations — NFT-based fraud, identified AML (anti-money-laundering) risks, ecosystem brand protection, and similar situations that require a collective community decision.
+All wallet addresses are verifiable on [BscScan](https://bscscan.com/). Governance token balances and transaction history are publicly auditable.

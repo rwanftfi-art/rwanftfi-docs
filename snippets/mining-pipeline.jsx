@@ -32,7 +32,7 @@ export const MiningPipeline = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">Mining Dashboard</h3>
-          <p style={{ color: 'rgba(255,255,255,0.4)', margin: '4px 0 0 0' }} className="text-xs">Full pipeline overview — from NFT purchase to DA harvest</p>
+          <p style={{ color: 'rgba(255,255,255,0.4)', margin: '4px 0 0 0' }} className="text-xs">Illustrative pipeline overview — from Mining to Farming under current parameters</p>
         </div>
         <div className="flex items-center gap-3">
           <select
@@ -100,7 +100,7 @@ export const MiningPipeline = () => {
                className="rounded-xl p-5 text-center">
             <div style={{ color: 'rgba(255,255,255,0.4)' }}
                  className="text-[10px] uppercase tracking-wider mb-1">
-              You Receive After {totalDays} days
+              Calculated Result After {totalDays} days
             </div>
             <div style={{ color: '#FFFFFF', fontSize: '36px' }}
                  className="font-black">
@@ -108,11 +108,11 @@ export const MiningPipeline = () => {
             </div>
             <div style={{ color: 'rgba(255,255,255,0.5)' }}
                  className="text-xs mt-1">
-              Worth {fmtUsd(daReceived * daPrice)} at current DA price
+              Illustrative value at an assumed protocol price of 1.00 USDT — the actual protocol price applies at execution
             </div>
             <div style={{ color: 'rgba(255,255,255,0.5)' }}
                  className="text-xs mt-2">
-              from {fmtUsd(lvl.price)} investment · {lvl.cycles === 1
+              based on a {fmtUsd(lvl.price)} NFT · {lvl.cycles === 1
                 ? 'cycle 1: ' + fmtNum(nftmCycle1) + ' NFTM'
                 : 'cycle 1: ' + fmtNum(nftmCycle1) + ' + cycle 2: ' + fmtNum(nftmCycle2) + ' NFTM'
               }
@@ -123,12 +123,12 @@ export const MiningPipeline = () => {
       <div className="grid grid-cols-3 gap-3" style={{ marginTop: '12px' }}>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
              className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Investment</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">NFT Price</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lvl.price)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
              className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">DA Value</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">Illustrative Value</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(daReceived * daPrice)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
@@ -150,7 +150,7 @@ export const MiningPipeline = () => {
       )}
       <div style={{ color: 'rgba(255,255,255,0.4)' }}
            className="text-xs text-center mt-3">
-        Once harvested, compare your options on{' '}
+        Future protocol prices are not predetermined. After Farming, review the options on{' '}
         <a href={'/en/da-selling-lending'}
            style={{ color: '#FFFFFF', textDecoration: 'underline' }}>
           Selling & Lending

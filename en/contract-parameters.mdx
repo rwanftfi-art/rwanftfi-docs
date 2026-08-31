@@ -1,199 +1,61 @@
 ---
 title: "Contract Parameters"
-description: "On-chain parameters, DAO-adjustable ranges, and immutable guarantees."
+description: "Current on-chain values, permitted ranges, immutable constants, and the roles authorized to change adjustable parameters."
 icon: "sliders"
 ---
 
-> ***"Trust is not a promise — it is a parameter, hardcoded in an audited smart contract."***
->
-> **— RWANFTFI**
-
-Every parameter in the RWANFTFI ecosystem is defined and enforced by the smart contract. Each parameter is publicly verifiable on-chain. A subset of parameters can be adjusted by DAO governance within predefined safety ranges. The remaining parameters are permanently hardcoded and cannot be modified by anyone — including developers.
+This page lists current on-chain values, permitted ranges, immutable constants, and the roles authorized to change adjustable parameters.
 
 <CardGroup cols={3}>
   <Card title="DAO-Adjustable" icon="sliders">
-    Parameters that DAO governance can modify within predefined safety ranges.
+    Parameters that governance can modify within the documented on-chain ranges.
   </Card>
   <Card title="Immutable" icon="shield-halved">
-    Hardcoded parameters that can never be changed by anyone — including developers.
+    Constants fixed in the smart-contract code.
   </Card>
-  <Card title="On-Chain Verified" icon="link">
-    All values stored in audited smart contracts, publicly verifiable on BscScan.
+  <Card title="On-Chain Verifiable" icon="link">
+    Current values are stored in the deployed contracts and publicly verifiable on [BscScan](https://bscscan.com/).
   </Card>
 </CardGroup>
 
 ## NFT Purchase Distribution
 
-When a user purchases an NFT, the payment is automatically split across multiple destinations by the smart contract. The distribution differs between first-time purchases and repeat purchases (rebuys).
-
-<Tabs>
-  <Tab title="First Purchase">
-    | Parameter | Current | Range |
-    |---|---|---|
-    | Sponsor Bonus | 30% | 10% – 35% |
-    | Token Reserve (DA Pool) | 0% | 0% – 30% |
-    | Platform Operations | 7% | 2% – 10% |
-    | Accumulative Balance | 20% | 15% – 30% |
-  </Tab>
-  <Tab title="Repeat Purchase (Rebuy)">
-    | Parameter | Current | Range |
-    |---|---|---|
-    | Sponsor Bonus | 20% | 10% – 35% |
-    | Token Reserve (DA Pool) | 10% | 10% – 30% |
-    | Platform Operations | 7% | 2% – 10% |
-    | Accumulative Balance | 20% | 15% – 30% |
-  </Tab>
-</Tabs>
+| Parameter | First Purchase | Rebuy | Range |
+|---|:---:|:---:|---|
+| Sponsor Bonus | 30% | 20% | 10% – 35% |
+| Token Reserve Allocation | 0% | 10% | Documented range |
+| Platform Operations | 7% | 7% | 2% – 10% |
+| Accumulative Balance | 20% | 20% | 15% – 30% |
+| Tree Distribution Budget | Calculated residual | Calculated residual | Derived |
 
 ## Fees & Commissions
 
-All fees are enforced by the smart contract and adjustable within defined ranges through DAO governance.
-
 | Parameter | Current | Range |
-|---|---|---|
+|---|:---:|---|
 | Marketing Rewards Tax | 5% | 5% – 15% |
 | Accumulative Transfer Fee | 20% | 10% – 30% |
-| Accumulative Use Fee (NFT Purchase) | 20% | 10% – 30% |
+| Accumulative Purchase Fee | 20% | 10% – 30% |
 | Loan Fee | 5% | 0% – 5% |
 | Withdrawal Fee | 0% | 0% – 5% |
-| Gift Send Price | $0 | $0 – $25 |
-| Business Sale Fee | $500 | $0 – $500 |
-| Frozen Balance → Sponsor | 30% | 0% – 30% |
+| Business Transfer Fee | 500 USDT | 0 – 500 USDT |
 
-<Note>
-  **Loan Fee - semantics:** The 5% is charged **once, at loan issuance**, and routed directly to the DA Liquidity Pool. Repayment - full or partial - does not trigger the fee again. The parameter is stored on-chain as a dedicated `loanFee`, separate from the protocol's other fee parameters, so the DAO can tune lending economics independently of marketing taxes, accumulative fees, or any other commission.
-</Note>
-
-<Note>
-  **Business Sale Fee — semantics:** The "Business Sale Fee" row is a **transfer commission paid by the seller** in order to execute a business structure transfer. It is **not** a sale price collected from the buyer — the buyer pays no on-chain commission to the protocol and receives the partner-tree structure on execution. The on-chain parameter governing this commission is `businessTransferFee` (renamed from the legacy `businessSalePrice` to reflect its true commission semantics).
-</Note>
-
-## Timers & Schedules
-
-Time-based parameters control critical system windows and deadlines across the ecosystem.
+## Timers & Limits
 
 | Parameter | Current | Range |
-|---|---|---|
-| Accumulative Balance Lifetime | 120 days | 90 – 180 days |
-| NFTM Claim Window | 72 hours | 24 – 96 hours |
-| Gift NFTs per Address | 100 | 1 – 400 |
-| Business Sale | Disabled | Disabled – Enabled |
-
-### Auto-Sell Periods
-
-The auto-sell cycle triggers progressively from the remaining DA balance if the user does not sell manually. Total cycle duration is the sum of all four periods.
-
-| Period | Current | Range |
-|---|---|---|
-| Period 1 | 120 days | 60 – 120 days |
-| Period 2 | 90 days | 60 – 120 days |
-| Period 3 | 90 days | 60 – 120 days |
-| Period 4 | 65 days | 60 – 120 days |
-| **Total Cycle** | **365 days** | — |
-
-## Expired Balance Redistribution
-
-When an Accumulative Balance expires (after the lifetime period), funds are redistributed according to the following rules. Distribution differs between Regular NFT holders and Gift NFT holders.
-
-<Tabs>
-  <Tab title="Regular NFT">
-    | Destination | Current | Range |
-    |---|---|---|
-    | Upline Sponsor | 30% | 0% – 30% |
-    | Platform | 0% | 0% – 30% |
-    | DA Liquidity Pool | 70% | 50% – 100% |
-  </Tab>
-  <Tab title="Gift NFT">
-    | Destination | Current | Range |
-    |---|---|---|
-    | Upline Sponsor | 20% | 0% – 30% |
-    | Platform | 0% | 0% – 30% |
-    | DA Liquidity Pool | 80% | 50% – 100% |
-  </Tab>
-</Tabs>
-
-## Marketing Tree Distribution
-
-Each level of the 22-level marketing structure has a fixed reward percentage that determines how much a user earns from NFT sales at that depth. Percentages are DAO-adjustable within defined ranges. Levels 16–22 are unlocked in Phase 2.
-
-<AccordionGroup>
-  <Accordion title="Levels 1–6 · Entry Layers" icon="layer-group">
-    | Level | Current | Range |
-    |---|---|---|
-    | Level 1 | 0% | 0% |
-    | Level 2 | 1% | 1% – 2% |
-    | Level 3 | 2% | 2% – 3% |
-    | Level 4 | 2% | 2% – 3% |
-    | Level 5 | 3% | 3% – 4% |
-    | Level 6 | 3% | 3% – 4% |
-  </Accordion>
-  <Accordion title="Levels 7–15 · Core Earning Depth" icon="chart-simple">
-    | Level | Current | Range |
-    |---|---|---|
-    | Level 7 | 4% | 4% – 5% |
-    | Level 8 | 4% | 4% – 5% |
-    | Level 9 | 4% | 4% – 5% |
-    | Level 10 | 4% | 3% – 5% |
-    | Level 11 | 4% | 3% – 5% |
-    | Level 12 | 4% | 3% – 5% |
-    | Level 13 | 4% | 3% – 5% |
-    | Level 14 | 4% | 3% – 5% |
-    | Level 15 | 5% | 3% – 5% |
-  </Accordion>
-  <Accordion title="Levels 16–22 · Phase 2 Expansion" icon="rocket">
-    | Level | Current | Planned (Phase 2) | Range |
-    |---|---|---|---|
-    | Level 16 | 0% | 2% | 0% – 2.5% |
-    | Level 17 | 0% | 2% | 0% – 2.5% |
-    | Level 18 | 0% | 1% | 0% – 2.5% |
-    | Level 19 | 0% | 0.5% | 0% – 2.5% |
-    | Level 20 | 0% | 0.5% | 0% – 2.5% |
-    | Level 21 | 0% | 0.5% | 0% – 2.5% |
-    | Level 22 | 0% | 0.5% | 0% – 2.5% |
-
-    <Note>
-      **Current = 0%** until Phase 2 is activated by DAO vote (planned **Q4 2026**). **Planned (Phase 2)** = the values the DAO is expected to enable on activation. All Planned values fall inside the on-chain `Range`, so activation does not require widening any parameter bound.
-    </Note>
-  </Accordion>
-</AccordionGroup>
-
-<Note>
-  **Tree distribution budget vs per-level caps.** Per-level percentages in the tables above represent the **maximum payout per level**. The total tree distribution **budget per NFT purchase is approximately 43%** (calculated as 100% minus Sponsor Bonus, Token Reserve / DA Pool, Platform Operations, and Accumulative Balance). The arithmetic difference between the theoretical per-level sum (~48% across Phase 1, growing to ~55% if Phase 2 activates at the Planned values) and the actual ~43% budget is absorbed through the **compression mechanism**: when an upline user does not qualify (exhausted Income Limit or insufficient NFT level for that depth), the unallocated portion is not forced further up the tree — it flows to the platform / dev residual instead. In other words, the per-level rates are a ceiling on what a fully eligible position at each depth can earn from a single purchase, not a guarantee of the full sum being paid out to the tree on every purchase.
-</Note>
-
-### Matching Bonus Thresholds
-
-Matching Bonus pays 5% across three levels of direct partner income. Each level requires cumulative personal sales to unlock. The matching percentage (5%) is immutable.
-
-| Level | Required Sales | Range |
-|---|---|---|
-| Level 1 (5%) | $0 | Fixed |
-| Level 2 (5%) | $1,000 | $1,000 – $5,000 |
-| Level 3 (5%) | $3,000 | $3,000 – $7,000 |
+|---|:---:|---|
+| Accumulative Balance lifetime | 120 days | 90 – 180 days |
+| NFTM claim window | 72 hours | 24 – 96 hours |
+| Gift NFTs per address | 100 | 1 – 400 |
+| Auto-Sell periods | 120 / 90 / 90 / 65 days | Documented ranges |
 
 ## Immutable Parameters
 
-<CardGroup cols={1}>
-  <Card title="Hardcoded in Smart Contract" icon="shield-check">
-    The following parameters are permanently fixed in the smart contract code. They cannot be modified by the DAO, developers, or any other party.
-  </Card>
-</CardGroup>
-
 | Parameter | Value |
-|---|---|
-| Manual Sell Payout | 75% |
-| Auto-Sell / Lending Payout | 70% |
-| LTV Ratio | 70% (fixed) |
-| Matching Bonus per Level | 5% |
-| Frozen Balance Window | 72 hours |
-| Voucher Lifetime | 365 days |
-| Voucher Transfer Lock | Last 1 day |
-| Loan Eligibility Threshold | 30 days |
-| DAO Inactivity Threshold | 31 days |
-| DAO Grace Period | 7 days |
-
-<Note>
-  **Loan Eligibility Threshold - semantics:** This is **not** a loan duration. It is a **rolling on-chain check executed before every new `loan()` call** (`_getTimeToNextAutosale(stack) >= 30 days`): the DA batch being pledged must still have at least 30 days remaining until its next scheduled auto-sell trigger, or the call reverts. A batch with 29 days or fewer to its next trigger cannot be used as collateral for a new loan.
-
-  This is an **eligibility gate** controlling access to the product, not a **loan term** controlling the life of an open loan. Once a loan is open, the borrower can call `repay()` at any time - in full or in part - for as long as the batch has not crossed its first auto-sell trigger. `repay()` remains callable after that trigger too, but the contract first runs `_processExpiredStacks()` to settle every period whose boundary has passed before the repayment proceeds against the post-burn remainder.
-</Note>
+|---|:---:|
+| Manual Sale payout | 75% |
+| Auto-Sell payout | 70% |
+| LTV | 70% |
+| Matching Bonus | 5% per eligible level |
+| Frozen Balance window | 72 hours |
+| Voucher lifetime | 365 days |
+| Loan eligibility threshold | 30 days |
