@@ -1,21 +1,29 @@
 ---
 title: "Bảo Mật & Kiểm Toán"
-description: "Được kiểm toán độc lập bởi CertiK."
+description: "CertiK đã đánh giá các hợp đồng thông minh và phiên bản mã nguồn nằm trong phạm vi kiểm toán đã công bố. Báo cáo cuối cùng có ngày 28 tháng 4 năm 2026. Phạm vi kiểm toán, phát hiện, và ánh xạ triển khai được công bố cùng báo cáo."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="Đã Kiểm Toán Bởi CertiK" icon="shield-check">
-    Hợp đồng thông minh RWANFTFI đã được kiểm toán độc lập bởi **CertiK**. Báo cáo cuối cùng được công bố vào **ngày 28 tháng 4 năm 2026** — PDF đầy đủ bên dưới, và trên [thư mục công khai CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="Được CertiK Đánh Giá" icon="shield-check">
+    CertiK đã đánh giá các hợp đồng thông minh và phiên bản mã nguồn nằm trong phạm vi kiểm toán đã công bố. Báo cáo cuối cùng có ngày **28 tháng 4 năm 2026** — PDF đầy đủ bên dưới, và trên [thư mục công khai CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-CertiK là một trong những công ty bảo mật được thành lập lâu nhất trong Web3 và kiểm toán một phần đáng kể các giao thức lớn trong không gian này. Cuộc kiểm toán được thực hiện bằng phương pháp tiêu chuẩn của họ — Phân Tích Tĩnh, Đánh Giá Thủ Công, và Xác Minh Hình Thức — và toàn bộ báo cáo được công bố công khai, cả trên trang này và trên thư mục Skynet riêng của CertiK.
+## Chi Tiết Kiểm Toán
 
-## Đọc Báo Cáo
+| Mục | Nơi Xác Minh |
+|---|---|
+| Đơn vị kiểm toán | CertiK |
+| Ngày báo cáo | 28 tháng 4 năm 2026 |
+| Commit được kiểm toán | Mã hash chính xác được nêu trong báo cáo đã công bố. |
+| Hợp đồng thuộc phạm vi | Tất cả các hợp đồng được đánh giá đều được liệt kê trong báo cáo đã công bố. |
+| Các phát hiện | Mã định danh, mức độ nghiêm trọng, và trạng thái được liệt kê trong báo cáo đã công bố. |
+| Khắc phục | Mỗi phát hiện đã khắc phục được liên kết với thay đổi mã nguồn tương ứng trong báo cáo. |
+| Ánh xạ triển khai | Việc các hợp đồng sản xuất hiện tại có khớp với phiên bản đã kiểm toán hay không được công bố riêng. |
+| Chương trình bug bounty | Trạng thái có thể xác minh bên ngoài hiện tại được công bố trên các kênh chính thức. |
 
-Bạn có ba cách độc lập để tương tác với cuộc kiểm toán. Vấn đề không phải là cung cấp cùng một thứ ba lần — đó là để không có nghi ngờ rằng phiên bản trên trang này khớp với phiên bản mà CertiK tự công bố, và để báo cáo có thể truy cập bất kể thiết bị.
+## Làm thế nào để xác minh báo cáo kiểm toán?
 
 <CardGroup cols={3}>
   <Card title="Xem Trước Trực Tiếp" icon="eye">
@@ -36,7 +44,7 @@ Bạn có ba cách độc lập để tương tác với cuộc kiểm toán. V�
   style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
 >
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
-    <div>Xem trước PDF trực tiếp không được hỗ trợ trong trình duyệt này.</div>
+    <div>Trình duyệt này không hỗ trợ xem trước PDF trực tiếp.</div>
     <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
       Mở báo cáo kiểm toán (PDF)
     </a>
@@ -44,32 +52,29 @@ Bạn có ba cách độc lập để tương tác với cuộc kiểm toán. V�
 </object>
 
 <Info>
-  **Trên Safari và hầu hết các trình duyệt di động** xem trước trực tiếp có thể không hiển thị — các trình duyệt đó không nhúng PDF trực tiếp. Sử dụng nút **Tải Xuống PDF** (hoặc liên kết bên trong khu vực xem trước) để mở báo cáo trên thiết bị của bạn.
+  **Trên Safari và hầu hết trình duyệt di động**, bản xem trước trực tiếp có thể không hiển thị — các trình duyệt đó không nhúng PDF trực tiếp. Sử dụng nút **Tải Xuống PDF** (hoặc liên kết bên trong khu vực xem trước) để mở báo cáo trên thiết bị của bạn.
 </Info>
 
-## Bảo Vệ Tài Khoản
+<Note>
+  Cuộc kiểm toán bao phủ các hợp đồng thông minh và phiên bản mã nguồn trong phạm vi đã công bố. Bản thân nó không xác minh kinh tế học của giao thức, hiệu quả hoạt động của doanh nghiệp, hoặc kết quả của người dùng.
+</Note>
 
-Cuộc kiểm toán bao phủ lớp hợp đồng thông minh on-chain. Ở lớp ứng dụng, tài khoản người dùng được bảo vệ thêm bởi một số cơ chế độc lập:
+## Bảo Mật Tài Khoản Ba Cấp
 
-<CardGroup cols={2}>
-  <Card title="Bảo Mật Ba Cấp" icon="layer-group">
-    Bảo vệ phân cấp tách đăng nhập, hành động tài chính, và các thao tác có giá trị cao.
-  </Card>
-  <Card title="Mã TAN" icon="key">
-    Số Xác Thực Giao Dịch sử dụng một lần được yêu cầu cho mỗi giao dịch tài chính.
-  </Card>
+<CardGroup cols={3}>
   <Card title="Mật Khẩu Tài Chính" icon="fingerprint">
-    Một mật khẩu tách biệt với thông tin đăng nhập của bạn, chỉ được yêu cầu khi di chuyển tiền.
+    Một mật khẩu tách biệt với thông tin đăng nhập, được yêu cầu cho các hành động tài chính.
   </Card>
-  <Card title="2FA + Telegram Bot" icon="telegram">
-    Xác thực hai yếu tố tiêu chuẩn, cộng với xác minh hành động qua Telegram bot chính thức.
+  <Card title="Mã Ủy Quyền Giao Dịch" icon="key">
+    Mã dùng một lần được yêu cầu để ủy quyền các giao dịch tài chính.
+  </Card>
+  <Card title="Xác Thực Hai Yếu Tố" icon="lock">
+    Hỗ trợ xác thực hai yếu tố để bảo vệ tài khoản.
   </Card>
 </CardGroup>
 
-<Info>
-  **Giao dịch yêu cầu ví Web3.** Bạn có thể đăng nhập vào bảng điều khiển bằng email và mật khẩu để xem dữ liệu của mình, nhưng việc thực hiện bất kỳ hành động tài chính nào đều yêu cầu ví Web3 được kết nối (MetaMask, Trust Wallet, hoặc ví tương thích EVM khác).
-</Info>
+## Bảo Vệ Chống Lừa Đảo (Phishing)
 
 <Warning>
-  **Cẩn thận với những kẻ giả mạo.** Nhân viên RWANFTFI sẽ không bao giờ liên hệ với bạn trước, không bao giờ yêu cầu khóa riêng tư hoặc cụm từ khôi phục của bạn, và không bao giờ yêu cầu thanh toán bên ngoài nền tảng chính thức. Luôn xác minh bạn đang ở trên **rwanftfi.com** trước khi kết nối ví hoặc nhập thông tin đăng nhập.
+  Chỉ sử dụng các tên miền và địa chỉ hợp đồng chính thức của RWANFTFI. Đại diện của RWANFTFI sẽ không bao giờ yêu cầu khóa riêng tư, cụm từ khôi phục, hoặc thanh toán đến các địa chỉ ví không chính thức. Luôn xác minh bạn đang ở trên **rwanftfi.com** trước khi kết nối ví hoặc nhập thông tin đăng nhập.
 </Warning>
