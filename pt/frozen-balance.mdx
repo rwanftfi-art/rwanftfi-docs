@@ -1,102 +1,66 @@
 ---
-title: "Saldo Congelado"
-description: "Proteção de renda de marketing para convites a níveis superiores."
+title: "Frozen Balance"
+description: "Um buffer temporário de 72 horas para um Bônus de Patrocinador elegível que excede o Limite de Recompensas do Protocolo restante do detentor."
 icon: "snowflake"
 ---
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-O Saldo Congelado é a mecânica que protege sua renda de marketing em duas situações relacionadas: quando **seu convidado pessoal direto realiza sua primeira compra de NFT**, ou quando **o Autobuy do seu convidado é acionado** (renovação automática do NFT dele, gerando o Sponsor Bonus de rebuy de 20%), e a comissão resultante excede o Limite de Rendimento restante do seu NFT.
+O Frozen Balance se aplica quando um convidado direto realiza sua primeira compra de NFT ou aciona o Autobuy, e o Bônus de Patrocinador resultante excede o Limite de Recompensas do Protocolo restante do detentor. O mecanismo retém temporariamente o excesso para que o detentor possa cumprir as condições de liberação aplicáveis.
 
-Sem o Saldo Congelado, esse excesso seria perdido pela compressão — repassado para cima na estrutura. O Saldo Congelado o congela por **72 horas** e dá a você uma janela para fazer upgrade do seu NFT e reivindicar o valor total.
+## Quando o Frozen Balance é acionado?
 
-<Info>
-  Esta é a rede de segurança de marketing tanto para convites "para cima" quanto para a receita recorrente de convidados estabelecidos: você pode convidar parceiros com confiança para qualquer nível de NFT e contar com as renovações Autobuy deles, sem temer que a comissão seja perdida porque seu próprio Limite de Rendimento é muito pequeno.
-</Info>
-
-## Quando o Saldo Congelado é Acionado
-
-O Saldo Congelado é ativado **somente quando todas as três condições são atendidas**:
+O Frozen Balance é ativado somente quando as três condições a seguir são atendidas:
 
 <Steps>
-  <Step title="O comprador é seu convidado pessoal direto">
-    Não um spillover, não um parceiro de downline com cinco níveis de profundidade — especificamente uma pessoa que você convidou pessoalmente para sua estrutura.
+  <Step title="O comprador é o convidado pessoal direto do detentor">
+    Não um posicionamento por transbordamento (spillover) nem um participante mais profundo da rede — especificamente uma pessoa que o detentor convidou pessoalmente.
   </Step>
-  <Step title="É a primeira compra de NFT desse convidado ou o Autobuy dele">
-    O Saldo Congelado cobre dois eventos do seu convidado: a **primeira compra de NFT** dele e o **Autobuy** dele (renovação automática do NFT do mesmo convidado, que paga a você o Sponsor Bonus de rebuy de 20%). Compras repetidas e upgrades manuais do mesmo convidado **não** são cobertos — veja a seção Renda Perdida abaixo.
+  <Step title="O evento é a primeira compra de NFT do convidado ou seu Autobuy">
+    Compras repetidas manuais e upgrades feitos pelo mesmo convidado não são cobertos — veja a seção sobre compras repetidas abaixo.
   </Step>
-  <Step title="A comissão excede seu Limite de Rendimento restante">
-    Se seu Limite de Rendimento restante for grande o suficiente para absorver a comissão completa, nenhum congelamento ocorre — tudo é creditado normalmente.
+  <Step title="O Bônus de Patrocinador excede o Limite de Recompensas do Protocolo restante do detentor">
+    Se o Limite de Recompensas do Protocolo restante puder absorver o valor total, nenhum congelamento ocorre — a recompensa é creditada conforme as regras padrão.
   </Step>
 </Steps>
 
-## Como o Valor é Dividido
+## Como o valor da comissão é dividido?
 
-Quando o Saldo Congelado é acionado, o smart contract divide a comissão em duas partes:
+- O valor dentro do Limite de Recompensas do Protocolo restante é creditado conforme a divisão atual de **75/20/5**.
+- O excesso acima do limite é colocado em Frozen Balance por **72 horas**.
 
-- **Dentro do seu Limite de Rendimento restante** — creditado imediatamente sob a divisão padrão: **75% Saldo Regular / 20% Saldo Acumulativo / 5% Pool de Liquidez do DA**.
-- **Excesso acima do seu Limite de Rendimento** — colocado no Saldo Congelado com um **temporizador de 72 horas**.
-
-## O Que Acontece Durante as 72 Horas
-
-Você tem três cenários:
+## O que acontece durante a janela de 72 horas?
 
 <Tabs>
   <Tab title="Você faz upgrade do seu NFT">
-    Você compra um NFT de nível superior (com um Limite de Rendimento maior). Os fundos congelados são automaticamente liberados e creditados sob a mesma divisão **75/20/5**. O valor liberado é deduzido do Limite de Rendimento do **novo** NFT.
-
-    **Exemplo.** Limite de Rendimento do seu NFT = 160 USDT. Seu convidado compra um NFT por 2.200 USDT; comissão = 660 USDT. 160 USDT são creditados imediatamente (75/20/5). 500 USDT vão para o Saldo Congelado. Você faz upgrade para Eclipse (Limite de Rendimento de 650 USDT). Os 500 USDT são liberados e creditados. Novo Limite de Rendimento restante: 650 − 500 = **150 USDT**.
+    Se um NFT elegível de nível superior fornecer Limite de Recompensas do Protocolo suficiente, o valor retido no buffer é liberado e creditado conforme a divisão padrão. O valor liberado reduz o limite restante do novo NFT.
   </Tab>
-  <Tab title="Autobuy está ativado">
-    Se o Autobuy estiver ativo, a ordem muda. O Autobuy dispara **primeiro**, recomprando o NFT de mesmo nível e renovando seu Limite de Rendimento. A comissão é então reavaliada contra o limite renovado, a parte dentro do limite é creditada, e **somente o restante** (se houver) vai para o Saldo Congelado com o temporizador de 72 horas.
-
-    Isso significa: se seu próprio NFT e o Limite de Rendimento renovado forem suficientes após o Autobuy, o Saldo Congelado pode não ser ativado de forma alguma.
+  <Tab title="O Autobuy está ativado">
+    O Autobuy pode renovar primeiro o NFT atual e renovar o Limite de Recompensas do Protocolo. O Bônus de Patrocinador é então recalculado em relação ao limite renovado. Apenas o excesso remanescente, se houver, é colocado em Frozen Balance.
   </Tab>
   <Tab title="Você perde o prazo">
-    Se você não fizer upgrade dentro de 72 horas e o Autobuy não cobrir o excesso, os fundos congelados são **permanentemente perdidos** e redistribuídos:
-
-    - **70%** são roteados para o Pool de Liquidez do DA para a cunhagem de novo DA.
-    - **30%** são transferidos para seu patrocinador upline direto.
-
-    A regra de cascata é idêntica à cascata de decaimento do Saldo Acumulativo: se o Limite de Rendimento do patrocinador upline for zero, os 30% sobem ainda mais na cadeia até o primeiro participante com um Limite de Rendimento ativo. Se nenhum upline tiver um limite ativo, os 100% completos são roteados para o Pool de Liquidez do DA.
+    Se as condições de liberação não forem atendidas dentro de 72 horas, o valor é redistribuído conforme os parâmetros vigentes do protocolo: a parcela configurada é roteada para o Pool de Liquidez do DA, e a parcela restante segue as regras de roteamento ao patrocinador e de cascata.
   </Tab>
 </Tabs>
 
 ## Compras Repetidas do Mesmo Convidado
 
-O Saldo Congelado protege dois eventos de cada convidado pessoal: a **primeira compra de NFT** dele e o **Autobuy** dele (renovação automática do NFT do mesmo convidado — Sponsor Bonus de rebuy de 20%). Compras repetidas e upgrades **manuais** do mesmo convidado **não** são cobertos: se o seu Limite de Rendimento não conseguir absorver a comissão, o excesso é sinalizado como **Renda Perdida** e distribuído sob a regra padrão de compressão — repassado para cima na estrutura para o próximo participante com um Limite de Rendimento ativo.
+O Frozen Balance cobre os eventos elegíveis de primeira compra e Autobuy. Compras repetidas manuais e upgrades feitos pelo mesmo convidado seguem as regras padrão de recompensa de parceiros, Renda Perdida e compressão.
 
-<Warning>
-  Se seu convidado faz muitos rebuys/upgrades manuais enquanto **seu Limite de Rendimento está esgotado**, cada uma dessas compras manuais o ignora via compressão. Mantenha seu Limite de Rendimento ativo — através do seu próprio Autobuy ou renovação manual — para não perder renda de parceiros já estabelecidos.
-</Warning>
+## Cenário de Alto Volume — Roteamento Através da Estrutura
 
-## Cenário de Alto Volume — Cascata Através da Estrutura
-
-O Saldo Congelado protege **somente** a comissão sobre a primeira compra de um convidado direto ou sobre o Autobuy dele. Mas em uma estrutura grande, a maior parte da sua renda não vem de vendas pessoais — ela vem da profundidade, através da distribuição em árvore (4% no nível 9 × 500+ posições pode render dezenas de milhares de USDT em um único ciclo de acumulação).
-
-Quando esse volume chega e seu Limite de Rendimento é de 1.100 USDT com Autobuy capaz de renová-lo no máximo três vezes (3/3 nos níveis L1–L8), o sistema:
-
-1. Credita você com 1.100 USDT sob a divisão padrão.
-2. Aciona o Autobuy, renova o Limite, credita outros 1.100 USDT.
-3. Repete até 3 vezes.
-4. **Todo o volume restante é comprimido** — repassado para cima ao próximo participante com um Limite de Rendimento ativo.
-
-O Saldo Congelado **não** é ativado neste cenário porque a fonte não é a primeira compra ou Autobuy de um convidado direto, mas sim distribuição em árvore vinda da profundidade.
-
-<Info>
-  Conclusão para escala: em grandes volumes de rede, a alavanca-chave é **o nível do seu próprio NFT**. Níveis mais altos têm Limites de Rendimento maiores e reduzem a parcela perdida para a compressão. Os níveis Elite (L9–L10), com Autobuy ilimitado, abordam isso sistematicamente.
-</Info>
+Para atividade proveniente da profundidade da rede, as regras do Limite de Recompensas do Protocolo e do Autobuy são aplicadas primeiro. Qualquer valor remanescente que não possa ser creditado é roteado conforme as regras de compressão vigentes. O Frozen Balance não é ativado quando a origem é a Distribuição da Rede de Parceiros, em vez de uma primeira compra direta elegível ou Autobuy.
 
 <FrozenBalanceSimulator lang="en" />
 
-## Parâmetros do Saldo Congelado (On-Chain)
+## Parâmetros do Frozen Balance (On-Chain)
 
 | Parâmetro | Valor | Mutabilidade |
 |---|---|---|
 | Janela de congelamento | 72 horas | Imutável |
-| Parcela do Pool de Liquidez do DA em caso de perda | 70% | Ajustável pela DAO (50–100%) |
-| Parcela do patrocinador upline em caso de perda | 30% | Ajustável pela DAO (0–30%) |
-| Acionador | Primeira compra ou Autobuy do convidado pessoal direto | Imutável |
-| Distribuição na liberação | 75/20/5 | Divisão padrão — veja Arquitetura |
+| Parcela do Pool de Liquidez do DA após expiração | 70% | Ajustável pela DAO dentro da faixa documentada |
+| Parcela roteada ao patrocinador após expiração | 30% | Ajustável pela DAO dentro da faixa documentada |
+| Acionador | Primeira compra ou Autobuy do convidado direto | Imutável |
+| Distribuição na liberação | 75/20/5 | Divisão padrão — veja [Arquitetura](/pt/architecture) |
 
-Veja também: [Limite de Rendimento na página do Ecossistema NFT](/pt/nft-ecosystem), [Prioridade de Pagamento na Arquitetura](/pt/architecture).
+Veja também: [Limite de Recompensas do Protocolo na página do Ecossistema NFT](/pt/nft-ecosystem), [Prioridade de Pagamento na Arquitetura](/pt/architecture).
