@@ -1,16 +1,25 @@
 ---
-title: "Rewards & Compensation"
-description: "The partner program uses three reward types: Sponsor Bonus, Tree Distribution, and Matching Bonus. Each reward depends on NFT tier, network relationship, qualifying activity, protocol phase, and remaining Protocol Reward Cap."
-icon: "money-bill-trend-up"
+title: "Rewards & Distribution"
+description: "The protocol distributes three documented reward types — Sponsor Bonus, Partner Network Distribution, and Matching Bonus — funded from allocations of qualifying NFT purchases and bounded by eligibility rules and the Protocol Reward Cap."
+icon: "award"
 ---
 
-The partner program uses three reward types: **Sponsor Bonus**, **Tree Distribution**, and **Matching Bonus**. Each reward depends on NFT tier, network relationship, qualifying activity, protocol phase, and remaining Protocol Reward Cap.
+Protocol rewards are distributions calculated by the smart contract from documented allocations of qualifying NFT purchases. They are not interest, yield, or a return on investment. Every reward requires a qualifying purchase event, an eligible position, and remaining Protocol Reward Cap — and the total that can be distributed for any purchase is bounded by the contract's allocation budget.
+
+<Note>
+  **How rewards are funded and bounded:**
+  - **Funded per event.** Each reward is calculated from a specific qualifying NFT purchase under the current contract parameters — never from new registrations or placement by themselves.
+  - **Bounded by budget.** The network-distribution budget is a calculated residual of the purchase allocation (see [Contract Parameters](/en/contract-parameters)); the protocol never distributes more than the documented allocation.
+  - **Bounded by caps.** Credited rewards consume the recipient's Protocol Reward Cap. Amounts that cannot be credited follow the compression and residual-budget rules.
+</Note>
 
 ## Sponsor Bonus
 
-The Sponsor Bonus is calculated from a qualifying direct NFT purchase. The current Phase 1 rates are **30%** for a new sale and **20%** for a rebuy. Any Phase 2 change requires the documented governance activation.
+A reward calculated from a qualifying direct NFT purchase, at the current Phase 1 rates: **30%** for a first qualifying purchase and **20%** for a rebuy. Any Phase 2 change requires the documented governance activation.
 
-## Tree Distribution
+## Partner Network Distribution (Tree Distribution)
+
+A per-level reward calculation within the recipient's eligible network depth:
 
 | Network Level | Current Rate |
 |:---:|:---:|
@@ -24,15 +33,17 @@ The Sponsor Bonus is calculated from a qualifying direct NFT purchase. The curre
 
 ## Matching Bonus
 
+A conditional reward across up to three qualifying levels:
+
 | Matching Level | Rate | Eligibility |
 |:---:|:---:|---|
 | 1 | 5% | Eligible NFT tier |
-| 2 | 5% | 1,000 USDT cumulative personal sales |
-| 3 | 5% | 3,000 USDT cumulative personal sales |
+| 2 | 5% | 1,000 USDT cumulative volume of qualifying direct purchases |
+| 3 | 5% | 3,000 USDT cumulative volume of qualifying direct purchases |
 
 ## Standard Reward Split
 
-Eligible partner rewards are currently split under the documented **75/20/5** allocation between Regular Balance, Accumulative Balance, and the DA Liquidity Pool.
+Eligible protocol rewards are currently split under the documented **75/20/5** allocation between Regular Balance, Accumulative Balance, and the DA Liquidity Pool.
 
 ## Compression
 

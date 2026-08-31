@@ -26,10 +26,10 @@ Audit (public): https://skynet.certik.com/projects/rwanftfi
 - [Selling & Lending](https://docs.rwanftfi.com/en/da-selling-lending): Manual sale at the current 75% payout, Auto-Sell at 70% over four scheduled periods (120/90/90/65 days), and lending at the documented 70% LTV.
 - [Lending Against DA](https://docs.rwanftfi.com/en/da-lending): Loan parameters, the recorded loan price, partial repayment, default processing, and important lending conditions.
 
-## Marketing & rewards
+## Partner program & rewards
 
-- [Marketing Structure & Placement](https://docs.rwanftfi.com/en/marketing-binary-tree): Smart-contract-managed placement, the weakest-branch algorithm, spillover, Partner Network Depth, and network capacity.
-- [Rewards & Compensation](https://docs.rwanftfi.com/en/marketing-rewards): Three reward types (Sponsor Bonus, Tree Distribution, Matching Bonus), eligibility conditions, the 75/20/5 standard split, and compression.
+- [Partner Network & Placement](https://docs.rwanftfi.com/en/marketing-binary-tree): The smart-contract placement registry, the weakest-branch algorithm, network depth in reward calculations, and structural capacity. A position by itself does not create a reward.
+- [Rewards & Distribution](https://docs.rwanftfi.com/en/marketing-rewards): Three documented protocol reward types (Sponsor Bonus, Partner Network Distribution, Matching Bonus), funded from purchase allocations and bounded by the distribution budget, eligibility rules, and the Protocol Reward Cap.
 
 ## Architecture & security
 

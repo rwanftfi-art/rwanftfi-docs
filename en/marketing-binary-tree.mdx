@@ -1,20 +1,20 @@
 ---
-title: "Marketing Structure & Placement"
-description: "The partner network is a smart-contract-managed placement structure. When an eligible NFT is activated, the account receives a permanent position. Placement, network depth, and reward eligibility follow the active protocol rules."
+title: "Partner Network & Placement"
+description: "The partner network is a smart-contract placement registry. When an eligible NFT is activated, the account receives a permanent position. Placement records network relationships for reward calculations; a position by itself does not create a reward."
 icon: "sitemap"
 ---
 
-The partner network is a smart-contract-managed placement structure. When an eligible NFT is activated, the account receives a permanent position. Placement, network depth, and reward eligibility follow the active protocol rules.
+The partner network is the protocol's placement registry — an on-chain data structure that records where each account sits and which network relationships are included in reward calculations. When an eligible NFT is activated, the account receives a permanent position. Placement, network depth, and reward eligibility follow the active protocol rules.
 
 <CardGroup cols={3}>
-  <Card title="Auto-Placement" icon="wand-magic-sparkles">
-    Additional registrations are placed under the branch selected by the active weakest-branch algorithm.
+  <Card title="Deterministic Placement" icon="wand-magic-sparkles">
+    New registrations are placed by the contract's documented weakest-branch algorithm. No manual positioning.
   </Card>
-  <Card title="Permanent Position" icon="link">
-    An activated account receives a permanent position in the structure; the sponsor link does not change.
+  <Card title="Permanent Record" icon="link">
+    A position is a permanent entry in the on-chain registry; the sponsor link does not change.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    Spillover may place a participant inside another user's network. Placement alone does not guarantee a reward.
+  <Card title="No Reward for Placement" icon="scale-balanced">
+    A position by itself pays nothing. Rewards require qualifying purchase events, tier eligibility, and remaining Protocol Reward Cap.
   </Card>
 </CardGroup>
 
@@ -34,25 +34,25 @@ The partner network is a smart-contract-managed placement structure. When an eli
   <Step title="First-level positions fill first">
     The first direct registrations fill the available first-level positions.
   </Step>
-  <Step title="The weakest-branch algorithm places the rest">
-    Additional registrations are placed under the branch selected by the active weakest-branch algorithm.
+  <Step title="The algorithm places the rest">
+    Additional registrations are placed under the branch selected by the documented weakest-branch algorithm.
   </Step>
-  <Step title="Spillover may occur">
-    Spillover may place a participant inside another user's network.
+  <Step title="Automated placement can cross accounts">
+    The algorithm may record a participant inside another user's network (spillover). This is a bookkeeping outcome of automated placement, not a reward event.
   </Step>
-  <Step title="Placement alone does not guarantee a reward">
-    Eligibility depends on tier, depth, qualifying activity, active phase, and remaining Protocol Reward Cap.
+  <Step title="Placement alone does not create a reward">
+    Reward eligibility depends on tier, depth, qualifying activity, the active phase, and remaining Protocol Reward Cap.
   </Step>
 </Steps>
 
-## Partner Network Depth
+## Network Depth in Reward Calculations
 
 Each NFT tier defines the maximum network depth included in eligible Partner Network Distribution calculations. Current Phase 1 values are shown in the [NFT tier table](/en/nft-ecosystem#all-10-tiers-at-a-glance). Levels 16–22 require the documented governance activation.
 
-## Network Capacity
+## Structural Capacity
 
-A complete 22-level binary structure contains **8,388,606 positions** (more than 8.3 million), excluding the root position.
+The registry is a bounded binary structure with a documented maximum depth of 22 levels — a fixed technical capacity of 8,388,606 positions, excluding the root position. This figure is a property of the data structure, not a participation target or a projection.
 
 <Tip>
-  For reward rates, compression mechanics, and the Matching Bonus system, see [Rewards & Compensation](/en/marketing-rewards).
+  For the reward types, the distribution budget, and eligibility rules, see [Rewards & Distribution](/en/marketing-rewards).
 </Tip>
