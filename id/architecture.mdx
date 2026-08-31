@@ -1,11 +1,10 @@
 ---
 title: "Arsitektur Smart Contract"
-description: "Diamond Pattern dan 7 Facet."
+description: "RWANFTFI menggunakan arsitektur Diamond EIP-2535 dengan tujuh Facet fungsional, kontrak NFT dan reserve yang terpisah, mekanisme upgradabilitas yang terdefinisi, izin berbasis role, dan beberapa jenis saldo internal."
 icon: "cubes"
 ---
 
-
-Platform RWANFTFI dibangun di atas arsitektur smart contract yang kokoh, modular, dan aman, yang mengatur seluruh interaksi, distribusi, dan mekanika token tanpa kontrol terpusat.
+RWANFTFI menggunakan arsitektur [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535) Diamond dengan tujuh Facet fungsional, kontrak NFT dan reserve yang terpisah, mekanisme upgradabilitas yang terdefinisi, izin berbasis role, dan beberapa jenis saldo internal.
 
 <video
   autoPlay
@@ -17,114 +16,68 @@ Platform RWANFTFI dibangun di atas arsitektur smart contract yang kokoh, modular
   src="/bx2.mp4"
 />
 
-## Diamond Pattern (EIP-2535)
+## Facet Diamond
 
-Inti sistem RWANFTFI diimplementasikan menggunakan Diamond Pattern (EIP-2535). Pilihan arsitektur ini memungkinkan protokol untuk melewati batas ukuran smart contract standar (24KB) dengan memisahkan fungsionalitas ke beberapa modul independen yang disebut "Facet" (modul smart contract yang diakses melalui satu kontrak proxy tunggal).
+| Facet | Fungsi |
+|---|---|
+| AdminFacet | Role, parameter, transfer yang disetujui, dan pencetakan NFT khusus. |
+| MarketingFacet | Registrasi, pembelian NFT, dan perhitungan imbalan mitra. |
+| FarmingFacet | Mining NFTM dan Farming DA. |
+| PaymentFacet | Deposit, penarikan, voucher, dan transfer saldo. |
+| TreeFacet | Penempatan dan kedalaman jaringan mitra. |
+| ResolverFacet | Nilai kedaluwarsa, pemrosesan voucher, dan penyelesaian Frozen Balance. |
+| ViewFacet | Kueri read-only untuk data pengguna, saldo, dan jaringan. |
 
-## Facet Inti
+## Kontrak NFT
 
-<CardGroup cols={2}>
-  <Card title="AdminFacet" icon="gear">
-    Parameter sistem, role, penjualan bisnis, dan pencetakan NFT khusus.
-  </Card>
-  <Card title="MarketingFacet" icon="bullhorn">
-    Registrasi pengguna, pembelian NFT, dan distribusi imbalan marketing.
-  </Card>
-  <Card title="FarmingFacet" icon="seedling">
-    Manajemen siklus mining NFTM dan farming DA.
-  </Card>
-  <Card title="PaymentFacet" icon="wallet">
-    Deposit, penarikan, pembuatan Voucher, dan transfer akumulatif.
-  </Card>
-  <Card title="TreeFacet" icon="sitemap">
-    Logika pohon biner 22 level dan algoritma penempatan pengguna.
-  </Card>
-  <Card title="ResolverFacet" icon="rotate">
-    Pemrosesan stack DA kedaluwarsa, pembakaran Voucher, dan penyelesaian akun yang dibekukan.
-  </Card>
-  <Card title="ViewFacet" icon="eye">
-    Kueri read-only untuk data pengguna, saldo, dan struktur pohon.
-  </Card>
-</CardGroup>
-
-## Kontrak NFT & Ruang Token ID
-
-Protokol menggunakan tiga kontrak NFT yang berbeda (Reguler, Hadiah, Ambassador). Untuk mencegah tabrakan identifier dalam pemetaan on-chain `registeredTokens` yang melacak setiap NFT yang dicetak di seluruh sistem, **NFT Reguler dan NFT Hadiah dicetak ke ruang `tokenId` yang terpisah berdasarkan paritas**:
-
-- **NFT Reguler** — token ID ganjil (`1, 3, 5, 7, …`).
-- **NFT Hadiah** — token ID genap (`2, 4, 6, 8, …`).
-
-Pemisahan ditegakkan di dalam logika minter masing-masing kontrak NFT pada saat pencetakan. Karena pencetakan yang berhasil pada satu kontrak tidak akan pernah menghasilkan identifier yang dapat diterbitkan oleh kontrak lain, seluruh kelas bug tabrakan pemetaan dieliminasi pada tingkat sistem tipe — tidak ada penjaga runtime atau pemeriksaan deduplikasi per panggilan yang diperlukan. Pemisahan ini tidak terlihat oleh pengguna akhir: dompet dan marketplace tetap menampilkan setiap NFT di bawah kontrak aslinya.
+- NFT Reguler menggunakan token ID ganjil.
+- NFT Hadiah menggunakan token ID genap.
+- NFT Ambassador menggunakan kontrak dan konfigurasi terpisah.
 
 ## Matriks Upgradabilitas
 
-* **Diamond Contract (EIP-2535):** Dapat di-upgrade melalui Facet cuts — memungkinkan penambahan, penggantian, atau penghapusan modul individu tanpa menerapkan ulang seluruh sistem.
-* **TokenReserve (DA):** Dapat di-upgrade melalui Transparent Proxy — pembaruan logika dimungkinkan tanpa mengubah alamat kontrak.
-* **NFT (Reguler, Hadiah, Ambassador), GovToken, AdminContract:** Tidak dapat di-upgrade — memastikan ketidakberubahan aset inti dan aturan tata kelola.
+| Komponen | Model |
+|---|---|
+| Kontrak Diamond | Dapat di-upgrade melalui facet cuts. |
+| TokenReserve / DA | Dapat di-upgrade melalui mekanisme proxy yang terdokumentasi. |
+| Kontrak NFT | Terdokumentasi sebagai tidak dapat di-upgrade. |
+| GovToken | Terdokumentasi sebagai tidak dapat di-upgrade dengan pasokan tetap. |
+| AdminContract | Terdokumentasi sebagai tidak dapat di-upgrade. |
 
 ## Manajemen Role
 
-Sistem menggunakan struktur role hierarkis (AccessControlEnumerable) untuk mengelola izin secara aman:
-* `ADMIN_ROLE`: Dapat memberikan/mencabut role lain dan mengubah parameter sistem yang kritis.
-* `SERVICE_ROLE`: Dieksekusi oleh skrip backend untuk tugas otomatis (misalnya, menyelesaikan stack kedaluwarsa, memproses deposit lintas-rantai).
-* `SIGNER_ROLE`: Digunakan untuk verifikasi tanda tangan kriptografi guna mengotorisasi tindakan tertentu seperti transfer Voucher.
-* `MINTER_ROLE`: Diizinkan untuk mencetak token atau NFT tertentu.
+| Role | Wewenang yang Terdokumentasi |
+|---|---|
+| `ADMIN_ROLE` | Memberikan dan mencabut role; mengubah parameter protokol yang diizinkan. |
+| `SERVICE_ROLE` | Menjalankan operasi layanan otomatis dan lintas-rantai yang terdokumentasi. |
+| `SIGNER_ROLE` | Memverifikasi tanda tangan resmi untuk tindakan tertentu. |
+| `MINTER_ROLE` | Mencetak token atau tipe NFT yang ditetapkan untuk role tersebut. |
 
-## Skema Saldo & Prioritas Pembayaran
+## Skema Saldo
 
-Untuk mengelola aliran dana yang kompleks, RWANFTFI menerapkan skema saldo bertingkat dalam smart contract.
+| Saldo | Tujuan |
+|---|---|
+| Saldo Reguler | Penarikan, pembelian, dan voucher yang memenuhi syarat. |
+| Saldo Akumulatif | Saldo internal terbatas yang digunakan berdasarkan aturan pembelian, transfer, biaya, dan redistribusi yang terdokumentasi. |
+| Batas Reward Protokol | Sisa kelayakan reward untuk siklus NFT yang aktif; istilah on-chain: *Income Limit*. |
+| Saldo Cadangan Token | Saldo pool likuiditas yang ditunjuk untuk mendukung mekanika DA. |
+| Saldo Dev | Alokasi protokol dan operasional. |
+| Saldo Dampak Harga | Cadangan yang digunakan oleh fungsi dampak-harga yang terdokumentasi. |
 
-**Saldo Pengguna:**
-1. **Saldo Reguler (`balance`):** Dompet utama untuk USDT yang tersedia. Dana di sini dapat ditarik kapan saja, digunakan untuk membeli NFT, atau digunakan untuk membuat Voucher.
-2. **Saldo Akumulatif (`accumulativeBalance`):** Akun tabungan wajib di mana 20% dari setiap imbalan marketing dikreditkan segera saat akrual.
-   * **Penggunaan:** Hanya dapat digunakan untuk membeli NFT level yang sama atau membeli NFT level yang lebih tinggi.
-   * **Biaya:** Menggunakan saldo ini untuk pembelian NFT dikenakan biaya 20% yang **dialihkan ke DA Liquidity Pool**. Mentransfernya ke pengguna lain juga dikenakan biaya 20% yang **dialihkan ke DA Liquidity Pool**. Setiap pergerakan Saldo Akumulatif menghasilkan aliran masuk ke Pool dan menciptakan basis untuk DA baru.
-   * **Redistribusi 120 Hari:** Jika pengguna tidak menggunakan Saldo Akumulatif mereka dalam 120 hari, saldo yang tidak terpakai memenuhi syarat untuk redistribusi. Pembagian tergantung pada jenis NFT pengguna:
-     - **Pemegang NFT Reguler:** **70%** dialihkan ke DA Liquidity Pool untuk pencetakan token DA baru; **30%** ditransfer ke sponsor upline langsung pengguna.
-     - **Pemegang NFT Hadiah:** **80%** dialihkan ke DA Liquidity Pool; **20%** ditransfer ke sponsor upline langsung (diatur oleh parameter terpisah `accumulativeClaimDistributeGift`).
-     - **Aturan kaskade (kedua jenis):** Jika Batas Pendapatan sponsor upline habis (sama dengan nol), bagian sponsor diteruskan lebih jauh ke peserta berikutnya yang memenuhi syarat dalam struktur. Jika tidak ada peserta dalam rantai yang memiliki Batas Pendapatan aktif, seluruh jumlah dialihkan ke DA Liquidity Pool.
-
-   <Note>
-     **120 Hari = Jendela Minimum yang Dijamin, Bukan Kedaluwarsa Otomatis:** Parameter `accumulativeDecayTime` diperiksa **hanya di dalam `withdrawAccumulative()`** — jalur redistribusi yang dipicu admin/service. Parameter ini **tidak** dievaluasi pada jalur belanja atau transfer. Dalam praktiknya ini berarti:
-
-     - Selama 120 hari pertama setelah dikreditkan, Saldo Akumulatif **dijamin integritasnya** — tidak dapat diredistribusikan oleh siapa pun.
-     - Setelah hari ke-120, saldo menjadi **memenuhi syarat** untuk redistribusi, tetapi redistribusi tidak terjadi secara otomatis ketika timer berakhir. Itu hanya terjadi ketika `withdrawAccumulative()` dipanggil untuk pengguna tertentu oleh SERVICE_ROLE atau ADMIN_ROLE.
-     - **Sampai panggilan tersebut terjadi**, Saldo Akumulatif yang "kedaluwarsa" tetap dapat dibelanjakan untuk pembelian dan upgrade NFT serta dapat ditransfer ke pengguna lain di bawah aturan dan biaya standar.
-
-     Niat tim yang dinyatakan, tercatat dalam respons audit: *"Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Anggap 120 hari sebagai **jendela minimum yang dijamin sebelum kemungkinan redistribusi**, bukan sebagai cap waktu kedaluwarsa on-chain yang ketat.
-   </Note>
-3. **Limit (`limit`):** Mewakili pendapatan tersisa maksimum yang dapat dihasilkan oleh sebuah NFT.
-
-### Saldo Sistem
-
-Selain saldo pengguna, smart contract memelihara tiga saldo sistem internal:
-
-- **Dev Balance (`devBalance`):** Mengakumulasi biaya platform dan komisi untuk pendanaan operasional.
-- **Token Reserve Balance (`tokenReserveBalance`):** Kumpulan likuiditas USDT yang mendukung 100% token DA. Setiap sumber pendapatan dalam ekosistem mengalir ke kumpulan ini.
-- **Price Impact Balance (`priceImpactBalance`):** Cadangan khusus yang digunakan untuk mengelola stabilitas harga token DA selama peristiwa ekosistem tertentu.
-
-Saldo-saldo ini sepenuhnya dikelola oleh smart contract dan tidak dapat diakses oleh pengguna individu atau administrator mana pun.
-
-### Prioritas Pembayaran
-
-Saat melakukan pembelian, smart contract mengurangi dana dalam urutan ini:
+## Prioritas Pembayaran
 
 <Steps>
-  <Step title="Voucher (manual)">
-    Jika pengguna secara eksplisit menerapkan voucher saat checkout, nilainya digunakan terlebih dahulu. Voucher tidak diterapkan secara otomatis.
+  <Step title="Voucher valid yang dipilih">
+    Jika pengguna secara eksplisit menerapkan voucher yang valid saat checkout, nilainya digunakan terlebih dahulu.
   </Step>
   <Step title="Saldo Akumulatif">
-    Jika pengguna memilih untuk menggunakan Saldo Akumulatif, saldo tersebut diterapkan dengan cakupan 100% (jika cukup) atau dikombinasikan dengan Saldo Reguler. Biaya 20% dialihkan ke DA Liquidity Pool.
+    Diterapkan ketika memenuhi syarat dan dipilih, berdasarkan aturan biaya yang terdokumentasi.
   </Step>
   <Step title="Saldo Reguler">
     Jumlah yang tersisa dipotong dari Saldo Reguler.
   </Step>
 </Steps>
 
-<Warning>
-  Voucher Hadiah **tidak dapat** dikombinasikan dengan Saldo Akumulatif. Kombinasi yang valid: [Voucher + Reguler], [100% Akumulatif], atau [Akumulatif + Reguler].
-</Warning>
-
 <Note>
-  Semua transaksi di Binance Smart Chain memerlukan biaya gas jaringan standar yang dibayar dalam **BNB**. Pengguna harus menyimpan sejumlah kecil BNB di dompet mereka untuk mengeksekusi setiap operasi on-chain (pembelian, penarikan, transfer). Ini terpisah dari saldo USDT yang digunakan dalam ekosistem.
+  Semua transaksi di [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) memerlukan biaya gas jaringan standar yang dibayar dalam **BNB**, terpisah dari saldo [USDT](https://tether.to/) yang digunakan dalam ekosistem. Penerapan kontrak dan saldo dapat diverifikasi secara publik di [BscScan](https://bscscan.com/).
 </Note>

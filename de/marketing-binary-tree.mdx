@@ -1,26 +1,20 @@
 ---
-title: "Marketing-Struktur & Platzierung"
-description: "22-stufige Struktur mit Spillover."
+title: "Partnernetzwerk & Platzierung"
+description: "Das Partnernetzwerk ist ein Smart-Contract-Platzierungsregister. Wenn ein berechtigtes NFT aktiviert wird, erhält das Konto eine dauerhafte Position. Die Platzierung erfasst Netzwerkbeziehungen für Belohnungsberechnungen; eine Position allein erzeugt keine Belohnung."
 icon: "sitemap"
 ---
 
-Wenn ein Nutzer ein NFT aktiviert, wird er dauerhaft in eine Marketing-Struktur
-mit einer maximalen Tiefe von 22 Ebenen platziert – die bei vollständiger Befüllung
-bis zu **8.388.606 Positionen** umfasst.
+Das Partnernetzwerk ist das Platzierungsregister des Protokolls – eine On-Chain-Datenstruktur, die erfasst, wo sich jedes Konto befindet und welche Netzwerkbeziehungen in Belohnungsberechnungen einbezogen werden. Wenn ein berechtigtes NFT aktiviert wird, erhält das Konto eine dauerhafte Position. Platzierung, Netzwerktiefe und Belohnungsberechtigung folgen den aktiven Protokollregeln.
+
 <CardGroup cols={3}>
-  <Card title="Auto-Platzierung" icon="wand-magic-sparkles">
-    Der Smart Contract platziert neue Nutzer mit dem Algorithmus „schwächster Zweig,
-    von links nach rechts". Keine manuelle Positionierung erforderlich.
+  <Card title="Deterministische Platzierung" icon="wand-magic-sparkles">
+    Neue Registrierungen werden nach dem dokumentierten Schwächster-Zweig-Algorithmus des Vertrags platziert. Keine manuelle Positionierung.
   </Card>
-  <Card title="Permanente Verbindung" icon="link">
-    Jeder Teilnehmer ist dauerhaft mit seinem Sponsor verbunden.
-    Änderungen sind unmöglich – die Blockchain ist unveränderlich.
+  <Card title="Dauerhafter Eintrag" icon="link">
+    Eine Position ist ein dauerhafter Eintrag im On-Chain-Register; die Sponsor-Verbindung ändert sich nicht.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    Einladungen Ihrer Upline-Sponsoren können automatisch in IHRER Struktur landen.
-    Sie verdienen Tree-Distribution-Belohnungen aus Spillover unter den
-    standardmäßigen Marketing-Bedingungen – der Sponsor-Bonus geht jedoch
-    an den tatsächlichen Einlader, nicht an Sie.
+  <Card title="Keine Belohnung für Platzierung" icon="scale-balanced">
+    Eine Position allein zahlt nichts aus. Belohnungen erfordern qualifizierende Kaufereignisse, Stufenberechtigung und ein verbleibendes Protokoll-Belohnungslimit.
   </Card>
 </CardGroup>
 
@@ -34,73 +28,31 @@ bis zu **8.388.606 Positionen** umfasst.
   src="/banner_new_1.mp4"
 />
 
-## So funktioniert die Platzierung
+## Wie funktioniert die Platzierung?
+
 <Steps>
-  <Step title="Sie laden ein">
-    Ihre ersten 2 Einladungen füllen Ihre Ebene 1 (linke und rechte Position).
+  <Step title="Positionen der ersten Ebene füllen sich zuerst">
+    Die ersten direkten Registrierungen füllen die verfügbaren Positionen der ersten Ebene.
   </Step>
-  <Step title="Der Baum wächst nach unten">
-    Weitere Einladungen gehen in Ebene 2 unter dem schwächsten Zweig.
-    Ihre Struktur wächst exponentiell: 2 → 4 → 8 → 16 Positionen pro Ebene.
+  <Step title="Der Algorithmus platziert den Rest">
+    Weitere Registrierungen werden unter dem Zweig platziert, der vom dokumentierten Schwächster-Zweig-Algorithmus ausgewählt wird.
   </Step>
-  <Step title="Spillover füllt Lücken">
-    Wenn Ihre Upline-Sponsoren mehr Personen einladen, als ihre Ebene 1 aufnehmen kann,
-    fließen diese Nutzer in IHREN Baum über. Sie verdienen automatisch von ihnen.
+  <Step title="Automatisierte Platzierung kann kontoübergreifend erfolgen">
+    Der Algorithmus kann einen Teilnehmer im Netzwerk eines anderen Nutzers erfassen (Spillover). Dies ist ein buchhalterisches Ergebnis der automatisierten Platzierung, kein Belohnungsereignis.
   </Step>
-  <Step title="Sie verdienen aus der Tiefe">
-    Ihre NFT-Stufe bestimmt, wie tief Sie verdienen.
-    GENESIS verdient von 2 Ebenen. INFINITY verdient bis zu 22 Ebenen
-    (Ebenen 16–22 werden in Phase 2 per DAO-Governance-Abstimmung freigeschaltet).
+  <Step title="Platzierung allein erzeugt keine Belohnung">
+    Die Belohnungsberechtigung hängt von Stufe, Tiefe, qualifizierender Aktivität, der aktiven Phase und dem verbleibenden Protokoll-Belohnungslimit ab.
   </Step>
 </Steps>
 
-## Übersicht der Tree Distribution
+## Netzwerktiefe in Belohnungsberechnungen
 
-Jede Ebene der Marketing-Struktur hat eine feste Anzahl an Positionen und einen entsprechenden Belohnungsprozentsatz. Ihre NFT-Stufe bestimmt, wie tief Sie in dieser Struktur verdienen können.
+Jede NFT-Stufe definiert die maximale Netzwerktiefe, die in berechtigte Partnernetzwerk-Verteilungsberechnungen einbezogen wird. Die aktuellen Werte für Phase 1 sind in der [NFT-Stufentabelle](/de/nft-ecosystem#all-10-tiers-at-a-glance) aufgeführt. Die Ebenen 16–22 erfordern die dokumentierte Governance-Aktivierung.
 
-| Ebene | Anzahl Teilnehmer | Verteilung pro Ebene |
-|:-----:|:-----------------:|:--------------------:|
-| 1     | 2                 | 0 %                  |
-| 2     | 4                 | 1 %                  |
-| 3     | 8                 | 2 %                  |
-| 4     | 16                | 2 %                  |
-| 5     | 32                | 3 %                  |
-| 6     | 64                | 3 %                  |
-| 7     | 128               | 4 %                  |
-| 8     | 256               | 4 %                  |
-| 9     | 512               | 4 %                  |
-| 10    | 1.024             | 4 %                  |
-| 11    | 2.048             | 4 %                  |
-| 12    | 4.096             | 4 %                  |
-| 13    | 8.192             | 4 %                  |
-| 14    | 16.384            | 4 %                  |
-| 15    | 32.768            | **5 %**              |
-| 16    | 65.536            | 2 %                  |
-| 17    | 131.072           | 2 %                  |
-| 18    | 262.144           | 1 %                  |
-| 19    | 524.288           | 0,5 %                |
-| 20    | 1.048.576         | 0,5 %                |
-| 21    | 2.097.152         | 0,5 %                |
-| 22    | 4.194.304         | 0,5 %                |
+## Strukturelle Kapazität
+
+Das Register ist eine begrenzte Binärstruktur mit einer dokumentierten maximalen Tiefe von 22 Ebenen – einer fest definierten technischen Kapazität von 8.388.606 Positionen, ohne die Root-Position. Dieser Wert ist eine Eigenschaft der Datenstruktur, kein Teilnahmeziel und keine Prognose.
 
 <Tip>
-  Vollständige Details zu Belohnungsprozentsätzen, Kompressionsmechanik und dem Matching-Bonus-System finden Sie unter [Belohnungen & Vergütung](/de/marketing-rewards).
+  Für die Belohnungsarten, das Verteilungsbudget und die Berechtigungsregeln siehe [Belohnungen & Verteilung](/de/marketing-rewards).
 </Tip>
-
-<Info>
-  **Multi-Accounting ist strikt verboten.** Das System setzt eine Ein-Nutzer-Ein-Konto-Richtlinie
-  mit eingebautem Tracking durch.
-</Info>
-<Warning>
-  **Der Sponsor ist permanent.** Einmal im Baum platziert, kann Ihr Sponsor
-  nicht geändert werden. Wählen Sie weise, bevor Sie Ihr NFT aktivieren.
-</Warning>
-
-<Info>
-  **Der Sponsor muss ein aktiver Baumknoten sein.** Wenn ein neuer Nutzer über `registerUser()` registriert wird, akzeptiert der Smart Contract keine bestehende Nutzer-ID als Sponsor – der angegebene Sponsor muss ein **aktiver Knoten in der Marketing-Struktur** sein. Konkret muss der Sponsor:
-
-  - Ein **aktives NFT** im System halten und
-  - Im Baum als lebendiger Knoten **registriert** sein (Tree-Knoten aktiv).
-
-  Eine **reine Identitätszuordnung** – eine Wallet, der eine Nutzer-ID zugewiesen wurde, die aber derzeit kein aktives NFT hält – kann keine neuen Einladungen mehr sponsern. Dies verhindert, dass neue Teilnehmer unter inaktiven Sponsoren platziert werden, blockiert die Entstehung toter Zweige in der Struktur und bewahrt die Integrität des Belohnungsflusses jedes Teilbaums.
-</Info>

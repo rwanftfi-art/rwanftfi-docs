@@ -1,20 +1,20 @@
 ---
-title: "Estrutura de Marketing e Posicionamento"
-description: "A rede de parceiros é uma estrutura de posicionamento gerenciada pelo smart contract. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento, a profundidade da rede e a elegibilidade de recompensas seguem as regras vigentes do protocolo."
+title: "Rede de Parceiros e Posicionamento"
+description: "A rede de parceiros é um registro de posicionamento gerenciado pelo smart contract. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento registra relações de rede para os cálculos de recompensa; uma posição, por si só, não cria uma recompensa."
 icon: "sitemap"
 ---
 
-A rede de parceiros é uma estrutura de posicionamento gerenciada pelo smart contract. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento, a profundidade da rede e a elegibilidade de recompensas seguem as regras vigentes do protocolo.
+A rede de parceiros é o registro de posicionamento do protocolo — uma estrutura de dados on-chain que registra onde cada conta se posiciona e quais relações de rede são incluídas nos cálculos de recompensa. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento, a profundidade da rede e a elegibilidade de recompensas seguem as regras vigentes do protocolo.
 
 <CardGroup cols={3}>
-  <Card title="Posicionamento Automático" icon="wand-magic-sparkles">
-    Novos registros são posicionados sob o ramo selecionado pelo algoritmo vigente de ramo mais fraco.
+  <Card title="Posicionamento Determinístico" icon="wand-magic-sparkles">
+    Novos registros são posicionados pelo algoritmo documentado de ramo mais fraco do contrato. Sem posicionamento manual.
   </Card>
-  <Card title="Posição Permanente" icon="link">
-    Uma conta ativada recebe uma posição permanente na estrutura; o vínculo com o patrocinador não muda.
+  <Card title="Registro Permanente" icon="link">
+    Uma posição é um registro permanente no cadastro on-chain; o vínculo com o patrocinador não muda.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    O spillover pode posicionar um participante dentro da rede de outro usuário. O posicionamento, por si só, não garante uma recompensa.
+  <Card title="Sem Recompensa pelo Posicionamento" icon="scale-balanced">
+    Uma posição, por si só, não paga nada. As recompensas exigem eventos de compra elegíveis, elegibilidade de nível e Limite de Recompensas do Protocolo restante.
   </Card>
 </CardGroup>
 
@@ -34,25 +34,25 @@ A rede de parceiros é uma estrutura de posicionamento gerenciada pelo smart con
   <Step title="As posições de primeiro nível são preenchidas primeiro">
     Os primeiros registros diretos preenchem as posições disponíveis no primeiro nível.
   </Step>
-  <Step title="O algoritmo de ramo mais fraco posiciona o restante">
-    Novos registros são posicionados sob o ramo selecionado pelo algoritmo vigente de ramo mais fraco.
+  <Step title="O algoritmo posiciona o restante">
+    Novos registros são posicionados sob o ramo selecionado pelo algoritmo documentado de ramo mais fraco.
   </Step>
-  <Step title="O spillover pode ocorrer">
-    O spillover pode posicionar um participante dentro da rede de outro usuário.
+  <Step title="O posicionamento automatizado pode cruzar contas">
+    O algoritmo pode registrar um participante dentro da rede de outro usuário (spillover). Este é um resultado de registro do posicionamento automatizado, não um evento de recompensa.
   </Step>
-  <Step title="O posicionamento, por si só, não garante uma recompensa">
-    A elegibilidade depende do nível, da profundidade, da atividade qualificada, da fase vigente e do Limite de Recompensas do Protocolo restante.
+  <Step title="O posicionamento, por si só, não cria uma recompensa">
+    A elegibilidade de recompensa depende do nível, da profundidade, da atividade qualificada, da fase vigente e do Limite de Recompensas do Protocolo restante.
   </Step>
 </Steps>
 
-## Profundidade da Rede de Parceiros
+## Profundidade de Rede nos Cálculos de Recompensa
 
 Cada nível de NFT define a profundidade máxima de rede incluída nos cálculos elegíveis de Distribuição da Rede de Parceiros. Os valores vigentes da Fase 1 são exibidos na [tabela de níveis de NFT](/pt/nft-ecosystem#all-10-tiers-at-a-glance). Os Níveis 16–22 exigem a ativação documentada pela governança.
 
-## Capacidade da Rede
+## Capacidade Estrutural
 
-Uma estrutura binária completa de 22 níveis contém **8.388.606 posições** (mais de 8,3 milhões), excluindo a posição raiz.
+O registro é uma estrutura binária limitada, com profundidade máxima documentada de 22 níveis — uma capacidade técnica fixa de 8.388.606 posições, excluindo a posição raiz. Esse número é uma propriedade da estrutura de dados, não uma meta de participação ou uma projeção.
 
 <Tip>
-  Para taxas de recompensa, mecânica de compressão e o sistema de Matching Bonus, veja [Recompensas e Compensação](/pt/marketing-rewards).
+  Para os tipos de recompensa, o orçamento de distribuição e as regras de elegibilidade, veja [Recompensas e Distribuição](/pt/marketing-rewards).
 </Tip>

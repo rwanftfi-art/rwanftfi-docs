@@ -1,16 +1,25 @@
 ---
-title: "Récompenses & Compensation"
-description: "Le programme de partenaires utilise trois types de récompenses : Bonus de Sponsor, Distribution de l'Arbre, et Matching Bonus. Chaque récompense dépend du niveau de NFT, de la relation dans le réseau, de l'activité qualifiante, de la phase du protocole, et du Plafond de Récompenses du Protocole restant."
-icon: "money-bill-trend-up"
+title: "Récompenses & Distribution"
+description: "Le protocole distribue trois types de récompenses documentés — Bonus de Sponsor, Distribution du Réseau de Partenaires, et Matching Bonus — financés à partir des allocations d'achats de NFT qualifiants et bornés par les règles d'éligibilité et le Plafond de Récompenses du Protocole."
+icon: "award"
 ---
 
-Le programme de partenaires utilise trois types de récompenses : **Bonus de Sponsor**, **Distribution de l'Arbre**, et **Matching Bonus**. Chaque récompense dépend du niveau de NFT, de la relation dans le réseau, de l'activité qualifiante, de la phase du protocole, et du Plafond de Récompenses du Protocole restant.
+Les récompenses du protocole sont des distributions calculées par le smart contract à partir d'allocations documentées d'achats de NFT qualifiants. Ce ne sont ni des intérêts, ni un rendement, ni un retour sur investissement. Chaque récompense nécessite un événement d'achat qualifiant, une position éligible, et un Plafond de Récompenses du Protocole restant — et le montant total pouvant être distribué pour un achat donné est borné par le budget d'allocation du contrat.
+
+<Note>
+  **Comment les récompenses sont financées et bornées :**
+  - **Financées par événement.** Chaque récompense est calculée à partir d'un achat de NFT qualifiant spécifique selon les paramètres actuels du contrat — jamais à partir de nouveaux enregistrements ou d'un placement pris isolément.
+  - **Bornées par le budget.** Le budget de distribution de réseau est un résiduel calculé de l'allocation d'achat (voir [Paramètres du Contrat](/fr/contract-parameters)) ; le protocole ne distribue jamais plus que l'allocation documentée.
+  - **Bornées par les plafonds.** Les récompenses créditées consomment le Plafond de Récompenses du Protocole du bénéficiaire. Les montants qui ne peuvent pas être crédités suivent les règles de compression et de budget résiduel.
+</Note>
 
 ## Bonus de Sponsor
 
-Le Bonus de Sponsor est calculé à partir d'un achat direct de NFT qualifiant. Les taux actuels de la Phase 1 sont de **30 %** pour une nouvelle vente et **20 %** pour un rachat. Tout changement en Phase 2 nécessite l'activation documentée par la gouvernance.
+Une récompense calculée à partir d'un achat direct de NFT qualifiant, aux taux actuels de la Phase 1 : **30 %** pour un premier achat qualifiant et **20 %** pour un rachat. Tout changement en Phase 2 nécessite l'activation documentée par la gouvernance.
 
-## Distribution de l'Arbre
+## Distribution du Réseau de Partenaires (Distribution de l'Arbre)
+
+Un calcul de récompense par niveau à l'intérieur de la profondeur de réseau éligible du bénéficiaire :
 
 | Niveau de Réseau | Taux Actuel |
 |:---:|:---:|
@@ -24,15 +33,17 @@ Le Bonus de Sponsor est calculé à partir d'un achat direct de NFT qualifiant. 
 
 ## Matching Bonus
 
+Une récompense conditionnelle sur jusqu'à trois niveaux qualifiants :
+
 | Niveau Matching | Taux | Éligibilité |
 |:---:|:---:|---|
 | 1 | 5 % | Niveau de NFT éligible |
-| 2 | 5 % | 1 000 USDT de ventes personnelles cumulées |
-| 3 | 5 % | 3 000 USDT de ventes personnelles cumulées |
+| 2 | 5 % | 1 000 USDT de volume cumulé d'achats directs qualifiants |
+| 3 | 5 % | 3 000 USDT de volume cumulé d'achats directs qualifiants |
 
 ## Répartition Standard des Récompenses
 
-Les récompenses partenaires éligibles sont actuellement réparties selon l'allocation documentée **75/20/5** entre le Solde Régulier, le Solde Cumulatif, et le Pool de Liquidité du DA.
+Les récompenses protocolaires éligibles sont actuellement réparties selon l'allocation documentée **75/20/5** entre le Solde Régulier, le Solde Cumulatif, et le Pool de Liquidité du DA.
 
 ## Compression
 

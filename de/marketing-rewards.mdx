@@ -1,91 +1,50 @@
 ---
-title: "Belohnungen & Vergütung"
-description: "Wie Sie aus Ihrem Netzwerk verdienen."
-icon: "money-bill-trend-up"
+title: "Belohnungen & Verteilung"
+description: "Das Protokoll verteilt drei dokumentierte Belohnungsarten – Sponsor-Bonus, Partnernetzwerk-Verteilung und Matching Bonus – finanziert aus Zuweisungen qualifizierender NFT-Käufe und begrenzt durch Berechtigungsregeln und das Protokoll-Belohnungslimit."
+icon: "award"
 ---
 
-import { IncomeCalculator } from '/snippets/income-calculator.jsx'
-
-<CardGroup cols={2}>
-  <Card title="Phase 1 — Neuverkauf" icon="user-plus">
-    Der direkte Sponsor verdient 30 % des NFT-Verkaufspreises. Wiederholungskauf (Rebuy): 20 %.
-  </Card>
-  <Card title="Phase 2 — Angepasst" icon="arrows-rotate">
-    Der Neuverkauf passt sich auf 20 % an. Der Rebuy bleibt bei 20 %. Ebenen 16–22 vollständig freigeschaltet.
-  </Card>
-</CardGroup>
+Protokoll-Belohnungen sind Verteilungen, die der Smart Contract aus dokumentierten Zuweisungen qualifizierender NFT-Käufe berechnet. Sie sind keine Zinsen, keine Rendite und keine Kapitalerträge. Jede Belohnung setzt ein qualifizierendes Kaufereignis, eine berechtigte Position und ein verbleibendes Protokoll-Belohnungslimit voraus – und der Gesamtbetrag, der für einen Kauf verteilt werden kann, ist durch das Zuweisungsbudget des Vertrags begrenzt.
 
 <Note>
-  Der Übergang von Phase 1 zu Phase 2 (einschließlich der Anpassung des Sponsor-Bonus von 30 % auf 20 % und der Freischaltung der Baumebenen 16–22) wird durch DAO-Governance ausgeführt, nicht automatisch nach Datum. Die DAO-Abstimmung erfordert die standardmäßige Vorschlagsschwelle von 30 % und eine Mehrheitszustimmung von 50 %, um die Parameteränderungen in Kraft zu setzen.
+  **Wie Belohnungen finanziert und begrenzt werden:**
+  - **Pro Ereignis finanziert.** Jede Belohnung wird gemäß den aktuellen Vertragsparametern aus einem bestimmten qualifizierenden NFT-Kauf berechnet – niemals aus neuen Registrierungen oder Platzierungen allein.
+  - **Durch Budget begrenzt.** Das Verteilungsbudget für das Netzwerk ist ein berechneter Restbetrag der Kaufzuweisung (siehe [Vertragsparameter](/de/contract-parameters)); das Protokoll verteilt nie mehr als die dokumentierte Zuweisung.
+  - **Durch Limits begrenzt.** Angerechnete Belohnungen verbrauchen das Protokoll-Belohnungslimit des Empfängers. Beträge, die nicht angerechnet werden können, folgen den Kompressions- und Restbudgetregeln.
 </Note>
 
-Marketing-Belohnungen in RWANFTFI bestehen aus drei unabhängigen Strömen, die zusammen Ihr Gesamteinkommen bilden:
+## Sponsor-Bonus
 
-1. **Sponsor-Bonus** – Direkte Provision für die Einladung eines Partners (30 % Phase 1 / 20 % Phase 2 des NFT-Verkaufspreises).
-2. **Tree Distribution** – Belohnungen pro Ebene aus Ihrer Downline-Struktur (Ebenen 2–22, Prozentsätze variieren je nach Tiefe).
-3. **Matching Bonus** – Sekundäre 5 % + 5 % + 5 % aus dem Einkommen Ihrer direkten Partner über 3 Ebenen.
+Eine Belohnung, die aus einem qualifizierenden direkten NFT-Kauf berechnet wird, zu den aktuellen Phase-1-Sätzen: **30 %** für einen ersten qualifizierenden Kauf und **20 %** für einen Wiederholungskauf. Jede Änderung in Phase 2 erfordert die dokumentierte Governance-Aktivierung.
 
-Jeder Strom wird vom Smart Contract bei jedem qualifizierenden NFT-Kauf unabhängig berechnet und ausgezahlt.
+## Partnernetzwerk-Verteilung (Tree Distribution)
 
-## Tree Distribution
+Eine Belohnungsberechnung pro Ebene innerhalb der berechtigten Netzwerktiefe des Empfängers:
 
-Verdienen Sie einen Prozentsatz aus jedem NFT-Verkauf in Ihrer Downline, bis zu 22 Ebenen tief:
+| Netzwerkebene | Aktueller Satz |
+|:---:|:---:|
+| 1 | 0 % |
+| 2 | 1 % |
+| 3–4 | je 2 % |
+| 5–6 | je 3 % |
+| 7–14 | je 4 % |
+| 15 | 5 % |
+| 16–22 | 0 % bis zur Governance-Aktivierung |
 
-<AccordionGroup>
-  <Accordion title="Ebenen 1–6 · Einstiegsebenen" icon="layer-group">
-    - Ebene 1: 0 %
-    - Ebene 2: 1 %
-    - Ebenen 3–4: jeweils 2 %
-    - Ebenen 5–6: jeweils 3 %
-  </Accordion>
-  <Accordion title="Ebenen 7–15 · Kern-Verdiensttiefe" icon="chart-simple">
-    - Ebenen 7–14: jeweils 4 % (8 Ebenen × 4 % = Haupteinkommensquelle)
-    - Ebene 15: 5 % (höchster Prozentsatz auf einer einzelnen Ebene)
-  </Accordion>
-  <Accordion title="Ebenen 16–22 · Phase-2-Erweiterung" icon="unlock">
-    - Ebenen 16–17: jeweils 2 %
-    - Ebene 18: 1 %
-    - Ebenen 19–22: jeweils 0,5 %
+## Matching Bonus
 
-    *In Phase 2 per DAO-Governance-Abstimmung freigeschaltet (geplant für Q4 2026). Erfordert ein INFINITY-NFT für die volle Tiefe.*
-  </Accordion>
-</AccordionGroup>
+Eine bedingte Belohnung über bis zu drei qualifizierende Ebenen:
 
-<Info>
-  **Warum ist Ebene 1 = 0 %?** Tree Distribution und Sponsor-Bonus sind zwei separate Belohnungsströme. Ihre direkten Einladungen sitzen auf Ebene 1 Ihrer Marketing-Struktur, und Sie verdienen aus deren NFT-Kauf bereits einen Sponsor-Bonus (30 % in Phase 1, 20 % in Phase 2). Ebene 1 der Tree Distribution ist auf 0 % gesetzt, um eine Doppelvergütung zu verhindern. Tree-Distribution-Belohnungen beginnen ab Ebene 2 (1 %) und decken die Aktivität tiefer in Ihrer Struktur über Ihre persönlichen Einladungen hinaus ab.
-</Info>
+| Matching-Ebene | Satz | Berechtigung |
+|:---:|:---:|---|
+| 1 | 5 % | Berechtigte NFT-Stufe |
+| 2 | 5 % | 1.000 USDT kumuliertes Volumen qualifizierender Direktkäufe |
+| 3 | 5 % | 3.000 USDT kumuliertes Volumen qualifizierender Direktkäufe |
 
-<Note>
-  **Spillover auf Ebene 1 verdient direkt nichts.** Wenn ein Partner per Spillover auf Ihre Ebene 1 platziert wird (die Einladung Ihrer Upline landet in Ihrem Baum), verdienen Sie 0 % Sponsor-Bonus (er geht an den tatsächlichen Einlader) und 0 % Tree Distribution (Ebene 1 = 0 %). Der Wert des Spillovers wird ab Ebene 2 und tiefer realisiert – wenn diese Spillover-Partner ihre eigenen Teams aufbauen, generieren ihre Rekruten Tree-Distribution-Belohnungen für Sie.
-</Note>
+## Standard-Belohnungsaufteilung
+
+Berechtigte Protokoll-Belohnungen werden derzeit gemäß der dokumentierten **75/20/5**-Zuweisung zwischen Regulärem Guthaben, Akkumulativem Guthaben und dem DA-Liquiditätspool aufgeteilt.
 
 ## Kompression
 
-<Tip>
-  **Kompression arbeitet zu Ihren Gunsten.** Wenn jemand über Ihnen ein erschöpftes Einkommenslimit oder eine zu niedrige NFT-Stufe hat, werden seine Belohnungen nach oben komprimiert – möglicherweise zu Ihnen. Je tiefer der Marketing-Zugang Ihres NFTs reicht, desto mehr komprimierte Belohnungen können Sie einsammeln.
-</Tip>
-
-Wenn ein Nutzer in Ihrer Downline übersprungen wird (Einkommenslimit = 0 oder NFT-Stufe zu niedrig), wird die Belohnung an den nächsten qualifizierten Teilnehmer nach oben weitergegeben. Dies wird für den übersprungenen Nutzer als **Verlorenes Einkommen** markiert.
-
-
-## Matching Bonus (5 % + 5 % + 5 %)
-
-Verdienen Sie einen Prozentsatz des **NFT-Verkaufseinkommens**, das Ihre direkten Partner über 3 Ebenen generieren. Der Matching Bonus wird nur aus Marketing-Auszahlungen berechnet, die Ihr direkter Partner aus NFT-Verkäufen innerhalb seiner Struktur erhält – nicht aus anderen Einkommensströmen (Frozen-Balance-Freigaben, manuelle DA-Verkäufe usw.):
-
-<Steps>
-  <Step title="Ebene 1 — 5 %">
-    Erfordert mindestens ein NFT der Stufe 4 (ECLIPSE, 275 USDT).
-  </Step>
-  <Step title="Ebene 2 — 5 %">
-    Erfordert kumulative persönliche Verkäufe von 1.000 USDT.
-  </Step>
-  <Step title="Ebene 3 — 5 %">
-    Erfordert kumulative persönliche Verkäufe von 3.000 USDT.
-  </Step>
-</Steps>
-
-<Info>
-  **Was „kumulative persönliche Verkäufe" bedeuten:** Dies ist die laufende Lebenszeit-Gesamtsumme aller NFT-Käufe, die Ihre direkten Einladungen tätigen. Wiederholungskäufe (Rebuys, Upgrades) desselben Partners zählen zur Gesamtsumme, und Verkäufe an verschiedene Partner werden gemeinsam akkumuliert. Wenn beispielsweise ein Partner drei NFTs zu je 1.000 USDT kauft, beträgt Ihre kumulative Gesamtsumme 3.000 USDT – wodurch Matching-Bonus-Ebene 3 freigeschaltet wird. Sobald eine Schwelle erreicht ist, ist diese Matching-Bonus-Ebene **dauerhaft aktiv** und wird nicht zurückgesetzt.
-</Info>
-
-<IncomeCalculator />
+Wenn eine Netzwerkposition die geltenden Berechtigungsbedingungen nicht erfüllt, wird der Betrag gemäß den aktiven Kompressions- und Restbudgetregeln weitergeleitet. Die genaue Weiterleitung entspricht den aktuellen Vertragsparametern – siehe [Vertragsparameter](/de/contract-parameters).

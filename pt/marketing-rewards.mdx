@@ -1,16 +1,25 @@
 ---
-title: "Recompensas e Compensação"
-description: "O programa de parceiros utiliza três tipos de recompensa: Bônus de Patrocinador, Distribuição em Árvore e Matching Bonus. Cada recompensa depende do nível de NFT, da relação de rede, da atividade qualificada, da fase do protocolo e do Limite de Recompensas do Protocolo restante."
-icon: "money-bill-trend-up"
+title: "Recompensas e Distribuição"
+description: "O protocolo distribui três tipos documentados de recompensa — Bônus de Patrocinador, Distribuição da Rede de Parceiros e Matching Bonus — financiados a partir de alocações de compras elegíveis de NFT e limitados por regras de elegibilidade e pelo Limite de Recompensas do Protocolo."
+icon: "award"
 ---
 
-O programa de parceiros utiliza três tipos de recompensa: **Bônus de Patrocinador**, **Distribuição em Árvore** e **Matching Bonus**. Cada recompensa depende do nível de NFT, da relação de rede, da atividade qualificada, da fase do protocolo e do Limite de Recompensas do Protocolo restante.
+As recompensas do protocolo são distribuições calculadas pelo smart contract a partir de alocações documentadas de compras elegíveis de NFT. Elas não são juros, rendimento ou retorno sobre investimento. Toda recompensa exige um evento de compra elegível, uma posição elegível e Limite de Recompensas do Protocolo restante — e o total que pode ser distribuído para qualquer compra é limitado pelo orçamento de alocação do contrato.
+
+<Note>
+  **Como as recompensas são financiadas e limitadas:**
+  - **Financiadas por evento.** Cada recompensa é calculada a partir de uma compra elegível específica de NFT, conforme os parâmetros vigentes do contrato — nunca a partir de novos registros ou de posicionamento por si só.
+  - **Limitadas por orçamento.** O orçamento de distribuição em rede é um residual calculado da alocação da compra (veja [Parâmetros do Contrato](/pt/contract-parameters)); o protocolo nunca distribui mais do que a alocação documentada.
+  - **Limitadas por limites individuais.** As recompensas creditadas consomem o Limite de Recompensas do Protocolo do destinatário. Valores que não podem ser creditados seguem as regras de compressão e de orçamento residual.
+</Note>
 
 ## Bônus de Patrocinador
 
-O Bônus de Patrocinador é calculado a partir de uma compra direta elegível de NFT. As taxas atuais da Fase 1 são **30%** para uma nova venda e **20%** para uma recompra. Qualquer alteração na Fase 2 exige a ativação documentada pela governança.
+Uma recompensa calculada a partir de uma compra direta elegível de NFT, nas taxas atuais da Fase 1: **30%** para uma primeira compra elegível e **20%** para uma recompra. Qualquer alteração na Fase 2 exige a ativação documentada pela governança.
 
-## Distribuição em Árvore
+## Distribuição da Rede de Parceiros (Distribuição em Árvore)
+
+Um cálculo de recompensa por nível, dentro da profundidade de rede elegível do destinatário:
 
 | Nível de Rede | Taxa Atual |
 |:---:|:---:|
@@ -24,15 +33,17 @@ O Bônus de Patrocinador é calculado a partir de uma compra direta elegível de
 
 ## Matching Bonus
 
+Uma recompensa condicional distribuída em até três níveis elegíveis:
+
 | Nível de Matching | Taxa | Elegibilidade |
 |:---:|:---:|---|
 | 1 | 5% | Nível de NFT elegível |
-| 2 | 5% | 1.000 USDT em vendas pessoais cumulativas |
-| 3 | 5% | 3.000 USDT em vendas pessoais cumulativas |
+| 2 | 5% | 1.000 USDT em volume cumulativo de compras diretas elegíveis |
+| 3 | 5% | 3.000 USDT em volume cumulativo de compras diretas elegíveis |
 
 ## Divisão Padrão de Recompensas
 
-As recompensas elegíveis de parceiros são atualmente divididas conforme a alocação documentada de **75/20/5** entre Saldo Regular, Saldo Acumulativo e o Pool de Liquidez do DA.
+As recompensas elegíveis do protocolo são atualmente divididas conforme a alocação documentada de **75/20/5** entre Saldo Regular, Saldo Acumulativo e o Pool de Liquidez do DA.
 
 ## Compressão
 

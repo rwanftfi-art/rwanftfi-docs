@@ -1,20 +1,20 @@
 ---
-title: "Estructura de Marketing y Colocación"
-description: "La red de socios es una estructura de colocación gestionada por smart contract. Cuando se activa un NFT elegible, la cuenta recibe una posición permanente. La colocación, la profundidad de la red y la elegibilidad de recompensas siguen las reglas activas del protocolo."
+title: "Red de Socios y Colocación"
+description: "La red de socios es un registro de colocación gestionado por smart contract. Cuando se activa un NFT elegible, la cuenta recibe una posición permanente. La colocación registra las relaciones de red para los cálculos de recompensas; una posición por sí sola no genera una recompensa."
 icon: "sitemap"
 ---
 
-La red de socios es una estructura de colocación gestionada por smart contract. Cuando se activa un NFT elegible, la cuenta recibe una posición permanente. La colocación, la profundidad de la red y la elegibilidad de recompensas siguen las reglas activas del protocolo.
+La red de socios es el registro de colocación del protocolo — una estructura de datos on-chain que registra dónde se sitúa cada cuenta y qué relaciones de red se incluyen en los cálculos de recompensas. Cuando se activa un NFT elegible, la cuenta recibe una posición permanente. La colocación, la profundidad de la red y la elegibilidad de recompensas siguen las reglas activas del protocolo.
 
 <CardGroup cols={3}>
-  <Card title="Colocación Automática" icon="wand-magic-sparkles">
-    Los registros adicionales se colocan bajo la rama seleccionada por el algoritmo activo de rama más débil.
+  <Card title="Colocación Determinista" icon="wand-magic-sparkles">
+    Los nuevos registros se colocan mediante el algoritmo documentado de rama más débil del contrato. Sin posicionamiento manual.
   </Card>
-  <Card title="Posición Permanente" icon="link">
-    Una cuenta activada recibe una posición permanente en la estructura; el enlace de patrocinador no cambia.
+  <Card title="Registro Permanente" icon="link">
+    Una posición es una entrada permanente en el registro on-chain; el enlace de patrocinador no cambia.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    El spillover puede colocar a un participante dentro de la red de otro usuario. La colocación por sí sola no garantiza una recompensa.
+  <Card title="Sin Recompensa por Colocación" icon="scale-balanced">
+    Una posición por sí sola no paga nada. Las recompensas requieren eventos de compra calificados, elegibilidad de nivel y Límite de Recompensas del Protocolo restante.
   </Card>
 </CardGroup>
 
@@ -34,25 +34,25 @@ La red de socios es una estructura de colocación gestionada por smart contract.
   <Step title="Las posiciones de primer nivel se llenan primero">
     Los primeros registros directos llenan las posiciones disponibles de primer nivel.
   </Step>
-  <Step title="El algoritmo de rama más débil coloca el resto">
-    Los registros adicionales se colocan bajo la rama seleccionada por el algoritmo activo de rama más débil.
+  <Step title="El algoritmo coloca el resto">
+    Los registros adicionales se colocan bajo la rama seleccionada por el algoritmo documentado de rama más débil.
   </Step>
-  <Step title="Puede ocurrir spillover">
-    El spillover puede colocar a un participante dentro de la red de otro usuario.
+  <Step title="La colocación automatizada puede cruzar cuentas">
+    El algoritmo puede registrar a un participante dentro de la red de otro usuario (spillover). Este es un resultado contable de la colocación automatizada, no un evento de recompensa.
   </Step>
-  <Step title="La colocación por sí sola no garantiza una recompensa">
-    La elegibilidad depende del nivel, la profundidad, la actividad calificada, la fase activa y el Límite de Recompensas del Protocolo restante.
+  <Step title="La colocación por sí sola no genera una recompensa">
+    La elegibilidad de recompensa depende del nivel, la profundidad, la actividad calificada, la fase activa y el Límite de Recompensas del Protocolo restante.
   </Step>
 </Steps>
 
-## Profundidad de la Red de Socios
+## Profundidad de Red en los Cálculos de Recompensas
 
 Cada nivel de NFT define la profundidad máxima de red incluida en los cálculos elegibles de Distribución de la Red de Socios. Los valores actuales de la Fase 1 se muestran en la [tabla de niveles de NFT](/es/nft-ecosystem#los-10-niveles-de-un-vistazo). Los niveles 16–22 requieren la activación documentada por gobernanza.
 
-## Capacidad de la Red
+## Capacidad Estructural
 
-Una estructura binaria completa de 22 niveles contiene **8.388.606 posiciones** (más de 8,3 millones), excluyendo la posición raíz.
+El registro es una estructura binaria acotada con una profundidad máxima documentada de 22 niveles — una capacidad técnica fija de **8.388.606 posiciones**, excluyendo la posición raíz. Esta cifra es una propiedad de la estructura de datos, no un objetivo de participación ni una proyección.
 
 <Tip>
-  Para conocer las tasas de recompensa, la mecánica de compresión y el sistema de Matching Bonus, consulta [Recompensas y Compensación](/es/marketing-rewards).
+  Para conocer los tipos de recompensa, el presupuesto de distribución y las reglas de elegibilidad, consulta [Recompensas y Distribución](/es/marketing-rewards).
 </Tip>

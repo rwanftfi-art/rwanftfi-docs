@@ -1,20 +1,20 @@
 ---
-title: "Structure Marketing & Placement"
-description: "Le réseau de partenaires est une structure de placement gérée par le smart contract. Lorsqu'un NFT éligible est activé, le compte reçoit une position permanente. Le placement, la profondeur de réseau, et l'éligibilité aux récompenses suivent les règles actives du protocole."
+title: "Réseau de Partenaires & Placement"
+description: "Le réseau de partenaires est un registre de placement géré par le smart contract. Lorsqu'un NFT éligible est activé, le compte reçoit une position permanente. Le placement enregistre les relations de réseau pour les calculs de récompense ; une position à elle seule ne crée pas de récompense."
 icon: "sitemap"
 ---
 
-Le réseau de partenaires est une structure de placement gérée par le smart contract. Lorsqu'un NFT éligible est activé, le compte reçoit une position permanente. Le placement, la profondeur de réseau, et l'éligibilité aux récompenses suivent les règles actives du protocole.
+Le réseau de partenaires est le registre de placement du protocole — une structure de données on-chain qui enregistre la position de chaque compte et les relations de réseau incluses dans les calculs de récompense. Lorsqu'un NFT éligible est activé, le compte reçoit une position permanente. Le placement, la profondeur de réseau, et l'éligibilité aux récompenses suivent les règles actives du protocole.
 
 <CardGroup cols={3}>
-  <Card title="Placement Automatique" icon="wand-magic-sparkles">
-    Les enregistrements supplémentaires sont placés sous la branche sélectionnée par l'algorithme actif de la branche la plus faible.
+  <Card title="Placement Déterministe" icon="wand-magic-sparkles">
+    Les nouveaux enregistrements sont placés par l'algorithme documenté de la branche la plus faible du contrat. Aucun positionnement manuel.
   </Card>
-  <Card title="Position Permanente" icon="link">
-    Un compte activé reçoit une position permanente dans la structure ; le lien de sponsor ne change pas.
+  <Card title="Enregistrement Permanent" icon="link">
+    Une position est une entrée permanente dans le registre on-chain ; le lien de sponsor ne change pas.
   </Card>
-  <Card title="Spillover" icon="arrow-down">
-    Le Spillover peut placer un participant à l'intérieur du réseau d'un autre utilisateur. Le placement seul ne garantit pas de récompense.
+  <Card title="Aucune Récompense pour le Placement" icon="scale-balanced">
+    Une position à elle seule ne rapporte rien. Les récompenses nécessitent des événements d'achat qualifiants, une éligibilité de niveau, et un Plafond de Récompenses du Protocole restant.
   </Card>
 </CardGroup>
 
@@ -34,25 +34,25 @@ Le réseau de partenaires est une structure de placement gérée par le smart co
   <Step title="Les positions de premier niveau se remplissent en premier">
     Les premiers enregistrements directs remplissent les positions disponibles au premier niveau.
   </Step>
-  <Step title="L'algorithme de la branche la plus faible place le reste">
-    Les enregistrements supplémentaires sont placés sous la branche sélectionnée par l'algorithme actif de la branche la plus faible.
+  <Step title="L'algorithme place le reste">
+    Les enregistrements supplémentaires sont placés sous la branche sélectionnée par l'algorithme documenté de la branche la plus faible.
   </Step>
-  <Step title="Le Spillover peut se produire">
-    Le Spillover peut placer un participant à l'intérieur du réseau d'un autre utilisateur.
+  <Step title="Le placement automatisé peut traverser les comptes">
+    L'algorithme peut enregistrer un participant à l'intérieur du réseau d'un autre utilisateur (spillover). Il s'agit d'un résultat comptable du placement automatisé, pas d'un événement de récompense.
   </Step>
-  <Step title="Le placement seul ne garantit pas de récompense">
-    L'éligibilité dépend du niveau, de la profondeur, de l'activité qualifiante, de la phase active, et du Plafond de Récompenses du Protocole restant.
+  <Step title="Le placement seul ne crée pas de récompense">
+    L'éligibilité aux récompenses dépend du niveau, de la profondeur, de l'activité qualifiante, de la phase active, et du Plafond de Récompenses du Protocole restant.
   </Step>
 </Steps>
 
-## Profondeur du Réseau de Partenaires
+## Profondeur de Réseau dans les Calculs de Récompense
 
 Chaque niveau de NFT définit la profondeur maximale de réseau incluse dans les calculs éligibles de Distribution du Réseau de Partenaires. Les valeurs actuelles de la Phase 1 sont indiquées dans le [tableau des niveaux de NFT](/fr/nft-ecosystem#all-10-tiers-at-a-glance). Les niveaux 16 à 22 nécessitent l'activation documentée par la gouvernance.
 
-## Capacité du Réseau
+## Capacité Structurelle
 
-Une structure binaire complète à 22 niveaux contient **8 388 606 positions** (plus de 8,3 millions), hors position racine.
+Le registre est une structure binaire bornée avec une profondeur maximale documentée de 22 niveaux — une capacité technique fixe de 8 388 606 positions, hors position racine. Ce chiffre est une propriété de la structure de données, pas un objectif de participation ni une projection.
 
 <Tip>
-  Pour les taux de récompense, la mécanique de compression, et le système Matching Bonus, voir [Récompenses & Compensation](/fr/marketing-rewards).
+  Pour les types de récompense, le budget de distribution, et les règles d'éligibilité, voir [Récompenses & Distribution](/fr/marketing-rewards).
 </Tip>
