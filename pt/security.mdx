@@ -1,21 +1,29 @@
 ---
 title: "Segurança e Auditoria"
-description: "Auditado independentemente pela CertiK."
+description: "A CertiK revisou os smart contracts e a versão de código incluídos no escopo publicado da auditoria. O relatório final tem data de 28 de abril de 2026. O escopo da auditoria, os achados e o mapeamento de implantação são publicados junto com o relatório."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="Auditado pela CertiK" icon="shield-check">
-    Os smart contracts da RWANFTFI foram auditados independentemente pela **CertiK**. Relatório final publicado em **28 de abril de 2026** — PDF completo abaixo, e no [diretório público da CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="Revisado pela CertiK" icon="shield-check">
+    A CertiK revisou os smart contracts e a versão de código incluídos no escopo publicado da auditoria. O relatório final tem data de **28 de abril de 2026** — PDF completo abaixo, e no [diretório público da CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-A CertiK é uma das empresas de segurança mais consolidadas em Web3 e audita uma parcela significativa dos principais protocolos do espaço. A auditoria foi conduzida usando sua metodologia padrão — Análise Estática, Revisão Manual e Verificação Formal — e o relatório completo é publicado publicamente, tanto nesta página quanto no próprio diretório Skynet da CertiK.
+## Detalhes da Auditoria
 
-## Leia o Relatório
+| Item | Onde Verificar |
+|---|---|
+| Auditor | CertiK |
+| Data do relatório | 28 de abril de 2026 |
+| Commit auditado | O hash exato é indicado no relatório publicado. |
+| Contratos no escopo | Todos os contratos revisados estão listados no relatório publicado. |
+| Achados | ID, severidade e status estão listados no relatório publicado. |
+| Remediação | Cada achado resolvido está vinculado à alteração de código correspondente no relatório. |
+| Mapeamento de implantação | Se os contratos de produção atuais correspondem à versão auditada é publicado separadamente. |
+| Bug bounty | O status atual, verificável externamente, é publicado nos canais oficiais. |
 
-Você tem três maneiras independentes de interagir com a auditoria. O objetivo não é fornecer a mesma coisa três vezes — é para que não haja dúvida de que a versão nesta página corresponde à versão que a própria CertiK publica, e para que o relatório seja acessível independentemente do dispositivo.
+## Como posso verificar o relatório de auditoria?
 
 <CardGroup cols={3}>
   <Card title="Visualização Inline" icon="eye">
@@ -47,29 +55,26 @@ Você tem três maneiras independentes de interagir com a auditoria. O objetivo 
   **No Safari e na maioria dos navegadores móveis** a visualização inline pode não renderizar — esses navegadores não embutem PDFs diretamente. Use o botão **Baixar PDF** (ou o link dentro da área de visualização) para abrir o relatório em seu dispositivo.
 </Info>
 
-## Proteção da Conta
+<Note>
+  A auditoria cobre os smart contracts e a versão de código dentro do escopo publicado. Por si só, ela não verifica a economia do protocolo, o desempenho corporativo ou os resultados para o usuário.
+</Note>
 
-A auditoria cobre a camada on-chain dos smart contracts. Na camada de aplicação, as contas dos usuários são adicionalmente protegidas por vários mecanismos independentes:
+## Segurança de Conta em Três Níveis
 
-<CardGroup cols={2}>
-  <Card title="Segurança em Três Níveis" icon="layer-group">
-    Proteção em camadas separando login, ações financeiras e operações de alto valor.
-  </Card>
-  <Card title="Códigos TAN" icon="key">
-    Números de Autenticação de Transação de uso único exigidos para cada transação financeira.
-  </Card>
+<CardGroup cols={3}>
   <Card title="Senha Financeira" icon="fingerprint">
-    Uma senha separada das suas credenciais de login, exigida apenas para movimentar fundos.
+    Uma senha separada das credenciais de login, exigida para ações financeiras.
   </Card>
-  <Card title="2FA + Bot do Telegram" icon="telegram">
-    Autenticação de dois fatores padrão, mais verificação de ações através do bot oficial do Telegram.
+  <Card title="Códigos de Autorização de Transação" icon="key">
+    Códigos de uso único exigidos para autorizar transações financeiras.
+  </Card>
+  <Card title="Autenticação de Dois Fatores" icon="lock">
+    Autenticação de dois fatores suportada para proteção da conta.
   </Card>
 </CardGroup>
 
-<Info>
-  **As transações exigem uma carteira Web3.** Você pode entrar no painel com e-mail e senha para visualizar seus dados, mas a execução de qualquer ação financeira exige uma carteira Web3 conectada (MetaMask, Trust Wallet ou outra carteira compatível com EVM).
-</Info>
+## Proteção contra Phishing
 
 <Warning>
-  **Cuidado com impostores.** Os funcionários da RWANFTFI nunca entrarão em contato com você primeiro, nunca pedirão suas chaves privadas ou seed phrase, e nunca solicitarão pagamentos fora da plataforma oficial. Sempre verifique se você está em **rwanftfi.com** antes de conectar sua carteira ou inserir credenciais.
+  Use apenas domínios e endereços de contrato oficiais da RWANFTFI. Representantes da RWANFTFI nunca devem solicitar chaves privadas, seed phrases ou pagamentos para endereços de carteira não oficiais. Sempre verifique se você está em **rwanftfi.com** antes de conectar sua carteira ou inserir credenciais.
 </Warning>

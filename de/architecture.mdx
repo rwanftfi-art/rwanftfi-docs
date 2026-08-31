@@ -1,11 +1,10 @@
 ---
 title: "Smart-Contract-Architektur"
-description: "Diamond Pattern und 7 Facets."
+description: "RWANFTFI verwendet eine EIP-2535-Diamond-Architektur mit sieben funktionalen Facets, getrennten NFT- und Reserve-Verträgen, definierten Upgrade-Mechanismen, rollenbasierten Berechtigungen und mehreren internen Guthabentypen."
 icon: "cubes"
 ---
 
-
-Die RWANFTFI-Plattform basiert auf einer robusten, modularen und sicheren Smart-Contract-Architektur, die alle Interaktionen, Verteilungen und Token-Mechaniken ohne zentrale Steuerung regelt.
+RWANFTFI verwendet eine [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535)-Diamond-Architektur mit sieben funktionalen Facets, getrennten NFT- und Reserve-Verträgen, definierten Upgrade-Mechanismen, rollenbasierten Berechtigungen und mehreren internen Guthabentypen.
 
 <video
   autoPlay
@@ -17,114 +16,68 @@ Die RWANFTFI-Plattform basiert auf einer robusten, modularen und sicheren Smart-
   src="/bx2.mp4"
 />
 
-## Diamond Pattern (EIP-2535)
+## Diamond-Facets
 
-Der Kern des RWANFTFI-Systems ist mit dem Diamond Pattern (EIP-2535) implementiert. Diese architektonische Wahl ermöglicht es dem Protokoll, das standardmäßige Smart-Contract-Größenlimit (24 KB) zu umgehen, indem die Funktionalität auf mehrere unabhängige Module – sogenannte „Facets" (Smart-Contract-Module, auf die über einen einzelnen Proxy-Vertrag zugegriffen wird) – aufgeteilt wird.
+| Facet | Funktion |
+|---|---|
+| AdminFacet | Rollen, Parameter, genehmigte Übertragungen und das Prägen spezieller NFTs. |
+| MarketingFacet | Registrierung, NFT-Käufe und Berechnung der Partner-Belohnungen. |
+| FarmingFacet | NFTM-Mining und DA-Farming. |
+| PaymentFacet | Einzahlungen, Auszahlungen, Gutscheine und Guthabenübertragungen. |
+| TreeFacet | Platzierung und Tiefe im Partnernetzwerk. |
+| ResolverFacet | Abgelaufene Werte, Gutscheinverarbeitung und Auflösung des Frozen Balance. |
+| ViewFacet | Schreibgeschützte Abfragen zu Nutzern, Guthaben und Netzwerk. |
 
-## Kern-Facets
+## NFT-Verträge
 
-<CardGroup cols={2}>
-  <Card title="AdminFacet" icon="gear">
-    Systemparameter, Rollen, Geschäftsverkäufe und das Mintet spezieller NFTs.
-  </Card>
-  <Card title="MarketingFacet" icon="bullhorn">
-    Nutzerregistrierung, NFT-Käufe und Verteilung der Marketing-Belohnungen.
-  </Card>
-  <Card title="FarmingFacet" icon="seedling">
-    Verwaltung der NFTM-Mining- und DA-Farming-Zyklen.
-  </Card>
-  <Card title="PaymentFacet" icon="wallet">
-    Einzahlungen, Auszahlungen, Erstellung von Gutscheinen und akkumulative Übertragungen.
-  </Card>
-  <Card title="TreeFacet" icon="sitemap">
-    Logik des 22-stufigen Binärbaums und Algorithmen zur Nutzerplatzierung.
-  </Card>
-  <Card title="ResolverFacet" icon="rotate">
-    Verarbeitung abgelaufener DA-Stacks, Verbrennen von Gutscheinen und Auflösung eingefrorener Konten.
-  </Card>
-  <Card title="ViewFacet" icon="eye">
-    Lesezugriffe auf Nutzerdaten, Guthaben und Baumstrukturen.
-  </Card>
-</CardGroup>
-
-## NFT-Verträge & Token-ID-Räume
-
-Das Protokoll verwendet drei eigenständige NFT-Verträge (Regular, Gift, Ambassador). Um Identifikator-Kollisionen in der On-Chain-Mapping `registeredTokens`, das jedes geprägte NFT systemweit verfolgt, zu verhindern, **prägen Regular-NFTs und Gift-NFTs in getrennte `tokenId`-Räume, partitioniert nach Parität**:
-
-- **Regular NFT** – ungerade Token-IDs (`1, 3, 5, 7, …`).
-- **Gift NFT** – gerade Token-IDs (`2, 4, 6, 8, …`).
-
-Die Aufteilung wird innerhalb der Minter-Logik jedes NFT-Vertrags zum Zeitpunkt des Mintings durchgesetzt. Da ein erfolgreicher Mint auf einem Vertrag niemals einen Identifikator erzeugen kann, den der andere Vertrag jemals ausgeben könnte, wird eine ganze Klasse von Mapping-Kollisionsfehlern auf Typsystemebene eliminiert – kein Laufzeitschutz und keine Deduplizierungsprüfung pro Aufruf sind erforderlich. Die Partitionierung ist für Endnutzer unsichtbar: Wallets und Marktplätze zeigen weiterhin jedes NFT unter seinem nativen Vertrag an.
+- Reguläre NFTs verwenden ungerade Token-IDs.
+- Geschenk-NFTs verwenden gerade Token-IDs.
+- Ambassador-NFTs verwenden einen separaten Vertrag und eine eigene Konfiguration.
 
 ## Upgradability-Matrix
 
-* **Diamond Contract (EIP-2535):** Aktualisierbar über Facet Cuts – ermöglicht das Hinzufügen, Ersetzen oder Entfernen einzelner Module ohne erneutes Deployment des gesamten Systems.
-* **TokenReserve (DA):** Aktualisierbar über Transparent Proxy – Logik-Updates sind möglich, ohne die Vertragsadresse zu ändern.
-* **NFTs (Regular, Gift, Ambassador), GovToken, AdminContract:** Nicht aktualisierbar – gewährleistet die Unveränderlichkeit der Kernvermögenswerte und Governance-Regeln.
+| Komponente | Modell |
+|---|---|
+| Diamond-Vertrag | Aktualisierbar über Facet Cuts. |
+| TokenReserve / DA | Aktualisierbar über den dokumentierten Proxy-Mechanismus. |
+| NFT-Verträge | Dokumentiert als nicht aktualisierbar. |
+| GovToken | Dokumentiert als nicht aktualisierbar, mit fixem Angebot. |
+| AdminContract | Dokumentiert als nicht aktualisierbar. |
 
 ## Rollenverwaltung
 
-Das System nutzt eine hierarchische Rollenstruktur (AccessControlEnumerable), um Berechtigungen sicher zu verwalten:
-* `ADMIN_ROLE`: Kann andere Rollen vergeben/entziehen und kritische Systemparameter ändern.
-* `SERVICE_ROLE`: Wird von Backend-Skripten für automatisierte Aufgaben ausgeführt (z. B. Auflösung abgelaufener Stacks, Verarbeitung von Cross-Chain-Einzahlungen).
-* `SIGNER_ROLE`: Wird zur kryptografischen Signaturprüfung verwendet, um bestimmte Aktionen wie Gutscheinübertragungen zu autorisieren.
-* `MINTER_ROLE`: Berechtigt, bestimmte Tokens oder NFTs zu prägen.
+| Rolle | Dokumentierte Befugnis |
+|---|---|
+| `ADMIN_ROLE` | Rollen vergeben und entziehen; zulässige Protokollparameter ändern. |
+| `SERVICE_ROLE` | Führt dokumentierte automatisierte und Chain-übergreifende Service-Operationen aus. |
+| `SIGNER_ROLE` | Verifiziert autorisierte Signaturen für festgelegte Aktionen. |
+| `MINTER_ROLE` | Prägt den Token- oder NFT-Typ, der dieser Rolle zugewiesen ist. |
 
-## Guthaben-Schema & Zahlungspriorität
+## Guthaben-Schema
 
-Zur Verwaltung des komplexen Mittelflusses verwendet RWANFTFI ein mehrstufiges Guthaben-Schema innerhalb des Smart Contracts.
+| Guthaben | Zweck |
+|---|---|
+| Reguläres Guthaben | Berechtigte Auszahlungen, Käufe und Gutscheine. |
+| Akkumulatives Guthaben | Eingeschränktes internes Guthaben, das gemäß den dokumentierten Kauf-, Übertragungs-, Gebühren- und Umverteilungsregeln verwendet wird. |
+| Protokoll-Belohnungslimit | Verbleibende Belohnungsberechtigung für den aktiven NFT-Zyklus; On-Chain-Begriff: *Income Limit*. |
+| Token-Reserve-Guthaben | Designiertes Liquiditätspool-Guthaben zur Unterstützung der DA-Mechanik. |
+| Dev-Guthaben | Protokoll- und Betriebszuweisungen. |
+| Preiseinfluss-Guthaben | Reserve, die von dokumentierten Preiseinfluss-Funktionen verwendet wird. |
 
-**Nutzerguthaben:**
-1. **Reguläres Guthaben (`balance`):** Die primäre Wallet für verfügbares USDT. Mittel hier können jederzeit abgehoben, zum Kauf von NFTs oder zum Erstellen von Gutscheinen verwendet werden.
-2. **Akkumulatives Guthaben (`accumulativeBalance`):** Ein verpflichtendes Sparkonto, auf dem 20 % jeder Marketing-Belohnung sofort bei Anrechnung gutgeschrieben werden.
-   * **Verwendung:** Kann nur für den Kauf eines NFTs derselben Stufe oder eines NFTs einer höheren Stufe verwendet werden.
-   * **Gebühren:** Die Verwendung dieses Guthabens für NFT-Käufe ist mit einer 20 %-Gebühr verbunden, die **an den DA-Liquiditätspool weitergeleitet** wird. Die Übertragung an einen anderen Nutzer ist ebenfalls mit einer 20 %-Gebühr verbunden, die **an den DA-Liquiditätspool weitergeleitet** wird. Jede Bewegung des Akkumulativen Guthabens erzeugt einen Zufluss in den Pool und schafft die Grundlage für neue DA.
-   * **120-Tage-Umverteilung:** Wenn der Nutzer sein Akkumulatives Guthaben nicht innerhalb von 120 Tagen verwendet, wird das ungenutzte Guthaben für eine Umverteilung freigegeben. Die Aufteilung hängt vom NFT-Typ des Nutzers ab:
-     - **Inhaber von Regular NFTs:** **70 %** werden an den DA-Liquiditätspool zur Prägung neuer DA-Tokens weitergeleitet; **30 %** werden an den direkten Upline-Sponsor des Nutzers übertragen.
-     - **Inhaber von Gift NFTs:** **80 %** werden an den DA-Liquiditätspool weitergeleitet; **20 %** werden an den direkten Upline-Sponsor übertragen (geregelt durch den separaten Parameter `accumulativeClaimDistributeGift`).
-     - **Kaskadenregel (beide Typen):** Wenn das Einkommenslimit des Upline-Sponsors erschöpft ist (gleich null), wird der Sponsor-Anteil weiter nach oben an den nächsten berechtigten Teilnehmer in der Struktur weitergegeben. Wenn kein Teilnehmer in der Kette ein aktives Einkommenslimit hat, wird der gesamte Betrag an den DA-Liquiditätspool weitergeleitet.
-
-   <Note>
-     **120 Tage = garantiertes Mindestfenster, kein automatischer Verfall:** Der Parameter `accumulativeDecayTime` wird **nur innerhalb von `withdrawAccumulative()`** geprüft – dem von Admin/Service ausgelösten Umverteilungspfad. Er wird **nicht** auf den Ausgabe- oder Übertragungspfaden ausgewertet. In der Praxis bedeutet dies:
-
-     - In den ersten 120 Tagen nach einer Gutschrift ist die **Integrität des Akkumulativen Guthabens garantiert** – es kann von niemandem umverteilt werden.
-     - Nach dem 120. Tag wird das Guthaben für eine Umverteilung **freigegeben**, aber die Umverteilung erfolgt nicht automatisch nach Ablauf des Timers. Sie erfolgt nur, wenn `withdrawAccumulative()` für diesen spezifischen Nutzer durch SERVICE_ROLE oder ADMIN_ROLE aufgerufen wird.
-     - **Bis dieser Aufruf erfolgt**, bleibt ein „abgelaufenes" Akkumulatives Guthaben für NFT-Käufe und Upgrades ausgabbar und gemäß den Standardregeln und -gebühren auf andere Nutzer übertragbar.
-
-     Die in der Audit-Antwort festgehaltene Absicht des Teams: *„Our goal is to guarantee the user's funds' integrity for a certain period of time, not to give them a lifecycle."* Behandeln Sie 120 Tage als das **garantierte Mindestfenster vor möglicher Umverteilung**, nicht als harten On-Chain-Verfallszeitstempel.
-   </Note>
-3. **Limit (`limit`):** Repräsentiert das maximale verbleibende Einkommen, das ein NFT generieren kann.
-
-### Systemguthaben
-
-Zusätzlich zu den Nutzerguthaben verwaltet der Smart Contract drei interne Systemguthaben:
-
-- **Dev-Guthaben (`devBalance`):** Sammelt Plattformgebühren und Provisionen zur operativen Finanzierung.
-- **Token-Reserve-Guthaben (`tokenReserveBalance`):** Der USDT-Liquiditätspool, der den DA-Token zu 100 % deckt. Jede Einkommensquelle im Ökosystem fließt in diesen Pool.
-- **Price-Impact-Guthaben (`priceImpactBalance`):** Eine spezielle Reserve, die zur Steuerung der Preisstabilität des DA-Tokens während bestimmter Ökosystem-Ereignisse verwendet wird.
-
-Diese Guthaben werden vollständig vom Smart Contract verwaltet und sind für keinen einzelnen Nutzer oder Administrator zugänglich.
-
-### Zahlungspriorität
-
-Beim Kauf zieht der Smart Contract die Mittel in dieser Reihenfolge ab:
+## Zahlungspriorität
 
 <Steps>
-  <Step title="Gutscheine (manuell)">
-    Wenn der Nutzer beim Checkout ausdrücklich einen Gutschein einlöst, wird sein Wert zuerst verwendet. Gutscheine werden nicht automatisch angewendet.
+  <Step title="Ausgewählter gültiger Gutschein">
+    Wenn der Nutzer beim Checkout ausdrücklich einen gültigen Gutschein anwendet, wird dessen Wert zuerst verbraucht.
   </Step>
   <Step title="Akkumulatives Guthaben">
-    Wenn der Nutzer das Akkumulative Guthaben nutzen möchte, wird es zu 100 % Deckung angewendet (sofern ausreichend) oder mit dem Regulären Guthaben kombiniert. Die 20 %-Gebühr wird an den DA-Liquiditätspool weitergeleitet.
+    Wird angewendet, wenn berechtigt und ausgewählt, gemäß den dokumentierten Gebührenregeln.
   </Step>
   <Step title="Reguläres Guthaben">
     Jeder verbleibende Betrag wird vom Regulären Guthaben abgezogen.
   </Step>
 </Steps>
 
-<Warning>
-  Geschenkgutscheine **können nicht** mit dem Akkumulativen Guthaben kombiniert werden. Gültige Kombinationen: [Gutschein + Regulär], [100 % Akkumulativ] oder [Akkumulativ + Regulär].
-</Warning>
-
 <Note>
-  Alle Transaktionen auf der Binance Smart Chain erfordern Standard-Netzwerk-Gas-Gebühren, die in **BNB** gezahlt werden. Nutzer müssen einen kleinen Betrag BNB in ihrer Wallet halten, um On-Chain-Operationen (Käufe, Auszahlungen, Übertragungen) auszuführen. Dies ist getrennt von den USDT-Guthaben, die im Ökosystem verwendet werden.
+  Alle Transaktionen auf der [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) erfordern standardmäßige Netzwerk-Gas-Gebühren, die in **BNB** gezahlt werden – getrennt von den [USDT](https://tether.to/)-Guthaben, die innerhalb des Ökosystems verwendet werden. Vertragsbereitstellungen und Guthaben sind öffentlich auf [BscScan](https://bscscan.com/) überprüfbar.
 </Note>

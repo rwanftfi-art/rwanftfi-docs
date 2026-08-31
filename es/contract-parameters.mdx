@@ -1,199 +1,61 @@
 ---
 title: "Parámetros del Contrato"
-description: "Parámetros on-chain, rangos ajustables por DAO y garantías inmutables."
+description: "Valores on-chain actuales, rangos permitidos, constantes inmutables y los roles autorizados para modificar los parámetros ajustables."
 icon: "sliders"
 ---
 
-> ***"La confianza no es una promesa — es un parámetro, codificado en un smart contract auditado."***
->
-> **— RWANFTFI**
-
-Cada parámetro del ecosistema RWANFTFI está definido y aplicado por el smart contract. Cada parámetro es públicamente verificable on-chain. Un subconjunto de parámetros puede ser ajustado por la gobernanza DAO dentro de rangos de seguridad predefinidos. Los parámetros restantes están permanentemente codificados y no pueden ser modificados por nadie — incluidos los desarrolladores.
+Esta página enumera los valores on-chain actuales, los rangos permitidos, las constantes inmutables y los roles autorizados para modificar los parámetros ajustables.
 
 <CardGroup cols={3}>
-  <Card title="Ajustables por DAO" icon="sliders">
-    Parámetros que la gobernanza DAO puede modificar dentro de rangos de seguridad predefinidos.
+  <Card title="Ajustable por DAO" icon="sliders">
+    Parámetros que la gobernanza puede modificar dentro de los rangos on-chain documentados.
   </Card>
-  <Card title="Inmutables" icon="shield-halved">
-    Parámetros codificados que nunca pueden ser cambiados por nadie — incluidos los desarrolladores.
+  <Card title="Inmutable" icon="shield-halved">
+    Constantes fijadas en el código del smart contract.
   </Card>
-  <Card title="Verificados On-Chain" icon="link">
-    Todos los valores almacenados en smart contracts auditados, públicamente verificables en BscScan.
+  <Card title="Verificable On-Chain" icon="link">
+    Los valores actuales se almacenan en los contratos desplegados y son públicamente verificables en [BscScan](https://bscscan.com/).
   </Card>
 </CardGroup>
 
-## Distribución por Compra de NFT
+## Distribución de Compra de NFT
 
-Cuando un usuario compra un NFT, el pago se divide automáticamente entre múltiples destinos por el smart contract. La distribución difiere entre las primeras compras y las compras repetidas (rebuys).
-
-<Tabs>
-  <Tab title="Primera Compra">
-    | Parámetro | Actual | Rango |
-    |---|---|---|
-    | Bono de Patrocinador | 30% | 10% – 35% |
-    | Reserva de Token (Pool DA) | 0% | 0% – 30% |
-    | Operaciones de la Plataforma | 7% | 2% – 10% |
-    | Saldo Acumulativo | 20% | 15% – 30% |
-  </Tab>
-  <Tab title="Compra Repetida (Rebuy)">
-    | Parámetro | Actual | Rango |
-    |---|---|---|
-    | Bono de Patrocinador | 20% | 10% – 35% |
-    | Reserva de Token (Pool DA) | 10% | 10% – 30% |
-    | Operaciones de la Plataforma | 7% | 2% – 10% |
-    | Saldo Acumulativo | 20% | 15% – 30% |
-  </Tab>
-</Tabs>
+| Parámetro | Primera Compra | Recompra | Rango |
+|---|:---:|:---:|---|
+| Bono de Patrocinador | 30% | 20% | 10% – 35% |
+| Asignación a la Reserva de Tokens | 0% | 10% | Rango documentado |
+| Operaciones de la Plataforma | 7% | 7% | 2% – 10% |
+| Saldo Acumulativo | 20% | 20% | 15% – 30% |
+| Presupuesto de Distribución del Árbol | Residual calculado | Residual calculado | Derivado |
 
 ## Tarifas y Comisiones
 
-Todas las tarifas son aplicadas por el smart contract y ajustables dentro de los rangos definidos mediante gobernanza DAO.
-
 | Parámetro | Actual | Rango |
-|---|---|---|
+|---|:---:|---|
 | Tasa de Recompensas de Marketing | 5% | 5% – 15% |
 | Comisión de Transferencia Acumulativa | 20% | 10% – 30% |
-| Comisión de Uso Acumulativo (Compra de NFT) | 20% | 10% – 30% |
+| Comisión de Compra Acumulativa | 20% | 10% – 30% |
 | Comisión de Préstamo | 5% | 0% – 5% |
 | Comisión de Retirada | 0% | 0% – 5% |
-| Precio de Envío de Regalo | $0 | $0 – $25 |
-| Comisión de Venta de Negocio | $500 | $0 – $500 |
-| Saldo Congelado → Patrocinador | 30% | 0% – 30% |
+| Comisión de Transferencia de Negocio | 500 USDT | 0 – 500 USDT |
 
-<Note>
-  **Comisión de Préstamo - semántica:** El 5% se cobra **una vez, al emitirse el préstamo**, y se enruta directamente al Pool de Liquidez del DA. El reembolso - total o parcial - no activa la comisión de nuevo. El parámetro se almacena on-chain como un `loanFee` dedicado, separado de los demás parámetros de tarifa del protocolo, de modo que la DAO puede ajustar la economía del lending de forma independiente de los impuestos de marketing, las tarifas acumulativas o cualquier otra comisión.
-</Note>
-
-<Note>
-  **Comisión de Venta de Negocio — semántica:** La fila "Comisión de Venta de Negocio" es una **comisión de transferencia pagada por el vendedor** para ejecutar una transferencia de estructura empresarial. **No** es un precio de venta cobrado al comprador — el comprador no paga ninguna comisión on-chain al protocolo y recibe la estructura del árbol de socios al ejecutarse. El parámetro on-chain que rige esta comisión es `businessTransferFee` (renombrado desde el antiguo `businessSalePrice` para reflejar su verdadera semántica de comisión).
-</Note>
-
-## Temporizadores y Calendarios
-
-Los parámetros basados en tiempo controlan ventanas y plazos críticos del sistema en todo el ecosistema.
+## Temporizadores y Límites
 
 | Parámetro | Actual | Rango |
-|---|---|---|
+|---|:---:|---|
 | Vida del Saldo Acumulativo | 120 días | 90 – 180 días |
-| Ventana de Reclamo de NFTM | 72 horas | 24 – 96 horas |
-| NFT de Regalo por Dirección | 100 | 1 – 400 |
-| Venta de Negocio | Deshabilitada | Deshabilitada – Habilitada |
-
-### Períodos de Auto-Venta
-
-El ciclo de auto-venta se dispara progresivamente desde el saldo restante de DA si el usuario no vende manualmente. La duración total del ciclo es la suma de los cuatro períodos.
-
-| Período | Actual | Rango |
-|---|---|---|
-| Período 1 | 120 días | 60 – 120 días |
-| Período 2 | 90 días | 60 – 120 días |
-| Período 3 | 90 días | 60 – 120 días |
-| Período 4 | 65 días | 60 – 120 días |
-| **Ciclo Total** | **365 días** | — |
-
-## Redistribución de Saldo Expirado
-
-Cuando un Saldo Acumulativo expira (tras el período de vida), los fondos se redistribuyen según las siguientes reglas. La distribución difiere entre poseedores de NFT Regular y poseedores de NFT de Regalo.
-
-<Tabs>
-  <Tab title="NFT Regular">
-    | Destino | Actual | Rango |
-    |---|---|---|
-    | Patrocinador Upline | 30% | 0% – 30% |
-    | Plataforma | 0% | 0% – 30% |
-    | Pool de Liquidez del DA | 70% | 50% – 100% |
-  </Tab>
-  <Tab title="NFT de Regalo">
-    | Destino | Actual | Rango |
-    |---|---|---|
-    | Patrocinador Upline | 20% | 0% – 30% |
-    | Plataforma | 0% | 0% – 30% |
-    | Pool de Liquidez del DA | 80% | 50% – 100% |
-  </Tab>
-</Tabs>
-
-## Distribución del Árbol de Marketing
-
-Cada nivel de la estructura de marketing de 22 niveles tiene un porcentaje de recompensa fijo que determina cuánto gana un usuario por las ventas de NFT a esa profundidad. Los porcentajes son ajustables por DAO dentro de los rangos definidos. Los niveles 16–22 se desbloquean en la Fase 2.
-
-<AccordionGroup>
-  <Accordion title="Niveles 1–6 · Capas de Entrada" icon="layer-group">
-    | Nivel | Actual | Rango |
-    |---|---|---|
-    | Nivel 1 | 0% | 0% |
-    | Nivel 2 | 1% | 1% – 2% |
-    | Nivel 3 | 2% | 2% – 3% |
-    | Nivel 4 | 2% | 2% – 3% |
-    | Nivel 5 | 3% | 3% – 4% |
-    | Nivel 6 | 3% | 3% – 4% |
-  </Accordion>
-  <Accordion title="Niveles 7–15 · Profundidad Principal de Ingresos" icon="chart-simple">
-    | Nivel | Actual | Rango |
-    |---|---|---|
-    | Nivel 7 | 4% | 4% – 5% |
-    | Nivel 8 | 4% | 4% – 5% |
-    | Nivel 9 | 4% | 4% – 5% |
-    | Nivel 10 | 4% | 3% – 5% |
-    | Nivel 11 | 4% | 3% – 5% |
-    | Nivel 12 | 4% | 3% – 5% |
-    | Nivel 13 | 4% | 3% – 5% |
-    | Nivel 14 | 4% | 3% – 5% |
-    | Nivel 15 | 5% | 3% – 5% |
-  </Accordion>
-  <Accordion title="Niveles 16–22 · Expansión de Fase 2" icon="rocket">
-    | Nivel | Actual | Planificado (Fase 2) | Rango |
-    |---|---|---|---|
-    | Nivel 16 | 0% | 2% | 0% – 2,5% |
-    | Nivel 17 | 0% | 2% | 0% – 2,5% |
-    | Nivel 18 | 0% | 1% | 0% – 2,5% |
-    | Nivel 19 | 0% | 0,5% | 0% – 2,5% |
-    | Nivel 20 | 0% | 0,5% | 0% – 2,5% |
-    | Nivel 21 | 0% | 0,5% | 0% – 2,5% |
-    | Nivel 22 | 0% | 0,5% | 0% – 2,5% |
-
-    <Note>
-      **Actual = 0%** hasta que la Fase 2 sea activada por votación DAO (planificado **Q4 2026**). **Planificado (Fase 2)** = los valores que se espera que la DAO habilite en la activación. Todos los valores Planificados caen dentro del `Rango` on-chain, por lo que la activación no requiere ampliar ningún límite de parámetro.
-    </Note>
-  </Accordion>
-</AccordionGroup>
-
-<Note>
-  **Presupuesto de distribución del árbol vs límites por nivel.** Los porcentajes por nivel en las tablas anteriores representan el **pago máximo por nivel**. El **presupuesto total de distribución del árbol por compra de NFT es aproximadamente del 43%** (calculado como 100% menos Bono de Patrocinador, Reserva de Token / Pool DA, Operaciones de la Plataforma y Saldo Acumulativo). La diferencia aritmética entre la suma teórica por nivel (~48% en Fase 1, creciendo a ~55% si la Fase 2 se activa con los valores Planificados) y el presupuesto real ~43% se absorbe a través del **mecanismo de compresión**: cuando un usuario upline no califica (Límite de Ingresos agotado o nivel de NFT insuficiente para esa profundidad), la porción no asignada no se fuerza más arriba en el árbol — fluye hacia el residual de la plataforma / dev. En otras palabras, los porcentajes por nivel son un techo sobre lo que una posición totalmente elegible a cada profundidad puede ganar de una sola compra, no una garantía de que la suma total se pague al árbol en cada compra.
-</Note>
-
-### Umbrales del Bono de Igualación
-
-El Bono de Igualación paga un 5% en tres niveles de ingresos de socios directos. Cada nivel requiere ventas personales acumuladas para desbloquearse. El porcentaje de igualación (5%) es inmutable.
-
-| Nivel | Ventas Requeridas | Rango |
-|---|---|---|
-| Nivel 1 (5%) | $0 | Fijo |
-| Nivel 2 (5%) | $1.000 | $1.000 – $5.000 |
-| Nivel 3 (5%) | $3.000 | $3.000 – $7.000 |
+| Ventana de reclamo de NFTM | 72 horas | 24 – 96 horas |
+| NFT de Regalo por dirección | 100 | 1 – 400 |
+| Períodos de Auto-Sell | 120 / 90 / 90 / 65 días | Rangos documentados |
 
 ## Parámetros Inmutables
 
-<CardGroup cols={1}>
-  <Card title="Codificados en el Smart Contract" icon="shield-check">
-    Los siguientes parámetros están permanentemente fijados en el código del smart contract. No pueden ser modificados por la DAO, los desarrolladores ni ninguna otra parte.
-  </Card>
-</CardGroup>
-
 | Parámetro | Valor |
-|---|---|
-| Pago por Venta Manual | 75% |
-| Pago por Auto-Venta / Lending | 70% |
-| Ratio LTV | 70% (fijo) |
-| Bono de Igualación por Nivel | 5% |
-| Ventana de Saldo Congelado | 72 horas |
+|---|:---:|
+| Pago de Venta Manual | 75% |
+| Pago de Auto-Sell | 70% |
+| LTV | 70% |
+| Matching Bonus | 5% por nivel elegible |
+| Ventana de Frozen Balance | 72 horas |
 | Vida del Voucher | 365 días |
-| Bloqueo de Transferencia de Voucher | Último 1 día |
-| Umbral de Elegibilidad de Préstamo | 30 días |
-| Umbral de Inactividad DAO | 31 días |
-| Período de Gracia DAO | 7 días |
-
-<Note>
-  **Umbral de Elegibilidad de Préstamo - semántica:** **No** es una duración del préstamo. Es una **verificación on-chain continua ejecutada antes de cada nueva llamada a `loan()`** (`_getTimeToNextAutosale(stack) >= 30 days`): el lote de DA que se va a pigñorar debe tener aún al menos 30 días restantes hasta su próximo disparador de auto-venta programado, o la llamada se revierte. Un lote con 29 días o menos hasta su próximo disparador no puede usarse como colateral para un nuevo préstamo.
-
-  Esta es una **ventana de elegibilidad** que controla el acceso al producto, no un **plazo del préstamo** que controla la vida de un préstamo abierto. Una vez abierto el préstamo, el prestatario puede llamar a `repay()` en cualquier momento - total o parcialmente - siempre que el lote no haya cruzado su primer disparador de auto-venta. `repay()` sigue siendo invocable tras ese disparador también, pero el contrato primero ejecuta `_processExpiredStacks()` para liquidar todos los períodos cuyo límite ha pasado antes de que el reembolso continúe contra el resto post-quema.
-</Note>
+| Umbral de elegibilidad de préstamo | 30 días |

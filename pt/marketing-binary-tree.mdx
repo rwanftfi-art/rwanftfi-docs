@@ -1,26 +1,20 @@
 ---
 title: "Estrutura de Marketing e Posicionamento"
-description: "Estrutura de 22 níveis com spillover."
+description: "A rede de parceiros é uma estrutura de posicionamento gerenciada pelo smart contract. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento, a profundidade da rede e a elegibilidade de recompensas seguem as regras vigentes do protocolo."
 icon: "sitemap"
 ---
 
-Quando um usuário ativa um NFT, ele é permanentemente colocado em uma estrutura
-de marketing com profundidade máxima de 22 níveis — comportando até
-**8.388.606 posições** quando totalmente preenchida.
+A rede de parceiros é uma estrutura de posicionamento gerenciada pelo smart contract. Quando um NFT elegível é ativado, a conta recebe uma posição permanente. O posicionamento, a profundidade da rede e a elegibilidade de recompensas seguem as regras vigentes do protocolo.
+
 <CardGroup cols={3}>
   <Card title="Posicionamento Automático" icon="wand-magic-sparkles">
-    O smart contract posiciona novos usuários usando o algoritmo
-    "ramo mais fraco, da esquerda para a direita". Não é necessário posicionamento manual.
+    Novos registros são posicionados sob o ramo selecionado pelo algoritmo vigente de ramo mais fraco.
   </Card>
-  <Card title="Vínculo Permanente" icon="link">
-    Cada participante é permanentemente vinculado ao seu patrocinador.
-    Mudanças são impossíveis — a blockchain é imutável.
+  <Card title="Posição Permanente" icon="link">
+    Uma conta ativada recebe uma posição permanente na estrutura; o vínculo com o patrocinador não muda.
   </Card>
   <Card title="Spillover" icon="arrow-down">
-    Os convites dos seus patrocinadores upline podem cair na SUA estrutura automaticamente.
-    Você ganha recompensas de distribuição em árvore vindas do spillover sob os termos
-    padrão de marketing — o Bônus de Patrocinador, no entanto, vai para o convidador
-    real, não para você.
+    O spillover pode posicionar um participante dentro da rede de outro usuário. O posicionamento, por si só, não garante uma recompensa.
   </Card>
 </CardGroup>
 
@@ -34,73 +28,31 @@ de marketing com profundidade máxima de 22 níveis — comportando até
   src="/banner_new_1.mp4"
 />
 
-## Como Funciona o Posicionamento
+## Como funciona o posicionamento?
+
 <Steps>
-  <Step title="Você Convida">
-    Seus 2 primeiros convites preenchem seu Nível 1 (posição esquerda e direita).
+  <Step title="As posições de primeiro nível são preenchidas primeiro">
+    Os primeiros registros diretos preenchem as posições disponíveis no primeiro nível.
   </Step>
-  <Step title="A Árvore Cresce para Baixo">
-    Os próximos convites vão para o Nível 2 sob o ramo mais fraco.
-    Sua estrutura cresce exponencialmente: 2 → 4 → 8 → 16 posições por nível.
+  <Step title="O algoritmo de ramo mais fraco posiciona o restante">
+    Novos registros são posicionados sob o ramo selecionado pelo algoritmo vigente de ramo mais fraco.
   </Step>
-  <Step title="O Spillover Preenche Lacunas">
-    Quando seus patrocinadores upline convidam mais pessoas do que seu Nível 1 pode comportar,
-    esses usuários transbordam para a SUA árvore. Você ganha com eles automaticamente.
+  <Step title="O spillover pode ocorrer">
+    O spillover pode posicionar um participante dentro da rede de outro usuário.
   </Step>
-  <Step title="Você Ganha pela Profundidade">
-    O nível do seu NFT determina a profundidade até onde você ganha.
-    GENESIS ganha em 2 níveis. INFINITY ganha em até 22 níveis
-    (níveis 16–22 desbloqueados na Fase 2 via voto de governança da DAO).
+  <Step title="O posicionamento, por si só, não garante uma recompensa">
+    A elegibilidade depende do nível, da profundidade, da atividade qualificada, da fase vigente e do Limite de Recompensas do Protocolo restante.
   </Step>
 </Steps>
 
-## Visão Geral da Distribuição em Árvore
+## Profundidade da Rede de Parceiros
 
-Cada nível da estrutura de marketing tem um número fixo de posições e um percentual de recompensa correspondente. O nível do seu NFT determina a profundidade dentro dessa estrutura na qual você pode ganhar.
+Cada nível de NFT define a profundidade máxima de rede incluída nos cálculos elegíveis de Distribuição da Rede de Parceiros. Os valores vigentes da Fase 1 são exibidos na [tabela de níveis de NFT](/pt/nft-ecosystem#all-10-tiers-at-a-glance). Os Níveis 16–22 exigem a ativação documentada pela governança.
 
-| Nível | Número de participantes | Distribuição por nível |
-|:-----:|:----------------------:|:----------------------:|
-| 1     | 2                      | 0%                     |
-| 2     | 4                      | 1%                     |
-| 3     | 8                      | 2%                     |
-| 4     | 16                     | 2%                     |
-| 5     | 32                     | 3%                     |
-| 6     | 64                     | 3%                     |
-| 7     | 128                    | 4%                     |
-| 8     | 256                    | 4%                     |
-| 9     | 512                    | 4%                     |
-| 10    | 1.024                  | 4%                     |
-| 11    | 2.048                  | 4%                     |
-| 12    | 4.096                  | 4%                     |
-| 13    | 8.192                  | 4%                     |
-| 14    | 16.384                 | 4%                     |
-| 15    | 32.768                 | **5%**                 |
-| 16    | 65.536                 | 2%                     |
-| 17    | 131.072                | 2%                     |
-| 18    | 262.144                | 1%                     |
-| 19    | 524.288                | 0,5%                   |
-| 20    | 1.048.576              | 0,5%                   |
-| 21    | 2.097.152              | 0,5%                   |
-| 22    | 4.194.304              | 0,5%                   |
+## Capacidade da Rede
+
+Uma estrutura binária completa de 22 níveis contém **8.388.606 posições** (mais de 8,3 milhões), excluindo a posição raiz.
 
 <Tip>
-  Para detalhes completos sobre percentuais de recompensa, mecânica de compressão e o sistema de Bônus de Matching, veja [Recompensas e Compensação](/pt/marketing-rewards).
+  Para taxas de recompensa, mecânica de compressão e o sistema de Matching Bonus, veja [Recompensas e Compensação](/pt/marketing-rewards).
 </Tip>
-
-<Info>
-  **Múltiplas contas são estritamente proibidas.** O sistema impõe
-  uma política de um usuário, uma conta com rastreamento embutido.
-</Info>
-<Warning>
-  **O patrocinador é permanente.** Uma vez colocado na árvore, seu patrocinador
-  não pode ser alterado. Escolha com sabedoria antes de ativar seu NFT.
-</Warning>
-
-<Info>
-  **O patrocinador deve ser um nó ativo da árvore.** Quando um novo usuário é registrado por meio de `registerUser()`, o smart contract não aceita qualquer ID de usuário existente como patrocinador — o patrocinador fornecido deve ser um **nó ativo na estrutura de marketing**. Concretamente, o patrocinador deve:
-
-  - Possuir um **NFT ativo** no sistema, e
-  - Estar **registrado na árvore** como um nó vivo (tree node ativo).
-
-  Um **mapeamento somente de identidade** — uma carteira que recebeu um ID de usuário, mas que não possui atualmente um NFT ativo — não pode mais patrocinar novos convites. Isso evita que novos participantes sejam colocados sob patrocinadores inativos, bloqueia a criação de ramos mortos na estrutura e preserva a integridade do fluxo de recompensas de cada subárvore.
-</Info>
