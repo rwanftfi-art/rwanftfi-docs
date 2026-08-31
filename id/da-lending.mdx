@@ -1,294 +1,58 @@
 ---
 title: "Lending terhadap DA"
-description: "Ambil pinjaman USDT dengan LTV 70% tetap terhadap batch DA mana pun di TokenStack Anda. Bayar komisi 5% sekali bayar, kunci harga DA hari ini, dan lunasi penuh atau sebagian kapan saja sebelum stack memasuki siklus auto-sell-nya."
+description: "Pemegang NFT Premium dan Elite yang memenuhi syarat dapat menggunakan satu batch DA yang didukung penuh sebagai jaminan untuk pinjaman yang didenominasikan dalam USDT pada LTV 70% yang terdokumentasi."
 icon: "hand-holding-dollar"
 ---
 
+Pemegang NFT Premium dan Elite yang memenuhi syarat dapat menggunakan satu batch DA yang didukung penuh sebagai jaminan untuk pinjaman yang didenominasikan dalam USDT.
 
-Lending memungkinkan pemegang DA mengakses likuiditas USDT segera tanpa menjual aset dan tanpa melepaskan eksposur terhadap pertumbuhan harga DA di masa depan. Pinjaman dijaminkan oleh batch DA tertentu, dihargai pada saat penerbitan, dan dapat dilunasi penuh atau sebagian kapan saja sebelum stack yang dijaminkan memasuki siklus auto-sell-nya.
+## Parameter Pinjaman
 
-<CardGroup cols={2}>
-  <Card title="LTV 70% - Tetap" icon="percent">
-    Setiap pinjaman diterbitkan tepat sebesar 70% dari nilai USDT jaminan pada saat penerbitan. Tidak ada slider dan tidak ada rentang "hingga" - 70% adalah satu-satunya pengaturan.
-  </Card>
-  <Card title="Komisi 5% Sekali Bayar" icon="receipt">
-    Biaya 5% dikenakan sekali saat pinjaman dibuka dan diarahkan ke DA Liquidity Pool. Tidak ada biaya yang dikenakan saat pelunasan, baik penuh maupun sebagian.
-  </Card>
-  <Card title="Harga Dikunci pada Penerbitan" icon="lock">
-    Harga DA yang digunakan untuk semua perhitungan pinjaman dikunci dalam `loan.price` pada saat penerbitan. Bahkan jika DA naik 2x atau 10x setelahnya, utang USDT Anda tidak bertambah.
-  </Card>
-  <Card title="Tanpa Jangka Waktu Tetap" icon="clock-rotate-left">
-    Pinjaman tidak memiliki tanggal jatuh tempo. Pinjaman tetap terbuka sampai peminjam melunasinya, atau sampai batch yang dijaminkan memasuki siklus auto-sell-nya.
-  </Card>
-</CardGroup>
+| Parameter | Aturan Saat Ini |
+|---|---|
+| Tingkatan yang memenuhi syarat | L5–L10 |
+| Jaminan | Satu batch DA lengkap |
+| LTV | 70% |
+| Biaya penerbitan | 5% |
+| Referensi utang | Harga protokol DA yang dicatat saat penerbitan pinjaman |
+| Kelayakan pinjaman baru | Setidaknya 30 hari sebelum acara Auto-Sell berikutnya |
+| Penggunaan ulang batch | Satu pinjaman per batch |
+| Pelunasan | Pelunasan penuh atau sebagian |
 
-## Siapa yang dapat mengambil pinjaman?
+## Bagaimana pinjaman dihitung?
 
-Lending hanya tersedia bagi pemegang NFT tingkat Premium dan Elite (Level 5 ke atas). Tingkatan yang lebih rendah tidak menjalankan mining NFTM dan oleh karena itu tidak memiliki jaminan DA untuk dipinjam.
+Pinjaman bruto = DA jaminan × harga pinjaman yang dicatat × 70%.
 
-<CardGroup cols={3}>
-  <Card title="Tingkat Premium (L5-L8)" icon="gem">
-    Hydro, Quantum, Pulse, Aurora. Setiap siklus mining yang selesai menghasilkan batch DA yang memenuhi syarat untuk satu pinjaman.
-  </Card>
-  <Card title="Tingkat Elite (L9-L10)" icon="crown">
-    Flame, Infinity. Dua siklus mining per NFT - setiap siklus menghasilkan batch independennya sendiri dengan slot pinjaman independennya sendiri.
-  </Card>
-  <Card title="Batas Pendapatan Aktif" icon="signal-bars">
-    NFT yang meminjam harus memiliki Batas Pendapatan tersisa yang tidak nol. Lending dibatasi oleh model kelayakan yang sama seperti imbalan marketing.
-  </Card>
-</CardGroup>
+Biaya 5% saat ini dipotong saat penerbitan. Jumlah yang tersisa dikreditkan berdasarkan aturan saldo yang aktif.
 
-## Apa yang menjadi jaminan?
+## Snapshot Harga
 
-Pinjaman dijaminkan oleh **batch DA tertentu** - DA yang dikreditkan ke TokenStack dari satu siklus mining dan farming yang telah selesai. Seluruh batch adalah unit jaminan: peminjaman sebagian dari jumlah terhadap sebagian batch tidak didukung. Jika sebuah batch berisi 100 DA, pinjaman diterbitkan terhadap seluruh 100 DA sekaligus.
+Harga pinjaman yang dicatat tetap menjadi nilai referensi untuk perhitungan pelunasan. Perubahan harga protokol DA berikutnya tidak mengubah pokok pinjaman asli yang didenominasikan dalam USDT.
 
-<Info>
-  **Satu pinjaman per batch, selamanya.** Batch DA tertentu dapat berfungsi sebagai jaminan untuk paling banyak satu pinjaman sepanjang hidupnya. Setelah pinjaman itu dibuka - terlepas dari apakah kemudian dilunasi penuh, dilunasi sebagian, atau gagal bayar - batch tersebut tidak dapat dijaminkan lagi. Untuk membuka pinjaman lain, peminjam harus menambang dan menanam batch baru.
-</Info>
+## Pelunasan Sebagian
 
-## Bagaimana jumlah pinjaman dihitung?
+Peminjam dapat melunasi sebagian dari pokok yang belum dibayar untuk melepaskan jumlah jaminan tersisa secara proporsional. DA yang dilepaskan tetap tunduk pada jadwal batch aslinya.
 
-Smart contract menggunakan satu formula deterministik pada saat penerbitan:
+## Gagal Bayar & Pemrosesan Jaminan Progresif
 
-```
-usdAmount       = jaminan_DA × loan.price × 0.70
-fee             = usdAmount × 0.05
-borrowerPayout  = usdAmount - fee
-```
+Jika pinjaman tetap terbuka ketika batch memasuki Auto-Sell, DA yang dijaminkan diproses secara progresif sesuai jadwal standar. Peminjam dapat melunasi di antara batas periode untuk melepaskan jaminan yang belum diproses.
 
-`loan.price` adalah harga DA pada saat penerbitan. Nilai ini disimpan pada struct pinjaman dan tidak pernah berubah selama masa hidup pinjaman.
-
-<Steps>
-  <Step title="Batch dibuat">
-    Siklus mining selesai. Pengguna melakukan staking NFTM ke Farming. Setelah periode farming berakhir, 100 DA dikreditkan ke TokenStack baru di alamat pengguna.
-  </Step>
-  <Step title="Pengguna memanggil loan() terhadap batch">
-    Asumsikan harga DA saat ini adalah 1,00 USDT. Kontrak mencatat `loan.price = 1,00` pada struct pinjaman. `usdAmount = 100 × 1,00 × 0,70 = 70 USDT`.
-  </Step>
-  <Step title="Komisi 5% dipisahkan">
-    `fee = 70 × 0,05 = 3,50 USDT`. Sebesar 3,50 USDT segera diarahkan ke DA Liquidity Pool.
-  </Step>
-  <Step title="Peminjam menerima jumlah bersih">
-    `borrowerPayout = 70 - 3,50 = 66,50 USDT` dikreditkan ke Saldo Reguler peminjam. Batch 100 DA kini terkunci sebagai jaminan. Pinjaman terbuka.
-  </Step>
-</Steps>
-
-<Note>
-  **Perlindungan debu.** Smart contract menolak pinjaman di mana `borrowerPayout` akan dibulatkan ke 0 USDT setelah biaya 5%. Batch yang terlalu kecil untuk menghasilkan pembayaran bersih yang tidak nol tidak dapat dijaminkan.
-</Note>
-
-## Utang pinjaman dikunci dalam USDT
-
-Ini adalah sifat terpenting dari produk lending dan alasan utama pemegang DA memilih lending daripada menjual.
-
-**Jumlah yang harus dibayar saat pelunasan dihitung terhadap `loan.price`, bukan terhadap harga pasar DA saat ini.** Setelah pinjaman dibuka, utang peminjam didenominasikan dalam USDT pada snapshot harga yang diambil saat penerbitan. Kenaikan harga DA tidak meningkatkan utang.
-
-<Info>
-  **Contoh perhitungan - harga DA naik dua kali lipat selama pinjaman.**
-
-  - Hari 0: Harga DA adalah 1,00 USDT. Peminjam membuka pinjaman terhadap 100 DA. `loan.price = 1,00`. Peminjam menerima 66,50 USDT setelah biaya 5%.
-  - Hari 90: Harga pasar DA telah tumbuh menjadi 2,00 USDT. 100 DA yang sama kini bernilai 200 USDT di pasar.
-  - Hari 90: Peminjam memanggil `repay()` untuk saldo penuh. Kontrak menggunakan `loan.price = 1,00`, bukan harga pasar. Jumlah yang harus dibayar: `100 × 1,00 × 0,70 = 70 USDT`. Peminjam mengembalikan 70 USDT dan mengklaim kembali seluruh 100 DA. 100 DA tersebut bernilai 200 USDT pada harga pasar saat ini.
-</Info>
-
-Pada dasarnya, pinjaman memungkinkan pemegang mengekstrak likuiditas USDT pada harga hari ini sambil mempertahankan potensi kenaikan pada apresiasi DA di masa depan. Protokol tidak melakukan repricing utang seiring pertumbuhan DA.
-
-## Pintu kelayakan 30 hari
-
-Pinjaman hanya dapat dibuka terhadap batch DA yang masih memiliki setidaknya **30 hari tersisa hingga acara auto-sell terjadwal berikutnya untuk batch tersebut**. Pemeriksaan ini ditegakkan secara on-chain di dalam jalur penerbitan pinjaman:
-
-```
-require(_getTimeToNextAutosale(stack) >= 30 days)
-```
+## Ketentuan Lending Penting
 
 <Warning>
-  **Pintu kelayakan, bukan jangka waktu pinjaman.** Jendela 30 hari diperiksa **hanya saat penerbitan**. Setelah pinjaman terbuka, peminjam tidak berada dalam tenggat 30 hari - pinjaman tetap terbuka sampai pelunasan atau sampai siklus auto-sell batch dimulai. Batch dengan 29 hari atau kurang tersisa hingga pemicu auto-sell berikutnya tidak dapat digunakan sebagai jaminan untuk pinjaman baru, dan transaksi dibatalkan.
-</Warning>
-
-Aturan ini mencegah peminjam membuka pinjaman terhadap batch yang akan di-auto-sell dalam beberapa hari, yang secara ekonomis tidak dapat dibedakan dari penjualan dan tidak akan menawarkan jendela likuiditas yang berarti.
-
-## Pelunasan penuh
-
-Peminjam dapat menutup pinjaman kapan saja **selama stack yang dijaminkan masih aktif** - yaitu sebelum batch memasuki siklus auto-sell progresifnya. Pelunasan penuh mengembalikan `usdAmount` asli (pokok bruto saat penerbitan) dan melepaskan seluruh batch DA kembali ke TokenStack peminjam.
-
-**Komisi 5% tidak dikenakan lagi.** Komisi diambil sekali, saat penerbitan, dan bukan bagian dari perhitungan pelunasan.
-
-<Info>
-  **Contoh perhitungan - pelunasan penuh.**
-
-  - Pinjaman dibuka terhadap 100 DA dengan `loan.price = 1,00`. `usdAmount = 70 USDT`. Biaya sudah dibayar saat penerbitan.
-  - Peminjam memanggil `repay()` untuk saldo penuh dan mengembalikan 70 USDT.
-  - Kontrak melepaskan seluruh 100 DA kembali ke TokenStack peminjam. Pinjaman ditutup.
-</Info>
-
-## Pelunasan sebagian
-
-Peminjam juga dapat menebus **sebagian jaminan** kapan saja sebelum auto-sell, hanya membayar untuk jumlah DA yang mereka pilih untuk dilepaskan:
-
-```
-toPay = released_DA × loan.price × 0.70
-```
-
-DA yang dilepaskan kembali ke TokenStack asli. DA yang tersisa tetap terkunci sebagai jaminan terhadap utang yang berkurang secara proporsional. **Timer auto-sell untuk batch tidak diatur ulang** - stack melanjutkan jadwal yang ada.
-
-<Info>
-  **Contoh perhitungan - setengah jaminan ditebus.**
-
-  - Pinjaman dibuka terhadap 100 DA dengan `loan.price = 1,00`. Utang awal: 70 USDT terhadap jaminan 100 DA.
-  - 60 hari kemudian, peminjam ingin menebus setengah jaminan. Mereka memanggil `repay()` melepaskan 50 DA.
-  - `toPay = 50 × 1,00 × 0,70 = 35 USDT`. Peminjam mengembalikan 35 USDT.
-  - 50 DA dilepaskan kembali ke TokenStack asli. 50 DA yang tersisa tetap sebagai jaminan terhadap sisa utang 35 USDT.
-  - Timer auto-sell untuk batch melanjutkan dari awal aslinya: 60 hari telah berlalu terhadap jadwal periode yang ada.
-</Info>
-
-<Note>
-  **DA yang dilepaskan tetap dalam batch yang sama.** Token yang ditebus melalui pelunasan sebagian kembali ke TokenStack asli dan tetap tunduk pada jadwal auto-sell yang ada dari stack tersebut. Peminjam dapat menjualnya secara manual untuk pembayaran standar 75% atau membiarkan auto-sell dengan 70% ketika periode batch terpicu. Token tersebut tidak dapat digunakan sebagai jaminan untuk pinjaman baru - aturan "satu pinjaman per batch" berlaku untuk seluruh batch, bukan hanya untuk bagian yang saat ini dijaminkan.
-</Note>
-
-## Independensi multi-batch
-
-Setiap siklus mining menghasilkan batch DA baru, dan setiap batch adalah unit jaminan independen. Pemegang dapat secara bersamaan mengelola beberapa pinjaman, masing-masing terhadap batch yang berbeda, dengan setiap pinjaman memiliki:
-
-- Snapshot `loan.price` sendiri, diambil pada waktu penerbitannya sendiri
-- Komisi 5% sekali bayar sendiri, dibayar pada penerbitannya sendiri
-- Timer auto-sell sendiri, berjalan pada batch-nya sendiri
-- Kelayakan pelunasan, pelunasan sebagian, atau gagal bayar sendiri
-
-<CardGroup cols={3}>
-  <Card title="Batch A" icon="layer-group">
-    Pinjaman aktif terhadap batch penuh. Peminjam menerima USDT saat penerbitan dan memegang utang.
-  </Card>
-  <Card title="Batch B" icon="layer-group">
-    Dilunasi sebagian. Sebagian DA telah ditebus; sisanya masih dijaminkan terhadap utang yang berkurang.
-  </Card>
-  <Card title="Batch C" icon="layer-group">
-    Tidak ada pinjaman yang dibuka. DA sepenuhnya dimiliki pengguna dan berperilaku seperti stack DA normal, hanya tunduk pada jadwal auto-sell-nya sendiri.
-  </Card>
-</CardGroup>
-
-Gagal bayar pada Batch A tidak berpengaruh pada Batch B atau Batch C. Pembakaran progresif yang dijelaskan di bawah hanya berlaku untuk jaminan dari batch yang gagal bayar.
-
-## Gagal bayar - pembakaran jaminan progresif
-
-Jika peminjam tidak melunasi pinjaman sebelum stack yang dijaminkan memasuki siklus auto-sell-nya, jadwal empat periode standar (120 / 90 / 90 / 65 hari, total 365 hari) berlaku terhadap DA yang dijaminkan. Setiap periode membakar persentase dari **DA yang masih dijaminkan**:
-
-<Steps>
-  <Step title="Periode 1 - hari ke-120: 25% dari DA yang dijaminkan dibakar">
-    25% dari DA yang saat ini dijaminkan dibakar secara permanen. Nilai USDT yang sesuai pada `loan.price` diarahkan ke DA Liquidity Pool. Peminjam tidak menerima apa pun untuk bagian ini. Sisa utang dikurangi secara proporsional terhadap DA yang masih dijaminkan.
-  </Step>
-  <Step title="Periode 2 - hari ke-210 (+90 hari): 40% dari sisanya dibakar">
-    40% dari DA yang masih dijaminkan dibakar. Nilai USDT pada `loan.price` mengalir ke DA Liquidity Pool. Sisa utang dikurangi lagi.
-  </Step>
-  <Step title="Periode 3 - hari ke-300 (+90 hari): 50% dari sisanya dibakar">
-    50% dari DA yang masih dijaminkan dibakar. Nilai USDT pada `loan.price` mengalir ke DA Liquidity Pool.
-  </Step>
-  <Step title="Periode 4 - hari ke-365 (+65 hari): 100% dari sisanya dibakar">
-    Semua DA yang masih dijaminkan pada titik ini dibakar. Posisi pinjaman sepenuhnya ditutup. Peminjam menyimpan USDT yang diterima saat penerbitan.
-  </Step>
-</Steps>
-
-**Contoh perhitungan - gagal bayar penuh pada pinjaman 100 DA / 70 USDT dengan `loan.price = 1,00`.**
-
-| Peristiwa | DA dijaminkan sebelum | DA dibakar | USDT ke Pool | DA dijaminkan setelah | Sisa utang |
-|---|---|---|---|---|---|
-| Penerbitan (hari 0) | - | - | - | 100 | 70,00 |
-| Periode 1 (hari 120) | 100 | 25 | 17,50 | 75 | 52,50 |
-| Periode 2 (hari 210) | 75 | 30 | 21,00 | 45 | 31,50 |
-| Periode 3 (hari 300) | 45 | 22,5 | 15,75 | 22,5 | 15,75 |
-| Periode 4 (hari 365) | 22,5 | 22,5 | 15,75 | 0 | 0 |
-
-<Info>
-  Jika peminjam tidak mengambil tindakan pemulihan selama keempat periode, mereka menyimpan 66,50 USDT asli yang diterima saat penerbitan dan seluruh jaminan 100 DA dibakar selama siklus 365 hari. Semua DA yang dibakar dihapus secara permanen dari pasokan; semua USDT yang diarahkan ke Pool memperkuat pendukung DA untuk seluruh ekosistem.
-</Info>
-
-<Warning>
-  **Peminjam tidak menerima USDT dari batch yang gagal bayar.** Selama gagal bayar, 100% hasil yang dapat diatribusikan pada jaminan yang dibakar diarahkan ke DA Liquidity Pool, bukan ke Saldo Reguler peminjam. Pemulihan ekonomi satu-satunya peminjam dari batch yang gagal bayar adalah USDT yang diterima saat penerbitan.
-</Warning>
-
-## Pemulihan sebagian selama gagal bayar
-
-Gagal bayar bersifat progresif, bukan semuanya atau tidak sama sekali. **Kapan saja di antara periode auto-sell, peminjam masih dapat memanggil `repay()` dan mengklaim kembali DA yang masih dijaminkan** dengan hanya membayar untuk apa yang masih dijaminkan.
-
-<Info>
-  **Contoh perhitungan - pemulihan setelah Periode 1.**
-
-  - Peminjam membuka pinjaman terhadap 100 DA dengan `loan.price = 1,00`. Utang awal: 70 USDT.
-  - Peminjam tidak melunasi. Periode 1 terpicu pada hari ke-120: 25 DA dibakar, 17,50 USDT diarahkan ke Pool. Sisa yang dijaminkan: 75 DA. Sisa utang: 52,50 USDT.
-  - Pada hari ke-150, sebelum Periode 2 terpicu, peminjam memutuskan untuk memulihkan apa yang tersisa. Mereka memanggil `repay()` untuk saldo tersisa penuh.
-  - `toPay = 75 × 1,00 × 0,70 = 52,50 USDT`. Peminjam mengembalikan 52,50 USDT. Kontrak melepaskan 75 DA kembali ke TokenStack peminjam. Pinjaman ditutup.
-  - 25 DA yang dibakar pada Periode 1 hilang secara permanen - tidak dapat dipulihkan.
-</Info>
-
-<Note>
-  **Perilaku `repay()` setelah auto-sell dimulai.** Ketika `repay()` dipanggil pada stack yang telah memasuki siklus auto-sell, kontrak pertama menjalankan `_processExpiredStacks()` untuk menyelesaikan setiap periode yang batasnya telah terlewati. Setelah penyelesaian itu, panggilan dilanjutkan terhadap jaminan pasca-pembakaran dan utang pasca-pembakaran. Peminjam **tidak dapat** menggunakan `repay()` untuk "melompati" pembakaran yang telah terpicu, tetapi mereka **dapat** menghentikan pembakaran **berikutnya** dengan melunasi sebelum batas periodenya.
-</Note>
-
-## Mekanika penjualan pasca-pemulihan
-
-DA yang diklaim kembali melalui pelunasan penuh atau sebagian kembali ke TokenStack peminjam dan berperilaku persis seperti DA normal ke depannya. DA dapat:
-
-- **Dijual secara manual** dengan 75% dari **harga pasar saat ini** dalam USDT (100% DA yang terjual dibakar)
-- **Disimpan** sampai jadwal auto-sell batch mencapai periode berikutnya
-- **Dibiarkan auto-sell** dengan pembayaran standar 70% ketika periodenya terpicu
-
-Batas Pendapatan pada NFT pemegang dikonsumsi terhadap **nilai pasar saat ini** dari DA yang dijual, bukan terhadap `loan.price`.
-
-<Info>
-  **Contoh perhitungan - menjual DA yang diklaim kembali setelah pertumbuhan harga.**
-
-  - Peminjam membuka pinjaman terhadap 100 DA dengan `loan.price = 1,00`. Menerima 66,50 USDT.
-  - 90 hari kemudian, harga pasar telah tumbuh menjadi 2,00 USDT. Peminjam melunasi penuh: mengembalikan 70 USDT, mengklaim kembali 100 DA.
-  - Peminjam kemudian menjual 100 DA tersebut secara manual. Nilai pasar: 100 DA × 2,00 USDT = 200 USDT.
-    - Peminjam menerima `200 × 0,75 = 150 USDT` di Saldo Reguler mereka.
-    - Semua 100 DA dibakar.
-    - Selisih 50 USDT (200 - 150) tetap di Pool sebagai komisi protokol.
-    - **Batas Pendapatan berkurang sebesar nilai pasar penuh 200 USDT dari penjualan**, bukan sebesar 100 USDT yang sesuai dengan `loan.price`.
-</Info>
-
-Inilah alasan struktural mengapa lending menarik dalam skala besar: peminjam mengunci likuiditas pada harga hari ini, mempertahankan potensi kenaikan pada apresiasi DA, dan hanya mengonsumsi Batas Pendapatan pada nilai yang benar-benar terealisasi pada saat penjualan.
-
-## Parameter lending sekilas
-
-| Parameter | Nilai | Mutabilitas |
-|---|---|---|
-| LTV | 70% | Tidak Dapat Diubah |
-| Komisi lending (`loanFee`) | 5% | Dapat Disesuaikan DAO (0% - 5%) |
-| Tujuan komisi | DA Liquidity Pool | Tidak Dapat Diubah |
-| Pintu kelayakan (waktu-ke-auto-sell-berikutnya) | 30 hari | Tidak Dapat Diubah |
-| Jangka waktu pinjaman | Tidak ada (sampai auto-sell atau pelunasan) | Struktural |
-| Referensi harga untuk utang | `loan.price` saat penerbitan | Struktural |
-| Pinjaman per batch | 1 (seumur hidup) | Struktural |
-| Tujuan hasil gagal bayar | DA Liquidity Pool | Struktural |
-| Biaya pelunasan | Tidak ada | Struktural |
-| Tingkatan NFT minimum | L5 (Hydro) | Tidak Dapat Diubah |
-
-Parameter `loanFee` diatur secara independen dari semua biaya protokol lainnya sehingga DAO dapat menyetel ekonomi lending tanpa menyentuh pajak marketing, biaya akumulatif, atau komisi lainnya.
-
-## Kesalahan umum
-
-<Warning>
-  **Anda tidak dapat menjaminkan batch yang sama dua kali.** Bahkan setelah pelunasan penuh, slot lending batch telah terpakai. Untuk membuka pinjaman baru, tambang dan tanam batch baru.
-</Warning>
-
-<Warning>
-  **Anda tidak dapat menjaminkan batch dalam 30 hari dari pemicu auto-sell berikutnya.** Rencanakan pinjaman terhadap batch segar - jalur penerbitan pinjaman dibatalkan pada batch dengan kurang dari 30 hari tersisa hingga acara auto-sell berikutnya.
-</Warning>
-
-<Warning>
-  **Pembakaran yang telah terpicu tidak dapat dibatalkan.** Pemulihan sebagian selama gagal bayar dimungkinkan, tetapi setiap periode yang telah terlewati telah membakar bagiannya dari jaminan secara permanen. Lunasi sebelum periode berikutnya jika Anda ingin menyelamatkan apa yang tersisa.
-</Warning>
-
-<Warning>
-  **Batas Pendapatan dikonsumsi terhadap nilai pasar saat ini, bukan terhadap `loan.price`.** Batch yang diklaim kembali yang dijual setelah pertumbuhan harga DA yang besar akan mengonsumsi Batas Pendapatan proporsional dengan nilai pasar baru. Pertahankan NFT diperbarui agar pembayaran yang lebih tinggi benar-benar dikreditkan.
+  - Satu batch DA hanya dapat dijaminkan satu kali.
+  - Pinjaman harus dibuka sebelum tenggat kelayakan saat ini.
+  - Jadwal Auto-Sell asli tidak diatur ulang.
+  - Hanya batch yang dijaminkan yang terpengaruh oleh pemrosesan gagal bayar.
 </Warning>
 
 ## Halaman terkait
 
 <CardGroup cols={2}>
-  <Card title="Mekanika Penjualan" icon="fire" href="/id/da-selling-lending">
-    Penjualan manual 75%, auto-sell 70%, dan bagaimana siklus auto-sell empat periode berinteraksi dengan gagal bayar lending.
+  <Card title="Penjualan & Lending" icon="fire" href="/id/da-selling-lending">
+    Penjualan manual, penjadwalan Auto-Sell, dan bagaimana pembayaran penjualan DA berinteraksi dengan Batas Reward Protokol.
   </Card>
-  <Card title="Ekonomi Token DA" icon="coins" href="/id/da-token-mechanics">
-    Hard cap 21M, formula `Harga = Likuiditas ÷ Pasokan`, dan setiap aliran pendapatan yang mengisi Pool.
+  <Card title="Mekanika Token DA" icon="coins" href="/id/da-token-mechanics">
+    Pasokan maksimum 21 juta, formula harga protokol, dan sumber-sumber DA Liquidity Pool.
   </Card>
 </CardGroup>
