@@ -1124,6 +1124,15 @@
             ]
           },
           {
+            "group": "Сервіси екосистеми",
+            "pages": [
+              "uk/debit-cards",
+              "uk/bridge",
+              "uk/aml-checker",
+              "uk/platform-features"
+            ]
+          },
+          {
             "group": "Дефляційний Актив (DA)",
             "pages": [
               "uk/da-token-mechanics",
