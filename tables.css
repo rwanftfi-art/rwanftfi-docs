@@ -13,4 +13,11 @@
   #content-area table td {
     min-width: 0;
   }
+
+  /* Long single words in headers ("вознаграждений", "Profundidad") would
+     still force a scroll; let the browser hyphenate them by page language. */
+  #content-area table :is(th, td) {
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
 }
