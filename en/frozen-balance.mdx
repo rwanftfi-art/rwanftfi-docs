@@ -39,7 +39,7 @@ Frozen Balance activates only when all three conditions are met:
     Autobuy may renew the current NFT first and refresh the Protocol Reward Cap. The Sponsor Bonus is then recalculated against the refreshed cap. Only any remaining excess is placed in Frozen Balance.
   </Tab>
   <Tab title="You miss the deadline">
-    If the release conditions are not met within 72 hours, the amount is redistributed under the current protocol parameters: the configured share is routed to the DA Liquidity Pool, and the remaining share follows the sponsor-route and cascade rules.
+    If the release conditions are not met within 72 hours, the amount is redistributed under the current protocol parameters: 80% is routed to the DA Liquidity Pool, and 20% follows the sponsor-route and cascade rules.
   </Tab>
 </Tabs>
 
@@ -58,8 +58,8 @@ For network-depth activity, the Protocol Reward Cap and Autobuy rules are applie
 | Parameter | Value | Mutability |
 |---|---|---|
 | Freeze window | 72 hours | Immutable |
-| DA Liquidity Pool share after expiry | 70% | DAO-adjustable within documented range |
-| Sponsor-route share after expiry | 30% | DAO-adjustable within documented range |
+| DA Liquidity Pool share after expiry | 80% | DAO-adjustable within documented range |
+| Sponsor-route share after expiry | 20% | DAO-adjustable within documented range |
 | Trigger | First purchase or Autobuy by direct invitee | Immutable |
 | Release distribution | 75/20/5 | Standard split — see [Architecture](/en/architecture) |
 

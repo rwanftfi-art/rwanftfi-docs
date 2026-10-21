@@ -20,13 +20,19 @@ This page lists current on-chain values, permitted ranges, immutable constants, 
 
 ## NFT Purchase Distribution
 
+<Note>
+  **Phase 2 values.** The distribution below has applied since Phase 2 was activated by DAO vote in June 2026.
+</Note>
+
 | Parameter | First Purchase | Rebuy | Range |
 |---|:---:|:---:|---|
-| Sponsor Bonus | 30% | 20% | 10% – 35% |
-| Token Reserve Allocation | 0% | 10% | Documented range |
-| Platform Operations | 7% | 7% | 2% – 10% |
+| Sponsor Bonus | 20% | 17% + 1–5% | 10% – 35% |
+| Token Reserve (DA Liquidity Pool) | 15% | 18% | 0% – 30% / 10% – 30% |
+| Platform Operations | 2% | 2% | 2% – 10% |
 | Accumulative Balance | 20% | 20% | 15% – 30% |
-| Tree Distribution Budget | Calculated residual | Calculated residual | Derived |
+| Tree Distribution Budget | 43% (residual) | Calculated residual | Derived |
+
+The rebuy Sponsor Bonus is a 17% base rate plus 1–5% depending on the level at which the personally invited partner is placed. The Token Reserve range is 0% – 30% for a first purchase and 10% – 30% for a rebuy.
 
 ## Fees & Commissions
 
@@ -37,16 +43,28 @@ This page lists current on-chain values, permitted ranges, immutable constants, 
 | Accumulative Purchase Fee | 20% | 10% – 30% |
 | Loan Fee | 5% | 0% – 5% |
 | Withdrawal Fee | 0% | 0% – 5% |
-| Business Transfer Fee | 500 USDT | 0 – 500 USDT |
+| Business Transfer Fee | Business Sale disabled | 0 – 500 USDT |
+| Frozen Balance expiry split | 80% DA Liquidity Pool / 20% sponsor route | Sponsor route 0% – 30% |
 
 ## Timers & Limits
 
 | Parameter | Current | Range |
 |---|:---:|---|
-| Accumulative Balance lifetime | 120 days | 90 – 180 days |
+| Accumulative Balance lifetime | 180 days (temporary) | 90 – 180 days |
 | NFTM claim window | 72 hours | 24 – 96 hours |
 | Gift NFTs per address | 100 | 1 – 400 |
 | Auto-Sell periods | 120 / 90 / 90 / 65 days | Documented ranges |
+
+**Accumulative Balance lifetime.** Extended from 120 to 180 days by DAO vote in September 2026 as a temporary measure while a fix is prepared: the lifetime timer should reset when the balance reaches zero. A separate DAO vote is planned to restore 120 days after the fix.
+
+## Function Status
+
+| Function | Status | Basis |
+|---|:---:|---|
+| Infinity (L10) sales | Enabled | DAO vote, Phase 2 (June 2026) |
+| Business Sale (partner-structure transfer) | Disabled | DAO vote following an account-security incident |
+
+Business Sale can be re-enabled only by a new DAO vote; its permanent policy will be set by a future vote.
 
 ## Immutable Parameters
 

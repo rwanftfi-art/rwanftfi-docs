@@ -13,8 +13,8 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       yourNftHint: 'Your current Protocol Reward Cap',
       inviteeNft: "Invitee's First NFT",
       inviteeNftHint: 'First purchase by direct personal invitee',
-      commission: 'Sponsor Commission',
-      commissionHint: '30% of NFT price (first purchase)',
+      commission: 'Sponsor Bonus',
+      commissionHint: 'of NFT price (first purchase)',
       remaining: 'Your Remaining Protocol Reward Cap',
       remainingHint: 'Available room before compression',
       triggerOff: 'No freeze — the bonus fits within your cap',
@@ -30,7 +30,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       acc: 'Accumulative Balance',
       pool: 'DA Liquidity Pool',
       regHint: 'Withdraw anytime',
-      accHint: 'Decay timer',
+      accHint: '180-day lifetime (temporary)',
       poolHint: 'New DA minting',
       timerHeader: '72-hour window',
       timerSub: 'Choose how the freeze resolves',
@@ -67,8 +67,8 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       yourNftHint: 'Текущий Лимит вознаграждений',
       inviteeNft: 'Первый NFT личника',
       inviteeNftHint: 'Первая покупка прямого приглашённого',
-      commission: 'Спонсорская комиссия',
-      commissionHint: '30% от цены NFT (первая покупка)',
+      commission: 'Спонсорский бонус',
+      commissionHint: 'от цены NFT (первая покупка)',
       remaining: 'Ваш оставшийся Лимит вознаграждений',
       remainingHint: 'Запас перед компрессией',
       triggerOff: 'Фриз не сработал — бонус укладывается в Лимит',
@@ -84,7 +84,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       acc: 'Накопительный баланс',
       pool: 'Пул ликвидности DA',
       regHint: 'Вывод в любой момент',
-      accHint: 'Таймер распада',
+      accHint: 'Срок жизни 180 дней (временно)',
       poolHint: 'Минтинг нового DA',
       timerHeader: '72-часовое окно',
       timerSub: 'Выберите, как разрешится фриз',
@@ -99,7 +99,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       upgradeRemaining: 'Остаток Лимита после высвобождения',
       upgradeImpossible: 'Выберите уровень выше текущего — и не ниже уровня личника — чтобы вместить замороженную сумму.',
       autobuyTitle: 'Сначала срабатывает автопокупка и обновляет Лимит',
-      autobuyBody: 'Автопокупка переоткупает NFT того же уровня до того, как применяется комиссия. Новый Лимит сначала впитывает комиссию, и только остаток (если есть) уходит во фриз.',
+      autobuyBody: 'Автопокупка переоткупает NFT того же уровня до того, как начисляется бонус. Обновлённый Лимит сначала поглощает бонус, и только остаток (если есть) уходит во фриз.',
       autobuyRefreshed: 'Обновлённый Лимит вознаграждений',
       autobuyAbsorbed: 'Поглощено автопокупкой',
       autobuyLeftover: 'Уходит во фриз',
@@ -154,9 +154,15 @@ export const FrozenBalanceSimulator = ({ lang }) => {
     return function() { if (hourRef.current) clearInterval(hourRef.current); };
   }, []);
 
+  // Current on-chain values (Phase 2, activated by DAO vote in June 2026)
+  var SPONSOR_FIRST_PURCHASE = 0.20;
+  var FORFEIT_POOL_SHARE = 0.80;
+  var FORFEIT_SPONSOR_SHARE = 0.20;
+  var pct = function(x) { return Math.round(x * 100) + '%'; };
+
   var yourNft = NFT_DATA[yourLevel - 1];
   var inviteeNft = NFT_DATA[inviteeLevel - 1];
-  var commission = inviteeNft.price * 0.30;
+  var commission = inviteeNft.price * SPONSOR_FIRST_PURCHASE;
   var inLimit = Math.min(commission, yourNft.limit);
   var frozen = Math.max(commission - yourNft.limit, 0);
   var triggered = frozen > 0;
@@ -179,8 +185,8 @@ export const FrozenBalanceSimulator = ({ lang }) => {
   var autobuyLeftover = Math.max(commission - refreshedLimit, 0);
 
   // Forfeit
-  var forfeitPool = frozen * 0.70;
-  var forfeitSponsor = frozen * 0.30;
+  var forfeitPool = frozen * FORFEIT_POOL_SHARE;
+  var forfeitSponsor = frozen * FORFEIT_SPONSOR_SHARE;
 
   // Tier badge color
   var tierColor = function(t) {
@@ -294,7 +300,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.commission}</div>
           <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900, lineHeight: 1.2, marginTop: '4px' }}>{fmtUsd(commission)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginTop: '4px' }}>{T.commissionHint}</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginTop: '4px' }}>{pct(SPONSOR_FIRST_PURCHASE) + ' ' + T.commissionHint}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.remaining}</div>
@@ -510,22 +516,22 @@ export const FrozenBalanceSimulator = ({ lang }) => {
 
               {/* Forfeit split bar */}
               <div style={{ display: 'flex', height: '10px', borderRadius: '5px', overflow: 'hidden', marginBottom: '10px' }}>
-                <div style={{ width: '70%', backgroundColor: '#60a5fa' }} />
-                <div style={{ width: '30%', backgroundColor: '#f87171' }} />
+                <div style={{ width: pct(FORFEIT_POOL_SHARE), backgroundColor: '#60a5fa' }} />
+                <div style={{ width: pct(FORFEIT_SPONSOR_SHARE), backgroundColor: '#f87171' }} />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div style={{ backgroundColor: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.25)', borderRadius: '10px', padding: '10px 12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#60a5fa', display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>70% — {T.forfeitPool}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pct(FORFEIT_POOL_SHARE)} — {T.forfeitPool}</span>
                   </div>
                   <div style={{ color: '#60a5fa', fontSize: '18px', fontWeight: 800, marginTop: '4px' }}>{fmtUsd(forfeitPool)}</div>
                 </div>
                 <div style={{ backgroundColor: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '10px', padding: '10px 12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#f87171', display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>30% — {T.forfeitSponsor}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pct(FORFEIT_SPONSOR_SHARE)} — {T.forfeitSponsor}</span>
                   </div>
                   <div style={{ color: '#f87171', fontSize: '18px', fontWeight: 800, marginTop: '4px' }}>{fmtUsd(forfeitSponsor)}</div>
                 </div>
