@@ -1,6 +1,6 @@
 ---
 title: "NFT Ekosistemi"
-description: "Genesis'ten (28 USDT) Infinity'ye (24.000 USDT) kadar 10 RWANFTFI NFT seviyesinin tamamı — Protokol Ödül Limitleri, Partner Ağı Derinliği, NFTM madenciliği ve borç verme uygunluğu, Otomatik Alım, Hediye NFT'ler, Kuponlar ve planlanan Ambassador/VIP sürümleri dahil."
+description: "Genesis'ten (28 USDT) Infinity'ye (24.000 USDT) kadar 10 RWANFTFI NFT seviyesinin tamamı — Protokol Ödül Limitleri, Partner Ağı Derinliği, FinPro erişimi, NFTM madenciliği ve borç verme uygunluğu, Otomatik Alım, Hediye NFT'ler, Kuponlar ve planlanan Ambassador/VIP sürümleri dahil."
 icon: "id-card"
 ---
 
@@ -18,28 +18,42 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
   </Card>
 </CardGroup>
 
-Partner programına, DA madenciliğine ve seçilen seviyeye bağlı finansal araçlara erişmek için aktif bir NFT'ye sahip olmak gerekir. Hesap başına bir aktif NFT desteklenir; yükseltme, önceki NFT'nin yerini alır.
+Partner programına, DA madenciliğine ve seçilen seviyeye bağlı finansal araçlara erişmek için aktif bir NFT'ye sahip olmak gerekir. Hesap başına bir aktif NFT desteklenir; yükseltme, önceki NFT'nin yerini alır. Genesis'ten Infinity'ye kadar satın alınan her NFT, FinPro'ya da erişim sağlar: NFT'nin sahibi 25 USDT'den başlayan bir FinFlow pozisyonu açabilir.
 
 ## 10 Seviyeye Genel Bakış
 
 **Protokol Ödül Limiti**, mevcut NFT döngüsü boyunca yatırılabilecek uygun ödüllerin maksimum kümülatif tutarıdır. **Partner Ağı Derinliği**, uygun Partner Ağı Dağılımı hesaplamalarına dahil edilen maksimum seviyedir.
 
-| L | Ad | Grup | Fiyat (USDT) | Ödül Limiti (USDT) | Ağ Derinliği | Madencilik Döngüsü | NFTM (Döngü 1 / 2) | Eşleştirme Bonusu | DA | Borç Verme | Otomatik Alım |
-|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
-| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
-| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
-| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
-| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
-| 5 | Hydro | Premium | 550 | 1.400 | 9 | 45 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
-| 6 | Quantum | Premium | 1.100 | 2.700 | 11 | 44 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
-| 7 | Pulse | Premium | 2.200 | 5.800 | 12 | 43 gün | %10 / — | ✓ | ✓ | ✓ | 3/3 |
-| 8 | Aurora | Premium | 5.500 | 12.800 | 13 | 42 gün | %10 / %15 | ✓ | ✓ | ✓ | 3/3 |
-| 9 | Flame | Elite | 11.000 | 28.000 | 15 | 41 gün | %10 / %15 | ✓ | ✓ | ✓ | Sınırsız |
-| 10 | Infinity | Elite | 24.000 | 70.000 | 19 (mevcut) | 40 gün | %10 / %15 | ✓ | ✓ | ✓ | Sınırsız |
+| Seviye | Fiyat (USDT) | Ödül Limiti (USDT) | Ağ Derinliği |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1.400 | 9 |
+| L6 · Quantum | 1.100 | 2.700 | 11 |
+| L7 · Pulse | 2.200 | 5.800 | 12 |
+| L8 · Aurora | 5.500 | 12.800 | 13 |
+| L9 · Flame | 11.000 | 28.000 | 15 |
+| L10 · Infinity | 24.000 | 70.000 | 19 (mevcut) |
 
 <Note>
-  **Infinity (L10) satışları açıktır:** DAO bu satışları Haziran 2026'daki Phase 2 etkinleştirmesiyle birlikte açmıştır. **Derinlik değerleri mevcut protokol aşamasını yansıtır.** 16–22. Seviyelere yönelik gelecekteki herhangi bir genişleme, yalnızca gerekli yönetişim onayı ve protokol güncellemesinden sonra etkinleşir. **Eşleştirme Bonusu** sütunu Seviye 1 uygunluğunu gösterir (Eclipse / L4 ve üzeri); Seviye 2 ve 3 sırasıyla 1.000 ve 3.000 USDT kümülatif kişisel satış gerektirir. **NFTM (Döngü 1 / 2)**, NFT fiyatının yüzdesi olarak ifade edilir.
+  **Infinity (L10) satışları açıktır:** DAO bu satışları Haziran 2026'daki Phase 2 etkinleştirmesiyle birlikte açmıştır. **Derinlik değerleri mevcut protokol aşamasını yansıtır.** 16–22. Seviyelere yönelik gelecekteki herhangi bir genişleme, yalnızca gerekli yönetişim onayı ve protokol güncellemesinden sonra etkinleşir.
 </Note>
+
+Bir NFT'nin temel **FinFlow limiti**, Protokol Ödül Limitine eşittir. FinFlow Promotion 2026 devam ettiği sürece, yani 31 Aralık 2026'ya kadar veya havuz dolana kadar, artırılmış promosyon limitleri uygulanır. Bkz. [FinPro ve FinFlow](/tr/finpro-finflow).
+
+### Seviyelere Göre Özellikler
+
+| Özellik | Kullanılabildiği ilk seviye |
+|---|---|
+| Partner programı ve FinPro erişimi | Genesis (L1) |
+| Eşleştirme Bonusu | Eclipse (L4). Seviye 2 ve 3 için ayrıca sırasıyla 1.000 ve 3.000 USDT kümülatif kişisel satış gerekir. |
+| NFTM Madenciliği, DA Farming ve DA Borç Verme | Hydro (L5). Bir madencilik döngüsü Hydro'da 45 gün sürer ve her üst seviyede bir gün kısalarak Infinity'de 40 güne iner. |
+| İkinci NFTM döngüsü | Aurora (L8). İlk döngü NFT fiyatının %10'unu, ikinci döngü ise %15'ini NFTM olarak kaydeder. |
+| Sınırsız Otomatik Alım | Flame (L9). Seviye 1–8 üç otomatik yenilemeye izin verir. |
+
+NFTM Madenciliği, DA Farming ve DA Borç Verme mekaniklerinin 2027'de etkinleştirilmesi planlanmaktadır.
 
 <NftTierExplorer />
 
@@ -68,14 +82,32 @@ Doğrudan davet edilen bir kişinin ilk NFT satın alımından veya Otomatik Al�
 </Card>
 
 ## Hediye NFT'ler ve Kuponlar
+
+### Hediye NFT'ler
+
+Hediye NFT'ler satın alınamaz ve satılamaz. First Purchase NFT ve Upgrade NFT gibi promosyonlar ile Career Ranks ve Fast Start Program kapsamında ve ayrıca aktif liderlere verilir. Hediye NFT'nin sahibi, onu gelecekteki bir partnere devredebilir.
+
 <CardGroup cols={2}>
-  <Card title="Hediye NFT'ler" icon="gift">
-    Hediye NFT'ler, kullanıcıları partner ağına yerleştirebilen, satılamaz tanıtım varlıklarıdır. Satın alınamazlar; onaylı promosyonlar veya rütbe programları kapsamında verilirler.
+  <Card title="Ağda bir yer" icon="sitemap">
+    Bir Hediye NFT, partner ağında kalıcı bir yer alır ve kendi Protokol Ödül Limitine sahiptir.
   </Card>
-  <Card title="Hediye Kuponları" icon="ticket">
-    Hediye Kuponları, belgelenmiş minimum değer, geçerlilik süresi, devir kısıtlaması ve ödeme kombinasyonu kurallarına tabi olan, kullanıcılar tarafından oluşturulan kuponlardır. Geçerlilik süresi boyunca kullanılmazsa değeri, mevcut akıllı sözleşme kurallarına göre yönlendirilir.
+  <Card title="50 / 50 bölünme" icon="scale-balanced">
+    Bir Hediye NFT'nin aldığı ödüller, Normal Bakiye ile Birikim Bakiyesi arasında eşit olarak bölünür.
+  </Card>
+  <Card title="FinPro erişimi" icon="chart-line">
+    Bir Hediye NFT, FinFlow'a erişim sağlar ve kendi limiti dahilinde kendine ait bir pozisyon tutabilir.
+  </Card>
+  <Card title="Adres başına en fazla 100" icon="layer-group">
+    Tek bir adreste tutulabilecek Hediye NFT sayısına ilişkin mevcut zincir üzeri limit.
   </Card>
 </CardGroup>
+
+Güncel promosyonlar [Ödüller ve Kompanzasyon](/tr/marketing-rewards#aktif-promosyonlar) sayfasında listelenmiştir.
+
+### Hediye Kuponları
+
+Hediye Kuponları, belgelenmiş minimum değer, geçerlilik süresi, devir kısıtlaması ve ödeme kombinasyonu kurallarına tabi olan, kullanıcılar tarafından oluşturulan kuponlardır. Geçerlilik süresi boyunca kullanılmazsa değeri, mevcut akıllı sözleşme kurallarına göre yönlendirilir.
+
 ## Ambassador ve VIP Edition
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">
