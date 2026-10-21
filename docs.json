@@ -986,6 +986,15 @@
             ]
           },
           {
+            "group": "エコシステムサービス",
+            "pages": [
+              "ja/debit-cards",
+              "ja/bridge",
+              "ja/aml-checker",
+              "ja/platform-features"
+            ]
+          },
+          {
             "group": "デフレ資産（DA）",
             "pages": [
               "ja/da-token-mechanics",
