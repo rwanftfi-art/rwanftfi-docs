@@ -1,102 +1,66 @@
 ---
 title: "Saldo Congelato"
-description: "Protezione del reddito di marketing per inviti in livelli superiori."
+description: "Un buffer temporaneo di 72 ore per uno Sponsor Bonus idoneo che supera il Limite di Ricompensa del Protocollo residuo del detentore."
 icon: "snowflake"
 ---
 
 import { FrozenBalanceSimulator } from '/snippets/frozen-balance-simulator.jsx'
 
-Il Saldo Congelato è la meccanica che protegge il tuo reddito di marketing in due situazioni correlate: quando **il tuo invitato personale diretto effettua il suo primo acquisto NFT**, oppure quando **scatta l'Autobuy del tuo invitato** (rinnovo automatico del suo NFT, che ti genera il 20% di Sponsor Bonus di rebuy), e la commissione risultante supera l'Income Limit residuo del tuo NFT.
+Il Saldo Congelato si applica quando un invitato diretto effettua il suo primo acquisto NFT o attiva l'Autobuy e lo Sponsor Bonus risultante supera il Limite di Ricompensa del Protocollo residuo del detentore. Il meccanismo trattiene temporaneamente l'eccedenza affinché il detentore possa soddisfare le condizioni di rilascio applicabili.
 
-Senza il Saldo Congelato, quell'eccedenza andrebbe persa per compressione — passata verso l'alto della struttura. Il Saldo Congelato la congela per **72 ore** e ti offre una finestra per fare upgrade del tuo NFT e reclamare l'intero importo.
+## Quando si attiva il Saldo Congelato?
 
-<Info>
-  Questa è la rete di sicurezza del marketing sia per gli inviti "verso l'alto" sia per il reddito ricorrente da invitati consolidati: puoi invitare con fiducia partner in qualsiasi livello NFT e contare sui loro rinnovi Autobuy, senza temere che la commissione venga persa perché il tuo Income Limit è troppo piccolo.
-</Info>
-
-## Quando si Attiva il Saldo Congelato
-
-Il Saldo Congelato si attiva **solo quando sono soddisfatte tutte e tre le condizioni**:
+Il Saldo Congelato si attiva solo quando sono soddisfatte tutte e tre le condizioni:
 
 <Steps>
-  <Step title="L'acquirente è il tuo invitato personale diretto">
-    Non uno spillover, non un partner della downline a cinque livelli di profondità — specificamente una persona che hai invitato personalmente nella tua struttura.
+  <Step title="L'acquirente è un invitato personale diretto del detentore">
+    Non un posizionamento da spillover né un partecipante più in profondità nella rete — specificamente una persona che il detentore ha invitato personalmente.
   </Step>
-  <Step title="È il primo acquisto NFT di quell'invitato o il suo Autobuy">
-    Il Saldo Congelato copre due eventi del tuo invitato: il suo **primo acquisto NFT** e il suo **Autobuy** (rinnovo automatico dell'NFT dello stesso invitato, che ti paga il 20% di Sponsor Bonus di rebuy). Gli acquisti ripetuti e gli upgrade manuali dello stesso invitato **non** sono coperti — vedi la sezione Reddito Perso qui sotto.
+  <Step title="L'evento è il primo acquisto NFT o l'Autobuy dell'invitato">
+    Gli acquisti ripetuti e gli upgrade manuali dello stesso invitato non sono coperti — vedi la sezione sugli acquisti ripetuti più avanti.
   </Step>
-  <Step title="La commissione supera il tuo Income Limit residuo">
-    Se il tuo Income Limit residuo è abbastanza grande da assorbire l'intera commissione, non si verifica alcun congelamento — tutto viene accreditato normalmente.
+  <Step title="Lo Sponsor Bonus supera il Limite di Ricompensa del Protocollo residuo del detentore">
+    Se il Limite di Ricompensa del Protocollo residuo può assorbire l'intero importo, non si verifica alcun congelamento — la ricompensa viene accreditata secondo le regole standard.
   </Step>
 </Steps>
 
-## Come si Suddivide l'Importo
+## Come si suddivide l'importo della commissione?
 
-Quando si attiva il Saldo Congelato, lo smart contract divide la commissione in due parti:
+- L'importo entro il Limite di Ricompensa del Protocollo residuo viene accreditato secondo l'attuale suddivisione **75/20/5**.
+- L'eccedenza oltre il limite viene collocata nel Saldo Congelato per **72 ore**.
 
-- **Entro il tuo Income Limit residuo** — accreditato immediatamente secondo la suddivisione standard: **75% Saldo Regolare / 20% Saldo Cumulativo / 5% Pool di Liquidità DA**.
-- **Eccedenza oltre il tuo Income Limit** — collocata nel Saldo Congelato con un **timer di 72 ore**.
-
-## Cosa Succede Durante le 72 Ore
-
-Hai tre scenari:
+## Cosa succede durante la finestra di 72 ore?
 
 <Tabs>
   <Tab title="Effettui l'upgrade del tuo NFT">
-    Acquisti un NFT di livello superiore (con un Income Limit più grande). I fondi congelati vengono automaticamente rilasciati e accreditati secondo la stessa suddivisione **75/20/5**. L'importo rilasciato viene detratto dall'Income Limit del **nuovo** NFT.
-
-    **Esempio.** Income Limit del tuo NFT = 160 USDT. Il tuo invitato acquista un NFT per 2.200 USDT; commissione = 660 USDT. 160 USDT vengono accreditati immediatamente (75/20/5). 500 USDT vanno nel Saldo Congelato. Effettui l'upgrade a Eclipse (Income Limit 650 USDT). I 500 USDT vengono rilasciati e accreditati. Nuovo Income Limit residuo: 650 − 500 = **150 USDT**.
+    Se un NFT idoneo di livello superiore fornisce un Limite di Ricompensa del Protocollo sufficiente, l'importo trattenuto viene rilasciato e accreditato secondo la suddivisione standard. L'importo rilasciato riduce il limite residuo del nuovo NFT.
   </Tab>
   <Tab title="Autobuy è abilitato">
-    Se Autobuy è attivo, l'ordine cambia. Autobuy si attiva **per primo**, riacquistando l'NFT dello stesso livello e rinnovando il tuo Income Limit. La commissione viene quindi rivalutata rispetto al limite rinnovato, la porzione entro il limite viene accreditata, e **solo il resto** (se presente) va nel Saldo Congelato con il timer di 72 ore.
-
-    Ciò significa: se il tuo NFT e l'Income Limit rinnovato sono sufficienti dopo Autobuy, il Saldo Congelato potrebbe non attivarsi affatto.
+    Autobuy può prima rinnovare l'NFT attuale e ripristinare il Limite di Ricompensa del Protocollo. Lo Sponsor Bonus viene quindi ricalcolato rispetto al limite ripristinato. Solo l'eventuale eccedenza residua viene collocata nel Saldo Congelato.
   </Tab>
   <Tab title="Manchi la scadenza">
-    Se non fai l'upgrade entro 72 ore e Autobuy non ha coperto l'eccedenza, i fondi congelati vengono **definitivamente persi** e ridistribuiti:
-
-    - **70%** viene indirizzato al Pool di Liquidità DA per il minting di nuovo DA.
-    - **30%** viene trasferito al tuo sponsor diretto in upline.
-
-    La regola della cascata è identica alla cascata di decadimento del Saldo Cumulativo: se l'Income Limit dello sponsor in upline è zero, il 30% passa più in alto nella catena al primo partecipante con un Income Limit attivo. Se nessun upline ha un limite attivo, il 100% completo viene indirizzato al Pool di Liquidità DA.
+    Se le condizioni di rilascio non vengono soddisfatte entro 72 ore, l'importo viene ridistribuito secondo i parametri attuali del protocollo: l'80% viene indirizzato al Pool di Liquidità DA e il 20% segue le regole del percorso sponsor e della cascata.
   </Tab>
 </Tabs>
 
-## Acquisti Ripetuti dallo Stesso Invitato
+## Acquisti Ripetuti dello Stesso Invitato
 
-Il Saldo Congelato protegge due eventi di ciascun invitato personale: il suo **primo acquisto NFT** e il suo **Autobuy** (rinnovo automatico dell'NFT dello stesso invitato — 20% di Sponsor Bonus di rebuy). Gli acquisti ripetuti e gli upgrade **manuali** dello stesso invitato **non** sono coperti: se il tuo Income Limit non riesce ad assorbire la commissione, l'eccedenza viene contrassegnata come **Reddito Perso** e distribuita secondo la regola standard di compressione — passata verso l'alto della struttura al successivo partecipante con un Income Limit attivo.
+Il Saldo Congelato copre gli eventi qualificanti di primo acquisto e di Autobuy. Gli acquisti ripetuti e gli upgrade manuali dello stesso invitato seguono le regole standard delle ricompense partner, delle ricompense mancate e della compressione.
 
-<Warning>
-  Se il tuo invitato effettua molti rebuy/upgrade manuali mentre **il tuo Income Limit è esaurito**, ogni tale acquisto manuale ti scavalca tramite compressione. Mantieni il tuo Income Limit attivo — tramite il tuo Autobuy o rinnovo manuale — per non perdere reddito da partner consolidati.
-</Warning>
+## Scenario ad Alto Volume — Instradamento Attraverso la Struttura
 
-## Scenario ad Alto Volume — Cascata Attraverso la Struttura
+Per l'attività proveniente dalla profondità della rete, si applicano prima le regole del Limite di Ricompensa del Protocollo e dell'Autobuy. Qualsiasi importo residuo che non può essere accreditato viene indirizzato secondo le regole di compressione attive. Il Saldo Congelato non si attiva quando la fonte è la Distribuzione nella Rete di Partner anziché un primo acquisto diretto qualificante o un Autobuy.
 
-Il Saldo Congelato protegge **solo** la commissione sul primo acquisto di un invitato diretto o sul suo Autobuy. Ma in una grande struttura, la maggior parte del tuo reddito non proviene dalle vendite personali — proviene dalla profondità, attraverso la tree distribution (4% al livello 9 × 500+ posizioni può generare decine di migliaia di USDT in un singolo ciclo di accumulo).
-
-Quando quel volume colpisce e il tuo Income Limit è di 1.100 USDT con Autobuy in grado di rinnovarlo al massimo tre volte (3/3 sui livelli L1–L8), il sistema:
-
-1. Ti accredita 1.100 USDT secondo la suddivisione standard.
-2. Attiva Autobuy, rinnova il Limit, accredita altri 1.100 USDT.
-3. Ripete fino a 3 volte.
-4. **Tutto il volume residuo viene compresso** — passato verso l'alto al successivo partecipante con un Income Limit attivo.
-
-Il Saldo Congelato **non** si attiva in questo scenario perché la fonte non è il primo acquisto né l'Autobuy di un invitato diretto ma la tree distribution dalla profondità.
-
-<Info>
-  Conclusione per la scala: a grandi volumi di rete, la leva chiave è **il livello del tuo NFT**. I livelli superiori portano Income Limit più grandi e riducono la quota persa per compressione. I livelli Elite (L9–L10), con Autobuy illimitato, affrontano questo problema in modo sistemico.
-</Info>
-
-<FrozenBalanceSimulator lang="it" />
+<FrozenBalanceSimulator lang="en" />
 
 ## Parametri del Saldo Congelato (On-Chain)
 
 | Parametro | Valore | Mutabilità |
 |---|---|---|
 | Finestra di congelamento | 72 ore | Immutabile |
-| Quota Pool Liquidità DA in caso di decadenza | 70% | Regolabile dalla DAO (50–100%) |
-| Quota sponsor upline in caso di decadenza | 30% | Regolabile dalla DAO (0–30%) |
-| Trigger | Primo acquisto o Autobuy da parte di invitato personale diretto | Immutabile |
-| Distribuzione di rilascio | 75/20/5 | Suddivisione standard — vedi Architettura |
+| Quota del Pool di Liquidità DA dopo la scadenza | 80% | Regolabile dalla DAO entro l'intervallo documentato |
+| Quota del percorso sponsor dopo la scadenza | 20% | Regolabile dalla DAO entro l'intervallo documentato |
+| Trigger | Primo acquisto o Autobuy di un invitato diretto | Immutabile |
+| Distribuzione al rilascio | 75/20/5 | Suddivisione standard — vedi [Architettura](/it/architecture) |
 
-Vedi anche: [Income Limit nella pagina Ecosistema NFT](/it/nft-ecosystem), [Priorità di Pagamento nell'Architettura](/it/architecture).
+Vedi anche: [Limite di Ricompensa del Protocollo nella pagina Ecosistema NFT](/it/nft-ecosystem), [Priorità di Pagamento nell'Architettura](/it/architecture).
