@@ -1,38 +1,46 @@
 ---
 title: "Sicherheit & Audit"
-description: "Unabhängig auditiert von CertiK."
+description: "CertiK hat die Smart Contracts und die Codeversion geprüft, die im veröffentlichten Audit-Umfang enthalten sind. Der Abschlussbericht ist auf den 28. April 2026 datiert. Audit-Umfang, Feststellungen und Deployment-Zuordnung werden mit dem Bericht veröffentlicht."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="Auditiert von CertiK" icon="shield-check">
-    Die Smart Contracts von RWANFTFI wurden unabhängig von **CertiK** auditiert. Der Abschlussbericht wurde am **28. April 2026** veröffentlicht – das vollständige PDF unten und im öffentlichen [CertiK-Skynet-Verzeichnis](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="Von CertiK geprüft" icon="shield-check">
+    CertiK hat die Smart Contracts und die Codeversion geprüft, die im veröffentlichten Audit-Umfang enthalten sind. Der Abschlussbericht ist auf den **28. April 2026** datiert — das vollständige PDF finden Sie unten und im öffentlichen [CertiK-Skynet-Verzeichnis](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-CertiK ist eines der am längsten etablierten Sicherheitsunternehmen im Web3 und auditiert einen erheblichen Anteil der wichtigsten Protokolle in diesem Bereich. Das Audit wurde nach der Standardmethodik von CertiK durchgeführt – statische Analyse, manuelle Überprüfung und formale Verifikation – und der vollständige Bericht ist sowohl auf dieser Seite als auch in CertiKs eigenem Skynet-Verzeichnis öffentlich zugänglich.
+## Audit-Details
 
-## Bericht lesen
+| Punkt | Wo überprüfbar |
+|---|---|
+| Auditor | CertiK |
+| Berichtsdatum | 28. April 2026 |
+| Geprüfter Commit | Der genaue Hash ist im veröffentlichten Bericht angegeben. |
+| Verträge im Umfang | Alle geprüften Verträge sind im veröffentlichten Bericht aufgeführt. |
+| Feststellungen | ID, Schweregrad und Status sind im veröffentlichten Bericht aufgeführt. |
+| Behebung | Jede behobene Feststellung ist im Bericht mit der entsprechenden Codeänderung verknüpft. |
+| Deployment-Zuordnung | Ob die aktuellen Produktivverträge der geprüften Version entsprechen, wird separat veröffentlicht. |
+| Bug-Bounty | Der aktuelle, extern überprüfbare Status wird über die offiziellen Kanäle veröffentlicht. |
 
-Sie haben drei unabhängige Möglichkeiten, mit dem Audit zu interagieren. Der Sinn ist nicht, dasselbe dreimal anzubieten – es geht darum, dass kein Zweifel daran besteht, dass die Version auf dieser Seite mit der von CertiK selbst veröffentlichten Version übereinstimmt, und dass der Bericht unabhängig vom Gerät zugänglich ist.
+## Wie kann ich den Audit-Bericht überprüfen?
 
 <CardGroup cols={3}>
   <Card title="Inline-Vorschau" icon="eye">
     Lesen Sie das vollständige PDF direkt auf dieser Seite. Am besten in Desktop-Browsern.
   </Card>
   <Card title="PDF herunterladen" icon="download" href="https://app.rwanftfi.com/security">
-    Speichern Sie den Originalbericht auf Ihrem Gerät. Empfohlen für Mobilgeräte.
+    Speichern Sie den Originalbericht auf Ihrem Gerät. Empfohlen auf Mobilgeräten.
   </Card>
   <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
-    Verifizieren Sie den Bericht in CertiKs öffentlichem Verzeichnis.
+    Überprüfen Sie den Bericht im eigenen öffentlichen Verzeichnis von CertiK.
   </Card>
 </CardGroup>
 
 <object
   data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
   type="application/pdf"
-  aria-label="CertiK Audit Report — RWANFTFI"
+  aria-label="CertiK-Auditbericht — RWANFTFI"
   style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
 >
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
@@ -44,32 +52,29 @@ Sie haben drei unabhängige Möglichkeiten, mit dem Audit zu interagieren. Der S
 </object>
 
 <Info>
-  **In Safari und den meisten mobilen Browsern** wird die Inline-Vorschau möglicherweise nicht gerendert – diese Browser betten PDFs nicht direkt ein. Verwenden Sie die Schaltfläche **PDF herunterladen** (oder den Link innerhalb des Vorschaubereichs), um den Bericht auf Ihrem Gerät zu öffnen.
+  **In Safari und den meisten mobilen Browsern** wird die Inline-Vorschau möglicherweise nicht angezeigt — diese Browser betten PDFs nicht direkt ein. Verwenden Sie die Schaltfläche **PDF herunterladen** (oder den Link im Vorschaubereich), um den Bericht auf Ihrem Gerät zu öffnen.
 </Info>
 
-## Kontoschutz
+<Note>
+  Das Audit umfasst die Smart Contracts und die Codeversion im veröffentlichten Umfang. Es verifiziert für sich genommen nicht die Ökonomie des Protokolls, die Unternehmensleistung oder Ergebnisse für Nutzer.
+</Note>
 
-Das Audit deckt die On-Chain-Smart-Contract-Schicht ab. Auf Anwendungsebene sind Nutzerkonten zusätzlich durch mehrere unabhängige Mechanismen geschützt:
+## Dreistufige Kontosicherheit
 
-<CardGroup cols={2}>
-  <Card title="Dreistufige Sicherheit" icon="layer-group">
-    Gestufter Schutz, der Login, finanzielle Aktionen und hochwertige Operationen voneinander trennt.
-  </Card>
-  <Card title="TAN-Codes" icon="key">
-    Einmalige Transaktionsnummern (Transaction Authentication Numbers), die für jede finanzielle Transaktion erforderlich sind.
-  </Card>
+<CardGroup cols={3}>
   <Card title="Finanzpasswort" icon="fingerprint">
-    Ein vom Login getrenntes Passwort, das nur für die Bewegung von Mitteln erforderlich ist.
+    Ein von den Anmeldedaten getrenntes Passwort, das für finanzielle Aktionen erforderlich ist.
   </Card>
-  <Card title="2FA + Telegram-Bot" icon="telegram">
-    Standardmäßige Zwei-Faktor-Authentifizierung sowie Aktionsverifizierung über den offiziellen Telegram-Bot.
+  <Card title="Codes zur Transaktionsautorisierung" icon="key">
+    Einmal-Codes, die zur Autorisierung finanzieller Transaktionen erforderlich sind.
+  </Card>
+  <Card title="Zwei-Faktor-Authentifizierung" icon="lock">
+    Unterstützte Zwei-Faktor-Authentifizierung zum Schutz des Kontos.
   </Card>
 </CardGroup>
 
-<Info>
-  **Transaktionen erfordern eine Web3-Wallet.** Sie können sich mit E-Mail und Passwort im Dashboard anmelden, um Ihre Daten einzusehen, aber die Ausführung jeder finanziellen Aktion erfordert eine verbundene Web3-Wallet (MetaMask, Trust Wallet oder eine andere EVM-kompatible Wallet).
-</Info>
+## Phishing-Schutz
 
 <Warning>
-  **Vorsicht vor Identitätsfälschern.** Mitarbeiter von RWANFTFI werden Sie niemals zuerst kontaktieren, niemals nach Ihren privaten Schlüsseln oder Ihrer Seed-Phrase fragen und niemals Zahlungen außerhalb der offiziellen Plattform anfordern. Stellen Sie immer sicher, dass Sie sich auf **rwanftfi.com** befinden, bevor Sie Ihre Wallet verbinden oder Anmeldedaten eingeben.
+  Verwenden Sie ausschließlich offizielle Domains und Vertragsadressen von RWANFTFI. Vertreter von RWANFTFI sollten niemals private Schlüssel, Seed-Phrasen oder Zahlungen an inoffizielle Wallet-Adressen anfordern. Vergewissern Sie sich stets, dass Sie sich auf **rwanftfi.com** befinden, bevor Sie Ihre Wallet verbinden oder Anmeldedaten eingeben.
 </Warning>
