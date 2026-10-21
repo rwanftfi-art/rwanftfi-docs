@@ -59,6 +59,15 @@
             ]
           },
           {
+            "group": "Ecosystem Services",
+            "pages": [
+              "en/debit-cards",
+              "en/bridge",
+              "en/aml-checker",
+              "en/platform-features"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "en/da-token-mechanics",
@@ -125,6 +134,15 @@
             "pages": [
               "ru/finpro-finflow",
               "ru/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Сервисы экосистемы",
+            "pages": [
+              "ru/debit-cards",
+              "ru/bridge",
+              "ru/aml-checker",
+              "ru/platform-features"
             ]
           },
           {

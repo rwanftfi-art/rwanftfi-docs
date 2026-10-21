@@ -1,0 +1,59 @@
+---
+title: "Platform Features"
+description: "Tools inside the RWANFTFI application: the Secret Code for security requests, encrypted Web3 chats, permanent referral links, the brandbook and the presentation library."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Required for any security-related request to support.
+  </Card>
+  <Card title="Private Web3 chats" icon="comments">
+    End-to-end encrypted messages on the XMTP protocol.
+  </Card>
+  <Card title="Referral links" icon="link">
+    One permanent link format on share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+The Secret Code is a random word generated together with the financial password. It is required for any security-related request to support: without it, support cannot act on such a request.
+
+<Warning>
+  **Keep the Secret Code private.** Share it only with official support, and only when you make a security request. Never share it in chats, comments or private messages.
+</Warning>
+
+## Messenger and private Web3 chats
+
+The built-in messenger shows the exact time of every message. Its **Private Web3 chats** mode adds end-to-end encryption on the XMTP protocol.
+
+| Property | How it works |
+|---|---|
+| Encryption | Messages are encrypted on the device with MLS (IETF RFC 9420). |
+| Storage | Messages are not stored on the platform's servers. |
+| Identity | The EVM wallet is the identity; one gasless signature per device enables the mode. |
+| Independent review | The libxmtp library has been audited by NCC Group. |
+
+<Note>
+  The mode protects the content of messages; it does not make users anonymous. Encryption applies to new messages sent in this mode.
+</Note>
+
+## Referral links
+
+Every participant has a permanent referral code. Referral links use one format:
+
+`share.rwanftfi.com/?ref=CODE`
+
+The old link format no longer works: it was replaced in September 2026 because of a link-delivery issue in Telegram.
+
+## Brandbook and resources
+
+<CardGroup cols={2}>
+  <Card title="Brandbook" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logos, colors, fonts, icons, documents, the advertising module and merchandise: the official source of the RWANFTFI identity.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Presentations in the application, including the FinFlow presentation in English and Russian.
+  </Card>
+</CardGroup>
