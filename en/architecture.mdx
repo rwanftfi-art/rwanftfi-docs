@@ -56,11 +56,15 @@ icon: "cubes"
 | Balance | Purpose |
 |---|---|
 | Regular Balance | Eligible withdrawals, purchases, and vouchers. |
-| Accumulative Balance | Restricted internal balance used under documented purchase, transfer, fee, and redistribution rules. |
+| Accumulative Balance | Restricted internal balance used under documented purchase, transfer, fee, and redistribution rules. Its lifetime is temporarily 180 days while a timer-reset fix is prepared; see [Contract Parameters](/en/contract-parameters). |
 | Protocol Reward Cap | Remaining reward eligibility for the active NFT cycle; on-chain term: *Income Limit*. |
 | Token Reserve Balance | Designated liquidity-pool balance supporting DA mechanics. |
 | Dev Balance | Protocol and operating allocations. |
 | Price Impact Balance | Reserve used by documented price-impact functions. |
+
+<Note>
+  **FinPro balances are separate.** FinPro positions are opened directly from the user's EVM wallet in USDT (BEP-20) and paid out to the same wallet. They do not use the Regular Balance or the Accumulative Balance. See [FinPro & FinFlow](/en/finpro-finflow).
+</Note>
 
 ## Payment Priority
 
