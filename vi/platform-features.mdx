@@ -1,0 +1,59 @@
+---
+title: "Tính Năng Nền Tảng"
+description: "Các công cụ trong ứng dụng RWANFTFI: Secret Code cho các yêu cầu liên quan đến bảo mật, chat Web3 được mã hóa, liên kết giới thiệu vĩnh viễn, cẩm nang thương hiệu và thư viện bài thuyết trình."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Bắt buộc đối với mọi yêu cầu liên quan đến bảo mật gửi tới bộ phận hỗ trợ.
+  </Card>
+  <Card title="Chat Web3 riêng tư" icon="comments">
+    Tin nhắn được mã hóa đầu cuối trên giao thức XMTP.
+  </Card>
+  <Card title="Liên kết giới thiệu" icon="link">
+    Một định dạng liên kết thống nhất và vĩnh viễn trên share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Secret Code là một từ ngẫu nhiên được tạo cùng với mật khẩu tài chính. Mã này bắt buộc đối với mọi yêu cầu liên quan đến bảo mật gửi tới bộ phận hỗ trợ: nếu không có mã, bộ phận hỗ trợ không thể xử lý yêu cầu như vậy.
+
+<Warning>
+  **Giữ bí mật Secret Code.** Chỉ cung cấp mã cho bộ phận hỗ trợ chính thức và chỉ khi bạn gửi yêu cầu liên quan đến bảo mật. Không bao giờ chia sẻ mã trong các cuộc trò chuyện, bình luận hoặc tin nhắn riêng.
+</Warning>
+
+## Trình nhắn tin và chat Web3 riêng tư
+
+Trình nhắn tin tích hợp hiển thị thời gian chính xác của từng tin nhắn. Chế độ **Private Web3 chats** của trình nhắn tin bổ sung mã hóa đầu cuối trên giao thức XMTP.
+
+| Đặc tính | Cách hoạt động |
+|---|---|
+| Mã hóa | Tin nhắn được mã hóa ngay trên thiết bị bằng MLS (IETF RFC 9420). |
+| Lưu trữ | Tin nhắn không được lưu trữ trên máy chủ của nền tảng. |
+| Danh tính | Ví EVM đóng vai trò là danh tính; một chữ ký không tốn phí gas trên mỗi thiết bị sẽ bật chế độ này. |
+| Đánh giá độc lập | Thư viện libxmtp đã được NCC Group kiểm toán. |
+
+<Note>
+  Chế độ này bảo vệ nội dung tin nhắn, nhưng không làm cho người dùng trở nên ẩn danh. Mã hóa được áp dụng cho các tin nhắn mới được gửi trong chế độ này.
+</Note>
+
+## Liên kết giới thiệu
+
+Mỗi người tham gia đều có một mã giới thiệu vĩnh viễn. Các liên kết giới thiệu sử dụng một định dạng thống nhất:
+
+`share.rwanftfi.com/?ref=CODE`
+
+Định dạng liên kết cũ không còn hoạt động: định dạng này đã được thay thế vào tháng Chín năm 2026 do sự cố gửi liên kết trên Telegram.
+
+## Cẩm nang thương hiệu và các tài nguyên
+
+<CardGroup cols={2}>
+  <Card title="Cẩm nang thương hiệu" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logo, màu sắc, phông chữ, biểu tượng, tài liệu, mô-đun quảng cáo và vật phẩm thương hiệu: nguồn chính thức về bộ nhận diện thương hiệu RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Các bài thuyết trình trong ứng dụng, bao gồm bài thuyết trình FinFlow bằng tiếng Anh và tiếng Nga.
+  </Card>
+</CardGroup>

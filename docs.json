@@ -1055,6 +1055,15 @@
             ]
           },
           {
+            "group": "Dịch Vụ Hệ Sinh Thái",
+            "pages": [
+              "vi/debit-cards",
+              "vi/bridge",
+              "vi/aml-checker",
+              "vi/platform-features"
+            ]
+          },
+          {
             "group": "Tài Sản Giảm Phát (DA)",
             "pages": [
               "vi/da-token-mechanics",
