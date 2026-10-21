@@ -13,7 +13,7 @@ icon: "book-open"
   src="/videos/intro.mp4"
 />
 
-RWANFTFI adalah protokol Web3 yang memperluas utilitas Token Non-Fungible (NFT) dengan menjadikannya kunci akses berbasis keanggotaan untuk sebuah ekosistem yang terstruktur. Protokol ini menggabungkan tingkatan akses NFT, mekanika DA, fungsionalitas program mitra, mining dan farming, pinjaman, tata kelola, serta roadmap integrasi Aset Dunia Nyata (RWA), DeFi, dan CeFi yang terverifikasi di BNB Smart Chain.
+RWANFTFI adalah protokol Web3 yang memperluas utilitas Token Non-Fungible (NFT) dengan menjadikannya kunci akses berbasis keanggotaan untuk sebuah ekosistem yang terstruktur. Protokol ini, yang dibangun di BNB Smart Chain, menggabungkan tingkatan akses NFT, mekanika DA, fungsionalitas program mitra, dan tata kelola dengan layanan ekosistem yang sudah aktif: produk keuangan FinPro, kartu debit Visa RWA NFT Cards, jembatan lintas-rantai, dan AML Checker. Mining, farming, dan pinjaman dijadwalkan untuk diaktifkan pada 2027, sementara integrasi Aset Dunia Nyata (RWA) yang terverifikasi tetap berada dalam roadmap.
 
 <CardGroup cols={4}>
   <Card title="21M" icon="gauge-high">
@@ -34,11 +34,11 @@ RWANFTFI adalah protokol Web3 yang memperluas utilitas Token Non-Fungible (NFT) 
 
 Ekosistem ini menggunakan **DA**, token utilitas protokol BEP-20 yang tidak dapat ditransfer, dengan pasokan maksimum 21.000.000 unit. Harga protokol internalnya dihitung dari saldo kumpulan likuiditas [USDT](https://tether.to/) yang ditetapkan dan pasokan DA yang beredar. Penerbitan, penjualan, pembakaran, pinjaman, dan likuiditas DA bergantung pada parameter smart contract yang berlaku saat ini.
 
-RWANFTFI beroperasi di [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) untuk transaksi yang cepat dan berbiaya rendah. Layanan deposit lintas-rantai terkelola, yang dioperasikan melalui `SERVICE_ROLE` yang terdokumentasi, dapat memproses deposit dari jaringan yang didukung.
+RWANFTFI beroperasi di [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) untuk transaksi yang cepat dan berbiaya rendah. [Jembatan lintas-rantai](/id/bridge), layanan terkelola yang dioperasikan melalui `SERVICE_ROLE` yang terdokumentasi, memproses deposit dari 14 jaringan yang didukung.
 
 ## Bagaimana cara berpartisipasi dalam RWANFTFI?
 
-Peserta memperoleh salah satu dari **10 tingkatan akses NFT**. Setiap tingkatan menentukan fitur protokol yang tersedia, Kedalaman Jaringan Mitra, Batas Imbalan Protokol, kelayakan mining dan farming, akses pinjaman, serta ketentuan perpanjangan. Pengguna dapat berpartisipasi dalam aktivitas program mitra yang memenuhi syarat, mengakses mekanika DA, dan menggunakan alat keuangan yang tersedia untuk tingkatannya berdasarkan aturan protokol yang berlaku saat ini.
+Peserta memperoleh salah satu dari **10 tingkatan akses NFT**. Setiap tingkatan menentukan fitur protokol yang tersedia, Kedalaman Jaringan Mitra, Batas Imbalan Protokol, kelayakan mining dan farming, akses pinjaman, serta ketentuan perpanjangan. Pengguna dapat berpartisipasi dalam aktivitas program mitra yang memenuhi syarat, mengakses mekanika DA, dan menggunakan alat keuangan yang tersedia untuk tingkatannya berdasarkan aturan protokol yang berlaku saat ini. Setiap NFT yang dibeli juga membuka akses ke FinPro, lini produk keuangan ekosistem.
 
 ## Jelajahi Protokol
 
@@ -56,10 +56,27 @@ Peserta memperoleh salah satu dari **10 tingkatan akses NFT**. Setiap tingkatan 
     Hingga 22 level jaringan yang terdokumentasi, dengan kelayakan saat ini ditentukan oleh tingkatan dan fase protokol.
   </Card>
   <Card title="Protokol Pinjaman" icon="building-columns" href="/id/da-lending">
-    Batch DA yang memenuhi syarat dapat digunakan sebagai jaminan pada LTV 70% yang terdokumentasi.
+    Batch DA yang memenuhi syarat sebagai jaminan pada LTV 70% yang terdokumentasi. Aktivasi dijadwalkan pada 2027.
   </Card>
   <Card title="Tata Kelola DAO" icon="landmark" href="/id/governance">
     GovToken dengan pasokan tetap serta aturan proposal, persetujuan, dan administrasi yang terdokumentasi.
+  </Card>
+</CardGroup>
+
+## Jelajahi Ekosistem
+
+<CardGroup cols={2}>
+  <Card title="FinPro" icon="chart-line" href="/id/finpro-finflow">
+    Produk keuangan di rwafinpro.com. FinFlow, produk pertamanya, telah aktif sejak 8 Juli 2026.
+  </Card>
+  <Card title="Kartu Debit" icon="credit-card" href="/id/debit-cards">
+    RWA NFT Cards: kartu debit Visa internasional berdenominasi dolar yang diisi ulang dengan stablecoin, tersedia di rwanftcards.com.
+  </Card>
+  <Card title="Jembatan Lintas-Rantai" icon="bridge" href="/id/bridge">
+    Deposit ke dalam ekosistem dari 14 jaringan melalui bridge.rwanftfi.com.
+  </Card>
+  <Card title="AML Checker" icon="magnifying-glass-dollar" href="/id/aml-checker">
+    Pemeriksaan risiko alamat dompet di 19 blockchain sebelum bertransaksi.
   </Card>
 </CardGroup>
 
@@ -67,7 +84,7 @@ Peserta memperoleh salah satu dari **10 tingkatan akses NFT**. Setiap tingkatan 
 
 <AccordionGroup>
   <Accordion title="Beragam Sumber Likuiditas" icon="droplet">
-    DA Liquidity Pool menerima dana dari alokasi dan biaya protokol yang aktif. Sumber eksternal yang direncanakan, seperti pendapatan RWA, komisi layanan pembayaran, komisi swap, dan pendapatan FinPro, diidentifikasi secara terpisah hingga sumber tersebut aktif dan dapat diverifikasi.
+    DA Liquidity Pool menerima dana dari alokasi dan biaya protokol yang aktif. Sejak aktivasi Fase 2 pada Juni 2026, bagian Token Reserve dari penjualan NFT adalah 15% dari setiap pembelian pertama dan 18% dari setiap pembelian ulang. Sumber eksternal seperti pendapatan RWA, komisi layanan pembayaran, komisi swap, dan pendapatan FinPro ditampilkan sebagai aktif hanya setelah aliran dananya ke pool didokumentasikan secara publik, bahkan jika layanannya sendiri sudah aktif.
   </Accordion>
   <Accordion title="Tiga Mekanisme Pembakaran" icon="fire">
     - DA yang diproses melalui penjualan manual yang memenuhi syarat dibakar.
@@ -75,6 +92,6 @@ Peserta memperoleh salah satu dari **10 tingkatan akses NFT**. Setiap tingkatan 
     - Jaminan yang diproses setelah gagal bayar pinjaman dibakar secara progresif sesuai jadwal yang berlaku.
   </Accordion>
   <Accordion title="Siklus Deflasi Setengah Tahunan" icon="rotate">
-    Dokumentasi protokol menjelaskan Siklus Deflasi terjadwal yang dapat menjeda siklus mining, staking, dan pembentukan DA yang baru hingga 30 hari, sementara siklus yang sudah berjalan tetap berlanjut. Tanggal aktivasi dan parameter yang berlaku dipublikasikan sebelum setiap peristiwa. Pelajari mekanika lengkapnya di [Mekanika Token DA](/id/da-token-mechanics).
+    Dokumentasi protokol menjelaskan Siklus Deflasi terjadwal yang dapat menjeda siklus mining, staking, dan pembentukan DA yang baru hingga 30 hari, sementara siklus yang sudah berjalan tetap berlanjut. Siklus pertama belum dilaksanakan; tanggal dan parameternya dipublikasikan di saluran resmi sebelum peristiwa tersebut. Pelajari mekanika lengkapnya di [Mekanika Token DA](/id/da-token-mechanics).
   </Accordion>
 </AccordionGroup>
