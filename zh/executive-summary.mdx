@@ -13,7 +13,7 @@ icon: "book-open"
   src="/videos/intro.mp4"
 />
 
-RWANFTFI 是一个 Web3 协议，它将非同质化代币（NFT）转化为基于会员制的访问凭证，用于进入一个结构化的生态系统，从而拓展 NFT 的实用价值。该协议在 BNB Smart Chain 上整合了 NFT 访问等级、DA 机制、合作伙伴计划功能、挖矿与农场、借贷、治理，以及经验证的真实世界资产（RWA）、DeFi 与 CeFi 集成路线图。
+RWANFTFI 是一个 Web3 协议，它将非同质化代币（NFT）转化为基于会员制的访问凭证，用于进入一个结构化的生态系统，从而拓展 NFT 的实用价值。该协议构建于 BNB Smart Chain 之上，将 NFT 访问等级、DA 机制、合作伙伴计划功能与治理，同已上线的生态系统服务相结合：FinPro 金融产品、RWA NFT Cards Visa 借记卡、跨链桥以及 AML Checker。挖矿、农场与借贷计划于 2027 年启用，经验证的真实世界资产（RWA）集成仍在路线图中。
 
 <CardGroup cols={4}>
   <Card title="21M" icon="gauge-high">
@@ -34,11 +34,11 @@ RWANFTFI 是一个 Web3 协议，它将非同质化代币（NFT）转化为基�
 
 生态系统使用 **DA**——一种不可转让的 BEP-20 协议实用代币，最大供应量为 21,000,000 单位。其协议内部价格根据指定 [USDT](https://tether.to/) 流动性池的余额与 DA 流通供应量计算。DA 的发行、出售、销毁、借贷与流动性均取决于当前的智能合约参数。
 
-RWANFTFI 运行在 [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) 上，以实现快速、低成本的交易。一项托管式跨链充值服务通过文档所述的 `SERVICE_ROLE` 运营，可处理来自受支持网络的充值。
+RWANFTFI 运行在 [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) 上，以实现快速、低成本的交易。[跨链桥](/zh/bridge)是一项通过文档所述的 `SERVICE_ROLE` 运营的托管服务，负责处理来自 14 个受支持网络的充值。
 
 ## 如何参与 RWANFTFI？
 
-参与者获取 **10 个 NFT 访问等级**之一。每个等级规定可用的协议功能、合作伙伴网络深度、协议奖励上限、挖矿与农场资格、借贷访问权限以及续约条件。用户可按当前协议规则参与符合条件的合作伙伴计划活动、使用 DA 机制，并使用其等级可用的金融工具。
+参与者获取 **10 个 NFT 访问等级**之一。每个等级规定可用的协议功能、合作伙伴网络深度、协议奖励上限、挖矿与农场资格、借贷访问权限以及续约条件。用户可按当前协议规则参与符合条件的合作伙伴计划活动、使用 DA 机制，并使用其等级可用的金融工具。每个已购 NFT 还会解锁 FinPro——生态系统的金融产品线。
 
 ## 探索协议
 
@@ -56,10 +56,27 @@ RWANFTFI 运行在 [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain
     文档记载最多 22 个网络层级；当前资格由等级与协议阶段决定。
   </Card>
   <Card title="借贷协议" icon="building-columns" href="/zh/da-lending">
-    符合条件的 DA 批次可按文档所述的 70% LTV 用作抵押物。
+    符合条件的 DA 批次按文档所述的 70% LTV 用作抵押物。计划于 2027 年启用。
   </Card>
   <Card title="DAO 治理" icon="landmark" href="/zh/governance">
     固定供应量的 GovToken，配有文档化的提案、批准与管理规则。
+  </Card>
+</CardGroup>
+
+## 探索生态系统
+
+<CardGroup cols={2}>
+  <Card title="FinPro" icon="chart-line" href="/zh/finpro-finflow">
+    rwafinpro.com 上的金融产品。其中首个产品 FinFlow 自 2026 年 7 月 8 日起已上线。
+  </Card>
+  <Card title="借记卡" icon="credit-card" href="/zh/debit-cards">
+    RWA NFT Cards：以稳定币充值的国际美元 Visa 借记卡，可在 rwanftcards.com 获取。
+  </Card>
+  <Card title="跨链桥" icon="bridge" href="/zh/bridge">
+    通过 bridge.rwanftfi.com 从 14 个网络向生态系统充值。
+  </Card>
+  <Card title="AML Checker" icon="magnifying-glass-dollar" href="/zh/aml-checker">
+    在交易前对钱包地址进行覆盖 19 条区块链的风险检测。
   </Card>
 </CardGroup>
 
@@ -67,7 +84,7 @@ RWANFTFI 运行在 [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain
 
 <AccordionGroup>
   <Accordion title="多元流动性来源" icon="droplet">
-    DA 流动性池的资金来自当前生效的协议分配与手续费。RWA 收入、支付服务佣金、兑换佣金和 FinPro 营收等计划中的外部来源，在启用并可验证之前单独列示。
+    DA 流动性池的资金来自当前生效的协议分配与手续费。自 2026 年 6 月第二阶段启动以来，Token Reserve 在 NFT 销售中的份额为每笔首次购买的 15% 和每笔再购的 18%。RWA 收入、支付服务佣金、兑换佣金和 FinPro 营收等外部来源，仅在其流入资金池的情况公开记录后才显示为已启用，即使相关服务本身已经上线。
   </Accordion>
   <Accordion title="三种销毁机制" icon="fire">
     - 通过符合条件的手动出售处理的 DA 将被销毁。
@@ -75,6 +92,6 @@ RWANFTFI 运行在 [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain
     - 借贷违约后处理的抵押物将按适用的时间表逐步销毁。
   </Accordion>
   <Accordion title="半年度通缩周期" icon="rotate">
-    协议文档描述了一项定期的通缩周期：在最长 30 天内可暂停新的挖矿、质押与 DA 生成周期，已有周期则继续运行。当前的启动日期与参数会在每次事件前公布。完整机制请参阅 [DA 代币机制](/zh/da-token-mechanics)。
+    协议文档描述了一项定期的通缩周期：在最长 30 天内可暂停新的挖矿、质押与 DA 生成周期，已有周期则继续运行。首个周期尚未举行；其日期与参数将在事件前于官方渠道公布。完整机制请参阅 [DA 代币机制](/zh/da-token-mechanics)。
   </Accordion>
 </AccordionGroup>

@@ -1,6 +1,6 @@
 ---
 title: "NFT 生态系统"
-description: "RWANFTFI 全部 10 个 NFT 等级，从 Genesis（28 USDT）到 Infinity（24,000 USDT），涵盖协议奖励上限、合作伙伴网络深度、NFTM 挖矿与借贷资格、Autobuy、礼品 NFT、代金券，以及计划中的大使/VIP 版本。"
+description: "RWANFTFI 全部 10 个 NFT 等级，从 Genesis（28 USDT）到 Infinity（24,000 USDT），涵盖协议奖励上限、合作伙伴网络深度、FinPro 访问权限、NFTM 挖矿与借贷资格、Autobuy、礼品 NFT、代金券，以及计划中的大使/VIP 版本。"
 icon: "id-card"
 ---
 
@@ -18,28 +18,42 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
   </Card>
 </CardGroup>
 
-持有有效 NFT 是使用合作伙伴计划、DA 挖矿以及所选等级附带的金融工具的前提。每个账户支持一个有效 NFT；升级将替换原有 NFT。
+持有有效 NFT 是使用合作伙伴计划、DA 挖矿以及所选等级附带的金融工具的前提。每个账户支持一个有效 NFT；升级将替换原有 NFT。从 Genesis 到 Infinity，每个已购 NFT 还会解锁 FinPro：其持有者可开立 25 USDT 起的 FinFlow 仓位。
 
 ## 10 个等级一览
 
 **协议奖励上限**是当前 NFT 周期内可记入的符合条件的奖励的最大累计金额。**合作伙伴网络深度**是纳入符合条件的合作伙伴网络分配计算的最大层级。
 
-| L | 名称 | 组别 | 价格（USDT） | 奖励上限（USDT） | 网络深度 | 挖矿周期 | NFTM（周期 1 / 2） | 对等奖金 | DA | 借贷 | Autobuy |
-|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
-| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
-| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
-| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
-| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
-| 5 | Hydro | Premium | 550 | 1,400 | 9 | 45 天 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 6 | Quantum | Premium | 1,100 | 2,700 | 11 | 44 天 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 7 | Pulse | Premium | 2,200 | 5,800 | 12 | 43 天 | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 8 | Aurora | Premium | 5,500 | 12,800 | 13 | 42 天 | 10% / 15% | ✓ | ✓ | ✓ | 3/3 |
-| 9 | Flame | Elite | 11,000 | 28,000 | 15 | 41 天 | 10% / 15% | ✓ | ✓ | ✓ | 无限制 |
-| 10 | Infinity | Elite | 24,000 | 70,000 | 19（当前） | 40 天 | 10% / 15% | ✓ | ✓ | ✓ | 无限制 |
+| 等级 | 价格（USDT） | 奖励上限（USDT） | 网络深度 |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1,400 | 9 |
+| L6 · Quantum | 1,100 | 2,700 | 11 |
+| L7 · Pulse | 2,200 | 5,800 | 12 |
+| L8 · Aurora | 5,500 | 12,800 | 13 |
+| L9 · Flame | 11,000 | 28,000 | 15 |
+| L10 · Infinity | 24,000 | 70,000 | 19（当⁠前） |
 
 <Note>
-  **Infinity（L10）销售已开放**：DAO 已随 2026 年 6 月的第二阶段启动将其启用。**深度数值反映当前协议阶段**。未来任何向第 16–22 层的扩展，都仅在获得所需的治理批准并完成协议更新后才会生效。**对等奖金**一栏表示第 1 层的资格（Eclipse / L4 及以上）；第 2 层和第 3 层分别要求累计个人销售额达到 1,000 USDT 和 3,000 USDT。**NFTM（周期 1 / 2）一栏**以 NFT 价格的百分比表示。
+  **Infinity（L10）销售已开放**：DAO 已随 2026 年 6 月的第二阶段启动将其启用。**深度数值反映当前协议阶段**。未来任何向第 16–22 层的扩展，都仅在获得所需的治理批准并完成协议更新后才会生效。
 </Note>
+
+NFT 的基础 **FinFlow 额度**等于其协议奖励上限。FinFlow Promotion 2026 进行期间（截至 2026 年 12 月 31 日或资金池额满为止），适用提高后的促销额度。请参阅 [FinPro 与 FinFlow](/zh/finpro-finflow)。
+
+### 各等级功能
+
+| 功能 | 起始等级 |
+|---|---|
+| 合作伙伴计划与 FinPro 访问权限 | Genesis（L1） |
+| 对等奖金 | Eclipse（L4）。第 2 层和第 3 层还分别要求累计个人销售额达到 1,000 USDT 和 3,000 USDT。 |
+| NFTM 挖矿、DA 农场与 DA 借贷 | Hydro（L5）。挖矿周期在 Hydro 上为 45 天，等级每升高一级缩短一天，至 Infinity 为 40 天。 |
+| 第二个 NFTM 周期 | Aurora（L8）。第一个周期记录相当于 NFT 价格 10% 的 NFTM，第二个周期记录 15%。 |
+| 无限次 Autobuy | Flame（L9）。第 1–8 级允许三次自动续约。 |
+
+NFTM 挖矿、DA 农场与 DA 借贷计划于 2027 年启用。
 
 <NftTierExplorer />
 
@@ -68,14 +82,32 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 </Card>
 
 ## 礼品 NFT 与代金券
+
+### 礼品 NFT
+
+礼品 NFT 不可购买，也不可出售。它们根据 First Purchase NFT 与 Upgrade NFT 等促销活动以及 Career Ranks 与 Fast Start Program 授予，也会授予活跃的领导者。持有者可将礼品 NFT 转赠给未来的合作伙伴。
+
 <CardGroup cols={2}>
-  <Card title="礼品 NFT" icon="gift">
-    礼品 NFT 是不可出售的促销资产，可将用户置入合作伙伴网络。礼品 NFT 无法购买，而是根据经批准的促销活动或职级计划授予。
+  <Card title="网络中的位置" icon="sitemap">
+    礼品 NFT 在合作伙伴网络中占据一个永久位置，并拥有自己的协议奖励上限。
   </Card>
-  <Card title="礼品代金券" icon="ticket">
-    礼品代金券是由用户创建的优惠券，须遵守文档所述的最低面额、生命周期、转让限制与支付组合规则。如在整个生命周期内未被使用，其价值将按当前智能合约规则路由。
+  <Card title="50 / 50 分配" icon="scale-balanced">
+    礼品 NFT 的奖励在常规余额与累积余额之间平均分配。
+  </Card>
+  <Card title="FinPro 访问权限" icon="chart-line">
+    礼品 NFT 可解锁 FinFlow，并可在其自身额度内持有自己的仓位。
+  </Card>
+  <Card title="每个地址最多 100 个" icon="layer-group">
+    目前单个地址可持有的礼品 NFT 数量的链上上限。
   </Card>
 </CardGroup>
+
+当前促销活动见[奖励与佣金](/zh/marketing-rewards#当前促销活动)。
+
+### 礼品代金券
+
+礼品代金券是由用户创建的优惠券，须遵守文档所述的最低面额、生命周期、转让限制与支付组合规则。如在整个生命周期内未被使用，其价值将按当前智能合约规则路由。
+
 ## 大使 NFT 与 VIP 版
 <CardGroup cols={2}>
   <Card title="大使 NFT" icon="crown">
