@@ -13,7 +13,7 @@ icon: "book-open"
   src="/videos/intro.mp4"
 />
 
-RWANFTFI es un protocolo Web3 que amplía la utilidad de los Tokens No Fungibles (NFT) al convertirlos en llaves de acceso basadas en membresía a un ecosistema estructurado. El protocolo combina niveles de acceso NFT, mecánicas del DA, funcionalidad del programa de socios, minería y farming, préstamos, gobernanza y una hoja de ruta de integraciones verificadas de Activos del Mundo Real (RWA), DeFi y CeFi en BNB Smart Chain.
+RWANFTFI es un protocolo Web3 que amplía la utilidad de los Tokens No Fungibles (NFT) al convertirlos en llaves de acceso basadas en membresía a un ecosistema estructurado. El protocolo, construido sobre BNB Smart Chain, combina niveles de acceso NFT, mecánicas del DA, funcionalidad del programa de socios y gobernanza con servicios del ecosistema ya operativos: los productos financieros de FinPro, la tarjeta de débito Visa RWA NFT Cards, un puente cross-chain y un AML Checker. La activación de la minería, el farming y los préstamos está prevista para 2027, y las integraciones verificadas de Activos del Mundo Real (RWA) siguen en la hoja de ruta.
 
 <CardGroup cols={4}>
   <Card title="21M" icon="gauge-high">
@@ -34,11 +34,11 @@ RWANFTFI es un protocolo Web3 que amplía la utilidad de los Tokens No Fungibles
 
 El ecosistema utiliza **DA**, un token de utilidad del protocolo BEP-20 no transferible con un suministro máximo de 21.000.000 unidades. Su precio interno del protocolo se calcula a partir del saldo del pool de liquidez de [USDT](https://tether.to/) designado y del suministro circulante de DA. La emisión, las ventas, las quemas, los préstamos y la liquidez del DA dependen de los parámetros actuales de los smart contracts.
 
-RWANFTFI opera en [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) para transacciones rápidas y de bajo coste. Un servicio gestionado de depósitos cross-chain, operado a través del `SERVICE_ROLE` documentado, puede procesar depósitos desde redes compatibles.
+RWANFTFI opera en [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) para transacciones rápidas y de bajo coste. El [puente cross-chain](/es/bridge), un servicio gestionado operado a través del `SERVICE_ROLE` documentado, procesa depósitos desde 14 redes compatibles.
 
 ## ¿Cómo se participa en RWANFTFI?
 
-Los participantes adquieren uno de los **10 niveles de acceso NFT**. Cada nivel define las funciones del protocolo disponibles, la Profundidad de la Red de Socios, el Límite de Recompensas del Protocolo, la elegibilidad para minería y farming, el acceso a préstamos y las condiciones de renovación. Los usuarios pueden participar en la actividad elegible del programa de socios, acceder a las mecánicas del DA y utilizar las herramientas financieras disponibles para su nivel según las reglas actuales del protocolo.
+Los participantes adquieren uno de los **10 niveles de acceso NFT**. Cada nivel define las funciones del protocolo disponibles, la Profundidad de la Red de Socios, el Límite de Recompensas del Protocolo, la elegibilidad para minería y farming, el acceso a préstamos y las condiciones de renovación. Los usuarios pueden participar en la actividad elegible del programa de socios, acceder a las mecánicas del DA y utilizar las herramientas financieras disponibles para su nivel según las reglas actuales del protocolo. Cada NFT adquirido también da acceso a FinPro, la línea de productos financieros del ecosistema.
 
 ## Explore el Protocolo
 
@@ -56,10 +56,27 @@ Los participantes adquieren uno de los **10 niveles de acceso NFT**. Cada nivel 
     Hasta 22 niveles de red documentados; la elegibilidad actual depende del nivel de NFT y de la fase del protocolo.
   </Card>
   <Card title="Protocolo de Lending" icon="building-columns" href="/es/da-lending">
-    Los lotes de DA elegibles pueden usarse como colateral con el LTV documentado del 70%.
+    Lotes de DA elegibles como colateral con el LTV documentado del 70%. La activación está prevista para 2027.
   </Card>
   <Card title="Gobernanza DAO" icon="landmark" href="/es/governance">
     GovToken de suministro fijo con reglas documentadas de propuesta, aprobación y administración.
+  </Card>
+</CardGroup>
+
+## Explore el Ecosistema
+
+<CardGroup cols={2}>
+  <Card title="FinPro" icon="chart-line" href="/es/finpro-finflow">
+    Productos financieros en rwafinpro.com. FinFlow, el primero de ellos, está operativo desde el 8 de julio de 2026.
+  </Card>
+  <Card title="Tarjetas de Débito" icon="credit-card" href="/es/debit-cards">
+    RWA NFT Cards: una tarjeta de débito Visa internacional en dólares que se recarga con stablecoins, disponible en rwanftcards.com.
+  </Card>
+  <Card title="Puente Cross-Chain" icon="bridge" href="/es/bridge">
+    Depósitos al ecosistema desde 14 redes en bridge.rwanftfi.com.
+  </Card>
+  <Card title="AML Checker" icon="magnifying-glass-dollar" href="/es/aml-checker">
+    Comprobación del riesgo de la dirección de una wallet en 19 blockchains antes de una operación.
   </Card>
 </CardGroup>
 
@@ -67,7 +84,7 @@ Los participantes adquieren uno de los **10 niveles de acceso NFT**. Cada nivel 
 
 <AccordionGroup>
   <Accordion title="Múltiples Fuentes de Liquidez" icon="droplet">
-    El Pool de Liquidez del DA recibe fondos de las asignaciones y comisiones activas del protocolo. Las fuentes externas previstas, como los ingresos de RWA, las comisiones de servicios de pago, las comisiones de swap y los ingresos de FinPro, se identifican por separado hasta que estén activas y sean verificables.
+    El Pool de Liquidez del DA recibe fondos de las asignaciones y comisiones activas del protocolo. Desde la activación de la Fase 2 en junio de 2026, la parte de Token Reserve en las ventas de NFT es del 15% de cada primera compra y del 18% de cada recompra. Las fuentes externas, como los ingresos de RWA, las comisiones de servicios de pago, las comisiones de swap y los ingresos de FinPro, se muestran como activas solo una vez que su flujo hacia el pool está documentado públicamente, incluso cuando el propio servicio ya está operativo.
   </Accordion>
   <Accordion title="Tres Mecanismos de Quema" icon="fire">
     - El DA procesado mediante ventas manuales elegibles se quema.
@@ -75,6 +92,6 @@ Los participantes adquieren uno de los **10 niveles de acceso NFT**. Cada nivel 
     - El colateral procesado tras un default de préstamo se quema progresivamente según el calendario aplicable.
   </Accordion>
   <Accordion title="Ciclo Deflacionario Semestral" icon="rotate">
-    La documentación del protocolo describe un Ciclo Deflacionario programado que puede pausar los nuevos ciclos de minería, staking y generación de DA durante un máximo de 30 días, mientras los ciclos existentes continúan. Las fechas de activación y los parámetros vigentes se publican antes de cada evento. Explore la mecánica completa en [Mecánica del Token DA](/es/da-token-mechanics).
+    La documentación del protocolo describe un Ciclo Deflacionario programado que puede pausar los nuevos ciclos de minería, staking y generación de DA durante un máximo de 30 días, mientras los ciclos existentes continúan. El primer ciclo aún no se ha realizado; su fecha y sus parámetros se publican en los canales oficiales antes del evento. Explore la mecánica completa en [Mecánica del Token DA](/es/da-token-mechanics).
   </Accordion>
 </AccordionGroup>
