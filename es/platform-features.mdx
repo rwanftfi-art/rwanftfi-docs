@@ -1,0 +1,59 @@
+---
+title: "Funciones de la Plataforma"
+description: "Herramientas de la aplicación de RWANFTFI: el Secret Code para las solicitudes de seguridad, los chats Web3 cifrados, los enlaces de referido permanentes, el manual de marca y la biblioteca de presentaciones."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Obligatorio para cualquier solicitud al soporte relacionada con la seguridad.
+  </Card>
+  <Card title="Chats Web3 privados" icon="comments">
+    Mensajes con cifrado de extremo a extremo basado en el protocolo XMTP.
+  </Card>
+  <Card title="Enlaces de referido" icon="link">
+    Un único formato de enlace permanente en share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+El Secret Code es una palabra aleatoria que se genera junto con la contraseña financiera. Es obligatorio para cualquier solicitud al soporte relacionada con la seguridad: sin él, el soporte no puede tramitar una solicitud de este tipo.
+
+<Warning>
+  **Mantenga en secreto el Secret Code.** Compártalo únicamente con el soporte oficial y solo cuando presente una solicitud de seguridad. Nunca lo comparta en chats, comentarios ni mensajes privados.
+</Warning>
+
+## Mensajería y chats Web3 privados
+
+La mensajería integrada muestra la hora exacta de cada mensaje. Su modo **Private Web3 chats** añade cifrado de extremo a extremo basado en el protocolo XMTP.
+
+| Propiedad | Cómo funciona |
+|---|---|
+| Cifrado | Los mensajes se cifran en el dispositivo con MLS (IETF RFC 9420). |
+| Almacenamiento | Los mensajes no se almacenan en los servidores de la plataforma. |
+| Identidad | La wallet EVM es la identidad; una única firma sin gas en cada dispositivo activa el modo. |
+| Revisión independiente | La biblioteca libxmtp ha sido auditada por NCC Group. |
+
+<Note>
+  El modo protege el contenido de los mensajes; no hace anónimos a los usuarios. El cifrado se aplica a los mensajes nuevos enviados en este modo.
+</Note>
+
+## Enlaces de referido
+
+Cada participante tiene un código de referido permanente. Los enlaces de referido utilizan un único formato:
+
+`share.rwanftfi.com/?ref=CODE`
+
+El formato de enlace anterior ya no funciona: se sustituyó en septiembre de 2026 debido a un problema con la entrega de enlaces en Telegram.
+
+## Manual de marca y recursos
+
+<CardGroup cols={2}>
+  <Card title="Manual de marca" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logotipos, colores, tipografías, iconos, documentos, el módulo publicitario y el merchandising: la fuente oficial de la identidad de marca de RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Presentaciones en la aplicación, incluida la presentación de FinFlow en inglés y ruso.
+  </Card>
+</CardGroup>

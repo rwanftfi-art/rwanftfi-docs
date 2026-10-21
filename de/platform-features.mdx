@@ -1,0 +1,59 @@
+---
+title: "Plattformfunktionen"
+description: "Werkzeuge in der RWANFTFI-Anwendung: der Secret Code für Sicherheitsanfragen, verschlüsselte Web3-Chats, dauerhafte Empfehlungslinks, das Brandbook und die Präsentationsbibliothek."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Erforderlich für jede sicherheitsbezogene Anfrage an den Support.
+  </Card>
+  <Card title="Private Web3-Chats" icon="comments">
+    Ende-zu-Ende-verschlüsselte Nachrichten auf Basis des XMTP-Protokolls.
+  </Card>
+  <Card title="Empfehlungslinks" icon="link">
+    Ein einheitliches, dauerhaftes Linkformat auf share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Der Secret Code ist ein zufälliges Wort, das zusammen mit dem Finanzpasswort generiert wird. Er ist für jede sicherheitsbezogene Anfrage an den Support erforderlich: Ohne ihn kann der Support eine solche Anfrage nicht bearbeiten.
+
+<Warning>
+  **Halten Sie den Secret Code geheim.** Geben Sie ihn ausschließlich an den offiziellen Support weiter und nur dann, wenn Sie eine Sicherheitsanfrage stellen. Teilen Sie ihn niemals in Chats, Kommentaren oder Privatnachrichten.
+</Warning>
+
+## Messenger und private Web3-Chats
+
+Der integrierte Messenger zeigt die genaue Uhrzeit jeder Nachricht an. Der Modus **Private Web3 chats** ergänzt ihn um eine Ende-zu-Ende-Verschlüsselung auf Basis des XMTP-Protokolls.
+
+| Eigenschaft | Funktionsweise |
+|---|---|
+| Verschlüsselung | Nachrichten werden auf dem Gerät mit MLS (IETF RFC 9420) verschlüsselt. |
+| Speicherung | Nachrichten werden nicht auf den Servern der Plattform gespeichert. |
+| Identität | Die EVM-Wallet dient als Identität; eine einzige Signatur ohne Gasgebühr pro Gerät aktiviert den Modus. |
+| Unabhängige Prüfung | Die Bibliothek libxmtp wurde von der NCC Group auditiert. |
+
+<Note>
+  Der Modus schützt den Inhalt der Nachrichten, macht Nutzer jedoch nicht anonym. Die Verschlüsselung gilt für neue Nachrichten, die in diesem Modus gesendet werden.
+</Note>
+
+## Empfehlungslinks
+
+Jeder Teilnehmer hat einen dauerhaften Empfehlungscode. Empfehlungslinks haben ein einheitliches Format:
+
+`share.rwanftfi.com/?ref=CODE`
+
+Das alte Linkformat funktioniert nicht mehr: Es wurde im September 2026 wegen eines Problems bei der Zustellung von Links in Telegram ersetzt.
+
+## Brandbook und Ressourcen
+
+<CardGroup cols={2}>
+  <Card title="Brandbook" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logos, Farben, Schriftarten, Icons, Dokumente, das Werbemodul und Merchandise: die offizielle Quelle für die Markenidentität von RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Präsentationen in der Anwendung, darunter die FinFlow-Präsentation auf Englisch und Russisch.
+  </Card>
+</CardGroup>

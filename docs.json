@@ -215,6 +215,15 @@
             ]
           },
           {
+            "group": "Ekosistem Hizmetleri",
+            "pages": [
+              "tr/debit-cards",
+              "tr/bridge",
+              "tr/aml-checker",
+              "tr/platform-features"
+            ]
+          },
+          {
             "group": "Deflasyonist Varlık (DA)",
             "pages": [
               "tr/da-token-mechanics",
@@ -353,6 +362,15 @@
             ]
           },
           {
+            "group": "Servicios del Ecosistema",
+            "pages": [
+              "es/debit-cards",
+              "es/bridge",
+              "es/aml-checker",
+              "es/platform-features"
+            ]
+          },
+          {
             "group": "Activo Deflacionario (DA)",
             "pages": [
               "es/da-token-mechanics",
@@ -419,6 +437,15 @@
             "pages": [
               "de/finpro-finflow",
               "de/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Ökosystem-Services",
+            "pages": [
+              "de/debit-cards",
+              "de/bridge",
+              "de/aml-checker",
+              "de/platform-features"
             ]
           },
           {
@@ -491,6 +518,15 @@
             ]
           },
           {
+            "group": "Serviços do Ecossistema",
+            "pages": [
+              "pt/debit-cards",
+              "pt/bridge",
+              "pt/aml-checker",
+              "pt/platform-features"
+            ]
+          },
+          {
             "group": "Ativo Deflacionário (DA)",
             "pages": [
               "pt/da-token-mechanics",
@@ -557,6 +593,15 @@
             "pages": [
               "hi/finpro-finflow",
               "hi/finpro-marketing"
+            ]
+          },
+          {
+            "group": "इकोसिस्टम सेवाएँ",
+            "pages": [
+              "hi/debit-cards",
+              "hi/bridge",
+              "hi/aml-checker",
+              "hi/platform-features"
             ]
           },
           {
@@ -629,6 +674,15 @@
             ]
           },
           {
+            "group": "Servizi dell'Ecosistema",
+            "pages": [
+              "it/debit-cards",
+              "it/bridge",
+              "it/aml-checker",
+              "it/platform-features"
+            ]
+          },
+          {
             "group": "Asset Deflazionario (DA)",
             "pages": [
               "it/da-token-mechanics",
@@ -695,6 +749,15 @@
             "pages": [
               "fr/finpro-finflow",
               "fr/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Services de l'Écosystème",
+            "pages": [
+              "fr/debit-cards",
+              "fr/bridge",
+              "fr/aml-checker",
+              "fr/platform-features"
             ]
           },
           {
@@ -833,6 +896,15 @@
             "pages": [
               "id/finpro-finflow",
               "id/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Layanan Ekosistem",
+            "pages": [
+              "id/debit-cards",
+              "id/bridge",
+              "id/aml-checker",
+              "id/platform-features"
             ]
           },
           {
