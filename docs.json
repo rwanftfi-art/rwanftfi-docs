@@ -293,6 +293,15 @@
             ]
           },
           {
+            "group": "生态系统服务",
+            "pages": [
+              "zh/debit-cards",
+              "zh/bridge",
+              "zh/aml-checker",
+              "zh/platform-features"
+            ]
+          },
+          {
             "group": "通缩资产（DA）",
             "pages": [
               "zh/da-token-mechanics",

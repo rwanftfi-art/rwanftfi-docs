@@ -1,0 +1,59 @@
+---
+title: "平台功能"
+description: "RWANFTFI 应用内的工具：用于安全相关请求的 Secret Code、加密 Web3 聊天、永久推荐链接、品牌手册以及演示文稿库。"
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    任何安全相关的支持请求均须提供。
+  </Card>
+  <Card title="私密 Web3 聊天" icon="comments">
+    基于 XMTP 协议的端到端加密消息。
+  </Card>
+  <Card title="推荐链接" icon="link">
+    share.rwanftfi.com 上的统一永久链接格式。
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Secret Code 是与财务密码一同生成的随机单词。向支持团队提出任何安全相关请求时都必须提供 Secret Code：没有它，支持团队无法处理此类请求。
+
+<Warning>
+  **请对 Secret Code 保密**。仅可将其提供给官方支持团队，且仅限于您提出安全相关请求时。切勿在聊天、评论或私信中分享。
+</Warning>
+
+## 即时通讯与私密 Web3 聊天
+
+内置即时通讯工具会显示每条消息的确切时间。其 **Private Web3 chats** 模式基于 XMTP 协议增加了端到端加密。
+
+| 特性 | 运作方式 |
+|---|---|
+| 加密 | 消息在设备端通过 MLS（IETF RFC 9420）加密。 |
+| 存储 | 消息不存储在平台的服务器上。 |
+| 身份 | EVM 钱包即身份标识；每台设备只需一次免 gas 签名即可启用该模式。 |
+| 独立审查 | libxmtp 库已经过 NCC Group 审计。 |
+
+<Note>
+  该模式保护消息内容，但不会使用户匿名。加密适用于在此模式下发送的新消息。
+</Note>
+
+## 推荐链接
+
+每位参与者都有一个永久推荐码。推荐链接采用统一格式：
+
+`share.rwanftfi.com/?ref=CODE`
+
+旧链接格式已失效：由于 Telegram 中存在链接送达问题，该格式已于 2026 年 9 月被替换。
+
+## 品牌手册与资源
+
+<CardGroup cols={2}>
+  <Card title="品牌手册" icon="palette" href="https://brandbook.rwanftfi.com">
+    标志、配色、字体、图标、文档、广告模块与周边商品：RWANFTFI 品牌形象的官方来源。
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    应用中的演示文稿，包括英文与俄文版本的 FinFlow 演示文稿。
+  </Card>
+</CardGroup>
