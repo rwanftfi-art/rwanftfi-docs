@@ -1,6 +1,6 @@
 ---
 title: "Hệ Sinh Thái NFT"
-description: "Toàn bộ 10 cấp NFT RWANFTFI từ Genesis (28 USDT) đến Infinity (24.000 USDT) — bao gồm Giới Hạn Phần Thưởng Giao Thức, Độ Sâu Mạng Lưới Đối Tác, điều kiện khai thác NFTM và cho vay, Autobuy, NFT Quà Tặng, Voucher và các phiên bản Ambassador/VIP theo kế hoạch."
+description: "Toàn bộ 10 cấp NFT RWANFTFI từ Genesis (28 USDT) đến Infinity (24.000 USDT) — bao gồm Giới Hạn Phần Thưởng Giao Thức, Độ Sâu Mạng Lưới Đối Tác, quyền truy cập FinPro, điều kiện khai thác NFTM và cho vay, Autobuy, NFT Quà Tặng, Voucher và các phiên bản Ambassador/VIP theo kế hoạch."
 icon: "id-card"
 ---
 
@@ -18,28 +18,42 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
   </Card>
 </CardGroup>
 
-Cần sở hữu một NFT đang hoạt động để truy cập chương trình đối tác, khai thác DA và các công cụ tài chính gắn với cấp đã chọn. Mỗi tài khoản hỗ trợ một NFT đang hoạt động; việc nâng cấp sẽ thay thế NFT trước đó.
+Cần sở hữu một NFT đang hoạt động để truy cập chương trình đối tác, khai thác DA và các công cụ tài chính gắn với cấp đã chọn. Mỗi tài khoản hỗ trợ một NFT đang hoạt động; việc nâng cấp sẽ thay thế NFT trước đó. Mỗi NFT đã mua, từ Genesis đến Infinity, cũng mở quyền truy cập FinPro: người nắm giữ NFT đó có thể mở một vị thế FinFlow từ 25 USDT.
 
 ## Tổng Quan 10 Cấp
 
 **Giới Hạn Phần Thưởng Giao Thức** là tổng số tiền tối đa, tính cộng dồn, của các phần thưởng đủ điều kiện có thể được ghi có trong chu kỳ NFT hiện tại. **Độ Sâu Mạng Lưới Đối Tác** là cấp tối đa được tính vào các phép tính Phân Phối Mạng Lưới Đối Tác đủ điều kiện.
 
-| L | Tên | Nhóm | Giá (USDT) | Giới hạn thưởng (USDT) | Độ sâu mạng lưới | Chu kỳ khai thác | NFTM (Chu kỳ 1 / 2) | Matching Bonus | DA | Cho vay | Autobuy |
-|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
-| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
-| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
-| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
-| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
-| 5 | Hydro | Premium | 550 | 1.400 | 9 | 45 ngày | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 6 | Quantum | Premium | 1.100 | 2.700 | 11 | 44 ngày | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 7 | Pulse | Premium | 2.200 | 5.800 | 12 | 43 ngày | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 8 | Aurora | Premium | 5.500 | 12.800 | 13 | 42 ngày | 10% / 15% | ✓ | ✓ | ✓ | 3/3 |
-| 9 | Flame | Elite | 11.000 | 28.000 | 15 | 41 ngày | 10% / 15% | ✓ | ✓ | ✓ | Không giới hạn |
-| 10 | Infinity | Elite | 24.000 | 70.000 | 19 (hiện tại) | 40 ngày | 10% / 15% | ✓ | ✓ | ✓ | Không giới hạn |
+| Cấp | Giá (USDT) | Giới hạn thưởng (USDT) | Độ sâu mạng lưới |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1.400 | 9 |
+| L6 · Quantum | 1.100 | 2.700 | 11 |
+| L7 · Pulse | 2.200 | 5.800 | 12 |
+| L8 · Aurora | 5.500 | 12.800 | 13 |
+| L9 · Flame | 11.000 | 28.000 | 15 |
+| L10 · Infinity | 24.000 | 70.000 | 19 (hiện tại) |
 
 <Note>
-  **Infinity (L10) đã mở bán:** DAO đã cho phép bán cùng với việc kích hoạt Phase 2 vào tháng Sáu năm 2026. **Giá trị độ sâu phản ánh giai đoạn hiện tại của giao thức.** Mọi sự mở rộng trong tương lai lên Cấp 16–22 chỉ có hiệu lực sau khi có phê duyệt quản trị cần thiết và bản cập nhật giao thức. Cột **Matching Bonus** thể hiện điều kiện nhận Cấp 1 (Eclipse / L4 trở lên); Cấp 2 và Cấp 3 lần lượt yêu cầu doanh số cá nhân tích lũy 1.000 và 3.000 USDT. **NFTM (Chu kỳ 1 / 2)** được biểu thị bằng tỷ lệ phần trăm của giá NFT.
+  **Infinity (L10) đã mở bán:** DAO đã cho phép bán cùng với việc kích hoạt Phase 2 vào tháng Sáu năm 2026. **Giá trị độ sâu phản ánh giai đoạn hiện tại của giao thức.** Mọi sự mở rộng trong tương lai lên Cấp 16–22 chỉ có hiệu lực sau khi có phê duyệt quản trị cần thiết và bản cập nhật giao thức.
 </Note>
+
+**Giới hạn FinFlow cơ bản** của một NFT bằng Giới Hạn Phần Thưởng Giao Thức của NFT đó. Trong thời gian FinFlow Promotion 2026 diễn ra, đến hết ngày 31 tháng Mười Hai năm 2026 hoặc cho đến khi pool được lấp đầy, các giới hạn khuyến mại cao hơn được áp dụng. Xem [FinPro & FinFlow](/vi/finpro-finflow).
+
+### Tính Năng Theo Cấp
+
+| Tính năng | Khả dụng từ cấp |
+|---|---|
+| Chương trình đối tác và quyền truy cập FinPro | Genesis (L1) |
+| Matching Bonus | Eclipse (L4). Cấp 2 và Cấp 3 còn yêu cầu doanh số cá nhân tích lũy lần lượt 1.000 và 3.000 USDT. |
+| Khai Thác NFTM, Farming DA và Cho Vay DA | Hydro (L5). Một chu kỳ khai thác kéo dài 45 ngày ở Hydro và giảm một ngày ở mỗi cấp cao hơn, xuống còn 40 ngày ở Infinity. |
+| Chu kỳ NFTM thứ hai | Aurora (L8). Chu kỳ thứ nhất ghi nhận 10% và chu kỳ thứ hai ghi nhận 15% giá NFT dưới dạng NFTM. |
+| Autobuy không giới hạn | Flame (L9). Cấp 1–8 cho phép ba lần gia hạn tự động. |
+
+Khai Thác NFTM, Farming DA và Cho Vay DA dự kiến được kích hoạt vào năm 2027.
 
 <NftTierExplorer />
 
@@ -68,14 +82,32 @@ Khi một Sponsor Bonus hợp lệ phát sinh từ giao dịch mua NFT đầu ti
 </Card>
 
 ## NFT Quà Tặng & Voucher
+
+### NFT Quà Tặng
+
+Không thể mua hoặc bán NFT Quà Tặng. Các NFT này được trao theo các chương trình khuyến mại như First Purchase NFT và Upgrade NFT, theo Career Ranks và Fast Start Program, cũng như cho các nhà lãnh đạo tích cực. Người nắm giữ có thể chuyển NFT Quà Tặng cho một đối tác tương lai.
+
 <CardGroup cols={2}>
-  <Card title="NFT Quà Tặng" icon="gift">
-    NFT Quà Tặng là tài sản khuyến mại không thể bán, có thể đặt người dùng vào mạng lưới đối tác. Chúng không thể được mua và được trao theo các chương trình khuyến mại hoặc chương trình cấp bậc đã được phê duyệt.
+  <Card title="Vị trí trong mạng lưới" icon="sitemap">
+    NFT Quà Tặng chiếm một vị trí vĩnh viễn trong mạng lưới đối tác và có Giới Hạn Phần Thưởng Giao Thức riêng.
   </Card>
-  <Card title="Voucher Quà Tặng" icon="ticket">
-    Voucher Quà Tặng là phiếu giảm giá do người dùng tạo, tuân theo các quy tắc về giá trị tối thiểu, vòng đời, hạn chế chuyển nhượng và kết hợp thanh toán được mô tả trong tài liệu. Nếu không được sử dụng trong suốt vòng đời, giá trị của voucher sẽ được chuyển theo quy tắc hợp đồng thông minh hiện hành.
+  <Card title="Phân chia 50 / 50" icon="scale-balanced">
+    Phần thưởng trên NFT Quà Tặng được chia đều giữa Số Dư Thông Thường và Số Dư Tích Lũy.
+  </Card>
+  <Card title="Quyền truy cập FinPro" icon="chart-line">
+    NFT Quà Tặng mở quyền truy cập FinFlow và có thể nắm giữ một vị thế riêng trong phạm vi giới hạn của mình.
+  </Card>
+  <Card title="Tối đa 100 mỗi địa chỉ" icon="layer-group">
+    Giới hạn on-chain hiện tại đối với số NFT Quà Tặng mà một địa chỉ nắm giữ.
   </Card>
 </CardGroup>
+
+Các chương trình khuyến mại hiện tại được liệt kê trong [Phần Thưởng & Thù Lao](/vi/marketing-rewards#khuyến-mại-đang-diễn-ra).
+
+### Voucher Quà Tặng
+
+Voucher Quà Tặng là phiếu giảm giá do người dùng tạo, tuân theo các quy tắc về giá trị tối thiểu, vòng đời, hạn chế chuyển nhượng và kết hợp thanh toán được mô tả trong tài liệu. Nếu không được sử dụng trong suốt vòng đời, giá trị của voucher sẽ được chuyển theo quy tắc hợp đồng thông minh hiện hành.
+
 ## Phiên Bản Ambassador & VIP
 <CardGroup cols={2}>
   <Card title="NFT Ambassador" icon="crown">
