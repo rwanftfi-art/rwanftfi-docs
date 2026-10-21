@@ -839,6 +839,15 @@
             ]
           },
           {
+            "group": "خدمات النظام البيئي",
+            "pages": [
+              "ar/debit-cards",
+              "ar/bridge",
+              "ar/aml-checker",
+              "ar/platform-features"
+            ]
+          },
+          {
             "group": "الأصل الانكماشي (DA)",
             "pages": [
               "ar/da-token-mechanics",
