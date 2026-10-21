@@ -991,6 +991,30 @@
     {
       "source": "/",
       "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/fil/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/fil",
+      "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/ka/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/ka",
+      "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/kk/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/kk",
+      "destination": "/en/executive-summary"
     }
   ]
 }

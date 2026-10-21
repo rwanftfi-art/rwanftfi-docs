@@ -52,5 +52,5 @@ Audit (public): https://skynet.certik.com/projects/rwanftfi
 
 ## Other languages
 
-The same documentation is available in 16 languages. Replace `/en/` with the locale prefix:
-`ru` (Russian), `zh` (Chinese), `es` (Spanish), `de` (German), `pt` (Portuguese), `hi` (Hindi), `it` (Italian), `fr` (French), `ar` (Arabic), `id` (Indonesian), `ja` (Japanese), `vi` (Vietnamese), `uk` (Ukrainian), `tr` (Turkish), `kk` (Kazakh), `fil` (Filipino).
+The same documentation is available in 15 languages. Replace `/en/` with the locale prefix:
+`ru` (Russian), `zh` (Chinese), `es` (Spanish), `de` (German), `pt` (Portuguese), `hi` (Hindi), `it` (Italian), `fr` (French), `ar` (Arabic), `id` (Indonesian), `ja` (Japanese), `vi` (Vietnamese), `uk` (Ukrainian), `tr` (Turkish).
