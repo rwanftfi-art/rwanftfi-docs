@@ -553,6 +553,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "hi/finpro-finflow",
+              "hi/finpro-marketing"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "hi/da-token-mechanics",
