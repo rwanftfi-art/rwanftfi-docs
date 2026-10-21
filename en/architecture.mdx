@@ -1,6 +1,6 @@
 ---
 title: "Smart Contract Architecture"
-description: "RWANFTFI uses an EIP-2535 Diamond architecture with seven functional facets, separate NFT and reserve contracts, defined upgradeability mechanisms, role-based permissions, and multiple internal balance types."
+description: "RWANFTFI uses an EIP-2535 Diamond architecture with eight functional facets, separate NFT and reserve contracts, defined upgradeability mechanisms, role-based permissions, and multiple internal balance types."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | Function |
 |---|---|
-| AdminFacet | Roles, parameters, approved transfers, and special NFT minting. |
+| AdminFacet | Wallet changes and account restrictions, special NFT minting, and automated service operations. |
+| ParametersFacet | Protocol parameters, NFT settings, Gift NFT types, function switches, farming periods, and fee ranges. |
 | MarketingFacet | Registration, NFT purchases, and partner-reward calculations. |
 | FarmingFacet | NFTM Mining and DA Farming. |
 | PaymentFacet | Deposits, withdrawals, vouchers, and balance transfers. |
 | TreeFacet | Partner-network placement and depth. |
 | ResolverFacet | Expired values, voucher processing, and Frozen Balance resolution. |
 | ViewFacet | Read-only user, balance, and network queries. |
+
+The Diamond also includes the standard EIP-2535 facets: DiamondCutFacet for upgrades, DiamondLoupeFacet for introspection, and OwnershipFacet.
 
 ## NFT Contracts
 
@@ -46,10 +49,14 @@ icon: "cubes"
 
 | Role | Documented Authority |
 |---|---|
-| `ADMIN_ROLE` | Grant and revoke roles; change permitted protocol parameters. |
+| DAO contract | Applies parameter updates within the on-chain ranges, changes NFT settings, enables or disables functions, sets farming periods and fee ranges, approves wallet changes, and restricts or restores accounts. |
+| `ADMIN_ROLE` | Grant and revoke roles; mint Gift and Ambassador NFTs and manage Gift NFT types; set the transaction fee within its range. |
 | `SERVICE_ROLE` | Execute documented automated and cross-chain service operations. |
 | `SIGNER_ROLE` | Verify authorized signatures for specified actions. |
 | `MINTER_ROLE` | Mint the token or NFT type assigned to that role. |
+| Diamond owner | Facet upgrades through `diamondCut` and ownership transfer. |
+
+The function-level list for every role is in the centralization section of the [CertiK report](/en/security).
 
 ## Balance Schema
 
@@ -81,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  All transactions on [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) require standard network gas fees paid in **BNB**, separate from [USDT](https://tether.to/) balances used within the ecosystem. Contract deployments and balances are publicly verifiable on [BscScan](https://bscscan.com/).
+  All transactions on [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) require standard network gas fees paid in **BNB**, separate from [USDT](https://tether.to/) balances used within the ecosystem. Contract deployments and balances are publicly verifiable on [BscScan](https://bscscan.com/); official contract addresses are listed at [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 </Note>
