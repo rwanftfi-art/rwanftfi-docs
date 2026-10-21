@@ -1,0 +1,91 @@
+/*
+ * Right-to-left layout for the Arabic pages (/ar).
+ *
+ * Mintlify serves /ar pages with <html lang="ar"> but without dir="rtl", so every
+ * Arabic line that contains a Latin term (NFT, DA, USDT, DAO ...) is laid out left
+ * to right and reads out of order. Every rule below is scoped to html[lang="ar"],
+ * so no other language is affected. The page column (header, body, pagination)
+ * switches to RTL; the navigation chrome keeps its layout and only gets the
+ * word-order fix at the end of this file.
+ */
+
+html[lang="ar"] #content-area {
+  direction: rtl;
+}
+
+/* Inline code (role names, function calls) stays a left-to-right unit. */
+html[lang="ar"] #content-area code {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* Table headers follow the reading direction. Headers with an explicit alignment
+   from the Markdown alignment row (inline style or align attribute) are left alone. */
+html[lang="ar"] #content-area th:not([align]):not([style*="text-align"]) {
+  text-align: start;
+}
+
+/* Bulleted lists: Mintlify resets the list indent and positions the bullet with
+   physical left offsets, so mirror them. */
+html[lang="ar"] #content-area :is(.prose, .prose-sm) :where(ul):not(:where([class~=not-prose], [class~=not-prose] *)) {
+  padding-right: 0;
+}
+html[lang="ar"] #content-area .prose :where(ul > li):not(:where([class~=not-prose], [class~=not-prose] *)) {
+  padding-left: 0 !important;
+  padding-right: 2em !important;
+}
+html[lang="ar"] #content-area .prose :where(ul > li):not(:where([class~=not-prose], [class~=not-prose] *))::before {
+  left: auto;
+  right: 0.5em;
+}
+
+/* Block quotes: the rule sits on the right-hand side. */
+html[lang="ar"] #content-area .prose :where(blockquote):not(:where([class~=not-prose], [class~=not-prose] *)) {
+  border-left-width: 0;
+  border-right-width: 4px;
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+/* Steps: number badge and connector line on the right, text clear of both. */
+html[lang="ar"] #content-area .steps {
+  margin-left: 0;
+  margin-right: 0.875rem;
+}
+html[lang="ar"] #content-area [data-component-part="step-number"] {
+  margin-left: 0;
+  margin-right: -13px;
+}
+html[lang="ar"] #content-area .step > .w-full {
+  padding-left: 1px;
+  padding-right: 2rem;
+}
+
+/* Accordions: title next to the caret; a closed caret points towards the title. */
+html[lang="ar"] #content-area [data-component-part="accordion-title-container"] {
+  text-align: start;
+}
+html[lang="ar"] #content-area [data-component-part="accordion-caret-right"] svg.-rotate-90 {
+  rotate: 90deg;
+}
+
+/* Pagination: "previous" on the right, "next" on the left, chevrons point outwards. */
+html[lang="ar"] #pagination .pagination-next {
+  margin-left: 0;
+  margin-right: auto;
+}
+html[lang="ar"] #pagination [data-component-part="pagination-chevron"] {
+  transform: scaleX(-1);
+}
+
+/* The interactive widgets from /snippets are English-only: keep them left to right. */
+html[lang="ar"] #content div.not-prose.rounded-xl.p-6 {
+  direction: ltr;
+}
+
+/* Navigation chrome (top bar and mobile breadcrumb, sidebar, table of contents):
+   keep the layout, but let each label take its direction from its first letter so
+   mixed Arabic/Latin titles such as "نظام NFT البيئي" keep their word order. */
+html[lang="ar"] :is(#navbar, #sidebar, #table-of-contents-layout, #table-of-contents) :is(a, span, p, div, h5) {
+  unicode-bidi: plaintext;
+}
