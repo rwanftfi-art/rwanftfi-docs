@@ -1,0 +1,172 @@
+---
+title: "FinPro & FinFlow"
+description: "FinPro est la couche de produits financiers de l'écosystème RWANFTFI. FinFlow est son premier produit : une position dans une stratégie neutre au marché, représentée par un FinFlow NFT non transférable et accessible aux détenteurs de NFT RWANFTFI dans la limite de leur Plafond de Récompenses du Protocole."
+icon: "chart-line"
+---
+
+<Note>
+  **FinPro et la plateforme RWA NFT sont des produits distincts.** Les positions FinPro sont alimentées directement depuis le wallet EVM de l'utilisateur, et les paiements sont versés directement sur ce même wallet. Le Solde Régulier et le Solde Cumulatif de la plateforme principale ne sont pas utilisés dans FinPro, et les attributions FinPro n'y sont jamais créditées.
+</Note>
+
+## Qu'est-ce que FinPro ?
+
+FinPro est une plateforme de produits au sein de l'écosystème, sur laquelle sont proposés des produits financiers (pools et stratégies). Elle fonctionne sur son propre domaine, **[rwafinpro.com](https://rwafinpro.com)**, et s'ouvre depuis l'onglet **FinPro** de l'application principale, à l'adresse [app.rwanftfi.com](https://app.rwanftfi.com). La langue de l'interface est reprise automatiquement, et le site FinPro renvoie vers la plateforme principale.
+
+FinPro a migré vers son domaine dédié en août 2026 afin que les produits financiers soient isolés des alertes de wallet susceptibles de toucher n'importe quel autre domaine de l'écosystème. Les smart contracts, les positions et la mécanique n'ont pas changé avec cette migration.
+
+<CardGroup cols={3}>
+  <Card title="FinFlow" icon="circle-check">
+    **En service** depuis le 8 juillet 2026. Le premier produit FinPro.
+  </Card>
+  <Card title="FinCore" icon="hourglass-half">
+    **Prochain produit,** le premier avec FinPro Marketing. Les paramètres sont publiés avant le lancement.
+  </Card>
+  <Card title="Produits suivants" icon="layer-group">
+    **En développement.** Ils fonctionnent dans la même structure FinPro Marketing.
+  </Card>
+</CardGroup>
+
+Chaque produit a ses propres paramètres : modèle d'attribution, Earn cap, fréquence des paiements, période de blocage et règle de restitution du capital. La structure FinPro Marketing et les pourcentages par niveau sont communs à tous les produits. Voir [FinPro Marketing](/fr/finpro-marketing).
+
+## Qui peut ouvrir une position FinFlow ?
+
+<Steps>
+  <Step title="Un NFT RWANFTFI">
+    La clé d'accès est un NFT RWANFTFI acheté, de n'importe quel niveau, de Genesis à Infinity. Les NFT Cadeaux sont également éligibles et peuvent détenir une position FinFlow dans la limite qui leur est propre.
+  </Step>
+  <Step title="Une limite FinFlow">
+    La limite FinFlow d'un NFT est égale à son **Plafond de Récompenses du Protocole** (terme on-chain : *Income Limit*). L'ouverture d'une position FinFlow ne consomme **pas** le Plafond de Récompenses du Protocole de la plateforme principale : la limite est un plafond d'entrée, et non un solde à dépenser.
+  </Step>
+  <Step title="Une marge disponible dans la limite">
+    Le total de toutes les positions FinFlow ouvertes ne peut pas dépasser la limite FinFlow du détenteur. Pour en ouvrir davantage, le détenteur met à niveau son NFT.
+  </Step>
+</Steps>
+
+**Comment les limites se combinent.** Si des NFT sont achetés **successivement, niveau par niveau** (par exemple L3, puis L4, puis L5), les limites FinFlow de chaque niveau sont **additionnées** en une limite combinée unique. Si un niveau supérieur est acheté **directement** (par exemple L5 sans les niveaux précédents), seule la limite de ce niveau s'applique. Tant que FinFlow Promotion 2026 est en cours, ce sont les limites promotionnelles qui sont utilisées.
+
+| L | Nom | Prix (USDT) | Limite FinFlow de base (USDT) |
+|:---:|---|---:|---:|
+| 1 | Genesis | 28 | 75 |
+| 2 | Advance | 55 | 160 |
+| 3 | Ascend | 140 | 375 |
+| 4 | Eclipse | 275 | 650 |
+| 5 | Hydro | 550 | 1 400 |
+| 6 | Quantum | 1 100 | 2 700 |
+| 7 | Pulse | 2 200 | 5 800 |
+| 8 | Aurora | 5 500 | 12 800 |
+| 9 | Flame | 11 000 | 28 000 |
+| 10 | Infinity | 24 000 | 70 000 |
+
+Les adresses figurant sur des listes de sanctions sont exclues de FinPro en application des règles AML et de filtrage des sanctions de la plateforme.
+
+## Comment fonctionne FinFlow ?
+
+FinFlow utilise un **algorithme neutre au marché**. Le pool ne prend pas de position directionnelle sur le marché : les attributions proviennent de la **collecte des taux de financement (funding rates)** et de l'**arbitrage de spreads** sur le marché des cryptomonnaies.
+
+<CardGroup cols={3}>
+  <Card title="Neutralité de marché" icon="scale-balanced">
+    Les expositions longues et courtes sont maintenues proches de l'équilibre, sans pari directionnel sur le marché.
+  </Card>
+  <Card title="Mécanismes de protection" icon="shield-halved">
+    Protection contre les mèches de manipulation (squeezes) et contrôle strict du drawdown.
+  </Card>
+  <Card title="5 000 000 USDT" icon="database">
+    Capacité du pool, dimensionnée selon le volume que l'algorithme peut traiter efficacement dans les conditions de marché actuelles.
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Les attributions ne sont pas garanties.** Toute opération portant sur des actifs numériques comporte des risques techniques et de marché. La capacité du pool et les conditions de participation peuvent évoluer ; de tels changements sont annoncés à l'avance.
+</Warning>
+
+## Qu'est-ce qu'une position FinFlow ?
+
+Une position FinFlow est représentée par un **FinFlow NFT**. Juridiquement et techniquement, l'ouverture d'une position **n'est ni un dépôt ni un transfert de fonds en gestion** : le participant acquiert un actif numérique qui donne le droit de percevoir des attributions générées de manière algorithmique.
+
+| Paramètre | Règle actuelle |
+|---|---|
+| Position minimale | **25 USDT** |
+| Devise et réseau | **USDT sur BNB Smart Chain (BEP-20)** uniquement |
+| Source des fonds | Directement depuis le wallet EVM connecté (par exemple MetaMask) ; les soldes internes de la plateforme ne sont pas utilisés |
+| Transférabilité | **Non transférable**, liée au compte du détenteur |
+| Activation | Chaque jour à **00:00** ; d'ici là, une nouvelle position affiche *Pending*, ce qui est normal |
+| Première attribution | Visible après le premier jour complet suivant l'activation |
+| Ajout de fonds | Augmente la base de la position existante ; les attributions sont calculées sur la nouvelle base |
+| Positions multiples | Autorisées ; en pratique, alimenter une seule position ou utiliser Compound est plus simple que de réclamer les fonds sur plusieurs positions |
+
+> **Exemple d'activation.** Une position créée le 5 est activée à 00:00 le 6 et affiche sa première attribution le 7.
+
+## Attributions, retrait et Compound
+
+<Steps>
+  <Step title="Attribution quotidienne">
+    Les attributions sont créditées chaque jour à partir du premier jour complet suivant l'activation.
+  </Step>
+  <Step title="Choisir la répartition">
+    Pour chaque attribution, le détenteur choisit la répartition à l'aide d'un curseur, par exemple 30 % vers Compound et 70 % vers le retrait.
+  </Step>
+  <Step title="Demander un retrait">
+    Les demandes de retrait sont traitées dans un délai **pouvant aller jusqu'à 72 heures** (d'une heure à 72).
+  </Step>
+  <Step title="Claim">
+    Une fois la demande traitée, le bouton **Claim** devient actif et les fonds peuvent être réclamés à tout moment sur le wallet EVM connecté, en USDT BEP-20.
+  </Step>
+</Steps>
+
+Les attributions sont versées directement sur le wallet et ne sont jamais créditées sur les soldes de la plateforme principale. Il n'est pas possible de réclamer les fonds pendant la semaine au cours de laquelle la position a été créée, ni lorsqu'une demande de retrait ou de réinvestissement est déjà en attente.
+
+**Compound** réinvestit l'attribution dans la base du FinFlow NFT. Comme les attributions sont calculées en pourcentage de la base, chaque Compound augmente le montant absolu des attributions futures, et l'Earn cap est atteint plus rapidement. Compound ne nécessite ni nouveau NFT RWANFTFI, ni limite FinFlow plus élevée. Les paramètres de réinvestissement automatique ont une durée minimale de **7 jours** à compter de l'activation : un paramètre défini un mardi peut être modifié le mardi suivant.
+
+## Earn cap
+
+Chaque FinFlow NFT dispose d'un **Earn cap** (plafond d'attributions) de **200 %** de sa base initiale. Le capital est inclus dans ces 200 % et n'est pas restitué séparément. Lorsque le plafond est atteint, la position devient inactive ; le détenteur peut ouvrir une nouvelle position et poursuivre.
+
+> **Exemple.** Une position ouverte avec 1 000 USDT a un Earn cap de 2 000 USDT sur son cycle. Lorsque Compound est activé, la base augmente et le plafond absolu augmente avec elle.
+
+## Refund
+
+Une demande de **Refund** (remboursement) devient disponible une fois que le détenteur a perçu et retiré **50 %** du montant initial. Le Refund clôture la position et restitue le **reliquat jusqu'à concurrence de 100 %** du montant initial : un détenteur qui a retiré 60 % reçoit les 40 % restants. Les demandes sont examinées manuellement, et un Refund confirmé est **irréversible**.
+
+## Sécurité
+
+| Niveau | Règle |
+|---|---|
+| Mot de passe financier | Requis pour chaque retrait. Un wallet compromis ne suffit pas à lui seul pour retirer des fonds du pool. |
+| Changement de wallet | En cas de perte d'accès au wallet, le détenteur contacte le support par l'intermédiaire de sa lignée ascendante. Un vote du DAO peut transférer le compte vers un nouveau wallet **sans perte des positions ni des attributions** ; les FinFlow NFT sont transférés lors d'une étape distincte, après la migration principale. |
+| Destination des paiements | Les attributions sont versées uniquement sur le wallet EVM connecté. |
+
+## Interface
+
+- **Calendrier :** attributions à venir, retraits programmés, statuts des NFT et échéances, jour par jour.
+- **Détails des transactions :** date, position, type et lien vers la transaction pour chaque opération.
+- **Noms de position personnalisés :** toute position peut être renommée selon la stratégie propre du détenteur.
+- **FAQ** intégrée au produit et **présentation FinFlow** dans l'onglet Resources ([app.rwanftfi.com/resources](https://app.rwanftfi.com/resources)), actuellement disponibles en anglais et en russe.
+
+## FinFlow Promotion 2026
+
+<Note>
+  **Durée limitée.** Valable jusqu'au **31 décembre 2026 inclus** ou jusqu'à ce que le pool de 5 000 000 USDT soit complet, selon ce qui survient en premier.
+</Note>
+
+Pendant la promotion, les limites FinFlow de tous les niveaux, y compris Genesis et Advance, sont relevées et remplacent les limites de base. Les limites promotionnelles en vigueur sont affichées dans l'interface FinPro et dans l'annonce officielle. Lorsque les limites sont additionnées après des mises à niveau successives, ce sont les limites promotionnelles qui s'appliquent tant que la promotion est en cours.
+
+## FinFlow et FinPro Marketing
+
+FinFlow **ne génère pas** de récompenses FinPro Marketing. Son rôle dans le programme marketing est double :
+
+- Une position FinFlow est la condition d'entrée pour **Claim Spot**, l'étape de pré-lancement de FinPro Marketing.
+- Toutes les positions FinFlow ouvertes sont prises en compte dans le **solde des positions**, qui détermine le nombre de niveaux marketing ouverts.
+
+## Pages associées
+
+<CardGroup cols={3}>
+  <Card title="Écosystème NFT" icon="id-card" href="/fr/nft-ecosystem">
+    Niveaux, Plafonds de Récompenses du Protocole et Autobuy.
+  </Card>
+  <Card title="FinPro Marketing" icon="circle-nodes" href="/fr/finpro-marketing">
+    Le programme de partenaires des produits FinPro : Claim Spot, niveaux, limites et Compound.
+  </Card>
+  <Card title="Sécurité & Audit" icon="shield-halved" href="/fr/security">
+    Niveaux de sécurité du compte et domaines officiels.
+  </Card>
+</CardGroup>

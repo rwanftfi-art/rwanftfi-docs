@@ -208,6 +208,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "tr/finpro-finflow",
+              "tr/finpro-marketing"
+            ]
+          },
+          {
             "group": "Deflasyonist Varlık (DA)",
             "pages": [
               "tr/da-token-mechanics",
@@ -267,6 +274,13 @@
             "pages": [
               "zh/nft-ecosystem",
               "zh/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "zh/finpro-finflow",
+              "zh/finpro-marketing"
             ]
           },
           {
@@ -332,6 +346,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "es/finpro-finflow",
+              "es/finpro-marketing"
+            ]
+          },
+          {
             "group": "Activo Deflacionario (DA)",
             "pages": [
               "es/da-token-mechanics",
@@ -394,6 +415,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "de/finpro-finflow",
+              "de/finpro-marketing"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "de/da-token-mechanics",
@@ -453,6 +481,13 @@
             "pages": [
               "pt/nft-ecosystem",
               "pt/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "pt/finpro-finflow",
+              "pt/finpro-marketing"
             ]
           },
           {
@@ -580,6 +615,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "it/finpro-finflow",
+              "it/finpro-marketing"
+            ]
+          },
+          {
             "group": "Asset Deflazionario (DA)",
             "pages": [
               "it/da-token-mechanics",
@@ -639,6 +681,13 @@
             "pages": [
               "fr/nft-ecosystem",
               "fr/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "fr/finpro-finflow",
+              "fr/finpro-marketing"
             ]
           },
           {
@@ -766,6 +815,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "id/finpro-finflow",
+              "id/finpro-marketing"
+            ]
+          },
+          {
             "group": "Aset Deflasi (DA)",
             "pages": [
               "id/da-token-mechanics",
@@ -825,6 +881,13 @@
             "pages": [
               "ja/nft-ecosystem",
               "ja/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "ja/finpro-finflow",
+              "ja/finpro-marketing"
             ]
           },
           {
@@ -890,6 +953,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "vi/finpro-finflow",
+              "vi/finpro-marketing"
+            ]
+          },
+          {
             "group": "Tài Sản Giảm Phát (DA)",
             "pages": [
               "vi/da-token-mechanics",
@@ -949,6 +1019,13 @@
             "pages": [
               "uk/nft-ecosystem",
               "uk/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "uk/finpro-finflow",
+              "uk/finpro-marketing"
             ]
           },
           {

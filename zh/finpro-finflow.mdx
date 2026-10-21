@@ -1,0 +1,172 @@
+---
+title: "FinPro 与 FinFlow"
+description: "FinPro 是 RWANFTFI 生态系统的金融产品层。FinFlow 是其首个产品：市场中性策略中的一个仓位，以不可转让的 FinFlow NFT 表示，RWANFTFI NFT 持有者可在其协议奖励上限范围内开立。"
+icon: "chart-line"
+---
+
+<Note>
+  **FinPro 与 RWA NFT 平台是相互独立的产品**。FinPro 仓位的资金直接来自用户的 EVM 钱包，款项也直接发放至该钱包。主平台的常规余额与累积余额不用于 FinPro，FinPro 应计额也绝不会记入这些余额。
+</Note>
+
+## 什么是 FinPro？
+
+FinPro 是生态系统内的产品平台，用于上架金融产品（资金池与策略）。它运行于独立域名 **[rwafinpro.com](https://rwafinpro.com)**，可从主应用 [app.rwanftfi.com](https://app.rwanftfi.com) 的 **FinPro** 标签页打开。界面语言会自动沿用，FinPro 网站也提供返回主平台的链接。
+
+FinPro 于 2026 年 8 月迁移至专属域名，以便将金融产品与可能影响生态系统任何其他域名的钱包警告事件隔离开来。智能合约、仓位与机制均未因迁移而改变。
+
+<CardGroup cols={3}>
+  <Card title="FinFlow" icon="circle-check">
+    自 2026 年 7 月 8 日起**已上线**。FinPro 的首个产品。
+  </Card>
+  <Card title="FinCore" icon="hourglass-half">
+    **下一个产品**，也是首个启用 FinPro Marketing 的产品。参数将在上线前公布。
+  </Card>
+  <Card title="后续产品" icon="layer-group">
+    **开发中**。这些产品在同一 FinPro Marketing 结构中运行。
+  </Card>
+</CardGroup>
+
+每个产品都有各自的参数：应计模式、Earn cap、发放频率、锁定期与本金返还规则。FinPro Marketing 结构与层级比例由所有产品共用。请参阅 [FinPro Marketing](/zh/finpro-marketing)。
+
+## 谁可以开立 FinFlow 仓位？
+
+<Steps>
+  <Step title="RWANFTFI NFT">
+    任意等级（从 Genesis 到 Infinity）的已购 RWANFTFI NFT 即为访问凭证。礼品 NFT 同样符合条件，可在其自身额度内持有 FinFlow 仓位。
+  </Step>
+  <Step title="FinFlow 额度">
+    NFT 的 FinFlow 额度等于其**协议奖励上限**（链上术语：*Income Limit*）。开立 FinFlow 仓位**不会**消耗主平台的协议奖励上限：该额度是准入上限，而非可支配的余额。
+  </Step>
+  <Step title="额度内尚有空间">
+    所有未关闭 FinFlow 仓位的总额不得超过持有者的 FinFlow 额度。如需开立更多仓位，持有者需升级 NFT。
+  </Step>
+</Steps>
+
+**额度如何合并**。如果**按顺序逐级**购买 NFT（例如先 L3，再 L4，然后 L5），各等级的 FinFlow 额度将**累加**为一个合并额度。如果**直接**购买更高等级（例如未购买此前各等级而直接购买 L5），则仅适用该等级的额度。FinFlow Promotion 2026 进行期间，采用促销额度。
+
+| L | 名称 | 价格（USDT） | 基础 FinFlow 额度（USDT） |
+|:---:|---|---:|---:|
+| 1 | Genesis | 28 | 75 |
+| 2 | Advance | 55 | 160 |
+| 3 | Ascend | 140 | 375 |
+| 4 | Eclipse | 275 | 650 |
+| 5 | Hydro | 550 | 1,400 |
+| 6 | Quantum | 1,100 | 2,700 |
+| 7 | Pulse | 2,200 | 5,800 |
+| 8 | Aurora | 5,500 | 12,800 |
+| 9 | Flame | 11,000 | 28,000 |
+| 10 | Infinity | 24,000 | 70,000 |
+
+根据平台的 AML 与制裁筛查规则，列入制裁名单的地址均被排除在 FinPro 之外。
+
+## FinFlow 如何运作？
+
+FinFlow 采用**市场中性算法**。资金池不在市场上建立方向性仓位：应计额来自加密货币市场上的**资金费率（funding rate）收取**与**价差套利**。
+
+<CardGroup cols={3}>
+  <Card title="市场中性" icon="scale-balanced">
+    多头与空头敞口保持接近平衡，不对市场方向下注。
+  </Card>
+  <Card title="市场防护" icon="shield-halved">
+    防范操纵性插针（多空挤压），并严格控制回撤。
+  </Card>
+  <Card title="5,000,000 USDT" icon="database">
+    资金池容量，按当前市场条件下算法能够有效处理的规模设定。
+  </Card>
+</CardGroup>
+
+<Warning>
+  **应计额不作保证**。任何数字资产操作都存在技术与市场风险。资金池容量与参与条件可能发生变化；此类变化将提前公布。
+</Warning>
+
+## 什么是 FinFlow 仓位？
+
+FinFlow 仓位以 **FinFlow NFT** 表示。从法律与技术角度而言，开立仓位**既非存款，亦非资金委托管理**：参与者获得的是一项数字资产，该资产赋予其获得算法生成的应计额的权利。
+
+| 参数 | 当前规则 |
+|---|---|
+| 最低仓位 | **25 USDT** |
+| 币种与网络 | 仅限 **BNB Smart Chain（BEP-20）上的 USDT** |
+| 资金来源 | 直接来自已连接的 EVM 钱包（例如 MetaMask）；不使用平台内部余额 |
+| 可转让性 | **不可转让**，与持有者账户绑定 |
+| 激活 | 每日 **00:00**；在此之前，新仓位显示 *Pending*，属正常现象 |
+| 首笔应计额 | 激活后的第一个完整日过后可见 |
+| 追加资金 | 增加现有仓位的基数；应计额按新基数计算 |
+| 多个仓位 | 允许；实际操作中，向一个仓位追加资金或使用 Compound，比在多个仓位之间分别领取更简便 |
+
+> **激活示例**。5 日创建的仓位于 6 日 00:00 激活，并于 7 日显示首笔应计额。
+
+## 应计额、提现与 Compound
+
+<Steps>
+  <Step title="每日应计">
+    自激活后的第一个完整日起，应计额每日记入。
+  </Step>
+  <Step title="选择分配">
+    对于每笔应计额，持有者通过滑块选择分配方式，例如 30% 用于 Compound，70% 用于提现。
+  </Step>
+  <Step title="申请提现">
+    提现申请将在**最长 72 小时**内处理（从一小时到 72 小时不等）。
+  </Step>
+  <Step title="Claim">
+    申请处理完毕后，**Claim** 按钮即变为可用，资金可随时以 USDT BEP-20 领取至已连接的 EVM 钱包。
+  </Step>
+</Steps>
+
+应计额直接发放至钱包，绝不会记入主平台的余额。在仓位创建当周，或已有待处理的提现或再投资申请时，无法领取。
+
+**Compound** 将应计额再投资至 FinFlow NFT 的基数中。由于应计额按基数的百分比计算，每次 Compound 都会提高未来应计额的绝对金额，Earn cap 也会更快达到。Compound 既不需要新的 RWANFTFI NFT，也不需要更高的 FinFlow 额度。自动再投资设置的最短期限为自激活起 **7 天**：周二所作的设置，可于下一个周二更改。
+
+## Earn cap
+
+每个 FinFlow NFT 都有 **Earn cap**（应计上限），为其初始基数的 **200%**。本金包含在这 200% 之内，不会另行返还。达到上限后，仓位即变为非活跃状态；持有者可开立新仓位并继续参与。
+
+> **示例**。以 1,000 USDT 开立的仓位，其整个周期的 Earn cap 为 2,000 USDT。启用 Compound 后，基数增长，绝对上限也随之增长。
+
+## Refund
+
+当持有者已获得并提取初始金额的 **50%** 后，即可提交 **Refund**（退款）申请。Refund 会关闭仓位，并退还**补足至初始金额 100% 的剩余部分**：已提取 60% 的持有者将获得剩余的 40%。申请由人工审核，Refund 一经确认即**不可撤销**。
+
+## 安全
+
+| 防护层 | 规则 |
+|---|---|
+| 财务密码 | 每次提现均需输入。仅凭被盗用的钱包无法从资金池中提取资金。 |
+| 钱包变更 | 如果失去钱包访问权限，持有者需通过其上级推荐人联系支持团队。DAO 投票可将账户迁移至新钱包，**不会损失仓位与应计额**；FinFlow NFT 会在主迁移完成后通过单独步骤转移。 |
+| 发放路径 | 应计额仅发放至已连接的 EVM 钱包。 |
+
+## 界面
+
+- **日历**：按日显示即将到来的应计额、已安排的提现、NFT 状态与截止日期。
+- **交易详情**：每笔操作的日期、仓位、类型与交易链接。
+- **自定义仓位名称**：任何仓位均可重命名，以匹配持有者自己的策略。
+- 产品内的 **FAQ**，以及 Resources 标签页（[app.rwanftfi.com/resources](https://app.rwanftfi.com/resources)）中的 **FinFlow 演示文稿**，目前提供英文与俄文版本。
+
+## FinFlow Promotion 2026
+
+<Note>
+  **限时活动**。有效期至 **2026 年 12 月 31 日（含当日）**，或至 5,000,000 USDT 资金池额满为止，以先到者为准。
+</Note>
+
+促销活动期间，所有等级（包括 Genesis 与 Advance）的 FinFlow 额度均已提高，并取代基础额度。当前的促销额度显示在 FinPro 界面及官方公告中。促销活动期间，如因逐级升级而累加额度，则适用促销额度。
+
+## FinFlow 与 FinPro Marketing
+
+FinFlow **不会产生** FinPro Marketing 奖励。它在营销计划中的作用体现在两个方面：
+
+- FinFlow 仓位是参与 **Claim Spot** 的准入条件，Claim Spot 即 FinPro Marketing 的预启动阶段。
+- 所有未关闭的 FinFlow 仓位均计入**仓位余额**，仓位余额决定开放的营销层级数量。
+
+## 相关页面
+
+<CardGroup cols={3}>
+  <Card title="NFT 生态系统" icon="id-card" href="/zh/nft-ecosystem">
+    等级、协议奖励上限与 Autobuy。
+  </Card>
+  <Card title="FinPro Marketing" icon="circle-nodes" href="/zh/finpro-marketing">
+    FinPro 产品的合作伙伴计划：Claim Spot、层级、额度与 Compound。
+  </Card>
+  <Card title="安全与审计" icon="shield-halved" href="/zh/security">
+    账户安全层级与官方域名。
+  </Card>
+</CardGroup>
