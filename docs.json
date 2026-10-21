@@ -52,6 +52,13 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "en/finpro-finflow",
+              "en/finpro-marketing"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "en/da-token-mechanics",
@@ -111,6 +118,13 @@
             "pages": [
               "ru/nft-ecosystem",
               "ru/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "ru/finpro-finflow",
+              "ru/finpro-marketing"
             ]
           },
           {

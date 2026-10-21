@@ -1,0 +1,172 @@
+---
+title: "FinPro & FinFlow"
+description: "FinPro is the financial-products layer of the RWANFTFI ecosystem. FinFlow is its first product: a position in a market-neutral strategy, represented by a non-transferable FinFlow NFT and available to RWANFTFI NFT holders within their Protocol Reward Cap."
+icon: "chart-line"
+---
+
+<Note>
+  **FinPro and the RWA NFT platform are separate products.** FinPro positions are funded directly from the user's EVM wallet and paid out directly to it. The Regular Balance and Accumulative Balance of the main platform are not used in FinPro, and FinPro accruals never settle on them.
+</Note>
+
+## What is FinPro?
+
+FinPro is a product platform inside the ecosystem where financial products (pools and strategies) are listed. It runs on its own domain, **[rwafinpro.com](https://rwafinpro.com)**, and opens from the **FinPro** tab of the main application at [app.rwanftfi.com](https://app.rwanftfi.com). The interface language carries over automatically, and the FinPro site links back to the main platform.
+
+FinPro moved to its dedicated domain in August 2026 so that financial products are isolated from wallet-warning events that may affect any other domain of the ecosystem. The smart contracts, positions, and mechanics did not change with the move.
+
+<CardGroup cols={3}>
+  <Card title="FinFlow" icon="circle-check">
+    **Live** since 8 July 2026. The first FinPro product.
+  </Card>
+  <Card title="FinCore" icon="hourglass-half">
+    **Next product,** the first with FinPro Marketing. Parameters are published before launch.
+  </Card>
+  <Card title="Further products" icon="layer-group">
+    **In development.** They operate in the same FinPro Marketing structure.
+  </Card>
+</CardGroup>
+
+Each product has its own parameters: accrual model, Earn cap, payout frequency, lock period, and principal-return rule. The FinPro Marketing structure and level percentages are shared across all products. See [FinPro Marketing](/en/finpro-marketing).
+
+## Who can open a FinFlow position?
+
+<Steps>
+  <Step title="An RWANFTFI NFT">
+    A purchased RWANFTFI NFT of any tier, from Genesis to Infinity, is the access key. Gift NFTs are also eligible and may hold a FinFlow position within their own limit.
+  </Step>
+  <Step title="A FinFlow limit">
+    The FinFlow limit of an NFT equals its **Protocol Reward Cap** (on-chain term: *Income Limit*). Opening a FinFlow position does **not** consume the Protocol Reward Cap of the main platform: the limit is an entry ceiling, not a spendable balance.
+  </Step>
+  <Step title="Room within the limit">
+    The total of all open FinFlow positions may not exceed the holder's FinFlow limit. To open more, the holder upgrades the NFT.
+  </Step>
+</Steps>
+
+**How limits combine.** If NFTs are purchased **in sequence, tier by tier** (for example L3, then L4, then L5), the FinFlow limits of each tier are **summed** into one combined limit. If a higher tier is purchased **directly** (for example L5 without the previous tiers), only the limit of that tier applies. While FinFlow Promotion 2026 runs, the promotional limits are used.
+
+| L | Name | Price (USDT) | Base FinFlow limit (USDT) |
+|:---:|---|---:|---:|
+| 1 | Genesis | 28 | 75 |
+| 2 | Advance | 55 | 160 |
+| 3 | Ascend | 140 | 375 |
+| 4 | Eclipse | 275 | 650 |
+| 5 | Hydro | 550 | 1,400 |
+| 6 | Quantum | 1,100 | 2,700 |
+| 7 | Pulse | 2,200 | 5,800 |
+| 8 | Aurora | 5,500 | 12,800 |
+| 9 | Flame | 11,000 | 28,000 |
+| 10 | Infinity | 24,000 | 70,000 |
+
+Addresses listed on sanctions lists are excluded from FinPro under the platform's AML and sanctions-screening rules.
+
+## How does FinFlow work?
+
+FinFlow uses a **market-neutral algorithm**. The pool does not take a directional position on the market: accruals come from **funding-rate collection** and **spread arbitrage** on the crypto market.
+
+<CardGroup cols={3}>
+  <Card title="Market-neutral" icon="scale-balanced">
+    Long and short exposure are kept close to balance, with no directional bet on the market.
+  </Card>
+  <Card title="Market protection" icon="shield-halved">
+    Protection against manipulative wicks (squeezes) and strict drawdown control.
+  </Card>
+  <Card title="5,000,000 USDT" icon="database">
+    Pool capacity, sized to the volume the algorithm can process effectively in current market conditions.
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Accruals are not guaranteed.** Any operation with digital assets carries technical and market risk. The pool's capacity and participation conditions may change; such changes are announced in advance.
+</Warning>
+
+## What is a FinFlow position?
+
+A FinFlow position is represented by a **FinFlow NFT**. Legally and technically, opening a position is **not a deposit and not a transfer of funds into management**: the participant acquires a digital asset that grants the right to receive algorithmically generated accruals.
+
+| Parameter | Current rule |
+|---|---|
+| Minimum position | **25 USDT** |
+| Currency and network | **USDT on BNB Smart Chain (BEP-20)** only |
+| Funding source | Directly from the connected EVM wallet (for example MetaMask); platform internal balances are not used |
+| Transferability | **Non-transferable**, bound to the holder's account |
+| Activation | Daily at **00:00**; a new position shows *Pending* until then, which is normal |
+| First accrual | Visible after the first full day following activation |
+| Adding funds | Increases the base of the existing position; accruals are calculated on the new base |
+| Multiple positions | Allowed; in practice, adding to one position or using Compound is simpler than claiming across several |
+
+> **Activation example.** A position created on the 5th is activated at 00:00 on the 6th and shows its first accrual on the 7th.
+
+## Accruals, withdrawal and Compound
+
+<Steps>
+  <Step title="Daily accrual">
+    Accruals are credited daily from the first full day after activation.
+  </Step>
+  <Step title="Choose the split">
+    For each accrual the holder chooses the split with a slider, for example 30% to Compound and 70% to withdrawal.
+  </Step>
+  <Step title="Request a withdrawal">
+    Withdrawal requests are processed within **up to 72 hours** (from one hour to 72).
+  </Step>
+  <Step title="Claim">
+    Once a request is processed, the **Claim** button becomes active and the funds can be claimed to the connected EVM wallet at any time, in USDT BEP-20.
+  </Step>
+</Steps>
+
+Accruals are paid directly to the wallet and never settle on the main platform's balances. A claim is not available during the week in which the position was created, or while a withdrawal or reinvest request is already pending.
+
+**Compound** reinvests the accrual into the base of the FinFlow NFT. Because accruals are calculated as a percentage of the base, each compound increases the absolute amount of future accruals, and the Earn cap is reached faster. Compound does not require a new RWANFTFI NFT or a larger FinFlow limit. Auto-reinvest settings have a minimum period of **7 days** from activation: a setting made on a Tuesday can be changed on the following Tuesday.
+
+## Earn cap
+
+Every FinFlow NFT has an **Earn cap** of **200%** of its initial base. The principal is included in the 200% and is not returned separately. When the cap is reached, the position becomes inactive; the holder may open a new position and continue.
+
+> **Example.** A position opened with 1,000 USDT has an Earn cap of 2,000 USDT over its cycle. With Compound enabled, the base grows and the absolute cap grows with it.
+
+## Refund
+
+A **Refund** request becomes available once the holder has received and withdrawn **50%** of the initial amount. Refund closes the position and returns the **remainder up to 100%** of the initial amount: a holder who has withdrawn 60% receives the remaining 40%. Requests are reviewed manually, and a confirmed Refund is **irreversible**.
+
+## Security
+
+| Layer | Rule |
+|---|---|
+| Financial Password | Required for every withdrawal. A compromised wallet alone cannot withdraw from the pool. |
+| Wallet change | If wallet access is lost, the holder contacts support through their upline. A DAO vote can migrate the account to a new wallet **without loss of positions and accruals**; FinFlow NFTs are transferred in a separate step after the main migration. |
+| Payout path | Accruals go only to the connected EVM wallet. |
+
+## Interface
+
+- **Calendar:** upcoming accruals, scheduled withdrawals, NFT statuses, and deadlines, day by day.
+- **Transaction details:** date, position, type, and transaction link for every operation.
+- **Custom position names:** any position can be renamed to match the holder's own strategy.
+- **FAQ** inside the product and the **FinFlow presentation** in the Resources tab ([app.rwanftfi.com/resources](https://app.rwanftfi.com/resources)), currently in English and Russian.
+
+## FinFlow Promotion 2026
+
+<Note>
+  **Time-bound.** Valid until **31 December 2026 inclusive** or until the 5,000,000 USDT pool is full, whichever comes first.
+</Note>
+
+During the promotion, the FinFlow limits of all tiers, including Genesis and Advance, are increased and replace the base limits. The current promotional limits are shown in the FinPro interface and in the official announcement. When limits are summed after sequential upgrades, the promotional limits apply while the promotion runs.
+
+## FinFlow and FinPro Marketing
+
+FinFlow **does not generate** FinPro Marketing rewards. Its role in the marketing program is twofold:
+
+- A FinFlow position is the entry condition for **Claim Spot**, the pre-launch stage of FinPro Marketing.
+- All open FinFlow positions count toward the **position balance** that determines how many marketing levels are open.
+
+## Related pages
+
+<CardGroup cols={3}>
+  <Card title="NFT Ecosystem" icon="id-card" href="/en/nft-ecosystem">
+    Tiers, Protocol Reward Caps, and Autobuy.
+  </Card>
+  <Card title="FinPro Marketing" icon="circle-nodes" href="/en/finpro-marketing">
+    The partner program for FinPro products: Claim Spot, levels, limits, and Compound.
+  </Card>
+  <Card title="Security & Audit" icon="shield-halved" href="/en/security">
+    Account security layers and the official domains.
+  </Card>
+</CardGroup>
