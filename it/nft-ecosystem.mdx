@@ -1,6 +1,6 @@
 ---
 title: "Ecosistema NFT"
-description: "Tutti i 10 livelli NFT di RWANFTFI, da Genesis (28 USDT) a Infinity (24.000 USDT) — inclusi i Limiti di Ricompensa del Protocollo, la Profondità della Rete di Partner, l'idoneità al mining NFTM e al lending, Autobuy, NFT Regalo, Voucher e le edizioni Ambassador/VIP pianificate."
+description: "Tutti i 10 livelli NFT di RWANFTFI, da Genesis (28 USDT) a Infinity (24.000 USDT) — inclusi i Limiti di Ricompensa del Protocollo, la Profondità della Rete di Partner, l'accesso a FinPro, l'idoneità al mining NFTM e al lending, Autobuy, NFT Regalo, Voucher e le edizioni Ambassador/VIP pianificate."
 icon: "id-card"
 ---
 
@@ -18,28 +18,42 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
   </Card>
 </CardGroup>
 
-Possedere un NFT attivo è necessario per accedere al programma partner, al mining di DA e agli strumenti finanziari associati al livello selezionato. È supportato un NFT attivo per account; un upgrade sostituisce l'NFT precedente.
+Possedere un NFT attivo è necessario per accedere al programma partner, al mining di DA e agli strumenti finanziari associati al livello selezionato. È supportato un NFT attivo per account; un upgrade sostituisce l'NFT precedente. Ogni NFT acquistato, da Genesis a Infinity, dà inoltre accesso a FinPro: il suo detentore può aprire una posizione FinFlow a partire da 25 USDT.
 
 ## Tutti i 10 Livelli in Sintesi
 
 Il **Limite di Ricompensa del Protocollo** è l'importo cumulativo massimo di ricompense idonee che può essere accreditato durante il ciclo NFT in corso. La **Profondità della Rete di Partner** è il livello massimo incluso nei calcoli della Distribuzione idonea nella Rete di Partner.
 
-| L | Nome | Gruppo | Prezzo (USDT) | Limite di ricompensa (USDT) | Profondità di rete | Ciclo di mining | NFTM (ciclo 1 / 2) | Matching Bonus | DA | Lending | Autobuy |
-|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
-| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
-| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
-| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
-| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
-| 5 | Hydro | Premium | 550 | 1.400 | 9 | 45 giorni | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 6 | Quantum | Premium | 1.100 | 2.700 | 11 | 44 giorni | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 7 | Pulse | Premium | 2.200 | 5.800 | 12 | 43 giorni | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 8 | Aurora | Premium | 5.500 | 12.800 | 13 | 42 giorni | 10% / 15% | ✓ | ✓ | ✓ | 3/3 |
-| 9 | Flame | Elite | 11.000 | 28.000 | 15 | 41 giorni | 10% / 15% | ✓ | ✓ | ✓ | Illimitato |
-| 10 | Infinity | Elite | 24.000 | 70.000 | 19 (attuale) | 40 giorni | 10% / 15% | ✓ | ✓ | ✓ | Illimitato |
+| Livello | Prezzo (USDT) | Limite di ricompensa (USDT) | Profondità di rete |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1.400 | 9 |
+| L6 · Quantum | 1.100 | 2.700 | 11 |
+| L7 · Pulse | 2.200 | 5.800 | 12 |
+| L8 · Aurora | 5.500 | 12.800 | 13 |
+| L9 · Flame | 11.000 | 28.000 | 15 |
+| L10 · Infinity | 24.000 | 70.000 | 19 (attuale) |
 
 <Note>
-  **Le vendite di Infinity (L10) sono aperte:** la DAO le ha abilitate con l'attivazione della Fase 2 a giugno 2026. **I valori di profondità riflettono la fase attuale del protocollo.** Qualsiasi futura espansione ai Livelli 16–22 diventa attiva solo dopo la necessaria approvazione di governance e l'aggiornamento del protocollo. La colonna **Matching Bonus** indica l'idoneità al Livello 1 (Eclipse / L4 e superiori); i Livelli 2 e 3 richiedono rispettivamente vendite personali cumulative di 1.000 e 3.000 USDT. **NFTM (ciclo 1 / 2)** è espresso come percentuale del prezzo dell'NFT.
+  **Le vendite di Infinity (L10) sono aperte:** la DAO le ha abilitate con l'attivazione della Fase 2 a giugno 2026. **I valori di profondità riflettono la fase attuale del protocollo.** Qualsiasi futura espansione ai Livelli 16–22 diventa attiva solo dopo la necessaria approvazione di governance e l'aggiornamento del protocollo.
 </Note>
+
+Il **limite FinFlow** base di un NFT è pari al suo Limite di Ricompensa del Protocollo. Finché è in corso FinFlow Promotion 2026, fino al 31 dicembre 2026 o fino al riempimento del pool, si applicano limiti promozionali più elevati. Vedi [FinPro e FinFlow](/it/finpro-finflow).
+
+### Funzionalità per Livello
+
+| Funzionalità | Disponibile da |
+|---|---|
+| Programma partner e accesso a FinPro | Genesis (L1) |
+| Matching Bonus | Eclipse (L4). I Livelli 2 e 3 richiedono inoltre, rispettivamente, 1.000 e 3.000 USDT di vendite personali cumulative. |
+| Mining di NFTM, Farming di DA e Lending contro DA | Hydro (L5). Un ciclo di mining dura 45 giorni su Hydro e un giorno in meno a ogni livello superiore, fino a 40 giorni su Infinity. |
+| Secondo ciclo NFTM | Aurora (L8). Il primo ciclo registra in NFTM il 10% del prezzo dell'NFT, il secondo il 15%. |
+| Autobuy illimitato | Flame (L9). I Livelli 1–8 consentono tre rinnovi automatici. |
+
+L'attivazione del Mining di NFTM, del Farming di DA e del Lending contro DA è prevista per il 2027.
 
 <NftTierExplorer />
 
@@ -68,14 +82,32 @@ Quando uno Sponsor Bonus qualificante, derivante dal primo acquisto NFT o dall'A
 </Card>
 
 ## NFT Regalo e Voucher
+
+### NFT Regalo
+
+Gli NFT Regalo non possono essere acquistati né venduti. Vengono assegnati nell'ambito di promozioni come First Purchase NFT e Upgrade NFT, dei Career Ranks e del Fast Start Program, nonché ai leader attivi. Il detentore può trasferire un NFT Regalo a un futuro partner.
+
 <CardGroup cols={2}>
-  <Card title="NFT Regalo" icon="gift">
-    Gli NFT Regalo sono asset promozionali non vendibili che possono collocare gli utenti nella rete di partner. Non possono essere acquistati e vengono assegnati nell'ambito di promozioni approvate o di programmi di rank.
+  <Card title="Un posto nella rete" icon="sitemap">
+    Un NFT Regalo occupa un posto permanente nella rete di partner e ha un proprio Limite di Ricompensa del Protocollo.
   </Card>
-  <Card title="Voucher Regalo" icon="ticket">
-    I Voucher Regalo sono coupon creati dagli utenti, soggetti alle regole documentate su valore minimo, durata, limitazioni al trasferimento e combinazione dei pagamenti. Se non utilizzati per l'intera durata, il valore viene indirizzato secondo le regole attuali dello smart contract.
+  <Card title="Suddivisione 50 / 50" icon="scale-balanced">
+    Le ricompense di un NFT Regalo sono suddivise in parti uguali tra il Saldo Regolare e il Saldo Cumulativo.
+  </Card>
+  <Card title="Accesso a FinPro" icon="chart-line">
+    Un NFT Regalo dà accesso a FinFlow e può detenere una propria posizione entro il suo limite.
+  </Card>
+  <Card title="Fino a 100 per indirizzo" icon="layer-group">
+    L'attuale limite on-chain di NFT Regalo detenuti da un singolo indirizzo.
   </Card>
 </CardGroup>
+
+Le promozioni in corso sono elencate in [Ricompense e Compensazione](/it/marketing-rewards#promozioni-in-corso).
+
+### Voucher Regalo
+
+I Voucher Regalo sono coupon creati dagli utenti, soggetti alle regole documentate su valore minimo, durata, limitazioni al trasferimento e combinazione dei pagamenti. Se non utilizzati per l'intera durata, il valore viene indirizzato secondo le regole attuali dello smart contract.
+
 ## Edizione Ambassador e VIP
 <CardGroup cols={2}>
   <Card title="NFT Ambassador" icon="crown">
