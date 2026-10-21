@@ -1,6 +1,6 @@
 ---
 title: "Frequently Asked Questions"
-description: "Clear answers about NFT access tiers, DA mechanics, partner-program functionality, lending, governance, security, and company structure."
+description: "Clear answers about NFT access tiers, the partner program, FinPro, ecosystem services, DA mechanics, security, governance, and legal terms."
 icon: "circle-question"
 ---
 
@@ -14,12 +14,17 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "What is RWANFTFI?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI is a Web3 protocol on BNB Smart Chain where NFT access tiers unlock selected ecosystem features, including DA mechanics, partner rewards, mining and farming, lending, and governance." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI is a Web3 protocol on BNB Smart Chain where NFT access tiers unlock selected ecosystem features: the partner program, the FinPro financial products, DA mechanics, and governance." }
         },
         {
           "@type": "Question",
-          "name": "What blockchain does RWANFTFI run on?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI operates on BNB Smart Chain using BEP-20 compatible contracts. BNB is required for gas fees." }
+          "name": "Which domains are official?",
+          "acceptedAnswer": { "@type": "Answer", "text": "rwanftfi.com and its subdomains app, news, bridge, brandbook, whitepaper, and share; rwafinpro.com for FinPro; and rwanftcards.com for the debit cards. Any other domain is not official." }
+        },
+        {
+          "@type": "Question",
+          "name": "Are Mining, Farming, and Lending available now?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. NFTM Mining, DA Farming, and DA Lending are documented mechanics scheduled for activation in 2027. Activation dates will be published on the official channels." }
         },
         {
           "@type": "Question",
@@ -28,23 +33,28 @@ icon: "circle-question"
         },
         {
           "@type": "Question",
-          "name": "How is the DA protocol price calculated?",
-          "acceptedAnswer": { "@type": "Answer", "text": "The designated USDT liquidity-pool balance is divided by circulating DA supply. The formula does not independently guarantee liquidity, redemption availability, or a specific user outcome." }
-        },
-        {
-          "@type": "Question",
           "name": "What is the Protocol Reward Cap?",
           "acceptedAnswer": { "@type": "Answer", "text": "The maximum cumulative eligible rewards credited during the current NFT cycle. On-chain term: Income Limit. It is a technical limit, not expected earnings." }
         },
         {
           "@type": "Question",
-          "name": "What is Frozen Balance?",
-          "acceptedAnswer": { "@type": "Answer", "text": "A 72-hour buffer for a qualifying direct Sponsor Bonus above the remaining Protocol Reward Cap." }
+          "name": "What is a Gift NFT?",
+          "acceptedAnswer": { "@type": "Answer", "text": "An NFT that cannot be bought or sold; it is awarded under promotions and programs. It takes a permanent place in the partner network with its own Protocol Reward Cap, its rewards are split 50/50 between the Regular and Accumulative balances, and it opens FinFlow." }
         },
         {
           "@type": "Question",
-          "name": "Can I take a loan against DA?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Eligible L5-L10 holders may use a supported DA batch as collateral under the documented rules, at the documented 70% LTV." }
+          "name": "What are FinPro and FinFlow?",
+          "acceptedAnswer": { "@type": "Answer", "text": "FinPro is the ecosystem's line of financial products at rwafinpro.com. FinFlow, the first product, has been live since 8 July 2026: a position in a market-neutral strategy, represented by a non-transferable FinFlow NFT and opened from 25 USDT. Accruals are not guaranteed." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use FinFlow with a Gift NFT?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. A Gift NFT opens FinFlow and can hold a position of its own within its limit." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Secret Code?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A random word generated together with the financial password. Support requires it for any security-related request. Share it only with official support." }
         },
         {
           "@type": "Question",
@@ -66,74 +76,133 @@ icon: "circle-question"
   }}
 />
 
-### What is RWANFTFI?
+## General
 
-RWANFTFI is a Web3 protocol on BNB Smart Chain where NFT access tiers unlock selected ecosystem features.
+<AccordionGroup>
+  <Accordion title="What is RWANFTFI?">
+    RWANFTFI is a Web3 protocol on BNB Smart Chain where NFT access tiers unlock selected ecosystem features: the partner program, the FinPro financial products, DA mechanics, and governance.
+  </Accordion>
+  <Accordion title="What blockchain does RWANFTFI run on?">
+    RWANFTFI operates on BNB Smart Chain using BEP-20 compatible contracts. BNB is required for gas fees.
+  </Accordion>
+  <Accordion title="Which domains are official?">
+    rwanftfi.com and its subdomains app, news, bridge, brandbook, whitepaper, and share; rwafinpro.com for FinPro; and rwanftcards.com for the debit cards. Any other domain is not official. See [Official Domains](/en/security#official-domains).
+  </Accordion>
+  <Accordion title="Are Mining, Farming, and Lending available now?">
+    No. NFTM Mining, DA Farming, and DA Lending are documented mechanics scheduled for activation in 2027. Activation dates will be published on the official channels.
+  </Accordion>
+</AccordionGroup>
 
-### What blockchain does RWANFTFI run on?
+## NFTs and the partner program
 
-RWANFTFI operates on BNB Smart Chain using BEP-20 compatible contracts. BNB is required for gas fees.
+<AccordionGroup>
+  <Accordion title="How many NFT tiers exist and what do they cost?">
+    There are 10 documented tiers from Genesis at 28 USDT to Infinity at 24,000 USDT. See the [NFT Ecosystem page](/en/nft-ecosystem).
+  </Accordion>
+  <Accordion title="What is the Protocol Reward Cap?">
+    The maximum cumulative eligible rewards credited during the current NFT cycle. On-chain term: *Income Limit*.
+  </Accordion>
+  <Accordion title="What is the Accumulative Balance, and why is its lifetime 180 days?">
+    A restricted internal balance used under documented purchase, transfer, fee, and redistribution rules. In September 2026 a DAO vote extended its lifetime from 120 to 180 days while a timer-reset bug is fixed; a separate vote is planned to return it to 120 days after the fix.
+  </Accordion>
+  <Accordion title="What is Frozen Balance?">
+    A 72-hour buffer for a qualifying direct Sponsor Bonus above the remaining Protocol Reward Cap. See the [Frozen Balance page](/en/frozen-balance).
+  </Accordion>
+  <Accordion title="How does the partner network work?">
+    The contract assigns permanent positions; eligibility depends on tier, depth, activity, phase, and cap.
+  </Accordion>
+  <Accordion title="What partner-network depth does each NFT tier support?">
+    The current values are listed in the [NFT tier table](/en/nft-ecosystem#all-10-tiers-at-a-glance); future levels require governance activation.
+  </Accordion>
+  <Accordion title="What is the referral link format?">
+    `share.rwanftfi.com/?ref=CODE`. Your referral code is permanent; the old link format stopped working in August 2026.
+  </Accordion>
+  <Accordion title="What is a Gift NFT?">
+    An NFT that cannot be bought or sold; it is awarded under promotions and programs. It takes a permanent place in the partner network with its own Protocol Reward Cap, its rewards are split 50/50 between the Regular and Accumulative balances, and it opens FinFlow. See [Gift NFTs](/en/nft-ecosystem#gift-nfts).
+  </Accordion>
+  <Accordion title="What happened to Business Sale?">
+    Business Sale, the transfer of a complete partner structure, has been disabled by DAO vote since June 2026, after an account-security incident. Only a new DAO vote can re-enable it.
+  </Accordion>
+</AccordionGroup>
 
-### How many NFT tiers exist and what do they cost?
+## FinPro
 
-There are 10 documented tiers from Genesis at 28 USDT to Infinity at 24,000 USDT. See the [NFT Ecosystem page](/en/nft-ecosystem).
+<AccordionGroup>
+  <Accordion title="What are FinPro and FinFlow?">
+    FinPro is the ecosystem's line of financial products at rwafinpro.com. FinFlow, the first product, has been live since 8 July 2026: a position in a market-neutral strategy, represented by a non-transferable FinFlow NFT and opened from 25 USDT. Accruals are not guaranteed. See [FinPro & FinFlow](/en/finpro-finflow).
+  </Accordion>
+  <Accordion title="How is the FinFlow limit calculated?">
+    The base FinFlow limit of an NFT equals its Protocol Reward Cap. The limits of NFTs bought tier by tier are summed; a higher tier bought directly brings only its own limit. While FinFlow Promotion 2026 runs, the promotional limits apply.
+  </Accordion>
+  <Accordion title="Can I use FinFlow with a Gift NFT?">
+    Yes. A Gift NFT opens FinFlow and can hold a position of its own within its limit.
+  </Accordion>
+  <Accordion title="What is FinPro Marketing?">
+    A separate partner program for FinPro products, with its own structure: Direct Sale plus 20 levels, credited 100% to the marketing balance without the 75/20/5 split. It starts with the Claim Spot pre-launch; marketing accruals begin with the FinCore launch. See [FinPro Marketing](/en/finpro-marketing).
+  </Accordion>
+</AccordionGroup>
 
-### How is the DA protocol price calculated?
+## Ecosystem services
 
-The designated USDT liquidity-pool balance is divided by circulating DA supply.
+<AccordionGroup>
+  <Accordion title="How do I get the RWA NFT Cards debit card?">
+    On rwanftcards.com: register, pass verification, buy a Plan, and activate the card with a first top-up of $20 or more. See [Debit Cards](/en/debit-cards).
+  </Accordion>
+  <Accordion title="How does the bridge work?">
+    The bridge at bridge.rwanftfi.com processes deposits into the ecosystem from 14 networks, so assets do not have to be moved to BNB Smart Chain first. See [Cross-Chain Bridge](/en/bridge).
+  </Accordion>
+  <Accordion title="What is the AML Checker?">
+    A paid check of a wallet address before a transaction: a risk score across 19 blockchains and 14 stablecoins, with links to sanctions, mixers, scams, and hacks. See [AML Checker](/en/aml-checker).
+  </Accordion>
+</AccordionGroup>
 
-### Can DA be transferred between users?
+## DA
 
-No. DA is non-transferable and can be used only through supported protocol functions.
+<AccordionGroup>
+  <Accordion title="How is the DA protocol price calculated?">
+    The designated USDT liquidity-pool balance is divided by circulating DA supply.
+  </Accordion>
+  <Accordion title="Can DA be transferred between users?">
+    No. DA is non-transferable and can be used only through supported protocol functions.
+  </Accordion>
+  <Accordion title="What is the Auto-Sell cycle?">
+    Unprocessed DA is scheduled across four periods over 365 days under the current parameters.
+  </Accordion>
+  <Accordion title="What is NFTM?">
+    An internal Mining counter used in Farming; not a transferable token.
+  </Accordion>
+  <Accordion title="Can I take a loan against DA?">
+    Eligible L5–L10 holders will be able to use a supported DA batch as collateral under the documented rules once DA Lending is activated in 2027. See [Lending Against DA](/en/da-lending).
+  </Accordion>
+</AccordionGroup>
 
-### What is the Auto-Sell cycle?
+## Security
 
-Unprocessed DA is scheduled across four periods over 365 days under the current parameters.
+<AccordionGroup>
+  <Accordion title="Is the protocol audited?">
+    CertiK reviewed the contracts and code version within the published audit scope. See [Security & Audit](/en/security).
+  </Accordion>
+  <Accordion title="What is the Secret Code?">
+    A random word generated together with the financial password. Support requires it for any security-related request. Share it only with official support.
+  </Accordion>
+  <Accordion title="How do I keep my account safe?">
+    Use official domains, protect wallet credentials, and verify every transaction before signing. Support never writes to you first.
+  </Accordion>
+  <Accordion title="What if my account is hacked?">
+    Contact official support; security-related requests require your Secret Code. The team has no access to users' businesses: only a DAO vote can move a business to a new wallet, as it did for a hacked account in June 2026.
+  </Accordion>
+</AccordionGroup>
 
-### What is the Protocol Reward Cap?
+## Governance and legal
 
-The maximum cumulative eligible rewards credited during the current NFT cycle. On-chain term: *Income Limit*.
-
-### What is the Accumulative Balance?
-
-A restricted internal balance used under documented purchase, transfer, fee, and redistribution rules. Its lifetime is currently 180 days, temporarily extended from 120 days by DAO vote.
-
-### What is Frozen Balance?
-
-A 72-hour buffer for a qualifying direct Sponsor Bonus above the remaining Protocol Reward Cap. See the [Frozen Balance page](/en/frozen-balance).
-
-### How does the partner network work?
-
-The contract assigns permanent positions; eligibility depends on tier, depth, activity, phase, and cap.
-
-### What partner-network depth does each NFT tier support?
-
-The current values are listed in the [NFT tier table](/en/nft-ecosystem#all-10-tiers-at-a-glance); future levels require governance activation.
-
-### What is NFTM?
-
-An internal Mining counter used in Farming; not a transferable token.
-
-### Can I take a loan against DA?
-
-Eligible L5–L10 holders may use a supported DA batch as collateral under the documented rules. See [Lending Against DA](/en/da-lending).
-
-### What architecture is used?
-
-EIP-2535 Diamond architecture with seven facets and role-based permissions. See [Architecture](/en/architecture).
-
-### Who governs the protocol?
-
-GovToken holders under the documented current allocation and thresholds. See [Governance — DAO](/en/governance).
-
-### Is the protocol audited?
-
-CertiK reviewed the contracts and code version within the published audit scope. See [Security & Audit](/en/security).
-
-### How do I keep my account safe?
-
-Use official domains, protect wallet credentials, and verify every transaction before signing.
-
-### How are RWANFTFI NFTs described in the platform terms?
-
-As digital access products providing eligibility for specified ecosystem features; no guaranteed income, fixed yield, or resale value. See [Legal & Compliance](/en/legal).
+<AccordionGroup>
+  <Accordion title="What architecture is used?">
+    EIP-2535 Diamond architecture with eight functional facets and role-based permissions. See [Architecture](/en/architecture).
+  </Accordion>
+  <Accordion title="Who governs the protocol?">
+    GovToken holders under the documented current allocation and thresholds. See [Governance — DAO](/en/governance).
+  </Accordion>
+  <Accordion title="How are RWANFTFI NFTs described in the platform terms?">
+    As digital access products providing eligibility for specified ecosystem features; no guaranteed income, fixed yield, or resale value. See [Legal & Compliance](/en/legal).
+  </Accordion>
+</AccordionGroup>
