@@ -1,0 +1,16 @@
+/*
+ * Tables on phones.
+ *
+ * Mintlify gives every table cell min-width: 150px. On a phone the content
+ * column is about 350px wide, so a three- or four-column table pushes its last
+ * columns off screen behind a horizontal scroll, and readers miss them. Below
+ * the tablet breakpoint the cells may shrink to their content instead, so these
+ * tables wrap inside the column. A table whose content still cannot fit keeps
+ * Mintlify's horizontal scroll. Desktop layout is unchanged.
+ */
+
+@media (max-width: 767px) {
+  #content-area table td {
+    min-width: 0;
+  }
+}
