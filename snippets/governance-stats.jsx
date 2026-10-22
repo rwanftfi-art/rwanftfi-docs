@@ -24,6 +24,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Кошельки Guardian',
       guardiansNote: 'текущие кошельки управления',
     },
+    es: {
+      title: 'Resumen de Gobernanza',
+      supply: 'Suministro total',
+      proposal: 'Umbral de propuesta',
+      proposalNote: 'del suministro para presentarla',
+      passing: 'Umbral de aprobación',
+      passingNote: 'mayoría para ejecutar on-chain',
+      guardians: 'Wallets Guardian',
+      guardiansNote: 'wallets de gobernanza actuales',
+    },
     pt: {
       title: 'Visão Geral da Governança',
       supply: 'Oferta Total',
