@@ -84,6 +84,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Wallet Guardian',
       guardiansNote: 'wallet di governance attuali',
     },
+    fr: {
+      title: 'Aperçu de la Gouvernance',
+      supply: 'Offre totale',
+      proposal: 'Seuil de proposition',
+      proposalNote: 'de l\'offre pour soumettre une proposition',
+      passing: 'Seuil d\'approbation',
+      passingNote: 'de majorité pour l\'exécution on-chain',
+      guardians: 'Wallets Guardian',
+      guardiansNote: 'wallets de gouvernance actuels',
+    },
     id: {
       title: 'Ikhtisar Tata Kelola',
       supply: 'Total Pasokan',

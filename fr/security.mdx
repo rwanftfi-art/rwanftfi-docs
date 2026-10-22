@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Constats | L'ID, la gravité et le statut sont indiqués dans le rapport publié. |
 | Correction | Chaque constat résolu est lié à la modification de code correspondante dans le rapport. |
 | Correspondance des déploiements | La correspondance éventuelle entre les contrats de production actuels et la version auditée est publiée séparément. |
-| Bug bounty | Le statut actuel, vérifiable de l'extérieur, est publié sur les canaux officiels. |
+| Bug bounty | Programme actif sur la plateforme officielle de CertiK ; l'activité du bug bounty est reflétée sur CertiK Skynet. |
 
 ## Comment vérifier le rapport d'audit ?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   L'audit couvre les smart contracts et la version du code compris dans le périmètre publié. Il ne vérifie pas à lui seul l'économie du protocole, la performance de l'entreprise ni les résultats des utilisateurs.
 </Note>
 
-## Sécurité du Compte à Trois Niveaux
+## Quatre Niveaux de Sécurité du Compte
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Mot de Passe Financier" icon="fingerprint">
     Un mot de passe distinct des identifiants de connexion, requis pour les actions financières.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/fr/platform-features#secret-code">
+    Un mot aléatoire généré en même temps que le mot de passe financier. Obligatoire pour toute demande au support liée à la sécurité.
   </Card>
   <Card title="Codes d'Autorisation de Transaction" icon="key">
     Codes à usage unique requis pour autoriser les transactions financières.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Protection contre l'Hameçonnage
+## Récupération du Compte via le DAO
+
+L'équipe RWANFTFI n'a pas accès à l'activité des utilisateurs. Seul un vote du DAO peut transférer un compte vers un nouveau wallet. Ce mécanisme a été éprouvé en juin 2026 : le compte d'un utilisateur a été piraté et toute son activité, le NFT et la structure de partenaires, a été volée alors que la Business Sale était temporairement activée. Le DAO a désactivé la Business Sale et a transféré l'activité vers un nouveau wallet contrôlé par son propriétaire vérifié ; les deux propositions ont été exécutées on-chain. Voir [Gouvernance — DAO](/fr/governance#décisions-exécutées).
+
+## Filtrage AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/fr/aml-checker">
+  Vérifiez toute adresse de wallet au regard des sanctions, des mixeurs, des escroqueries et des piratages avant d'envoyer ou de recevoir des fonds : un score de risque sur 19 blockchains et 14 stablecoins.
+</Card>
+
+## Messagerie Privée
+
+La messagerie intégrée propose le mode **Private Web3 chats** : des messages chiffrés de bout en bout sur le protocole XMTP (MLS), qui ne sont pas stockés sur les serveurs de la plateforme. Voir [Fonctionnalités de la Plateforme](/fr/platform-features).
+
+## Domaines Officiels
+
+| Domaine | Usage |
+|---|---|
+| rwanftfi.com | Site principal |
+| app.rwanftfi.com | Application |
+| news.rwanftfi.com | Actualités et annonces |
+| bridge.rwanftfi.com | Pont inter-chaînes |
+| whitepaper.rwanftfi.com | Ce livre blanc |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Liens de parrainage |
+| rwafinpro.com | Produits financiers FinPro |
+| rwanftcards.com | Cartes de débit RWA NFT Cards |
+
+Les adresses officielles des contrats, notamment celles du Diamond, du DAO et du Token Reserve, sont répertoriées sur [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Utilisez uniquement les domaines et les adresses de contrat officiels de RWANFTFI. Les représentants de RWANFTFI ne doivent jamais demander de clés privées, de phrases seed ni de paiements vers des adresses de wallet non officielles. Vérifiez toujours que vous êtes sur **rwanftfi.com** avant de connecter votre wallet ou de saisir vos identifiants.
+  Utilisez uniquement les domaines ci-dessus et les adresses de contrat officielles ; tout autre domaine, y compris une variante d'orthographe ressemblante, n'est pas officiel. Les représentants de RWANFTFI ne demandent jamais de clés privées, de phrases seed ni de paiements vers des adresses de wallet non officielles. Vérifiez le domaine avant de connecter un wallet ou de saisir vos identifiants.
 </Warning>

@@ -1,6 +1,6 @@
 ---
 title: "Questions Fréquentes"
-description: "Des réponses claires sur les niveaux d'accès NFT, les mécaniques du DA, les fonctionnalités du programme de partenaires, le prêt, la gouvernance, la sécurité et la structure de l'entreprise."
+description: "Des réponses claires sur les niveaux d'accès NFT, le programme de partenaires, FinPro, les services de l'écosystème, les mécaniques du DA, la sécurité, la gouvernance et les conditions juridiques."
 icon: "circle-question"
 ---
 
@@ -14,12 +14,17 @@ icon: "circle-question"
         {
           "@type": "Question",
           "name": "Qu'est-ce que RWANFTFI ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI est un protocole Web3 sur BNB Smart Chain dans lequel des niveaux d'accès NFT débloquent certaines fonctionnalités de l'écosystème, notamment les mécaniques du DA, les récompenses partenaires, le minage et le farming, le prêt et la gouvernance." }
+          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI est un protocole Web3 sur BNB Smart Chain dans lequel des niveaux d'accès NFT débloquent certaines fonctionnalités de l'écosystème : le programme de partenaires, les produits financiers FinPro, les mécaniques du DA et la gouvernance." }
         },
         {
           "@type": "Question",
-          "name": "Sur quelle blockchain RWANFTFI fonctionne-t-il ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "RWANFTFI opère sur BNB Smart Chain au moyen de contrats compatibles BEP-20. Du BNB est requis pour les frais de gaz." }
+          "name": "Quels domaines sont officiels ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "rwanftfi.com et ses sous-domaines app, news, bridge, brandbook, whitepaper et share ; rwafinpro.com pour FinPro ; et rwanftcards.com pour les cartes de débit. Tout autre domaine n'est pas officiel." }
+        },
+        {
+          "@type": "Question",
+          "name": "Le Minage, le Farming et le Prêt sont-ils déjà disponibles ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Non. Le Minage de NFTM, le Farming de DA et le Prêt adossé au DA sont des mécaniques documentées dont l'activation est prévue en 2027. Les dates d'activation seront publiées sur les canaux officiels." }
         },
         {
           "@type": "Question",
@@ -28,23 +33,28 @@ icon: "circle-question"
         },
         {
           "@type": "Question",
-          "name": "Comment le prix protocolaire du DA est-il calculé ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Le solde du pool de liquidité USDT désigné est divisé par l'offre de DA en circulation. La formule ne garantit pas à elle seule la liquidité, la disponibilité des rachats ou un résultat particulier pour l'utilisateur." }
-        },
-        {
-          "@type": "Question",
           "name": "Qu'est-ce que le Plafond de Récompenses du Protocole ?",
           "acceptedAnswer": { "@type": "Answer", "text": "Le montant cumulé maximal de récompenses éligibles créditées pendant le cycle NFT en cours. Terme on-chain : Income Limit. Il s'agit d'une limite technique, et non de gains attendus." }
         },
         {
           "@type": "Question",
-          "name": "Qu'est-ce que le Solde Gelé ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Un tampon de 72 heures pour un Bonus de Sponsor direct qualifiant qui dépasse le Plafond de Récompenses du Protocole restant." }
+          "name": "Qu'est-ce qu'un NFT Cadeau ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Un NFT qui ne peut être ni acheté ni vendu ; il est attribué dans le cadre de promotions et de programmes. Il occupe une place permanente dans le réseau de partenaires et dispose de son propre Plafond de Récompenses du Protocole, ses récompenses sont réparties à 50/50 entre le Solde Régulier et le Solde Cumulatif, et il donne accès à FinFlow." }
         },
         {
           "@type": "Question",
-          "name": "Puis-je contracter un prêt adossé au DA ?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Les détenteurs éligibles de niveaux L5-L10 peuvent utiliser un lot de DA pris en charge comme collatéral selon les règles documentées, au LTV documenté de 70 %." }
+          "name": "Que sont FinPro et FinFlow ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "FinPro est la gamme de produits financiers de l'écosystème, sur rwafinpro.com. FinFlow, le premier produit, est en service depuis le 8 juillet 2026 : une position dans une stratégie neutre au marché, représentée par un FinFlow NFT non transférable et ouverte à partir de 25 USDT. Les attributions ne sont pas garanties." }
+        },
+        {
+          "@type": "Question",
+          "name": "Puis-je utiliser FinFlow avec un NFT Cadeau ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Oui. Un NFT Cadeau donne accès à FinFlow et peut détenir sa propre position, dans la limite qui lui est attribuée." }
+        },
+        {
+          "@type": "Question",
+          "name": "Qu'est-ce que le Secret Code ?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Un mot aléatoire généré en même temps que le mot de passe financier. Le support l'exige pour toute demande liée à la sécurité. Ne le communiquez qu'au support officiel." }
         },
         {
           "@type": "Question",
@@ -66,74 +76,133 @@ icon: "circle-question"
   }}
 />
 
-### Qu'est-ce que RWANFTFI ?
+## Généralités
 
-RWANFTFI est un protocole Web3 sur BNB Smart Chain dans lequel des niveaux d'accès NFT débloquent certaines fonctionnalités de l'écosystème.
+<AccordionGroup>
+  <Accordion title="Qu'est-ce que RWANFTFI ?">
+    RWANFTFI est un protocole Web3 sur BNB Smart Chain dans lequel des niveaux d'accès NFT débloquent certaines fonctionnalités de l'écosystème : le programme de partenaires, les produits financiers FinPro, les mécaniques du DA et la gouvernance.
+  </Accordion>
+  <Accordion title="Sur quelle blockchain RWANFTFI fonctionne-t-il ?">
+    RWANFTFI opère sur BNB Smart Chain au moyen de contrats compatibles BEP-20. Du BNB est requis pour les frais de gaz.
+  </Accordion>
+  <Accordion title="Quels domaines sont officiels ?">
+    rwanftfi.com et ses sous-domaines app, news, bridge, brandbook, whitepaper et share ; rwafinpro.com pour FinPro ; et rwanftcards.com pour les cartes de débit. Tout autre domaine n'est pas officiel. Voir [Domaines Officiels](/fr/security#domaines-officiels).
+  </Accordion>
+  <Accordion title="Le Minage, le Farming et le Prêt sont-ils déjà disponibles ?">
+    Non. Le Minage de NFTM, le Farming de DA et le Prêt adossé au DA sont des mécaniques documentées dont l'activation est prévue en 2027. Les dates d'activation seront publiées sur les canaux officiels.
+  </Accordion>
+</AccordionGroup>
 
-### Sur quelle blockchain RWANFTFI fonctionne-t-il ?
+## NFT et Programme de Partenaires
 
-RWANFTFI opère sur BNB Smart Chain au moyen de contrats compatibles BEP-20. Du BNB est requis pour les frais de gaz.
+<AccordionGroup>
+  <Accordion title="Combien de niveaux de NFT existe-t-il et quel est leur prix ?">
+    Il existe 10 niveaux documentés, de Genesis à 28 USDT à Infinity à 24 000 USDT. Voir la [page Écosystème NFT](/fr/nft-ecosystem).
+  </Accordion>
+  <Accordion title="Qu'est-ce que le Plafond de Récompenses du Protocole ?">
+    Le montant cumulé maximal de récompenses éligibles créditées pendant le cycle NFT en cours. Terme on-chain : *Income Limit*. Il s'agit d'une limite technique, et non de gains attendus.
+  </Accordion>
+  <Accordion title="Qu'est-ce que le Solde Cumulatif, et pourquoi sa durée de vie est-elle de 180 jours ?">
+    Un solde interne restreint utilisé selon les règles documentées d'achat, de transfert, de frais et de redistribution. En septembre 2026, un vote du DAO a prolongé sa durée de vie de 120 à 180 jours, le temps de corriger un bug de réinitialisation du minuteur ; un vote distinct est prévu pour la ramener à 120 jours après le correctif.
+  </Accordion>
+  <Accordion title="Qu'est-ce que le Solde Gelé ?">
+    Un tampon de 72 heures pour un Bonus de Sponsor direct qualifiant qui dépasse le Plafond de Récompenses du Protocole restant. Voir la [page Solde Gelé](/fr/frozen-balance).
+  </Accordion>
+  <Accordion title="Comment fonctionne le réseau de partenaires ?">
+    Le contrat attribue des positions permanentes ; l'éligibilité dépend du niveau de NFT, de la profondeur, de l'activité, de la phase et du plafond.
+  </Accordion>
+  <Accordion title="Quelle profondeur de réseau de partenaires chaque niveau de NFT prend-il en charge ?">
+    Les valeurs actuelles figurent dans le [tableau des niveaux de NFT](/fr/nft-ecosystem) ; les niveaux futurs requièrent une activation par la gouvernance.
+  </Accordion>
+  <Accordion title="Quel est le format du lien de parrainage ?">
+    `share.rwanftfi.com/?ref=CODE`. Votre code de parrainage est permanent ; l'ancien format de lien a cessé de fonctionner en août 2026.
+  </Accordion>
+  <Accordion title="Qu'est-ce qu'un NFT Cadeau ?">
+    Un NFT qui ne peut être ni acheté ni vendu ; il est attribué dans le cadre de promotions et de programmes. Il occupe une place permanente dans le réseau de partenaires et dispose de son propre Plafond de Récompenses du Protocole, ses récompenses sont réparties à 50/50 entre le Solde Régulier et le Solde Cumulatif, et il donne accès à FinFlow. Voir [NFT Cadeaux](/fr/nft-ecosystem#nft-cadeaux).
+  </Accordion>
+  <Accordion title="Qu'en est-il de la Business Sale ?">
+    La Business Sale, le transfert d'une structure de partenaires complète, est désactivée par vote du DAO depuis juin 2026, à la suite d'un incident de sécurité de compte. Seul un nouveau vote du DAO peut la réactiver.
+  </Accordion>
+</AccordionGroup>
 
-### Combien de niveaux de NFT existe-t-il et quel est leur prix ?
+## FinPro
 
-Il existe 10 niveaux documentés, de Genesis à 28 USDT à Infinity à 24 000 USDT. Voir la [page Écosystème NFT](/fr/nft-ecosystem).
+<AccordionGroup>
+  <Accordion title="Que sont FinPro et FinFlow ?">
+    FinPro est la gamme de produits financiers de l'écosystème, sur rwafinpro.com. FinFlow, le premier produit, est en service depuis le 8 juillet 2026 : une position dans une stratégie neutre au marché, représentée par un FinFlow NFT non transférable et ouverte à partir de 25 USDT. Les attributions ne sont pas garanties. Voir [FinPro & FinFlow](/fr/finpro-finflow).
+  </Accordion>
+  <Accordion title="Comment la limite FinFlow est-elle calculée ?">
+    La limite FinFlow de base d'un NFT est égale à son Plafond de Récompenses du Protocole. Les limites des NFT achetés niveau par niveau sont additionnées ; un niveau supérieur acheté directement n'apporte que sa propre limite. Tant que FinFlow Promotion 2026 est en cours, ce sont les limites promotionnelles qui s'appliquent.
+  </Accordion>
+  <Accordion title="Puis-je utiliser FinFlow avec un NFT Cadeau ?">
+    Oui. Un NFT Cadeau donne accès à FinFlow et peut détenir sa propre position, dans la limite qui lui est attribuée.
+  </Accordion>
+  <Accordion title="Qu'est-ce que FinPro Marketing ?">
+    Un programme de partenaires distinct pour les produits FinPro, doté de sa propre structure : Direct Sale plus 20 niveaux, crédités à 100 % sur le solde marketing, sans la répartition 75/20/5. Il commence par le pré-lancement Claim Spot ; les attributions marketing débutent avec le lancement de FinCore. Voir [FinPro Marketing](/fr/finpro-marketing).
+  </Accordion>
+</AccordionGroup>
 
-### Comment le prix protocolaire du DA est-il calculé ?
+## Services de l'Écosystème
 
-Le solde du pool de liquidité USDT désigné est divisé par l'offre de DA en circulation.
+<AccordionGroup>
+  <Accordion title="Comment obtenir la carte de débit RWA NFT Cards ?">
+    Sur rwanftcards.com : inscrivez-vous, effectuez la vérification, achetez un plan et activez la carte par une première recharge de $20 ou plus. Voir [Cartes de Débit](/fr/debit-cards).
+  </Accordion>
+  <Accordion title="Comment fonctionne le pont ?">
+    Le pont, sur bridge.rwanftfi.com, traite les dépôts vers l'écosystème depuis 14 réseaux, si bien que les actifs n'ont pas à être transférés au préalable vers BNB Smart Chain. Voir [Pont Inter-Chaînes](/fr/bridge).
+  </Accordion>
+  <Accordion title="Qu'est-ce que l'AML Checker ?">
+    Une vérification payante de l'adresse d'un wallet avant une transaction : un score de risque sur 19 blockchains et 14 stablecoins, incluant l'exposition aux sanctions, aux mixeurs, aux escroqueries et aux piratages. Voir [AML Checker](/fr/aml-checker).
+  </Accordion>
+</AccordionGroup>
 
-### Le DA peut-il être transféré entre utilisateurs ?
+## DA
 
-Non. Le DA est non transférable et ne peut être utilisé que par le biais des fonctions prises en charge du protocole.
+<AccordionGroup>
+  <Accordion title="Comment le prix protocolaire du DA est-il calculé ?">
+    Le solde du pool de liquidité USDT désigné est divisé par l'offre de DA en circulation.
+  </Accordion>
+  <Accordion title="Le DA peut-il être transféré entre utilisateurs ?">
+    Non. Le DA est non transférable et ne peut être utilisé que par le biais des fonctions prises en charge du protocole.
+  </Accordion>
+  <Accordion title="Qu'est-ce que le cycle d'Auto-Vente ?">
+    Le DA non traité est programmé sur quatre périodes s'étalant sur 365 jours selon les paramètres actuels.
+  </Accordion>
+  <Accordion title="Qu'est-ce que le NFTM ?">
+    Un compteur de Minage interne utilisé dans le Farming ; ce n'est pas un jeton transférable.
+  </Accordion>
+  <Accordion title="Puis-je contracter un prêt adossé au DA ?">
+    Les détenteurs éligibles de niveaux L5–L10 pourront utiliser un lot de DA pris en charge comme collatéral selon les règles documentées, une fois le Prêt adossé au DA activé en 2027. Voir [Prêt Adossé au DA](/fr/da-lending).
+  </Accordion>
+</AccordionGroup>
 
-### Qu'est-ce que le cycle d'Auto-Vente ?
+## Sécurité
 
-Le DA non traité est programmé sur quatre périodes s'étalant sur 365 jours selon les paramètres actuels.
+<AccordionGroup>
+  <Accordion title="Le protocole est-il audité ?">
+    CertiK a revu les contrats et la version du code compris dans le périmètre d'audit publié. Le rapport final est daté du 28 avril 2026 et il est vérifiable sur l'[annuaire public CertiK Skynet](https://skynet.certik.com/projects/rwanftfi). Voir [Sécurité & Audit](/fr/security).
+  </Accordion>
+  <Accordion title="Qu'est-ce que le Secret Code ?">
+    Un mot aléatoire généré en même temps que le mot de passe financier. Le support l'exige pour toute demande liée à la sécurité. Ne le communiquez qu'au support officiel.
+  </Accordion>
+  <Accordion title="Comment sécuriser mon compte ?">
+    Utilisez les domaines officiels, protégez les identifiants de votre wallet et vérifiez chaque transaction avant de la signer. Le support ne vous écrit jamais en premier.
+  </Accordion>
+  <Accordion title="Que faire si mon compte est piraté ?">
+    Contactez le support officiel ; les demandes liées à la sécurité exigent votre Secret Code. L'équipe n'a pas accès à l'activité des utilisateurs : seul un vote du DAO peut transférer une activité vers un nouveau wallet, comme ce fut le cas pour un compte piraté en juin 2026.
+  </Accordion>
+</AccordionGroup>
 
-### Qu'est-ce que le Plafond de Récompenses du Protocole ?
+## Gouvernance et Questions Juridiques
 
-Le montant cumulé maximal de récompenses éligibles créditées pendant le cycle NFT en cours. Terme on-chain : *Income Limit*.
-
-### Qu'est-ce que le Solde Cumulatif ?
-
-Un solde interne restreint utilisé selon les règles documentées d'achat, de transfert, de frais et de redistribution. Sa durée de vie est actuellement de 180 jours, contre 120 jours auparavant, à la suite d'une prolongation temporaire votée par le DAO.
-
-### Qu'est-ce que le Solde Gelé ?
-
-Un tampon de 72 heures pour un Bonus de Sponsor direct qualifiant qui dépasse le Plafond de Récompenses du Protocole restant. Voir la [page Solde Gelé](/fr/frozen-balance).
-
-### Comment fonctionne le réseau de partenaires ?
-
-Le contrat attribue des positions permanentes ; l'éligibilité dépend du niveau de NFT, de la profondeur, de l'activité, de la phase et du plafond.
-
-### Quelle profondeur de réseau de partenaires chaque niveau de NFT prend-il en charge ?
-
-Les valeurs actuelles figurent dans le [tableau des niveaux de NFT](/fr/nft-ecosystem) ; les niveaux futurs requièrent une activation par la gouvernance.
-
-### Qu'est-ce que le NFTM ?
-
-Un compteur de Minage interne utilisé dans le Farming ; ce n'est pas un jeton transférable.
-
-### Puis-je contracter un prêt adossé au DA ?
-
-Les détenteurs éligibles de niveaux L5–L10 peuvent utiliser un lot de DA pris en charge comme collatéral selon les règles documentées. Voir [Prêt Adossé au DA](/fr/da-lending).
-
-### Quelle architecture est utilisée ?
-
-Une architecture Diamond EIP-2535 comprenant sept facets et des permissions basées sur les rôles. Voir [Architecture](/fr/architecture).
-
-### Qui gouverne le protocole ?
-
-Les détenteurs de GovToken, selon l'allocation actuelle et les seuils documentés. Voir [Gouvernance — DAO](/fr/governance).
-
-### Le protocole est-il audité ?
-
-CertiK a revu les contrats et la version du code compris dans le périmètre d'audit publié. Voir [Sécurité & Audit](/fr/security).
-
-### Comment sécuriser mon compte ?
-
-Utilisez les domaines officiels, protégez les identifiants de votre wallet et vérifiez chaque transaction avant de la signer.
-
-### Comment les NFT RWANFTFI sont-ils décrits dans les conditions de la plateforme ?
-
-Comme des produits d'accès numériques donnant droit à des fonctionnalités spécifiées de l'écosystème ; sans revenu garanti, sans rendement fixe et sans valeur de revente. Voir [Légal & Conformité](/fr/legal).
+<AccordionGroup>
+  <Accordion title="Quelle architecture est utilisée ?">
+    Une architecture Diamond EIP-2535 comprenant huit facets fonctionnels et des permissions basées sur les rôles. Voir [Architecture](/fr/architecture).
+  </Accordion>
+  <Accordion title="Qui gouverne le protocole ?">
+    Les détenteurs de GovToken, selon l'allocation actuelle et les seuils documentés : une offre fixe de 10 000 000 jetons ERC20Votes, un seuil de proposition de 30 % et un seuil d'approbation de 50 %. Voir [Gouvernance — DAO](/fr/governance).
+  </Accordion>
+  <Accordion title="Comment les NFT RWANFTFI sont-ils décrits dans les conditions de la plateforme ?">
+    Comme des produits d'accès numériques donnant droit à des fonctionnalités spécifiées de l'écosystème ; sans revenu garanti, sans rendement fixe et sans valeur de revente. Voir [Légal & Conformité](/fr/legal).
+  </Accordion>
+</AccordionGroup>
