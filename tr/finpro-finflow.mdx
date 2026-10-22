@@ -1,0 +1,172 @@
+---
+title: "FinPro ve FinFlow"
+description: "FinPro, RWANFTFI ekosisteminin finansal ürünler katmanıdır. FinFlow onun ilk ürünüdür: piyasa nötr bir stratejide, transfer edilemeyen bir FinFlow NFT ile temsil edilen ve RWANFTFI NFT sahiplerinin Protokol Ödül Limitleri dahilinde erişebildiği bir pozisyon."
+icon: "chart-line"
+---
+
+<Note>
+  **FinPro ve RWA NFT platformu ayrı ürünlerdir.** FinPro pozisyonları doğrudan kullanıcının EVM cüzdanından fonlanır ve ödemeler doğrudan bu cüzdana yapılır. Ana platformun Normal Bakiyesi ve Birikim Bakiyesi FinPro'da kullanılmaz ve FinPro tahakkukları hiçbir zaman bu bakiyelere aktarılmaz.
+</Note>
+
+## FinPro nedir?
+
+FinPro, ekosistem içinde finansal ürünlerin (havuzlar ve stratejiler) listelendiği bir ürün platformudur. Kendi alan adı olan **[rwafinpro.com](https://rwafinpro.com)** üzerinde çalışır ve [app.rwanftfi.com](https://app.rwanftfi.com) adresindeki ana uygulamanın **FinPro** sekmesinden açılır. Arayüz dili otomatik olarak FinPro'ya aktarılır ve FinPro sitesinde ana platforma dönüş bağlantısı bulunur.
+
+FinPro, finansal ürünlerin ekosistemin diğer herhangi bir alan adını etkileyebilecek cüzdan uyarısı olaylarından yalıtılması için Ağustos 2026'da kendi alan adına taşınmıştır. Akıllı sözleşmeler, pozisyonlar ve mekanikler bu taşınmayla değişmemiştir.
+
+<CardGroup cols={3}>
+  <Card title="FinFlow" icon="circle-check">
+    8 Temmuz 2026'dan bu yana **aktif**. FinPro'nun ilk ürünü.
+  </Card>
+  <Card title="FinCore" icon="hourglass-half">
+    **Sıradaki ürün:** FinPro Marketing'in yer aldığı ilk ürün. Parametreler lansmandan önce yayımlanır.
+  </Card>
+  <Card title="Diğer ürünler" icon="layer-group">
+    **Geliştirme aşamasında.** Aynı FinPro Marketing yapısı içinde çalışırlar.
+  </Card>
+</CardGroup>
+
+Her ürünün kendi parametreleri vardır: tahakkuk modeli, Earn cap, ödeme sıklığı, kilit süresi ve anapara iadesi kuralı. FinPro Marketing yapısı ve seviye yüzdeleri tüm ürünlerde ortaktır. Bkz. [FinPro Marketing](/tr/finpro-marketing).
+
+## FinFlow pozisyonunu kimler açabilir?
+
+<Steps>
+  <Step title="Bir RWANFTFI NFT">
+    Genesis'ten Infinity'ye kadar herhangi bir seviyede satın alınmış bir RWANFTFI NFT, erişim anahtarıdır. Hediye NFT'ler de uygundur ve kendi limitleri dahilinde bir FinFlow pozisyonu tutabilir.
+  </Step>
+  <Step title="Bir FinFlow limiti">
+    Bir NFT'nin FinFlow limiti, o NFT'nin **Protokol Ödül Limitine** (zincir üzerindeki terim: *Income Limit*) eşittir. FinFlow pozisyonu açmak, ana platformun Protokol Ödül Limitini **tüketmez**: bu limit harcanabilir bir bakiye değil, bir giriş tavanıdır.
+  </Step>
+  <Step title="Limit içinde boş alan">
+    Tüm açık FinFlow pozisyonlarının toplamı, NFT sahibinin FinFlow limitini aşamaz. Daha fazla pozisyon açmak isteyen sahip, NFT'sini yükseltir.
+  </Step>
+</Steps>
+
+**Limitlerin birleştirilmesi.** NFT'ler **seviye seviye, sırayla** satın alınırsa (örneğin L3, ardından L4, ardından L5) her seviyenin FinFlow limitleri tek bir birleşik limitte **toplanır**. Daha yüksek bir seviye **doğrudan** satın alınırsa (örneğin önceki seviyeler olmadan L5) yalnızca o seviyenin limiti geçerli olur. FinFlow Promotion 2026 devam ettiği sürece promosyon limitleri kullanılır.
+
+| L | Ad | Fiyat (USDT) | Temel FinFlow limiti (USDT) |
+|:---:|---|---:|---:|
+| 1 | Genesis | 28 | 75 |
+| 2 | Advance | 55 | 160 |
+| 3 | Ascend | 140 | 375 |
+| 4 | Eclipse | 275 | 650 |
+| 5 | Hydro | 550 | 1.400 |
+| 6 | Quantum | 1.100 | 2.700 |
+| 7 | Pulse | 2.200 | 5.800 |
+| 8 | Aurora | 5.500 | 12.800 |
+| 9 | Flame | 11.000 | 28.000 |
+| 10 | Infinity | 24.000 | 70.000 |
+
+Yaptırım listelerinde yer alan adresler, platformun AML ve yaptırım taraması kuralları uyarınca FinPro'nun dışında tutulur.
+
+## FinFlow nasıl çalışır?
+
+FinFlow **piyasa nötr bir algoritma** kullanır. Havuz piyasada yönlü bir pozisyon almaz: tahakkuklar, kripto para piyasasındaki **fonlama oranı (funding rate) tahsilatından** ve **spread arbitrajından** elde edilir.
+
+<CardGroup cols={3}>
+  <Card title="Piyasa nötr" icon="scale-balanced">
+    Uzun ve kısa pozisyonlar dengeye yakın tutulur; piyasa yönü tahminine dayalı pozisyon alınmaz.
+  </Card>
+  <Card title="Piyasa koruması" icon="shield-halved">
+    Manipülatif fiyat iğnelerine (squeeze hareketlerine) karşı koruma ve sıkı drawdown kontrolü.
+  </Card>
+  <Card title="5.000.000 USDT" icon="database">
+    Havuz kapasitesi; algoritmanın mevcut piyasa koşullarında etkin biçimde işleyebileceği hacme göre belirlenmiştir.
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Tahakkuklar garanti edilmez.** Dijital varlıklarla yapılan her işlem teknik ve piyasa riski taşır. Havuzun kapasitesi ve katılım koşulları değişebilir; bu tür değişiklikler önceden duyurulur.
+</Warning>
+
+## FinFlow pozisyonu nedir?
+
+FinFlow pozisyonu bir **FinFlow NFT** ile temsil edilir. Hukuki ve teknik açıdan pozisyon açmak **bir mevduat ya da fonların yönetime devri değildir**: katılımcı, algoritmik olarak oluşturulan tahakkukları alma hakkı veren bir dijital varlık edinir.
+
+| Parametre | Mevcut kural |
+|---|---|
+| Minimum pozisyon | **25 USDT** |
+| Para birimi ve ağ | Yalnızca **BNB Smart Chain (BEP-20) üzerinde USDT** |
+| Fon kaynağı | Doğrudan bağlı EVM cüzdanından (örneğin MetaMask); platformun dahili bakiyeleri kullanılmaz |
+| Transfer edilebilirlik | **Transfer edilemez**, sahibinin hesabına bağlıdır |
+| Etkinleştirme | Her gün saat **00:00'da**; yeni bir pozisyon o saate kadar *Pending* durumunu gösterir, bu normaldir |
+| İlk tahakkuk | Etkinleştirmeyi izleyen ilk tam günden sonra görünür |
+| Fon ekleme | Mevcut pozisyonun anaparasını artırır; tahakkuklar yeni anapara üzerinden hesaplanır |
+| Birden fazla pozisyon | İzin verilir; uygulamada tek bir pozisyona ekleme yapmak veya Compound'u kullanmak, birden fazla pozisyondan ayrı ayrı Claim yapmaktan daha basittir |
+
+> **Etkinleştirme örneği.** Ayın 5'inde oluşturulan bir pozisyon, 6'sında saat 00:00'da etkinleştirilir ve ilk tahakkukunu 7'sinde gösterir.
+
+## Tahakkuklar, çekim ve Compound
+
+<Steps>
+  <Step title="Günlük tahakkuk">
+    Tahakkuklar, etkinleştirmeden sonraki ilk tam günden itibaren her gün yatırılır.
+  </Step>
+  <Step title="Dağılımı seçin">
+    Pozisyon sahibi her tahakkuk için dağılımı bir kaydırıcıyla seçer; örneğin %30'u Compound'a, %70'i çekime.
+  </Step>
+  <Step title="Çekim talep edin">
+    Çekim talepleri **en fazla 72 saat** içinde (bir saatten 72 saate kadar) işlenir.
+  </Step>
+  <Step title="Claim">
+    Talep işlendikten sonra **Claim** düğmesi etkinleşir ve fonlar istenen herhangi bir zamanda USDT BEP-20 olarak bağlı EVM cüzdanına alınabilir.
+  </Step>
+</Steps>
+
+Tahakkuklar doğrudan cüzdana ödenir ve hiçbir zaman ana platformun bakiyelerine aktarılmaz. Pozisyonun oluşturulduğu hafta boyunca veya halihazırda bekleyen bir çekim ya da yeniden yatırım talebi varken Claim yapılamaz.
+
+**Compound**, tahakkuku FinFlow NFT'nin anaparasına yeniden yatırır. Tahakkuklar anaparanın yüzdesi olarak hesaplandığından her Compound işlemi gelecekteki tahakkukların mutlak tutarını artırır ve Earn cap'e daha hızlı ulaşılır. Compound için yeni bir RWANFTFI NFT'ye veya daha yüksek bir FinFlow limitine gerek yoktur. Otomatik yeniden yatırım ayarlarının etkinleştirmeden itibaren minimum süresi **7 gündür**: salı günü yapılan bir ayar, bir sonraki salı değiştirilebilir.
+
+## Earn cap
+
+Her FinFlow NFT'nin **Earn cap** (tahakkuk tavanı) değeri, başlangıç anaparasının **%200'üdür**. Anapara bu %200'e dahildir ve ayrıca geri ödenmez. Tavana ulaşıldığında pozisyon pasif hale gelir; pozisyon sahibi yeni bir pozisyon açarak devam edebilir.
+
+> **Örnek.** 1.000 USDT ile açılan bir pozisyonun döngüsü boyunca Earn cap'i 2.000 USDT'dir. Compound etkinken anapara büyür ve mutlak tavan da onunla birlikte büyür.
+
+## Refund
+
+**Refund** (iade) talebi, pozisyon sahibi başlangıç tutarının **%50'sini** alıp çektiğinde kullanılabilir hale gelir. Refund pozisyonu kapatır ve başlangıç tutarının **%100'üne kadar kalan kısmı** iade eder: %60'ını çekmiş bir pozisyon sahibi kalan %40'ı alır. Talepler manuel olarak incelenir ve onaylanan bir Refund **geri alınamaz**.
+
+## Güvenlik
+
+| Katman | Kural |
+|---|---|
+| Finansal Şifre | Her çekim için gereklidir. Yalnızca cüzdanın ele geçirilmesi, havuzdan çekim yapmak için yeterli değildir. |
+| Cüzdan değişikliği | Cüzdan erişimi kaybedilirse pozisyon sahibi, üst sponsoru aracılığıyla destek ekibine başvurur. Bir DAO oylaması, hesabı **pozisyonlar ve tahakkuklar kaybedilmeden** yeni bir cüzdana taşıyabilir; FinFlow NFT'ler, ana taşıma işleminden sonra ayrı bir adımda aktarılır. |
+| Ödeme yolu | Tahakkuklar yalnızca bağlı EVM cüzdanına gönderilir. |
+
+## Arayüz
+
+- **Takvim:** yaklaşan tahakkuklar, planlanmış çekimler, NFT durumları ve son tarihler, gün gün.
+- **İşlem ayrıntıları:** her işlem için tarih, pozisyon, tür ve işlem bağlantısı.
+- **Özel pozisyon adları:** herhangi bir pozisyon, sahibinin kendi stratejisine uygun olarak yeniden adlandırılabilir.
+- Ürün içindeki **SSS** ve Resources sekmesindeki **FinFlow sunumu** ([app.rwanftfi.com/resources](https://app.rwanftfi.com/resources)); şu anda İngilizce ve Rusça olarak sunulmaktadır.
+
+## FinFlow Promotion 2026
+
+<Note>
+  **Süre sınırlıdır.** Promosyon, **31 Aralık 2026 (dahil)** tarihine kadar veya 5.000.000 USDT'lik havuz dolana kadar (hangisi önce gerçekleşirse) geçerlidir.
+</Note>
+
+Promosyon süresince Genesis ve Advance dahil tüm seviyelerin FinFlow limitleri artırılmıştır ve temel limitlerin yerini alır. Güncel promosyon limitleri FinPro arayüzünde ve resmi duyuruda gösterilir. Sıralı yükseltmelerden sonra limitler toplandığında, promosyon devam ettiği sürece promosyon limitleri uygulanır.
+
+## FinFlow ve FinPro Marketing
+
+FinFlow, FinPro Marketing ödülü **oluşturmaz**. Pazarlama programındaki rolü iki yönlüdür:
+
+- FinFlow pozisyonu, FinPro Marketing'in lansman öncesi aşaması olan **Claim Spot** için giriş koşuludur.
+- Tüm açık FinFlow pozisyonları, kaç pazarlama seviyesinin açık olduğunu belirleyen **pozisyon bakiyesine** dahil edilir.
+
+## İlgili sayfalar
+
+<CardGroup cols={3}>
+  <Card title="NFT Ekosistemi" icon="id-card" href="/tr/nft-ecosystem">
+    Seviyeler, Protokol Ödül Limitleri ve Otomatik Alım.
+  </Card>
+  <Card title="FinPro Marketing" icon="circle-nodes" href="/tr/finpro-marketing">
+    FinPro ürünlerine yönelik partner programı: Claim Spot, seviyeler, limitler ve Compound.
+  </Card>
+  <Card title="Güvenlik ve Denetim" icon="shield-halved" href="/tr/security">
+    Hesap güvenliği katmanları ve resmi alan adları.
+  </Card>
+</CardGroup>

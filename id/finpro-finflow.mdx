@@ -1,0 +1,172 @@
+---
+title: "FinPro & FinFlow"
+description: "FinPro adalah lapisan produk keuangan dalam ekosistem RWANFTFI. FinFlow adalah produk pertamanya: posisi dalam strategi netral pasar, direpresentasikan oleh FinFlow NFT yang tidak dapat ditransfer, dan tersedia bagi pemegang NFT RWANFTFI dalam lingkup Batas Imbalan Protokol mereka."
+icon: "chart-line"
+---
+
+<Note>
+  **FinPro dan platform RWA NFT adalah produk yang terpisah.** Posisi FinPro didanai langsung dari dompet EVM pengguna dan dibayarkan langsung ke dompet tersebut. Saldo Reguler dan Saldo Akumulatif platform utama tidak digunakan di FinPro, dan akrual FinPro tidak pernah masuk ke saldo tersebut.
+</Note>
+
+## Apa itu FinPro?
+
+FinPro adalah platform produk di dalam ekosistem tempat produk keuangan (pool dan strategi) dicantumkan. FinPro berjalan di domainnya sendiri, **[rwafinpro.com](https://rwafinpro.com)**, dan dibuka dari tab **FinPro** di aplikasi utama [app.rwanftfi.com](https://app.rwanftfi.com). Bahasa antarmuka terbawa secara otomatis, dan situs FinPro menyediakan tautan kembali ke platform utama.
+
+FinPro pindah ke domain khususnya pada Agustus 2026 agar produk keuangan terisolasi dari peristiwa peringatan dompet yang dapat memengaruhi domain lain mana pun dalam ekosistem. Smart contract, posisi, dan mekanika tidak berubah dengan perpindahan tersebut.
+
+<CardGroup cols={3}>
+  <Card title="FinFlow" icon="circle-check">
+    **Aktif** sejak 8 Juli 2026. Produk FinPro pertama.
+  </Card>
+  <Card title="FinCore" icon="hourglass-half">
+    **Produk berikutnya,** yang pertama dengan FinPro Marketing. Parameternya dipublikasikan sebelum peluncuran.
+  </Card>
+  <Card title="Produk selanjutnya" icon="layer-group">
+    **Dalam pengembangan.** Produk-produk ini beroperasi dalam struktur FinPro Marketing yang sama.
+  </Card>
+</CardGroup>
+
+Setiap produk memiliki parameternya sendiri: model akrual, Earn cap, frekuensi pembayaran, periode penguncian, dan aturan pengembalian pokok. Struktur FinPro Marketing dan persentase level berlaku sama untuk semua produk. Lihat [FinPro Marketing](/id/finpro-marketing).
+
+## Siapa yang dapat membuka posisi FinFlow?
+
+<Steps>
+  <Step title="NFT RWANFTFI">
+    NFT RWANFTFI yang dibeli dari tingkatan mana pun, dari Genesis hingga Infinity, merupakan kunci akses. NFT Hadiah juga memenuhi syarat dan dapat memiliki posisi FinFlow dalam batasnya sendiri.
+  </Step>
+  <Step title="Batas FinFlow">
+    Batas FinFlow sebuah NFT sama dengan **Batas Imbalan Protokol** NFT tersebut (istilah on-chain: *Income Limit*). Membuka posisi FinFlow **tidak** memakai Batas Imbalan Protokol platform utama: batas ini adalah plafon untuk masuk, bukan saldo yang dapat dibelanjakan.
+  </Step>
+  <Step title="Sisa ruang dalam batas">
+    Total seluruh posisi FinFlow yang terbuka tidak boleh melebihi batas FinFlow pemegang. Untuk membuka lebih banyak, pemegang meningkatkan NFT-nya.
+  </Step>
+</Steps>
+
+**Cara batas digabungkan.** Jika NFT dibeli **secara berurutan, tingkatan demi tingkatan** (misalnya L3, lalu L4, lalu L5), batas FinFlow setiap tingkatan **dijumlahkan** menjadi satu batas gabungan. Jika tingkatan yang lebih tinggi dibeli **secara langsung** (misalnya L5 tanpa tingkatan sebelumnya), hanya batas tingkatan tersebut yang berlaku. Selama FinFlow Promotion 2026 berlangsung, yang digunakan adalah batas promosi.
+
+| L | Nama | Harga (USDT) | Batas FinFlow dasar (USDT) |
+|:---:|---|---:|---:|
+| 1 | Genesis | 28 | 75 |
+| 2 | Advance | 55 | 160 |
+| 3 | Ascend | 140 | 375 |
+| 4 | Eclipse | 275 | 650 |
+| 5 | Hydro | 550 | 1.400 |
+| 6 | Quantum | 1.100 | 2.700 |
+| 7 | Pulse | 2.200 | 5.800 |
+| 8 | Aurora | 5.500 | 12.800 |
+| 9 | Flame | 11.000 | 28.000 |
+| 10 | Infinity | 24.000 | 70.000 |
+
+Alamat yang tercantum dalam daftar sanksi dikecualikan dari FinPro berdasarkan aturan AML dan penyaringan sanksi platform.
+
+## Bagaimana FinFlow bekerja?
+
+FinFlow menggunakan **algoritma netral pasar**. Pool tidak mengambil posisi direksional di pasar: akrual berasal dari **pengumpulan tingkat pendanaan (funding rate)** dan **arbitrase spread** di pasar kripto.
+
+<CardGroup cols={3}>
+  <Card title="Netral pasar" icon="scale-balanced">
+    Eksposur long dan short dijaga agar tetap mendekati seimbang, tanpa taruhan pada arah pasar.
+  </Card>
+  <Card title="Mekanisme perlindungan" icon="shield-halved">
+    Perlindungan terhadap lonjakan harga manipulatif (squeeze) dan kontrol drawdown yang ketat.
+  </Card>
+  <Card title="5.000.000 USDT" icon="database">
+    Kapasitas pool, disesuaikan dengan volume yang dapat diproses algoritma secara efektif dalam kondisi pasar saat ini.
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Akrual tidak dijamin.** Setiap operasi dengan aset digital mengandung risiko teknis dan risiko pasar. Kapasitas pool dan ketentuan partisipasi dapat berubah; perubahan tersebut diumumkan terlebih dahulu.
+</Warning>
+
+## Apa itu posisi FinFlow?
+
+Posisi FinFlow direpresentasikan oleh **FinFlow NFT**. Secara hukum dan teknis, membuka posisi **bukan merupakan deposit dan bukan penyerahan dana untuk dikelola**: peserta memperoleh aset digital yang memberikan hak untuk menerima akrual yang dihasilkan secara algoritmik.
+
+| Parameter | Aturan saat ini |
+|---|---|
+| Posisi minimum | **25 USDT** |
+| Mata uang dan jaringan | Hanya **USDT di BNB Smart Chain (BEP-20)** |
+| Sumber dana | Langsung dari dompet EVM yang terhubung (misalnya MetaMask); saldo internal platform tidak digunakan |
+| Kemampuan transfer | **Tidak dapat ditransfer**, terikat pada akun pemegang |
+| Aktivasi | Setiap hari pukul **00:00**; hingga saat itu posisi baru berstatus *Pending*, dan hal ini normal |
+| Akrual pertama | Terlihat setelah hari penuh pertama sesudah aktivasi |
+| Penambahan dana | Menambah basis posisi yang sudah ada; akrual dihitung dari basis yang baru |
+| Beberapa posisi | Diperbolehkan; dalam praktiknya, menambah dana ke satu posisi atau menggunakan Compound lebih sederhana daripada melakukan klaim dari beberapa posisi |
+
+> **Contoh aktivasi.** Posisi yang dibuat pada tanggal 5 diaktifkan pukul 00:00 pada tanggal 6 dan menampilkan akrual pertamanya pada tanggal 7.
+
+## Akrual, penarikan, dan Compound
+
+<Steps>
+  <Step title="Akrual harian">
+    Akrual dikreditkan setiap hari mulai dari hari penuh pertama setelah aktivasi.
+  </Step>
+  <Step title="Pilih pembagian">
+    Untuk setiap akrual, pemegang memilih pembagian menggunakan slider, misalnya 30% ke Compound dan 70% ke penarikan.
+  </Step>
+  <Step title="Ajukan penarikan">
+    Permintaan penarikan diproses dalam waktu **hingga 72 jam** (antara satu jam dan 72 jam).
+  </Step>
+  <Step title="Claim">
+    Setelah permintaan diproses, tombol **Claim** menjadi aktif dan dana dapat diklaim ke dompet EVM yang terhubung kapan saja, dalam USDT BEP-20.
+  </Step>
+</Steps>
+
+Akrual dibayarkan langsung ke dompet dan tidak pernah masuk ke saldo platform utama. Klaim tidak tersedia selama minggu ketika posisi dibuat, atau selama masih ada permintaan penarikan atau reinvestasi yang tertunda.
+
+**Compound** menginvestasikan kembali akrual ke dalam basis FinFlow NFT. Karena akrual dihitung sebagai persentase dari basis, setiap Compound meningkatkan jumlah absolut akrual di masa mendatang, dan Earn cap tercapai lebih cepat. Compound tidak memerlukan NFT RWANFTFI baru atau batas FinFlow yang lebih besar. Pengaturan reinvestasi otomatis memiliki periode minimum **7 hari** sejak aktivasi: pengaturan yang dibuat pada hari Selasa dapat diubah pada hari Selasa berikutnya.
+
+## Earn cap
+
+Setiap FinFlow NFT memiliki **Earn cap** (plafon akrual) sebesar **200%** dari basis awalnya. Pokok sudah termasuk dalam 200% tersebut dan tidak dikembalikan secara terpisah. Ketika plafon tercapai, posisi menjadi tidak aktif; pemegang dapat membuka posisi baru dan melanjutkan.
+
+> **Contoh.** Posisi yang dibuka dengan 1.000 USDT memiliki Earn cap sebesar 2.000 USDT selama siklusnya. Dengan Compound aktif, basis bertambah dan plafon absolut ikut bertambah.
+
+## Refund
+
+Permintaan **Refund** (pengembalian dana) tersedia setelah pemegang menerima dan menarik **50%** dari jumlah awal. Refund menutup posisi dan mengembalikan **sisanya hingga 100%** dari jumlah awal: pemegang yang telah menarik 60% menerima sisa 40%. Permintaan ditinjau secara manual, dan Refund yang telah dikonfirmasi **tidak dapat dibatalkan**.
+
+## Keamanan
+
+| Lapisan | Aturan |
+|---|---|
+| Kata Sandi Keuangan | Diperlukan untuk setiap penarikan. Dompet yang diretas saja tidak dapat digunakan untuk menarik dana dari pool. |
+| Penggantian dompet | Jika akses ke dompet hilang, pemegang menghubungi layanan dukungan melalui sponsor upline-nya. Pemungutan suara DAO dapat memigrasikan akun ke dompet baru **tanpa kehilangan posisi dan akrual**; FinFlow NFT dipindahkan dalam langkah terpisah setelah migrasi utama. |
+| Jalur pembayaran | Akrual hanya dikirim ke dompet EVM yang terhubung. |
+
+## Antarmuka
+
+- **Kalender:** akrual mendatang, penarikan terjadwal, status NFT, dan tenggat waktu, hari demi hari.
+- **Detail transaksi:** tanggal, posisi, jenis, dan tautan transaksi untuk setiap operasi.
+- **Nama posisi kustom:** setiap posisi dapat diganti namanya sesuai strategi pemegang sendiri.
+- **FAQ** di dalam produk dan **presentasi FinFlow** di tab Resources ([app.rwanftfi.com/resources](https://app.rwanftfi.com/resources)), saat ini tersedia dalam bahasa Inggris dan bahasa Rusia.
+
+## FinFlow Promotion 2026
+
+<Note>
+  **Terbatas waktu.** Berlaku hingga **31 Desember 2026 (inklusif)** atau hingga pool 5.000.000 USDT terisi penuh, mana yang lebih dahulu terjadi.
+</Note>
+
+Selama promosi, batas FinFlow semua tingkatan, termasuk Genesis dan Advance, dinaikkan dan menggantikan batas dasar. Batas promosi yang berlaku saat ini ditampilkan di antarmuka FinPro dan dalam pengumuman resmi. Ketika batas dijumlahkan setelah peningkatan berurutan, batas promosi diterapkan selama promosi berlangsung.
+
+## FinFlow dan FinPro Marketing
+
+FinFlow **tidak menghasilkan** imbalan FinPro Marketing. Perannya dalam program marketing ada dua:
+
+- Posisi FinFlow merupakan syarat masuk untuk **Claim Spot**, tahap pra-peluncuran FinPro Marketing.
+- Semua posisi FinFlow yang terbuka diperhitungkan dalam **saldo posisi** yang menentukan berapa banyak level marketing yang terbuka.
+
+## Halaman terkait
+
+<CardGroup cols={3}>
+  <Card title="Ekosistem NFT" icon="id-card" href="/id/nft-ecosystem">
+    Tingkatan, Batas Imbalan Protokol, dan Autobuy.
+  </Card>
+  <Card title="FinPro Marketing" icon="circle-nodes" href="/id/finpro-marketing">
+    Program mitra untuk produk FinPro: Claim Spot, level, batas, dan Compound.
+  </Card>
+  <Card title="Keamanan & Audit" icon="shield-halved" href="/id/security">
+    Lapisan keamanan akun dan domain resmi.
+  </Card>
+</CardGroup>

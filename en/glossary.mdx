@@ -1,24 +1,61 @@
 ---
 title: "Glossary"
-description: "Definitions of the protocol-specific terms used across the RWANFTFI documentation: DA, NFTM, Protocol Reward Cap, Sponsor Bonus, Frozen Balance, Accumulative Balance, and more."
+description: "Definitions of the terms used across the RWANFTFI documentation: DA, NFTM, Protocol Reward Cap, Sponsor Bonus, Frozen Balance, Gift NFT, FinPro, FinFlow, Earn cap, Secret Code, and more."
 icon: "book"
 ---
 
 A single source of truth for the terms used across the RWANFTFI documentation.
 
+## Protocol
+
 | Term | Definition |
 |---|---|
-| **Accumulative Balance** | Restricted internal balance receiving the configured share of eligible partner rewards. |
+| **Accumulative Balance** | Restricted internal balance receiving the configured share of eligible partner rewards. Unused funds become eligible for redistribution after the balance lifetime, currently 180 days (temporarily extended by DAO vote). |
 | **Auto-Sell** | Scheduled processing of remaining DA across four protocol periods. |
 | **Autobuy** | Automatic renewal of an eligible NFT when its Protocol Reward Cap is exhausted. |
 | **DA** | Non-transferable BEP-20 protocol utility token with a maximum supply of 21,000,000 units. |
 | **Frozen Balance** | Temporary 72-hour buffer for a qualifying Sponsor Bonus above the remaining Protocol Reward Cap. |
 | **GovToken** | Fixed-supply ERC20Votes governance token. |
+| **Income Limit** | The on-chain term for the Protocol Reward Cap. |
+| **NFTM** | Internal Mining counter used in the Farming calculation. |
+| **Phase 2** | The protocol configuration activated by DAO vote in June 2026: the current NFT purchase distribution and Infinity (L10) sales. |
+| **Protocol Reward Cap** | Maximum cumulative eligible rewards credited during an NFT cycle; on-chain term: *Income Limit*. |
+
+## Partner Program
+
+| Term | Definition |
+|---|---|
+| **Business Sale** | The DAO-authorized transfer of a complete partner structure to another user; disabled by DAO vote since June 2026. |
+| **Gift NFT** | An NFT that cannot be bought or sold, awarded under promotions and programs. It has its own place and Protocol Reward Cap, its rewards are split 50/50 between the Regular and Accumulative balances, and it opens FinFlow. |
 | **Matching Bonus** | Conditional reward across up to three qualifying levels. |
 | **Missed Reward** | Activity not credited because applicable eligibility conditions were not met. |
-| **NFTM** | Internal Mining counter used in the Farming calculation. |
 | **Partner Network** | Smart-contract-managed structure used to define placement and reward eligibility. |
 | **Partner Network Depth** | Maximum network depth included in eligible distribution calculations. |
-| **Protocol Reward Cap** | Maximum cumulative eligible rewards credited during an NFT cycle; on-chain term: *Income Limit*. |
 | **Sponsor Bonus** | Conditional reward from a qualifying direct NFT purchase. |
 | **Tree Distribution** | Per-level partner reward calculation within eligible network depth. |
+
+## FinPro
+
+| Term | Definition |
+|---|---|
+| **Claim Spot** | The FinPro Marketing pre-launch step in which a participant takes a place in the structure and receives a referral link. |
+| **Compound** | Reinvestment of accruals into the base of a position, which increases the absolute amount of future accruals. |
+| **Direct Sale** | In FinPro Marketing, 5% of every position accrual of a personally invited partner, on whatever level that partner is placed. |
+| **Earn cap** | The payout cap of a FinPro position; for FinFlow, 200% of the initial base, principal included. |
+| **FinCore** | The next FinPro product and the first with FinPro Marketing; its parameters are published before launch. |
+| **FinFlow** | The first FinPro product, live since 8 July 2026: positions in a market-neutral strategy. |
+| **FinFlow limit** | The maximum total of open FinFlow positions for an NFT; its base equals the Protocol Reward Cap. |
+| **FinFlow NFT** | A non-transferable NFT representing a FinFlow position. Opening a position is not a deposit. |
+| **FinPro** | The ecosystem's line of financial products at rwafinpro.com, funded directly from the user's EVM wallet. |
+| **FinPro Marketing** | A separate partner program for FinPro products with its own structure: Direct Sale plus 20 levels, credited 100% to the marketing balance. |
+| **Position accruals** | What FinPro positions accrue; accruals are not guaranteed. |
+| **Position balance** | The total of all open FinPro positions, including top-ups and reinvested amounts; it opens FinPro Marketing levels. |
+| **Refund** | For FinFlow: once the holder has received and withdrawn 50% of the initial amount, the position can be closed with the remainder returned up to 100% of the initial amount. |
+
+## Security and Services
+
+| Term | Definition |
+|---|---|
+| **AML Checker** | A paid risk check of a wallet address across 19 blockchains and 14 stablecoins, available in the application. |
+| **Bridge** | The managed cross-chain deposit service at bridge.rwanftfi.com for 14 networks. |
+| **Secret Code** | A random word generated with the financial password; required for any security-related request to support. |

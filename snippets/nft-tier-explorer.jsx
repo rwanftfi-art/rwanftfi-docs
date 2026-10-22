@@ -1,9 +1,620 @@
 import { useState } from 'react';
 
-export const NftTierExplorer = () => {
+export const NftTierExplorer = ({ lang }) => {
   const [filter, setFilter] = useState("All");
   const [selected, setSelected] = useState(null);
   const [compare, setCompare] = useState([]);
+
+  // Interface strings by page language; any other language falls back to English.
+  // "{n}" stands for a number; an object holds one form per Intl.PluralRules category.
+  /* i18n:begin */
+  var STR = {
+    en: {
+      title: 'NFT Tier Explorer',
+      interactive: 'Interactive',
+      all: 'All',
+      capShort: 'Reward Cap',
+      depthShort: 'Net Depth',
+      levels: { one: '{n} level', other: '{n} levels' },
+      price: 'Price',
+      rewardCap: 'Reward Cap',
+      rewardCapLong: 'Reward Cap',
+      netDepth: 'Net Depth',
+      miningCycle: 'Mining Cycle',
+      notAvailable: 'Not available',
+      days: { one: '{n} day', other: '{n} days' },
+      perCycle: '10% per cycle',
+      twoCycles: '10% + 15% (2 cycles)',
+      autobuySlots: 'Autobuy Slots',
+      unlimited: 'Unlimited',
+      slots: '3 of 3 slots',
+      eliteNoCap: 'Elite: no autobuy cap',
+      autoRenewal: 'Auto-renewal limit',
+      group: 'Group',
+      rwaAccess: 'RWA Access',
+      matching: 'Matching Bonus',
+      lending: 'Lending',
+      daMining: 'DA Mining',
+      cycles: { one: '{n} cycle', other: '{n} cycles' },
+      levelN: 'Level {n}',
+      inCompare: '✓ In comparison',
+      addCompare: '+ Add to compare',
+      vs: 'vs',
+      metric: 'Metric',
+      lvls: '{n} lvls',
+      daysShort: '{n}d',
+      mining: 'Mining',
+      clear: 'Clear comparison',
+      hint: 'Click any card to expand details. Select two cards to compare side-by-side with radar chart.',
+      activation: 'NFTM Mining, DA Farming, and DA Lending are scheduled for activation in 2027.',
+      axes: ['Access', 'Cap', 'Depth', 'Mining', 'Cycles'],
+    },
+    ru: {
+      title: 'Обзор уровней NFT',
+      interactive: 'Интерактивно',
+      all: 'Все',
+      capShort: 'Лимит',
+      depthShort: 'Глубина',
+      levels: { one: '{n} уровень', few: '{n} уровня', many: '{n} уровней', other: '{n} уровня' },
+      price: 'Цена',
+      rewardCap: 'Лимит',
+      rewardCapLong: 'Лимит вознаграждений',
+      netDepth: 'Глубина сети',
+      miningCycle: 'Цикл майнинга',
+      notAvailable: 'Недоступен',
+      days: { one: '{n} день', few: '{n} дня', many: '{n} дней', other: '{n} дня' },
+      perCycle: '10% за цикл',
+      twoCycles: '10% + 15% (2 цикла)',
+      autobuySlots: 'Слоты Autobuy',
+      unlimited: 'Без лимита',
+      slots: '3 из 3 слотов',
+      eliteNoCap: 'Elite: без лимита Autobuy',
+      autoRenewal: 'Лимит автопродлений',
+      group: 'Группа',
+      rwaAccess: 'Доступ к RWA',
+      matching: 'Matching Bonus',
+      lending: 'Кредитование',
+      daMining: 'Майнинг DA',
+      cycles: { one: '{n} цикл', few: '{n} цикла', many: '{n} циклов', other: '{n} цикла' },
+      levelN: 'Уровень {n}',
+      inCompare: '✓ В сравнении',
+      addCompare: '+ Добавить к сравнению',
+      vs: 'vs',
+      metric: 'Параметр',
+      lvls: '{n} ур.',
+      daysShort: '{n} дн.',
+      mining: 'Майнинг',
+      clear: 'Очистить сравнение',
+      hint: 'Нажмите на карточку, чтобы раскрыть подробности. Выберите две карточки, чтобы сравнить их на радарной диаграмме.',
+      activation: 'Майнинг NFTM, фарминг DA и кредитование под DA планируется активировать в 2027 году.',
+      axes: ['Доступ', 'Лимит', 'Глубина', 'Майнинг', 'Циклы'],
+    },
+    tr: {
+      title: 'NFT Seviye Gezgini',
+      interactive: 'Etkileşimli',
+      all: 'Tümü',
+      capShort: 'Ödül Limiti',
+      depthShort: 'Ağ Derinliği',
+      levels: { one: '{n} seviye', other: '{n} seviye' },
+      price: 'Fiyat',
+      rewardCap: 'Ödül Limiti',
+      rewardCapLong: 'Ödül Limiti',
+      netDepth: 'Ağ Derinliği',
+      miningCycle: 'Madencilik',
+      notAvailable: 'Mevcut değil',
+      days: { one: '{n} gün', other: '{n} gün' },
+      perCycle: 'Döngü başına %10',
+      twoCycles: '%10 + %15 (2 döngü)',
+      autobuySlots: 'Otomatik Alım',
+      unlimited: 'Sınırsız',
+      slots: '3/3 hak',
+      eliteNoCap: 'Elite: limit yok',
+      autoRenewal: 'Otomatik yenileme limiti',
+      group: 'Grup',
+      rwaAccess: 'RWA Erişimi',
+      matching: 'Eşleştirme Bonusu',
+      lending: 'Borç Verme',
+      daMining: 'DA Madenciliği',
+      cycles: { one: '{n} döngü', other: '{n} döngü' },
+      levelN: 'Seviye {n}',
+      inCompare: '✓ Karşılaştırmada',
+      addCompare: '+ Karşılaştırmaya ekle',
+      vs: 'vs',
+      metric: 'Ölçüt',
+      lvls: '{n}',
+      daysShort: '{n} gün',
+      mining: 'Madencilik',
+      clear: 'Karşılaştırmayı temizle',
+      hint: 'Ayrıntıları görmek için bir karta tıklayın. Radar grafiğinde yan yana karşılaştırmak için iki kart seçin.',
+      activation: 'NFTM Madenciliği, DA Farming ve DA Borç Verme mekaniklerinin 2027\'de etkinleştirilmesi planlanmaktadır.',
+      axes: ['Erişim', 'Limit', 'Derinlik', 'Madencilik', 'Döngü'],
+    },
+    zh: {
+      title: 'NFT 等级浏览器',
+      interactive: '交互式',
+      all: '全部',
+      capShort: '奖励上限',
+      depthShort: '网络深度',
+      levels: '{n} 层',
+      price: '价格',
+      rewardCap: '奖励上限',
+      rewardCapLong: '协议奖励上限',
+      netDepth: '网络深度',
+      miningCycle: '挖矿周期',
+      notAvailable: '不可用',
+      days: '{n} 天',
+      perCycle: '每周期 10%',
+      twoCycles: '10% + 15%（2 个周期）',
+      autobuySlots: 'Autobuy 次数',
+      unlimited: '无限次',
+      slots: '3/3 次',
+      eliteNoCap: 'Elite：不限次数',
+      autoRenewal: '自动续约次数上限',
+      group: '组别',
+      rwaAccess: 'RWA 访问',
+      matching: '对等奖金',
+      lending: '借贷',
+      daMining: 'DA 挖矿',
+      cycles: '{n} 个周期',
+      levelN: '第 {n} 级',
+      inCompare: '✓ 已加入对比',
+      addCompare: '+ 加入对比',
+      vs: 'vs',
+      metric: '指标',
+      lvls: '{n} 层',
+      daysShort: '{n} 天',
+      mining: '挖矿',
+      clear: '清除对比',
+      hint: '点击任意卡片查看详情。选择两张卡片，即可借助雷达图进行并排对比。',
+      activation: 'NFTM 挖矿、DA 农场与 DA 借贷计划于 2027 年启用。',
+      axes: ['访问', '上限', '深度', '挖矿', '周期'],
+    },
+    es: {
+      title: 'Explorador de Niveles de NFT',
+      interactive: 'Interactivo',
+      all: 'Todos',
+      capShort: 'Límite',
+      depthShort: 'Red',
+      levels: { one: '{n} nivel', other: '{n} niveles' },
+      price: 'Precio',
+      rewardCap: 'Límite',
+      rewardCapLong: 'Límite de Recompensas',
+      netDepth: 'Profundidad',
+      miningCycle: 'Ciclo de Minería',
+      notAvailable: 'No disponible',
+      days: { one: '{n} día', other: '{n} días' },
+      perCycle: '10% por ciclo',
+      twoCycles: '10% + 15% (2 ciclos)',
+      autobuySlots: 'Autobuy',
+      unlimited: 'Ilimitado',
+      slots: '3 de 3',
+      eliteNoCap: 'Elite: Autobuy sin límite',
+      autoRenewal: 'Límite de renovaciones',
+      group: 'Grupo',
+      rwaAccess: 'Acceso a RWA',
+      matching: 'Bono de Igualación',
+      lending: 'Lending',
+      daMining: 'Minería de DA',
+      cycles: { one: '{n} ciclo', other: '{n} ciclos' },
+      levelN: 'Nivel {n}',
+      inCompare: '✓ En la comparación',
+      addCompare: '+ Añadir a la comparación',
+      vs: 'vs',
+      metric: 'Parámetro',
+      lvls: '{n} niv.',
+      daysShort: '{n} d',
+      mining: 'Minería',
+      clear: 'Borrar la comparación',
+      hint: 'Pulse cualquier tarjeta para ver los detalles. Seleccione dos tarjetas para compararlas en un gráfico de radar.',
+      activation: 'La activación de la Minería de NFTM, el Farming de DA y el Lending de DA está prevista para 2027.',
+      axes: ['Acceso', 'Límite', 'Profundidad', 'Minería', 'Ciclos'],
+    },
+    de: {
+      title: 'NFT-Stufen im Überblick',
+      interactive: 'Interaktiv',
+      all: 'Alle',
+      capShort: 'Limit',
+      depthShort: 'Tiefe',
+      levels: { one: '{n} Ebene', other: '{n} Ebenen' },
+      price: 'Preis',
+      rewardCap: 'Belohnungslimit',
+      rewardCapLong: 'Belohnungslimit',
+      netDepth: 'Netzwerktiefe',
+      miningCycle: 'Mining-Zyklus',
+      notAvailable: 'Nicht verfügbar',
+      days: { one: '{n} Tag', other: '{n} Tage' },
+      perCycle: '10\u00A0% pro Zyklus',
+      twoCycles: '10\u00A0% + 15\u00A0% (2 Zyklen)',
+      autobuySlots: 'Autobuy-Slots',
+      unlimited: 'Ohne Limit',
+      slots: '3 von 3 Slots',
+      eliteNoCap: 'Elite: Autobuy unbegrenzt',
+      autoRenewal: 'Limit automatischer Erneuerungen',
+      group: 'Gruppe',
+      rwaAccess: 'Zugang zu RWA',
+      matching: 'Matching-Bonus',
+      lending: 'Lending',
+      daMining: 'DA-Mining',
+      cycles: { one: '{n} Zyklus', other: '{n} Zyklen' },
+      levelN: 'Stufe {n}',
+      inCompare: '✓ Im Vergleich',
+      addCompare: '+ Zum Vergleich hinzufügen',
+      vs: 'vs.',
+      metric: 'Parameter',
+      lvls: '{n}',
+      daysShort: '{n} Tage',
+      mining: 'Mining',
+      clear: 'Vergleich zurücksetzen',
+      hint: 'Klicken Sie auf eine Karte, um die Details anzuzeigen. Wählen Sie zwei Karten aus, um sie im Netzdiagramm nebeneinander zu vergleichen.',
+      activation: 'Die Aktivierung von NFTM-Mining, DA-Farming und DA-Lending ist für 2027 geplant.',
+      axes: ['Zugang', 'Limit', 'Tiefe', 'Mining', 'Zyklen'],
+    },
+    pt: {
+      title: 'Explorador de Níveis NFT',
+      interactive: 'Interativo',
+      all: 'Todos',
+      capShort: 'Limite',
+      depthShort: 'Rede',
+      levels: { one: '{n} nível', other: '{n} níveis' },
+      price: 'Preço',
+      rewardCap: 'Limite',
+      rewardCapLong: 'Limite de Recompensas',
+      netDepth: 'Profundidade',
+      miningCycle: 'Ciclo de Mineração',
+      notAvailable: 'Não disponível',
+      days: { one: '{n} dia', other: '{n} dias' },
+      perCycle: '10% por ciclo',
+      twoCycles: '10% + 15% (2 ciclos)',
+      autobuySlots: 'Slots de Autobuy',
+      unlimited: 'Ilimitado',
+      slots: '3 de 3 slots',
+      eliteNoCap: 'Elite: Autobuy sem limite',
+      autoRenewal: 'Limite de renovações automáticas',
+      group: 'Grupo',
+      rwaAccess: 'Acesso a RWA',
+      matching: 'Bônus de Matching',
+      lending: 'Empréstimo',
+      daMining: 'Mineração de DA',
+      cycles: { one: '{n} ciclo', other: '{n} ciclos' },
+      levelN: 'Nível {n}',
+      inCompare: '✓ Em comparação',
+      addCompare: '+ Adicionar à comparação',
+      vs: 'vs',
+      metric: 'Parâmetro',
+      lvls: '{n} nív.',
+      daysShort: '{n} d',
+      mining: 'Mineração',
+      clear: 'Limpar comparação',
+      hint: 'Clique em qualquer cartão para ver os detalhes. Selecione dois cartões para compará-los lado a lado no gráfico de radar.',
+      activation: 'A Mineração de NFTM, o Farming de DA e o Empréstimo de DA têm ativação programada para 2027.',
+      axes: ['Acesso', 'Limite', 'Rede', 'Mineração', 'Ciclos'],
+    },
+    hi: {
+      title: 'NFT स्तर एक्सप्लोरर',
+      interactive: 'इंटरैक्टिव',
+      all: 'सभी',
+      capShort: 'रिवॉर्ड सीमा',
+      depthShort: 'नेटवर्क गहराई',
+      levels: { one: '{n} स्तर', other: '{n} स्तर' },
+      price: 'मूल्य',
+      rewardCap: 'रिवॉर्ड सीमा',
+      rewardCapLong: 'प्रोटोकॉल रिवॉर्ड सीमा',
+      netDepth: 'नेटवर्क गहराई',
+      miningCycle: 'माइनिंग चक्र',
+      notAvailable: 'उपलब्ध नहीं',
+      days: { one: '{n} दिन', other: '{n} दिन' },
+      perCycle: 'प्रति चक्र 10%',
+      twoCycles: '10% + 15% (2 चक्र)',
+      autobuySlots: 'Autobuy स्लॉट',
+      unlimited: 'असीमित',
+      slots: '3 में से 3 स्लॉट',
+      eliteNoCap: 'Elite: असीमित Autobuy',
+      autoRenewal: 'स्वचालित नवीनीकरण की सीमा',
+      group: 'समूह',
+      rwaAccess: 'RWA तक पहुँच',
+      matching: 'Matching Bonus',
+      lending: 'लेंडिंग',
+      daMining: 'DA माइनिंग',
+      cycles: { one: '{n} चक्र', other: '{n} चक्र' },
+      levelN: 'स्तर {n}',
+      inCompare: '✓ तुलना में शामिल',
+      addCompare: '+ तुलना में जोड़ें',
+      vs: 'बनाम',
+      metric: 'पैरामीटर',
+      lvls: '{n} स्तर',
+      daysShort: '{n} दिन',
+      mining: 'माइनिंग',
+      clear: 'तुलना साफ़ करें',
+      hint: 'विवरण देखने के लिए किसी भी कार्ड पर क्लिक करें। रडार चार्ट पर तुलना करने के लिए दो कार्ड चुनें।',
+      activation: 'NFTM माइनिंग, DA फार्मिंग और DA लेंडिंग का सक्रियण 2027 में निर्धारित है।',
+      axes: ['पहुँच', 'सीमा', 'गहराई', 'माइनिंग', 'चक्र'],
+    },
+    it: {
+      title: 'Panoramica dei livelli NFT',
+      interactive: 'Interattivo',
+      all: 'Tutti',
+      capShort: 'Limite',
+      depthShort: 'Profondità',
+      levels: { one: '{n} livello', other: '{n} livelli' },
+      price: 'Prezzo',
+      rewardCap: 'Limite',
+      rewardCapLong: 'Limite di ricompensa',
+      netDepth: 'Profondità',
+      miningCycle: 'Ciclo di mining',
+      notAvailable: 'Non disponibile',
+      days: { one: '{n} giorno', other: '{n} giorni' },
+      perCycle: '10% per ciclo',
+      twoCycles: '10% + 15% (2 cicli)',
+      autobuySlots: 'Slot Autobuy',
+      unlimited: 'Illimitato',
+      slots: '3 slot su 3',
+      eliteNoCap: 'Elite: Autobuy illimitato',
+      autoRenewal: 'Limite di rinnovi automatici',
+      group: 'Gruppo',
+      rwaAccess: 'Accesso RWA',
+      matching: 'Matching Bonus',
+      lending: 'Lending',
+      daMining: 'Mining di DA',
+      cycles: { one: '{n} ciclo', other: '{n} cicli' },
+      levelN: 'Livello {n}',
+      inCompare: '✓ Nel confronto',
+      addCompare: '+ Aggiungere al confronto',
+      vs: 'vs',
+      metric: 'Parametro',
+      lvls: '{n}\u00A0liv.',
+      daysShort: '{n}\u00A0gg',
+      mining: 'Mining',
+      clear: 'Azzerare il confronto',
+      hint: 'Faccia clic su una scheda per visualizzarne i dettagli. Selezioni due schede per confrontarle affiancate nel grafico radar.',
+      activation: 'L\'attivazione del Mining di NFTM, del Farming di DA e del Lending contro DA è prevista per il 2027.',
+      axes: ['Accesso', 'Limite', 'Profondità', 'Mining', 'Cicli'],
+    },
+    fr: {
+      title: 'Aperçu des Niveaux de NFT',
+      interactive: 'Interactif',
+      all: 'Tous',
+      capShort: 'Plafond',
+      depthShort: 'Réseau',
+      levels: { one: '{n} niveau', other: '{n} niveaux' },
+      price: 'Prix',
+      rewardCap: 'Plafond',
+      rewardCapLong: 'Plafond de récompenses',
+      netDepth: 'Profondeur',
+      miningCycle: 'Cycle de minage',
+      notAvailable: 'Non disponible',
+      days: { one: '{n} jour', other: '{n} jours' },
+      perCycle: '10\u00A0% par cycle',
+      twoCycles: '10\u00A0% + 15\u00A0% (2 cycles)',
+      autobuySlots: 'Autobuy',
+      unlimited: 'Illimité',
+      slots: '3 sur 3',
+      eliteNoCap: 'Elite\u00A0: Autobuy sans limite',
+      autoRenewal: 'Limite de renouvellements',
+      group: 'Groupe',
+      rwaAccess: 'Accès RWA',
+      matching: 'Bonus de Matching',
+      lending: 'Prêt',
+      daMining: 'Minage de DA',
+      cycles: { one: '{n} cycle', other: '{n} cycles' },
+      levelN: 'Niveau {n}',
+      inCompare: '✓ Dans la comparaison',
+      addCompare: '+ Ajouter à la comparaison',
+      vs: 'vs',
+      metric: 'Critère',
+      lvls: '{n} niv.',
+      daysShort: '{n}\u00A0j',
+      mining: 'Minage',
+      clear: 'Effacer la comparaison',
+      hint: 'Cliquez sur une carte pour afficher les détails. Sélectionnez deux cartes pour les comparer côte à côte sur un graphique radar.',
+      activation: 'L\'activation du Minage de NFTM, du Farming de DA et du Prêt adossé au DA est prévue en 2027.',
+      axes: ['Accès', 'Plafond', 'Profondeur', 'Minage', 'Cycles'],
+    },
+    ar: {
+      title: '\u202Bمستكشف مستويات NFT\u202C',
+      interactive: 'تفاعلي',
+      all: 'الكل',
+      capShort: 'السقف\u200F',
+      depthShort: 'عمق الشبكة',
+      levels: { one: '\u200F{n} مستوى\u200E', two: '\u200F{n} مستوى\u200E', few: '\u200F{n} مستويات\u200E', many: '\u200F{n} مستوى\u200E', other: '\u200F{n} مستوى\u200E' },
+      price: 'السعر',
+      rewardCap: 'سقف المكافآت',
+      rewardCapLong: 'سقف المكافآت',
+      netDepth: 'عمق الشبكة',
+      miningCycle: 'دورة التعدين',
+      notAvailable: 'غير متاح',
+      days: { one: '\u200F{n} يوم\u200E', two: '\u200F{n} يوم\u200E', few: '\u200F{n} أيام\u200E', many: '\u200F{n} يوماً\u200E', other: '\u200F{n} يوم\u200E' },
+      perCycle: '\u200F10% لكل دورة',
+      twoCycles: '\u200F10% + 15% (دورتان)\u200F',
+      autobuySlots: '\u202Bخانات Autobuy\u202C',
+      unlimited: 'غير محدود',
+      slots: '\u200F3 من 3 خانات',
+      eliteNoCap: '\u202BElite: دون حد لـ Autobuy\u202C',
+      autoRenewal: 'حد التجديد التلقائي',
+      group: 'الفئة',
+      rwaAccess: '\u202Bالوصول إلى RWA\u202C',
+      matching: 'مكافأة المطابقة',
+      lending: 'الإقراض',
+      daMining: '\u202Bتعدين DA\u202C',
+      cycles: { one: '\u200F{n} دورة\u200E', two: '\u200F{n} دورة\u200E', few: '\u200F{n} دورات\u200E', many: '\u200F{n} دورة\u200E', other: '\u200F{n} دورة\u200E' },
+      levelN: 'المستوى {n}\u200F',
+      inCompare: '\u200F✓ ضمن المقارنة',
+      addCompare: '\u200F+ إضافة إلى المقارنة',
+      vs: 'مقابل',
+      metric: 'المعيار',
+      lvls: '{n}',
+      daysShort: '\u200F{n} يوماً\u200E',
+      mining: 'التعدين',
+      clear: 'مسح المقارنة',
+      hint: 'يُرجى النقر على أي بطاقة لعرض تفاصيلها، واختيار بطاقتين لمقارنتهما جنباً إلى جنب على مخطط راداري.\u200F',
+      activation: '\u202Bمن المقرر تفعيل تعدين NFTM وزراعة DA والإقراض مقابل DA في عام 2027.\u202C',
+      axes: ['وصول', 'سقف', 'عمق', 'تعدين', 'دورات'],
+    },
+    id: {
+      title: 'Penjelajah Tingkatan NFT',
+      interactive: 'Interaktif',
+      all: 'Semua',
+      capShort: 'Batas',
+      depthShort: 'Kedalaman',
+      levels: '{n} level',
+      price: 'Harga',
+      rewardCap: 'Batas Imbalan',
+      rewardCapLong: 'Batas Imbalan',
+      netDepth: 'Kedalaman',
+      miningCycle: 'Siklus Mining',
+      notAvailable: 'Tidak ada',
+      days: '{n} hari',
+      perCycle: '10% per siklus',
+      twoCycles: '10% + 15% (2 siklus)',
+      autobuySlots: 'Slot Autobuy',
+      unlimited: 'Tanpa batas',
+      slots: '3/3 slot',
+      eliteNoCap: 'Elite: tanpa batas',
+      autoRenewal: 'Batas perpanjangan',
+      group: 'Grup',
+      rwaAccess: 'Akses RWA',
+      matching: 'Matching Bonus',
+      lending: 'Pinjaman',
+      daMining: 'Mining DA',
+      cycles: '{n} siklus',
+      levelN: 'Level {n}',
+      inCompare: '✓ Dalam perbandingan',
+      addCompare: '+ Tambahkan ke perbandingan',
+      vs: 'vs',
+      metric: 'Parameter',
+      lvls: '{n} level',
+      daysShort: '{n} hari',
+      mining: 'Mining',
+      clear: 'Hapus perbandingan',
+      hint: 'Klik kartu mana pun untuk membuka detailnya. Pilih dua kartu untuk membandingkannya berdampingan pada diagram radar.',
+      activation: 'Mining NFTM, Farming DA, dan Pinjaman DA dijadwalkan untuk diaktifkan pada 2027.',
+      axes: ['Akses', 'Batas', 'Kedalaman', 'Mining', 'Siklus'],
+    },
+    ja: {
+      title: 'NFTティアの概要',
+      interactive: 'インタラクティブ',
+      all: 'すべて',
+      capShort: '報酬上限',
+      depthShort: '深度',
+      levels: '{n}階層',
+      price: '価格',
+      rewardCap: '報酬上限',
+      rewardCapLong: '報酬上限',
+      netDepth: 'ネットワーク深度',
+      miningCycle: 'マイニングサイクル',
+      notAvailable: '利用不可',
+      days: '{n}日間',
+      perCycle: '1サイクルあたり10%',
+      twoCycles: '10% + 15%（2回）',
+      autobuySlots: 'Autobuy枠',
+      unlimited: '無制限',
+      slots: '3/3枠',
+      eliteNoCap: 'Elite：上限なし',
+      autoRenewal: '自動更新の上限',
+      group: 'グループ',
+      rwaAccess: 'RWAへのアクセス',
+      matching: 'マッチングボーナス',
+      lending: 'レンディング',
+      daMining: 'DAマイニング',
+      cycles: '{n}サイクル',
+      levelN: 'レベル{n}',
+      inCompare: '✓ 比較中',
+      addCompare: '+ 比較に追加',
+      vs: 'vs',
+      metric: '項目',
+      lvls: '{n}階層',
+      daysShort: '{n}日',
+      mining: 'マイニング',
+      clear: '比較をクリア',
+      hint: 'カードをクリックすると詳細が表示されます。2枚のカードを選ぶと、レーダーチャートで並べて比較できます。',
+      activation: 'NFTMマイニング、DAファーミング、DAレンディングは、2027年に有効化される予定です。',
+      axes: ['アクセス', '上限', '深度', 'マイニング', '回数'],
+    },
+    vi: {
+      title: 'Khám Phá Các Cấp NFT',
+      interactive: 'Tương\u00A0tác',
+      all: 'Tất cả',
+      capShort: 'Giới hạn',
+      depthShort: 'Độ sâu',
+      levels: '{n} cấp',
+      price: 'Giá',
+      rewardCap: 'Giới hạn thưởng',
+      rewardCapLong: 'Giới hạn thưởng',
+      netDepth: 'Độ sâu mạng',
+      miningCycle: 'Chu kỳ khai thác',
+      notAvailable: 'Không có',
+      days: '{n} ngày',
+      perCycle: '10% mỗi chu kỳ',
+      twoCycles: '10% + 15% (2 chu kỳ)',
+      autobuySlots: 'Lượt Autobuy',
+      unlimited: 'Vô hạn',
+      slots: '3/3 lượt',
+      eliteNoCap: 'Elite: không giới hạn Autobuy',
+      autoRenewal: 'Giới hạn gia hạn tự động',
+      group: 'Nhóm',
+      rwaAccess: 'Truy cập RWA',
+      matching: 'Matching Bonus',
+      lending: 'Cho vay',
+      daMining: 'Khai thác DA',
+      cycles: '{n} chu kỳ',
+      levelN: 'Cấp {n}',
+      inCompare: '✓ Đang so sánh',
+      addCompare: '+ Thêm để so sánh',
+      vs: 'vs',
+      metric: 'Tiêu chí',
+      lvls: '{n} cấp',
+      daysShort: '{n} ngày',
+      mining: 'Khai thác',
+      clear: 'Xóa so sánh',
+      hint: 'Nhấn vào một thẻ bất kỳ để xem chi tiết. Chọn hai thẻ để so sánh trực tiếp trên biểu đồ radar.',
+      activation: 'Khai Thác NFTM, Farming DA và Cho Vay DA dự kiến được kích hoạt vào năm 2027.',
+      axes: ['truy cập', 'giới hạn', 'độ sâu', 'khai thác', 'chu kỳ'],
+    },
+    uk: {
+      title: 'Огляд рівнів NFT',
+      interactive: 'Інтерактив',
+      all: 'Усі',
+      capShort: 'Ліміт',
+      depthShort: 'Глибина',
+      levels: { one: '{n} рівень', few: '{n} рівні', many: '{n} рівнів', other: '{n} рівні' },
+      price: 'Ціна',
+      rewardCap: 'Ліміт',
+      rewardCapLong: 'Ліміт винагород',
+      netDepth: 'Глибина мережі',
+      miningCycle: 'Цикл майнінгу',
+      notAvailable: 'Недоступно',
+      days: { one: '{n} день', few: '{n} дні', many: '{n} днів', other: '{n} дні' },
+      perCycle: '10% за цикл',
+      twoCycles: '10% + 15% (2 цикли)',
+      autobuySlots: 'Слоти Autobuy',
+      unlimited: 'Без ліміту',
+      slots: '3 з 3 слотів',
+      eliteNoCap: 'Elite: Autobuy без ліміту',
+      autoRenewal: 'Ліміт автопоновлень',
+      group: 'Група',
+      rwaAccess: 'Доступ до RWA',
+      matching: 'Matching Bonus',
+      lending: 'Кредитування',
+      daMining: 'Майнінг DA',
+      cycles: { one: '{n} цикл', few: '{n} цикли', many: '{n} циклів', other: '{n} цикли' },
+      levelN: 'Рівень {n}',
+      inCompare: '✓ У порівнянні',
+      addCompare: '+ Додати до порівняння',
+      vs: 'vs',
+      metric: 'Параметр',
+      lvls: '{n} рів.',
+      daysShort: '{n} дн.',
+      mining: 'Майнінг',
+      clear: 'Очистити порівняння',
+      hint: 'Натисніть будь-яку картку, щоб переглянути подробиці. Оберіть дві картки, щоб порівняти їх поруч на радарній діаграмі.',
+      activation: 'Активацію Майнінгу NFTM, Фармінгу DA та кредитування під заставу DA заплановано на 2027 рік.',
+      axes: ['Доступ', 'Ліміт', 'Глибина', 'Майнінг', 'Цикли'],
+    },
+  };
+  /* i18n:end */
+  var L = STR[lang] ? lang : 'en';
+  var T = STR[L];
+  var plural = new Intl.PluralRules(L);
+  var fmt = (v, n) => (typeof v === 'string' ? v : v[plural.select(n)] || v.other).split('{n}').join(n);
 
   const VIDEO_SRCS = [
     null,
@@ -19,7 +630,9 @@ export const NftTierExplorer = () => {
     '/videos/10_1.mp4',
   ];
 
-  const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+  // Thousands separators match the tables on each language's pages.
+  var SEP = { ru: '\u00A0', uk: '\u00A0', fr: '\u00A0', tr: '.', es: '.', de: '.', pt: '.', it: '.', id: '.', vi: '.' }[L] || ',';
+  const fmtUsd = (n) => '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, SEP);
 
   const NFT_DATA = [
     { name: "GENESIS",  tier: "Basic",   level: 1,  price: 28,    limit: 75,     depth: 2,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
@@ -40,7 +653,7 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  var RADAR_AXES = ['Access', 'Cap', 'Depth', 'Mining', 'Cycles'];
+  var RADAR_AXES = T.axes;
 
   var normalize = (nft) => {
     return [
@@ -113,11 +726,11 @@ export const NftTierExplorer = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border" lang={L}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">NFT Tier Explorer</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
+        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">{T.title}</h3>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">{T.interactive}</span>
       </div>
 
       {/* Tier Filter */}
@@ -126,7 +739,7 @@ export const NftTierExplorer = () => {
           <button key={f} onClick={() => { setFilter(f); setSelected(null); setCompare([]); }}
             style={filter === f ? { backgroundColor: '#FFFFFF', color: '#000000' } : { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.7)' }}
             className="px-4 py-1.5 rounded-full text-xs font-medium transition-all">
-            {f}
+            {f === 'All' ? T.all : f}
           </button>
         ))}
       </div>
@@ -153,13 +766,13 @@ export const NftTierExplorer = () => {
               </div>
               <div style={{ padding: '12px' }}>
                 <div className="flex items-center justify-between mb-2">
-                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">{nft.tier}</span>
+                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full" lang="en">{nft.tier}</span>
                   <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px]">L{nft.level}</span>
                 </div>
                 <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
                 <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Reward Cap: {fmtUsd(nft.limit)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Net Depth: {nft.depth} levels</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{T.capShort}: {fmtUsd(nft.limit)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">{T.depthShort}: {fmt(T.levels, nft.depth)}</div>
               </div>
               {isCmp && (
                 <div style={{ backgroundColor: '#FFFFFF', boxShadow: '0 0 8px rgba(255,255,255,0.3)' }} className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center">
@@ -176,11 +789,11 @@ export const NftTierExplorer = () => {
           var elite = NFT_DATA.filter(n => n.tier === 'Elite');
           return (
             <div className="mb-6">
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }} className="uppercase tracking-wider">Basic · L1–L4</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }} className="uppercase tracking-wider" lang="en">Basic · L1–L4</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{basic.map(renderCard)}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Premium · L5–L8</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider" lang="en">Premium · L5–L8</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{premium.map(renderCard)}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Elite · L9–L10</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider" lang="en">Elite · L9–L10</div>
               <div className="grid grid-cols-2 sm:grid-cols-2 max-w-[420px] mx-auto gap-3">{elite.map(renderCard)}</div>
             </div>
           );
@@ -202,24 +815,24 @@ export const NftTierExplorer = () => {
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full">{selected.tier}</span>
-                  <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
+                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full" lang="en">{selected.tier}</span>
+                  <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmt(T.levelN, selected.level)} — {selected.name}</h4>
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Reward Cap', fmtUsd(selected.limit)], ['Net Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'Unlimited' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'Unlimited' ? 'Elite: no autobuy cap' : 'Auto-renewal limit'], ['Group', selected.tier]].map(([label, val, subtext]) => (
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {[[T.price, fmtUsd(selected.price)], [T.rewardCap, fmtUsd(selected.limit)], [T.netDepth, fmt(T.levels, selected.depth)], [T.miningCycle, selected.cycles === 0 ? T.notAvailable : fmt(T.days, selected.mining), selected.cycles === 0 ? null : selected.cycles === 1 ? T.perCycle : T.twoCycles], [T.autobuySlots, selected.autobuy === 'Unlimited' ? T.unlimited : T.slots, selected.autobuy === 'Unlimited' ? T.eliteNoCap : T.autoRenewal], [T.group, selected.tier]].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
-                      <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
+                      <div style={{ color: '#FFFFFF' }} className="text-base sm:text-lg font-bold">{val}</div>
                       {subtext && <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{subtext}</div>}
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <FeaturePill on={true} label="RWA Access" />
+                  <FeaturePill on={true} label={T.rwaAccess} />
                   <FeaturePill on={true} label="FinPro" />
-                  <FeaturePill on={selected.matchingBonus} label="Matching Bonus" />
-                  <FeaturePill on={selected.lending} label="Lending" />
-                  <FeaturePill on={selected.daMining} label={selected.daMining ? 'DA Mining · ' + selected.cycles + ' cycle' + (selected.cycles > 1 ? 's' : '') : 'DA Mining'} />
+                  <FeaturePill on={selected.matchingBonus} label={T.matching} />
+                  <FeaturePill on={selected.lending} label={T.lending} />
+                  <FeaturePill on={selected.daMining} label={selected.daMining ? T.daMining + ' · ' + fmt(T.cycles, selected.cycles) : T.daMining} />
                 </div>
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
@@ -232,7 +845,7 @@ export const NftTierExplorer = () => {
                     ? { backgroundColor: '#FFFFFF', color: '#000000', boxShadow: '0 0 12px rgba(255,255,255,0.2)' }
                     : { color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)' }}
                   className="mt-3 px-5 py-2 rounded-full text-xs font-semibold transition-all">
-                  {compare.find(c => c.level === selected.level) ? '✓ In comparison' : '+ Add to compare'}
+                  {compare.find(c => c.level === selected.level) ? T.inCompare : T.addCompare}
                 </button>
               </div>
             </div>
@@ -244,7 +857,7 @@ export const NftTierExplorer = () => {
       {compare.length === 2 && (
         <div style={{ backgroundColor: '#383838', borderColor: 'rgba(255,255,255,0.05)' }} className="p-5 rounded-xl border mb-4">
           <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold mb-5 text-center">
-            {compare[0].name} <span style={{ color: 'rgba(255,255,255,0.4)' }} className="mx-2">vs</span> {compare[1].name}
+            {compare[0].name} <span style={{ color: 'rgba(255,255,255,0.4)' }} className="mx-2">{T.vs}</span> {compare[1].name}
           </h4>
           <div className="flex flex-col items-center gap-6">
             <div className="flex justify-center gap-4 w-full">
@@ -268,35 +881,36 @@ export const NftTierExplorer = () => {
             <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
                 <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <th style={{ color: 'rgba(255,255,255,0.4)' }} className="text-left py-2 font-medium">Metric</th>
-                  <th style={{ color: '#FFFFFF' }} className="text-right py-2 font-semibold">{compare[0].name}</th>
-                  <th style={{ color: '#F59E0B' }} className="text-right py-2 font-semibold">{compare[1].name}</th>
+                  <th style={{ color: 'rgba(255,255,255,0.4)' }} className="text-left py-2 font-medium">{T.metric}</th>
+                  <th style={{ color: '#FFFFFF' }} className="text-right py-2 pl-3 font-semibold">{compare[0].name}</th>
+                  <th style={{ color: '#F59E0B' }} className="text-right py-2 pl-3 font-semibold">{compare[1].name}</th>
                 </tr></thead>
                 <tbody style={{ color: '#FFFFFF' }}>
                   {[
-                    ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
-                    ['Reward Cap', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
-                    ['Net Depth', compare[0].depth + ' lvls', compare[1].depth + ' lvls'],
-                    ['Mining', compare[0].mining ? compare[0].mining + 'd' : '—', compare[1].mining ? compare[1].mining + 'd' : '—'],
-                    ['Matching Bonus', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
-                    ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
-                    ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
+                    [T.price, fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
+                    [T.rewardCapLong, fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
+                    [T.netDepth, fmt(T.lvls, compare[0].depth), fmt(T.lvls, compare[1].depth)],
+                    [T.mining, compare[0].mining ? fmt(T.daysShort, compare[0].mining) : '—', compare[1].mining ? fmt(T.daysShort, compare[1].mining) : '—'],
+                    [T.matching, compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
+                    [T.lending, compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
+                    [T.daMining, compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
                   ].map(([label, v1, v2], i) => (
                     <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <td style={{ color: 'rgba(255,255,255,0.4)' }} className="py-2">{label}</td>
-                      <td className="py-2 text-right font-semibold">{v1}</td>
-                      <td className="py-2 text-right font-semibold">{v2}</td>
+                      <td className="py-2 pl-3 text-right font-semibold" style={{ whiteSpace: 'nowrap' }}>{v1}</td>
+                      <td className="py-2 pl-3 text-right font-semibold" style={{ whiteSpace: 'nowrap' }}>{v2}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-          <button onClick={() => setCompare([])} style={{ color: 'rgba(255,255,255,0.4)' }} className="mt-4 text-xs transition-colors">Clear comparison</button>
+          <button onClick={() => setCompare([])} style={{ color: 'rgba(255,255,255,0.4)' }} className="mt-4 text-xs transition-colors">{T.clear}</button>
         </div>
       )}
 
-      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-4">Click any card to expand details. Select two cards to compare side-by-side with radar chart.</p>
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-4">{T.hint}</p>
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-1">{T.activation}</p>
     </div>
   );
 };

@@ -1,12 +1,175 @@
-export const GovernanceStats = () => {
+export const GovernanceStats = ({ lang }) => {
   if (typeof window === 'undefined') { return null; }
 
+  // Interface strings by page language; any other language falls back to English.
+  /* i18n:begin */
+  var STR = {
+    en: {
+      title: 'Governance Overview',
+      supply: 'Total Supply',
+      proposal: 'Proposal Threshold',
+      proposalNote: 'of supply to submit',
+      passing: 'Passing Vote',
+      passingNote: 'majority to execute on-chain',
+      guardians: 'Guardian Wallets',
+      guardiansNote: 'current governance wallets',
+    },
+    ru: {
+      title: 'Обзор управления',
+      supply: 'Общее предложение',
+      proposal: 'Порог предложения',
+      proposalNote: 'от общего объёма для подачи',
+      passing: 'Порог принятия',
+      passingNote: 'большинство для исполнения он-чейн',
+      guardians: 'Кошельки Guardian',
+      guardiansNote: 'текущие кошельки управления',
+    },
+    tr: {
+      title: 'Yönetişime Genel Bakış',
+      supply: 'Toplam Arz',
+      proposal: 'Öneri Eşiği',
+      proposalNote: 'öneri sunmak için gereken arz payı',
+      passing: 'Onay Eşiği',
+      passingNote: 'zincir üzerinde yürütme için gereken çoğunluk',
+      guardians: 'GUARDIAN CÜZDANLARI',
+      guardiansNote: 'mevcut yönetişim cüzdanları',
+    },
+    zh: {
+      title: '治理概览',
+      supply: '总供应量',
+      proposal: '提案门槛',
+      proposalNote: '提交提案所需的供应量占比',
+      passing: '通过门槛',
+      passingNote: '在链上执行所需的多数票',
+      guardians: 'Guardian 钱包',
+      guardiansNote: '当前治理钱包',
+    },
+    es: {
+      title: 'Resumen de Gobernanza',
+      supply: 'Suministro total',
+      proposal: 'Umbral de propuesta',
+      proposalNote: 'del suministro para presentarla',
+      passing: 'Umbral de aprobación',
+      passingNote: 'mayoría para ejecutar on-chain',
+      guardians: 'Wallets Guardian',
+      guardiansNote: 'wallets de gobernanza actuales',
+    },
+    de: {
+      title: 'Governance-Übersicht',
+      supply: 'Gesamtangebot',
+      proposal: 'Vorschlagsschwelle',
+      proposalNote: 'des Angebots zur Einreichung',
+      passing: 'Annahmeschwelle',
+      passingNote: 'Mehrheit für die On-Chain-Ausführung',
+      guardians: 'Guardian-Wallets',
+      guardiansNote: 'aktuelle Governance-Wallets',
+    },
+    pt: {
+      title: 'Visão Geral da Governança',
+      supply: 'Oferta Total',
+      proposal: 'Limiar de Proposta',
+      proposalNote: 'da oferta para apresentar',
+      passing: 'Limiar de Aprovação',
+      passingNote: 'maioria para a execução on-chain',
+      guardians: 'Carteiras Guardian',
+      guardiansNote: 'carteiras de governança atuais',
+    },
+    hi: {
+      title: 'गवर्नेंस अवलोकन',
+      supply: 'कुल आपूर्ति',
+      proposal: 'प्रस्ताव थ्रेशोल्ड',
+      proposalNote: 'प्रस्ताव प्रस्तुत करने हेतु आपूर्ति का हिस्सा',
+      passing: 'अनुमोदन थ्रेशोल्ड',
+      passingNote: 'ऑन-चेन निष्पादन के लिए बहुमत',
+      guardians: 'Guardian वॉलेट',
+      guardiansNote: 'वर्तमान गवर्नेंस वॉलेट',
+    },
+    it: {
+      title: 'Panoramica della governance',
+      supply: 'Offerta totale',
+      proposal: 'Soglia di proposta',
+      proposalNote: 'dell\'offerta per presentare una proposta',
+      passing: 'Soglia di approvazione',
+      passingNote: 'maggioranza per l\'esecuzione on-chain',
+      guardians: 'Wallet Guardian',
+      guardiansNote: 'wallet di governance attuali',
+    },
+    fr: {
+      title: 'Aperçu de la Gouvernance',
+      supply: 'Offre totale',
+      proposal: 'Seuil de proposition',
+      proposalNote: 'de l\'offre pour soumettre une proposition',
+      passing: 'Seuil d\'approbation',
+      passingNote: 'de majorité pour l\'exécution on-chain',
+      guardians: 'Wallets Guardian',
+      guardiansNote: 'wallets de gouvernance actuels',
+    },
+    ar: {
+      title: 'نظرة عامة على الحوكمة',
+      supply: 'إجمالي العرض',
+      proposal: 'عتبة الاقتراح',
+      proposalNote: 'من العرض لتقديم اقتراح',
+      passing: 'عتبة الموافقة',
+      passingNote: 'أغلبية للتنفيذ على السلسلة',
+      guardians: '\u202Bمحافظ Guardian\u202C',
+      guardiansNote: 'محافظ الحوكمة الحالية',
+    },
+    id: {
+      title: 'Ikhtisar Tata Kelola',
+      supply: 'Total Pasokan',
+      proposal: 'Ambang Proposal',
+      proposalNote: 'dari pasokan untuk mengajukan',
+      passing: 'Ambang Persetujuan',
+      passingNote: 'mayoritas untuk eksekusi on-chain',
+      guardians: 'Dompet Guardian',
+      guardiansNote: 'dompet tata kelola saat ini',
+    },
+    ja: {
+      title: 'ガバナンスの概要',
+      supply: '総供給量',
+      proposal: '提案閾値',
+      proposalNote: '提案の提出に必要な供給量の割合',
+      passing: '承認閾値',
+      passingNote: 'オンチェーンでの執行に必要な賛成',
+      guardians: 'Guardianウォレット',
+      guardiansNote: '現在のガバナンスウォレット',
+    },
+    vi: {
+      title: 'Tổng Quan Quản Trị',
+      supply: 'Tổng nguồn cung',
+      proposal: 'Ngưỡng đề xuất',
+      proposalNote: 'nguồn cung để gửi đề xuất',
+      passing: 'Ngưỡng phê duyệt',
+      passingNote: 'đa số để thực thi on-chain',
+      guardians: 'Ví Guardian',
+      guardiansNote: 'ví quản trị hiện tại',
+    },
+    uk: {
+      title: 'Огляд управління',
+      supply: 'Загальна емісія',
+      proposal: 'Поріг пропозиції',
+      proposalNote: 'від емісії для подання',
+      passing: 'Поріг прийняття',
+      passingNote: 'більшість для виконання он-чейн',
+      guardians: 'Гаманці Guardian',
+      guardiansNote: 'поточні гаманці управління',
+    },
+  };
+  /* i18n:end */
+  var L = STR[lang] ? lang : 'en';
+  var T = STR[L];
+  // Thousands separators and percent signs as on each language's pages.
+  var SEP = { ru: '\u00A0', uk: '\u00A0', fr: '\u00A0', tr: '.', es: '.', de: '.', pt: '.', it: '.', id: '.', vi: '.' }[L] || ',';
+  var PCT = { tr: '%{n}', de: '{n}\u00A0%', fr: '{n}\u00A0%' }[L] || '{n}%';
+  var num = function(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, SEP); };
+  var pct = function(n) { return PCT.split('{n}').join(n); };
+
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose" lang={L}>
 
       {/* Header */}
       <div className="mb-6">
-        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">Governance Overview</h3>
+        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">{T.title}</h3>
       </div>
 
       {/* KPI Section: Video + Cards */}
@@ -23,21 +186,27 @@ export const GovernanceStats = () => {
         <div style={{ flex: '1 1 0%', minWidth: '240px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
           {/* Total Supply */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Supply</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>10,000,000</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.supply}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{num(10000000)}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>GovTokens (ERC20Votes)</div>
           </div>
           {/* Proposal Threshold */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Proposal Threshold</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>30%</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>of supply to submit</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.proposal}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{pct(30)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.proposalNote}</div>
           </div>
           {/* Passing Vote */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Passing Vote</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>50%</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>majority to execute on-chain</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.passing}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{pct(50)}</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.passingNote}</div>
+          </div>
+          {/* Guardian Wallets */}
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.guardians}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>20</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.guardiansNote}</div>
           </div>
         </div>
       </div>

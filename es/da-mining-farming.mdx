@@ -1,48 +1,47 @@
 ---
-title: "Mining y Farming"
-description: "De NFTM a DA en dos pasos."
+title: "Minería y Farming"
+description: "Cómo los titulares de niveles de NFT Premium y Elite elegibles adquieren DA mediante un proceso de dos pasos: la Minería registra NFTM y el Farming calcula el DA a partir de la cantidad de NFTM depositada, el precio actual del protocolo y los parámetros vigentes."
 icon: "pickaxe"
 ---
 import { MiningPipeline } from '/snippets/mining-pipeline.jsx'
 
+<Note>
+  **Estado de activación.** La Minería de NFTM, el Farming de DA y el Lending de DA son mecánicas documentadas cuya activación está prevista para 2027. Todavía no están disponibles en la aplicación. Las fechas de activación se publicarán en los canales oficiales.
+</Note>
 
-Para adquirir DA, los usuarios deben participar en un proceso de dos pasos: Mining y Farming. Solo los NFT Premium (Nivel 5+) y Elite son capaces de hacerlo.
+## ¿Cómo se adquiere DA mediante Minería y Farming?
+
+Solo los niveles de NFT Premium y Elite elegibles pueden acceder a este proceso. Para iniciar un nuevo ciclo se requiere un NFT activo con un Límite de Recompensas del Protocolo distinto de cero.
 
 <Info>
-  **NFTM no es un token.** Es un contador interno de minería (métrica) registrado por el smart contract. En la interfaz, ves una barra de progreso y la cantidad esperada de NFTM. NFTM no tiene valor de mercado y no puede negociarse ni transferirse — existe únicamente para hacer staking en el Farming y convertirse en DA.
-</Info>
-
-<Info>
-  **Se requiere un Límite de Ingresos activo para minar.** Tanto el Mining como el Farming requieren que el NFT elegible tenga un **Límite de Ingresos** distinto de cero. Si tu límite ha llegado a cero, el smart contract rechazará iniciar un nuevo ciclo de minería. Para reanudar la minería, primero refresca tu Límite de Ingresos — mediante el sistema Autobuy 3/3, una renovación manual del mismo nivel o una actualización a un NFT de nivel superior — y luego activa el siguiente ciclo. El Límite de Ingresos es la condición habilitadora; sin él, el flujo de minería no comienza.
+  **NFTM es un contador interno de minería.** No es un token transferible, no tiene valor de mercado independiente y existe solo dentro del proceso documentado de Minería y Farming.
 </Info>
 
 <Steps>
-  <Step title="Activa el Mining">
-    Inicia la minería en tu NFT elegible. La duración del ciclo depende de tu nivel — desde 45 días (HYDRO) hasta 40 días (INFINITY).
+  <Step title="Active la Minería">
+    Inicie un ciclo en un NFT elegible. La duración va de 45 días para Hydro a 40 días para Infinity.
   </Step>
-  <Step title="Genera NFTM">
-    Tu NFT genera NFTM durante el período del ciclo. Los niveles 5–7 (HYDRO, QUANTUM, PULSE) tienen **1 ciclo de minería** que produce el **10%** del precio del NFT en NFTM. Los niveles 8–10 (AURORA, FLAME, INFINITY) tienen **2 ciclos de minería** — el primero produce el **10%** y el segundo produce el **15%** del precio del NFT en NFTM.
+  <Step title="Genere NFTM">
+    Los Niveles 5–7 generan actualmente un ciclo de NFTM del 10%; los Niveles 8–10 generan un primer ciclo del 10% y un segundo ciclo del 15%.
   </Step>
-  <Step title="Reclama en 72 Horas">
-    Una vez completada la minería, tienes exactamente **72 horas** para hacer staking de tu NFTM en Farming. Si pierdes esta ventana, vuelves a empezar desde cero.
+  <Step title="Deposite en un Plazo de 72 Horas">
+    El NFTM completado debe depositarse en Farming dentro de la ventana de reclamo.
   </Step>
-  <Step title="Hacer Farming de DA">
-    El NFTM staking entra en Farming durante la misma duración que el ciclo de minería. Al final, el NFTM se convierte en DA según el precio actual y se acredita en tu TokenStack.
+  <Step title="Haga Farming de DA">
+    Una vez completado el Farming, el protocolo calcula la cantidad de DA elegible mediante la fórmula actual y la acredita en el TokenStack del usuario.
   </Step>
 </Steps>
 
 <Warning>
-  **Ventana Crítica de 72 Horas:** Si no haces staking de tu NFTM en las 72 horas posteriores a completar la minería, se pierde todo el ciclo. Debes reiniciar la minería desde cero. Pon un recordatorio.
+  **Ventana de Reclamo de 72 Horas:** si el NFTM completado no se deposita en un plazo de 72 horas, el ciclo se reinicia según las reglas del smart contract.
 </Warning>
 
 <Warning>
-  **Reclama Antes de Actualizar — Las Recompensas de Farming No Reclamadas se Destruyen:** Cualquier compra o actualización de NFT activa `terminate()` sobre el estado de mining/farming del usuario. Por diseño, `terminate()` detiene la sesión activa y **destruye todas las recompensas de farming no reclamadas**, incluidas las recompensas que ya han madurado pero aún no se han reclamado. El equipo ha confirmado que esto es intencional en la respuesta a la auditoría: *"Es intencional, terminate() debe detener las sesiones activas y destruir las recompensas no reclamadas por diseño."*
-
-  **Regla operativa:** si tienes una recompensa de farming madura pero no reclamada, **reclámala primero**, y solo después compra o actualiza el NFT. De lo contrario, la recompensa se pierde permanentemente en el momento en que se confirma la nueva transacción del NFT.
+  **Reclame Antes de Actualizar:** una compra o actualización de NFT invoca `terminate()` sobre el estado actual de Minería y Farming. Reclame cualquier resultado madurado disponible antes de reemplazar o actualizar el NFT.
 </Warning>
 
 <Warning>
-  **Pausa por Ciclo Deflacionario:** Dos veces al año, el sistema activa un Ciclo Deflacionario que dura hasta 30 días. Durante este período, el **lanzamiento de nuevos ciclos** de minería de NFTM, staking y generación de DA queda suspendido. Los ciclos ya en marcha antes de que comience el Ciclo Deflacionario **continúan y se completan según lo programado** — el progreso no se pierde. Planifica el lanzamiento de nuevos ciclos teniendo en cuenta estos períodos programados.
+  **Pausa por Ciclo Deflacionario:** durante un Ciclo Deflacionario activo, el inicio de nuevos ciclos puede pausarse. Los ciclos existentes continúan y se completan según lo programado.
 </Warning>
 
-<MiningPipeline />
+<MiningPipeline lang="es" />

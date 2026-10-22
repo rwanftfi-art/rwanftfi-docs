@@ -1,91 +1,66 @@
 ---
-title: "Ödüller ve Tazminat"
-description: "Ağınızdan nasıl kazanırsınız."
+title: "Ödüller ve Kompanzasyon"
+description: "Partner programı üç ödül türü kullanır: Sponsor Bonusu, Ağaç Dağılımı ve Eşleştirme Bonusu. Her ödül; NFT seviyesine, ağ ilişkisine, nitelikli faaliyete, protokol aşamasına ve kalan Protokol Ödül Limitine bağlıdır."
 icon: "money-bill-trend-up"
 ---
 
-import { IncomeCalculator } from '/snippets/income-calculator.jsx'
+## Sponsor Bonusu
+
+Sponsor Bonusu, nitelikli bir doğrudan NFT satın alımı üzerinden hesaplanır. Mevcut oranlar, Phase 2'nin Haziran 2026'da DAO oylamasıyla etkinleştirilmesinden bu yana uygulanmaktadır.
 
 <CardGroup cols={2}>
-  <Card title="Phase 1 — Yeni Satış" icon="user-plus">
-    Doğrudan sponsor NFT satış fiyatının %30'unu kazanır. Tekrar satın alma (rebuy): %20.
+  <Card title="%20" icon="user-plus">
+    **İlk satın alma.** Kişisel olarak davet edilen bir partnerin ilk NFT satın alımına uygulanır.
   </Card>
-  <Card title="Phase 2 — Ayarlandı" icon="arrows-rotate">
-    Yeni satış %20'ye ayarlanır. Yeniden satın alma %20'de kalır. 16–22. Seviyeler tamamen açılır.
+  <Card title="%17 + %1–5" icon="rotate">
+    **Tekrar satın alma.** %17 temel orana ek olarak, o partnerin partner ağınızda yerleştirildiği seviyeye bağlı olarak %1–5.
   </Card>
 </CardGroup>
 
-<Note>
-  Phase 1'den Phase 2'ye geçiş (Sponsor Bonusunun %30'dan %20'ye ayarlanması ve 16–22 ağaç seviyelerinin açılması dahil) DAO yönetişimi aracılığıyla yürütülür, otomatik olarak tarihe göre değil. DAO oylaması, parametre değişikliklerini yürürlüğe koymak için standart %30 öneri eşiğini ve %50 çoğunluk onayını gerektirir.
-</Note>
-
-RWANFTFI'da pazarlama ödülleri, toplam gelirinizi oluşturan üç bağımsız akıştan oluşur:
-
-1. **Sponsor Bonusu** — Bir partner davet etmek için doğrudan komisyon (Phase 1 NFT satış fiyatının %30'u / Phase 2 %20).
-2. **Ağaç Dağılımı** — Alt yapı yapınızdan seviye başına ödüller (2–22. seviyeler, yüzdeler derinliğe göre değişir).
-3. **Eşleştirme Bonusu** — Doğrudan partnerlerinizin gelirinden 3 seviye boyunca ikincil %5 + %5 + %5.
-
-Her akış, akıllı sözleşme tarafından her uygun NFT satın alımında bağımsız olarak hesaplanır ve ödenir.
-
 ## Ağaç Dağılımı
 
-Alt yapınızdaki her NFT satışından, 22 seviyeye kadar derinlikte bir yüzde kazanın:
+| Ağ Seviyesi | Mevcut Oran |
+|:---:|:---:|
+| 1 | %0 |
+| 2 | %1 |
+| 3–4 | Her biri %2 |
+| 5–6 | Her biri %3 |
+| 7–14 | Her biri %4 |
+| 15 | %5 |
+| 16–22 | Yönetişim etkinleştirmesine kadar %0 |
 
-<AccordionGroup>
-  <Accordion title="1–6. Seviyeler · Giriş Katmanları" icon="layer-group">
-    - Seviye 1: %0
-    - Seviye 2: %1
-    - 3–4. Seviyeler: her biri %2
-    - 5–6. Seviyeler: her biri %3
-  </Accordion>
-  <Accordion title="7–15. Seviyeler · Çekirdek Kazanç Derinliği" icon="chart-simple">
-    - 7–14. Seviyeler: her biri %4 (8 seviye × %4 = ana gelir kaynağı)
-    - Seviye 15: %5 (en yüksek tek seviye yüzdesi)
-  </Accordion>
-  <Accordion title="16–22. Seviyeler · Phase 2 Genişleme" icon="unlock">
-    - 16–17. Seviyeler: her biri %2
-    - Seviye 18: %1
-    - 19–22. Seviyeler: her biri %0.5
+## Eşleştirme Bonusu
 
-    *DAO yönetişim oylaması ile Phase 2'de açılır (Q4 2026 için planlandı). Tam derinlik için INFINITY NFT gerektirir.*
-  </Accordion>
-</AccordionGroup>
+| Eşleştirme Seviyesi | Oran | Uygunluk |
+|:---:|:---:|---|
+| 1 | %5 | Uygun NFT seviyesi |
+| 2 | %5 | 1.000 USDT kümülatif kişisel satış |
+| 3 | %5 | 3.000 USDT kümülatif kişisel satış |
 
-<Info>
-  **Neden Seviye 1 = %0?** Ağaç Dağılımı ve Sponsor Bonusu iki ayrı ödül akışıdır. Doğrudan davetleriniz pazarlama yapınızın 1. Seviyesinde oturur ve NFT satın alımlarından zaten bir Sponsor Bonusu (Phase 1'de %30, Phase 2'de %20) kazanırsınız. Çift tazminatı önlemek için Ağaç Dağılımının 1. Seviyesi %0 olarak ayarlanmıştır. Ağaç Dağılımı ödülleri Seviye 2'den (%1) itibaren başlar — kişisel davetlerinizin ötesinde yapınızda daha derin aktiviteyi kapsar.
-</Info>
+## Standart Ödül Bölünmesi
 
-<Note>
-  **1. Seviyedeki aşağı taşma doğrudan hiçbir şey kazandırmaz.** Bir partner aşağı taşma yoluyla 1. Seviyenize yerleştirildiğinde (yukarı taşmanızın daveti ağacınıza inerse), %0 Sponsor Bonusu (gerçek davet edene gider) ve %0 Ağaç Dağılımı (Seviye 1 = %0) kazanırsınız. Aşağı taşmanın değeri Seviye 2 ve daha derinden gerçekleşir — bu aşağı taşma partnerleri kendi takımlarını kurduğunda, onların alımları size ağaç dağılım ödülleri üretir.
-</Note>
+Uygun partner ödülleri şu anda belgelenmiş **75/20/5** tahsisi uyarınca Normal Bakiye, Birikim Bakiyesi ve DA Likidite Havuzu arasında bölünür.
+
+- **Hediye NFT'ler.** Bir Hediye NFT'nin aldığı ödüller, Normal Bakiye ile Birikim Bakiyesi arasında 50/50 bölünür.
+- **FinPro Marketing.** Ayrı FinPro Marketing programı, ödüllerinin %100'ünü pazarlama bakiyesine yatırır; 75/20/5 bölünmesi ve %5 ücret uygulanmaz. Bkz. [FinPro Marketing](/tr/finpro-marketing).
 
 ## Sıkıştırma
 
-<Tip>
-  **Sıkıştırma sizin lehinize çalışır.** Sizin üstünüzde biri tükenmiş bir gelir limitine veya yetersiz NFT seviyesine sahipse, ödülleri yukarı doğru sıkıştırılır — potansiyel olarak size. NFT'nizin pazarlama erişimi ne kadar derinse, o kadar çok sıkıştırılmış ödülü yakalayabilirsiniz.
-</Tip>
+Bir ağ pozisyonu geçerli uygunluk koşullarını karşılamıyorsa tutar, yürürlükteki sıkıştırma ve kalan bütçe kurallarına göre yönlendirilir. Kesin yönlendirme mevcut sözleşme parametreleriyle örtüşür — bkz. [Sözleşme Parametreleri](/tr/contract-parameters).
 
-Alt yapınızdaki bir kullanıcı atlandığında (Gelir Limiti = 0 veya NFT seviyesi çok düşük), ödül yukarıya, bir sonraki nitelikli katılımcıya geçer. Bu, atlanan kullanıcı için **Kayıp Gelir** olarak işaretlenir.
+## Aktif Promosyonlar
 
+<CardGroup cols={2}>
+  <Card title="First Purchase NFT" icon="gift">
+    **21 Ekim – 21 Kasım 2026.** Ascend (L3) veya daha üst bir seviyede yapılan ilk NFT satın alımına aynı seviyede bir Hediye NFT verilir.
+  </Card>
+  <Card title="Upgrade NFT" icon="arrow-up">
+    **21 Ekim – 21 Kasım 2026.** Seviye 3 ve üzerinden yapılan bir yükseltmeye iki Hediye NFT verilir: biri mevcut seviyede, diğeri yükseltmeyle geçilen seviyede.
+  </Card>
+</CardGroup>
 
-## Eşleştirme Bonusu (%5 + %5 + %5)
+<Card title="FinFlow Promotion 2026" icon="chart-line" href="/tr/finpro-finflow#finflow-promotion-2026">
+  **31 Aralık 2026'ya kadar** veya havuz dolana kadar. Uygun her NFT seviyesi için artırılmış FinFlow limitleri.
+</Card>
 
-Doğrudan partnerleriniz tarafından 3 seviye boyunca üretilen **NFT-satış gelirinin** bir yüzdesini kazanın. Eşleştirme Bonusu yalnızca doğrudan partnerinizin yapısı içindeki NFT satışlarından aldığı pazarlama ödemelerinden hesaplanır — diğer gelir akışlarından (Dondurulmuş Bakiye serbest bırakmaları, manuel DA satışları vb.) değil:
-
-<Steps>
-  <Step title="Seviye 1 — %5">
-    En az bir Seviye 4 (ECLIPSE, 275 USDT) NFT gerektirir.
-  </Step>
-  <Step title="Seviye 2 — %5">
-    1.000 USDT kümülatif kişisel satış gerektirir.
-  </Step>
-  <Step title="Seviye 3 — %5">
-    3.000 USDT kümülatif kişisel satış gerektirir.
-  </Step>
-</Steps>
-
-<Info>
-  **"Kümülatif kişisel satışlar" ne anlama gelir:** Bu, doğrudan davetlerinizin yaptığı tüm NFT satın alımlarının yaşam boyu toplamıdır. Aynı partnerin tekrarlanan satın alımları (yeniden satın alma, yükseltme) toplama dahil edilir ve farklı partnerlere yapılan satışlar birlikte birikir. Örneğin, bir partner 1.000 USDT'ye üç NFT satın alırsa, kümülatif toplamınız 3.000 USDT olur — Eşleştirme Bonusu Seviye 3'ün kilidi açılır. Bir eşik ulaşıldığında, o Eşleştirme Bonusu seviyesi **kalıcı olarak aktif** olur ve sıfırlanmaz.
-</Info>
-
-<IncomeCalculator />
+Her iki Hediye NFT promosyonu da 21 Ekim 2026 saat 00:00 UTC'den 21 Kasım 2026 saat 23:59 UTC'ye kadar geçerlidir; Hediye NFT'ler, koşullar karşılandıktan sonra birkaç gün içinde verilir. Promosyon duyuruları [news.rwanftfi.com](https://news.rwanftfi.com) adresinde yayımlanır.

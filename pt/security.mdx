@@ -1,28 +1,36 @@
 ---
 title: "Segurança e Auditoria"
-description: "Auditado independentemente pela CertiK."
+description: "A CertiK revisou os smart contracts e a versão do código incluídos no escopo de auditoria publicado. O relatório final é datado de 28 de abril de 2026. O escopo da auditoria, os achados e o mapeamento da implantação são publicados junto com o relatório."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="Auditado pela CertiK" icon="shield-check">
-    Os smart contracts da RWANFTFI foram auditados independentemente pela **CertiK**. Relatório final publicado em **28 de abril de 2026** — PDF completo abaixo, e no [diretório público da CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="Revisado pela CertiK" icon="shield-check">
+    A CertiK revisou os smart contracts e a versão do código incluídos no escopo de auditoria publicado. O relatório final é datado de **28 de abril de 2026** — PDF completo abaixo e no [diretório público CertiK Skynet](https://skynet.certik.com/projects/rwanftfi).
   </Card>
 </CardGroup>
 
-A CertiK é uma das empresas de segurança mais consolidadas em Web3 e audita uma parcela significativa dos principais protocolos do espaço. A auditoria foi conduzida usando sua metodologia padrão — Análise Estática, Revisão Manual e Verificação Formal — e o relatório completo é publicado publicamente, tanto nesta página quanto no próprio diretório Skynet da CertiK.
+## Detalhes da Auditoria
 
-## Leia o Relatório
+| Item | Onde Verificar |
+|---|---|
+| Auditor | CertiK |
+| Data do relatório | 28 de abril de 2026 |
+| Commit auditado | O hash exato consta no relatório publicado. |
+| Contratos no escopo | Todos os contratos revisados estão listados no relatório publicado. |
+| Achados | ID, severidade e status estão listados no relatório publicado. |
+| Correção | Cada achado resolvido está vinculado à alteração de código correspondente no relatório. |
+| Mapeamento da implantação | A correspondência entre os contratos de produção atuais e a versão auditada é publicada separadamente. |
+| Bug bounty | Em operação na plataforma oficial da CertiK; a atividade do bug bounty é exibida no CertiK Skynet. |
 
-Você tem três maneiras independentes de interagir com a auditoria. O objetivo não é fornecer a mesma coisa três vezes — é para que não haja dúvida de que a versão nesta página corresponde à versão que a própria CertiK publica, e para que o relatório seja acessível independentemente do dispositivo.
+## Como posso verificar o relatório de auditoria?
 
 <CardGroup cols={3}>
   <Card title="Visualização Inline" icon="eye">
     Leia o PDF completo diretamente nesta página. Melhor em navegadores desktop.
   </Card>
   <Card title="Baixar PDF" icon="download" href="https://app.rwanftfi.com/security">
-    Salve o relatório original em seu dispositivo. Recomendado em mobile.
+    Salve o relatório original em seu dispositivo. Recomendado em dispositivos móveis.
   </Card>
   <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
     Verifique o relatório no próprio diretório público da CertiK.
@@ -32,7 +40,7 @@ Você tem três maneiras independentes de interagir com a auditoria. O objetivo 
 <object
   data="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf"
   type="application/pdf"
-  aria-label="CertiK Audit Report — RWANFTFI"
+  aria-label="Relatório de Auditoria CertiK — RWANFTFI"
   style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
 >
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
@@ -44,32 +52,60 @@ Você tem três maneiras independentes de interagir com a auditoria. O objetivo 
 </object>
 
 <Info>
-  **No Safari e na maioria dos navegadores móveis** a visualização inline pode não renderizar — esses navegadores não embutem PDFs diretamente. Use o botão **Baixar PDF** (ou o link dentro da área de visualização) para abrir o relatório em seu dispositivo.
+  **No Safari e na maioria dos navegadores móveis**, a visualização inline pode não ser renderizada — esses navegadores não incorporam PDFs diretamente. Use o botão **Baixar PDF** (ou o link dentro da área de visualização) para abrir o relatório em seu dispositivo.
 </Info>
 
-## Proteção da Conta
+<Note>
+  A auditoria abrange os smart contracts e a versão do código dentro do escopo publicado. Ela, por si só, não verifica a economia do protocolo, o desempenho corporativo nem os resultados dos usuários.
+</Note>
 
-A auditoria cobre a camada on-chain dos smart contracts. Na camada de aplicação, as contas dos usuários são adicionalmente protegidas por vários mecanismos independentes:
+## Quatro Camadas de Segurança da Conta
 
 <CardGroup cols={2}>
-  <Card title="Segurança em Três Níveis" icon="layer-group">
-    Proteção em camadas separando login, ações financeiras e operações de alto valor.
-  </Card>
-  <Card title="Códigos TAN" icon="key">
-    Números de Autenticação de Transação de uso único exigidos para cada transação financeira.
-  </Card>
   <Card title="Senha Financeira" icon="fingerprint">
-    Uma senha separada das suas credenciais de login, exigida apenas para movimentar fundos.
+    Uma senha separada das credenciais de login, exigida para ações financeiras.
   </Card>
-  <Card title="2FA + Bot do Telegram" icon="telegram">
-    Autenticação de dois fatores padrão, mais verificação de ações através do bot oficial do Telegram.
+  <Card title="Secret Code" icon="user-lock" href="/pt/platform-features#secret-code">
+    Uma palavra aleatória gerada junto com a senha financeira. Obrigatória em qualquer solicitação ao suporte relacionada à segurança.
+  </Card>
+  <Card title="Códigos de Autorização de Transação" icon="key">
+    Códigos de uso único exigidos para autorizar transações financeiras.
+  </Card>
+  <Card title="Autenticação de Dois Fatores" icon="lock">
+    Autenticação de dois fatores suportada para a proteção da conta.
   </Card>
 </CardGroup>
 
-<Info>
-  **As transações exigem uma carteira Web3.** Você pode entrar no painel com e-mail e senha para visualizar seus dados, mas a execução de qualquer ação financeira exige uma carteira Web3 conectada (MetaMask, Trust Wallet ou outra carteira compatível com EVM).
-</Info>
+## Recuperação da Conta via DAO
+
+A equipe da RWANFTFI não tem acesso aos negócios dos usuários. Somente um voto da DAO pode migrar uma conta para uma nova carteira. Isso foi posto à prova em junho de 2026: a conta de um usuário foi invadida e todo o negócio — o NFT e a estrutura de parceiros — foi roubado enquanto a Business Sale estava temporariamente ativada. A DAO desativou a Business Sale e transferiu o negócio para uma nova carteira controlada pelo seu proprietário verificado; as duas propostas foram executadas on-chain. Veja [Governança — DAO](/pt/governance#decisões-executadas).
+
+## Triagem de AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/pt/aml-checker">
+  Verifique qualquer endereço de carteira quanto a sanções, mixers, golpes e ataques hackers antes de enviar ou receber fundos: uma pontuação de risco em 19 blockchains e 14 stablecoins.
+</Card>
+
+## Mensagens Privadas
+
+O mensageiro integrado oferece o modo **Private Web3 chats**: mensagens com criptografia de ponta a ponta no protocolo XMTP (MLS), que não são armazenadas nos servidores da plataforma. Veja [Funcionalidades da Plataforma](/pt/platform-features).
+
+## Domínios Oficiais
+
+| Domínio | Finalidade |
+|---|---|
+| rwanftfi.com | Site principal |
+| app.rwanftfi.com | Aplicativo |
+| news.rwanftfi.com | Notícias e anúncios |
+| bridge.rwanftfi.com | Ponte cross-chain |
+| whitepaper.rwanftfi.com | Este whitepaper |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Links de indicação |
+| rwafinpro.com | Produtos financeiros do FinPro |
+| rwanftcards.com | Cartões de débito RWA NFT Cards |
+
+Os endereços oficiais dos contratos, incluindo o Diamond, a DAO e o Token Reserve, estão listados em [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  **Cuidado com impostores.** Os funcionários da RWANFTFI nunca entrarão em contato com você primeiro, nunca pedirão suas chaves privadas ou seed phrase, e nunca solicitarão pagamentos fora da plataforma oficial. Sempre verifique se você está em **rwanftfi.com** antes de conectar sua carteira ou inserir credenciais.
+  Use somente os domínios acima e os endereços de contrato oficiais; qualquer outro domínio, inclusive com grafia parecida, não é oficial. Os representantes da RWANFTFI nunca solicitam chaves privadas, seed phrases ou pagamentos para endereços de carteira não oficiais. Verifique o domínio antes de conectar uma carteira ou inserir credenciais.
 </Warning>

@@ -1,0 +1,59 @@
+---
+title: "Funzionalità della Piattaforma"
+description: "Strumenti all'interno dell'applicazione RWANFTFI: il Secret Code per le richieste in materia di sicurezza, le chat Web3 crittografate, i link di referral permanenti, il brandbook e la libreria di presentazioni."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Obbligatorio per qualsiasi richiesta al supporto in materia di sicurezza.
+  </Card>
+  <Card title="Chat Web3 private" icon="comments">
+    Messaggi con crittografia end-to-end basata sul protocollo XMTP.
+  </Card>
+  <Card title="Link di referral" icon="link">
+    Un unico formato di link permanente su share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Il Secret Code è una parola casuale generata insieme alla password finanziaria. È obbligatorio per qualsiasi richiesta al supporto in materia di sicurezza: senza di esso, il supporto non può dare seguito a una richiesta di questo tipo.
+
+<Warning>
+  **Mantenga riservato il Secret Code.** Lo comunichi solo al supporto ufficiale e solo quando effettua una richiesta in materia di sicurezza. Non lo condivida mai in chat, commenti o messaggi privati.
+</Warning>
+
+## Messenger e chat Web3 private
+
+Il messenger integrato mostra l'orario esatto di ogni messaggio. La sua modalità **Private Web3 chats** aggiunge la crittografia end-to-end basata sul protocollo XMTP.
+
+| Proprietà | Come funziona |
+|---|---|
+| Crittografia | I messaggi vengono crittografati sul dispositivo con MLS (IETF RFC 9420). |
+| Archiviazione | I messaggi non vengono archiviati sui server della piattaforma. |
+| Identità | L'identità è il wallet EVM; una sola firma senza commissioni di gas per dispositivo attiva la modalità. |
+| Revisione indipendente | La libreria libxmtp è stata sottoposta ad audit da NCC Group. |
+
+<Note>
+  La modalità protegge il contenuto dei messaggi, ma non rende anonimi gli utenti. La crittografia si applica ai nuovi messaggi inviati in questa modalità.
+</Note>
+
+## Link di referral
+
+Ogni partecipante ha un codice di referral permanente. I link di referral usano un unico formato:
+
+`share.rwanftfi.com/?ref=CODE`
+
+Il vecchio formato dei link non funziona più: è stato sostituito ad agosto 2026 a causa di un problema nella consegna dei link su Telegram.
+
+## Brandbook e risorse
+
+<CardGroup cols={2}>
+  <Card title="Brandbook" icon="palette" href="https://brandbook.rwanftfi.com">
+    Loghi, colori, font, icone, documenti, il modulo pubblicitario e il merchandising: la fonte ufficiale dell'identità del brand RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Presentazioni nell'applicazione, tra cui la presentazione FinFlow in inglese e in russo.
+  </Card>
+</CardGroup>

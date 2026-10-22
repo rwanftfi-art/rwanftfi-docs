@@ -1,31 +1,39 @@
 ---
 title: "Güvenlik ve Denetim"
-description: "CertiK tarafından bağımsız olarak denetlendi."
+description: "CertiK, yayımlanan denetim kapsamına dahil edilen akıllı sözleşmeleri ve kod sürümünü incelemiştir. Nihai rapor 28 Nisan 2026 tarihlidir. Denetim kapsamı, bulgular ve dağıtım eşleştirmesi raporla birlikte yayımlanır."
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="CertiK Tarafından Denetlendi" icon="shield-check">
-    RWANFTFI akıllı sözleşmeleri **CertiK** tarafından bağımsız olarak denetlenmiştir. Nihai rapor **28 Nisan 2026** tarihinde yayınlandı — tam PDF aşağıda ve halka açık [CertiK Skynet dizininde](https://skynet.certik.com/projects/rwanftfi).
+  <Card title="CertiK Tarafından İncelendi" icon="shield-check">
+    CertiK, yayımlanan denetim kapsamına dahil edilen akıllı sözleşmeleri ve kod sürümünü incelemiştir. Nihai rapor **28 Nisan 2026** tarihlidir — tam PDF aşağıda ve herkese açık [CertiK Skynet dizininde](https://skynet.certik.com/projects/rwanftfi) yer almaktadır.
   </Card>
 </CardGroup>
 
-CertiK, Web3'teki en köklü güvenlik firmalarından biridir ve alandaki büyük protokollerin önemli bir bölümünü denetler. Denetim, standart metodolojileri kullanılarak gerçekleştirilmiştir — Statik Analiz, Manuel İnceleme ve Biçimsel Doğrulama — ve tam rapor hem bu sayfada hem de CertiK'in kendi Skynet dizininde halka açık olarak yayınlanmıştır.
+## Denetim Ayrıntıları
 
-## Raporu Okuyun
+| Öğe | Nerede Doğrulanır |
+|---|---|
+| Denetçi | CertiK |
+| Rapor tarihi | 28 Nisan 2026 |
+| Denetlenen commit | Kesin hash, yayımlanan raporda belirtilmiştir. |
+| Kapsamdaki sözleşmeler | İncelenen tüm sözleşmeler yayımlanan raporda listelenmiştir. |
+| Bulgular | ID, önem derecesi ve durum yayımlanan raporda listelenmiştir. |
+| Düzeltme | Çözülen her bulgu, raporda ilgili kod değişikliğine bağlanmıştır. |
+| Dağıtım eşleştirmesi | Mevcut üretim sözleşmelerinin denetlenen sürümle eşleşip eşleşmediği ayrıca yayımlanır. |
+| Hata ödül programı | CertiK'in resmi platformu üzerinden yürütülmektedir; hata ödül faaliyetleri CertiK Skynet'e yansıtılır. |
 
-Denetimle etkileşim kurmanın üç bağımsız yolu vardır. Amaç aynı şeyi üç kez vermek değil — bu sayfadaki sürümün CertiK'in kendisinin yayınladığı sürümle eşleştiğine dair hiçbir şüphe olmasın ve rapor cihazdan bağımsız olarak erişilebilir olsun.
+## Denetim raporunu nasıl doğrulayabilirim?
 
 <CardGroup cols={3}>
   <Card title="Satır İçi Önizleme" icon="eye">
-    Tam PDF'i doğrudan bu sayfada okuyun. Masaüstü tarayıcılarında en iyi.
+    Tam PDF'i doğrudan bu sayfada okuyun. En iyi sonuç masaüstü tarayıcılarda alınır.
   </Card>
   <Card title="PDF İndir" icon="download" href="https://app.rwanftfi.com/security">
-    Orijinal raporu cihazınıza kaydedin. Mobilde önerilir.
+    Orijinal raporu cihazınıza kaydedin. Mobil cihazlarda önerilir.
   </Card>
   <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
-    Raporu CertiK'in kendi halka açık dizininde doğrulayın.
+    Raporu CertiK'in kendi herkese açık dizininde doğrulayın.
   </Card>
 </CardGroup>
 
@@ -36,7 +44,7 @@ Denetimle etkileşim kurmanın üç bağımsız yolu vardır. Amaç aynı şeyi 
   style={{ width: '100%', height: '720px', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', marginTop: '24px', marginBottom: '8px', backgroundColor: 'rgba(255,255,255,0.02)' }}
 >
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
-    <div>Satır içi PDF önizleme bu tarayıcıda desteklenmiyor.</div>
+    <div>Satır içi PDF önizlemesi bu tarayıcıda desteklenmiyor.</div>
     <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
       Denetim raporunu açın (PDF)
     </a>
@@ -44,32 +52,60 @@ Denetimle etkileşim kurmanın üç bağımsız yolu vardır. Amaç aynı şeyi 
 </object>
 
 <Info>
-  **Safari ve çoğu mobil tarayıcıda** satır içi önizleme oluşmayabilir — bu tarayıcılar PDF'leri doğrudan gömmez. Raporu cihazınızda açmak için **PDF İndir** düğmesini (veya önizleme alanı içindeki bağlantıyı) kullanın.
+  **Safari'de ve çoğu mobil tarayıcıda** satır içi önizleme görüntülenmeyebilir — bu tarayıcılar PDF'leri doğrudan sayfaya gömmez. Raporu cihazınızda açmak için **PDF İndir** düğmesini (veya önizleme alanındaki bağlantıyı) kullanın.
 </Info>
 
-## Hesap Koruması
+<Note>
+  Denetim, yayımlanan kapsamdaki akıllı sözleşmeleri ve kod sürümünü kapsar. Tek başına protokol ekonomisini, kurumsal performansı veya kullanıcı sonuçlarını doğrulamaz.
+</Note>
 
-Denetim, zincir üzerindeki akıllı sözleşme katmanını kapsar. Uygulama katmanında, kullanıcı hesapları ek olarak birkaç bağımsız mekanizma tarafından korunur:
+## Hesap Güvenliğinin Dört Katmanı
 
 <CardGroup cols={2}>
-  <Card title="Üç Düzey Güvenlik" icon="layer-group">
-    Girişi, finansal eylemleri ve yüksek değerli işlemleri ayıran kademeli koruma.
-  </Card>
-  <Card title="TAN Kodları" icon="key">
-    Her finansal işlem için gereken tek kullanımlık İşlem Kimlik Doğrulama Numaraları.
-  </Card>
   <Card title="Finansal Şifre" icon="fingerprint">
-    Giriş kimlik bilgilerinizden ayrı, yalnızca fonları taşırken gereken bir şifre.
+    Giriş bilgilerinden ayrı, finansal işlemler için gereken bir şifre.
   </Card>
-  <Card title="2FA + Telegram Bot" icon="telegram">
-    Standart iki faktörlü kimlik doğrulama, ayrıca resmi Telegram botu aracılığıyla eylem doğrulaması.
+  <Card title="Secret Code" icon="user-lock" href="/tr/platform-features#secret-code">
+    Finansal şifreyle birlikte oluşturulan rastgele bir kelime. Destek ekibine yapılan, güvenlikle ilgili her talep için gereklidir.
+  </Card>
+  <Card title="İşlem Yetkilendirme Kodları" icon="key">
+    Finansal işlemleri yetkilendirmek için gereken tek kullanımlık kodlar.
+  </Card>
+  <Card title="İki Faktörlü Kimlik Doğrulama" icon="lock">
+    Hesap koruması için desteklenen iki faktörlü kimlik doğrulama.
   </Card>
 </CardGroup>
 
-<Info>
-  **İşlemler bir Web3 cüzdanı gerektirir.** Verilerinizi görüntülemek için panoya e-posta ve şifre ile giriş yapabilirsiniz, ancak herhangi bir finansal eylemi yürütmek bağlı bir Web3 cüzdanı gerektirir (MetaMask, Trust Wallet veya başka bir EVM uyumlu cüzdan).
-</Info>
+## DAO Aracılığıyla Hesap Kurtarma
+
+RWANFTFI ekibinin kullanıcıların işlerine erişimi yoktur. Bir hesabı yeni bir cüzdana yalnızca bir DAO oylaması taşıyabilir. Bu durum Haziran 2026'da sınandı: Business Sale geçici olarak etkinken bir kullanıcının hesabı ele geçirildi ve işin tamamı, yani NFT ve partner yapısı, çalındı. DAO, Business Sale'i devre dışı bıraktı ve işi, doğrulanmış sahibinin kontrol ettiği yeni bir cüzdana taşıdı; her iki öneri de zincir üzerinde yürütüldü. Bkz. [Yönetişim — DAO](/tr/governance#yürütülen-kararlar).
+
+## AML Taraması
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/tr/aml-checker">
+  Fon göndermeden veya almadan önce herhangi bir cüzdan adresini yaptırımlar, karıştırıcılar, dolandırıcılık ve hack saldırılarıyla bağlantılar açısından kontrol edin: 19 blok zinciri ve 14 stablecoin genelinde risk puanı.
+</Card>
+
+## Özel Mesajlaşma
+
+Yerleşik mesajlaşma aracı **Private Web3 chats** modunu sunar: XMTP protokolü (MLS) üzerinde uçtan uca şifrelenen ve platformun sunucularında saklanmayan mesajlar. Bkz. [Platform Özellikleri](/tr/platform-features).
+
+## Resmi Alan Adları
+
+| Alan Adı | Amaç |
+|---|---|
+| rwanftfi.com | Ana web sitesi |
+| app.rwanftfi.com | Uygulama |
+| news.rwanftfi.com | Haberler ve duyurular |
+| bridge.rwanftfi.com | Zincirler arası köprü |
+| whitepaper.rwanftfi.com | Bu teknik doküman |
+| brandbook.rwanftfi.com | Marka kitabı |
+| share.rwanftfi.com | Referans bağlantıları |
+| rwafinpro.com | FinPro finansal ürünleri |
+| rwanftcards.com | RWA NFT Cards banka kartları |
+
+Diamond, DAO ve Token Reserve dahil olmak üzere resmi sözleşme adresleri [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts) adresinde listelenmiştir.
 
 <Warning>
-  **Taklit edenlere karşı dikkatli olun.** RWANFTFI personeli sizinle asla önce iletişime geçmeyecek, özel anahtarlarınızı veya seed cümlenizi asla istemeyecek ve resmi platform dışında ödeme talep etmeyecektir. Cüzdanınızı bağlamadan veya kimlik bilgilerini girmeden önce her zaman **rwanftfi.com** üzerinde olduğunuzu doğrulayın.
+  Yalnızca yukarıdaki alan adlarını ve resmi sözleşme adreslerini kullanın; benzer yazılışlı olanlar dahil diğer tüm alan adları resmi değildir. RWANFTFI temsilcileri hiçbir zaman özel anahtar, seed cümlesi veya resmi olmayan cüzdan adreslerine ödeme talep etmez. Cüzdan bağlamadan veya giriş bilgilerinizi girmeden önce alan adını kontrol edin.
 </Warning>

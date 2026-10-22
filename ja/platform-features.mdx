@@ -1,0 +1,59 @@
+---
+title: "プラットフォームの機能"
+description: "RWANFTFIアプリケーション内のツール：セキュリティ関連の依頼に使うSecret Code、暗号化されたWeb3チャット、恒久的な紹介リンク、ブランドブック、プレゼンテーションライブラリ。"
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    サポートへのセキュリティ関連のすべての依頼に必要です。
+  </Card>
+  <Card title="プライベートなWeb3チャット" icon="comments">
+    XMTPプロトコルによる、エンドツーエンドで暗号化されたメッセージ。
+  </Card>
+  <Card title="紹介リンク" icon="link">
+    share.rwanftfi.comの、単一の恒久的なリンク形式。
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Secret Codeは、財務パスワードと一緒に生成されるランダムな単語です。サポートへのセキュリティ関連の依頼にはすべてSecret Codeが必要です：これがなければ、サポートはそのような依頼に対応できません。
+
+<Warning>
+  **Secret Codeは秘密にしてください**。伝える相手は公式サポートのみとし、セキュリティ関連の依頼を行うときに限ってください。チャット、コメント、ダイレクトメッセージでは絶対に共有しないでください。
+</Warning>
+
+## メッセンジャーとプライベートWeb3チャット
+
+組み込みのメッセンジャーは、すべてのメッセージの正確な時刻を表示します。その**Private Web3 chats**モードでは、XMTPプロトコルによるエンドツーエンド暗号化が加わります。
+
+| 項目 | 仕組み |
+|---|---|
+| 暗号化 | メッセージはデバイス上でMLS（IETF RFC 9420）により暗号化されます。 |
+| 保存 | メッセージはプラットフォームのサーバーに保存されません。 |
+| ID | EVMウォレットがIDとして機能します。デバイスごとに一度、ガス代不要の署名を行うとモードが有効になります。 |
+| 第三者による検証 | libxmtpライブラリは、NCC Groupによる監査を受けています。 |
+
+<Note>
+  このモードはメッセージの内容を保護しますが、ユーザーを匿名にするものではありません。暗号化は、このモードで送信される新しいメッセージに適用されます。
+</Note>
+
+## 紹介リンク
+
+各参加者には恒久的な紹介コードがあります。紹介リンクの形式は次の一つです：
+
+`share.rwanftfi.com/?ref=CODE`
+
+2026年8月、Telegramでのリンク配信の問題により旧形式のリンクは置き換えられ、現在は機能しません。
+
+## ブランドブックとリソース
+
+<CardGroup cols={2}>
+  <Card title="ブランドブック" icon="palette" href="https://brandbook.rwanftfi.com">
+    ロゴ、カラー、フォント、アイコン、ドキュメント、広告モジュール、グッズ：RWANFTFIのブランドアイデンティティの公式な情報源です。
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    アプリケーション内のプレゼンテーション。英語版とロシア語版のFinFlowプレゼンテーションも含まれます。
+  </Card>
+</CardGroup>

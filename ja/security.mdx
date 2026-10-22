@@ -1,31 +1,39 @@
 ---
 title: "セキュリティと監査"
-description: "CertiKによる独立監査済み。"
+description: "CertiKは、公開された監査スコープに含まれるスマートコントラクトとコードバージョンをレビューしました。最終レポートの日付は2026年4月28日です。監査スコープ、指摘事項、デプロイメントの対応関係は、レポートとともに公開されています。"
 icon: "shield-halved"
 ---
 
-
 <CardGroup cols={1}>
-  <Card title="CertiKによる監査済み" icon="shield-check">
-    RWANFTFIのスマートコントラクトは、**CertiK**によって独立に監査されました。最終レポートは**2026年4月28日**に公開 — 完全PDFは下記、および公式[CertiK Skynetディレクトリ](https://skynet.certik.com/projects/rwanftfi)に掲載されています。
+  <Card title="CertiKによるレビュー" icon="shield-check">
+    CertiKは、公開された監査スコープに含まれるスマートコントラクトとコードバージョンをレビューしました。最終レポートの日付は**2026年4月28日**です — PDFの全文は下記、および公開されている[CertiK Skynetディレクトリ](https://skynet.certik.com/projects/rwanftfi)でご覧いただけます。
   </Card>
 </CardGroup>
 
-CertiKはWeb3における最も長く確立されたセキュリティ会社の1つであり、この分野の主要プロトコルの相当な割合を監査しています。監査は彼らの標準的な手法 — 静的解析、手動レビュー、形式検証 — を使用して実施され、完全なレポートは本ページとCertiK自身のSkynetディレクトリの両方で公開されています。
+## 監査の詳細
 
-## レポートを読む
+| 項目 | 確認先 |
+|---|---|
+| 監査人 | CertiK |
+| レポートの日付 | 2026年4月28日 |
+| 監査対象のコミット | 正確なハッシュは公開レポートに記載されています。 |
+| 対象コントラクト | レビューされたすべてのコントラクトは、公開レポートに記載されています。 |
+| 指摘事項 | ID、重大度、ステータスは公開レポートに記載されています。 |
+| 修正 | 解決済みの各指摘事項は、レポート内で対応するコード変更に紐づけられています。 |
+| デプロイメントの対応関係 | 現在の本番コントラクトが監査済みバージョンと一致するかどうかは、別途公開されます。 |
+| バグバウンティ | CertiKの公式プラットフォームを通じて実施中です。バグバウンティの活動はCertiK Skynetに反映されます。 |
 
-監査と対話するための独立した3つの方法があります。同じものを3回提供することが目的ではありません — 本ページのバージョンがCertiK自身が公開するバージョンと一致することに疑いの余地がないようにするためであり、また、デバイスに関係なくレポートにアクセスできるようにするためです。
+## 監査レポートはどのように確認できますか？
 
 <CardGroup cols={3}>
   <Card title="インラインプレビュー" icon="eye">
-    完全PDFを本ページで直接閲覧。デスクトップブラウザで最適。
+    このページでPDFの全文を直接お読みいただけます。デスクトップブラウザでの閲覧に最適です。
   </Card>
   <Card title="PDFをダウンロード" icon="download" href="https://app.rwanftfi.com/security">
-    元のレポートをデバイスに保存。モバイルで推奨。
+    元のレポートをデバイスに保存します。モバイルでの閲覧に推奨します。
   </Card>
   <Card title="CertiK Skynet" icon="up-right-from-square" href="https://skynet.certik.com/projects/rwanftfi">
-    CertiK自身の公開ディレクトリでレポートを検証。
+    CertiK自身の公開ディレクトリでレポートを検証します。
   </Card>
 </CardGroup>
 
@@ -38,38 +46,66 @@ CertiKはWeb3における最も長く確立されたセキュリティ会社の1
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', gap: '12px' }}>
     <div>このブラウザではインラインPDFプレビューがサポートされていません。</div>
     <a href="https://cdn.jsdelivr.net/gh/rwanftfi-art/rwanftfi-docs@master/CertiK-RWANFTFI-Audit.pdf" style={{ display: 'inline-block', padding: '10px 18px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', textDecoration: 'none' }}>
-      監査レポートを開く(PDF)
+      監査レポートを開く（PDF）
     </a>
   </div>
 </object>
 
 <Info>
-  **Safariおよびほとんどのモバイルブラウザでは**、インラインプレビューがレンダリングされない場合があります — これらのブラウザはPDFを直接埋め込みません。**PDFをダウンロード**ボタン(またはプレビューエリア内のリンク)を使用して、デバイス上でレポートを開いてください。
+  **Safariおよびほとんどのモバイルブラウザでは**、インラインプレビューが表示されない場合があります — これらのブラウザはPDFを直接埋め込みません。**PDFをダウンロード**ボタン（またはプレビューエリア内のリンク）を使用して、デバイス上でレポートを開いてください。
 </Info>
 
-## アカウント保護
+<Note>
+  監査は、公開されたスコープ内のスマートコントラクトとコードバージョンを対象としています。監査それ自体は、プロトコルの経済性、企業の業績、ユーザーの結果を検証するものではありません。
+</Note>
 
-監査はオンチェーンスマートコントラクトレイヤーをカバーしています。アプリケーションレイヤーでは、ユーザーアカウントはさらに複数の独立したメカニズムによって保護されています。
+## アカウントセキュリティの四つのレイヤー
 
 <CardGroup cols={2}>
-  <Card title="3レベルセキュリティ" icon="layer-group">
-    ログイン、財務アクション、高価値操作を分離する階層型保護。
-  </Card>
-  <Card title="TANコード" icon="key">
-    すべての金融取引に必要な単回使用のトランザクション認証番号。
-  </Card>
   <Card title="財務パスワード" icon="fingerprint">
-    ログイン認証情報とは別のパスワードで、資金を移動する場合のみ必要。
+    ログイン認証情報とは別のパスワードで、金融操作に必要です。
   </Card>
-  <Card title="2FA + Telegramボット" icon="telegram">
-    標準的な二要素認証に加え、公式Telegramボットを通じたアクション検証。
+  <Card title="Secret Code" icon="user-lock" href="/ja/platform-features#secret-code">
+    財務パスワードと一緒に生成されるランダムな単語で、サポートへのセキュリティ関連のすべての依頼に必要です。
+  </Card>
+  <Card title="取引認証コード" icon="key">
+    金融取引の承認に必要な使い捨てコード。
+  </Card>
+  <Card title="二要素認証" icon="lock">
+    アカウント保護のためにサポートされている二要素認証。
   </Card>
 </CardGroup>
 
-<Info>
-  **取引にはWeb3ウォレットが必要です。** メールとパスワードでダッシュボードにサインインしてデータを表示することはできますが、任意の金融アクションを実行するには接続されたWeb3ウォレット(MetaMask、Trust Wallet、または他のEVM互換ウォレット)が必要です。
-</Info>
+## DAOによるアカウントの復旧
+
+RWANFTFIのチームは、ユーザーのビジネスにアクセスできません。アカウントを新しいウォレットへ移せるのは、DAO投票だけです。この仕組みは2026年6月に実際に試されました：Business Saleが一時的に有効になっていた間に、あるユーザーのアカウントがハッキングされ、NFTとパートナーストラクチャーを含むビジネス全体が盗まれました。DAOはBusiness Saleを無効にし、そのビジネスを、本人確認済みの所有者が管理する新しいウォレットへ移しました。二つの提案はいずれもオンチェーンで執行されています。[ガバナンス — DAO](/ja/governance#執行済みの決定)をご覧ください。
+
+## AMLスクリーニング
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/ja/aml-checker">
+  資金を送受信する前に、任意のウォレットアドレスについて、制裁、ミキサー、詐欺、ハッキングとの関連を確認できます：19のブロックチェーンと14のステーブルコインを対象とするリスクスコアです。
+</Card>
+
+## プライベートメッセージ
+
+組み込みのメッセンジャーは**Private Web3 chats**を提供しています：XMTPプロトコル（MLS）によるエンドツーエンドで暗号化されたメッセージで、プラットフォームのサーバーには保存されません。[プラットフォームの機能](/ja/platform-features)をご覧ください。
+
+## 公式ドメイン
+
+| ドメイン | 用途 |
+|---|---|
+| rwanftfi.com | メインウェブサイト |
+| app.rwanftfi.com | アプリケーション |
+| news.rwanftfi.com | ニュースとお知らせ |
+| bridge.rwanftfi.com | クロスチェーンブリッジ |
+| whitepaper.rwanftfi.com | このホワイトペーパー |
+| brandbook.rwanftfi.com | ブランドブック |
+| share.rwanftfi.com | 紹介リンク |
+| rwafinpro.com | FinProの金融製品 |
+| rwanftcards.com | RWA NFT Cardsのデビットカード |
+
+Diamond、DAO、Token Reserveを含む公式のコントラクトアドレスは、[app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts)に掲載されています。
 
 <Warning>
-  **なりすましに注意してください。** RWANFTFIスタッフが先にあなたに連絡することは決してなく、あなたの秘密鍵やシードフレーズを尋ねることは決してなく、公式プラットフォーム外で支払いを要求することは決してありません。ウォレットを接続したり認証情報を入力する前に、必ず**rwanftfi.com**にいることを確認してください。
+  上記のドメインと公式のコントラクトアドレスのみを使用してください。よく似た綴りのものを含め、それ以外のドメインは公式ではありません。RWANFTFIの担当者が、秘密鍵、シードフレーズ、または非公式のウォレットアドレスへの支払いを要求することはありません。ウォレットを接続したり認証情報を入力したりする前に、ドメインを確認してください。
 </Warning>

@@ -1,0 +1,59 @@
+---
+title: "Fitur Platform"
+description: "Alat di dalam aplikasi RWANFTFI: Secret Code untuk permintaan terkait keamanan, obrolan Web3 terenkripsi, tautan referral permanen, brandbook, dan pustaka presentasi."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Diperlukan untuk setiap permintaan terkait keamanan kepada layanan dukungan.
+  </Card>
+  <Card title="Obrolan Web3 pribadi" icon="comments">
+    Pesan terenkripsi end-to-end pada protokol XMTP.
+  </Card>
+  <Card title="Tautan referral" icon="link">
+    Satu format tautan permanen di share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Secret Code adalah kata acak yang dihasilkan bersamaan dengan kata sandi keuangan. Kode ini diperlukan untuk setiap permintaan terkait keamanan kepada layanan dukungan: tanpa kode ini, layanan dukungan tidak dapat menindaklanjuti permintaan tersebut.
+
+<Warning>
+  **Jaga kerahasiaan Secret Code.** Bagikan kode ini hanya kepada layanan dukungan resmi, dan hanya saat Anda mengajukan permintaan terkait keamanan. Jangan pernah membagikannya di obrolan, komentar, atau pesan pribadi.
+</Warning>
+
+## Messenger dan obrolan Web3 pribadi
+
+Messenger bawaan menampilkan waktu yang tepat untuk setiap pesan. Mode **Private Web3 chats** di dalamnya menambahkan enkripsi end-to-end pada protokol XMTP.
+
+| Aspek | Cara kerja |
+|---|---|
+| Enkripsi | Pesan dienkripsi di perangkat menggunakan MLS (IETF RFC 9420). |
+| Penyimpanan | Pesan tidak disimpan di server platform. |
+| Identitas | Dompet EVM berfungsi sebagai identitas; satu tanda tangan tanpa biaya gas per perangkat mengaktifkan mode ini. |
+| Tinjauan independen | Pustaka libxmtp telah diaudit oleh NCC Group. |
+
+<Note>
+  Mode ini melindungi isi pesan, tetapi tidak menjadikan pengguna anonim. Enkripsi berlaku untuk pesan baru yang dikirim dalam mode ini.
+</Note>
+
+## Tautan referral
+
+Setiap peserta memiliki kode referral permanen. Tautan referral menggunakan satu format:
+
+`share.rwanftfi.com/?ref=CODE`
+
+Format tautan lama tidak lagi berfungsi: format tersebut diganti pada Agustus 2026 karena adanya masalah pengiriman tautan di Telegram.
+
+## Brandbook dan sumber daya
+
+<CardGroup cols={2}>
+  <Card title="Brandbook" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logo, warna, font, ikon, dokumen, modul iklan, dan merchandise: sumber resmi identitas merek RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Presentasi di dalam aplikasi, termasuk presentasi FinFlow dalam bahasa Inggris dan bahasa Rusia.
+  </Card>
+</CardGroup>

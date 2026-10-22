@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Findings | ID, severity, and status are listed in the published report. |
 | Remediation | Each resolved finding is linked to the corresponding code change in the report. |
 | Deployment mapping | Whether current production contracts match the audited version is published separately. |
-| Bug bounty | The current externally verifiable status is published on the official channels. |
+| Bug bounty | Live through CertiK's official platform; bug bounty activity is reflected on CertiK Skynet. |
 
 ## How can I verify the audit report?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   The audit covers the smart contracts and code version within the published scope. It does not by itself verify protocol economics, corporate performance, or user outcomes.
 </Note>
 
-## Three-Level Account Security
+## Four Layers of Account Security
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Financial Password" icon="fingerprint">
     A password separate from login credentials, required for financial actions.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/en/platform-features#secret-code">
+    A random word generated with the financial password. Required for any security-related request to support.
   </Card>
   <Card title="Transaction Authorization Codes" icon="key">
     Single-use codes required to authorize financial transactions.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Phishing Protection
+## Account Recovery via DAO
+
+The RWANFTFI team has no access to users' businesses. Only a DAO vote can move an account to a new wallet. This was tested in June 2026: a user's account was hacked and the whole business, the NFT and the partner structure, was stolen while Business Sale was temporarily enabled. The DAO disabled Business Sale and moved the business to a new wallet controlled by its verified owner; both proposals were executed on-chain. See [Governance — DAO](/en/governance#executed-decisions).
+
+## AML Screening
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/en/aml-checker">
+  Check any wallet address against sanctions, mixers, scams, and hacks before sending or receiving funds: a risk score across 19 blockchains and 14 stablecoins.
+</Card>
+
+## Private Messaging
+
+The built-in messenger offers **Private Web3 chats**: end-to-end encrypted messages on the XMTP protocol (MLS), which are not stored on the platform's servers. See [Platform Features](/en/platform-features).
+
+## Official Domains
+
+| Domain | Purpose |
+|---|---|
+| rwanftfi.com | Main website |
+| app.rwanftfi.com | Application |
+| news.rwanftfi.com | News and announcements |
+| bridge.rwanftfi.com | Cross-chain bridge |
+| whitepaper.rwanftfi.com | This whitepaper |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Referral links |
+| rwafinpro.com | FinPro financial products |
+| rwanftcards.com | RWA NFT Cards debit cards |
+
+Official contract addresses, including the Diamond, the DAO, and the Token Reserve, are listed at [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Use only official RWANFTFI domains and contract addresses. RWANFTFI representatives should never request private keys, seed phrases, or payments to unofficial wallet addresses. Always verify you are on **rwanftfi.com** before connecting your wallet or entering credentials.
+  Use only the domains above and the official contract addresses; any other domain, including a look-alike spelling, is not official. RWANFTFI representatives never request private keys, seed phrases, or payments to unofficial wallet addresses. Check the domain before connecting a wallet or entering credentials.
 </Warning>

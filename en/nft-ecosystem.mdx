@@ -1,6 +1,6 @@
 ---
 title: "NFT Ecosystem"
-description: "All 10 RWANFTFI NFT tiers from Genesis (28 USDT) to Infinity (24,000 USDT) — including Protocol Reward Caps, Partner Network Depth, NFTM mining and lending eligibility, Autobuy, Gift NFTs, Vouchers, and planned Ambassador/VIP editions."
+description: "All 10 RWANFTFI NFT tiers from Genesis (28 USDT) to Infinity (24,000 USDT) — including Protocol Reward Caps, Partner Network Depth, FinPro access, NFTM mining and lending eligibility, Autobuy, Gift NFTs, Vouchers, and planned Ambassador/VIP editions."
 icon: "id-card"
 ---
 
@@ -18,30 +18,44 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
   </Card>
 </CardGroup>
 
-Owning an active NFT is required to access the partner program, DA mining, and the financial tools attached to the selected tier. One active NFT is supported per account; an upgrade replaces the previous NFT.
+Owning an active NFT is required to access the partner program, DA mining, and the financial tools attached to the selected tier. One active NFT is supported per account; an upgrade replaces the previous NFT. Every purchased NFT, from Genesis to Infinity, also opens FinPro: its holder can open a FinFlow position from 25 USDT.
 
 ## All 10 Tiers at a Glance
 
 **Protocol Reward Cap** is the maximum cumulative amount of eligible rewards that can be credited during the current NFT cycle. **Partner Network Depth** is the maximum level included in eligible Partner Network Distribution calculations.
 
-| L | Name | Group | Price (USDT) | Reward Cap (USDT) | Network Depth | Mining Cycle | NFTM (Cycle 1 / 2) | Matching Bonus | DA | Lending | Autobuy |
-|---:|------|-------|---:|---:|---:|---:|---|---|---|---|---|
-| 1 | Genesis | Basic | 28 | 75 | 2 | — | — | — | — | — | 3/3 |
-| 2 | Advance | Basic | 55 | 160 | 3 | — | — | — | — | — | 3/3 |
-| 3 | Ascend | Basic | 140 | 375 | 4 | — | — | — | — | — | 3/3 |
-| 4 | Eclipse | Basic | 275 | 650 | 6 | — | — | L1 | — | — | 3/3 |
-| 5 | Hydro | Premium | 550 | 1,400 | 9 | 45 days | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 6 | Quantum | Premium | 1,100 | 2,700 | 11 | 44 days | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 7 | Pulse | Premium | 2,200 | 5,800 | 12 | 43 days | 10% / — | ✓ | ✓ | ✓ | 3/3 |
-| 8 | Aurora | Premium | 5,500 | 12,800 | 13 | 42 days | 10% / 15% | ✓ | ✓ | ✓ | 3/3 |
-| 9 | Flame | Elite | 11,000 | 28,000 | 15 | 41 days | 10% / 15% | ✓ | ✓ | ✓ | Unlimited |
-| 10 | Infinity | Elite | 24,000 | 70,000 | 19 (current) | 40 days | 10% / 15% | ✓ | ✓ | ✓ | Unlimited |
+| Tier | Price (USDT) | Reward Cap (USDT) | Network Depth |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1,400 | 9 |
+| L6 · Quantum | 1,100 | 2,700 | 11 |
+| L7 · Pulse | 2,200 | 5,800 | 12 |
+| L8 · Aurora | 5,500 | 12,800 | 13 |
+| L9 · Flame | 11,000 | 28,000 | 15 |
+| L10 · Infinity | 24,000 | 70,000 | 19 (current) |
 
 <Note>
-  **Depth values reflect the current protocol phase.** Any future expansion to Levels 16–22 becomes active only after the required governance approval and protocol update. The **Matching Bonus** column indicates Level 1 eligibility (Eclipse / L4 and above); Levels 2 and 3 require cumulative personal sales of 1,000 and 3,000 USDT respectively. **NFTM (Cycle 1 / 2)** is expressed as a percentage of the NFT price.
+  **Infinity (L10) sales are open:** the DAO enabled them with the Phase 2 activation in June 2026. **Depth values reflect the current protocol phase.** Any future expansion to Levels 16–22 becomes active only after the required governance approval and protocol update.
 </Note>
 
-<NftTierExplorer />
+The base **FinFlow limit** of an NFT equals its Protocol Reward Cap. While FinFlow Promotion 2026 runs, until 31 December 2026 or until the pool is full, raised promotional limits apply. See [FinPro & FinFlow](/en/finpro-finflow).
+
+### Features by Tier
+
+| Feature | Available from |
+|---|---|
+| Partner program and FinPro access | Genesis (L1) |
+| Matching Bonus | Eclipse (L4). Levels 2 and 3 also require 1,000 and 3,000 USDT of cumulative personal sales. |
+| NFTM Mining, DA Farming and DA Lending | Hydro (L5). A mining cycle lasts 45 days on Hydro and one day less on each higher tier, down to 40 days on Infinity. |
+| Second NFTM cycle | Aurora (L8). The first cycle records 10% and the second 15% of the NFT price in NFTM. |
+| Unlimited Autobuy | Flame (L9). Levels 1–8 allow three automatic renewals. |
+
+NFTM Mining, DA Farming, and DA Lending are scheduled for activation in 2027.
+
+<NftTierExplorer lang="en" />
 
 ## Protocol Reward Caps & Auto-Renewal
 <AccordionGroup>
@@ -51,8 +65,8 @@ Owning an active NFT is required to access the partner program, DA mining, and t
   <Accordion title="Autobuy (3/3 System)" icon="rotate">
     Autobuy automatically renews an eligible NFT when its Protocol Reward Cap reaches zero. Levels 1–8 currently allow up to three automatic renewals after the original purchase. Elite tiers use unlimited Autobuy under the current configuration. Every Autobuy requires sufficient eligible USDT balance. Unused Protocol Reward Cap from the previous NFT does not carry over to a replacement or upgraded NFT.
   </Accordion>
-  <Accordion title="Partner Structure Transfer" icon="handshake">
-    A DAO-authorized process can transfer the complete partner structure to another user. The seller pays the current on-chain transfer fee. The buyer receives the structure after execution. Individual NFT sales without the associated structure are not supported.
+  <Accordion title="Business Sale (Partner Structure Transfer)" icon="handshake">
+    Business Sale, the DAO-authorized transfer of a complete partner structure to another user, is currently **disabled** by DAO vote following an account-security incident. It can be re-enabled only by a new DAO vote. When the function is enabled, the seller pays the current on-chain transfer fee and the buyer receives the structure after execution. Individual NFT sales without the associated structure are not supported.
   </Accordion>
 </AccordionGroup>
 <Note>
@@ -68,14 +82,32 @@ When a qualifying Sponsor Bonus from a direct invitee's first NFT purchase or Au
 </Card>
 
 ## Gift NFTs & Vouchers
+
+### Gift NFTs
+
+Gift NFTs cannot be bought or sold. They are awarded under promotions such as First Purchase NFT and Upgrade NFT, under the Career Ranks and the Fast Start Program, and to active leaders. A holder can pass a Gift NFT on to a future partner.
+
 <CardGroup cols={2}>
-  <Card title="Gift NFTs" icon="gift">
-    Gift NFTs are non-sellable promotional assets that can place users in the partner network. They cannot be purchased and are awarded under approved promotions or rank programs.
+  <Card title="A place in the network" icon="sitemap">
+    A Gift NFT takes a permanent place in the partner network and carries its own Protocol Reward Cap.
   </Card>
-  <Card title="Gift Vouchers" icon="ticket">
-    Gift Vouchers are user-created coupons subject to the documented minimum value, lifetime, transfer restriction, and payment-combination rules. If unused for the full lifetime, the value is routed according to the current smart-contract rules.
+  <Card title="50 / 50 split" icon="scale-balanced">
+    Rewards on a Gift NFT are split equally between the Regular Balance and the Accumulative Balance.
+  </Card>
+  <Card title="FinPro access" icon="chart-line">
+    A Gift NFT opens FinFlow and can hold a position of its own within its limit.
+  </Card>
+  <Card title="Up to 100 per address" icon="layer-group">
+    The current on-chain limit on Gift NFTs held by one address.
   </Card>
 </CardGroup>
+
+Current promotions are listed in [Rewards & Compensation](/en/marketing-rewards#active-promotions).
+
+### Gift Vouchers
+
+Gift Vouchers are user-created coupons subject to the documented minimum value, lifetime, transfer restriction, and payment-combination rules. If unused for the full lifetime, the value is routed according to the current smart-contract rules.
+
 ## Ambassador & VIP Edition
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">

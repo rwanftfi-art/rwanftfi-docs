@@ -1,6 +1,6 @@
 ---
 title: "Ecossistema NFT"
-description: "10 níveis de 28 a 24.000 USDT."
+description: "Todos os 10 níveis de NFT da RWANFTFI, do Genesis (28 USDT) ao Infinity (24.000 USDT) — incluindo os Limites de Recompensas do Protocolo, a Profundidade da Rede de Parceiros, o acesso ao FinPro, a elegibilidade para mineração de NFTM e para empréstimos, o Autobuy, os Gift NFTs, os Vouchers e as edições Ambassador/VIP planejadas."
 icon: "id-card"
 ---
 
@@ -8,96 +8,112 @@ import { NftTierExplorer } from "/snippets/nft-tier-explorer.jsx"
 
 <CardGroup cols={3}>
   <Card title="Basic · L1–L4" icon="circle">
-    28 – 275 USDT · Acesso a RWA e FinPro
+    28 – 275 USDT · Acesso a RWA e FinPro, elegibilidade para o programa de parceiros
   </Card>
   <Card title="Premium · L5–L8" icon="circle-half-stroke">
-    550 – 5.500 USDT · Mineração, Lending, Matching
+    550 – 5.500 USDT · Elegibilidade para mineração, empréstimos e Bônus de Matching
   </Card>
   <Card title="Elite · L9–L10" icon="circle-dot">
-    11.000 – 24.000 USDT · Profundidade máxima, ciclos mais curtos
+    11.000 – 24.000 USDT · Maior profundidade de rede atual e ciclos de mineração mais curtos
   </Card>
 </CardGroup>
 
-Possuir um NFT é obrigatório para participar do marketing, minerar DA e acessar as ferramentas financeiras. Um NFT ativo por conta — fazer upgrade substitui o anterior automaticamente.
+Possuir um NFT ativo é necessário para acessar o programa de parceiros, a mineração de DA e as ferramentas financeiras vinculadas ao nível selecionado. É suportado um NFT ativo por conta; um upgrade substitui o NFT anterior. Todo NFT adquirido, do Genesis ao Infinity, também dá acesso ao FinPro: o detentor pode abrir uma posição FinFlow a partir de 25 USDT.
 
-<NftTierExplorer />
+## Os 10 Níveis em Resumo
 
-## Limites de Rendimento e Auto-Renovação
+O **Limite de Recompensas do Protocolo** é o valor cumulativo máximo de recompensas elegíveis que pode ser creditado durante o ciclo atual do NFT. A **Profundidade da Rede de Parceiros** é o nível máximo incluído nos cálculos elegíveis da Distribuição na Rede de Parceiros.
+
+| Nível | Preço (USDT) | Limite de Recompensas (USDT) | Profundidade da Rede |
+|---|---:|---:|---:|
+| L1 · Genesis | 28 | 75 | 2 |
+| L2 · Advance | 55 | 160 | 3 |
+| L3 · Ascend | 140 | 375 | 4 |
+| L4 · Eclipse | 275 | 650 | 6 |
+| L5 · Hydro | 550 | 1.400 | 9 |
+| L6 · Quantum | 1.100 | 2.700 | 11 |
+| L7 · Pulse | 2.200 | 5.800 | 12 |
+| L8 · Aurora | 5.500 | 12.800 | 13 |
+| L9 · Flame | 11.000 | 28.000 | 15 |
+| L10 · Infinity | 24.000 | 70.000 | 19 (atual) |
+
+<Note>
+  **As vendas do Infinity (L10) estão abertas:** a DAO as habilitou com a ativação da Fase 2 em junho de 2026. **Os valores de profundidade refletem a fase atual do protocolo.** Qualquer expansão futura para os Níveis 16–22 só se torna ativa após a aprovação de governança necessária e a atualização do protocolo.
+</Note>
+
+O **limite FinFlow** básico de um NFT é igual ao seu Limite de Recompensas do Protocolo. Enquanto a FinFlow Promotion 2026 estiver em vigor, até 31 de dezembro de 2026 ou até que o pool seja totalmente preenchido, aplicam-se limites promocionais aumentados. Veja [FinPro e FinFlow](/pt/finpro-finflow).
+
+### Funcionalidades por Nível
+
+| Funcionalidade | Disponível a partir de |
+|---|---|
+| Programa de parceiros e acesso ao FinPro | Genesis (L1) |
+| Bônus de Matching | Eclipse (L4). Os Níveis de Matching 2 e 3 também exigem vendas pessoais cumulativas de 1.000 e 3.000 USDT, respectivamente. |
+| Mineração de NFTM, Farming de DA e Empréstimo de DA | Hydro (L5). Um ciclo de mineração dura 45 dias no Hydro e um dia a menos em cada nível superior, até 40 dias no Infinity. |
+| Segundo ciclo de NFTM | Aurora (L8). O primeiro ciclo registra 10% do preço do NFT em NFTM, e o segundo, 15%. |
+| Autobuy ilimitado | Flame (L9). Os Níveis 1–8 permitem três renovações automáticas. |
+
+A Mineração de NFTM, o Farming de DA e o Empréstimo de DA têm ativação programada para 2027.
+
+<NftTierExplorer lang="pt" />
+
+## Limites de Recompensas do Protocolo e Auto-Renovação
 <AccordionGroup>
-  <Accordion title="Como Funcionam os Limites de Rendimento" icon="gauge-high">
-    Cada NFT possui um Limite de Rendimento estrito — a renda cumulativa máxima que aquele NFT pode gerar antes da renovação. O Limite de Rendimento é consumido por **duas fontes**:
-
-    1. **Recompensas de marketing** — Bônus de Patrocinador, Distribuição em Árvore, Bônus de Matching, qualquer pagamento decorrente da atividade da sua estrutura.
-    2. **Vendas de DA** — cada venda manual ou auto-venda de DA reduz seu Limite de Rendimento restante pelo valor do pagamento em USDT.
-
-    Quando o limite chega a zero, você para de receber **todas** as recompensas de marketing **e** perde a capacidade de vender DA: em uma venda manual, o sistema não pode creditar o pagamento para você; em uma auto-venda, 100% dos resultados são roteados para o Pool de Liquidez do DA ou para queima (o mecanismo exato é determinado pelas configurações da DAO). Para evitar isso, renove seu NFT — via Autobuy, recompra manual no mesmo nível ou upgrade para um nível superior. A recompra manual fica bloqueada enquanto o limite restante estiver acima de 30% do original.
+  <Accordion title="Como Funcionam os Limites de Recompensas do Protocolo" icon="gauge-high">
+    Todo NFT possui um **Limite de Recompensas do Protocolo** — o termo on-chain é *Income Limit*. O limite é consumido pelas recompensas de parceiros elegíveis e pelos pagamentos de vendas de DA. Quando chega a zero, as funções de recompensa e de venda de DA afetadas ficam pausadas até que o NFT seja renovado ou passe por upgrade, de acordo com as regras atuais do protocolo.
   </Accordion>
   <Accordion title="Autobuy (Sistema 3/3)" icon="rotate">
-    Ative o Autobuy para recomprar automaticamente o mesmo NFT
-    quando seu limite chegar a zero. **Para os Níveis 1–8**, o contador
-    3/3 permite até 3 renovações automáticas após a compra manual original
-    — então o mesmo nível de NFT pode estar ativo no máximo 4 vezes no total
-    (1 manual + 3 automáticas). O contador rastreia apenas as renovações
-    automáticas; a compra original é separada. Após o uso dos 3 autobuys,
-    a função é bloqueada e você precisa fazer upgrade ou perderá as recompensas.
-    **Para Elite (L9–L10)**, os autobuys são ilimitados — os NFTs de nível mais alto
-    se renovam sem limite. Todos os autobuys exigem USDT suficiente no
-    Saldo Regular ou Acumulativo (ambos podem ser combinados). Nos L1–L8,
-    o contador 3/3 é resetado para 0/3 quando um NFT de nível superior é comprado.
-    A parte não utilizada do Limite de Rendimento do NFT anterior **não**
-    é transferida para o novo NFT — ela é anulada.
+    O Autobuy renova automaticamente um NFT elegível quando seu Limite de Recompensas do Protocolo chega a zero. Os Níveis 1–8 permitem atualmente até três renovações automáticas após a compra original. Os níveis Elite utilizam Autobuy ilimitado na configuração atual. Cada Autobuy exige saldo elegível suficiente em USDT. O Limite de Recompensas do Protocolo não utilizado do NFT anterior não é transferido para um NFT substituto ou obtido por upgrade.
   </Accordion>
-  <Accordion title="Venda do Negócio" icon="handshake">
-    Transfira toda a sua estrutura de negócio (árvore de parceiros e downline)
-    para outro usuário por meio de um processo autorizado pela DAO. A transferência
-    é regulada por uma **comissão de transferência** do smart contract, e não por um
-    preço de venda: **o vendedor paga uma taxa fixa de 500 USDT** (ajustável pela DAO
-    no intervalo de **0–500 USDT**) para executar a transferência. O **comprador
-    não paga comissão on-chain ao protocolo** e recebe toda a estrutura na execução.
-    O parâmetro on-chain subjacente é `businessTransferFee` (renomeado a partir do
-    legado `businessSalePrice` para refletir sua verdadeira semântica de comissão).
-    Vendas individuais de NFT sem a estrutura não são suportadas.
+  <Accordion title="Business Sale (Transferência da Estrutura de Parceiros)" icon="handshake">
+    A Business Sale, transferência autorizada pela DAO de uma estrutura de parceiros completa para outro usuário, está atualmente **desativada** por voto da DAO após um incidente de segurança de conta. Ela só pode ser reativada por um novo voto da DAO. Quando a função está ativada, o vendedor paga a taxa de transferência on-chain vigente e o comprador recebe a estrutura após a execução. Vendas individuais de NFT sem a estrutura associada não são suportadas.
   </Accordion>
 </AccordionGroup>
-<Warning>
-  **Limite de Rendimento:** Assim que seu NFT atinge seu limite de rendimento, você
-  para de receber TODAS as recompensas de marketing. Ative o Autobuy para evitar isso —
-  ou renove manualmente quando seu limite cair abaixo de 30%.
-</Warning>
+<Note>
+  **O Limite de Recompensas do Protocolo é um limite técnico.** Ele não representa ganhos esperados e não garante que o valor total será creditado.
+</Note>
 
-### Saldo Congelado — Proteção de Renda nas Primeiras Vendas Pessoais
+### Saldo Congelado — Retenção Temporária na Atividade Direta Qualificada
 
-Quando uma recompensa de marketing proveniente de uma **primeira compra** do seu convidado direto excede o Limite de Rendimento restante do seu NFT, o excesso não é perdido — ele é congelado por 72 horas, dando a você uma janela para fazer upgrade do seu NFT e reivindicar os fundos. Esta é a mecânica central que protege a renda ao convidar parceiros para NFTs de nível mais alto.
+Quando um Bônus de Patrocinador qualificado, gerado pela primeira compra de NFT ou pelo Autobuy de um convidado direto, excede o Limite de Recompensas do Protocolo restante do detentor, o excedente fica retido por 72 horas de acordo com as regras do Saldo Congelado.
 
 <Card title="Mecânica Completa do Saldo Congelado" icon="snowflake" href="/pt/frozen-balance">
-  Passo a passo detalhado da janela de 72 horas, interação com o Autobuy, divisão de perda 70/30, cascata em nível de estrutura e por que compras repetidas do mesmo convidado são tratadas de forma diferente.
+  Explicação detalhada das condições de acionamento, da janela de 72 horas, da interação com o Autobuy e das regras de redistribuição após o vencimento.
 </Card>
 
 ## Gift NFTs e Vouchers
+
+### Gift NFTs
+
+Os Gift NFTs não podem ser comprados nem vendidos. Eles são concedidos em promoções como First Purchase NFT e Upgrade NFT, no âmbito dos Career Ranks e do Fast Start Program, e também a líderes ativos. Um detentor pode repassar um Gift NFT a um futuro parceiro.
+
 <CardGroup cols={2}>
-  <Card title="Gift NFTs" icon="gift">
-    Ativos promocionais não vendáveis que colocam os usuários permanentemente
-    na estrutura de marketing. Não podem ser comprados — concedidos por meio
-    de promoções ou conquistas de Career Rank. Até 100 por endereço (ajustável
-    pela DAO, valor atual).
+  <Card title="Um lugar na rede" icon="sitemap">
+    Um Gift NFT ocupa um lugar permanente na rede de parceiros e tem o seu próprio Limite de Recompensas do Protocolo.
   </Card>
-  <Card title="Gift Vouchers" icon="ticket">
-    Cupons gerados pelo usuário com um mínimo aplicado pelo smart contract de **5 USDT**
-    (vouchers de valor zero são rejeitados on-chain), válidos por **365 dias**. Cobrem até
-    100% de uma compra de NFT. Transferíveis com 0% de comissão, exceto durante as
-    **últimas 24 horas** antes da expiração, quando as transferências são bloqueadas. Não podem ser
-    combinados com o Saldo Acumulativo. Se não utilizados durante o ciclo de vida total de 365 dias,
-    **100% do valor do voucher é direcionado ao Pool de Liquidez do DA**.
+  <Card title="Divisão 50 / 50" icon="scale-balanced">
+    As recompensas de um Gift NFT são divididas igualmente entre o Saldo Regular e o Saldo Acumulativo.
+  </Card>
+  <Card title="Acesso ao FinPro" icon="chart-line">
+    Um Gift NFT dá acesso ao FinFlow e pode manter uma posição própria dentro do seu limite.
+  </Card>
+  <Card title="Até 100 por endereço" icon="layer-group">
+    O limite on-chain atual de Gift NFTs detidos por um único endereço.
   </Card>
 </CardGroup>
+
+As promoções vigentes estão listadas em [Recompensas e Compensação](/pt/marketing-rewards#promoções-vigentes).
+
+### Gift Vouchers
+
+Os Gift Vouchers são cupons criados pelos usuários, sujeitos às regras documentadas de valor mínimo, vida útil, restrição de transferência e combinação de pagamentos. Se não forem utilizados durante toda a vida útil, o valor é direcionado de acordo com as regras atuais do smart contract.
+
 ## Edição Ambassador e VIP
 <CardGroup cols={2}>
   <Card title="Ambassador NFT" icon="crown">
-    Limitado a **100 unidades** (Q4 2026). Sem limites de rendimento. Sistema
-    próprio de recompensas. Não é transferido na Venda do Negócio.
+    O Ambassador NFT planejado é uma edição limitada com uma configuração de recompensas própria. Seu lançamento, a elegibilidade final e os parâmetros on-chain permanecem como itens do roadmap até a ativação.
   </Card>
   <Card title="VIP Edition NFT" icon="gem">
-    Limitado a **100 unidades** (Q4 2026). Acesso concedido ao alcançar
-    Career Rank de **Leader** ou superior.
+    A VIP Edition planejada é um NFT limitado associado aos requisitos de ranking documentados. Seu status atual e sua funcionalidade final são publicados antes do lançamento.
   </Card>
 </CardGroup>

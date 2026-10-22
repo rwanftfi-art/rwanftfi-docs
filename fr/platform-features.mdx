@@ -1,0 +1,59 @@
+---
+title: "Fonctionnalités de la Plateforme"
+description: "Les outils de l'application RWANFTFI : le Secret Code pour les demandes liées à la sécurité, les chats Web3 chiffrés, les liens de parrainage permanents, le brandbook et la bibliothèque de présentations."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Obligatoire pour toute demande au support liée à la sécurité.
+  </Card>
+  <Card title="Chats Web3 privés" icon="comments">
+    Messages chiffrés de bout en bout sur le protocole XMTP.
+  </Card>
+  <Card title="Liens de parrainage" icon="link">
+    Un format unique et permanent sur share.rwanftfi.com.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Le Secret Code est un mot aléatoire généré en même temps que le mot de passe financier. Il est obligatoire pour toute demande au support liée à la sécurité : sans lui, le support ne peut pas donner suite à une telle demande.
+
+<Warning>
+  **Gardez le Secret Code confidentiel.** Ne le communiquez qu'au support officiel, et uniquement lorsque vous soumettez une demande liée à la sécurité. Ne le partagez jamais dans des chats, des commentaires ou des messages privés.
+</Warning>
+
+## Messagerie et chats Web3 privés
+
+La messagerie intégrée affiche l'heure exacte de chaque message. Son mode **Private Web3 chats** ajoute le chiffrement de bout en bout sur le protocole XMTP.
+
+| Propriété | Fonctionnement |
+|---|---|
+| Chiffrement | Les messages sont chiffrés sur l'appareil avec MLS (IETF RFC 9420). |
+| Stockage | Les messages ne sont pas stockés sur les serveurs de la plateforme. |
+| Identité | Le wallet EVM sert d'identité ; une signature sans frais de gaz par appareil active le mode. |
+| Revue indépendante | La bibliothèque libxmtp a été auditée par NCC Group. |
+
+<Note>
+  Le mode protège le contenu des messages ; il ne rend pas les utilisateurs anonymes. Le chiffrement s'applique aux nouveaux messages envoyés dans ce mode.
+</Note>
+
+## Liens de parrainage
+
+Chaque participant dispose d'un code de parrainage permanent. Les liens de parrainage utilisent un format unique :
+
+`share.rwanftfi.com/?ref=CODE`
+
+L'ancien format de lien ne fonctionne plus : il a été remplacé en août 2026 en raison d'un problème de transmission des liens dans Telegram.
+
+## Brandbook et ressources
+
+<CardGroup cols={2}>
+  <Card title="Brandbook" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logos, couleurs, polices, icônes, documents, module publicitaire et produits dérivés : la source officielle de l'identité visuelle de RWANFTFI.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    Présentations disponibles dans l'application, dont la présentation FinFlow en anglais et en russe.
+  </Card>
+</CardGroup>

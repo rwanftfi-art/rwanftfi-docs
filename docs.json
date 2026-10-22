@@ -52,6 +52,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "en/finpro-finflow",
+              "en/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Ecosystem Services",
+            "pages": [
+              "en/debit-cards",
+              "en/bridge",
+              "en/aml-checker",
+              "en/platform-features"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "en/da-token-mechanics",
@@ -111,6 +127,22 @@
             "pages": [
               "ru/nft-ecosystem",
               "ru/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "ru/finpro-finflow",
+              "ru/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Сервисы экосистемы",
+            "pages": [
+              "ru/debit-cards",
+              "ru/bridge",
+              "ru/aml-checker",
+              "ru/platform-features"
             ]
           },
           {
@@ -176,6 +208,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "tr/finpro-finflow",
+              "tr/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Ekosistem Hizmetleri",
+            "pages": [
+              "tr/debit-cards",
+              "tr/bridge",
+              "tr/aml-checker",
+              "tr/platform-features"
+            ]
+          },
+          {
             "group": "Deflasyonist Varlık (DA)",
             "pages": [
               "tr/da-token-mechanics",
@@ -238,7 +286,23 @@
             ]
           },
           {
-            "group": "通缩资产(DA)",
+            "group": "FinPro",
+            "pages": [
+              "zh/finpro-finflow",
+              "zh/finpro-marketing"
+            ]
+          },
+          {
+            "group": "生态系统服务",
+            "pages": [
+              "zh/debit-cards",
+              "zh/bridge",
+              "zh/aml-checker",
+              "zh/platform-features"
+            ]
+          },
+          {
+            "group": "通缩资产（DA）",
             "pages": [
               "zh/da-token-mechanics",
               "zh/da-mining-farming",
@@ -297,6 +361,22 @@
             "pages": [
               "es/nft-ecosystem",
               "es/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "es/finpro-finflow",
+              "es/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Servicios del Ecosistema",
+            "pages": [
+              "es/debit-cards",
+              "es/bridge",
+              "es/aml-checker",
+              "es/platform-features"
             ]
           },
           {
@@ -362,6 +442,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "de/finpro-finflow",
+              "de/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Ökosystem-Services",
+            "pages": [
+              "de/debit-cards",
+              "de/bridge",
+              "de/aml-checker",
+              "de/platform-features"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "de/da-token-mechanics",
@@ -421,6 +517,22 @@
             "pages": [
               "pt/nft-ecosystem",
               "pt/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "pt/finpro-finflow",
+              "pt/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Serviços do Ecossistema",
+            "pages": [
+              "pt/debit-cards",
+              "pt/bridge",
+              "pt/aml-checker",
+              "pt/platform-features"
             ]
           },
           {
@@ -486,6 +598,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "hi/finpro-finflow",
+              "hi/finpro-marketing"
+            ]
+          },
+          {
+            "group": "इकोसिस्टम सेवाएँ",
+            "pages": [
+              "hi/debit-cards",
+              "hi/bridge",
+              "hi/aml-checker",
+              "hi/platform-features"
+            ]
+          },
+          {
             "group": "Deflationary Asset (DA)",
             "pages": [
               "hi/da-token-mechanics",
@@ -545,6 +673,22 @@
             "pages": [
               "it/nft-ecosystem",
               "it/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "it/finpro-finflow",
+              "it/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Servizi dell'Ecosistema",
+            "pages": [
+              "it/debit-cards",
+              "it/bridge",
+              "it/aml-checker",
+              "it/platform-features"
             ]
           },
           {
@@ -610,6 +754,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "fr/finpro-finflow",
+              "fr/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Services de l'Écosystème",
+            "pages": [
+              "fr/debit-cards",
+              "fr/bridge",
+              "fr/aml-checker",
+              "fr/platform-features"
+            ]
+          },
+          {
             "group": "Actif Déflationniste (DA)",
             "pages": [
               "fr/da-token-mechanics",
@@ -669,6 +829,22 @@
             "pages": [
               "ar/nft-ecosystem",
               "ar/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "ar/finpro-finflow",
+              "ar/finpro-marketing"
+            ]
+          },
+          {
+            "group": "خدمات النظام البيئي",
+            "pages": [
+              "ar/debit-cards",
+              "ar/bridge",
+              "ar/aml-checker",
+              "ar/platform-features"
             ]
           },
           {
@@ -734,6 +910,22 @@
             ]
           },
           {
+            "group": "FinPro",
+            "pages": [
+              "id/finpro-finflow",
+              "id/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Layanan Ekosistem",
+            "pages": [
+              "id/debit-cards",
+              "id/bridge",
+              "id/aml-checker",
+              "id/platform-features"
+            ]
+          },
+          {
             "group": "Aset Deflasi (DA)",
             "pages": [
               "id/da-token-mechanics",
@@ -796,7 +988,23 @@
             ]
           },
           {
-            "group": "デフレ資産(DA)",
+            "group": "FinPro",
+            "pages": [
+              "ja/finpro-finflow",
+              "ja/finpro-marketing"
+            ]
+          },
+          {
+            "group": "エコシステムサービス",
+            "pages": [
+              "ja/debit-cards",
+              "ja/bridge",
+              "ja/aml-checker",
+              "ja/platform-features"
+            ]
+          },
+          {
+            "group": "デフレ資産（DA）",
             "pages": [
               "ja/da-token-mechanics",
               "ja/da-mining-farming",
@@ -855,6 +1063,22 @@
             "pages": [
               "vi/nft-ecosystem",
               "vi/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "vi/finpro-finflow",
+              "vi/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Dịch Vụ Hệ Sinh Thái",
+            "pages": [
+              "vi/debit-cards",
+              "vi/bridge",
+              "vi/aml-checker",
+              "vi/platform-features"
             ]
           },
           {
@@ -917,6 +1141,22 @@
             "pages": [
               "uk/nft-ecosystem",
               "uk/frozen-balance"
+            ]
+          },
+          {
+            "group": "FinPro",
+            "pages": [
+              "uk/finpro-finflow",
+              "uk/finpro-marketing"
+            ]
+          },
+          {
+            "group": "Сервіси екосистеми",
+            "pages": [
+              "uk/debit-cards",
+              "uk/bridge",
+              "uk/aml-checker",
+              "uk/platform-features"
             ]
           },
           {
@@ -990,6 +1230,30 @@
   "redirects": [
     {
       "source": "/",
+      "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/fil/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/fil",
+      "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/ka/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/ka",
+      "destination": "/en/executive-summary"
+    },
+    {
+      "source": "/kk/:slug*",
+      "destination": "/en/:slug*"
+    },
+    {
+      "source": "/kk",
       "destination": "/en/executive-summary"
     }
   ]

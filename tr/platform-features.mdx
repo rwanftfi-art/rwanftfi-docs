@@ -1,0 +1,59 @@
+---
+title: "Platform Özellikleri"
+description: "RWANFTFI uygulamasındaki araçlar: güvenlik talepleri için Secret Code, şifreli Web3 sohbetleri, kalıcı referans bağlantıları, marka kitabı ve sunum kütüphanesi."
+icon: "puzzle-piece"
+---
+
+<CardGroup cols={3}>
+  <Card title="Secret Code" icon="key">
+    Destek ekibine yapılan, güvenlikle ilgili her talep için gereklidir.
+  </Card>
+  <Card title="Özel Web3 sohbetleri" icon="comments">
+    XMTP protokolü üzerinde uçtan uca şifrelenmiş mesajlar.
+  </Card>
+  <Card title="Referans bağlantıları" icon="link">
+    share.rwanftfi.com üzerinde tek ve kalıcı bir bağlantı biçimi.
+  </Card>
+</CardGroup>
+
+## Secret Code
+
+Secret Code, finansal şifreyle birlikte oluşturulan rastgele bir kelimedir. Destek ekibine yapılan, güvenlikle ilgili her talep için gereklidir: bu kod olmadan destek ekibi böyle bir talebi işleme alamaz.
+
+<Warning>
+  **Secret Code'u gizli tutun.** Bu kodu yalnızca resmi destek ekibiyle ve yalnızca bir güvenlik talebinde bulunduğunuzda paylaşın. Sohbetlerde, yorumlarda veya özel mesajlarda asla paylaşmayın.
+</Warning>
+
+## Mesajlaşma aracı ve özel Web3 sohbetleri
+
+Yerleşik mesajlaşma aracı her mesajın tam saatini gösterir. Aracın **Private Web3 chats** modu, XMTP protokolü üzerinde uçtan uca şifreleme ekler.
+
+| Özellik | Nasıl çalışır |
+|---|---|
+| Şifreleme | Mesajlar cihazda MLS (IETF RFC 9420) ile şifrelenir. |
+| Depolama | Mesajlar platformun sunucularında saklanmaz. |
+| Kimlik | Kimlik olarak EVM cüzdanı kullanılır; her cihazda gas ücreti gerektirmeyen tek bir imza modu etkinleştirir. |
+| Bağımsız inceleme | libxmtp kütüphanesi NCC Group tarafından denetlenmiştir. |
+
+<Note>
+  Bu mod mesajların içeriğini korur; kullanıcıları anonim kılmaz. Şifreleme, bu modda gönderilen yeni mesajlar için geçerlidir.
+</Note>
+
+## Referans bağlantıları
+
+Her katılımcının kalıcı bir referans kodu vardır. Referans bağlantıları tek bir biçimdedir:
+
+`share.rwanftfi.com/?ref=CODE`
+
+Eski bağlantı biçimi artık çalışmamaktadır: Telegram'da bağlantı iletimiyle ilgili bir sorun nedeniyle Ağustos 2026'da değiştirilmiştir.
+
+## Marka kitabı ve kaynaklar
+
+<CardGroup cols={2}>
+  <Card title="Marka kitabı" icon="palette" href="https://brandbook.rwanftfi.com">
+    Logolar, renkler, yazı tipleri, simgeler, belgeler, reklam modülü ve promosyon ürünleri: RWANFTFI kurumsal kimliğinin resmi kaynağı.
+  </Card>
+  <Card title="Resources" icon="folder-open" href="https://app.rwanftfi.com/resources">
+    İngilizce ve Rusça FinFlow sunumu dahil olmak üzere uygulamadaki sunumlar.
+  </Card>
+</CardGroup>
