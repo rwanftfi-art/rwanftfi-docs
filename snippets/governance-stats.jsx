@@ -44,6 +44,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Wallets Guardian',
       guardiansNote: 'wallets de gobernanza actuales',
     },
+    de: {
+      title: 'Governance-Übersicht',
+      supply: 'Gesamtangebot',
+      proposal: 'Vorschlagsschwelle',
+      proposalNote: 'des Angebots zur Einreichung',
+      passing: 'Annahmeschwelle',
+      passingNote: 'Mehrheit für die On-Chain-Ausführung',
+      guardians: 'Guardian-Wallets',
+      guardiansNote: 'aktuelle Governance-Wallets',
+    },
     pt: {
       title: 'Visão Geral da Governança',
       supply: 'Oferta Total',

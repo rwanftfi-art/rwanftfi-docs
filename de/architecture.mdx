@@ -1,6 +1,6 @@
 ---
 title: "Smart-Contract-Architektur"
-description: "RWANFTFI verwendet eine Diamond-Architektur nach EIP-2535 mit sieben funktionalen Facets, separaten NFT- und Reserveverträgen, definierten Mechanismen der Upgradefähigkeit, rollenbasierten Berechtigungen und mehreren internen Guthabenarten."
+description: "RWANFTFI verwendet eine Diamond-Architektur nach EIP-2535 mit acht funktionalen Facets, separaten NFT- und Reserveverträgen, definierten Mechanismen der Upgradefähigkeit, rollenbasierten Berechtigungen und mehreren internen Guthabenarten."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | Funktion |
 |---|---|
-| AdminFacet | Rollen, Parameter, genehmigte Übertragungen und Prägung spezieller NFTs. |
+| AdminFacet | Wallet-Wechsel und Kontoeinschränkungen, Prägung spezieller NFTs und automatisierte Serviceoperationen. |
+| ParametersFacet | Protokollparameter, NFT-Einstellungen, Typen von Geschenk-NFTs, Funktionsschalter, Farming-Perioden und Gebührenbereiche. |
 | MarketingFacet | Registrierung, NFT-Käufe und Berechnung von Partnerbelohnungen. |
 | FarmingFacet | NFTM-Mining und DA-Farming. |
 | PaymentFacet | Einzahlungen, Auszahlungen, Gutscheine und Guthabenübertragungen. |
 | TreeFacet | Platzierung und Tiefe im Partnernetzwerk. |
 | ResolverFacet | Abgelaufene Werte, Gutscheinverarbeitung und Auflösung von Frozen Balance. |
 | ViewFacet | Nur-Lese-Abfragen zu Nutzern, Guthaben und Netzwerk. |
+
+Der Diamond umfasst außerdem die Standard-Facets nach EIP-2535: DiamondCutFacet für Upgrades, DiamondLoupeFacet für die Introspektion und OwnershipFacet.
 
 ## NFT-Verträge
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | Rolle | Dokumentierte Befugnis |
 |---|---|
-| `ADMIN_ROLE` | Rollen vergeben und widerrufen; zulässige Protokollparameter ändern. |
+| DAO-Vertrag | Wendet Parameteränderungen innerhalb der On-Chain-Bereiche an, ändert NFT-Einstellungen, aktiviert oder deaktiviert Funktionen, legt Farming-Perioden und Gebührenbereiche fest, genehmigt Wallet-Wechsel und schränkt Konten ein oder stellt sie wieder her. |
+| `ADMIN_ROLE` | Rollen vergeben und widerrufen; Geschenk- und Ambassador-NFTs prägen und Typen von Geschenk-NFTs verwalten; die Transaktionsgebühr innerhalb ihres Bereichs festlegen. |
 | `SERVICE_ROLE` | Dokumentierte automatisierte und Cross-Chain-Serviceoperationen ausführen. |
 | `SIGNER_ROLE` | Autorisierte Signaturen für festgelegte Aktionen prüfen. |
 | `MINTER_ROLE` | Den dieser Rolle zugewiesenen Token oder NFT-Typ prägen. |
+| Diamond-Inhaber | Upgrades von Facets über `diamondCut` und Übertragung der Inhaberschaft. |
+
+Die Liste der Funktionen jeder Rolle finden Sie im Abschnitt zur Zentralisierung im [CertiK-Bericht](/de/security).
 
 ## Guthaben-Schema
 
 | Guthaben | Zweck |
 |---|---|
 | Reguläres Guthaben | Zulässige Auszahlungen, Käufe und Gutscheine. |
-| Akkumulatives Guthaben | Eingeschränktes internes Guthaben, das nach den dokumentierten Regeln für Käufe, Übertragungen, Gebühren und Umverteilung verwendet wird. |
+| Akkumulatives Guthaben | Eingeschränktes internes Guthaben, das nach den dokumentierten Regeln für Käufe, Übertragungen, Gebühren und Umverteilung verwendet wird. Seine Lebensdauer beträgt vorübergehend 180 Tage, während eine Korrektur zum Zurücksetzen des Timers vorbereitet wird; siehe [Vertragsparameter](/de/contract-parameters). |
 | Protokoll-Belohnungslimit | Verbleibende Belohnungsberechtigung für den aktiven NFT-Zyklus; On-Chain-Begriff: *Income Limit*. |
 | Token-Reserve-Guthaben | Guthaben des designierten Liquiditätspools, der die DA-Mechanik stützt. |
 | Dev-Guthaben | Protokoll- und Betriebsallokationen. |
 | Price-Impact-Guthaben | Reserve, die von dokumentierten Price-Impact-Funktionen verwendet wird. |
+
+<Note>
+  **FinPro-Guthaben sind getrennt.** FinPro-Positionen werden direkt aus der EVM-Wallet des Nutzers in USDT (BEP-20) eröffnet und an dieselbe Wallet ausgezahlt. Sie verwenden weder das Reguläre Guthaben noch das Akkumulative Guthaben. Siehe [FinPro & FinFlow](/de/finpro-finflow).
+</Note>
 
 ## Zahlungspriorität
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  Alle Transaktionen auf der [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) erfordern standardmäßige Netzwerk-Gasgebühren in **BNB**, getrennt von den im Ökosystem verwendeten Guthaben in [USDT](https://tether.to/). Vertrags-Deployments und Guthaben sind auf [BscScan](https://bscscan.com/) öffentlich überprüfbar.
+  Alle Transaktionen auf der [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) erfordern standardmäßige Netzwerk-Gasgebühren in **BNB**, getrennt von den im Ökosystem verwendeten Guthaben in [USDT](https://tether.to/). Vertrags-Deployments und Guthaben sind auf [BscScan](https://bscscan.com/) öffentlich überprüfbar; die offiziellen Vertragsadressen sind unter [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts) aufgeführt.
 </Note>

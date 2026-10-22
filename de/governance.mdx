@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="de" />
 
-<CardGroup cols={4}>
-  <Card title="10.000.000" icon="cube">
-    Festes GovToken-Angebot
-  </Card>
-  <Card title="30 %" icon="file-signature">
-    Vorschlagsschwelle
-  </Card>
-  <Card title="50 %" icon="check-double">
-    Annahmeschwelle
-  </Card>
-  <Card title="20" icon="shield-check">
-    Aktuelle Guardian-Wallets
-  </Card>
-</CardGroup>
+Das GovToken-Angebot ist auf **10.000.000** Tokens festgelegt. Für die Einreichung eines Vorschlags sind **30 %** des Angebots erforderlich, für seine Annahme eine Mehrheit von **50 %**; derzeit nehmen **20** Guardian-Wallets an der Governance teil.
 
 ## Aktuelle Allokation
 
@@ -35,8 +22,20 @@ Das dokumentierte künftige Modell sieht 30 % für die Corporation, 30 % verte
 
 - Parameter innerhalb ihrer dokumentierten On-Chain-Bereiche anpassen (siehe [Vertragsparameter](/de/contract-parameters)).
 - Festgelegte Protokollfunktionen aktivieren oder deaktivieren, etwa den Verkauf von Infinity (L10) oder Business Sale.
-- Anträge auf einen Wallet-Wechsel genehmigen und, solange Business Sale aktiviert ist, Übertragungen von Partnerstrukturen.
+- Anträge auf einen Wallet-Wechsel genehmigen und, solange Business Sale aktiviert ist, Übertragungen von Partnerstrukturen. Ein von der DAO genehmigter Wallet-Wechsel umfasst auch FinPro-Positionen: FinFlow NFTs werden nach der Migration in einem separaten Schritt übertragen.
+- Ein kompromittiertes Business auf eine neue Wallet unter der Kontrolle seines verifizierten Inhabers zurückübertragen. Das Team hat keinen Zugriff auf das Business der Nutzer; dies ist nur per DAO-Abstimmung möglich.
 - Festgelegte, mit einem NFT verbundene Plattformfunktionen einschränken oder wiederherstellen.
+
+## Umgesetzte Entscheidungen
+
+Jeder der folgenden Vorschläge wurde angenommen und On-Chain ausgeführt. Die Parameterwerte vor und nach jeder Änderung sind in der [Änderungshistorie der Parameter](/de/contract-parameters#änderungshistorie-der-parameter) aufgeführt.
+
+| Angekündigt | Entscheidung |
+|---|---|
+| [22. Mai 2026](https://news.rwanftfi.com/de/first-dao-vote) | Erste DAO-Abstimmungen, beide einstimmig angenommen (5.100.000 dafür, 0 dagegen): Business Sale für ein Testfenster aktiviert und die Verkäufergebühr von 500 auf 1 USDT gesenkt. |
+| [9. Juni 2026](https://news.rwanftfi.com/de/security-in-action) | Business Sale deaktiviert und ein aus einem gehackten Konto gestohlenes Business auf eine neue Wallet unter der Kontrolle seines verifizierten Inhabers übertragen. |
+| [15. Juni 2026](https://news.rwanftfi.com/de/infinity-is-unlocked-phase-2-is-live) | Phase 2 aktiviert: die neue NFT-Kaufverteilung und die Freigabe des Verkaufs von Infinity (L10). |
+| [17. September 2026](https://news.rwanftfi.com/de/accumulative-balance-timer-extended-to-180-days-here-s-why) | Lebensdauer des Akkumulativen Guthabens von 120 auf 180 Tage verlängert, während eine Korrektur zum Zurücksetzen des Timers vorbereitet wird. Zwei weitere Abstimmungen sind geplant: die Korrektur und anschließend die Rückkehr zu 120 Tagen. |
 
 ## Einschränkung von Plattformfunktionen
 
@@ -80,4 +79,4 @@ Alle Inhaber von Governance-Tokens sind On-Chain öffentlich überprüfbar. Nach
   </Tab>
 </Tabs>
 
-Alle Wallet-Adressen sind auf [BscScan](https://bscscan.com/) überprüfbar. Guthaben an Governance-Tokens und die Transaktionshistorie sind öffentlich prüfbar.
+Alle Wallet-Adressen sind auf [BscScan](https://bscscan.com/) überprüfbar. Guthaben an Governance-Tokens und die Transaktionshistorie sind öffentlich prüfbar. Die Adresse des DAO-Vertrags ist zusammen mit den anderen offiziellen Verträgen unter [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts) aufgeführt.
