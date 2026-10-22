@@ -707,7 +707,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
   var inviteeColor = tierColor(inviteeNft.tier);
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose" lang={L}>
       <style>{pulseKf}</style>
 
       {/* Header */}
@@ -722,7 +722,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
             <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.yourNft}</label>
-            <span style={{ color: youColor.color, backgroundColor: youColor.bg, border: '1px solid ' + youColor.border, fontSize: '9px', padding: '2px 8px', borderRadius: '9999px', fontWeight: 700, textTransform: 'uppercase' }}>{yourNft.tier}</span>
+            <span style={{ color: youColor.color, backgroundColor: youColor.bg, border: '1px solid ' + youColor.border, fontSize: '9px', padding: '2px 8px', borderRadius: '9999px', fontWeight: 700, textTransform: 'uppercase' }} lang="en">{yourNft.tier}</span>
           </div>
           <select value={yourLevel} onChange={function(e) { setYourLevel(Number(e.target.value)); }} style={nftSelectStyle}>
             {NFT_DATA.map(function(n) {
@@ -736,7 +736,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
             <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.inviteeNft}</label>
-            <span style={{ color: inviteeColor.color, backgroundColor: inviteeColor.bg, border: '1px solid ' + inviteeColor.border, fontSize: '9px', padding: '2px 8px', borderRadius: '9999px', fontWeight: 700, textTransform: 'uppercase' }}>{inviteeNft.tier}</span>
+            <span style={{ color: inviteeColor.color, backgroundColor: inviteeColor.bg, border: '1px solid ' + inviteeColor.border, fontSize: '9px', padding: '2px 8px', borderRadius: '9999px', fontWeight: 700, textTransform: 'uppercase' }} lang="en">{inviteeNft.tier}</span>
           </div>
           <select value={inviteeLevel} onChange={function(e) { setInviteeLevel(Number(e.target.value)); }} style={nftSelectStyle}>
             {NFT_DATA.map(function(n) {

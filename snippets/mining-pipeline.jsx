@@ -246,7 +246,7 @@ export const MiningPipeline = ({ lang }) => {
   var daPrice = 1.00;
   var daReceived = totalNftm / daPrice;
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose" lang={L}>
 
       {/* 1. Header + NFT Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">

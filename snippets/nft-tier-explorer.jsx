@@ -526,7 +526,7 @@ export const NftTierExplorer = ({ lang }) => {
   };
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border" lang={L}>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">{T.title}</h3>
@@ -566,7 +566,7 @@ export const NftTierExplorer = ({ lang }) => {
               </div>
               <div style={{ padding: '12px' }}>
                 <div className="flex items-center justify-between mb-2">
-                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">{nft.tier}</span>
+                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full" lang="en">{nft.tier}</span>
                   <span style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px]">L{nft.level}</span>
                 </div>
                 <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
@@ -589,11 +589,11 @@ export const NftTierExplorer = ({ lang }) => {
           var elite = NFT_DATA.filter(n => n.tier === 'Elite');
           return (
             <div className="mb-6">
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }} className="uppercase tracking-wider">Basic · L1–L4</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px' }} className="uppercase tracking-wider" lang="en">Basic · L1–L4</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{basic.map(renderCard)}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Premium · L5–L8</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider" lang="en">Premium · L5–L8</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{premium.map(renderCard)}</div>
-              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider">Elite · L9–L10</div>
+              <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', marginBottom: '8px', marginTop: '12px' }} className="uppercase tracking-wider" lang="en">Elite · L9–L10</div>
               <div className="grid grid-cols-2 sm:grid-cols-2 max-w-[420px] mx-auto gap-3">{elite.map(renderCard)}</div>
             </div>
           );
@@ -615,7 +615,7 @@ export const NftTierExplorer = ({ lang }) => {
             <div className="flex flex-col md:flex-row md:items-start gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
-                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full">{selected.tier}</span>
+                  <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full" lang="en">{selected.tier}</span>
                   <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmt(T.levelN, selected.level)} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 gap-2 mb-4">

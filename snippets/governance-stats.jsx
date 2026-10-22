@@ -115,7 +115,7 @@ export const GovernanceStats = ({ lang }) => {
   var pct = function(n) { return PCT.split('{n}').join(n); };
 
   return (
-    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
+    <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose" lang={L}>
 
       {/* Header */}
       <div className="mb-6">
