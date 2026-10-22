@@ -3,15 +3,16 @@ import { useState, useEffect, useRef } from 'react';
 export const FrozenBalanceSimulator = ({ lang }) => {
   if (typeof window === 'undefined') { return null; }
 
-  var L = lang === 'ru' ? 'ru' : 'en';
-
-  var T = {
+  // Interface strings by page language; any other language falls back to English.
+  // "{n}" stands for a number.
+  /* i18n:begin */
+  var STR = {
     en: {
       title: 'Frozen Balance Simulator',
       interactive: 'Interactive',
       yourNft: 'Your NFT',
       yourNftHint: 'Your current Protocol Reward Cap',
-      inviteeNft: "Invitee's First NFT",
+      inviteeNft: 'Invitee\'s First NFT',
       inviteeNftHint: 'First purchase by direct personal invitee',
       commission: 'Sponsor Bonus',
       commissionHint: 'of NFT price (first purchase)',
@@ -22,6 +23,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       triggerOn: 'Frozen Balance triggered',
       triggerOnSub: 'Excess above your cap is held for 72 hours while you decide.',
       immediate: 'Credited immediately',
+      now: 'NOW',
       immediateHint: 'Within your Protocol Reward Cap · 75 / 20 / 5 split',
       frozen: 'Frozen for 72 h',
       frozenHint: 'Excess above your Protocol Reward Cap',
@@ -57,64 +59,69 @@ export const FrozenBalanceSimulator = ({ lang }) => {
       forfeitCascade: 'If your upline sponsor has a zero Protocol Reward Cap, the sponsor share cascades upward to the next eligible sponsor. If no upline is eligible, the full amount routes to the DA Liquidity Pool.',
       footerNote: 'Frozen Balance applies to the qualifying first purchase and Autobuy of a direct personal invitee. Manual repeat purchases above your cap follow the standard missed-reward and compression rules.',
       noFreezeFooter: 'Increase the invitee\'s NFT level — or pick a smaller NFT for yourself — to see the freeze trigger.',
-      hours: 'h',
+      hoursN: '{n}h',
       level: 'L',
     },
     ru: {
       title: 'Симулятор Frozen Balance',
-      interactive: 'Интерактив',
+      interactive: 'Интерактивно',
       yourNft: 'Ваш NFT',
-      yourNftHint: 'Текущий Лимит вознаграждений',
-      inviteeNft: 'Первый NFT личника',
+      yourNftHint: 'Ваш текущий Лимит вознаграждений протокола',
+      inviteeNft: 'Первый NFT приглашённого',
       inviteeNftHint: 'Первая покупка прямого приглашённого',
       commission: 'Спонсорский бонус',
       commissionHint: 'от цены NFT (первая покупка)',
       remaining: 'Ваш оставшийся Лимит вознаграждений',
-      remainingHint: 'Запас перед компрессией',
-      triggerOff: 'Фриз не сработал — бонус укладывается в Лимит',
-      triggerOffSub: 'Вся сумма зачисляется сразу по стандарту 75 / 20 / 5.',
+      remainingHint: 'Запас до компрессии',
+      triggerOff: 'Заморозки нет — бонус укладывается в Лимит',
+      triggerOffSub: 'Вся сумма зачисляется сразу по стандартному распределению 75 / 20 / 5.',
       triggerOn: 'Frozen Balance активирован',
-      triggerOnSub: 'Излишек над Лимитом удерживается 72 часа — пока вы принимаете решение.',
+      triggerOnSub: 'Излишек сверх Лимита удерживается 72 часа, пока вы принимаете решение.',
       immediate: 'Зачисляется сразу',
-      immediateHint: 'В рамках вашего Лимита · распределение 75 / 20 / 5',
+      now: 'СЕЙЧАС',
+      immediateHint: 'В пределах вашего Лимита · распределение 75 / 20 / 5',
       frozen: 'Заморожено на 72 ч',
-      frozenHint: 'Излишек над вашим Лимитом',
+      frozenHint: 'Излишек сверх вашего Лимита',
       lostHeader: 'Стандартное распределение зачисленной части',
       reg: 'Обычный баланс',
       acc: 'Накопительный баланс',
       pool: 'Пул ликвидности DA',
       regHint: 'Вывод в любой момент',
       accHint: 'Срок жизни 180 дней (временно)',
-      poolHint: 'Минтинг нового DA',
+      poolHint: 'Выпуск нового DA',
       timerHeader: '72-часовое окно',
-      timerSub: 'Выберите, как разрешится фриз',
+      timerSub: 'Выберите, чем завершится заморозка',
       tabUpgrade: 'Апгрейд NFT',
-      tabAutobuy: 'Автопокупка',
-      tabForfeit: 'Пропуск дедлайна',
+      tabAutobuy: 'Срабатывает Autobuy',
+      tabForfeit: 'Срок пропущен',
       upgradeTitle: 'Вы апгрейдите NFT на более высокий уровень',
-      upgradeBody: 'Замороженные средства высвобождаются и зачисляются по тому же распределению 75 / 20 / 5. Высвобожденная сумма списывается с Лимита нового NFT.',
-      upgradeChoose: 'Выберите NFT, на который апгрейдитесь',
-      upgradeReleased: 'Высвобождено из фриза',
+      upgradeBody: 'Замороженные средства высвобождаются и зачисляются по тому же распределению 75 / 20 / 5. Высвобожденная сумма списывается с Лимита вознаграждений протокола нового NFT.',
+      upgradeChoose: 'Выберите NFT для апгрейда',
+      upgradeReleased: 'Высвобождено из заморозки',
       upgradeNewLimit: 'Лимит нового NFT',
       upgradeRemaining: 'Остаток Лимита после высвобождения',
-      upgradeImpossible: 'Выберите уровень выше текущего — и не ниже уровня личника — чтобы вместить замороженную сумму.',
-      autobuyTitle: 'Сначала срабатывает автопокупка и обновляет Лимит',
-      autobuyBody: 'Автопокупка переоткупает NFT того же уровня до того, как начисляется бонус. Обновлённый Лимит сначала поглощает бонус, и только остаток (если есть) уходит во фриз.',
+      upgradeImpossible: 'Выберите уровень выше текущего и не ниже уровня приглашённого, чтобы Лимит вместил всю замороженную сумму.',
+      autobuyTitle: 'Сначала срабатывает Autobuy и обновляет Лимит',
+      autobuyBody: 'Autobuy продлевает NFT того же уровня до начисления бонуса. Обновлённый Лимит вознаграждений протокола сначала поглощает бонус, и только остаток, если он есть, помещается во Frozen Balance.',
       autobuyRefreshed: 'Обновлённый Лимит вознаграждений',
-      autobuyAbsorbed: 'Поглощено автопокупкой',
-      autobuyLeftover: 'Уходит во фриз',
-      autobuyNote: 'Если вашего NFT и обновлённого Лимита достаточно — Frozen Balance не активируется вовсе.',
-      forfeitTitle: 'Вы пропустили 72-часовой дедлайн',
-      forfeitBody: 'Сумма перераспределяется по текущим параметрам протокола: настроенная доля направляется в Пул ликвидности DA, остаток следует по спонсорскому маршруту.',
+      autobuyAbsorbed: 'Поглощено через Autobuy',
+      autobuyLeftover: 'Уходит в заморозку',
+      autobuyNote: 'Если обновлённого Лимита вашего NFT достаточно, Frozen Balance не активируется.',
+      forfeitTitle: 'Вы пропустили 72-часовое окно',
+      forfeitBody: 'Сумма перераспределяется по текущим параметрам протокола: настроенная доля направляется в Пул ликвидности DA, а остаток следует по спонсорскому маршруту.',
       forfeitPool: 'В Пул ликвидности DA',
-      forfeitSponsor: 'Спонсору в апплайн',
-      forfeitCascade: 'Если у спонсора Лимит вознаграждений равен нулю — спонсорская доля передаётся дальше вверх по цепочке до первого подходящего спонсора. Если ни у кого в апплайне нет активного Лимита — вся сумма уходит в Пул ликвидности DA.',
+      forfeitSponsor: 'Вышестоящему спонсору',
+      forfeitCascade: 'Если у вышестоящего спонсора Лимит вознаграждений протокола равен нулю, спонсорская доля передаётся дальше вверх до первого подходящего спонсора. Если подходящих спонсоров выше нет, вся сумма направляется в Пул ликвидности DA.',
       footerNote: 'Frozen Balance действует для квалифицируемой первой покупки и Autobuy прямого приглашённого. Ручные повторные покупки сверх Лимита следуют стандартным правилам пропущенных вознаграждений и компрессии.',
-      noFreezeFooter: 'Поднимите уровень NFT личника — или возьмите меньший NFT для себя — чтобы увидеть срабатывание фриза.',
-      hours: 'ч',
+      noFreezeFooter: 'Повысьте уровень NFT приглашённого или выберите для себя NFT меньшего уровня, чтобы увидеть срабатывание заморозки.',
+      hoursN: '{n} ч',
       level: 'L',
-    }
-  }[L];
+    },
+  };
+  /* i18n:end */
+  var L = STR[lang] ? lang : 'en';
+  var T = STR[L];
+  var fill = function(s, n) { return s.split('{n}').join(n); };
 
   var NFT_DATA = [
     { level: 1,  name: 'GENESIS',  price: 28,    limit: 75,    tier: 'Basic'   },
@@ -129,9 +136,13 @@ export const FrozenBalanceSimulator = ({ lang }) => {
     { level: 10, name: 'INFINITY', price: 24000, limit: 70000, tier: 'Elite'   },
   ];
 
+  // Thousands and decimal separators and the percent sign as on each language's pages.
+  var SEP = { ru: '\u00A0', uk: '\u00A0', fr: '\u00A0', tr: '.', es: '.', de: '.', pt: '.', it: '.', id: '.', vi: '.' }[L] || ',';
+  var DEC = SEP === ',' ? '.' : ',';
+  var PCT = { tr: '%{n}', de: '{n}\u00A0%', fr: '{n}\u00A0%' }[L] || '{n}%';
   var fmtUsd = function(n) {
-    var digits = Math.abs(n) >= 1000 ? 0 : 2;
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits }).format(n);
+    var parts = Math.abs(n).toFixed(Math.abs(n) >= 1000 ? 0 : 2).split('.');
+    return '$' + parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, SEP) + (parts[1] ? DEC + parts[1] : '');
   };
 
   var [yourLevel, setYourLevel] = useState(2);
@@ -159,6 +170,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
   var FORFEIT_POOL_SHARE = 0.80;
   var FORFEIT_SPONSOR_SHARE = 0.20;
   var pct = function(x) { return Math.round(x * 100) + '%'; };
+  var pctText = function(x) { return fill(PCT, Math.round(x * 100)); };
 
   var yourNft = NFT_DATA[yourLevel - 1];
   var inviteeNft = NFT_DATA[inviteeLevel - 1];
@@ -300,7 +312,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.commission}</div>
           <div style={{ color: '#FFFFFF', fontSize: '24px', fontWeight: 900, lineHeight: 1.2, marginTop: '4px' }}>{fmtUsd(commission)}</div>
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginTop: '4px' }}>{pct(SPONSOR_FIRST_PURCHASE) + ' ' + T.commissionHint}</div>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '10px', marginTop: '4px' }}>{pctText(SPONSOR_FIRST_PURCHASE) + ' ' + T.commissionHint}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }} className="rounded-xl p-4">
           <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{T.remaining}</div>
@@ -351,7 +363,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
         }}>
           <div className="flex items-center justify-between mb-1">
             <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>{T.immediate}</span>
-            <span style={{ color: '#4ade80', backgroundColor: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', fontSize: '9px', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px' }}>NOW</span>
+            <span style={{ color: '#4ade80', backgroundColor: 'rgba(74,222,128,0.12)', border: '1px solid rgba(74,222,128,0.3)', fontSize: '9px', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px' }}>{T.now}</span>
           </div>
           <div style={{ color: '#4ade80', fontSize: '26px', fontWeight: 900 }}>{fmtUsd(inLimit)}</div>
           <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '11px', marginTop: '4px' }}>{T.immediateHint}</div>
@@ -372,7 +384,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
               backgroundColor: triggered ? 'rgba(96,165,250,0.12)' : 'rgba(255,255,255,0.05)',
               border: '1px solid ' + (triggered ? 'rgba(96,165,250,0.3)' : 'rgba(255,255,255,0.1)'),
               fontSize: '9px', fontWeight: 700, padding: '2px 8px', borderRadius: '9999px'
-            }}>72{T.hours}</span>
+            }}>{fill(T.hoursN, 72)}</span>
           </div>
           <div style={{ color: triggered ? '#60a5fa' : 'rgba(255,255,255,0.35)', fontSize: '26px', fontWeight: 900 }}>{fmtUsd(frozen)}</div>
           <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: '11px', marginTop: '4px' }}>{T.frozenHint}</div>
@@ -392,7 +404,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#4ade80', display: 'inline-block' }} />
-                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>75% {T.reg}</span>
+                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pctText(0.75)} {T.reg}</span>
               </div>
               <div style={{ color: '#FFFFFF', fontSize: '13px', fontWeight: 700 }}>{fmtUsd(inLimit * 0.75)}</div>
               <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{T.regHint}</div>
@@ -400,7 +412,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#fbbf24', display: 'inline-block' }} />
-                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>20% {T.acc}</span>
+                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pctText(0.20)} {T.acc}</span>
               </div>
               <div style={{ color: '#FFFFFF', fontSize: '13px', fontWeight: 700 }}>{fmtUsd(inLimit * 0.20)}</div>
               <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{T.accHint}</div>
@@ -408,7 +420,7 @@ export const FrozenBalanceSimulator = ({ lang }) => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '2px' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#60a5fa', display: 'inline-block' }} />
-                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>5% {T.pool}</span>
+                <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pctText(0.05)} {T.pool}</span>
               </div>
               <div style={{ color: '#FFFFFF', fontSize: '13px', fontWeight: 700 }}>{fmtUsd(inLimit * 0.05)}</div>
               <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{T.poolHint}</div>
@@ -436,8 +448,8 @@ export const FrozenBalanceSimulator = ({ lang }) => {
                 })}
                 <line x1={clockCx} y1={clockCy} x2={hourX} y2={hourY} stroke="#60a5fa" strokeWidth="2.5" strokeLinecap="round" />
                 <circle cx={clockCx} cy={clockCy} r="3" fill="#60a5fa" />
-                <text x={clockCx} y={clockCy - 18} textAnchor="middle" fill="rgba(255,255,255,0.45)" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>72{T.hours}</text>
-                <text x={clockCx} y={clockCy + 22} textAnchor="middle" fill="#FFFFFF" style={{ fontSize: '15px', fontWeight: 800 }}>{hour}{T.hours}</text>
+                <text x={clockCx} y={clockCy - 18} textAnchor="middle" fill="rgba(255,255,255,0.45)" style={{ fontSize: '9px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{fill(T.hoursN, 72)}</text>
+                <text x={clockCx} y={clockCy + 22} textAnchor="middle" fill="#FFFFFF" style={{ fontSize: '15px', fontWeight: 800 }}>{fill(T.hoursN, hour)}</text>
               </svg>
             </div>
             <div style={{ flex: '1 1 0%' }}>
@@ -524,14 +536,14 @@ export const FrozenBalanceSimulator = ({ lang }) => {
                 <div style={{ backgroundColor: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.25)', borderRadius: '10px', padding: '10px 12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#60a5fa', display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pct(FORFEIT_POOL_SHARE)} — {T.forfeitPool}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pctText(FORFEIT_POOL_SHARE)} — {T.forfeitPool}</span>
                   </div>
                   <div style={{ color: '#60a5fa', fontSize: '18px', fontWeight: 800, marginTop: '4px' }}>{fmtUsd(forfeitPool)}</div>
                 </div>
                 <div style={{ backgroundColor: 'rgba(248,113,113,0.06)', border: '1px solid rgba(248,113,113,0.25)', borderRadius: '10px', padding: '10px 12px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span style={{ width: '8px', height: '8px', borderRadius: '2px', backgroundColor: '#f87171', display: 'inline-block' }} />
-                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pct(FORFEIT_SPONSOR_SHARE)} — {T.forfeitSponsor}</span>
+                    <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', fontWeight: 600 }}>{pctText(FORFEIT_SPONSOR_SHARE)} — {T.forfeitSponsor}</span>
                   </div>
                   <div style={{ color: '#f87171', fontSize: '18px', fontWeight: 800, marginTop: '4px' }}>{fmtUsd(forfeitSponsor)}</div>
                 </div>

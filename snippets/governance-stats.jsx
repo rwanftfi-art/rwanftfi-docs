@@ -1,18 +1,38 @@
 export const GovernanceStats = ({ lang }) => {
   if (typeof window === 'undefined') { return null; }
 
-  // Interface strings. Pages pass their language; anything else falls back to English.
-  var T = lang === 'ru' ? {
-    title: 'Обзор управления', supply: 'Общее предложение', supplyValue: '10 000 000',
-    proposal: 'Порог предложения', proposalNote: 'от общего объёма для подачи',
-    passing: 'Порог принятия', passingNote: 'большинство для исполнения он-чейн',
-    guardians: 'Кошельки Guardian', guardiansNote: 'текущие кошельки управления',
-  } : {
-    title: 'Governance Overview', supply: 'Total Supply', supplyValue: '10,000,000',
-    proposal: 'Proposal Threshold', proposalNote: 'of supply to submit',
-    passing: 'Passing Vote', passingNote: 'majority to execute on-chain',
-    guardians: 'Guardian Wallets', guardiansNote: 'current governance wallets',
+  // Interface strings by page language; any other language falls back to English.
+  /* i18n:begin */
+  var STR = {
+    en: {
+      title: 'Governance Overview',
+      supply: 'Total Supply',
+      proposal: 'Proposal Threshold',
+      proposalNote: 'of supply to submit',
+      passing: 'Passing Vote',
+      passingNote: 'majority to execute on-chain',
+      guardians: 'Guardian Wallets',
+      guardiansNote: 'current governance wallets',
+    },
+    ru: {
+      title: 'Обзор управления',
+      supply: 'Общее предложение',
+      proposal: 'Порог предложения',
+      proposalNote: 'от общего объёма для подачи',
+      passing: 'Порог принятия',
+      passingNote: 'большинство для исполнения он-чейн',
+      guardians: 'Кошельки Guardian',
+      guardiansNote: 'текущие кошельки управления',
+    },
   };
+  /* i18n:end */
+  var L = STR[lang] ? lang : 'en';
+  var T = STR[L];
+  // Thousands separators and percent signs as on each language's pages.
+  var SEP = { ru: '\u00A0', uk: '\u00A0', fr: '\u00A0', tr: '.', es: '.', de: '.', pt: '.', it: '.', id: '.', vi: '.' }[L] || ',';
+  var PCT = { tr: '%{n}', de: '{n}\u00A0%', fr: '{n}\u00A0%' }[L] || '{n}%';
+  var num = function(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, SEP); };
+  var pct = function(n) { return PCT.split('{n}').join(n); };
 
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
@@ -37,19 +57,19 @@ export const GovernanceStats = ({ lang }) => {
           {/* Total Supply */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
             <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.supply}</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{T.supplyValue}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{num(10000000)}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>GovTokens (ERC20Votes)</div>
           </div>
           {/* Proposal Threshold */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
             <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.proposal}</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>30%</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{pct(30)}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.proposalNote}</div>
           </div>
           {/* Passing Vote */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
             <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.passing}</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>50%</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{pct(50)}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.passingNote}</div>
           </div>
           {/* Guardian Wallets */}

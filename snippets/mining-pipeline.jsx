@@ -3,41 +3,58 @@ import { useState } from 'react';
 export const MiningPipeline = ({ lang }) => {
   const [selectedLevel, setSelectedLevel] = useState(5);
 
-  // Interface strings. Pages pass their language; anything else falls back to English.
-  var L = lang === 'ru' ? 'ru' : 'en';
-  var ruPlural = function(n, one, few, many) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return one;
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
-    return many;
-  };
+  // Interface strings by page language; any other language falls back to English.
+  // "{n}" stands for a number; an object holds one form per Intl.PluralRules category.
+  /* i18n:begin */
   var STR = {
     en: {
-      title: 'Mining Dashboard', subtitle: 'Illustrative pipeline overview — from Mining to Farming under current parameters',
-      interactive: 'Interactive', days: function(n) { return n + ' days'; }, totalPipeline: 'Total Pipeline',
-      mining: 'Mining', farming: 'Farming', hours72: '72h',
+      title: 'Mining Dashboard',
+      subtitle: 'Illustrative pipeline overview — from Mining to Farming under current parameters',
+      interactive: 'Interactive',
+      days: { one: '{n} day', other: '{n} days' },
+      totalPipeline: 'Total Pipeline',
+      mining: 'Mining',
+      farming: 'Farming',
+      hours72: '72h',
       critical: '72-hour critical window — miss it and the entire cycle restarts from scratch',
-      resultAfter: function(n) { return 'Calculated Result After ' + n + ' days'; },
+      resultAfter: { one: 'Calculated Result After {n} day', other: 'Calculated Result After {n} days' },
       illustrative: 'Illustrative value at an assumed protocol price of 1.00 USDT — the actual protocol price applies at execution',
-      basedOn: function(price) { return 'based on a ' + price + ' NFT'; }, cycle: 'cycle',
-      nftPrice: 'NFT Price', illustrativeValue: 'Illustrative Value', pipeline: 'Pipeline',
+      basedOn: 'based on a {price} NFT',
+      cycleN: 'cycle {n}',
+      nftPrice: 'NFT Price',
+      illustrativeValue: 'Illustrative Value',
+      pipeline: 'Pipeline',
       oneCycle: 'This NFT tier has 1 mining cycle producing 10% of NFT price in NFTM.',
-      future: 'Future protocol prices are not predetermined. After Farming, review the options on', sellingLending: 'Selling & Lending',
+      future: 'Future protocol prices are not predetermined. After Farming, review the options on {link}.',
+      sellingLending: 'Selling & Lending',
     },
     ru: {
-      title: 'Панель майнинга', subtitle: 'Иллюстративный обзор цикла — от майнинга до фарминга по текущим параметрам',
-      interactive: 'Интерактивно', days: function(n) { return n + ' ' + ruPlural(n, 'день', 'дня', 'дней'); }, totalPipeline: 'Весь цикл',
-      mining: 'Майнинг', farming: 'Фарминг', hours72: '72 ч',
+      title: 'Панель майнинга',
+      subtitle: 'Иллюстративный обзор цикла — от майнинга до фарминга по текущим параметрам',
+      interactive: 'Интерактивно',
+      days: { one: '{n} день', few: '{n} дня', many: '{n} дней', other: '{n} дня' },
+      totalPipeline: 'Весь цикл',
+      mining: 'Майнинг',
+      farming: 'Фарминг',
+      hours72: '72 ч',
       critical: 'Критическое окно 72 часа — если его пропустить, цикл начнётся заново',
-      resultAfter: function(n) { return 'Расчётный результат через ' + n + ' ' + ruPlural(n, 'день', 'дня', 'дней'); },
+      resultAfter: { one: 'Расчётный результат через {n} день', few: 'Расчётный результат через {n} дня', many: 'Расчётный результат через {n} дней', other: 'Расчётный результат через {n} дня' },
       illustrative: 'Иллюстративное значение при условной протокольной цене 1,00 USDT — при исполнении применяется фактическая протокольная цена',
-      basedOn: function(price) { return 'для NFT за ' + price; }, cycle: 'цикл',
-      nftPrice: 'Цена NFT', illustrativeValue: 'Иллюстративное значение', pipeline: 'Цикл',
+      basedOn: 'для NFT за {price}',
+      cycleN: 'цикл {n}',
+      nftPrice: 'Цена NFT',
+      illustrativeValue: 'Иллюстративное значение',
+      pipeline: 'Цикл',
       oneCycle: 'У этого уровня NFT один цикл майнинга, который начисляет 10% от цены NFT в NFTM.',
-      future: 'Будущие протокольные цены заранее не определены. После фарминга изучите варианты в разделе', sellingLending: 'Продажа и кредитование',
+      future: 'Будущие протокольные цены заранее не определены. После фарминга изучите варианты в разделе {link}.',
+      sellingLending: 'Продажа и кредитование',
     },
   };
+  /* i18n:end */
+  var L = STR[lang] ? lang : 'en';
   var T = STR[L];
+  var plural = new Intl.PluralRules(L);
+  var fmt = function(v, n) { return (typeof v === 'string' ? v : v[plural.select(n)] || v.other).split('{n}').join(n); };
 
   const LEVELS = {
     5:  { name: 'HYDRO',    price: 550,   days: 45, c1: 0.10, c2: 0, cycles: 1 },
@@ -48,12 +65,10 @@ export const MiningPipeline = ({ lang }) => {
     10: { name: 'INFINITY', price: 24000, days: 40, c1: 0.10, c2: 0.15, cycles: 2 },
   };
 
-  const fmtUsd = function(n) {
-    var digits = Math.abs(n) >= 10000 ? 0 : 2;
-    if (L === 'ru') return '$' + new Intl.NumberFormat('ru-RU', { maximumFractionDigits: digits }).format(n);
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: digits }).format(n);
-  };
-  var fmtNum = function(n) { return new Intl.NumberFormat(L === 'ru' ? 'ru-RU' : 'en-US').format(Math.round(n)); };
+  // Thousands separators match the tables on each language's pages. Every amount here is a whole number.
+  var SEP = { ru: '\u00A0', uk: '\u00A0', fr: '\u00A0', tr: '.', es: '.', de: '.', pt: '.', it: '.', id: '.', vi: '.' }[L] || ',';
+  var fmtNum = function(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, SEP); };
+  var fmtUsd = function(n) { return '$' + fmtNum(n); };
 
   var lvl = LEVELS[selectedLevel];
   var nftmCycle1 = lvl.price * lvl.c1;
@@ -80,10 +95,10 @@ export const MiningPipeline = ({ lang }) => {
             {Object.entries(LEVELS).map(function(entry) {
               var k = entry[0];
               var d = entry[1];
-              return <option key={k} value={k}>L{k} — {d.name} ({fmtNum(d.price)} USDT) — {T.days(d.days)}</option>;
+              return <option key={k} value={k}>L{k} — {d.name} ({fmtNum(d.price)} USDT) — {fmt(T.days, d.days)}</option>;
             })}
           </select>
-          <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }}>{T.interactive}</span>
+          <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 12px', borderRadius: '9999px', fontWeight: 500 }} className="hidden sm:inline-block">{T.interactive}</span>
         </div>
       </div>
 
@@ -91,25 +106,25 @@ export const MiningPipeline = ({ lang }) => {
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
           <span style={{ color: 'rgba(255,255,255,0.5)' }} className="text-xs font-medium">{T.totalPipeline}</span>
-          <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{T.days(totalDays)}</span>
+          <span style={{ color: '#FFFFFF' }} className="text-sm font-bold">{fmt(T.days, totalDays)}</span>
         </div>
 
         <div className="flex items-center gap-0.5" style={{ height: '48px', borderRadius: '12px', overflow: 'hidden' }}>
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.18)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.18)', flex: '1 1 0%', minWidth: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>{T.mining}</div>
               <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>
-                {lvl.cycles === 1 ? T.days(lvl.days) : '2 × ' + T.days(lvl.days)} — {fmtNum(totalNftm)} NFTM
+                {lvl.cycles === 1 ? fmt(T.days, lvl.days) : '2 × ' + fmt(T.days, lvl.days)} — {fmtNum(totalNftm)} NFTM
               </div>
             </div>
           </div>
-          <div style={{ backgroundColor: '#ef4444', width: '4%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ backgroundColor: '#ef4444', flex: '0 0 auto', padding: '0 6px', whiteSpace: 'nowrap', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ color: '#FFFFFF', fontSize: '9px', fontWeight: 900 }}>{T.hours72}</div>
           </div>
-          <div style={{ backgroundColor: 'rgba(255,255,255,0.08)', width: '48%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
+          <div style={{ backgroundColor: 'rgba(255,255,255,0.08)', flex: '1 1 0%', minWidth: 0, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ color: '#FFFFFF', fontSize: '12px', fontWeight: 700 }}>{T.farming}</div>
-              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.cycles === 1 ? T.days(lvl.days) : '2 × ' + T.days(lvl.days)} — {fmtNum(daReceived)} DA</div>
+              <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>{lvl.cycles === 1 ? fmt(T.days, lvl.days) : '2 × ' + fmt(T.days, lvl.days)} — {fmtNum(daReceived)} DA</div>
             </div>
           </div>
         </div>
@@ -137,7 +152,7 @@ export const MiningPipeline = ({ lang }) => {
                className="rounded-xl p-5 text-center">
             <div style={{ color: 'rgba(255,255,255,0.4)' }}
                  className="text-[10px] uppercase tracking-wider mb-1">
-              {T.resultAfter(totalDays)}
+              {fmt(T.resultAfter, totalDays)}
             </div>
             <div style={{ color: '#FFFFFF', fontSize: '36px' }}
                  className="font-black">
@@ -149,29 +164,30 @@ export const MiningPipeline = ({ lang }) => {
             </div>
             <div style={{ color: 'rgba(255,255,255,0.5)' }}
                  className="text-xs mt-2">
-              {T.basedOn(fmtUsd(lvl.price))} · {lvl.cycles === 1
-                ? T.cycle + ' 1: ' + fmtNum(nftmCycle1) + ' NFTM'
-                : T.cycle + ' 1: ' + fmtNum(nftmCycle1) + ' + ' + T.cycle + ' 2: ' + fmtNum(nftmCycle2) + ' NFTM'
+              {T.basedOn.split('{price}').join(fmtUsd(lvl.price))} · {lvl.cycles === 1
+                ? fmt(T.cycleN, 1) + ': ' + fmtNum(nftmCycle1) + ' NFTM'
+                : fmt(T.cycleN, 1) + ': ' + fmtNum(nftmCycle1) + ' + ' + fmt(T.cycleN, 2) + ': ' + fmtNum(nftmCycle2) + ' NFTM'
               }
             </div>
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3" style={{ marginTop: '12px' }}>
+      {/* Three columns from sm up; on phones each tile becomes a label-value row. */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3" style={{ marginTop: '12px' }}>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
-             className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{T.nftPrice}</div>
+             className="rounded-xl p-3 flex items-center justify-between gap-3 sm:block sm:text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider sm:mb-1">{T.nftPrice}</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(lvl.price)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
-             className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{T.illustrativeValue}</div>
+             className="rounded-xl p-3 flex items-center justify-between gap-3 sm:block sm:text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider sm:mb-1">{T.illustrativeValue}</div>
           <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmtUsd(daReceived * daPrice)}</div>
         </div>
         <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)' }}
-             className="rounded-xl p-3 text-center">
-          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider mb-1">{T.pipeline}</div>
-          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{T.days(totalDays)}</div>
+             className="rounded-xl p-3 flex items-center justify-between gap-3 sm:block sm:text-center">
+          <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wider sm:mb-1">{T.pipeline}</div>
+          <div style={{ color: '#FFFFFF' }} className="text-base font-bold">{fmt(T.days, totalDays)}</div>
         </div>
       </div>
       {lvl.cycles === 1 && (
@@ -187,11 +203,12 @@ export const MiningPipeline = ({ lang }) => {
       )}
       <div style={{ color: 'rgba(255,255,255,0.4)' }}
            className="text-xs text-center mt-3">
-        {T.future}{' '}
+        {T.future.split('{link}')[0]}
         <a href={'/' + (lang || 'en') + '/da-selling-lending'}
            style={{ color: '#FFFFFF', textDecoration: 'underline' }}>
           {T.sellingLending}
         </a>
+        {T.future.split('{link}')[1]}
       </div>
 
     </div>
