@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Temuan | ID, tingkat keparahan, dan status tercantum dalam laporan yang dipublikasikan. |
 | Remediasi | Setiap temuan yang telah diselesaikan ditautkan ke perubahan kode terkait dalam laporan. |
 | Pemetaan deployment | Informasi mengenai kesesuaian kontrak produksi saat ini dengan versi yang diaudit dipublikasikan secara terpisah. |
-| Bug bounty | Status terkini yang dapat diverifikasi secara eksternal dipublikasikan di saluran resmi. |
+| Bug bounty | Aktif melalui platform resmi CertiK; aktivitas bug bounty tercermin di CertiK Skynet. |
 
 ## Bagaimana cara memverifikasi laporan audit?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   Audit ini mencakup smart contract dan versi kode dalam cakupan yang dipublikasikan. Audit ini dengan sendirinya tidak memverifikasi ekonomi protokol, kinerja perusahaan, atau hasil yang diperoleh pengguna.
 </Note>
 
-## Keamanan Akun Tiga Tingkat
+## Empat Lapisan Keamanan Akun
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Kata Sandi Keuangan" icon="fingerprint">
     Kata sandi yang terpisah dari kredensial login, diperlukan untuk tindakan keuangan.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/id/platform-features#secret-code">
+    Kata acak yang dihasilkan bersamaan dengan kata sandi keuangan. Diperlukan untuk setiap permintaan terkait keamanan kepada layanan dukungan.
   </Card>
   <Card title="Kode Otorisasi Transaksi" icon="key">
     Kode sekali pakai yang diperlukan untuk mengotorisasi transaksi keuangan.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Perlindungan dari Phishing
+## Pemulihan Akun melalui DAO
+
+Tim RWANFTFI tidak memiliki akses ke bisnis pengguna. Hanya pemungutan suara DAO yang dapat memindahkan akun ke dompet baru. Hal ini telah teruji pada Juni 2026: akun seorang pengguna diretas dan seluruh bisnisnya, yaitu NFT dan struktur mitra, dicuri ketika Business Sale sedang diaktifkan untuk sementara. DAO menonaktifkan Business Sale dan memindahkan bisnis tersebut ke dompet baru yang dikendalikan oleh pemiliknya yang terverifikasi; kedua proposal dieksekusi on-chain. Lihat [Tata Kelola — DAO](/id/governance#keputusan-yang-telah-dieksekusi).
+
+## Penyaringan AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/id/aml-checker">
+  Periksa alamat dompet mana pun terhadap sanksi, mixer, penipuan, dan peretasan sebelum mengirim atau menerima dana: skor risiko yang mencakup 19 blockchain dan 14 stablecoin.
+</Card>
+
+## Pesan Pribadi
+
+Messenger bawaan menyediakan mode **Private Web3 chats**: pesan terenkripsi end-to-end pada protokol XMTP (MLS) yang tidak disimpan di server platform. Lihat [Fitur Platform](/id/platform-features).
+
+## Domain Resmi
+
+| Domain | Kegunaan |
+|---|---|
+| rwanftfi.com | Situs web utama |
+| app.rwanftfi.com | Aplikasi |
+| news.rwanftfi.com | Berita dan pengumuman |
+| bridge.rwanftfi.com | Jembatan lintas-rantai |
+| whitepaper.rwanftfi.com | Whitepaper ini |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Tautan referral |
+| rwafinpro.com | Produk keuangan FinPro |
+| rwanftcards.com | Kartu debit RWA NFT Cards |
+
+Alamat kontrak resmi, termasuk Diamond, DAO, dan Token Reserve, tercantum di [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Gunakan hanya domain dan alamat kontrak resmi RWANFTFI. Perwakilan RWANFTFI seharusnya tidak pernah meminta kunci pribadi, seed phrase, atau pembayaran ke alamat dompet tidak resmi. Selalu pastikan Anda berada di **rwanftfi.com** sebelum menghubungkan dompet atau memasukkan kredensial.
+  Gunakan hanya domain di atas dan alamat kontrak resmi; domain lain mana pun, termasuk yang ejaannya mirip, bukan domain resmi. Perwakilan RWANFTFI tidak pernah meminta kunci pribadi, seed phrase, atau pembayaran ke alamat dompet tidak resmi. Periksa domain sebelum menghubungkan dompet atau memasukkan kredensial.
 </Warning>

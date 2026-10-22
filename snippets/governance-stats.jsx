@@ -34,6 +34,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Carteiras Guardian',
       guardiansNote: 'carteiras de governança atuais',
     },
+    id: {
+      title: 'Ikhtisar Tata Kelola',
+      supply: 'Total Pasokan',
+      proposal: 'Ambang Proposal',
+      proposalNote: 'dari pasokan untuk mengajukan',
+      passing: 'Ambang Persetujuan',
+      passingNote: 'mayoritas untuk eksekusi on-chain',
+      guardians: 'Dompet Guardian',
+      guardiansNote: 'dompet tata kelola saat ini',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';

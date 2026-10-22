@@ -1,10 +1,12 @@
 ---
 title: "Glosarium"
-description: "Definisi istilah khusus protokol yang digunakan di seluruh dokumentasi RWANFTFI: DA, NFTM, Batas Imbalan Protokol, Sponsor Bonus, Frozen Balance, Saldo Akumulatif, dan lainnya."
+description: "Definisi istilah yang digunakan di seluruh dokumentasi RWANFTFI: DA, NFTM, Batas Imbalan Protokol, Sponsor Bonus, Frozen Balance, NFT Hadiah, FinPro, FinFlow, Earn cap, Secret Code, dan lainnya."
 icon: "book"
 ---
 
 Satu sumber kebenaran untuk istilah-istilah yang digunakan di seluruh dokumentasi RWANFTFI.
+
+## Protokol
 
 | Istilah | Definisi |
 |---|---|
@@ -14,11 +16,46 @@ Satu sumber kebenaran untuk istilah-istilah yang digunakan di seluruh dokumentas
 | **DA** | Token utilitas protokol BEP-20 yang tidak dapat ditransfer, dengan pasokan maksimum 21.000.000 unit. |
 | **Frozen Balance** | Penyangga sementara selama 72 jam untuk Sponsor Bonus yang memenuhi kualifikasi yang melebihi sisa Batas Imbalan Protokol. |
 | **GovToken** | Token tata kelola ERC20Votes dengan pasokan tetap. |
+| **Income Limit** | Istilah on-chain untuk Batas Imbalan Protokol. |
+| **NFTM** | Penghitung Mining internal yang digunakan dalam perhitungan Farming. |
+| **Fase 2** | Konfigurasi protokol yang diaktifkan melalui pemungutan suara DAO pada Juni 2026: distribusi pembelian NFT yang berlaku saat ini dan penjualan Infinity (L10). |
+| **Batas Imbalan Protokol** | Jumlah kumulatif maksimum imbalan yang memenuhi syarat yang dikreditkan selama satu siklus NFT; istilah on-chain: *Income Limit*. |
+
+## Program Mitra
+
+| Istilah | Definisi |
+|---|---|
+| **Business Sale** | Transfer yang diotorisasi DAO atas seluruh struktur mitra kepada pengguna lain; dinonaktifkan melalui pemungutan suara DAO sejak Juni 2026. |
+| **NFT Hadiah** | NFT yang tidak dapat dibeli maupun dijual, diberikan melalui promosi dan program. NFT ini memiliki tempat dan Batas Imbalan Protokolnya sendiri, imbalannya dibagi 50/50 antara Saldo Reguler dan Saldo Akumulatif, dan NFT ini membuka akses ke FinFlow. |
 | **Matching Bonus** | Imbalan bersyarat pada hingga tiga level yang memenuhi kualifikasi. |
 | **Imbalan yang Terlewat** | Aktivitas yang tidak dikreditkan karena ketentuan kelayakan yang berlaku tidak terpenuhi. |
-| **NFTM** | Penghitung Mining internal yang digunakan dalam perhitungan Farming. |
 | **Jaringan Mitra** | Struktur yang dikelola smart contract dan digunakan untuk menentukan penempatan serta kelayakan imbalan. |
 | **Kedalaman Jaringan Mitra** | Kedalaman jaringan maksimum yang diperhitungkan dalam perhitungan distribusi yang memenuhi syarat. |
-| **Batas Imbalan Protokol** | Jumlah kumulatif maksimum imbalan yang memenuhi syarat yang dikreditkan selama satu siklus NFT; istilah on-chain: *Income Limit*. |
 | **Sponsor Bonus** | Imbalan bersyarat dari pembelian NFT langsung yang memenuhi kualifikasi. |
 | **Tree Distribution** | Perhitungan imbalan mitra per level dalam kedalaman jaringan yang memenuhi syarat. |
+
+## FinPro
+
+| Istilah | Definisi |
+|---|---|
+| **Claim Spot** | Tahap pra-peluncuran FinPro Marketing ketika peserta mengambil tempat dalam struktur dan menerima tautan referral. |
+| **Compound** | Reinvestasi akrual ke dalam basis posisi, yang meningkatkan jumlah absolut akrual di masa mendatang. |
+| **Direct Sale** | Dalam FinPro Marketing, 5% dari setiap akrual posisi mitra yang diundang secara pribadi, di level mana pun mitra tersebut ditempatkan. |
+| **Earn cap (plafon akrual)** | Plafon pembayaran posisi FinPro; untuk FinFlow, 200% dari basis awal, termasuk pokok. |
+| **FinCore** | Produk FinPro berikutnya dan yang pertama dengan FinPro Marketing; parameternya dipublikasikan sebelum peluncuran. |
+| **FinFlow** | Produk FinPro pertama, aktif sejak 8 Juli 2026: posisi dalam strategi netral pasar. |
+| **Batas FinFlow** | Total maksimum posisi FinFlow yang terbuka untuk sebuah NFT; batas dasarnya sama dengan Batas Imbalan Protokol. |
+| **FinFlow NFT** | NFT yang tidak dapat ditransfer dan merepresentasikan posisi FinFlow. Membuka posisi bukan merupakan deposit. |
+| **FinPro** | Lini produk keuangan ekosistem di rwafinpro.com, yang didanai langsung dari dompet EVM pengguna. |
+| **FinPro Marketing** | Program mitra terpisah untuk produk FinPro dengan strukturnya sendiri: Direct Sale ditambah 20 level, yang dikreditkan 100% ke saldo marketing. |
+| **Akrual posisi** | Akrual yang dihasilkan oleh posisi FinPro; akrual tidak dijamin. |
+| **Saldo posisi** | Total seluruh posisi FinPro yang terbuka, termasuk penambahan dana dan jumlah yang diinvestasikan kembali; saldo ini membuka level FinPro Marketing. |
+| **Refund (pengembalian dana)** | Untuk FinFlow: setelah pemegang menerima dan menarik 50% dari jumlah awal, posisi dapat ditutup dengan pengembalian sisanya hingga 100% dari jumlah awal. |
+
+## Keamanan dan Layanan
+
+| Istilah | Definisi |
+|---|---|
+| **AML Checker** | Pemeriksaan risiko berbayar atas alamat dompet yang mencakup 19 blockchain dan 14 stablecoin, tersedia di aplikasi. |
+| **Jembatan** | Layanan deposit lintas-rantai terkelola di bridge.rwanftfi.com untuk 14 jaringan. |
+| **Secret Code** | Kata acak yang dihasilkan bersamaan dengan kata sandi keuangan; diperlukan untuk setiap permintaan terkait keamanan kepada layanan dukungan. |

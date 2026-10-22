@@ -1,6 +1,6 @@
 ---
 title: "Arsitektur Smart Contract"
-description: "RWANFTFI menggunakan arsitektur Diamond EIP-2535 dengan tujuh facet fungsional, kontrak NFT dan kontrak cadangan yang terpisah, mekanisme upgrade yang telah ditentukan, izin berbasis peran, dan beberapa jenis saldo internal."
+description: "RWANFTFI menggunakan arsitektur Diamond EIP-2535 dengan delapan facet fungsional, kontrak NFT dan kontrak cadangan yang terpisah, mekanisme upgrade yang telah ditentukan, izin berbasis peran, dan beberapa jenis saldo internal."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | Fungsi |
 |---|---|
-| AdminFacet | Peran, parameter, transfer yang disetujui, dan pencetakan NFT khusus. |
+| AdminFacet | Penggantian dompet dan pembatasan akun, pencetakan NFT khusus, dan operasi layanan otomatis. |
+| ParametersFacet | Parameter protokol, pengaturan NFT, jenis NFT Hadiah, pengaktifan dan penonaktifan fungsi, periode farming, dan rentang biaya. |
 | MarketingFacet | Pendaftaran, pembelian NFT, dan perhitungan imbalan mitra. |
 | FarmingFacet | Mining NFTM dan Farming DA. |
 | PaymentFacet | Deposit, penarikan, voucher, dan transfer saldo. |
 | TreeFacet | Penempatan dan kedalaman jaringan mitra. |
 | ResolverFacet | Nilai yang kedaluwarsa, pemrosesan voucher, dan penyelesaian Frozen Balance. |
 | ViewFacet | Kueri read-only atas pengguna, saldo, dan jaringan. |
+
+Diamond juga mencakup facet standar EIP-2535: DiamondCutFacet untuk upgrade, DiamondLoupeFacet untuk introspeksi, dan OwnershipFacet.
 
 ## Kontrak NFT
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | Peran | Kewenangan Terdokumentasi |
 |---|---|
-| `ADMIN_ROLE` | Memberikan dan mencabut peran; mengubah parameter protokol yang diizinkan. |
+| Kontrak DAO | Menerapkan pembaruan parameter dalam rentang on-chain, mengubah pengaturan NFT, mengaktifkan atau menonaktifkan fungsi, menetapkan periode farming dan rentang biaya, menyetujui penggantian dompet, serta membatasi atau memulihkan akun. |
+| `ADMIN_ROLE` | Memberikan dan mencabut peran; mencetak NFT Hadiah dan NFT Ambassador serta mengelola jenis NFT Hadiah; menetapkan biaya transaksi dalam rentangnya. |
 | `SERVICE_ROLE` | Menjalankan operasi layanan otomatis dan lintas-rantai yang terdokumentasi. |
 | `SIGNER_ROLE` | Memverifikasi tanda tangan yang diotorisasi untuk tindakan tertentu. |
 | `MINTER_ROLE` | Mencetak token atau jenis NFT yang ditetapkan untuk peran tersebut. |
+| Pemilik Diamond | Upgrade facet melalui `diamondCut` dan pengalihan kepemilikan. |
+
+Daftar fungsi untuk setiap peran tercantum di bagian sentralisasi [laporan CertiK](/id/security).
 
 ## Skema Saldo
 
 | Saldo | Tujuan |
 |---|---|
 | Saldo Reguler | Penarikan, pembelian, dan voucher yang memenuhi syarat. |
-| Saldo Akumulatif | Saldo internal terbatas yang digunakan berdasarkan aturan terdokumentasi mengenai pembelian, transfer, biaya, dan redistribusi. |
+| Saldo Akumulatif | Saldo internal terbatas yang digunakan berdasarkan aturan terdokumentasi mengenai pembelian, transfer, biaya, dan redistribusi. Untuk sementara, masa hidupnya adalah 180 hari selama perbaikan pengaturan ulang timer disiapkan; lihat [Parameter Kontrak](/id/contract-parameters). |
 | Batas Imbalan Protokol | Sisa kelayakan imbalan untuk siklus NFT yang aktif; istilah on-chain: *Income Limit*. |
 | Token Reserve Balance | Saldo kumpulan likuiditas yang ditetapkan untuk mendukung mekanika DA. |
 | Dev Balance | Alokasi protokol dan operasional. |
 | Price Impact Balance | Cadangan yang digunakan oleh fungsi price-impact yang terdokumentasi. |
+
+<Note>
+  **Saldo FinPro terpisah.** Posisi FinPro dibuka langsung dari dompet EVM pengguna dalam USDT (BEP-20) dan dibayarkan ke dompet yang sama. Posisi tersebut tidak menggunakan Saldo Reguler maupun Saldo Akumulatif. Lihat [FinPro & FinFlow](/id/finpro-finflow).
+</Note>
 
 ## Prioritas Pembayaran
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  Semua transaksi di [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) memerlukan biaya gas jaringan standar yang dibayar dalam **BNB**, terpisah dari saldo [USDT](https://tether.to/) yang digunakan di dalam ekosistem. Deployment kontrak dan saldo dapat diverifikasi secara publik di [BscScan](https://bscscan.com/).
+  Semua transaksi di [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) memerlukan biaya gas jaringan standar yang dibayar dalam **BNB**, terpisah dari saldo [USDT](https://tether.to/) yang digunakan di dalam ekosistem. Deployment kontrak dan saldo dapat diverifikasi secara publik di [BscScan](https://bscscan.com/); alamat kontrak resmi tercantum di [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 </Note>

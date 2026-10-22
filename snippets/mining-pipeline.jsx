@@ -70,6 +70,27 @@ export const MiningPipeline = ({ lang }) => {
       future: 'Os preços futuros do protocolo não são predeterminados. Após o Farming, confira as opções em {link}.',
       sellingLending: 'Vender e Emprestar',
     },
+    id: {
+      title: 'Dasbor Mining',
+      subtitle: 'Ikhtisar alur ilustratif — dari Mining hingga Farming berdasarkan parameter yang berlaku saat ini',
+      interactive: 'Interaktif',
+      days: '{n} hari',
+      totalPipeline: 'Total durasi',
+      mining: 'Mining',
+      farming: 'Farming',
+      hours72: '72 j',
+      critical: 'Jendela kritis 72 jam — jika terlewat, seluruh siklus diatur ulang dari awal',
+      resultAfter: 'Hasil perhitungan setelah {n} hari',
+      illustrative: 'Nilai ilustratif dengan asumsi harga protokol 1,00 USDT — harga protokol aktual berlaku pada saat eksekusi',
+      basedOn: 'berdasarkan NFT seharga {price}',
+      cycleN: 'siklus {n}',
+      nftPrice: 'Harga NFT',
+      illustrativeValue: 'Nilai Ilustratif',
+      pipeline: 'Durasi',
+      oneCycle: 'Tingkatan NFT ini memiliki 1 siklus mining yang mencatat NFTM sebesar 10% dari harga NFT.',
+      future: 'Harga protokol di masa depan tidak ditentukan sebelumnya. Setelah Farming, tinjau opsi yang tersedia di halaman {link}.',
+      sellingLending: 'Penjualan & Pinjaman',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';
