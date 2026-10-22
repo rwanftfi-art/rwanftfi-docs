@@ -124,6 +124,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Ví Guardian',
       guardiansNote: 'ví quản trị hiện tại',
     },
+    uk: {
+      title: 'Огляд управління',
+      supply: 'Загальна емісія',
+      proposal: 'Поріг пропозиції',
+      proposalNote: 'від емісії для подання',
+      passing: 'Поріг прийняття',
+      passingNote: 'більшість для виконання он-чейн',
+      guardians: 'Гаманці Guardian',
+      guardiansNote: 'поточні гаманці управління',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';

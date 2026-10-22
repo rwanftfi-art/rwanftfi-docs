@@ -259,6 +259,27 @@ export const MiningPipeline = ({ lang }) => {
       future: 'Giá giao thức trong tương lai không được xác định trước. Sau Farming, hãy xem các lựa chọn tại trang {link}.',
       sellingLending: 'Bán & Cho Vay',
     },
+    uk: {
+      title: 'Панель майнінгу',
+      subtitle: 'Ілюстративний огляд циклу — від Майнінгу до Фармінгу за поточних параметрів',
+      interactive: 'Інтерактив',
+      days: { one: '{n} день', few: '{n} дні', many: '{n} днів', other: '{n} дні' },
+      totalPipeline: 'Увесь цикл',
+      mining: 'Майнінг',
+      farming: 'Фармінг',
+      hours72: '72 год',
+      critical: 'Критичне 72-годинне вікно — якщо його пропустити, увесь цикл почнеться спочатку',
+      resultAfter: { one: 'Розрахунковий результат через {n} день', few: 'Розрахунковий результат через {n} дні', many: 'Розрахунковий результат через {n} днів', other: 'Розрахунковий результат через {n} дні' },
+      illustrative: 'Ілюстративне значення за умовної протокольної ціни 1,00 USDT — під час виконання застосовується фактична протокольна ціна',
+      basedOn: 'для NFT за {price}',
+      cycleN: 'цикл {n}',
+      nftPrice: 'Ціна NFT',
+      illustrativeValue: 'Ілюстративна вартість',
+      pipeline: 'Цикл',
+      oneCycle: 'Цей рівень NFT має один цикл майнінгу, який фіксує в NFTM 10% від ціни NFT.',
+      future: 'Майбутні протокольні ціни не визначено заздалегідь. Після Фармінгу ознайомтеся з варіантами в розділі {link}.',
+      sellingLending: 'Продаж і Кредитування',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';
