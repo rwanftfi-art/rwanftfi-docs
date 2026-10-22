@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="ja" />
 
-<CardGroup cols={4}>
-  <Card title="10,000,000" icon="cube">
-    GovTokenの固定供給量
-  </Card>
-  <Card title="30%" icon="file-signature">
-    提案閾値
-  </Card>
-  <Card title="50%" icon="check-double">
-    承認閾値
-  </Card>
-  <Card title="20" icon="shield-check">
-    現在のGuardianウォレット
-  </Card>
-</CardGroup>
+GovTokenの供給量は **10,000,000** トークンに固定されています。提案の提出には供給量の **30%** が必要で、可決には **50%** の賛成が必要です。現在、**20**のGuardianウォレットがガバナンスに参加しています。
 
 ## 現在の配分
 
@@ -35,8 +22,20 @@ RWANFTFI Corporationは供給量の **30%** を保有しています。二十の
 
 - 文書化されたオンチェーン範囲内でパラメータを調整する（[コントラクトパラメータ](/ja/contract-parameters)を参照）。
 - Infinity（L10）の販売やBusiness Saleなど、指定されたプロトコル機能を有効化または無効化する。
-- ウォレット変更の要求を承認し、Business Saleが有効な間はパートナーストラクチャーの譲渡も承認する。
+- ウォレット変更の要求を承認し、Business Saleが有効な間はパートナーストラクチャーの譲渡も承認する。DAOが承認したウォレット変更はFinProのポジションにも適用されます：FinFlow NFTは、メインの移行の後、別のステップで移転されます。
+- 侵害されたビジネスを、本人確認済みの所有者が管理する新しいウォレットへ戻す。チームはユーザーのビジネスにアクセスできず、これを行えるのはDAO投票だけです。
 - NFTに関連付けられた指定のプラットフォーム機能を制限または復元する。
+
+## 執行済みの決定
+
+以下の提案はすべて可決され、オンチェーンで執行されました。各変更の前後のパラメータ値は、[パラメータ変更履歴](/ja/contract-parameters#パラメータ変更履歴)に記載されています。
+
+| 発表日 | 決定 |
+|---|---|
+| [2026年5月22日](https://news.rwanftfi.com/ja/first-dao-vote) | 最初のDAO投票。二件とも全会一致で可決されました（賛成：5,100,000、反対：0）。内容は、テスト期間としてのBusiness Saleの有効化と、その売り手手数料の500から1 USDTへの引き下げです。 |
+| [2026年6月9日](https://news.rwanftfi.com/ja/security-in-action) | Business Saleの無効化と、ハッキングされたアカウントから盗まれたビジネスの、本人確認済みの所有者が管理する新しいウォレットへの移転。 |
+| [2026年6月15日](https://news.rwanftfi.com/ja/infinity-is-unlocked-phase-2-is-live) | フェーズ2の有効化：新しいNFT購入の分配と、Infinity（L10）の販売の有効化。 |
+| [2026年9月17日](https://news.rwanftfi.com/ja/accumulative-balance-timer-extended-to-180-days-here-s-why) | タイマーのリセットに関する修正の準備が進む間、アキュムレーティブバランスのライフタイムを120日から180日に延長。今後、二つの投票が予定されています：まず修正、次に120日への復帰です。 |
 
 ## プラットフォーム機能の制限
 
@@ -80,4 +79,4 @@ RWANFTFI Corporationは供給量の **30%** を保有しています。二十の
   </Tab>
 </Tabs>
 
-すべてのウォレットアドレスは[BscScan](https://bscscan.com/)で検証可能です。ガバナンストークンの残高と取引履歴は公開監査可能です。
+すべてのウォレットアドレスは[BscScan](https://bscscan.com/)で検証可能です。ガバナンストークンの残高と取引履歴は公開監査可能です。DAOコントラクトのアドレスは、他の公式コントラクトとともに[app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts)に掲載されています。

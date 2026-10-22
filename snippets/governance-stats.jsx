@@ -114,6 +114,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Dompet Guardian',
       guardiansNote: 'dompet tata kelola saat ini',
     },
+    ja: {
+      title: 'ガバナンスの概要',
+      supply: '総供給量',
+      proposal: '提案閾値',
+      proposalNote: '提案の提出に必要な供給量の割合',
+      passing: '承認閾値',
+      passingNote: 'オンチェーンでの執行に必要な賛成',
+      guardians: 'Guardianウォレット',
+      guardiansNote: '現在のガバナンスウォレット',
+    },
     vi: {
       title: 'Tổng Quan Quản Trị',
       supply: 'Tổng nguồn cung',
