@@ -302,7 +302,7 @@ export const NftTierExplorer = ({ lang }) => {
                   {[[T.price, fmtUsd(selected.price)], [T.rewardCap, fmtUsd(selected.limit)], [T.netDepth, fmt(T.levels, selected.depth)], [T.miningCycle, selected.cycles === 0 ? T.notAvailable : fmt(T.days, selected.mining), selected.cycles === 0 ? null : selected.cycles === 1 ? T.perCycle : T.twoCycles], [T.autobuySlots, selected.autobuy === 'Unlimited' ? T.unlimited : T.slots, selected.autobuy === 'Unlimited' ? T.eliteNoCap : T.autoRenewal], [T.group, selected.tier]].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
-                      <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
+                      <div style={{ color: '#FFFFFF' }} className="text-base sm:text-lg font-bold">{val}</div>
                       {subtext && <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '9px' }}>{subtext}</div>}
                     </div>
                   ))}
@@ -362,8 +362,8 @@ export const NftTierExplorer = ({ lang }) => {
               <table className="w-full text-sm">
                 <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                   <th style={{ color: 'rgba(255,255,255,0.4)' }} className="text-left py-2 font-medium">{T.metric}</th>
-                  <th style={{ color: '#FFFFFF' }} className="text-right py-2 font-semibold">{compare[0].name}</th>
-                  <th style={{ color: '#F59E0B' }} className="text-right py-2 font-semibold">{compare[1].name}</th>
+                  <th style={{ color: '#FFFFFF' }} className="text-right py-2 pl-3 font-semibold">{compare[0].name}</th>
+                  <th style={{ color: '#F59E0B' }} className="text-right py-2 pl-3 font-semibold">{compare[1].name}</th>
                 </tr></thead>
                 <tbody style={{ color: '#FFFFFF' }}>
                   {[
@@ -377,8 +377,8 @@ export const NftTierExplorer = ({ lang }) => {
                   ].map(([label, v1, v2], i) => (
                     <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <td style={{ color: 'rgba(255,255,255,0.4)' }} className="py-2">{label}</td>
-                      <td className="py-2 text-right font-semibold">{v1}</td>
-                      <td className="py-2 text-right font-semibold">{v2}</td>
+                      <td className="py-2 pl-3 text-right font-semibold" style={{ whiteSpace: 'nowrap' }}>{v1}</td>
+                      <td className="py-2 pl-3 text-right font-semibold" style={{ whiteSpace: 'nowrap' }}>{v2}</td>
                     </tr>
                   ))}
                 </tbody>
