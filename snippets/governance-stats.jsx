@@ -24,6 +24,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Кошельки Guardian',
       guardiansNote: 'текущие кошельки управления',
     },
+    tr: {
+      title: 'Yönetişime Genel Bakış',
+      supply: 'Toplam Arz',
+      proposal: 'Öneri Eşiği',
+      proposalNote: 'öneri sunmak için gereken arz payı',
+      passing: 'Onay Eşiği',
+      passingNote: 'zincir üzerinde yürütme için gereken çoğunluk',
+      guardians: 'GUARDIAN CÜZDANLARI',
+      guardiansNote: 'mevcut yönetişim cüzdanları',
+    },
     zh: {
       title: '治理概览',
       supply: '总供应量',

@@ -1,6 +1,6 @@
 ---
 title: "Akıllı Sözleşme Mimarisi"
-description: "RWANFTFI; yedi işlevsel Facet, ayrı NFT ve rezerv sözleşmeleri, tanımlı yükseltilebilirlik mekanizmaları, rol tabanlı izinler ve birden fazla dahili bakiye türü içeren bir EIP-2535 Diamond mimarisi kullanır."
+description: "RWANFTFI; sekiz işlevsel Facet, ayrı NFT ve rezerv sözleşmeleri, tanımlı yükseltilebilirlik mekanizmaları, rol tabanlı izinler ve birden fazla dahili bakiye türü içeren bir EIP-2535 Diamond mimarisi kullanır."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | İşlev |
 |---|---|
-| AdminFacet | Roller, parametreler, onaylı devirler ve özel NFT basımı. |
+| AdminFacet | Cüzdan değişiklikleri ve hesap kısıtlamaları, özel NFT basımı ve otomatik servis işlemleri. |
+| ParametersFacet | Protokol parametreleri, NFT ayarları, Hediye NFT türleri, işlevlerin etkinleştirilmesi ve devre dışı bırakılması, farming dönemleri ve ücret aralıkları. |
 | MarketingFacet | Kayıt, NFT satın alımları ve partner ödülü hesaplamaları. |
 | FarmingFacet | NFTM Madenciliği ve DA Farming. |
 | PaymentFacet | Yatırmalar, çekimler, kuponlar ve bakiye transferleri. |
 | TreeFacet | Partner ağı yerleştirmesi ve derinliği. |
 | ResolverFacet | Süresi dolmuş değerler, kupon işleme ve Dondurulmuş Bakiye çözümlemesi. |
 | ViewFacet | Salt okunur kullanıcı, bakiye ve ağ sorguları. |
+
+Diamond ayrıca standart EIP-2535 Facet'lerini de içerir: yükseltmeler için DiamondCutFacet, iç gözlem için DiamondLoupeFacet ve OwnershipFacet.
 
 ## NFT Sözleşmeleri
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | Rol | Belgelenmiş Yetki |
 |---|---|
-| `ADMIN_ROLE` | Rolleri verme ve iptal etme; izin verilen protokol parametrelerini değiştirme. |
+| DAO sözleşmesi | Zincir üzeri aralıklar dahilinde parametre güncellemelerini uygular, NFT ayarlarını değiştirir, işlevleri etkinleştirir veya devre dışı bırakır, farming dönemlerini ve ücret aralıklarını belirler, cüzdan değişikliklerini onaylar ve hesapları kısıtlar veya yeniden etkinleştirir. |
+| `ADMIN_ROLE` | Rolleri verme ve iptal etme; Hediye ve Ambassador NFT'leri basma ve Hediye NFT türlerini yönetme; işlem ücretini kendi aralığı dahilinde belirleme. |
 | `SERVICE_ROLE` | Belgelenmiş otomatik ve zincirler arası servis işlemlerini yürütme. |
 | `SIGNER_ROLE` | Belirtilen işlemler için yetkili imzaları doğrulama. |
 | `MINTER_ROLE` | Bu role atanmış token veya NFT türünü basma. |
+| Diamond sahibi | `diamondCut` aracılığıyla Facet yükseltmeleri ve sahipliğin devri. |
+
+Her rolün işlev düzeyindeki listesi, [CertiK raporunun](/tr/security) merkezileşme bölümünde yer alır.
 
 ## Bakiye Şeması
 
 | Bakiye | Amaç |
 |---|---|
 | Normal Bakiye | Uygun çekimler, satın alımlar ve kuponlar. |
-| Birikim Bakiyesi | Belgelenmiş satın alma, transfer, ücret ve yeniden dağıtım kuralları uyarınca kullanılan kısıtlı dahili bakiye. |
+| Birikim Bakiyesi | Belgelenmiş satın alma, transfer, ücret ve yeniden dağıtım kuralları uyarınca kullanılan kısıtlı dahili bakiye. Zamanlayıcı sıfırlama düzeltmesi hazırlanırken ömrü geçici olarak 180 gündür; bkz. [Sözleşme Parametreleri](/tr/contract-parameters). |
 | Protokol Ödül Limiti | Aktif NFT döngüsü için kalan ödül uygunluğu; zincir üzerindeki terim: *Income Limit*. |
 | Token Reserve Bakiyesi | DA mekaniklerini destekleyen belirlenmiş likidite havuzu bakiyesi. |
 | Dev Bakiyesi | Protokol ve işletme tahsisleri. |
 | Fiyat Etkisi Bakiyesi | Belgelenmiş fiyat etkisi işlevleri tarafından kullanılan rezerv. |
+
+<Note>
+  **FinPro bakiyeleri ayrıdır.** FinPro pozisyonları doğrudan kullanıcının EVM cüzdanından USDT (BEP-20) ile açılır ve ödemeler aynı cüzdana yapılır. Bu pozisyonlarda Normal Bakiye ve Birikim Bakiyesi kullanılmaz. Bkz. [FinPro ve FinFlow](/tr/finpro-finflow).
+</Note>
 
 ## Ödeme Önceliği
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) üzerindeki tüm işlemler, ekosistem içinde kullanılan [USDT](https://tether.to/) bakiyelerinden ayrı olarak **BNB** ile ödenen standart ağ gas ücretleri gerektirir. Sözleşme dağıtımları ve bakiyeler [BscScan](https://bscscan.com/) üzerinde herkese açık olarak doğrulanabilir.
+  [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) üzerindeki tüm işlemler, ekosistem içinde kullanılan [USDT](https://tether.to/) bakiyelerinden ayrı olarak **BNB** ile ödenen standart ağ gas ücretleri gerektirir. Sözleşme dağıtımları ve bakiyeler [BscScan](https://bscscan.com/) üzerinde herkese açık olarak doğrulanabilir; resmi sözleşme adresleri [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts) adresinde listelenmiştir.
 </Note>

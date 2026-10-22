@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Bulgular | ID, önem derecesi ve durum yayımlanan raporda listelenmiştir. |
 | Düzeltme | Çözülen her bulgu, raporda ilgili kod değişikliğine bağlanmıştır. |
 | Dağıtım eşleştirmesi | Mevcut üretim sözleşmelerinin denetlenen sürümle eşleşip eşleşmediği ayrıca yayımlanır. |
-| Hata ödül programı | Güncel ve harici olarak doğrulanabilir durum resmi kanallarda yayımlanır. |
+| Hata ödül programı | CertiK'in resmi platformu üzerinden yürütülmektedir; hata ödül faaliyetleri CertiK Skynet'e yansıtılır. |
 
 ## Denetim raporunu nasıl doğrulayabilirim?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   Denetim, yayımlanan kapsamdaki akıllı sözleşmeleri ve kod sürümünü kapsar. Tek başına protokol ekonomisini, kurumsal performansı veya kullanıcı sonuçlarını doğrulamaz.
 </Note>
 
-## Üç Düzeyli Hesap Güvenliği
+## Hesap Güvenliğinin Dört Katmanı
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Finansal Şifre" icon="fingerprint">
     Giriş bilgilerinden ayrı, finansal işlemler için gereken bir şifre.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/tr/platform-features#secret-code">
+    Finansal şifreyle birlikte oluşturulan rastgele bir kelime. Destek ekibine yapılan, güvenlikle ilgili her talep için gereklidir.
   </Card>
   <Card title="İşlem Yetkilendirme Kodları" icon="key">
     Finansal işlemleri yetkilendirmek için gereken tek kullanımlık kodlar.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Kimlik Avına Karşı Koruma
+## DAO Aracılığıyla Hesap Kurtarma
+
+RWANFTFI ekibinin kullanıcıların işlerine erişimi yoktur. Bir hesabı yeni bir cüzdana yalnızca bir DAO oylaması taşıyabilir. Bu durum Haziran 2026'da sınandı: Business Sale geçici olarak etkinken bir kullanıcının hesabı ele geçirildi ve işin tamamı, yani NFT ve partner yapısı, çalındı. DAO, Business Sale'i devre dışı bıraktı ve işi, doğrulanmış sahibinin kontrol ettiği yeni bir cüzdana taşıdı; her iki öneri de zincir üzerinde yürütüldü. Bkz. [Yönetişim — DAO](/tr/governance#yürütülen-kararlar).
+
+## AML Taraması
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/tr/aml-checker">
+  Fon göndermeden veya almadan önce herhangi bir cüzdan adresini yaptırımlar, karıştırıcılar, dolandırıcılık ve hack saldırılarıyla bağlantılar açısından kontrol edin: 19 blok zinciri ve 14 stablecoin genelinde risk puanı.
+</Card>
+
+## Özel Mesajlaşma
+
+Yerleşik mesajlaşma aracı **Private Web3 chats** modunu sunar: XMTP protokolü (MLS) üzerinde uçtan uca şifrelenen ve platformun sunucularında saklanmayan mesajlar. Bkz. [Platform Özellikleri](/tr/platform-features).
+
+## Resmi Alan Adları
+
+| Alan Adı | Amaç |
+|---|---|
+| rwanftfi.com | Ana web sitesi |
+| app.rwanftfi.com | Uygulama |
+| news.rwanftfi.com | Haberler ve duyurular |
+| bridge.rwanftfi.com | Zincirler arası köprü |
+| whitepaper.rwanftfi.com | Bu teknik doküman |
+| brandbook.rwanftfi.com | Marka kitabı |
+| share.rwanftfi.com | Referans bağlantıları |
+| rwafinpro.com | FinPro finansal ürünleri |
+| rwanftcards.com | RWA NFT Cards banka kartları |
+
+Diamond, DAO ve Token Reserve dahil olmak üzere resmi sözleşme adresleri [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts) adresinde listelenmiştir.
 
 <Warning>
-  Yalnızca resmi RWANFTFI alan adlarını ve sözleşme adreslerini kullanın. RWANFTFI temsilcileri hiçbir zaman özel anahtar, seed cümlesi veya resmi olmayan cüzdan adreslerine ödeme talep etmemelidir. Cüzdanınızı bağlamadan veya giriş bilgilerinizi girmeden önce her zaman **rwanftfi.com** üzerinde olduğunuzu doğrulayın.
+  Yalnızca yukarıdaki alan adlarını ve resmi sözleşme adreslerini kullanın; benzer yazılışlı olanlar dahil diğer tüm alan adları resmi değildir. RWANFTFI temsilcileri hiçbir zaman özel anahtar, seed cümlesi veya resmi olmayan cüzdan adreslerine ödeme talep etmez. Cüzdan bağlamadan veya giriş bilgilerinizi girmeden önce alan adını kontrol edin.
 </Warning>
