@@ -114,6 +114,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Dompet Guardian',
       guardiansNote: 'dompet tata kelola saat ini',
     },
+    vi: {
+      title: 'Tổng Quan Quản Trị',
+      supply: 'Tổng nguồn cung',
+      proposal: 'Ngưỡng đề xuất',
+      proposalNote: 'nguồn cung để gửi đề xuất',
+      passing: 'Ngưỡng phê duyệt',
+      passingNote: 'đa số để thực thi on-chain',
+      guardians: 'Ví Guardian',
+      guardiansNote: 'ví quản trị hiện tại',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';

@@ -1,6 +1,6 @@
 ---
 title: "Kiến Trúc Hợp Đồng Thông Minh"
-description: "RWANFTFI sử dụng kiến trúc Diamond theo EIP-2535 với bảy facet chức năng, các hợp đồng NFT và hợp đồng dự trữ riêng biệt, cơ chế nâng cấp xác định, phân quyền dựa trên vai trò và nhiều loại số dư nội bộ."
+description: "RWANFTFI sử dụng kiến trúc Diamond theo EIP-2535 với tám facet chức năng, các hợp đồng NFT và hợp đồng dự trữ riêng biệt, cơ chế nâng cấp xác định, phân quyền dựa trên vai trò và nhiều loại số dư nội bộ."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | Chức năng |
 |---|---|
-| AdminFacet | Vai trò, tham số, chuyển nhượng được phê duyệt và đúc NFT đặc biệt. |
+| AdminFacet | Thay đổi ví và hạn chế tài khoản, đúc NFT đặc biệt và các hoạt động dịch vụ tự động. |
+| ParametersFacet | Tham số giao thức, cài đặt NFT, các loại NFT Quà Tặng, việc bật hoặc tắt chức năng, các giai đoạn farming và phạm vi phí. |
 | MarketingFacet | Đăng ký, mua NFT và tính toán phần thưởng đối tác. |
 | FarmingFacet | Khai Thác NFTM và Farming DA. |
 | PaymentFacet | Nạp tiền, rút tiền, voucher và chuyển số dư. |
 | TreeFacet | Đặt vị trí và độ sâu trong mạng lưới đối tác. |
 | ResolverFacet | Giá trị hết hạn, xử lý voucher và giải quyết Số Dư Đóng Băng. |
 | ViewFacet | Truy vấn chỉ đọc về người dùng, số dư và mạng lưới. |
+
+Diamond cũng bao gồm các facet tiêu chuẩn của EIP-2535: DiamondCutFacet để nâng cấp, DiamondLoupeFacet để tra cứu cấu trúc (introspection) và OwnershipFacet.
 
 ## Hợp Đồng NFT
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | Vai trò | Thẩm quyền theo tài liệu |
 |---|---|
-| `ADMIN_ROLE` | Cấp và thu hồi vai trò; thay đổi các tham số giao thức được phép. |
+| Hợp đồng DAO | Áp dụng các cập nhật tham số trong phạm vi on-chain, thay đổi cài đặt NFT, kích hoạt hoặc vô hiệu hóa các chức năng, thiết lập các giai đoạn farming và phạm vi phí, phê duyệt thay đổi ví, hạn chế hoặc khôi phục tài khoản. |
+| `ADMIN_ROLE` | Cấp và thu hồi vai trò; đúc NFT Quà Tặng và NFT Ambassador, quản lý các loại NFT Quà Tặng; thiết lập phí giao dịch trong phạm vi quy định. |
 | `SERVICE_ROLE` | Thực hiện các hoạt động dịch vụ tự động và liên chuỗi được mô tả trong tài liệu. |
 | `SIGNER_ROLE` | Xác minh chữ ký được ủy quyền cho các hành động cụ thể. |
 | `MINTER_ROLE` | Đúc token hoặc loại NFT được giao cho vai trò đó. |
+| Chủ sở hữu Diamond | Nâng cấp facet thông qua `diamondCut` và chuyển giao quyền sở hữu. |
+
+Danh sách quyền ở cấp hàm của từng vai trò được nêu trong mục về tập trung hóa (centralization) của [báo cáo CertiK](/vi/security).
 
 ## Lược Đồ Số Dư
 
 | Số dư | Mục đích |
 |---|---|
 | Số Dư Thông Thường | Dùng cho rút tiền, giao dịch mua và voucher đủ điều kiện. |
-| Số Dư Tích Lũy | Số dư nội bộ bị hạn chế, được sử dụng theo các quy tắc về mua, chuyển, phí và phân phối lại được mô tả trong tài liệu. |
+| Số Dư Tích Lũy | Số dư nội bộ bị hạn chế, được sử dụng theo các quy tắc về mua, chuyển, phí và phân phối lại được mô tả trong tài liệu. Vòng đời của số dư này tạm thời là 180 ngày trong khi bản sửa lỗi đặt lại bộ đếm thời gian đang được chuẩn bị; xem [Tham Số Hợp Đồng](/vi/contract-parameters). |
 | Giới Hạn Phần Thưởng Giao Thức | Quyền nhận phần thưởng còn lại trong chu kỳ NFT đang hoạt động; thuật ngữ on-chain: *Income Limit*. |
 | Token Reserve Balance | Số dư pool thanh khoản được chỉ định, hỗ trợ các cơ chế DA. |
 | Dev Balance | Các khoản phân bổ cho giao thức và vận hành. |
 | Price Impact Balance | Khoản dự trữ được sử dụng bởi các hàm tác động giá được mô tả trong tài liệu. |
+
+<Note>
+  **Số dư FinPro được tách biệt.** Các vị thế FinPro được mở trực tiếp từ ví EVM của người dùng bằng USDT (BEP-20) và được chi trả về chính ví đó. Các vị thế này không sử dụng Số Dư Thông Thường hay Số Dư Tích Lũy. Xem [FinPro & FinFlow](/vi/finpro-finflow).
+</Note>
 
 ## Ưu Tiên Thanh Toán
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  Mọi giao dịch trên [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) đều yêu cầu phí gas mạng tiêu chuẩn trả bằng **BNB**, tách biệt với số dư [USDT](https://tether.to/) được sử dụng trong hệ sinh thái. Việc triển khai hợp đồng và các số dư có thể được xác minh công khai trên [BscScan](https://bscscan.com/).
+  Mọi giao dịch trên [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) đều yêu cầu phí gas mạng tiêu chuẩn trả bằng **BNB**, tách biệt với số dư [USDT](https://tether.to/) được sử dụng trong hệ sinh thái. Việc triển khai hợp đồng và các số dư có thể được xác minh công khai trên [BscScan](https://bscscan.com/); các địa chỉ hợp đồng chính thức được liệt kê tại [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 </Note>

@@ -238,6 +238,27 @@ export const MiningPipeline = ({ lang }) => {
       future: 'Harga protokol di masa depan tidak ditentukan sebelumnya. Setelah Farming, tinjau opsi yang tersedia di halaman {link}.',
       sellingLending: 'Penjualan & Pinjaman',
     },
+    vi: {
+      title: 'Bảng Điều Khiển Khai Thác',
+      subtitle: 'Minh họa quy trình — từ Khai Thác đến Farming theo các tham số hiện hành',
+      interactive: 'Tương\u00A0tác',
+      days: '{n} ngày',
+      totalPipeline: 'Toàn bộ quy trình',
+      mining: 'Khai Thác',
+      farming: 'Farming',
+      hours72: '72h',
+      critical: 'Cửa sổ nhận 72 giờ — nếu bỏ lỡ, toàn bộ chu kỳ sẽ bắt đầu lại từ đầu',
+      resultAfter: 'Kết quả tính toán sau {n} ngày',
+      illustrative: 'Giá trị minh họa với giá giao thức giả định 1,00 USDT — giá giao thức thực tế được áp dụng tại thời điểm thực hiện',
+      basedOn: 'dựa trên NFT giá {price}',
+      cycleN: 'chu kỳ {n}',
+      nftPrice: 'Giá NFT',
+      illustrativeValue: 'Giá trị minh họa',
+      pipeline: 'Quy trình',
+      oneCycle: 'Cấp NFT này có 1 chu kỳ khai thác, tạo ra lượng NFTM bằng 10% giá NFT.',
+      future: 'Giá giao thức trong tương lai không được xác định trước. Sau Farming, hãy xem các lựa chọn tại trang {link}.',
+      sellingLending: 'Bán & Cho Vay',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';

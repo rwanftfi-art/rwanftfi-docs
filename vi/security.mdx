@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Phát hiện | ID, mức độ nghiêm trọng và trạng thái được liệt kê trong báo cáo đã công bố. |
 | Khắc phục | Mỗi phát hiện đã được xử lý đều được liên kết với thay đổi mã tương ứng trong báo cáo. |
 | Đối chiếu triển khai | Thông tin về việc các hợp đồng đang vận hành hiện tại có khớp với phiên bản đã kiểm toán hay không được công bố riêng. |
-| Chương trình bug bounty | Trạng thái hiện tại có thể xác minh từ bên ngoài được công bố trên các kênh chính thức. |
+| Chương trình bug bounty | Đang hoạt động trên nền tảng chính thức của CertiK; hoạt động bug bounty được phản ánh trên CertiK Skynet. |
 
 ## Làm thế nào để xác minh báo cáo kiểm toán?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   Cuộc kiểm toán bao gồm các hợp đồng thông minh và phiên bản mã trong phạm vi đã công bố. Bản thân cuộc kiểm toán không xác minh mô hình kinh tế của giao thức, kết quả hoạt động của doanh nghiệp hay kết quả của người dùng.
 </Note>
 
-## Bảo Mật Tài Khoản Ba Cấp
+## Bốn Lớp Bảo Mật Tài Khoản
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Mật Khẩu Tài Chính" icon="fingerprint">
     Mật khẩu tách biệt với thông tin đăng nhập, bắt buộc đối với các thao tác tài chính.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/vi/platform-features#secret-code">
+    Một từ ngẫu nhiên được tạo cùng với mật khẩu tài chính. Bắt buộc đối với mọi yêu cầu liên quan đến bảo mật gửi tới bộ phận hỗ trợ.
   </Card>
   <Card title="Mã Ủy Quyền Giao Dịch" icon="key">
     Mã dùng một lần, bắt buộc để ủy quyền các giao dịch tài chính.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Bảo Vệ Chống Phishing
+## Khôi Phục Tài Khoản Qua DAO
+
+Đội ngũ RWANFTFI không có quyền truy cập vào business của người dùng. Chỉ một cuộc bỏ phiếu DAO mới có thể chuyển một tài khoản sang ví mới. Điều này đã được kiểm chứng vào tháng Sáu năm 2026: tài khoản của một người dùng bị xâm nhập và toàn bộ business, gồm NFT và cấu trúc đối tác, đã bị đánh cắp trong thời gian Business Sale tạm thời được kích hoạt. DAO đã vô hiệu hóa Business Sale và chuyển business sang một ví mới do chủ sở hữu đã được xác minh kiểm soát; cả hai đề xuất đều đã được thực thi on-chain. Xem [Quản Trị — DAO](/vi/governance#các-quyết-định-đã-thực-thi).
+
+## Sàng Lọc AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/vi/aml-checker">
+  Kiểm tra bất kỳ địa chỉ ví nào về mối liên hệ với các lệnh trừng phạt, dịch vụ trộn tiền (mixer), lừa đảo và các vụ hack trước khi gửi hoặc nhận tiền: điểm rủi ro trên 19 blockchain và 14 stablecoin.
+</Card>
+
+## Nhắn Tin Riêng Tư
+
+Trình nhắn tin tích hợp cung cấp chế độ **Private Web3 chats**: tin nhắn được mã hóa đầu cuối trên giao thức XMTP (MLS) và không được lưu trữ trên máy chủ của nền tảng. Xem [Tính Năng Nền Tảng](/vi/platform-features).
+
+## Tên Miền Chính Thức
+
+| Tên miền | Mục đích |
+|---|---|
+| rwanftfi.com | Trang web chính |
+| app.rwanftfi.com | Ứng dụng |
+| news.rwanftfi.com | Tin tức và thông báo |
+| bridge.rwanftfi.com | Cầu nối liên chuỗi |
+| whitepaper.rwanftfi.com | Sách trắng này |
+| brandbook.rwanftfi.com | Cẩm nang thương hiệu |
+| share.rwanftfi.com | Liên kết giới thiệu |
+| rwafinpro.com | Các sản phẩm tài chính FinPro |
+| rwanftcards.com | Thẻ ghi nợ RWA NFT Cards |
+
+Các địa chỉ hợp đồng chính thức, bao gồm Diamond, DAO và Token Reserve, được liệt kê tại [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Chỉ sử dụng các tên miền và địa chỉ hợp đồng chính thức của RWANFTFI. Đại diện của RWANFTFI không bao giờ được phép yêu cầu khóa riêng tư, cụm từ khôi phục hoặc các khoản thanh toán vào địa chỉ ví không chính thức. Luôn xác minh rằng bạn đang truy cập **rwanftfi.com** trước khi kết nối ví hoặc nhập thông tin đăng nhập.
+  Chỉ sử dụng các tên miền nêu trên và các địa chỉ hợp đồng chính thức; mọi tên miền khác, kể cả tên miền có cách viết gần giống, đều không phải là tên miền chính thức. Đại diện của RWANFTFI không bao giờ yêu cầu khóa riêng tư, cụm từ khôi phục hoặc các khoản thanh toán vào địa chỉ ví không chính thức. Hãy kiểm tra tên miền trước khi kết nối ví hoặc nhập thông tin đăng nhập.
 </Warning>

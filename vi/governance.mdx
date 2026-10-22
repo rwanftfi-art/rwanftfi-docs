@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="vi" />
 
-<CardGroup cols={4}>
-  <Card title="10.000.000" icon="cube">
-    Nguồn cung GovToken cố định
-  </Card>
-  <Card title="30%" icon="file-signature">
-    Ngưỡng đề xuất
-  </Card>
-  <Card title="50%" icon="check-double">
-    Ngưỡng phê duyệt
-  </Card>
-  <Card title="20" icon="shield-check">
-    Ví Guardian hiện tại
-  </Card>
-</CardGroup>
+Nguồn cung GovToken được cố định ở mức **10.000.000** token. Một đề xuất cần **30%** nguồn cung để được đệ trình và đa số **50%** để được thông qua; hiện có **20** ví Guardian tham gia quản trị.
 
 ## Phân Bổ Hiện Tại
 
@@ -35,8 +22,20 @@ Mô hình tương lai được mô tả trong tài liệu hướng tới 30% cho
 
 - Điều chỉnh các tham số trong phạm vi on-chain được mô tả trong tài liệu (xem [Tham Số Hợp Đồng](/vi/contract-parameters)).
 - Kích hoạt hoặc vô hiệu hóa các chức năng giao thức cụ thể, chẳng hạn như bán Infinity (L10) hoặc Business Sale.
-- Phê duyệt yêu cầu thay đổi ví và, khi Business Sale được kích hoạt, các giao dịch chuyển nhượng cấu trúc đối tác.
+- Phê duyệt yêu cầu thay đổi ví và, khi Business Sale được kích hoạt, các giao dịch chuyển nhượng cấu trúc đối tác. Việc thay đổi ví được DAO phê duyệt cũng áp dụng cho các vị thế FinPro: các FinFlow NFT được chuyển trong một bước riêng sau quá trình chuyển đổi.
+- Đưa một business bị xâm phạm về một ví mới do chủ sở hữu đã được xác minh kiểm soát. Đội ngũ không có quyền truy cập vào business của người dùng; chỉ một cuộc bỏ phiếu DAO mới có thể thực hiện việc này.
 - Hạn chế hoặc khôi phục chức năng cụ thể của nền tảng gắn với một NFT.
+
+## Các Quyết Định Đã Thực Thi
+
+Mọi đề xuất dưới đây đều đã được thông qua và thực thi on-chain. Giá trị tham số trước và sau mỗi thay đổi được liệt kê trong [nhật ký thay đổi tham số](/vi/contract-parameters#nhật-ký-thay-đổi-tham-số).
+
+| Ngày công bố | Quyết định |
+|---|---|
+| [22 tháng Năm năm 2026](https://news.rwanftfi.com/vi/first-dao-vote) | Các cuộc bỏ phiếu DAO đầu tiên, cả hai đều được thông qua với sự nhất trí hoàn toàn (5.100.000 phiếu thuận, 0 phiếu chống): Business Sale được kích hoạt trong một khoảng thời gian thử nghiệm, và phí người bán của chức năng này được giảm từ 500 xuống 1 USDT. |
+| [9 tháng Sáu năm 2026](https://news.rwanftfi.com/vi/security-in-action) | Business Sale bị vô hiệu hóa, và một business bị đánh cắp từ một tài khoản bị xâm nhập đã được chuyển sang một ví mới do chủ sở hữu đã được xác minh kiểm soát. |
+| [15 tháng Sáu năm 2026](https://news.rwanftfi.com/vi/infinity-is-unlocked-phase-2-is-live) | Phase 2 được kích hoạt: cơ cấu phân phối mới cho giao dịch mua NFT, và việc bán Infinity (L10) được kích hoạt. |
+| [17 tháng Chín năm 2026](https://news.rwanftfi.com/vi/accumulative-balance-timer-extended-to-180-days-here-s-why) | Vòng đời Số Dư Tích Lũy được kéo dài từ 120 lên 180 ngày trong khi bản sửa lỗi đặt lại bộ đếm thời gian đang được chuẩn bị. Hai cuộc bỏ phiếu tiếp theo đã được lên kế hoạch: bản sửa lỗi, sau đó là việc khôi phục mức 120 ngày. |
 
 ## Hạn Chế Chức Năng Nền Tảng
 
@@ -80,4 +79,4 @@ Tất cả người nắm giữ token quản trị đều có thể được xá
   </Tab>
 </Tabs>
 
-Tất cả địa chỉ ví đều có thể xác minh trên [BscScan](https://bscscan.com/). Số dư token quản trị và lịch sử giao dịch có thể được kiểm tra công khai.
+Tất cả địa chỉ ví đều có thể xác minh trên [BscScan](https://bscscan.com/). Số dư token quản trị và lịch sử giao dịch có thể được kiểm tra công khai. Địa chỉ hợp đồng DAO được liệt kê cùng các hợp đồng chính thức khác tại [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
