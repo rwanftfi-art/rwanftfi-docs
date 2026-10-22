@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="ar" />
 
-<CardGroup cols={4}>
-  <Card title="10,000,000" icon="cube">
-    العرض الثابت لـ GovToken
-  </Card>
-  <Card title="30%" icon="file-signature">
-    عتبة الاقتراح
-  </Card>
-  <Card title="50%" icon="check-double">
-    عتبة الموافقة
-  </Card>
-  <Card title="20" icon="shield-check">
-    محافظ Guardian الحالية
-  </Card>
-</CardGroup>
+عرض GovToken ثابت عند **10,000,000** رمز. ويتطلب تقديم الاقتراح **30%** من العرض، ويتطلب إقراره أغلبية **50%**؛ وتشارك حالياً **20** محفظة Guardian في الحوكمة.
 
 ## التخصيص الحالي
 
@@ -35,8 +22,20 @@ import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
 - تعديل المعايير ضمن نطاقاتها الموثَّقة على السلسلة (انظر [معايير العقد](/ar/contract-parameters)).
 - تفعيل وظائف محدَّدة في البروتوكول أو تعطيلها، مثل مبيعات Infinity (L10) أو Business Sale.
-- الموافقة على طلبات تغيير المحفظة، وكذلك على عمليات نقل هياكل الشركاء ما دامت Business Sale مفعَّلة.
+- الموافقة على طلبات تغيير المحفظة، وكذلك على عمليات نقل هياكل الشركاء ما دامت Business Sale مفعَّلة. ويشمل تغيير المحفظة الذي يوافق عليه DAO مراكز FinPro أيضاً: إذ تُنقَل رموز FinFlow NFT في خطوة منفصلة بعد الترحيل.
+- إعادة العمل المُخترَق إلى محفظة جديدة يتحكم فيها مالكه المُتحقَّق منه. ولا يملك الفريق أي وصول إلى أعمال المستخدمين؛ ولا يمكن القيام بذلك إلا بتصويت DAO.
 - تقييد وظائف محدَّدة في المنصة مرتبطة بـ NFT أو استعادتها.
+
+## القرارات المنفذة
+
+أُقرّ كل اقتراح أدناه ونُفِّذ على السلسلة. وترد قيم المعايير قبل كل تغيير وبعده في [سجل تغييرات المعايير](/ar/contract-parameters#سجل-تغييرات-المعايير).
+
+| تاريخ الإعلان | القرار |
+|---|---|
+| [22 مايو 2026](https://news.rwanftfi.com/en/first-dao-vote) | أول تصويتين في DAO، وقد أُقرّ كلاهما بالإجماع (5,100,000 صوت مؤيد مقابل 0 صوت معارض): تفعيل Business Sale لفترة تجريبية، وخفض رسم البائع فيها من 500 إلى 1 USDT. |
+| [9 يونيو 2026](https://news.rwanftfi.com/en/security-in-action) | تعطيل Business Sale، ونقل عمل سُرق من حساب مُخترَق إلى محفظة جديدة يتحكم فيها مالكه المُتحقَّق منه. |
+| [15 يونيو 2026](https://news.rwanftfi.com/en/infinity-is-unlocked-phase-2-is-live) | تفعيل المرحلة 2: التوزيع الجديد لمشتريات NFT، وتفعيل مبيعات Infinity (L10). |
+| [17 سبتمبر 2026](https://news.rwanftfi.com/en/accumulative-balance-timer-extended-to-180-days-here-s-why) | تمديد عمر الرصيد التراكمي من 120 إلى 180 يوماً ريثما يُعَدّ إصلاح لإعادة ضبط المؤقت. ومن المقرر إجراء تصويتين لاحقين: الأول على الإصلاح، ثم الثاني على إعادة المدة إلى 120 يوماً. |
 
 ## تقييد وظائف المنصة
 
@@ -80,4 +79,4 @@ import { GovernanceStats } from '/snippets/governance-stats.jsx'
   </Tab>
 </Tabs>
 
-يمكن التحقق من جميع عناوين المحافظ على [BscScan](https://bscscan.com/). كما أن أرصدة رموز الحوكمة وسجل المعاملات قابلة للتدقيق علناً.
+يمكن التحقق من جميع عناوين المحافظ على [BscScan](https://bscscan.com/). كما أن أرصدة رموز الحوكمة وسجل المعاملات قابلة للتدقيق علناً. ويُدرَج عنوان عقد DAO مع سائر العقود الرسمية على [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).

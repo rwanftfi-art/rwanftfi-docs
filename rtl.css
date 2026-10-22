@@ -78,7 +78,8 @@ html[lang="ar"] #pagination [data-component-part="pagination-chevron"] {
   transform: scaleX(-1);
 }
 
-/* The interactive widgets from /snippets are English-only: keep them left to right. */
+/* The interactive widgets from /snippets keep their left-to-right layout. Their Arabic
+   labels carry directional marks, so mixed Arabic and Latin text still reads in order. */
 html[lang="ar"] #content div.not-prose.rounded-xl.p-6 {
   direction: ltr;
 }
