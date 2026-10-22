@@ -21,7 +21,7 @@ icon: "shield-halved"
 | 发现项 | ID、严重程度与状态均列于已公布的报告中。 |
 | 修复 | 每个已解决的发现项都在报告中关联到相应的代码变更。 |
 | 部署对应关系 | 当前生产环境合约是否与审计版本一致，另行公布。 |
-| 漏洞赏金 | 当前可供外部核验的状态在官方渠道公布。 |
+| 漏洞赏金 | 已通过 CertiK 官方平台上线；漏洞赏金活动可在 CertiK Skynet 上查看。 |
 
 ## 如何核验审计报告？
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   本次审计涵盖已公布范围内的智能合约与代码版本。审计本身并不验证协议经济模型、公司业绩或用户结果。
 </Note>
 
-## 三级账户安全
+## 四层账户安全
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="财务密码" icon="fingerprint">
     独立于登录凭证的密码，执行财务操作时需要输入。
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/zh/platform-features#secret-code">
+    与财务密码一同生成的随机单词。任何安全相关的支持请求均须提供。
   </Card>
   <Card title="交易授权码" icon="key">
     授权财务交易所需的一次性验证码。
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## 防范网络钓鱼
+## 通过 DAO 恢复账户
+
+RWANFTFI 团队无权访问用户的业务。只有 DAO 投票才能将账户迁移至新钱包。这一机制已于 2026 年 6 月经受检验：在 Business Sale 临时启用期间，一名用户的账户遭到入侵，其全部业务（NFT 与合作伙伴结构）被盗。DAO 禁用了 Business Sale，并将该业务迁移至由其经验证的所有者控制的新钱包；两项提案均已在链上执行。请参阅[治理 — DAO](/zh/governance#已执行的决议)。
+
+## AML 筛查
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/zh/aml-checker">
+  在发送或接收资金前，检测任意钱包地址与制裁、混币器、诈骗及黑客攻击的关联：提供覆盖 19 条区块链与 14 种稳定币的风险评分。
+</Card>
+
+## 私密消息
+
+内置即时通讯工具提供 **Private Web3 chats** 模式：基于 XMTP 协议（MLS）的端到端加密消息，不存储在平台的服务器上。请参阅[平台功能](/zh/platform-features)。
+
+## 官方域名
+
+| 域名 | 用途 |
+|---|---|
+| rwanftfi.com | 主网站 |
+| app.rwanftfi.com | 应用 |
+| news.rwanftfi.com | 新闻与公告 |
+| bridge.rwanftfi.com | 跨链桥 |
+| whitepaper.rwanftfi.com | 本白皮书 |
+| brandbook.rwanftfi.com | 品牌手册 |
+| share.rwanftfi.com | 推荐链接 |
+| rwafinpro.com | FinPro 金融产品 |
+| rwanftcards.com | RWA NFT Cards 借记卡 |
+
+官方合约地址（包括 Diamond、DAO 与 Token Reserve）列于 [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts)。
 
 <Warning>
-  请仅使用 RWANFTFI 官方域名与合约地址。RWANFTFI 代表绝不应索要私钥、助记词，或要求向非官方钱包地址付款。在连接钱包或输入凭证之前，请务必确认您位于 **rwanftfi.com**。
+  请仅使用上述域名与官方合约地址；任何其他域名，包括拼写相似的域名，均非官方域名。RWANFTFI 代表绝不会索要私钥、助记词，或要求向非官方钱包地址付款。在连接钱包或输入凭证之前，请核实域名。
 </Warning>

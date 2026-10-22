@@ -24,6 +24,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Кошельки Guardian',
       guardiansNote: 'текущие кошельки управления',
     },
+    zh: {
+      title: '治理概览',
+      supply: '总供应量',
+      proposal: '提案门槛',
+      proposalNote: '提交提案所需的供应量占比',
+      passing: '通过门槛',
+      passingNote: '在链上执行所需的多数票',
+      guardians: 'Guardian 钱包',
+      guardiansNote: '当前治理钱包',
+    },
     es: {
       title: 'Resumen de Gobernanza',
       supply: 'Suministro total',

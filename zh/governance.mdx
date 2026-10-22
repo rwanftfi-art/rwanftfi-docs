@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="zh" />
 
-<CardGroup cols={4}>
-  <Card title="10,000,000" icon="cube">
-    GovToken 固定供应量
-  </Card>
-  <Card title="30%" icon="file-signature">
-    提案门槛
-  </Card>
-  <Card title="50%" icon="check-double">
-    通过门槛
-  </Card>
-  <Card title="20" icon="shield-check">
-    当前 Guardian 钱包数
-  </Card>
-</CardGroup>
+GovToken 的供应量固定为 **10,000,000** 枚。提交提案需持有供应量的 **30%**，通过提案需获得 **50%** 的多数票；目前共有 **20** 个 Guardian 钱包参与治理。
 
 ## 当前分配
 
@@ -35,8 +22,20 @@ RWANFTFI Corporation 持有供应量的 **30%**。二十个 Guardian 钱包各�
 
 - 在文档所述的链上范围内调整参数（参见[合约参数](/zh/contract-parameters)）。
 - 启用或禁用指定的协议功能，例如 Infinity（L10）销售或 Business Sale。
-- 批准钱包变更请求，以及在 Business Sale 启用期间批准合作伙伴结构转让。
+- 批准钱包变更请求，以及在 Business Sale 启用期间批准合作伙伴结构转让。经 DAO 批准的钱包变更同样涵盖 FinPro 仓位：FinFlow NFT 将在迁移完成后通过单独步骤转移。
+- 将遭入侵的业务归还至由其经验证的所有者控制的新钱包。团队无权访问用户的业务；只有 DAO 投票才能执行此操作。
 - 限制或恢复与某个 NFT 相关联的指定平台功能。
+
+## 已执行的决议
+
+以下每项提案均已通过并在链上执行。每项变更前后的参数数值列于[参数变更记录](/zh/contract-parameters#参数变更记录)。
+
+| 公布日期 | 决议 |
+|---|---|
+| [2026 年 5 月 22 日](https://news.rwanftfi.com/zh/first-dao-vote) | 首批 DAO 投票，两项提案均获一致通过（5,100,000 票赞成，0 票反对）：Business Sale 在测试窗口期内启用，其卖方费用从 500 USDT 降至 1 USDT。 |
+| [2026 年 6 月 9 日](https://news.rwanftfi.com/zh/security-in-action) | Business Sale 被禁用，从被入侵账户中被盗的业务被迁移至由其经验证的所有者控制的新钱包。 |
+| [2026 年 6 月 15 日](https://news.rwanftfi.com/zh/infinity-is-unlocked-phase-2-is-live) | 第二阶段启动：新的 NFT 购买分配，以及 Infinity（L10）销售启用。 |
+| [2026 年 9 月 17 日](https://news.rwanftfi.com/zh/accumulative-balance-timer-extended-to-180-days-here-s-why) | 在准备计时器重置修复期间，累积余额生命周期从 120 天延长至 180 天。计划进行两次后续投票：先进行修复，再恢复为 120 天。 |
 
 ## 平台功能限制
 
@@ -80,4 +79,4 @@ RWANFTFI Corporation 持有供应量的 **30%**。二十个 Guardian 钱包各�
   </Tab>
 </Tabs>
 
-所有钱包地址均可在 [BscScan](https://bscscan.com/) 上核验。治理代币余额与交易历史可供公开审计。
+所有钱包地址均可在 [BscScan](https://bscscan.com/) 上核验。治理代币余额与交易历史可供公开审计。DAO 合约地址与其他官方合约一同列于 [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts)。

@@ -1,6 +1,6 @@
 ---
 title: "智能合约架构"
-description: "RWANFTFI 采用 EIP-2535 Diamond 架构，包含七个功能 Facet、独立的 NFT 合约与储备合约、明确的可升级机制、基于角色的权限，以及多种内部余额类型。"
+description: "RWANFTFI 采用 EIP-2535 Diamond 架构，包含八个功能 Facet、独立的 NFT 合约与储备合约、明确的可升级机制、基于角色的权限，以及多种内部余额类型。"
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | 功能 |
 |---|---|
-| AdminFacet | 角色、参数、经批准的转让以及特殊 NFT 铸造。 |
+| AdminFacet | 钱包变更与账户限制、特殊 NFT 铸造以及自动化服务操作。 |
+| ParametersFacet | 协议参数、NFT 设置、礼品 NFT 类型、功能开关、农场周期与手续费范围。 |
 | MarketingFacet | 注册、NFT 购买与合作伙伴奖励计算。 |
 | FarmingFacet | NFTM 挖矿与 DA 农场。 |
 | PaymentFacet | 充值、提现、代金券与余额转账。 |
 | TreeFacet | 合作伙伴网络的位置安排与深度。 |
 | ResolverFacet | 过期金额、代金券处理与冻结余额结算。 |
 | ViewFacet | 用户、余额与网络的只读查询。 |
+
+Diamond 还包含标准的 EIP-2535 Facet：用于升级的 DiamondCutFacet、用于内省的 DiamondLoupeFacet，以及 OwnershipFacet。
 
 ## NFT 合约
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | 角色 | 文档所述权限 |
 |---|---|
-| `ADMIN_ROLE` | 授予和撤销角色；修改允许变更的协议参数。 |
+| DAO 合约 | 在链上范围内应用参数更新，修改 NFT 设置，启用或禁用功能，设定农场周期与手续费范围，批准钱包变更，以及限制或恢复账户。 |
+| `ADMIN_ROLE` | 授予和撤销角色；铸造礼品 NFT 与大使 NFT，并管理礼品 NFT 类型；在其范围内设定交易手续费。 |
 | `SERVICE_ROLE` | 执行文档所述的自动化与跨链服务操作。 |
 | `SIGNER_ROLE` | 验证指定操作的授权签名。 |
 | `MINTER_ROLE` | 铸造分配给该角色的代币或 NFT 类型。 |
+| Diamond 所有者 | 通过 `diamondCut` 升级 Facet，以及转让所有权。 |
+
+各角色在函数层面的完整清单，见 [CertiK 报告](/zh/security)中关于中心化的章节。
 
 ## 余额结构
 
 | 余额 | 用途 |
 |---|---|
 | 常规余额 | 符合条件的提现、购买与代金券。 |
-| 累积余额 | 受限的内部余额，按文档所述的购买、转账、手续费与再分配规则使用。 |
+| 累积余额 | 受限的内部余额，按文档所述的购买、转账、手续费与再分配规则使用。在准备计时器重置修复期间，其生命周期临时为 180 天；参见[合约参数](/zh/contract-parameters)。 |
 | 协议奖励上限 | 当前有效 NFT 周期内剩余的奖励资格；链上术语：*Income Limit*。 |
 | Token Reserve 余额 | 支持 DA 机制的指定流动性池余额。 |
 | 开发余额 | 协议与运营分配。 |
 | 价格影响余额 | 由文档所述的价格影响函数使用的储备。 |
+
+<Note>
+  **FinPro 余额相互独立**。FinPro 仓位直接从用户的 EVM 钱包以 USDT（BEP-20）开立，款项也发放至同一钱包。这些仓位不使用常规余额或累积余额。请参阅 [FinPro 与 FinFlow](/zh/finpro-finflow)。
+</Note>
 
 ## 支付优先级
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) 上的所有交易都需要以 **BNB** 支付标准网络 gas 费，与生态系统内使用的 [USDT](https://tether.to/) 余额相互独立。合约部署与余额均可在 [BscScan](https://bscscan.com/) 上公开核验。
+  [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) 上的所有交易都需要以 **BNB** 支付标准网络 gas 费，与生态系统内使用的 [USDT](https://tether.to/) 余额相互独立。合约部署与余额均可在 [BscScan](https://bscscan.com/) 上公开核验；官方合约地址列于 [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts)。
 </Note>
