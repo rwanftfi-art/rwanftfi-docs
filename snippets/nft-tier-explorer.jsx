@@ -1,9 +1,51 @@
 import { useState } from 'react';
 
-export const NftTierExplorer = () => {
+export const NftTierExplorer = ({ lang }) => {
   const [filter, setFilter] = useState("All");
   const [selected, setSelected] = useState(null);
   const [compare, setCompare] = useState([]);
+
+  // Interface strings. Pages pass their language; anything else falls back to English.
+  var L = lang === 'ru' ? 'ru' : 'en';
+  var ruPlural = (n, one, few, many) => {
+    var m10 = n % 10, m100 = n % 100;
+    if (m10 === 1 && m100 !== 11) return one;
+    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+    return many;
+  };
+  var STR = {
+    en: {
+      title: 'NFT Tier Explorer', interactive: 'Interactive', all: 'All',
+      capShort: 'Reward Cap', depthShort: 'Net Depth', levels: (n) => n + ' levels',
+      price: 'Price', rewardCap: 'Reward Cap', rewardCapLong: 'Reward Cap', netDepth: 'Net Depth', miningCycle: 'Mining Cycle',
+      notAvailable: 'Not available', days: (n) => n + ' days', perCycle: '10% per cycle', twoCycles: '10% + 15% (2 cycles)',
+      autobuySlots: 'Autobuy Slots', unlimited: 'Unlimited', slots: '3 of 3 slots',
+      eliteNoCap: 'Elite: no autobuy cap', autoRenewal: 'Auto-renewal limit', group: 'Group',
+      rwaAccess: 'RWA Access', matching: 'Matching Bonus', lending: 'Lending', daMining: 'DA Mining',
+      cycles: (n) => n + ' cycle' + (n > 1 ? 's' : ''), level: 'Level',
+      inCompare: '✓ In comparison', addCompare: '+ Add to compare', metric: 'Metric',
+      lvls: (n) => n + ' lvls', daysShort: (n) => n + 'd', mining: 'Mining', clear: 'Clear comparison',
+      hint: 'Click any card to expand details. Select two cards to compare side-by-side with radar chart.',
+      activation: 'NFTM Mining, DA Farming, and DA Lending are scheduled for activation in 2027.',
+      axes: ['Access', 'Cap', 'Depth', 'Mining', 'Cycles'],
+    },
+    ru: {
+      title: 'Обзор уровней NFT', interactive: 'Интерактивно', all: 'Все',
+      capShort: 'Лимит', depthShort: 'Глубина', levels: (n) => n + ' ' + ruPlural(n, 'уровень', 'уровня', 'уровней'),
+      price: 'Цена', rewardCap: 'Лимит', rewardCapLong: 'Лимит вознаграждений', netDepth: 'Глубина сети', miningCycle: 'Цикл майнинга',
+      notAvailable: 'Недоступен', days: (n) => n + ' ' + ruPlural(n, 'день', 'дня', 'дней'), perCycle: '10% за цикл', twoCycles: '10% + 15% (2 цикла)',
+      autobuySlots: 'Слоты Autobuy', unlimited: 'Без лимита', slots: '3 из 3 слотов',
+      eliteNoCap: 'Elite: без лимита Autobuy', autoRenewal: 'Лимит автопродлений', group: 'Группа',
+      rwaAccess: 'Доступ к RWA', matching: 'Matching Bonus', lending: 'Кредитование', daMining: 'Майнинг DA',
+      cycles: (n) => n + ' ' + ruPlural(n, 'цикл', 'цикла', 'циклов'), level: 'Уровень',
+      inCompare: '✓ В сравнении', addCompare: '+ Добавить к сравнению', metric: 'Параметр',
+      lvls: (n) => n + ' ур.', daysShort: (n) => n + ' дн.', mining: 'Майнинг', clear: 'Очистить сравнение',
+      hint: 'Нажмите на карточку, чтобы раскрыть подробности. Выберите две карточки, чтобы сравнить их на радарной диаграмме.',
+      activation: 'Майнинг NFTM, фарминг DA и кредитование под DA планируется активировать в 2027 году.',
+      axes: ['Доступ', 'Лимит', 'Глубина', 'Майнинг', 'Циклы'],
+    },
+  };
+  var T = STR[L];
 
   const VIDEO_SRCS = [
     null,
@@ -19,7 +61,9 @@ export const NftTierExplorer = () => {
     '/videos/10_1.mp4',
   ];
 
-  const fmtUsd = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+  const fmtUsd = (n) => L === 'ru'
+    ? '$' + n.toLocaleString('ru-RU')
+    : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
 
   const NFT_DATA = [
     { name: "GENESIS",  tier: "Basic",   level: 1,  price: 28,    limit: 75,     depth: 2,  mining: null, matchingBonus: false, lending: false, daMining: false, autobuy: "3/3", cycles: 0, c1: 0,    c2: 0 },
@@ -40,7 +84,7 @@ export const NftTierExplorer = () => {
     Elite:   { border: '1px solid rgba(251,191,36,0.5)',   textColor: '#fbbf24',  badgeBg: 'rgba(251,191,36,0.2)',   badgeBorder: 'rgba(251,191,36,0.4)' },
   };
 
-  var RADAR_AXES = ['Access', 'Cap', 'Depth', 'Mining', 'Cycles'];
+  var RADAR_AXES = T.axes;
 
   var normalize = (nft) => {
     return [
@@ -116,8 +160,8 @@ export const NftTierExplorer = () => {
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose border">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">NFT Tier Explorer</h3>
-        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">Interactive</span>
+        <h3 style={{ color: '#FFFFFF' }} className="text-lg font-serif italic">{T.title}</h3>
+        <span style={{ color: 'rgba(255,255,255,0.6)', backgroundColor: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }} className="text-xs px-3 py-1 rounded-full font-medium">{T.interactive}</span>
       </div>
 
       {/* Tier Filter */}
@@ -126,7 +170,7 @@ export const NftTierExplorer = () => {
           <button key={f} onClick={() => { setFilter(f); setSelected(null); setCompare([]); }}
             style={filter === f ? { backgroundColor: '#FFFFFF', color: '#000000' } : { backgroundColor: 'rgba(56,56,56,0.7)', color: 'rgba(255,255,255,0.7)' }}
             className="px-4 py-1.5 rounded-full text-xs font-medium transition-all">
-            {f}
+            {f === 'All' ? T.all : f}
           </button>
         ))}
       </div>
@@ -158,8 +202,8 @@ export const NftTierExplorer = () => {
                 </div>
                 <div style={{ color: '#FFFFFF' }} className="text-sm font-bold mb-1">{nft.name}</div>
                 <div style={{ color: '#FFFFFF' }} className="text-xl font-black">{fmtUsd(nft.price)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">Reward Cap: {fmtUsd(nft.limit)}</div>
-                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">Net Depth: {nft.depth} levels</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px] mt-1">{T.capShort}: {fmtUsd(nft.limit)}</div>
+                <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[11px]">{T.depthShort}: {T.levels(nft.depth)}</div>
               </div>
               {isCmp && (
                 <div style={{ backgroundColor: '#FFFFFF', boxShadow: '0 0 8px rgba(255,255,255,0.3)' }} className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center">
@@ -203,10 +247,10 @@ export const NftTierExplorer = () => {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-4">
                   <span style={{ color: tc.textColor, backgroundColor: tc.badgeBg, border: tc.border }} className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full">{selected.tier}</span>
-                  <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">Level {selected.level} — {selected.name}</h4>
+                  <h4 style={{ color: '#FFFFFF' }} className="text-base font-bold">{T.level} {selected.level} — {selected.name}</h4>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
-                  {[['Price', fmtUsd(selected.price)], ['Reward Cap', fmtUsd(selected.limit)], ['Net Depth', selected.depth + ' levels'], ['Mining Cycle', selected.cycles === 0 ? 'Not available' : selected.cycles === 1 ? selected.mining + ' days' : '42 – 40 days', selected.cycles === 0 ? null : selected.cycles === 1 ? '10% per cycle' : '10% + 15% (2 cycles)'], ['Autobuy Slots', selected.autobuy === 'Unlimited' ? 'Unlimited' : '3 of 3 slots', selected.autobuy === 'Unlimited' ? 'Elite: no autobuy cap' : 'Auto-renewal limit'], ['Group', selected.tier]].map(([label, val, subtext]) => (
+                  {[[T.price, fmtUsd(selected.price)], [T.rewardCap, fmtUsd(selected.limit)], [T.netDepth, T.levels(selected.depth)], [T.miningCycle, selected.cycles === 0 ? T.notAvailable : T.days(selected.mining), selected.cycles === 0 ? null : selected.cycles === 1 ? T.perCycle : T.twoCycles], [T.autobuySlots, selected.autobuy === 'Unlimited' ? T.unlimited : T.slots, selected.autobuy === 'Unlimited' ? T.eliteNoCap : T.autoRenewal], [T.group, selected.tier]].map(([label, val, subtext]) => (
                     <div key={label} style={{ backgroundColor: 'rgba(56,56,56,0.7)' }} className="rounded-lg p-3">
                       <div style={{ color: 'rgba(255,255,255,0.4)' }} className="text-[10px] uppercase tracking-wide">{label}</div>
                       <div style={{ color: '#FFFFFF' }} className="text-lg font-bold">{val}</div>
@@ -215,11 +259,11 @@ export const NftTierExplorer = () => {
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  <FeaturePill on={true} label="RWA Access" />
+                  <FeaturePill on={true} label={T.rwaAccess} />
                   <FeaturePill on={true} label="FinPro" />
-                  <FeaturePill on={selected.matchingBonus} label="Matching Bonus" />
-                  <FeaturePill on={selected.lending} label="Lending" />
-                  <FeaturePill on={selected.daMining} label={selected.daMining ? 'DA Mining · ' + selected.cycles + ' cycle' + (selected.cycles > 1 ? 's' : '') : 'DA Mining'} />
+                  <FeaturePill on={selected.matchingBonus} label={T.matching} />
+                  <FeaturePill on={selected.lending} label={T.lending} />
+                  <FeaturePill on={selected.daMining} label={selected.daMining ? T.daMining + ' · ' + T.cycles(selected.cycles) : T.daMining} />
                 </div>
               </div>
               <div className="w-full md:w-auto flex flex-col items-center">
@@ -232,7 +276,7 @@ export const NftTierExplorer = () => {
                     ? { backgroundColor: '#FFFFFF', color: '#000000', boxShadow: '0 0 12px rgba(255,255,255,0.2)' }
                     : { color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)' }}
                   className="mt-3 px-5 py-2 rounded-full text-xs font-semibold transition-all">
-                  {compare.find(c => c.level === selected.level) ? '✓ In comparison' : '+ Add to compare'}
+                  {compare.find(c => c.level === selected.level) ? T.inCompare : T.addCompare}
                 </button>
               </div>
             </div>
@@ -268,19 +312,19 @@ export const NftTierExplorer = () => {
             <div className="w-full overflow-x-auto">
               <table className="w-full text-sm">
                 <thead><tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-                  <th style={{ color: 'rgba(255,255,255,0.4)' }} className="text-left py-2 font-medium">Metric</th>
+                  <th style={{ color: 'rgba(255,255,255,0.4)' }} className="text-left py-2 font-medium">{T.metric}</th>
                   <th style={{ color: '#FFFFFF' }} className="text-right py-2 font-semibold">{compare[0].name}</th>
                   <th style={{ color: '#F59E0B' }} className="text-right py-2 font-semibold">{compare[1].name}</th>
                 </tr></thead>
                 <tbody style={{ color: '#FFFFFF' }}>
                   {[
-                    ['Price', fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
-                    ['Reward Cap', fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
-                    ['Net Depth', compare[0].depth + ' lvls', compare[1].depth + ' lvls'],
-                    ['Mining', compare[0].mining ? compare[0].mining + 'd' : '—', compare[1].mining ? compare[1].mining + 'd' : '—'],
-                    ['Matching Bonus', compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
-                    ['Lending', compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
-                    ['DA Mining', compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
+                    [T.price, fmtUsd(compare[0].price), fmtUsd(compare[1].price)],
+                    [T.rewardCapLong, fmtUsd(compare[0].limit), fmtUsd(compare[1].limit)],
+                    [T.netDepth, T.lvls(compare[0].depth), T.lvls(compare[1].depth)],
+                    [T.mining, compare[0].mining ? T.daysShort(compare[0].mining) : '—', compare[1].mining ? T.daysShort(compare[1].mining) : '—'],
+                    [T.matching, compare[0].matchingBonus ? '✓' : '✗', compare[1].matchingBonus ? '✓' : '✗'],
+                    [T.lending, compare[0].lending ? '✓' : '✗', compare[1].lending ? '✓' : '✗'],
+                    [T.daMining, compare[0].daMining ? '✓' : '✗', compare[1].daMining ? '✓' : '✗'],
                   ].map(([label, v1, v2], i) => (
                     <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <td style={{ color: 'rgba(255,255,255,0.4)' }} className="py-2">{label}</td>
@@ -292,11 +336,12 @@ export const NftTierExplorer = () => {
               </table>
             </div>
           </div>
-          <button onClick={() => setCompare([])} style={{ color: 'rgba(255,255,255,0.4)' }} className="mt-4 text-xs transition-colors">Clear comparison</button>
+          <button onClick={() => setCompare([])} style={{ color: 'rgba(255,255,255,0.4)' }} className="mt-4 text-xs transition-colors">{T.clear}</button>
         </div>
       )}
 
-      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-4">Click any card to expand details. Select two cards to compare side-by-side with radar chart.</p>
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-4">{T.hint}</p>
+      <p style={{ color: 'rgba(255,255,255,0.4)' }} className="text-xs mt-1">{T.activation}</p>
     </div>
   );
 };

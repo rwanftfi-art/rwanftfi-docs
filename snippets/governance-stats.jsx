@@ -1,12 +1,25 @@
-export const GovernanceStats = () => {
+export const GovernanceStats = ({ lang }) => {
   if (typeof window === 'undefined') { return null; }
+
+  // Interface strings. Pages pass their language; anything else falls back to English.
+  var T = lang === 'ru' ? {
+    title: 'Обзор управления', supply: 'Общее предложение', supplyValue: '10 000 000',
+    proposal: 'Порог предложения', proposalNote: 'от общего объёма для подачи',
+    passing: 'Порог принятия', passingNote: 'большинство для исполнения он-чейн',
+    guardians: 'Кошельки Guardian', guardiansNote: 'текущие кошельки управления',
+  } : {
+    title: 'Governance Overview', supply: 'Total Supply', supplyValue: '10,000,000',
+    proposal: 'Proposal Threshold', proposalNote: 'of supply to submit',
+    passing: 'Passing Vote', passingNote: 'majority to execute on-chain',
+    guardians: 'Guardian Wallets', guardiansNote: 'current governance wallets',
+  };
 
   return (
     <div style={{ backgroundColor: '#000000', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.05)' }} className="p-6 rounded-xl not-prose">
 
       {/* Header */}
       <div className="mb-6">
-        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">Governance Overview</h3>
+        <h3 style={{ color: '#FFFFFF', margin: 0 }} className="text-lg font-serif italic">{T.title}</h3>
       </div>
 
       {/* KPI Section: Video + Cards */}
@@ -23,21 +36,27 @@ export const GovernanceStats = () => {
         <div style={{ flex: '1 1 0%', minWidth: '240px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
           {/* Total Supply */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Total Supply</div>
-            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>10,000,000</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.supply}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>{T.supplyValue}</div>
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>GovTokens (ERC20Votes)</div>
           </div>
           {/* Proposal Threshold */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Proposal Threshold</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.proposal}</div>
             <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>30%</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>of supply to submit</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.proposalNote}</div>
           </div>
           {/* Passing Vote */}
           <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
-            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>Passing Vote</div>
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.passing}</div>
             <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>50%</div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>majority to execute on-chain</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.passingNote}</div>
+          </div>
+          {/* Guardian Wallets */}
+          <div style={{ backgroundColor: '#383838', border: '1px solid rgba(255,255,255,0.05)', flex: '1 1 160px' }} className="rounded-xl p-4">
+            <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '4px' }}>{T.guardians}</div>
+            <div style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: 900 }}>20</div>
+            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '12px', marginTop: '4px' }}>{T.guardiansNote}</div>
           </div>
         </div>
       </div>
