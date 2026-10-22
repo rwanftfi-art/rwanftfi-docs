@@ -24,6 +24,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Кошельки Guardian',
       guardiansNote: 'текущие кошельки управления',
     },
+    pt: {
+      title: 'Visão Geral da Governança',
+      supply: 'Oferta Total',
+      proposal: 'Limiar de Proposta',
+      proposalNote: 'da oferta para apresentar',
+      passing: 'Limiar de Aprovação',
+      passingNote: 'maioria para a execução on-chain',
+      guardians: 'Carteiras Guardian',
+      guardiansNote: 'carteiras de governança atuais',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';

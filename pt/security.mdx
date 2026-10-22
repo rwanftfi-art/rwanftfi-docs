@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Achados | ID, severidade e status estão listados no relatório publicado. |
 | Correção | Cada achado resolvido está vinculado à alteração de código correspondente no relatório. |
 | Mapeamento da implantação | A correspondência entre os contratos de produção atuais e a versão auditada é publicada separadamente. |
-| Bug bounty | O status atual, verificável externamente, é publicado nos canais oficiais. |
+| Bug bounty | Em operação na plataforma oficial da CertiK; a atividade do bug bounty é exibida no CertiK Skynet. |
 
 ## Como posso verificar o relatório de auditoria?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   A auditoria abrange os smart contracts e a versão do código dentro do escopo publicado. Ela, por si só, não verifica a economia do protocolo, o desempenho corporativo nem os resultados dos usuários.
 </Note>
 
-## Segurança da Conta em Três Níveis
+## Quatro Camadas de Segurança da Conta
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Senha Financeira" icon="fingerprint">
     Uma senha separada das credenciais de login, exigida para ações financeiras.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/pt/platform-features#secret-code">
+    Uma palavra aleatória gerada junto com a senha financeira. Obrigatória em qualquer solicitação ao suporte relacionada à segurança.
   </Card>
   <Card title="Códigos de Autorização de Transação" icon="key">
     Códigos de uso único exigidos para autorizar transações financeiras.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Proteção contra Phishing
+## Recuperação da Conta via DAO
+
+A equipe da RWANFTFI não tem acesso aos negócios dos usuários. Somente um voto da DAO pode migrar uma conta para uma nova carteira. Isso foi posto à prova em junho de 2026: a conta de um usuário foi invadida e todo o negócio — o NFT e a estrutura de parceiros — foi roubado enquanto a Business Sale estava temporariamente ativada. A DAO desativou a Business Sale e transferiu o negócio para uma nova carteira controlada pelo seu proprietário verificado; as duas propostas foram executadas on-chain. Veja [Governança — DAO](/pt/governance#decisões-executadas).
+
+## Triagem de AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/pt/aml-checker">
+  Verifique qualquer endereço de carteira quanto a sanções, mixers, golpes e ataques hackers antes de enviar ou receber fundos: uma pontuação de risco em 19 blockchains e 14 stablecoins.
+</Card>
+
+## Mensagens Privadas
+
+O mensageiro integrado oferece o modo **Private Web3 chats**: mensagens com criptografia de ponta a ponta no protocolo XMTP (MLS), que não são armazenadas nos servidores da plataforma. Veja [Funcionalidades da Plataforma](/pt/platform-features).
+
+## Domínios Oficiais
+
+| Domínio | Finalidade |
+|---|---|
+| rwanftfi.com | Site principal |
+| app.rwanftfi.com | Aplicativo |
+| news.rwanftfi.com | Notícias e anúncios |
+| bridge.rwanftfi.com | Ponte cross-chain |
+| whitepaper.rwanftfi.com | Este whitepaper |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Links de indicação |
+| rwafinpro.com | Produtos financeiros do FinPro |
+| rwanftcards.com | Cartões de débito RWA NFT Cards |
+
+Os endereços oficiais dos contratos, incluindo o Diamond, a DAO e o Token Reserve, estão listados em [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Use somente domínios e endereços de contrato oficiais da RWANFTFI. Os representantes da RWANFTFI nunca devem solicitar chaves privadas, seed phrases ou pagamentos para endereços de carteira não oficiais. Sempre verifique se você está em **rwanftfi.com** antes de conectar sua carteira ou inserir credenciais.
+  Use somente os domínios acima e os endereços de contrato oficiais; qualquer outro domínio, inclusive com grafia parecida, não é oficial. Os representantes da RWANFTFI nunca solicitam chaves privadas, seed phrases ou pagamentos para endereços de carteira não oficiais. Verifique o domínio antes de conectar uma carteira ou inserir credenciais.
 </Warning>

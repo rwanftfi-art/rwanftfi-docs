@@ -1,10 +1,12 @@
 ---
 title: "Glossário"
-description: "Definições dos termos específicos do protocolo utilizados na documentação da RWANFTFI: DA, NFTM, Limite de Recompensas do Protocolo, Bônus de Patrocinador, Saldo Congelado, Saldo Acumulativo e outros."
+description: "Definições dos termos utilizados na documentação da RWANFTFI: DA, NFTM, Limite de Recompensas do Protocolo, Bônus de Patrocinador, Saldo Congelado, Gift NFT, FinPro, FinFlow, Earn cap, Secret Code e outros."
 icon: "book"
 ---
 
 Uma fonte única de verdade para os termos utilizados na documentação da RWANFTFI.
+
+## Protocolo
 
 | Termo | Definição |
 |---|---|
@@ -14,11 +16,46 @@ Uma fonte única de verdade para os termos utilizados na documentação da RWANF
 | **DA** | Token utilitário de protocolo BEP-20 não transferível, com oferta máxima de 21.000.000 unidades. |
 | **Saldo Congelado** | Retenção temporária de 72 horas para um Bônus de Patrocinador qualificado acima do Limite de Recompensas do Protocolo restante. |
 | **GovToken** | Token de governança ERC20Votes de oferta fixa. |
+| **Income Limit** | O termo on-chain para o Limite de Recompensas do Protocolo. |
+| **NFTM** | Contador interno de Mineração usado no cálculo do Farming. |
+| **Fase 2** | A configuração do protocolo ativada por voto da DAO em junho de 2026: a distribuição atual da compra de NFT e as vendas do Infinity (L10). |
+| **Limite de Recompensas do Protocolo** | Máximo cumulativo de recompensas elegíveis creditadas durante um ciclo de NFT; termo on-chain: *Income Limit*. |
+
+## Programa de Parceiros
+
+| Termo | Definição |
+|---|---|
+| **Business Sale** | A transferência autorizada pela DAO de uma estrutura de parceiros completa para outro usuário; desativada por voto da DAO desde junho de 2026. |
+| **Gift NFT** | Um NFT que não pode ser comprado nem vendido, concedido em promoções e programas. Ele tem o seu próprio lugar e o seu próprio Limite de Recompensas do Protocolo, suas recompensas são divididas 50/50 entre o Saldo Regular e o Saldo Acumulativo, e ele dá acesso ao FinFlow. |
 | **Bônus de Matching** | Recompensa condicional em até três níveis qualificados. |
 | **Recompensa Perdida** | Atividade não creditada porque as condições de elegibilidade aplicáveis não foram atendidas. |
-| **NFTM** | Contador interno de Mineração usado no cálculo do Farming. |
 | **Rede de Parceiros** | Estrutura gerenciada por smart contract, usada para definir o posicionamento e a elegibilidade para recompensas. |
 | **Profundidade da Rede de Parceiros** | Profundidade máxima da rede incluída nos cálculos de distribuição elegíveis. |
-| **Limite de Recompensas do Protocolo** | Máximo cumulativo de recompensas elegíveis creditadas durante um ciclo de NFT; termo on-chain: *Income Limit*. |
 | **Bônus de Patrocinador** | Recompensa condicional proveniente de uma compra direta de NFT qualificada. |
 | **Distribuição em Árvore** | Cálculo da recompensa de parceiros por nível dentro da profundidade de rede elegível. |
+
+## FinPro
+
+| Termo | Definição |
+|---|---|
+| **Claim Spot** | A etapa de pré-lançamento do FinPro Marketing na qual o participante ocupa um lugar na estrutura e recebe um link de indicação. |
+| **Compound** | Reinvestimento dos créditos na base de uma posição, o que aumenta o valor absoluto dos créditos futuros. |
+| **Direct Sale** | No FinPro Marketing, 5% de cada crédito de posição de um parceiro convidado pessoalmente, seja qual for o nível em que esse parceiro esteja posicionado. |
+| **Earn cap** | O teto de pagamentos de uma posição do FinPro; no FinFlow, 200% da base inicial, com o principal incluído. |
+| **FinCore** | O próximo produto do FinPro e o primeiro com o FinPro Marketing; seus parâmetros são publicados antes do lançamento. |
+| **FinFlow** | O primeiro produto do FinPro, em operação desde 8 de julho de 2026: posições em uma estratégia neutra em relação ao mercado. |
+| **Limite FinFlow** | O total máximo de posições FinFlow abertas para um NFT; sua base é igual ao Limite de Recompensas do Protocolo. |
+| **FinFlow NFT** | Um NFT não transferível que representa uma posição FinFlow. Abrir uma posição não é um depósito. |
+| **FinPro** | A linha de produtos financeiros do ecossistema em rwafinpro.com, que recebem fundos diretamente da carteira EVM do usuário. |
+| **FinPro Marketing** | Um programa de parceiros separado para os produtos FinPro, com estrutura própria: Direct Sale mais 20 níveis, com 100% creditados no saldo de marketing. |
+| **Créditos de posição** | Os valores creditados pelas posições do FinPro; os créditos não são garantidos. |
+| **Saldo de posições** | O total de todas as posições abertas do FinPro, incluindo os fundos adicionados e os valores reinvestidos; ele abre os níveis do FinPro Marketing. |
+| **Refund** | No FinFlow: depois que o detentor tiver recebido e retirado 50% do valor inicial, a posição pode ser encerrada com a devolução do restante até 100% do valor inicial. |
+
+## Segurança e Serviços
+
+| Termo | Definição |
+|---|---|
+| **AML Checker** | Uma verificação de risco paga do endereço de uma carteira em 19 blockchains e 14 stablecoins, disponível no aplicativo. |
+| **Ponte** | O serviço gerenciado de depósitos cross-chain em bridge.rwanftfi.com para 14 redes. |
+| **Secret Code** | Uma palavra aleatória gerada junto com a senha financeira; obrigatória em qualquer solicitação ao suporte relacionada à segurança. |

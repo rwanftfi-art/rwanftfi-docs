@@ -6,22 +6,9 @@ icon: "landmark"
 
 import { GovernanceStats } from '/snippets/governance-stats.jsx'
 
-<GovernanceStats />
+<GovernanceStats lang="pt" />
 
-<CardGroup cols={4}>
-  <Card title="10.000.000" icon="cube">
-    Oferta fixa de GovToken
-  </Card>
-  <Card title="30%" icon="file-signature">
-    Limiar de proposta
-  </Card>
-  <Card title="50%" icon="check-double">
-    Limiar de aprovação
-  </Card>
-  <Card title="20" icon="shield-check">
-    Carteiras Guardian atuais
-  </Card>
-</CardGroup>
+A oferta de GovToken é fixa em **10.000.000** tokens. Uma proposta precisa de **30%** da oferta para ser apresentada e de uma maioria de **50%** para ser aprovada; atualmente, **20** carteiras Guardian participam da governança.
 
 ## Alocação Atual
 
@@ -35,8 +22,20 @@ O modelo futuro documentado prevê 30% para a Corporation, 30% distribuídos ent
 
 - Ajustar parâmetros dentro de suas faixas on-chain documentadas (veja [Parâmetros do Contrato](/pt/contract-parameters)).
 - Ativar ou desativar funções específicas do protocolo, como as vendas do Infinity (L10) ou a Business Sale.
-- Aprovar solicitações de troca de carteira e, enquanto a Business Sale estiver ativada, transferências de estruturas de parceiros.
+- Aprovar solicitações de troca de carteira e, enquanto a Business Sale estiver ativada, transferências de estruturas de parceiros. Uma troca de carteira aprovada pela DAO também abrange as posições do FinPro: os FinFlow NFTs são transferidos em uma etapa separada, após a migração.
+- Devolver um negócio comprometido a uma nova carteira controlada pelo seu proprietário verificado. A equipe não tem acesso aos negócios dos usuários; somente um voto da DAO pode fazer isso.
 - Restringir ou restabelecer funcionalidades específicas da plataforma associadas a um NFT.
+
+## Decisões Executadas
+
+Todas as propostas abaixo foram aprovadas e executadas on-chain. Os valores dos parâmetros antes e depois de cada alteração estão listados no [histórico de alterações de parâmetros](/pt/contract-parameters#histórico-de-alterações-de-parâmetros).
+
+| Anúncio | Decisão |
+|---|---|
+| [22 de maio de 2026](https://news.rwanftfi.com/pt/first-dao-vote) | Primeiros votos da DAO, ambos aprovados por unanimidade (5.100.000 a favor, 0 contra): Business Sale ativada por um período de teste e a taxa do vendedor reduzida de 500 para 1 USDT. |
+| [9 de junho de 2026](https://news.rwanftfi.com/pt/security-in-action) | Business Sale desativada; um negócio roubado de uma conta invadida foi transferido para uma nova carteira controlada pelo seu proprietário verificado. |
+| [15 de junho de 2026](https://news.rwanftfi.com/pt/infinity-is-unlocked-phase-2-is-live) | Fase 2 ativada: a nova distribuição da compra de NFT e a ativação das vendas do Infinity (L10). |
+| [17 de setembro de 2026](https://news.rwanftfi.com/pt/accumulative-balance-timer-extended-to-180-days-here-s-why) | Vida útil do Saldo Acumulativo estendida de 120 para 180 dias enquanto se prepara uma correção da reinicialização do temporizador. Estão previstas duas votações seguintes: a correção e, depois, o retorno aos 120 dias. |
 
 ## Restrição de Funções da Plataforma
 
@@ -80,4 +79,4 @@ Todos os detentores de tokens de governança são publicamente verificáveis on-
   </Tab>
 </Tabs>
 
-Todos os endereços de carteira são verificáveis no [BscScan](https://bscscan.com/). Os saldos de tokens de governança e o histórico de transações são publicamente auditáveis.
+Todos os endereços de carteira são verificáveis no [BscScan](https://bscscan.com/). Os saldos de tokens de governança e o histórico de transações são publicamente auditáveis. O endereço do contrato da DAO está listado junto com os demais contratos oficiais em [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).

@@ -49,6 +49,27 @@ export const MiningPipeline = ({ lang }) => {
       future: 'Будущие протокольные цены заранее не определены. После фарминга изучите варианты в разделе {link}.',
       sellingLending: 'Продажа и кредитование',
     },
+    pt: {
+      title: 'Painel de Mineração',
+      subtitle: 'Visão geral ilustrativa do processo — da Mineração ao Farming, com os parâmetros atuais',
+      interactive: 'Interativo',
+      days: { one: '{n} dia', other: '{n} dias' },
+      totalPipeline: 'Processo completo',
+      mining: 'Mineração',
+      farming: 'Farming',
+      hours72: '72 h',
+      critical: 'Janela crítica de 72 horas — se ela for perdida, todo o ciclo recomeça do zero',
+      resultAfter: { one: 'Resultado calculado após {n} dia', other: 'Resultado calculado após {n} dias' },
+      illustrative: 'Valor ilustrativo a um preço de protocolo hipotético de 1,00 USDT — na execução, aplica-se o preço de protocolo vigente',
+      basedOn: 'com base em um NFT de {price}',
+      cycleN: 'ciclo {n}',
+      nftPrice: 'Preço do NFT',
+      illustrativeValue: 'Valor ilustrativo',
+      pipeline: 'Processo',
+      oneCycle: 'Este nível de NFT tem 1 ciclo de mineração, que registra 10% do preço do NFT em NFTM.',
+      future: 'Os preços futuros do protocolo não são predeterminados. Após o Farming, confira as opções em {link}.',
+      sellingLending: 'Vender e Emprestar',
+    },
   };
   /* i18n:end */
   var L = STR[lang] ? lang : 'en';
