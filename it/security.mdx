@@ -21,7 +21,7 @@ icon: "shield-halved"
 | Rilievi | ID, gravità e stato sono elencati nel rapporto pubblicato. |
 | Correzione | Ogni rilievo risolto è collegato alla relativa modifica del codice nel rapporto. |
 | Mappatura dei deployment | La corrispondenza tra gli attuali contratti di produzione e la versione sottoposta ad audit è pubblicata separatamente. |
-| Bug bounty | Lo stato attuale, verificabile esternamente, è pubblicato sui canali ufficiali. |
+| Bug bounty | Attivo tramite la piattaforma ufficiale di CertiK; l'attività del bug bounty è riportata su CertiK Skynet. |
 
 ## Come posso verificare il rapporto di audit?
 
@@ -59,11 +59,14 @@ icon: "shield-halved"
   L'audit copre gli smart contract e la versione del codice rientranti nell'ambito pubblicato. Di per sé non verifica l'economia del protocollo, i risultati aziendali o i risultati degli utenti.
 </Note>
 
-## Sicurezza dell'Account a Tre Livelli
+## Quattro Livelli di Sicurezza dell'Account
 
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Password Finanziaria" icon="fingerprint">
     Una password separata dalle credenziali di accesso, richiesta per le azioni finanziarie.
+  </Card>
+  <Card title="Secret Code" icon="user-lock" href="/it/platform-features#secret-code">
+    Una parola casuale generata insieme alla password finanziaria. Obbligatorio per qualsiasi richiesta al supporto in materia di sicurezza.
   </Card>
   <Card title="Codici di Autorizzazione delle Transazioni" icon="key">
     Codici monouso richiesti per autorizzare le transazioni finanziarie.
@@ -73,8 +76,36 @@ icon: "shield-halved"
   </Card>
 </CardGroup>
 
-## Protezione dal Phishing
+## Recupero dell'Account tramite DAO
+
+Il team di RWANFTFI non ha accesso ai business degli utenti. Solo un voto della DAO può trasferire un account su un nuovo wallet. Questo meccanismo è stato messo alla prova a giugno 2026: l'account di un utente è stato violato e l'intero business, cioè l'NFT e la struttura di partner, è stato sottratto mentre la Business Sale era temporaneamente abilitata. La DAO ha disabilitato la Business Sale e ha trasferito il business su un nuovo wallet controllato dal suo proprietario verificato; entrambe le proposte sono state eseguite on-chain. Vedi [Governance — DAO](/it/governance#decisioni-eseguite).
+
+## Screening AML
+
+<Card title="AML Checker" icon="magnifying-glass-dollar" href="/it/aml-checker">
+  Verifica di qualsiasi indirizzo di wallet rispetto a sanzioni, mixer, truffe e attacchi informatici prima di inviare o ricevere fondi: un punteggio di rischio su 19 blockchain e 14 stablecoin.
+</Card>
+
+## Messaggistica Privata
+
+Il messenger integrato offre la modalità **Private Web3 chats**: messaggi con crittografia end-to-end basata sul protocollo XMTP (MLS), che non vengono archiviati sui server della piattaforma. Vedi [Funzionalità della Piattaforma](/it/platform-features).
+
+## Domini Ufficiali
+
+| Dominio | Scopo |
+|---|---|
+| rwanftfi.com | Sito principale |
+| app.rwanftfi.com | Applicazione |
+| news.rwanftfi.com | Notizie e annunci |
+| bridge.rwanftfi.com | Bridge cross-chain |
+| whitepaper.rwanftfi.com | Questo whitepaper |
+| brandbook.rwanftfi.com | Brandbook |
+| share.rwanftfi.com | Link di referral |
+| rwafinpro.com | Prodotti finanziari FinPro |
+| rwanftcards.com | Carte di debito RWA NFT Cards |
+
+Gli indirizzi ufficiali dei contratti, inclusi il Diamond, la DAO e la Token Reserve, sono elencati su [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 
 <Warning>
-  Utilizza solo i domini e gli indirizzi dei contratti ufficiali di RWANFTFI. I rappresentanti di RWANFTFI non dovrebbero mai richiedere chiavi private, seed phrase o pagamenti verso indirizzi di wallet non ufficiali. Verifica sempre di essere su **rwanftfi.com** prima di connettere il tuo wallet o inserire credenziali.
+  Utilizzare solo i domini sopra elencati e gli indirizzi ufficiali dei contratti: qualsiasi altro dominio, comprese le grafie simili, non è ufficiale. I rappresentanti di RWANFTFI non richiedono mai chiavi private, seed phrase o pagamenti verso indirizzi di wallet non ufficiali. Verificare il dominio prima di connettere un wallet o inserire credenziali.
 </Warning>

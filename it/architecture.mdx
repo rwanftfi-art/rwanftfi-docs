@@ -1,6 +1,6 @@
 ---
 title: "Architettura degli Smart Contract"
-description: "RWANFTFI utilizza un'architettura Diamond EIP-2535 con sette facet funzionali, contratti NFT e di riserva separati, meccanismi di aggiornabilità definiti, permessi basati sui ruoli e diversi tipi di saldo interno."
+description: "RWANFTFI utilizza un'architettura Diamond EIP-2535 con otto facet funzionali, contratti NFT e di riserva separati, meccanismi di aggiornabilità definiti, permessi basati sui ruoli e diversi tipi di saldo interno."
 icon: "cubes"
 ---
 
@@ -18,13 +18,16 @@ icon: "cubes"
 
 | Facet | Funzione |
 |---|---|
-| AdminFacet | Ruoli, parametri, trasferimenti approvati e minting di NFT speciali. |
+| AdminFacet | Cambi di wallet e restrizioni degli account, minting di NFT speciali e operazioni di servizio automatizzate. |
+| ParametersFacet | Parametri del protocollo, impostazioni degli NFT, tipi di NFT Regalo, attivazione e disattivazione delle funzioni, periodi di farming e intervalli delle commissioni. |
 | MarketingFacet | Registrazione, acquisti di NFT e calcoli delle ricompense partner. |
 | FarmingFacet | Mining di NFTM e Farming di DA. |
 | PaymentFacet | Depositi, prelievi, voucher e trasferimenti di saldo. |
 | TreeFacet | Posizionamento e profondità della rete di partner. |
 | ResolverFacet | Valori scaduti, elaborazione dei voucher e risoluzione del Saldo Congelato. |
 | ViewFacet | Query di sola lettura su utenti, saldi e rete. |
+
+Il Diamond include inoltre i facet standard EIP-2535: DiamondCutFacet per gli aggiornamenti, DiamondLoupeFacet per l'introspezione e OwnershipFacet.
 
 ## Contratti NFT
 
@@ -46,21 +49,29 @@ icon: "cubes"
 
 | Ruolo | Autorità documentata |
 |---|---|
-| `ADMIN_ROLE` | Concedere e revocare ruoli; modificare i parametri del protocollo consentiti. |
+| Contratto della DAO | Applica gli aggiornamenti dei parametri entro gli intervalli on-chain, modifica le impostazioni degli NFT, abilita o disabilita le funzioni, imposta i periodi di farming e gli intervalli delle commissioni, approva i cambi di wallet e limita o ripristina gli account. |
+| `ADMIN_ROLE` | Concedere e revocare ruoli; mintare NFT Regalo e Ambassador e gestire i tipi di NFT Regalo; impostare la commissione di transazione entro il suo intervallo. |
 | `SERVICE_ROLE` | Eseguire le operazioni di servizio automatizzate e cross-chain documentate. |
 | `SIGNER_ROLE` | Verificare le firme autorizzate per azioni specifiche. |
 | `MINTER_ROLE` | Mintare il token o il tipo di NFT assegnato a quel ruolo. |
+| Proprietario del Diamond | Aggiornamento dei facet tramite `diamondCut` e trasferimento della proprietà. |
+
+L'elenco delle funzioni di ciascun ruolo si trova nella sezione sulla centralizzazione del [rapporto CertiK](/it/security).
 
 ## Schema dei Saldi
 
 | Saldo | Scopo |
 |---|---|
 | Saldo Regolare | Prelievi, acquisti e voucher idonei. |
-| Saldo Cumulativo | Saldo interno vincolato, utilizzato secondo le regole documentate di acquisto, trasferimento, commissioni e ridistribuzione. |
+| Saldo Cumulativo | Saldo interno vincolato, utilizzato secondo le regole documentate di acquisto, trasferimento, commissioni e ridistribuzione. La sua durata è temporaneamente di 180 giorni, in attesa della preparazione di una correzione dell'azzeramento del timer; vedi [Parametri del Contratto](/it/contract-parameters). |
 | Limite di Ricompensa del Protocollo | Idoneità residua alle ricompense per il ciclo NFT attivo; termine on-chain: *Income Limit*. |
 | Saldo Token Reserve | Saldo del pool di liquidità designato che supporta le meccaniche DA. |
 | Saldo Dev | Allocazioni di protocollo e operative. |
 | Saldo Price Impact | Riserva utilizzata dalle funzioni di price impact documentate. |
+
+<Note>
+  **I saldi FinPro sono separati.** Le posizioni FinPro vengono aperte direttamente dal wallet EVM dell'utente in USDT (BEP-20) e i pagamenti vengono effettuati sullo stesso wallet. Non utilizzano il Saldo Regolare né il Saldo Cumulativo. Vedi [FinPro e FinFlow](/it/finpro-finflow).
+</Note>
 
 ## Priorità di Pagamento
 
@@ -77,5 +88,5 @@ icon: "cubes"
 </Steps>
 
 <Note>
-  Tutte le transazioni su [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) richiedono le commissioni di gas standard della rete pagate in **BNB**, separate dai saldi [USDT](https://tether.to/) utilizzati all'interno dell'ecosistema. I deployment dei contratti e i saldi sono verificabili pubblicamente su [BscScan](https://bscscan.com/).
+  Tutte le transazioni su [BNB Smart Chain](https://www.bnbchain.org/en/bnb-smart-chain) richiedono le commissioni di gas standard della rete pagate in **BNB**, separate dai saldi [USDT](https://tether.to/) utilizzati all'interno dell'ecosistema. I deployment dei contratti e i saldi sono verificabili pubblicamente su [BscScan](https://bscscan.com/); gli indirizzi ufficiali dei contratti sono elencati su [app.rwanftfi.com/smart-contracts](https://app.rwanftfi.com/smart-contracts).
 </Note>
