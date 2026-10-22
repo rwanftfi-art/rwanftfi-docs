@@ -34,6 +34,16 @@ export const GovernanceStats = ({ lang }) => {
       guardians: 'Carteiras Guardian',
       guardiansNote: 'carteiras de governança atuais',
     },
+    hi: {
+      title: 'गवर्नेंस अवलोकन',
+      supply: 'कुल आपूर्ति',
+      proposal: 'प्रस्ताव थ्रेशोल्ड',
+      proposalNote: 'प्रस्ताव प्रस्तुत करने हेतु आपूर्ति का हिस्सा',
+      passing: 'अनुमोदन थ्रेशोल्ड',
+      passingNote: 'ऑन-चेन निष्पादन के लिए बहुमत',
+      guardians: 'Guardian वॉलेट',
+      guardiansNote: 'वर्तमान गवर्नेंस वॉलेट',
+    },
     id: {
       title: 'Ikhtisar Tata Kelola',
       supply: 'Total Pasokan',
